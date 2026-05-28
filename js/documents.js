@@ -83,172 +83,257 @@ function _css() {
     <style>
       @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap');
 
-      * { box-sizing: border-box; margin: 0; padding: 0; }
+      /* ── Page setup ─────────────────────────────────────────────────── */
+      @page {
+        size: letter portrait;   /* 8.5in × 11in */
+        margin: 1in 1in 1in 1in; /* standard legal margins */
+      }
+      /* Cover gets extra top breathing room */
+      @page :first {
+        margin-top: 1.25in;
+      }
 
+      /* ── Reset ───────────────────────────────────────────────────────── */
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      /* ── Screen: simulate the printed page ──────────────────────────── */
       body {
-        font-family: 'EB Garamond', Georgia, serif;
+        font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
         font-size: 12pt;
-        line-height: 1.7;
+        line-height: 1.65;
         color: #1a1a1a;
-        background: #fff;
-        padding: 0.5in;
+        background: #e8e8e8;
+        padding: 0.5in 0;
       }
 
       .doc-wrapper {
-        max-width: 8.5in;
-        margin: 0 auto;
-        padding: 1in 1.25in;
+        /* 8.5in paper - 2in total margins = 6.5in text area */
+        width: 6.5in;
+        min-height: 9in;
+        margin: 0 auto 0.5in;
+        padding: 1in;
         background: #fff;
+        box-shadow: 0 2px 16px rgba(0,0,0,0.18);
       }
 
-      /* Cover / title block */
+      /* ── Cover / title block ─────────────────────────────────────────── */
       .doc-cover {
         text-align: center;
         margin-bottom: 48pt;
         padding-bottom: 24pt;
         border-bottom: 2px solid #1a1a1a;
+        break-after: avoid;
       }
       .doc-cover .firm-name {
-        font-size: 10pt;
-        letter-spacing: 0.15em;
+        font-size: 9.5pt;
+        letter-spacing: 0.18em;
         text-transform: uppercase;
         color: #555;
-        margin-bottom: 32pt;
+        margin-bottom: 36pt;
       }
       .doc-cover h1 {
-        font-size: 16pt;
+        font-size: 15pt;
         font-weight: 600;
         text-transform: uppercase;
-        letter-spacing: 0.08em;
+        letter-spacing: 0.07em;
         line-height: 1.4;
-        margin-bottom: 12pt;
+        margin-bottom: 10pt;
       }
       .doc-cover .doc-subtitle {
         font-size: 11pt;
         font-style: italic;
         color: #444;
-        margin-bottom: 16pt;
+        margin-bottom: 14pt;
       }
       .doc-cover .doc-parties {
         font-size: 11pt;
         margin-top: 16pt;
+        line-height: 1.8;
       }
       .doc-cover .doc-date {
         font-size: 10pt;
         color: #555;
-        margin-top: 8pt;
+        margin-top: 10pt;
       }
 
-      /* Article / section headings */
+      /* ── Article / section headings ──────────────────────────────────── */
       h2.article-title {
-        font-size: 12pt;
+        font-size: 11.5pt;
         font-weight: 600;
         text-transform: uppercase;
-        letter-spacing: 0.06em;
+        letter-spacing: 0.07em;
         text-align: center;
-        margin: 28pt 0 8pt;
-        border-top: 1px solid #ccc;
-        padding-top: 16pt;
+        margin: 24pt 0 8pt;
+        border-top: 1px solid #bbb;
+        padding-top: 14pt;
+        break-after: avoid;
+        page-break-after: avoid;
       }
       h3.section-title {
         font-size: 12pt;
         font-weight: 600;
-        margin: 18pt 0 6pt;
+        margin: 16pt 0 5pt;
+        break-after: avoid;
+        page-break-after: avoid;
       }
 
-      /* Body text */
-      p { margin-bottom: 10pt; text-align: justify; }
-      p.indent { text-indent: 0.5in; }
-      p.centered { text-align: center; }
-      p.recital { margin-left: 0.5in; font-style: italic; margin-bottom: 8pt; }
-      p.statutory { font-size: 10pt; color: #333; font-style: italic; margin: 6pt 0; }
+      /* ── Body text ───────────────────────────────────────────────────── */
+      p {
+        margin-bottom: 9pt;
+        text-align: justify;
+        orphans: 3;
+        widows: 3;
+      }
+      p.indent    { text-indent: 0.5in; }
+      p.centered  { text-align: center; }
+      p.recital   { margin-left: 0.5in; font-style: italic; margin-bottom: 8pt; }
+      p.statutory { font-size: 10pt; color: #333; font-style: italic; margin: 5pt 0; }
 
-      /* Numbered / lettered lists */
-      ol.alpha { list-style-type: lower-alpha; padding-left: 0.75in; margin-bottom: 10pt; }
-      ol.roman { list-style-type: lower-roman; padding-left: 0.75in; margin-bottom: 10pt; }
-      ol.decimal { list-style-type: decimal; padding-left: 0.75in; margin-bottom: 10pt; }
-      ol li { margin-bottom: 6pt; text-align: justify; }
+      /* ── Lists ───────────────────────────────────────────────────────── */
+      ol.alpha   { list-style-type: lower-alpha; padding-left: 0.6in; margin-bottom: 9pt; }
+      ol.roman   { list-style-type: lower-roman; padding-left: 0.6in; margin-bottom: 9pt; }
+      ol.decimal { list-style-type: decimal;     padding-left: 0.6in; margin-bottom: 9pt; }
+      ol li {
+        margin-bottom: 5pt;
+        text-align: justify;
+        orphans: 2;
+        widows: 2;
+      }
 
-      /* Signature blocks */
+      /* ── Signature blocks ────────────────────────────────────────────── */
       .sig-section {
-        margin-top: 36pt;
+        margin-top: 32pt;
+        break-inside: avoid;
         page-break-inside: avoid;
       }
       .sig-block {
         display: inline-block;
-        width: 45%;
+        width: 44%;
         vertical-align: top;
         margin-right: 4%;
-        margin-bottom: 24pt;
+        margin-bottom: 28pt;
       }
-      .sig-block.full-width { width: 90%; }
+      .sig-block.full-width { width: 88%; }
       .sig-line {
         border-bottom: 1px solid #1a1a1a;
-        height: 28pt;
+        height: 36pt;   /* tall enough for an actual signature */
         margin-bottom: 4pt;
       }
       .sig-label { font-size: 10pt; color: #333; }
-      .sig-name { font-size: 11pt; font-weight: 500; margin-top: 2pt; }
+      .sig-name  { font-size: 11pt; font-weight: 600; margin-top: 3pt; }
       .sig-title { font-size: 10pt; font-style: italic; }
 
-      /* Notary block */
+      /* ── Notary block ────────────────────────────────────────────────── */
       .notary-block {
         border: 1px solid #888;
-        padding: 16pt;
-        margin: 24pt 0;
+        padding: 14pt 16pt;
+        margin: 22pt 0;
+        break-inside: avoid;
         page-break-inside: avoid;
+        overflow: hidden;
       }
       .notary-block p { margin-bottom: 6pt; font-size: 10.5pt; }
       .notary-block .notary-seal {
         float: right;
-        width: 1.2in;
-        height: 1.2in;
+        width: 1.1in;
+        height: 1.1in;
         border: 1px dashed #888;
         text-align: center;
-        font-size: 8pt;
+        font-size: 7.5pt;
         color: #888;
-        padding-top: 0.45in;
-        margin-left: 12pt;
+        line-height: 1.3;
+        padding-top: 0.35in;
+        margin-left: 14pt;
         margin-bottom: 8pt;
+        break-inside: avoid;
       }
 
-      /* Witness block */
+      /* ── Witness block ───────────────────────────────────────────────── */
       .witness-section {
-        margin-top: 24pt;
+        margin-top: 22pt;
+        break-inside: avoid;
         page-break-inside: avoid;
       }
 
-      /* Print notice — hidden on print */
+      /* ── Print notice (screen only) ──────────────────────────────────── */
       .print-notice {
         background: #fffbcc;
-        border: 1px solid #e6c800;
+        border: 1.5px solid #e6c800;
         border-radius: 6px;
-        padding: 12pt 16pt;
-        margin-bottom: 24pt;
+        padding: 10pt 14pt;
+        margin-bottom: 20pt;
         font-size: 10.5pt;
         line-height: 1.5;
+        /* Not inside doc-wrapper — sits above it on screen */
+        width: 6.5in;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
       }
       .print-notice strong { color: #7a5c00; }
 
-      /* Schedule / exhibit box */
+      /* ── Schedule / exhibit box ──────────────────────────────────────── */
       .schedule-box {
-        border: 2px solid #1a1a1a;
-        padding: 20pt;
-        margin: 24pt 0;
+        border: 1.5px solid #1a1a1a;
+        padding: 18pt;
+        margin: 22pt 0;
+        break-inside: avoid;
         page-break-inside: avoid;
       }
-      .schedule-box h3 { text-align: center; margin-bottom: 12pt; }
+      .schedule-box h3 {
+        text-align: center;
+        margin-bottom: 12pt;
+        font-size: 11.5pt;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
 
-      /* Page break helpers */
-      .page-break { page-break-before: always; }
-      .no-break { page-break-inside: avoid; }
+      /* ── Tables ──────────────────────────────────────────────────────── */
+      table { font-size: 10.5pt; }
+      th, td { padding: 7pt 9pt; }
 
-      /* Print overrides */
+      /* ── Page break helpers ──────────────────────────────────────────── */
+      .page-break {
+        break-before: page;
+        page-break-before: always;
+      }
+      .no-break {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      /* ── PRINT OVERRIDES ─────────────────────────────────────────────── */
       @media print {
-        body { padding: 0; }
-        .doc-wrapper { padding: 0.75in 1in; }
+        /* Body becomes invisible wrapper — @page handles all margins */
+        body {
+          background: #fff;
+          padding: 0;
+          margin: 0;
+        }
+        /* Wrapper fills the @page content area exactly */
+        .doc-wrapper {
+          width: 100%;
+          min-height: 0;
+          margin: 0;
+          padding: 0;
+          box-shadow: none;
+        }
+        /* Hide screen-only elements */
         .print-notice { display: none !important; }
+        /* Preserve colors for borders and signature lines */
+        * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        /* Links print as plain text */
         a { color: inherit; text-decoration: none; }
+        /* Ensure headings don't orphan at page bottom */
+        h2, h3 {
+          break-after: avoid;
+          page-break-after: avoid;
+        }
+        /* Keep paragraphs from splitting across pages mid-sentence */
+        p {
+          orphans: 3;
+          widows: 3;
+        }
       }
     </style>
   `;
