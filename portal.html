@@ -377,6 +377,7 @@
       .doc-actions { width: 100%; }
       .btn-doc { flex: 1; text-align: center; }
       .attorney-box { flex-direction: column; }
+      .attorney-box > div:last-child { flex-direction: row; flex-wrap: wrap; }
     }
   </style>
 </head>
@@ -446,11 +447,23 @@
     </div>
 
     <div class="attorney-box">
-      <div>
+      <div style="flex:1;">
         <strong>Ready to sign? Schedule your appointment.</strong>
-        <p>Arthur Simpson, Esq. will witness and notarize your documents. Most signings take 30–45 minutes.</p>
+        <p>A Cornerstone Estate Planning Advisor will witness and notarize your documents. Choose how you'd like to sign — from anywhere via secure video, or in person at our Daytona Beach office.</p>
       </div>
-      <a class="btn-call" href="tel:+13862221907">📞 (386) 222-1907</a>
+      <div style="display:flex;flex-direction:column;gap:10px;flex-shrink:0;">
+        <a class="btn-call"
+           href="https://calendly.com/arthursimpson/document-signing-remote-online-notarization"
+           target="_blank" rel="noopener">
+          🎥 Sign Online (RON)
+        </a>
+        <a class="btn-call"
+           href="https://calendly.com/arthursimpson/new-meeting"
+           target="_blank" rel="noopener"
+           style="background:#fff;color:#1B2A4A;">
+          🏛 Sign In Office
+        </a>
+      </div>
     </div>
 
   </div>
@@ -610,8 +623,8 @@ async function showPortal(user) {
 }
 
 function renderGreeting(d) {
-  const firstName = d.gFirst || 'there';
-  greetingName.textContent = `Welcome, ${firstName}.`;
+  const fullName = [d.gFirst, d.gLast].filter(Boolean).join(' ') || 'there';
+  greetingName.textContent = `Welcome, ${fullName}.`;
   const statusMap = {
     'documents_ready':        'Your documents are ready to review and print.',
     'payment_complete':       'Your payment was received — your documents are being prepared.',
