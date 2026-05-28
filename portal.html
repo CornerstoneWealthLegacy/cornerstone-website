@@ -75,19 +75,67 @@
       color: rgba(255,255,255,0.7);
       display: none;
     }
-    #sign-out-btn {
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.35);
-      color: var(--white);
-      padding: 6px 14px;
-      border-radius: 6px;
-      font-size: 13px;
-      cursor: pointer;
-      font-family: inherit;
+    #sign-out-btn { display: none; } /* hidden — replaced by account menu */
+
+    /* ── Account menu ── */
+    #account-menu-wrap {
+      position: relative;
       display: none;
+    }
+    #account-menu-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 14px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px;
+      color: rgba(255,255,255,0.9);
+      font-size: 13px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
       transition: background 0.15s;
     }
-    #sign-out-btn:hover { background: rgba(255,255,255,0.1); }
+    #account-menu-btn:hover { background: rgba(255,255,255,0.15); }
+    #account-avatar {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--navy);
+      font-size: 12px;
+      font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    #account-dropdown {
+      display: none;
+      position: absolute;
+      top: 46px; right: 0;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      padding: 8px;
+      min-width: 200px;
+      z-index: 300;
+    }
+    .acct-menu-item {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 10px 14px;
+      border: none;
+      background: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      color: #212529;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.12s;
+    }
+    .acct-menu-item:hover { background: #f1f3f5; }
+    .acct-menu-divider { height: 1px; background: #f1f3f5; margin: 4px 0; }
 
     /* ── Main layout ─────────────────────────────────── */
     main { max-width: 860px; margin: 0 auto; padding: 40px 20px 80px; }
@@ -393,6 +441,19 @@
   <div class="header-right">
     <span id="user-email"></span>
     <button id="sign-out-btn">Sign Out</button>
+    <div id="account-menu-wrap">
+      <button id="account-menu-btn" onclick="toggleAccountMenu()">
+        <div id="account-avatar">?</div>
+        <span>My Account</span>
+        <span style="opacity:.5;font-size:.7rem">▾</span>
+      </button>
+      <div id="account-dropdown">
+        <a class="acct-menu-item" href="/portal">📁 My Documents</a>
+        <a class="acct-menu-item" href="/start">📋 My Trust Builder</a>
+        <div class="acct-menu-divider"></div>
+        <button class="acct-menu-item" style="color:#c0392b" onclick="auth.signOut()">Sign Out</button>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -571,13 +632,29 @@ function friendlyAuthError(code) {
 // ── Sign out ──────────────────────────────────────────────────────────
 signOutBtn.addEventListener('click', () => auth.signOut());
 
+// ── Account menu ──────────────────────────────────────────────────────
+function toggleAccountMenu() {
+  const dd = document.getElementById('account-dropdown');
+  if (dd) dd.style.display = dd.style.display === 'block' ? 'none' : 'block';
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('#account-menu-wrap')) {
+    const dd = document.getElementById('account-dropdown');
+    if (dd) dd.style.display = 'none';
+  }
+});
+
 // ── Portal ────────────────────────────────────────────────────────────
 async function showPortal(user) {
   authSection.style.display   = 'none';
   portalSection.style.display = 'block';
-  signOutBtn.style.display    = 'inline-block';
-  userEmailEl.style.display   = 'inline';
-  userEmailEl.textContent     = user.email;
+  signOutBtn.style.display    = 'none'; // replaced by account menu
+  userEmailEl.style.display   = 'none';
+  // Show account menu with avatar initial
+  const acctWrap = document.getElementById('account-menu-wrap');
+  const acctAvatar = document.getElementById('account-avatar');
+  if (acctWrap) acctWrap.style.display = 'block';
+  if (acctAvatar) acctAvatar.textContent = (user.displayName || user.email || 'U')[0].toUpperCase();
 
   // Load client plan from Firestore
   // start.html saves to 'sessions' collection using user.uid as the document ID.
