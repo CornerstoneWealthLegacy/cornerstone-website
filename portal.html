@@ -571,19 +571,31 @@ async function showPortal(user) {
   userEmailEl.textContent     = user.email;
 
   // Load client plan from Firestore
+  // start.html saves to 'sessions' collection using user.uid as the document ID
   let planData = null;
   try {
-    const snap = await db.collection('plans')
-      .where('email', '==', user.email)
-      .orderBy('createdAt', 'desc')
-      .limit(1)
-      .get();
-
-    if (!snap.empty) {
-      planData = snap.docs[0].data();
+    // Primary: sessions collection (keyed by Firebase UID — direct read, no index needed)
+    const sessionSnap = await db.collection('sessions').doc(user.uid).get();
+    if (sessionSnap.exists) {
+      planData = sessionSnap.data();
     }
   } catch (err) {
-    console.error('Firestore load error:', err);
+    console.error('Firestore sessions load error:', err);
+  }
+
+  // Fallback: plans collection queried by email (for future Stripe-webhook-created plans)
+  if (!planData) {
+    try {
+      const plansSnap = await db.collection('plans')
+        .where('email', '==', user.email)
+        .limit(1)
+        .get();
+      if (!plansSnap.empty) {
+        planData = plansSnap.docs[0].data();
+      }
+    } catch (err) {
+      console.error('Firestore plans load error:', err);
+    }
   }
 
   if (!planData) {
@@ -607,7 +619,7 @@ function renderGreeting(d) {
     'needs_attorney_review':  'Your documents are ready with attorney notes inside.',
     'payment_pending':        'Complete your payment to access your documents.'
   };
-  greetingSub.textContent = statusMap[d.status] || 'Your estate planning portal.';
+  greetingSub.textContent = statusMap[d.status] || 'Your documents are ready to preview below.';
 }
 
 function renderStatusBanner(d) {
@@ -634,6 +646,11 @@ function renderStatusBanner(d) {
     icon  = '⏳';
     title = 'Documents being prepared';
     body  = 'Your payment was received. Your documents will be ready within a few minutes.';
+  } else if (!s || s === 'in_progress' || s === 'draft') {
+    type  = 'ready';
+    icon  = '📄';
+    title = 'Your documents are ready to preview';
+    body  = 'Click <strong>View</strong> to open any document. Complete your payment to finalize and receive signing instructions. Call <strong>(386) 222-1907</strong> to complete your order.';
   } else {
     type  = 'review';
     icon  = 'ℹ️';
@@ -692,7 +709,10 @@ const DOC_META = {
 };
 
 function renderDocuments(d) {
-  const isReady = d.status === 'documents_ready' || d.status === 'needs_attorney_review';
+  // Generate documents whenever plan data exists.
+  // Payment-gated statuses show a banner; documents are generated client-side regardless.
+  const isPaid = ['documents_ready', 'needs_attorney_review', 'paid', 'payment_complete'].includes(d.status);
+  const isReady = !!(d.docCategory || d.gFirst); // has any plan data at all
 
   // Parse beneficiary arrays
   const benes      = safeArray(d.beneficiaries);
