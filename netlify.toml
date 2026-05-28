@@ -181,6 +181,56 @@
   to = "/articles/florida-trust-builder.html"
   status = 200
 
+[[redirects]]
+  from = "/articles/florida-durable-power-of-attorney"
+  to = "/articles/florida-durable-power-of-attorney.html"
+  status = 200
+
+[[redirects]]
+  from = "/articles/florida-homestead-exemption"
+  to = "/articles/florida-homestead-exemption.html"
+  status = 200
+
+[[redirects]]
+  from = "/articles/florida-healthcare-surrogate-living-will"
+  to = "/articles/florida-healthcare-surrogate-living-will.html"
+  status = 200
+
+[[redirects]]
+  from = "/articles/florida-asset-protection"
+  to = "/articles/florida-asset-protection.html"
+  status = 200
+
+[[redirects]]
+  from = "/articles/florida-special-needs-trust"
+  to = "/articles/florida-special-needs-trust.html"
+  status = 200
+
+[[redirects]]
+  from = "/articles/florida-estate-planning-married-couples"
+  to = "/articles/florida-estate-planning-married-couples.html"
+  status = 200
+
+[[redirects]]
+  from = "/articles/florida-land-trust"
+  to = "/articles/florida-land-trust.html"
+  status = 200
+
+[[redirects]]
+  from = "/articles/florida-irrevocable-trust"
+  to = "/articles/florida-irrevocable-trust.html"
+  status = 200
+
+[[redirects]]
+  from = "/articles/florida-trust-administration"
+  to = "/articles/florida-trust-administration.html"
+  status = 200
+
+[[redirects]]
+  from = "/articles/florida-digital-assets-estate-planning"
+  to = "/articles/florida-digital-assets-estate-planning.html"
+  status = 200
+
 # Short vanity URLs → articles
 [[redirects]]
   from = "/trust-vs-will"
