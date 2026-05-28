@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Arthur Simpson — Cornerstone Wealth & Legacy Law, PLLC</title>
+  <meta name="description" content="Arthur Simpson is a Florida attorney focused on real estate, estate planning, and elder law — counsel that connects property, planning, and care into a single, coherent plan.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="images/logo-icon.png">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .about-hero {
+      background: linear-gradient(150deg, var(--navy-dark) 0%, var(--navy) 100%);
+      padding: 72px 24px 0;
+    }
+    .about-hero-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 64px;
+      align-items: flex-end;
+    }
+    .about-hero-photo {
+      width: 100%;
+      max-width: 340px;
+      border-radius: 6px 6px 0 0;
+      overflow: hidden;
+      display: block;
+      line-height: 0;
+    }
+    .about-hero-photo img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .about-hero-photo-placeholder {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: rgba(255,255,255,.08);
+      border-radius: 6px 6px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,.4);
+      font-size: .85rem;
+    }
+    .about-hero-text {
+      padding-bottom: 60px;
+      color: var(--white);
+    }
+    .about-hero-text .section-label { margin-bottom: 14px; }
+    .about-hero-text h1 { color: var(--white); margin-bottom: 10px; font-size: clamp(1.8rem, 3vw, 2.6rem); }
+    .about-hero-text .title-line {
+      font-size: .9rem;
+      color: rgba(255,255,255,.55);
+      letter-spacing: .04em;
+      margin-bottom: 24px;
+    }
+    .about-hero-text p { color: rgba(255,255,255,.8); font-size: 1.05rem; max-width: 560px; }
+
+    .credential-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+    .credential-tag {
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.15);
+      color: rgba(255,255,255,.75);
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+    }
+
+    .bio-section {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 64px;
+      align-items: start;
+    }
+    .bio-section h2 { margin-bottom: 20px; }
+    .bio-section p { margin-bottom: 16px; font-size: 1rem; }
+
+    .sidebar-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 6px;
+      padding: 28px;
+      box-shadow: var(--shadow-sm);
+      border-top: 3px solid var(--gold);
+    }
+    .sidebar-card h4 {
+      font-family: var(--font-sans);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      margin-bottom: 16px;
+    }
+    .sidebar-list { list-style: none; }
+    .sidebar-list li {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--gray-100);
+      font-size: .875rem;
+      color: var(--gray-700);
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .sidebar-list li:last-child { border-bottom: none; padding-bottom: 0; }
+    .sidebar-list li::before { content: '—'; color: var(--gold); flex-shrink: 0; }
+
+    .practice-focus-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 12px;
+    }
+    .practice-focus-item {
+      background: var(--gray-50);
+      border-radius: var(--radius);
+      padding: 20px;
+      border-left: 3px solid var(--gold);
+    }
+    .practice-focus-item h3 { font-size: 1rem; margin-bottom: 8px; }
+    .practice-focus-item p { font-size: .85rem; margin: 0; }
+
+    @media (max-width: 860px) {
+      .about-hero-inner { grid-template-columns: 220px 1fr; gap: 32px; }
+      .bio-section { grid-template-columns: 1fr; gap: 32px; }
+      .practice-focus-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .about-hero-inner { grid-template-columns: 1fr; gap: 32px; }
+      .about-hero-photo { max-width: 240px; }
+      .about-hero-text { padding-bottom: 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <img src="images/logo-icon.png" alt="Cornerstone" class="logo-img-icon">
+        <div>
+          <span class="logo-name">Cornerstone Wealth &amp; Legacy Law</span>
+          <span class="logo-sub">PLLC &nbsp;·&nbsp; Florida</span>
+        </div>
+      </a>
+      <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="site-nav" role="navigation" aria-label="Main navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <div class="dropdown">
+          <a href="#" class="nav-link" aria-haspopup="true">Practice Areas</a>
+          <div class="dropdown-menu" role="menu">
+            <a href="real-estate.html" class="dropdown-item" role="menuitem">Real Estate</a>
+            <a href="estate-planning.html" class="dropdown-item" role="menuitem">Wills, Estates &amp; Trusts</a>
+            <a href="elder-law.html" class="dropdown-item" role="menuitem">Elder Law</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <a href="#" class="nav-link" aria-haspopup="true">Free Tools</a>
+          <div class="dropdown-menu" role="menu">
+            <a href="/quiz" class="dropdown-item" role="menuitem">📋 Estate Plan Score Quiz</a>
+            <a href="/probate-calculator" class="dropdown-item" role="menuitem">🧮 Probate Cost Calculator</a>
+            <a href="/snowbird" class="dropdown-item" role="menuitem">☀️ New to Florida Guide</a>
+          </div>
+        </div>
+                <a href="about.html" class="nav-link active">About</a>
+        <a href="insights.html" class="nav-link">Insights</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <a href="#book" class="btn btn-primary header-cta">Schedule a Consultation</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO WITH PHOTO -->
+    <section class="about-hero">
+      <div class="about-hero-inner">
+        <div class="about-hero-photo">
+          <img src="images/arthur-simpson.png" alt="Arthur Simpson, Esq." onerror="this.parentElement.innerHTML='<div class=\'about-hero-photo-placeholder\'>[Attorney Photo]</div>'">
+        </div>
+        <div class="about-hero-text">
+          <span class="section-label">About the Firm</span>
+          <h1>Arthur Simpson, Esq.</h1>
+          <p class="title-line">Founder &nbsp;·&nbsp; Cornerstone Wealth &amp; Legacy Law, PLLC &nbsp;·&nbsp; Florida Bar #XXXXXX</p>
+          <p>Arthur founded Cornerstone to do the work he believes Florida families most need: counsel that connects property, planning, and care into a single, coherent plan.</p>
+          <div class="credential-row">
+            <span class="credential-tag">Florida Bar</span>
+            <span class="credential-tag">Real Estate</span>
+            <span class="credential-tag">Estate Planning</span>
+            <span class="credential-tag">Elder Law</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BIO -->
+    <section class="section section--white">
+      <div class="container">
+        <div class="bio-section">
+          <div class="bio-content">
+            <span class="section-label">Background</span>
+            <h2>A Florida attorney for Florida families.</h2>
+            <p>Arthur Simpson founded Cornerstone Wealth &amp; Legacy Law to bring together three areas of law that Florida families rarely find under one roof: real estate, estate planning, and elder law. His practice is built on a simple observation — that the same family faces all three sets of questions, often at the same time, and that separating those answers does the family a disservice.</p>
+            <p>Arthur works directly with every client. Cornerstone is a boutique firm by design: small enough that every matter gets the time it deserves, and experienced enough to handle complex planning for high-net-worth families, multi-state property owners, and seniors navigating the costs of long-term care.</p>
+            <p>He has particular depth in Florida homestead law — an area that touches real estate, estate planning, and elder law simultaneously, and one where the consequences of getting it wrong can reach across generations. He also regularly represents families through Florida probate, trust administration, and Medicaid planning, often working alongside CPAs, financial advisors, and elder care professionals to build plans that hold up in practice, not just on paper.</p>
+            <p>Arthur believes the best legal work is done with a long view. His goal with every client is not to produce a document, but to build a plan — one that fits their family, their assets, and the years ahead.</p>
+
+            <div style="margin-top: 32px;">
+              <span class="section-label">Focus Areas</span>
+            </div>
+            <div class="practice-focus-grid">
+              <div class="practice-focus-item">
+                <h3>Real Estate</h3>
+                <p>Titling, ownership structure, deeds, 1031 exchanges, homestead matters, and real property disputes.</p>
+              </div>
+              <div class="practice-focus-item">
+                <h3>Wills, Estates &amp; Trusts</h3>
+                <p>Wills, revocable and irrevocable trusts, probate, homestead planning, and asset coordination.</p>
+              </div>
+              <div class="practice-focus-item">
+                <h3>Elder Law</h3>
+                <p>Medicaid planning, long-term care, advance directives, guardianship, and veterans' benefits.</p>
+              </div>
+            </div>
+          </div>
+
+          <aside>
+            <div class="sidebar-card" style="margin-bottom: 20px;">
+              <h4>Admissions</h4>
+              <ul class="sidebar-list">
+                <li>Florida Bar — #XXXXXX</li>
+                <li>[Additional admissions if applicable]</li>
+              </ul>
+            </div>
+
+            <div class="sidebar-card" style="margin-bottom: 20px;">
+              <h4>Education</h4>
+              <ul class="sidebar-list">
+                <li>[Law School, J.D.]</li>
+                <li>[Undergraduate Institution, B.S./B.A.]</li>
+              </ul>
+            </div>
+
+            <div class="sidebar-card">
+              <h4>Professional Memberships</h4>
+              <ul class="sidebar-list">
+                <li>Florida Bar</li>
+                <li>[Real Property, Probate and Trust Law Section]</li>
+                <li>[Elder Law Section]</li>
+                <li>[Local Bar Association]</li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW WE WORK TOGETHER -->
+    <section class="section section--gray">
+      <div class="container">
+        <div class="approach-content">
+          <span class="section-label">Working Together</span>
+          <h2>What to expect.</h2>
+          <p>Every new client relationship begins with a consultation — a short, focused conversation at no cost. Arthur will listen, ask a few questions about your situation, and help you understand whether and how Cornerstone can help. There's no obligation, and no pressure.</p>
+          <p>If we're a good fit, Arthur will outline a clear scope of work and a fee arrangement before any engagement begins. Clients work directly with Arthur throughout — not with an associate or a paralegal handling the substance of the work.</p>
+          <p>For matters that involve your CPA, financial advisor, or other counsel, Arthur welcomes those conversations. The best outcomes for families come from advisors who communicate with each other, and Cornerstone is built to work that way.</p>
+          <div style="margin-top: 28px;">
+            <a href="#book" class="btn btn-primary">Schedule a Consultation</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOOK A CONSULTATION -->
+    <section id="book" style="background:linear-gradient(160deg,#081a30 0%,#0f2744 50%,#1a3a6e 100%);padding:72px 24px 80px">
+      <div style="max-width:1000px;margin:0 auto">
+        <div style="text-align:center;margin-bottom:48px">
+          <span style="font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#c49a2a">Free 20-Minute Discovery Call</span>
+          <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.6rem);color:#fff;margin:14px 0 16px;line-height:1.2">Let's talk about your plan.</h2>
+          <p style="color:rgba(255,255,255,.72);font-size:1rem;line-height:1.75;max-width:560px;margin:0 auto">A first conversation is short, focused, and at no cost. We'll listen, ask a few questions, and help you understand what — if anything — needs your attention.</p>
+          <div style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-top:24px">
+            <span style="display:flex;align-items:center;gap:7px;font-size:.8rem;color:rgba(255,255,255,.6)"><span style="color:#c49a2a;font-size:1rem">✓</span> No obligation</span>
+            <span style="display:flex;align-items:center;gap:7px;font-size:.8rem;color:rgba(255,255,255,.6)"><span style="color:#c49a2a;font-size:1rem">✓</span> 20 minutes</span>
+            <span style="display:flex;align-items:center;gap:7px;font-size:.8rem;color:rgba(255,255,255,.6)"><span style="color:#c49a2a;font-size:1rem">✓</span> Speak directly with Attorney Simpson</span>
+            <span style="display:flex;align-items:center;gap:7px;font-size:.8rem;color:rgba(255,255,255,.6)"><span style="color:#c49a2a;font-size:1rem">✓</span> Video or phone — your choice</span>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.35)">
+          <div class="calendly-inline-widget"
+               data-url="https://calendly.com/arthursimpson/free-20-minute-discovery-call?hide_landing_page_details=1&hide_gdpr_banner=1&primary_color=c49a2a&text_color=0f2744&background_color=ffffff"
+               style="min-width:320px;height:700px;"></div>
+        </div>
+        <p style="text-align:center;margin-top:28px;font-size:.85rem;color:rgba(255,255,255,.5)">
+          Prefer to start now? <a href="/start" style="color:#c49a2a;font-weight:700;text-decoration:none">Begin your estate plan online →</a>
+        </p>
+      </div>
+    </section>
+    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="images/logo-full.png" alt="Cornerstone Wealth &amp; Legacy Law" class="footer-logo-img">
+          <span class="footer-logo-name">Cornerstone Wealth &amp; Legacy Law</span>
+          <span class="footer-logo-sub">PLLC &nbsp;·&nbsp; Florida</span>
+          <div class="footer-contact">
+            <p>[Address, City, FL ZIP]</p>
+            <p>[Phone Number]</p>
+            <p>[Office Hours]</p>
+          </div>
+          <p class="footer-tagline">Built to last. Planned to pass on.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Practice Areas</h4>
+          <a href="real-estate.html">Real Estate</a>
+          <a href="estate-planning.html">Wills, Estates &amp; Trusts</a>
+          <a href="elder-law.html">Elder Law</a>
+        </div>
+        <div class="footer-col">
+          <h4>Firm</h4>
+          <a href="about.html">About Arthur Simpson</a>
+          <a href="insights.html">Insights</a>
+          <a href="contact.html">Contact</a>
+          <a href="https://calendly.com/arthursimpson/free-20-minute-discovery-call" target="_blank" rel="noopener">Schedule a Consultation</a>
+        </div>
+      </div>
+      <p class="footer-disclaimer">Cornerstone Wealth &amp; Legacy Law, PLLC is licensed in the State of Florida. The information on this website is for general informational purposes only and does not constitute legal advice. Visiting this site or contacting the firm does not create an attorney-client relationship. Past results do not guarantee future outcomes. The hiring of a lawyer is an important decision that should not be based solely upon advertisements. Before you decide, ask us to send you free written information about our qualifications and experience.</p>
+      <div class="footer-bottom">
+        <span>© 2026 Cornerstone Wealth &amp; Legacy Law, PLLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #XXXXXX</span>
+        <div class="footer-legal">
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+          <a href="disclaimer.html">Disclaimer</a>
+          <a href="accessibility.html">Accessibility</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

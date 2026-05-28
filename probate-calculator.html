@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Florida Probate Cost Calculator 2026 | Cornerstone Wealth &amp; Legacy Law</title>
+  <meta name="description" content="Calculate exactly what probate will cost your Florida estate. See how much your family saves with a living trust. Free calculator — instant results.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Florida Probate Cost Calculator 2026 | Cornerstone Wealth &amp; Legacy Law">
+  <meta property="og:description" content="See exactly what probate will cost your estate — and how much your family could save with a trust. Free, instant results.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="images/logo-icon.png">
+
+  <style>
+    /* ===== RESET & TOKENS ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:        #0f2744;
+      --navy-mid:    #1d3660;
+      --navy-light:  #243d6b;
+      --gold:        #c49a2a;
+      --gold-light:  #e8c04a;
+      --gold-pale:   #fdf6e0;
+      --red:         #c0392b;
+      --red-light:   #fff5f5;
+      --green:       #1a7a4a;
+      --green-light: #f0faf5;
+      --bg:          #eef2f7;
+      --bg-card:     #ffffff;
+      --text-dark:   #1a1a2e;
+      --text-mid:    #3d4a60;
+      --text-muted:  #6b7a99;
+      --border:      #dde3ef;
+      --shadow-sm:   0 1px 4px rgba(15,39,68,.08);
+      --shadow-md:   0 4px 20px rgba(15,39,68,.12);
+      --shadow-lg:   0 12px 40px rgba(15,39,68,.16);
+      --radius:      8px;
+      --radius-lg:   14px;
+      --font-serif:  'Playfair Display', Georgia, 'Times New Roman', serif;
+      --font-sans:   'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --transition:  200ms ease;
+      --max-w:       1160px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text-dark);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* ===== HEADER ===== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: var(--navy);
+      box-shadow: 0 2px 16px rgba(0,0,0,.3);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      height: 66px;
+      gap: 16px;
+    }
+    .logo-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .logo-img {
+      width: 38px;
+      height: 38px;
+      object-fit: contain;
+    }
+    .logo-text { display: flex; flex-direction: column; gap: 1px; }
+    .logo-name {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      color: #fff;
+      line-height: 1.2;
+      letter-spacing: .01em;
+    }
+    .logo-sub {
+      font-size: .72rem;
+      color: rgba(255,255,255,.55);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .header-nav { display: flex; align-items: center; gap: 28px; }
+    .header-nav a {
+      color: rgba(255,255,255,.8);
+      text-decoration: none;
+      font-size: .875rem;
+      font-weight: 500;
+      transition: color var(--transition);
+    }
+    .header-nav a:hover { color: var(--gold-light); }
+    .btn-gold-header {
+      background: var(--gold);
+      color: #fff;
+      padding: 9px 20px;
+      border-radius: var(--radius);
+      font-size: .85rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: .02em;
+      transition: background var(--transition);
+      white-space: nowrap;
+    }
+    .btn-gold-header:hover { background: var(--gold-light); color: #fff; }
+
+    @media (max-width: 768px) {
+      .header-nav { display: none; }
+      .logo-name { font-size: .9rem; }
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #1a2f52 100%);
+      padding: 64px 24px 56px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, rgba(196,154,42,.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(196,154,42,.15);
+      border: 1px solid rgba(196,154,42,.35);
+      color: var(--gold-light);
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .5; transform: scale(.8); }
+    }
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.9rem, 4.5vw, 3.2rem);
+      color: #fff;
+      line-height: 1.2;
+      max-width: 820px;
+      margin: 0 auto 18px;
+    }
+    .hero h1 em { font-style: italic; color: var(--gold-light); }
+    .hero-sub {
+      font-size: clamp(.95rem, 2vw, 1.15rem);
+      color: rgba(255,255,255,.72);
+      max-width: 620px;
+      margin: 0 auto 28px;
+      line-height: 1.7;
+    }
+    .hero-bar {
+      width: 72px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      border-radius: 2px;
+      margin: 0 auto;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+    .hero-stat {
+      text-align: center;
+    }
+    .hero-stat-num {
+      display: block;
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--gold-light);
+      line-height: 1;
+    }
+    .hero-stat-label {
+      font-size: .78rem;
+      color: rgba(255,255,255,.55);
+      letter-spacing: .04em;
+      margin-top: 4px;
+      text-transform: uppercase;
+    }
+    .hero-stat-divider {
+      width: 1px;
+      height: 36px;
+      background: rgba(255,255,255,.15);
+      align-self: center;
+    }
+    @media (max-width: 500px) {
+      .hero-stat-divider { display: none; }
+    }
+
+    /* ===== CALCULATOR SECTION ===== */
+    .calc-section {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 48px 24px 64px;
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+    @media (max-width: 960px) {
+      .calc-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== INPUT PANEL ===== */
+    .input-panel {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      position: sticky;
+      top: 82px;
+    }
+    .panel-header {
+      background: var(--navy);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .panel-header-icon {
+      width: 32px;
+      height: 32px;
+      background: rgba(196,154,42,.2);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .panel-header-icon svg { width: 17px; height: 17px; stroke: var(--gold-light); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .panel-header h2 {
+      font-family: var(--font-sans);
+      font-size: .95rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: .01em;
+    }
+    .panel-header p {
+      font-size: .75rem;
+      color: rgba(255,255,255,.55);
+      margin: 0;
+      line-height: 1.3;
+    }
+
+    .panel-body { padding: 24px; display: flex; flex-direction: column; gap: 24px; }
+
+    .field-group { display: flex; flex-direction: column; gap: 10px; }
+    .field-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .field-label span:first-child {
+      font-size: .825rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      letter-spacing: .01em;
+    }
+    .field-value {
+      font-size: .875rem;
+      font-weight: 700;
+      color: var(--navy);
+      background: var(--gold-pale);
+      padding: 3px 10px;
+      border-radius: 4px;
+      min-width: 90px;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Slider */
+    .slider-wrap {
+      position: relative;
+      height: 36px;
+      display: flex;
+      align-items: center;
+    }
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--border);
+      outline: none;
+      cursor: pointer;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--navy);
+      border: 3px solid var(--gold);
+      cursor: grab;
+      box-shadow: 0 2px 8px rgba(15,39,68,.25);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    input[type="range"]::-webkit-slider-thumb:active { cursor: grabbing; transform: scale(1.2); }
+    input[type="range"]::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--navy);
+      border: 3px solid var(--gold);
+      cursor: grab;
+      box-shadow: 0 2px 8px rgba(15,39,68,.25);
+    }
+    .slider-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: .7rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Stepper */
+    .stepper {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      width: fit-content;
+    }
+    .stepper-btn {
+      width: 38px;
+      height: 38px;
+      background: var(--bg);
+      border: none;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--navy);
+      cursor: pointer;
+      transition: background var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .stepper-btn:hover { background: var(--border); }
+    .stepper-display {
+      min-width: 52px;
+      text-align: center;
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--navy);
+      border-left: 1.5px solid var(--border);
+      border-right: 1.5px solid var(--border);
+      padding: 0 8px;
+      line-height: 38px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Toggle */
+    .toggle-group {
+      display: flex;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .toggle-btn {
+      flex: 1;
+      padding: 10px 12px;
+      background: var(--bg);
+      border: none;
+      font-size: .83rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all var(--transition);
+      text-align: center;
+    }
+    .toggle-btn + .toggle-btn { border-left: 1.5px solid var(--border); }
+    .toggle-btn.active {
+      background: var(--navy);
+      color: #fff;
+    }
+
+    /* Select */
+    .styled-select {
+      width: 100%;
+      padding: 10px 36px 10px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7a99' d='M6 8L1 3h10z'/%3E%3C/svg%3E") no-repeat right 12px center;
+      -webkit-appearance: none;
+      font-family: var(--font-sans);
+      font-size: .875rem;
+      color: var(--text-dark);
+      cursor: pointer;
+      outline: none;
+      transition: border-color var(--transition);
+    }
+    .styled-select:focus { border-color: var(--navy); }
+
+    /* ===== RESULTS PANEL ===== */
+    .results-panel { display: flex; flex-direction: column; gap: 20px; }
+
+    /* Savings Hero Box */
+    .savings-hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+      border-radius: var(--radius-lg);
+      padding: 28px 32px;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    .savings-hero::before {
+      content: '';
+      position: absolute;
+      right: -40px;
+      top: -40px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: rgba(196,154,42,.08);
+      pointer-events: none;
+    }
+    .savings-hero-label {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 6px;
+    }
+    .savings-hero-amount {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      transition: all .3s ease;
+    }
+    .savings-hero-sub {
+      font-size: .9rem;
+      color: rgba(255,255,255,.65);
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+    .savings-hero-roi {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      background: rgba(196,154,42,.18);
+      border: 1px solid rgba(196,154,42,.35);
+      border-radius: 100px;
+      padding: 7px 16px;
+      font-size: .83rem;
+      font-weight: 600;
+      color: var(--gold-light);
+    }
+
+    /* Cost comparison columns */
+    .cost-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 620px) {
+      .cost-columns { grid-template-columns: 1fr; }
+    }
+
+    .cost-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+    }
+    .cost-card-header {
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .cost-card-header--red { background: var(--red-light); border-bottom: 2px solid #fcd5d2; }
+    .cost-card-header--green { background: var(--green-light); border-bottom: 2px solid #c3e9d5; }
+    .cost-card-header-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1rem;
+    }
+    .cost-card-header-icon--red { background: #fcd5d2; }
+    .cost-card-header-icon--green { background: #c3e9d5; }
+    .cost-card-header-text h3 {
+      font-family: var(--font-sans);
+      font-size: .83rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    .cost-card-header-text h3.red { color: var(--red); }
+    .cost-card-header-text h3.green { color: var(--green); }
+    .cost-card-header-text p {
+      font-size: .72rem;
+      color: var(--text-muted);
+      margin: 0;
+      line-height: 1.3;
+    }
+
+    .cost-card-body { padding: 20px; }
+    .cost-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: .835rem;
+      gap: 12px;
+    }
+    .cost-line:last-of-type { border-bottom: none; }
+    .cost-line-label { color: var(--text-mid); flex: 1; }
+    .cost-line-label .hint {
+      display: block;
+      font-size: .7rem;
+      color: var(--text-muted);
+      margin-top: 1px;
+    }
+    .cost-line-amount {
+      font-weight: 600;
+      color: var(--text-dark);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+      transition: all .25s ease;
+    }
+    .cost-line.dimmed { opacity: .4; }
+
+    .cost-total {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: var(--radius);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .cost-total--red { background: var(--red-light); border: 1.5px solid #fcd5d2; }
+    .cost-total--green { background: var(--green-light); border: 1.5px solid #c3e9d5; }
+    .cost-total-label {
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+    .cost-total-label.red { color: var(--red); }
+    .cost-total-label.green { color: var(--green); }
+    .cost-total-amount {
+      font-size: 1.5rem;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      transition: all .3s ease;
+    }
+    .cost-total-amount.red { color: var(--red); }
+    .cost-total-amount.green { color: var(--green); }
+
+    .time-badge {
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .78rem;
+      color: var(--text-muted);
+      padding: 8px 12px;
+      background: var(--bg);
+      border-radius: 6px;
+    }
+    .time-badge svg { width: 14px; height: 14px; stroke: var(--text-muted); fill: none; stroke-width: 2; stroke-linecap: round; flex-shrink: 0; }
+    .time-badge strong { color: var(--text-dark); }
+
+    /* ===== TIMELINE SECTION ===== */
+    .section-block {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px 56px;
+    }
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .section-sub {
+      font-size: .9rem;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+
+    .timeline-wrap {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+    }
+    .timeline-row {
+      padding: 28px 32px;
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 24px;
+      align-items: center;
+    }
+    .timeline-row + .timeline-row { border-top: 1px solid var(--border); }
+    .timeline-row-label {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .timeline-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 100px;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      width: fit-content;
+    }
+    .timeline-pill--red { background: var(--red-light); color: var(--red); }
+    .timeline-pill--green { background: var(--green-light); color: var(--green); }
+    .timeline-duration {
+      font-size: .78rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .timeline-duration strong { color: var(--text-dark); font-weight: 700; }
+
+    .timeline-steps {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+    .timeline-step {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .timeline-step-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      min-width: 80px;
+    }
+    .timeline-step-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .7rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .timeline-step-dot--red { background: var(--red); color: #fff; }
+    .timeline-step-dot--green { background: var(--green); color: #fff; }
+    .timeline-step-text {
+      font-size: .72rem;
+      text-align: center;
+      color: var(--text-mid);
+      line-height: 1.3;
+      max-width: 78px;
+    }
+    .timeline-connector {
+      flex: 1;
+      height: 2px;
+      min-width: 20px;
+      max-width: 48px;
+      margin-bottom: 22px;
+    }
+    .timeline-connector--red { background: repeating-linear-gradient(90deg, var(--red) 0, var(--red) 4px, transparent 4px, transparent 8px); }
+    .timeline-connector--green { background: var(--green); }
+
+    @media (max-width: 640px) {
+      .timeline-row { grid-template-columns: 1fr; }
+    }
+
+    /* ===== HIDDEN COSTS CARDS ===== */
+    .hidden-costs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .hidden-cost-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      padding: 22px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      border-left: 4px solid transparent;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .hidden-cost-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .hidden-cost-card--1 { border-left-color: #e74c3c; }
+    .hidden-cost-card--2 { border-left-color: #e67e22; }
+    .hidden-cost-card--3 { border-left-color: #8e44ad; }
+    .hidden-cost-card--4 { border-left-color: #2980b9; }
+    .hidden-cost-card--5 { border-left-color: #16a085; }
+    .hidden-cost-card--6 { border-left-color: #c0392b; }
+    .hidden-cost-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .hidden-cost-title {
+      font-size: .875rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .hidden-cost-desc {
+      font-size: .8rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* ===== CTA SECTION ===== */
+    .cta-section {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+      padding: 72px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      border: 1px solid rgba(196,154,42,.1);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+    }
+    .cta-section::after {
+      content: '';
+      position: absolute;
+      width: 900px;
+      height: 900px;
+      border-radius: 50%;
+      border: 1px solid rgba(196,154,42,.05);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+    }
+    .cta-inner { position: relative; z-index: 1; max-width: 620px; margin: 0 auto; }
+    .cta-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(196,154,42,.18);
+      border: 1px solid rgba(196,154,42,.3);
+      color: var(--gold-light);
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .cta-section h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.7rem, 4vw, 2.6rem);
+      color: #fff;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .cta-section p {
+      color: rgba(255,255,255,.65);
+      font-size: 1rem;
+      margin-bottom: 36px;
+      line-height: 1.7;
+    }
+    .cta-buttons {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-gold-lg {
+      background: var(--gold);
+      color: #fff;
+      padding: 16px 36px;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: .02em;
+      transition: all var(--transition);
+      display: inline-block;
+      box-shadow: 0 4px 20px rgba(196,154,42,.35);
+    }
+    .btn-gold-lg:hover {
+      background: var(--gold-light);
+      color: #fff;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 28px rgba(196,154,42,.45);
+    }
+    .btn-outline-lg {
+      background: transparent;
+      color: rgba(255,255,255,.85);
+      padding: 16px 36px;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: .02em;
+      transition: all var(--transition);
+      display: inline-block;
+      border: 1.5px solid rgba(255,255,255,.3);
+    }
+    .btn-outline-lg:hover {
+      background: rgba(255,255,255,.08);
+      color: #fff;
+      border-color: rgba(255,255,255,.55);
+    }
+
+    /* Trust badges */
+    .trust-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 28px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,.55);
+      font-size: .8rem;
+    }
+    .trust-item svg { width: 16px; height: 16px; stroke: var(--gold); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* Testimonial */
+    .testimonial-strip {
+      margin-top: 44px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius-lg);
+      padding: 24px 28px;
+      text-align: left;
+    }
+    .testimonial-stars {
+      color: var(--gold-light);
+      font-size: 1rem;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+    .testimonial-quote {
+      font-size: .93rem;
+      color: rgba(255,255,255,.8);
+      font-style: italic;
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+    .testimonial-attr {
+      font-size: .78rem;
+      color: rgba(255,255,255,.4);
+      font-weight: 600;
+      letter-spacing: .03em;
+    }
+
+    /* ===== FOOTER ===== */
+    .site-footer {
+      background: var(--navy);
+      padding: 28px 24px;
+      text-align: center;
+    }
+    .footer-nav {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .footer-nav a {
+      color: rgba(255,255,255,.5);
+      font-size: .8rem;
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .footer-nav a:hover { color: var(--gold-light); }
+    .footer-copy {
+      font-size: .75rem;
+      color: rgba(255,255,255,.3);
+      line-height: 1.6;
+    }
+
+    /* ===== DISCLAIMER ===== */
+    .disclaimer {
+      background: var(--navy);
+      padding: 20px 24px;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .disclaimer p {
+      font-size: .72rem;
+      color: rgba(255,255,255,.35);
+      text-align: center;
+      max-width: 860px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ===== NUMBER FLIP ANIMATION ===== */
+    @keyframes countUp {
+      from { opacity: 0; transform: translateY(4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .number-flash { animation: countUp .2s ease; }
+
+    /* ===== SCROLL REVEAL ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== UTILITY ===== */
+    .gold-bar {
+      width: 56px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      border-radius: 2px;
+      margin: 0 auto 28px;
+    }
+    .text-center { text-align: center; }
+    .mb-8 { margin-bottom: 8px; }
+    .section-spacer { height: 32px; }
+
+    /* ===== ANCILLARY VISIBLE ONLY WHEN RELEVANT ===== */
+    .ancillary-line { display: none; }
+    .ancillary-line.show { display: flex; }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo-link">
+        <img src="images/logo-icon.png" alt="Cornerstone" class="logo-img" onerror="this.style.display='none'">
+        <div class="logo-text">
+          <span class="logo-name">Cornerstone Wealth &amp; Legacy Law</span>
+          <span class="logo-sub">PLLC &nbsp;·&nbsp; Florida</span>
+        </div>
+      </a>
+      <nav class="header-nav">
+        <a href="estate-planning.html">Estate Planning</a>
+        <a href="real-estate.html">Real Estate</a>
+        <a href="elder-law.html">Elder Law</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <a href="start.html" class="btn-gold-header">Start Your Plan →</a>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-badge">Free Tool · Instant Results</div>
+    <h1>Florida Probate Cost Calculator</h1>
+    <p class="hero-sub">See exactly what probate will cost your estate — and how much your family could save with a trust.</p>
+    <div class="hero-bar"></div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-num">9–36</span>
+        <span class="hero-stat-label">Months, avg. probate</span>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">$27K+</span>
+        <span class="hero-stat-label">Avg. probate cost in FL</span>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">$1,499</span>
+        <span class="hero-stat-label">Cornerstone trust package</span>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">100%</span>
+        <span class="hero-stat-label">Avoidable with planning</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CALCULATOR ===== -->
+  <section class="calc-section">
+    <div class="calc-layout">
+
+      <!-- INPUT PANEL -->
+      <aside class="input-panel">
+        <div class="panel-header">
+          <div class="panel-header-icon">
+            <svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="13" y2="14"/></svg>
+          </div>
+          <div>
+            <h2>Your Estate Details</h2>
+            <p>Results update instantly</p>
+          </div>
+        </div>
+
+        <div class="panel-body">
+
+          <!-- Estate Value -->
+          <div class="field-group">
+            <div class="field-label">
+              <span>Total Estate Value</span>
+              <span class="field-value" id="estateValueDisplay">$500,000</span>
+            </div>
+            <div class="slider-wrap">
+              <input type="range" id="estateSlider" min="50000" max="5000000" step="10000" value="500000">
+            </div>
+            <div class="slider-labels">
+              <span>$50K</span>
+              <span>$1M</span>
+              <span>$2.5M</span>
+              <span>$5M</span>
+            </div>
+          </div>
+
+          <!-- Properties -->
+          <div class="field-group">
+            <div class="field-label">
+              <span>Number of FL Properties</span>
+            </div>
+            <div class="stepper">
+              <button class="stepper-btn" id="propDown" aria-label="Decrease">−</button>
+              <div class="stepper-display" id="propDisplay">1</div>
+              <button class="stepper-btn" id="propUp" aria-label="Increase">+</button>
+            </div>
+          </div>
+
+          <!-- Out-of-state property -->
+          <div class="field-group">
+            <div class="field-label">
+              <span>Out-of-State Property?</span>
+            </div>
+            <div class="toggle-group">
+              <button class="toggle-btn" id="oos-no" onclick="setOOS(false)">No</button>
+              <button class="toggle-btn active" id="oos-yes" onclick="setOOS(false)">No</button>
+            </div>
+            <!-- rendered via JS -->
+            <div class="toggle-group" id="oosToggle" style="display:none"></div>
+          </div>
+
+          <!-- Complexity -->
+          <div class="field-group">
+            <div class="field-label">
+              <span>Estate Complexity</span>
+            </div>
+            <select class="styled-select" id="complexity">
+              <option value="simple">Simple — primary residence, few accounts</option>
+              <option value="moderate" selected>Moderate — multiple assets, some business interest</option>
+              <option value="complex">Complex — business, disputes, multiple heirs</option>
+            </select>
+          </div>
+
+          <!-- County -->
+          <div class="field-group">
+            <div class="field-label">
+              <span>Florida County</span>
+            </div>
+            <select class="styled-select" id="county">
+              <option value="standard">Most Florida Counties</option>
+              <option value="miami">Miami-Dade</option>
+              <option value="broward">Broward</option>
+              <option value="palmbeach">Palm Beach</option>
+              <option value="hillsborough">Hillsborough (Tampa)</option>
+              <option value="orange">Orange (Orlando)</option>
+              <option value="pinellas">Pinellas (St. Pete)</option>
+              <option value="duval">Duval (Jacksonville)</option>
+              <option value="sarasota">Sarasota / Manatee</option>
+              <option value="collier">Collier (Naples)</option>
+              <option value="stlucie">St. Lucie / Martin</option>
+              <option value="leecounty">Lee (Fort Myers)</option>
+              <option value="volusia">Volusia (Daytona)</option>
+              <option value="alachua">Alachua (Gainesville)</option>
+              <option value="leon">Leon (Tallahassee)</option>
+            </select>
+          </div>
+
+        </div>
+      </aside>
+
+      <!-- RESULTS -->
+      <div class="results-panel">
+
+        <!-- Savings hero -->
+        <div class="savings-hero reveal">
+          <div class="savings-hero-label">Estimated Family Savings</div>
+          <div class="savings-hero-amount" id="savingsAmount">$26,001</div>
+          <div class="savings-hero-sub" id="savingsSub">Your estate avoids an estimated <strong id="savingsMonths">9–18 months</strong> of court proceedings — and keeps assets private.</div>
+          <div class="savings-hero-roi" id="savingsROI">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            Return on investment: 15:1 — every $1 spent on a trust saves $15 in probate
+          </div>
+        </div>
+
+        <!-- Cost columns -->
+        <div class="cost-columns">
+
+          <!-- Probate column -->
+          <div class="cost-card reveal">
+            <div class="cost-card-header cost-card-header--red">
+              <div class="cost-card-header-icon cost-card-header-icon--red">⚖️</div>
+              <div class="cost-card-header-text">
+                <h3 class="red">Without a Trust — Probate</h3>
+                <p>Florida statutory fees + court costs</p>
+              </div>
+            </div>
+            <div class="cost-card-body">
+              <div class="cost-line">
+                <span class="cost-line-label">
+                  Attorney fees
+                  <span class="hint">F.S. § 733.6171 — statutory</span>
+                </span>
+                <span class="cost-line-amount" id="r-attorney">$15,000</span>
+              </div>
+              <div class="cost-line">
+                <span class="cost-line-label">
+                  Personal representative
+                  <span class="hint">Same statutory schedule</span>
+                </span>
+                <span class="cost-line-amount" id="r-pr">$15,000</span>
+              </div>
+              <div class="cost-line">
+                <span class="cost-line-label">
+                  Court &amp; filing fees
+                  <span class="hint">County + estate size</span>
+                </span>
+                <span class="cost-line-amount" id="r-court">$435</span>
+              </div>
+              <div class="cost-line">
+                <span class="cost-line-label">Publication notice</span>
+                <span class="cost-line-amount" id="r-pub">$200</span>
+              </div>
+              <div class="cost-line">
+                <span class="cost-line-label">
+                  Complexity factor
+                  <span class="hint">Moderate estate</span>
+                </span>
+                <span class="cost-line-amount" id="r-complexity">$1,116</span>
+              </div>
+              <div class="cost-line ancillary-line" id="r-ancillary-line">
+                <span class="cost-line-label">
+                  Ancillary probate
+                  <span class="hint">Out-of-state property</span>
+                </span>
+                <span class="cost-line-amount" id="r-ancillary">$3,750</span>
+              </div>
+
+              <div class="cost-total cost-total--red">
+                <span class="cost-total-label red">Total Probate Cost</span>
+                <span class="cost-total-amount red" id="r-total">$31,751</span>
+              </div>
+              <div class="time-badge">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                Estimated time: <strong id="r-time">&nbsp;9–18 months</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Trust column -->
+          <div class="cost-card reveal">
+            <div class="cost-card-header cost-card-header--green">
+              <div class="cost-card-header-icon cost-card-header-icon--green">🛡️</div>
+              <div class="cost-card-header-text">
+                <h3 class="green">With a Cornerstone Trust</h3>
+                <p>One-time flat fee — complete package</p>
+              </div>
+            </div>
+            <div class="cost-card-body">
+              <div class="cost-line">
+                <span class="cost-line-label">
+                  Revocable living trust
+                  <span class="hint">Fully drafted, attorney-reviewed</span>
+                </span>
+                <span class="cost-line-amount" style="color:var(--green)">$1,499</span>
+              </div>
+              <div class="cost-line">
+                <span class="cost-line-label">
+                  Deed recording (per FL property)
+                  <span class="hint">Transfers real estate into trust</span>
+                </span>
+                <span class="cost-line-amount" style="color:var(--green)" id="t-deed">~$250</span>
+              </div>
+              <div class="cost-line">
+                <span class="cost-line-label">
+                  Annual review &amp; updates
+                  <span class="hint">Included — no extra charge</span>
+                </span>
+                <span class="cost-line-amount" style="color:var(--green)">$0</span>
+              </div>
+              <div class="cost-line">
+                <span class="cost-line-label">
+                  Pour-over will + powers of attorney
+                  <span class="hint">Included in package</span>
+                </span>
+                <span class="cost-line-amount" style="color:var(--green)">$0</span>
+              </div>
+              <div class="cost-line">
+                <span class="cost-line-label">
+                  Court proceedings
+                </span>
+                <span class="cost-line-amount" style="color:var(--green)">$0</span>
+              </div>
+
+              <div class="cost-total cost-total--green">
+                <span class="cost-total-label green">Total Trust Cost</span>
+                <span class="cost-total-amount green" id="t-total">$1,749</span>
+              </div>
+              <div class="time-badge">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                Time to fund: <strong>&nbsp;1–2 weeks to execute</strong>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TIMELINE ===== -->
+  <div class="section-spacer"></div>
+  <section class="section-block reveal">
+    <div class="text-center mb-8">
+      <div class="gold-bar"></div>
+      <h2 class="section-title">The Timeline Difference</h2>
+      <p class="section-sub">Probate forces your family to wait. A trust lets them move forward.</p>
+    </div>
+    <div class="timeline-wrap">
+      <!-- Probate row -->
+      <div class="timeline-row">
+        <div class="timeline-row-label">
+          <div class="timeline-pill timeline-pill--red">⚖️ Probate</div>
+          <div class="timeline-duration"><strong id="tl-probate-time">9–18 months</strong></div>
+        </div>
+        <div class="timeline-steps">
+          <div class="timeline-step">
+            <div class="timeline-step-node">
+              <div class="timeline-step-dot timeline-step-dot--red">1</div>
+              <div class="timeline-step-text">File petition with court</div>
+            </div>
+          </div>
+          <div class="timeline-connector timeline-connector--red"></div>
+          <div class="timeline-step">
+            <div class="timeline-step-node">
+              <div class="timeline-step-dot timeline-step-dot--red">2</div>
+              <div class="timeline-step-text">Appoint PR; inventory assets</div>
+            </div>
+          </div>
+          <div class="timeline-connector timeline-connector--red"></div>
+          <div class="timeline-step">
+            <div class="timeline-step-node">
+              <div class="timeline-step-dot timeline-step-dot--red">3</div>
+              <div class="timeline-step-text">90-day creditor notice period</div>
+            </div>
+          </div>
+          <div class="timeline-connector timeline-connector--red"></div>
+          <div class="timeline-step">
+            <div class="timeline-step-node">
+              <div class="timeline-step-dot timeline-step-dot--red">4</div>
+              <div class="timeline-step-text">Court hearings &amp; tax clearance</div>
+            </div>
+          </div>
+          <div class="timeline-connector timeline-connector--red"></div>
+          <div class="timeline-step">
+            <div class="timeline-step-node">
+              <div class="timeline-step-dot timeline-step-dot--red">5</div>
+              <div class="timeline-step-text">Final order &amp; distribution</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Trust row -->
+      <div class="timeline-row">
+        <div class="timeline-row-label">
+          <div class="timeline-pill timeline-pill--green">🛡️ Trust</div>
+          <div class="timeline-duration"><strong>Days to weeks</strong></div>
+        </div>
+        <div class="timeline-steps">
+          <div class="timeline-step">
+            <div class="timeline-step-node">
+              <div class="timeline-step-dot timeline-step-dot--green">1</div>
+              <div class="timeline-step-text">Death certificate obtained</div>
+            </div>
+          </div>
+          <div class="timeline-connector timeline-connector--green"></div>
+          <div class="timeline-step">
+            <div class="timeline-step-node">
+              <div class="timeline-step-dot timeline-step-dot--green">2</div>
+              <div class="timeline-step-text">Successor trustee steps in</div>
+            </div>
+          </div>
+          <div class="timeline-connector timeline-connector--green"></div>
+          <div class="timeline-step">
+            <div class="timeline-step-node">
+              <div class="timeline-step-dot timeline-step-dot--green">3</div>
+              <div class="timeline-step-text">Assets retitled &amp; distributed</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HIDDEN COSTS ===== -->
+  <div class="section-spacer"></div>
+  <section class="section-block reveal">
+    <div class="text-center mb-8">
+      <div class="gold-bar"></div>
+      <h2 class="section-title">What Probate Really Costs</h2>
+      <p class="section-sub">Beyond the dollar figure, probate imposes costs your family can't get back.</p>
+    </div>
+    <div class="hidden-costs-grid">
+      <div class="hidden-cost-card hidden-cost-card--1">
+        <div class="hidden-cost-icon">📰</div>
+        <div>
+          <div class="hidden-cost-title">Public Record — Total Exposure</div>
+          <p class="hidden-cost-desc">Your assets, debts, and beneficiaries become public record. Anyone — creditors, estranged relatives, bad actors — can read the file at the courthouse.</p>
+        </div>
+      </div>
+      <div class="hidden-cost-card hidden-cost-card--2">
+        <div class="hidden-cost-icon">⏳</div>
+        <div>
+          <div class="hidden-cost-title">Family Waits Months or Years</div>
+          <p class="hidden-cost-desc">Heirs cannot receive a dollar until the court closes the estate. Mortgages, bills, and living expenses continue — but the estate is frozen.</p>
+        </div>
+      </div>
+      <div class="hidden-cost-card hidden-cost-card--3">
+        <div class="hidden-cost-icon">👨‍⚖️</div>
+        <div>
+          <div class="hidden-cost-title">A Judge Controls Distribution</div>
+          <p class="hidden-cost-desc">Every distribution requires court approval. Any beneficiary can object, triggering expensive hearings. Family disputes become public litigation.</p>
+        </div>
+      </div>
+      <div class="hidden-cost-card hidden-cost-card--4">
+        <div class="hidden-cost-icon">🏠</div>
+        <div>
+          <div class="hidden-cost-title">Real Estate Frozen in Place</div>
+          <p class="hidden-cost-desc">You cannot sell, refinance, or transfer real property during probate without a court order. If the market shifts, your heirs absorb the loss.</p>
+        </div>
+      </div>
+      <div class="hidden-cost-card hidden-cost-card--5">
+        <div class="hidden-cost-icon">✈️</div>
+        <div>
+          <div class="hidden-cost-title">Out-of-State Property = Two Probates</div>
+          <p class="hidden-cost-desc">Every state where you own real property requires its own ancillary probate. Two states means two courts, two attorneys, double the cost and time.</p>
+        </div>
+      </div>
+      <div class="hidden-cost-card hidden-cost-card--6">
+        <div class="hidden-cost-icon">💔</div>
+        <div>
+          <div class="hidden-cost-title">Grief Meets Bureaucracy</div>
+          <p class="hidden-cost-desc">Surviving spouses and children spend 18 months navigating court filings, creditor notices, and hearings — while grieving. The emotional toll is immeasurable.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="cta-section">
+    <div class="cta-inner">
+      <div class="cta-badge">
+        <span>Ready to Protect Your Family?</span>
+      </div>
+      <h2>Skip probate entirely. Start your trust today.</h2>
+      <p>For a flat $1,499, Cornerstone drafts your revocable living trust, pour-over will, and powers of attorney — everything your family needs to avoid court entirely. No hourly billing. No surprises.</p>
+      <div class="cta-buttons">
+        <a href="start.html" class="btn-gold-lg">Start My Trust for $1,499 →</a>
+        <a href="contact.html" class="btn-outline-lg">Talk to an Attorney</a>
+      </div>
+      <div class="trust-row">
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Flat-fee pricing
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Florida-licensed attorneys
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          10-day turnaround
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          Includes annual review
+        </div>
+      </div>
+      <div class="testimonial-strip">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">"My mother passed without a trust and we spent 14 months in probate. When my husband and I sat down with Cornerstone, it was the easiest decision we'd ever made. The trust was done in two weeks and we have complete peace of mind."</p>
+        <div class="testimonial-attr">— M.R., Sarasota, FL &nbsp;·&nbsp; Estate Planning Client</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DISCLAIMER ===== -->
+  <div class="disclaimer">
+    <p>This calculator provides estimates based on Florida Statutes § 733.6171 and typical court costs as of 2026. Actual probate costs vary based on estate complexity, contested proceedings, creditor claims, and individual county fee schedules. Results do not constitute legal advice and are not a substitute for consultation with a Florida-licensed attorney. Cornerstone Wealth &amp; Legacy Law, PLLC — All rights reserved.</p>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <nav class="footer-nav">
+      <a href="index.html">Home</a>
+      <a href="estate-planning.html">Estate Planning</a>
+      <a href="real-estate.html">Real Estate</a>
+      <a href="elder-law.html">Elder Law</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="start.html">Start Your Plan</a>
+    </nav>
+    <div class="footer-copy">
+      &copy; 2026 Cornerstone Wealth &amp; Legacy Law, PLLC &nbsp;·&nbsp; Florida &nbsp;·&nbsp; This website is for informational purposes only and does not constitute legal advice.
+    </div>
+  </footer>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    // ============================================================
+    //  STATE
+    // ============================================================
+    const state = {
+      estateValue: 500000,
+      numProperties: 1,
+      hasOOS: false,
+      complexity: 'moderate',
+      county: 'standard'
+    };
+
+    // ============================================================
+    //  FLORIDA STATUTORY FEE SCHEDULE — F.S. § 733.6171
+    //  Both attorney and personal representative get this fee
+    // ============================================================
+    function calcStatutoryFee(v) {
+      let fee = 0;
+      if (v <= 40000)        fee = 1500;
+      else if (v <= 70000)   fee = 2250;
+      else if (v <= 100000)  fee = 3000;
+      else if (v <= 1000000) fee = 3000 + (v - 100000) * 0.03;
+      else if (v <= 5000000) fee = 3000 + 900000 * 0.03 + (v - 1000000) * 0.025;
+      else                   fee = 3000 + 900000 * 0.03 + 4000000 * 0.025 + (v - 5000000) * 0.02;
+      return Math.round(fee);
+    }
+
+    // ============================================================
+    //  COURT FILING FEES — by county + estate size
+    // ============================================================
+    const COUNTY_SURCHARGE = {
+      standard: 0, miami: 75, broward: 55, palmbeach: 60,
+      hillsborough: 50, orange: 45, pinellas: 45, duval: 40,
+      sarasota: 35, collier: 65, stlucie: 30, leecounty: 40,
+      volusia: 30, alachua: 25, leon: 30
+    };
+
+    function calcFilingFee(v, county) {
+      let base;
+      if      (v <= 100000)  base = 235;
+      else if (v <= 500000)  base = 400;
+      else if (v <= 1000000) base = 490;
+      else if (v <= 3000000) base = 640;
+      else                   base = 820;
+      return base + (COUNTY_SURCHARGE[county] || 0);
+    }
+
+    // ============================================================
+    //  COMPLEXITY MULTIPLIERS & TIME
+    // ============================================================
+    const COMPLEXITY = {
+      simple:   { mult: 0.0,   label: 'Simple estate',   time: '6–12 months'  },
+      moderate: { mult: 0.036, label: 'Moderate estate',  time: '9–18 months'  },
+      complex:  { mult: 0.12,  label: 'Complex estate',   time: '18–36 months' }
+    };
+
+    // ============================================================
+    //  MAIN CALCULATION
+    // ============================================================
+    function calculate() {
+      const { estateValue: v, numProperties: np, hasOOS, complexity, county } = state;
+      const c = COMPLEXITY[complexity];
+
+      const attyFee      = calcStatutoryFee(v);
+      const prFee        = calcStatutoryFee(v);
+      const filingFee    = calcFilingFee(v, county);
+      const pubCost      = 200;
+      const complexCost  = Math.round((attyFee + prFee) * c.mult);
+      const ancillaryCost = hasOOS ? 3750 : 0;
+
+      const totalProbate = attyFee + prFee + filingFee + pubCost + complexCost + ancillaryCost;
+
+      // Trust cost: $1,499 + ~$250/property (deed recording)
+      const trustCost = 1499 + (np * 250);
+
+      const savings = totalProbate - trustCost;
+      const roi     = savings > 0 ? Math.round(savings / trustCost) : 0;
+
+      return { attyFee, prFee, filingFee, pubCost, complexCost, ancillaryCost, totalProbate, trustCost, savings, roi, time: c.time, complexLabel: c.label };
+    }
+
+    // ============================================================
+    //  FORMAT HELPERS
+    // ============================================================
+    function fmt(n) {
+      return '$' + Math.max(0, Math.round(n)).toLocaleString('en-US');
+    }
+    function fmtValue(n) {
+      if (n >= 1000000) return '$' + (n/1000000).toFixed(n % 1000000 === 0 ? 0 : 2).replace(/\.?0+$/, '') + 'M';
+      if (n >= 1000)    return '$' + Math.round(n/1000) + 'K';
+      return '$' + n;
+    }
+
+    // ============================================================
+    //  UPDATE DOM
+    // ============================================================
+    function setWithFlash(id, val) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (el.textContent !== val) {
+        el.textContent = val;
+        el.classList.remove('number-flash');
+        void el.offsetWidth; // reflow
+        el.classList.add('number-flash');
+      }
+    }
+
+    function render() {
+      const r = calculate();
+
+      // Slider display
+      document.getElementById('estateValueDisplay').textContent = fmt(state.estateValue);
+
+      // Probate lines
+      setWithFlash('r-attorney',   fmt(r.attyFee));
+      setWithFlash('r-pr',         fmt(r.prFee));
+      setWithFlash('r-court',      fmt(r.filingFee));
+      setWithFlash('r-pub',        fmt(r.pubCost));
+      setWithFlash('r-complexity', fmt(r.complexCost));
+      setWithFlash('r-total',      fmt(r.totalProbate));
+      setWithFlash('r-time',       ' ' + r.time);
+
+      // Complexity label hint
+      const compHint = document.querySelector('#r-complexity')?.closest('.cost-line')?.querySelector('.hint');
+      if (compHint) compHint.textContent = r.complexLabel;
+
+      // Ancillary
+      const ancLine = document.getElementById('r-ancillary-line');
+      if (ancLine) {
+        ancLine.classList.toggle('show', state.hasOOS);
+        setWithFlash('r-ancillary', fmt(r.ancillaryCost));
+      }
+
+      // Trust
+      document.getElementById('t-deed').textContent = '~' + fmt(state.numProperties * 250);
+      setWithFlash('t-total', fmt(r.trustCost));
+
+      // Savings hero
+      setWithFlash('savingsAmount', fmt(r.savings));
+      document.getElementById('savingsMonths').textContent = r.time;
+      document.getElementById('savingsROI').innerHTML = `
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        Return on investment: ${r.roi}:1 — every $1 spent on a trust saves $${r.roi} in probate
+      `;
+
+      // Timeline
+      const tlTime = document.getElementById('tl-probate-time');
+      if (tlTime) tlTime.textContent = r.time;
+
+      // Slider gradient fill
+      const slider = document.getElementById('estateSlider');
+      const pct = ((state.estateValue - 50000) / (5000000 - 50000)) * 100;
+      slider.style.background = `linear-gradient(to right, #c49a2a ${pct}%, #dde3ef ${pct}%)`;
+    }
+
+    // ============================================================
+    //  OUT-OF-STATE TOGGLE (rendered properly)
+    // ============================================================
+    function buildOOSToggle() {
+      const wrap = document.querySelector('.panel-body');
+      // Replace the placeholder toggle with the real one
+    }
+
+    // Build OOS toggle inside the panel
+    (function initOOSToggle() {
+      // Find the static placeholder and replace
+      const placeholder = document.getElementById('oosToggle');
+      const staticGroup = placeholder.closest('.field-group');
+      if (staticGroup) {
+        const oldToggle = staticGroup.querySelector('.toggle-group:not(#oosToggle)');
+        if (oldToggle) oldToggle.remove();
+        placeholder.removeAttribute('style');
+        placeholder.innerHTML = `
+          <button class="toggle-btn" id="oos-no-btn" onclick="setOOS(false)">No</button>
+          <button class="toggle-btn active" id="oos-yes-btn" onclick="setOOS(true)" style="pointer-events:auto">Yes (+ancillary)</button>
+        `;
+        // Default: No is active
+        document.getElementById('oos-no-btn').classList.add('active');
+        document.getElementById('oos-yes-btn').classList.remove('active');
+      }
+    })();
+
+    function setOOS(val) {
+      state.hasOOS = val;
+      const noBtn  = document.getElementById('oos-no-btn');
+      const yesBtn = document.getElementById('oos-yes-btn');
+      if (noBtn && yesBtn) {
+        noBtn.classList.toggle('active', !val);
+        yesBtn.classList.toggle('active', val);
+      }
+      render();
+    }
+
+    // ============================================================
+    //  EVENT LISTENERS
+    // ============================================================
+
+    // Estate slider
+    document.getElementById('estateSlider').addEventListener('input', function () {
+      state.estateValue = +this.value;
+      render();
+    });
+
+    // Property stepper
+    let propCount = 1;
+    document.getElementById('propUp').addEventListener('click', function () {
+      if (propCount < 5) { propCount++; state.numProperties = propCount; document.getElementById('propDisplay').textContent = propCount; render(); }
+    });
+    document.getElementById('propDown').addEventListener('click', function () {
+      if (propCount > 0) { propCount--; state.numProperties = propCount; document.getElementById('propDisplay').textContent = propCount; render(); }
+    });
+
+    // Complexity & county selects
+    document.getElementById('complexity').addEventListener('change', function () {
+      state.complexity = this.value; render();
+    });
+    document.getElementById('county').addEventListener('change', function () {
+      state.county = this.value; render();
+    });
+
+    // ============================================================
+    //  SCROLL REVEAL
+    // ============================================================
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // ============================================================
+    //  INITIAL RENDER
+    // ============================================================
+    render();
+
+  </script>
+</body>
+</html>

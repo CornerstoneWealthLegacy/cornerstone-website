@@ -1,0 +1,71 @@
+# Cornerstone Wealth & Legacy Law — robots.txt
+# cornerstonewealthlegacy.com
+
+# ── Allow all standard search engines ────────────────────────────────────────
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# ── Allow AI search & citation bots (these cite your content) ────────────────
+
+# Google AI Overviews + Gemini
+User-agent: Google-Extended
+Allow: /
+
+# ChatGPT search (OpenAI)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# Claude / Anthropic
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Microsoft Copilot (via Bingbot above)
+User-agent: msnbot
+Allow: /
+
+# Cohere
+User-agent: cohere-ai
+Allow: /
+
+# Meta AI
+User-agent: FacebookBot
+Allow: /
+
+# Apple
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# ── Block training-only scrapers (won't cite you, just harvest content) ───────
+
+# Common Crawl (used for AI training datasets, not search/citation)
+User-agent: CCBot
+Disallow: /
+
+# Amazonbot (training, not citation)
+User-agent: Amazonbot
+Disallow: /
+
+# ── Sitemap ───────────────────────────────────────────────────────────────────
+Sitemap: https://cornerstonewealthlegacy.com/sitemap.xml

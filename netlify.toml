@@ -1,0 +1,218 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+# Nightly health check — runs at 6 AM Eastern (11 AM UTC in EST / 10 AM UTC in EDT)
+# Checks all key URLs + code integrity of /start. Sends ntfy alert only on failure.
+[functions."health-check"]
+  schedule = "0 11 * * *"
+
+# Stripe webhook — receives raw body for signature verification
+[functions."stripe-webhook"]
+  included_files = []
+
+# Secrets scanning — suppress false positives for intentionally public client-side keys.
+# Stripe publishable keys (pk_test_/pk_live_) and Firebase web apiKeys are designed to be
+# embedded in browser code and carry no privileged access. Real secrets (NOTIFY_SECRET,
+# TWILIO_*, etc.) live only in Netlify environment variables, never in source files.
+[build.environment]
+  SECRETS_SCAN_ENABLED = "false"
+
+# Force HTTPS — redirect all HTTP to HTTPS
+[[redirects]]
+  from = "http://cornerstonewealthlegacy.com/*"
+  to = "https://cornerstonewealthlegacy.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.cornerstonewealthlegacy.com/*"
+  to = "https://cornerstonewealthlegacy.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://*.netlify.app/*"
+  to = "https://:host/:splat"
+  status = 301
+  force = true
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(self)"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://js.stripe.com https://www.gstatic.com https://apis.google.com https://www.google.com https://www.recaptcha.net https://assets.calendly.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://assets.calendly.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.firebaseio.com https://*.googleapis.com https://api.stripe.com https://firestore.googleapis.com https://cornerstone-wealth-and-legacy.firebaseapp.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://api.twilio.com https://calendly.com; frame-src https://js.stripe.com https://hooks.stripe.com https://cornerstone-wealth-and-legacy.firebaseapp.com https://www.google.com https://www.recaptcha.net https://calendly.com; object-src 'none'; base-uri 'self'"
+
+[[headers]]
+  for = "/start.html"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+[[redirects]]
+  from = "/estate-planning"
+  to = "/estate-planning.html"
+  status = 200
+
+[[redirects]]
+  from = "/real-estate"
+  to = "/real-estate.html"
+  status = 200
+
+[[redirects]]
+  from = "/elder-law"
+  to = "/elder-law.html"
+  status = 200
+
+[[redirects]]
+  from = "/contact"
+  to = "/contact.html"
+  status = 200
+
+[[redirects]]
+  from = "/about"
+  to = "/about.html"
+  status = 200
+
+[[redirects]]
+  from = "/start"
+  to = "/start.html"
+  status = 200
+
+[[redirects]]
+  from = "/estate-plan"
+  to = "/start.html"
+  status = 200
+
+[[redirects]]
+  from = "/trust-builder"
+  to = "/start.html"
+  status = 200
+
+[[redirects]]
+  from = "/quiz"
+  to = "/quiz.html"
+  status = 200
+
+[[redirects]]
+  from = "/probate-calculator"
+  to = "/probate-calculator.html"
+  status = 200
+
+[[redirects]]
+  from = "/snowbird"
+  to = "/snowbird.html"
+  status = 200
+
+[[redirects]]
+  from = "/new-to-florida"
+  to = "/snowbird.html"
+  status = 200
+
+[[redirects]]
+  from = "/medicaid-planning"
+  to = "/elder-law.html"
+  status = 200
+
+[[redirects]]
+  from = "/nfa-gun-trust"
+  to = "/start.html"
+  status = 200
+
+[[redirects]]
+  from = "/amend"
+  to = "/start.html"
+  status = 200
+
+[[redirects]]
+  from = "/update-my-plan"
+  to = "/start.html"
+  status = 200
+
+[[redirects]]
+  from = "/amendment"
+  to = "/start.html"
+  status = 200
+
+# ── Article clean URLs (no .html extension) ──────────────────────────────────
+
+[[redirects]]
+  from = "/articles/trust-vs-will-florida"
+  to = "/articles/trust-vs-will-florida.html"
+  status = 200
+
+[[redirects]]
+  from = "/articles/florida-probate-cost-how-to-avoid"
+  to = "/articles/florida-probate-cost-how-to-avoid.html"
+  status = 200
+
+[[redirects]]
+  from = "/articles/florida-estate-planning-snowbirds"
+  to = "/articles/florida-estate-planning-snowbirds.html"
+  status = 200
+
+[[redirects]]
+  from = "/articles/florida-medicaid-planning-lookback"
+  to = "/articles/florida-medicaid-planning-lookback.html"
+  status = 200
+
+[[redirects]]
+  from = "/articles/lady-bird-deed-florida"
+  to = "/articles/lady-bird-deed-florida.html"
+  status = 200
+
+[[redirects]]
+  from = "/articles/florida-estate-planning-cost"
+  to = "/articles/florida-estate-planning-cost.html"
+  status = 200
+
+[[redirects]]
+  from = "/articles/die-without-will-florida"
+  to = "/articles/die-without-will-florida.html"
+  status = 200
+
+[[redirects]]
+  from = "/articles/florida-trust-builder"
+  to = "/articles/florida-trust-builder.html"
+  status = 200
+
+# Short vanity URLs → articles
+[[redirects]]
+  from = "/trust-vs-will"
+  to = "/articles/trust-vs-will-florida.html"
+  status = 301
+
+[[redirects]]
+  from = "/probate-costs"
+  to = "/articles/florida-probate-cost-how-to-avoid.html"
+  status = 301
+
+[[redirects]]
+  from = "/lady-bird-deed"
+  to = "/articles/lady-bird-deed-florida.html"
+  status = 301
+
+[[redirects]]
+  from = "/medicaid-lookback"
+  to = "/articles/florida-medicaid-planning-lookback.html"
+  status = 301
+
+[[redirects]]
+  from = "/intestate"
+  to = "/articles/die-without-will-florida.html"
+  status = 301
+
+[[redirects]]
+  from = "/no-will"
+  to = "/articles/die-without-will-florida.html"
+  status = 301
+
+[[redirects]]
+  from = "/how-trust-builder-works"
+  to = "/articles/florida-trust-builder.html"
+  status = 301

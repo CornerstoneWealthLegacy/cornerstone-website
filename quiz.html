@@ -1,0 +1,1786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Is Your Florida Estate Plan Complete? | Free Quiz | Cornerstone Wealth &amp; Legacy Law</title>
+  <meta name="description" content="Take our free 12-question quiz to find out if your Florida estate plan is protecting your family. Get your personalized estate plan score in 3 minutes.">
+  <meta property="og:title" content="Is Your Florida Estate Plan Complete? Take the Free Quiz">
+  <meta property="og:description" content="Answer 12 questions and get your personalized Florida estate plan score — plus a gap analysis and recommendation from Cornerstone Wealth &amp; Legacy Law.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="images/logo-icon.png">
+
+  <style>
+    /* ===== RESET & TOKENS ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #0f2744;
+      --navy-mid:   #1d3a5f;
+      --navy-light: #2a4a78;
+      --gold:       #c49a2a;
+      --gold-hover: #e0b535;
+      --gold-light: #f5e7b8;
+      --cream:      #faf8f3;
+      --white:      #ffffff;
+      --gray-50:    #f7f5f0;
+      --gray-100:   #eceae4;
+      --gray-300:   #c8c5bc;
+      --gray-500:   #8a8680;
+      --gray-700:   #4a4844;
+      --gray-900:   #1e1c19;
+      --green:      #1a7a4a;
+      --green-bg:   #e8f5ee;
+      --yellow:     #9c7a00;
+      --yellow-bg:  #fef9e7;
+      --orange:     #c45c00;
+      --orange-bg:  #fff0e6;
+      --red:        #b91c1c;
+      --red-bg:     #fef2f2;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans:  'Inter', -apple-system, sans-serif;
+      --radius-sm:  6px;
+      --radius:     12px;
+      --radius-lg:  20px;
+      --shadow-sm:  0 1px 4px rgba(0,0,0,.08);
+      --shadow-md:  0 4px 20px rgba(0,0,0,.12);
+      --shadow-lg:  0 12px 48px rgba(0,0,0,.18);
+      --transition: 220ms cubic-bezier(.4,0,.2,1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--navy);
+      color: var(--gray-900);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ===== LAYOUT SHELL ===== */
+    .quiz-shell {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ===== TOP BAR ===== */
+    .quiz-topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--navy);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .topbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .topbar-logo-icon {
+      width: 32px; height: 32px;
+      background: var(--gold);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--navy);
+      font-family: var(--font-serif);
+    }
+    .topbar-logo-text {
+      font-size: .78rem;
+      font-weight: 600;
+      color: rgba(255,255,255,.8);
+      line-height: 1.3;
+      letter-spacing: .01em;
+    }
+    .topbar-logo-text strong {
+      display: block;
+      color: #fff;
+      font-size: .85rem;
+    }
+
+    .topbar-progress-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .progress-bar-track {
+      flex: 1;
+      height: 4px;
+      background: rgba(255,255,255,.15);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--gold);
+      border-radius: 99px;
+      transition: width .5s cubic-bezier(.4,0,.2,1);
+      width: 0%;
+    }
+    .progress-label {
+      font-size: .75rem;
+      color: rgba(255,255,255,.55);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    /* ===== MAIN CONTENT AREA ===== */
+    .quiz-stage {
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 100px 24px 60px;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+      overflow-y: visible;
+    }
+
+    /* Decorative bg elements */
+    .quiz-stage::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 20% 30%, rgba(196,154,42,.07) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 60% at 80% 70%, rgba(29,58,95,.6) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* ===== CARD BASE ===== */
+    .screen {
+      position: absolute;
+      width: 100%;
+      max-width: 680px;
+      left: 50%;
+      transform: translateX(-50%);
+      transition: opacity .35s var(--transition), transform .4s cubic-bezier(.4,0,.2,1);
+      will-change: transform, opacity;
+    }
+
+    .screen.state-hidden-right {
+      opacity: 0;
+      transform: translateX(calc(-50% + 80px));
+      pointer-events: none;
+    }
+    .screen.state-hidden-left {
+      opacity: 0;
+      transform: translateX(calc(-50% - 80px));
+      pointer-events: none;
+    }
+    .screen.state-active {
+      opacity: 1;
+      transform: translateX(-50%);
+      pointer-events: auto;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 44px 48px 48px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+    }
+
+    @media (max-width: 640px) {
+      .card { padding: 32px 24px 36px; border-radius: var(--radius); }
+      .quiz-stage { padding: 88px 12px 24px; }
+    }
+
+    /* ===== INTRO SCREEN ===== */
+    .intro-emoji {
+      font-size: 3.5rem;
+      display: block;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .intro-card h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      color: var(--navy);
+      line-height: 1.2;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .intro-card .intro-sub {
+      font-size: 1rem;
+      color: var(--gray-700);
+      line-height: 1.7;
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .intro-badges {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    .badge {
+      font-size: .75rem;
+      font-weight: 600;
+      color: var(--navy);
+      background: var(--gold-light);
+      border: 1px solid var(--gold);
+      border-radius: 99px;
+      padding: 5px 14px;
+      letter-spacing: .02em;
+    }
+
+    .btn-start {
+      display: block;
+      width: 100%;
+      background: var(--gold);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 18px 32px;
+      font-family: var(--font-sans);
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background var(--transition), transform .15s;
+      letter-spacing: .02em;
+    }
+    .btn-start:hover {
+      background: var(--gold-hover);
+      transform: translateY(-1px);
+    }
+    .btn-start:active { transform: translateY(0); }
+
+    .intro-fine {
+      text-align: center;
+      font-size: .75rem;
+      color: var(--gray-500);
+      margin-top: 14px;
+    }
+
+    /* ===== QUESTION SCREEN ===== */
+    .q-number {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    .q-emoji {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .q-text {
+      font-family: var(--font-serif);
+      font-size: clamp(1.25rem, 3.5vw, 1.75rem);
+      color: var(--navy);
+      line-height: 1.3;
+      margin-bottom: 28px;
+    }
+
+    .q-subtitle {
+      font-size: .875rem;
+      color: var(--gray-500);
+      margin-top: -20px;
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+
+    /* ===== ANSWER OPTIONS ===== */
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-btn {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      background: var(--cream);
+      border: 2px solid var(--gray-100);
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+      font-family: var(--font-sans);
+      font-size: .95rem;
+      font-weight: 500;
+      color: var(--gray-900);
+      cursor: pointer;
+      text-align: left;
+      transition: border-color var(--transition), background var(--transition), transform .15s;
+      position: relative;
+    }
+    .option-btn:hover {
+      border-color: var(--gold);
+      background: var(--gold-light);
+      transform: translateX(3px);
+    }
+    .option-btn.selected {
+      border-color: var(--gold);
+      background: var(--gold-light);
+      box-shadow: 0 0 0 3px rgba(196,154,42,.18);
+    }
+    .option-btn:active { transform: translateX(1px); }
+
+    .option-key {
+      width: 28px; height: 28px;
+      border-radius: 6px;
+      background: var(--white);
+      border: 1.5px solid var(--gray-300);
+      font-size: .72rem;
+      font-weight: 700;
+      color: var(--gray-500);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      letter-spacing: .05em;
+      transition: background var(--transition), border-color var(--transition), color var(--transition);
+    }
+    .option-btn.selected .option-key,
+    .option-btn:hover .option-key {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #fff;
+    }
+
+    .option-indicator {
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      margin-left: auto;
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .option-btn.selected .option-indicator { opacity: 1; }
+
+    /* ===== NAV BUTTONS ===== */
+    .q-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 28px;
+    }
+
+    .btn-back {
+      background: none;
+      border: none;
+      color: var(--gray-500);
+      font-family: var(--font-sans);
+      font-size: .875rem;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color var(--transition);
+    }
+    .btn-back:hover { color: var(--navy); }
+    .btn-back svg { width: 16px; height: 16px; }
+
+    .btn-next {
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 13px 28px;
+      font-family: var(--font-sans);
+      font-size: .9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background var(--transition), transform .15s, opacity var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: .01em;
+    }
+    .btn-next:hover { background: var(--navy-mid); transform: translateY(-1px); }
+    .btn-next:active { transform: translateY(0); }
+    .btn-next:disabled { opacity: .35; cursor: not-allowed; transform: none; }
+    .btn-next svg { width: 16px; height: 16px; }
+
+    .btn-next.ready {
+      background: var(--gold);
+    }
+    .btn-next.ready:hover { background: var(--gold-hover); }
+
+    /* ===== EMAIL CAPTURE ===== */
+    .email-card .email-icon {
+      font-size: 2.8rem;
+      text-align: center;
+      display: block;
+      margin-bottom: 16px;
+    }
+    .email-card h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.3rem, 3vw, 1.9rem);
+      color: var(--navy);
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .email-card .email-sub {
+      text-align: center;
+      color: var(--gray-700);
+      font-size: .95rem;
+      margin-bottom: 28px;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+    .form-group label {
+      display: block;
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 6px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .form-group input {
+      width: 100%;
+      border: 2px solid var(--gray-100);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      font-family: var(--font-sans);
+      font-size: .95rem;
+      color: var(--gray-900);
+      background: var(--cream);
+      transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+    }
+    .form-group input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(196,154,42,.15);
+    }
+    .form-group input::placeholder { color: var(--gray-300); }
+
+    .btn-email-submit {
+      display: block;
+      width: 100%;
+      background: var(--gold);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background var(--transition), transform .15s;
+      margin-top: 20px;
+      letter-spacing: .02em;
+    }
+    .btn-email-submit:hover { background: var(--gold-hover); transform: translateY(-1px); }
+
+    .btn-skip {
+      display: block;
+      width: 100%;
+      text-align: center;
+      background: none;
+      border: none;
+      color: var(--gray-500);
+      font-family: var(--font-sans);
+      font-size: .85rem;
+      cursor: pointer;
+      margin-top: 12px;
+      padding: 8px;
+      transition: color var(--transition);
+    }
+    .btn-skip:hover { color: var(--navy); }
+
+    /* ===== RESULTS SCREEN ===== */
+    .results-screen {
+      max-width: 760px;
+      position: relative;
+    }
+
+    .results-screen .card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    /* Results header */
+    .results-header {
+      background: var(--navy);
+      padding: 44px 48px 40px;
+      text-align: center;
+    }
+    @media (max-width: 640px) {
+      .results-header { padding: 32px 24px 32px; }
+    }
+
+    /* Gauge */
+    .gauge-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+    .gauge-svg {
+      width: 160px; height: 160px;
+    }
+    .gauge-track {
+      fill: none;
+      stroke: rgba(255,255,255,.12);
+      stroke-width: 14;
+    }
+    .gauge-fill {
+      fill: none;
+      stroke-width: 14;
+      stroke-linecap: round;
+      transform: rotate(-90deg);
+      transform-origin: 80px 80px;
+      transition: stroke-dashoffset 1.8s cubic-bezier(.4,0,.2,1), stroke .4s;
+    }
+    .gauge-score-text {
+      fill: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      text-anchor: middle;
+      dominant-baseline: middle;
+    }
+    .gauge-label-text {
+      fill: rgba(255,255,255,.55);
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      text-anchor: middle;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .results-grade {
+      font-family: var(--font-sans);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .results-headline {
+      font-family: var(--font-serif);
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      color: #fff;
+      line-height: 1.25;
+    }
+
+    /* Results body */
+    .results-body {
+      padding: 40px 48px 48px;
+    }
+    @media (max-width: 640px) {
+      .results-body { padding: 28px 24px 36px; }
+    }
+
+    /* Gap/strength items */
+    .results-section-title {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .gap-list, .strength-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .gap-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 16px;
+      background: var(--red-bg);
+      border: 1px solid rgba(185,28,28,.15);
+      border-radius: var(--radius-sm);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity .4s, transform .4s;
+    }
+    .gap-item.visible { opacity: 1; transform: translateY(0); }
+
+    .gap-icon {
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .gap-content h4 {
+      font-family: var(--font-sans);
+      font-size: .88rem;
+      font-weight: 700;
+      color: var(--red);
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+    .gap-content p {
+      font-size: .82rem;
+      color: var(--gray-700);
+      margin: 0;
+      line-height: 1.55;
+    }
+
+    .strength-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 14px 16px;
+      background: var(--green-bg);
+      border: 1px solid rgba(26,122,74,.15);
+      border-radius: var(--radius-sm);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity .4s, transform .4s;
+    }
+    .strength-item.visible { opacity: 1; transform: translateY(0); }
+
+    .strength-item .gap-content h4 {
+      color: var(--green);
+    }
+
+    /* Recommendation box */
+    .recommendation-box {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      margin-bottom: 28px;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity .4s, transform .4s;
+    }
+    .recommendation-box.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 640px) {
+      .recommendation-box { padding: 22px 20px; }
+    }
+
+    .rec-label {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .rec-title {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      color: #fff;
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+    .rec-desc {
+      font-size: .85rem;
+      color: rgba(255,255,255,.7);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    /* CTAs */
+    .results-ctas {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity .4s, transform .4s;
+    }
+    .results-ctas.visible { opacity: 1; transform: translateY(0); }
+
+    .btn-cta-primary {
+      display: block;
+      width: 100%;
+      background: var(--gold);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 18px 24px;
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: background var(--transition), transform .15s;
+      letter-spacing: .01em;
+    }
+    .btn-cta-primary:hover { background: var(--gold-hover); color: #fff; transform: translateY(-1px); }
+
+    .btn-cta-secondary {
+      display: block;
+      width: 100%;
+      background: transparent;
+      color: var(--navy);
+      border: 2px solid var(--navy);
+      border-radius: var(--radius-sm);
+      padding: 16px 24px;
+      font-family: var(--font-sans);
+      font-size: .95rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: background var(--transition), color var(--transition);
+      letter-spacing: .01em;
+    }
+    .btn-cta-secondary:hover { background: var(--navy); color: #fff; }
+
+    .btn-share {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      background: var(--gray-50);
+      border: 1.5px solid var(--gray-100);
+      border-radius: var(--radius-sm);
+      padding: 13px;
+      font-family: var(--font-sans);
+      font-size: .875rem;
+      font-weight: 600;
+      color: var(--gray-700);
+      cursor: pointer;
+      transition: background var(--transition), border-color var(--transition);
+    }
+    .btn-share:hover { background: var(--gold-light); border-color: var(--gold); color: var(--navy); }
+
+    .share-copied {
+      display: inline-block;
+      font-size: .75rem;
+      color: var(--green);
+      font-weight: 600;
+      margin-left: 8px;
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .share-copied.show { opacity: 1; }
+
+    /* Retake */
+    .btn-retake {
+      display: block;
+      text-align: center;
+      margin-top: 16px;
+      font-size: .82rem;
+      color: var(--gray-500);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-sans);
+      transition: color var(--transition);
+    }
+    .btn-retake:hover { color: var(--navy); }
+
+    /* ===== TOAST ===== */
+    .toast {
+      position: fixed;
+      bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--gray-900);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 99px;
+      font-size: .85rem;
+      font-weight: 500;
+      z-index: 999;
+      transition: transform .35s cubic-bezier(.4,0,.2,1), opacity .35s;
+      opacity: 0;
+      white-space: nowrap;
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* ===== KEYBOARD HINT ===== */
+    .keyboard-hint {
+      text-align: center;
+      margin-top: 16px;
+      font-size: .73rem;
+      color: rgba(255,255,255,.3);
+      font-weight: 400;
+    }
+    @media (max-width: 640px) { .keyboard-hint { display: none; } }
+
+    /* ===== UTILITY ===== */
+    .visually-hidden {
+      position: absolute; width: 1px; height: 1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="quiz-topbar" role="banner">
+  <a href="index.html" class="topbar-logo" aria-label="Cornerstone Wealth &amp; Legacy Law — Home">
+    <div class="topbar-logo-icon">C</div>
+    <div class="topbar-logo-text">
+      <strong>Cornerstone Wealth &amp; Legacy Law</strong>
+      PLLC · Florida
+    </div>
+  </a>
+
+  <div class="topbar-progress-wrap" role="progressbar" aria-valuemin="0" aria-valuemax="12" aria-valuenow="0" id="progressRegion">
+    <div class="progress-bar-track" aria-hidden="true">
+      <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+    <span class="progress-label" id="progressLabel" aria-live="polite"></span>
+  </div>
+</div>
+
+<!-- STAGE -->
+<div class="quiz-shell">
+  <main class="quiz-stage" id="quizStage">
+
+    <!-- ===== INTRO ===== -->
+    <div class="screen state-active" id="screen-intro" aria-label="Quiz introduction">
+      <div class="card intro-card">
+        <span class="intro-emoji" aria-hidden="true">📋</span>
+        <h1>Is Your Florida Estate Plan Complete?</h1>
+        <p class="intro-sub">Answer 12 questions and get your personalized estate plan score — plus a gap analysis that shows exactly what your family could be missing.</p>
+        <div class="intro-badges">
+          <span class="badge">⏱ 3 minutes</span>
+          <span class="badge">📊 12 questions</span>
+          <span class="badge">🔒 Private &amp; secure</span>
+          <span class="badge">✅ Free</span>
+        </div>
+        <button class="btn-start" id="btnStart" onclick="startQuiz()">
+          Take the Free Quiz →
+        </button>
+        <p class="intro-fine">No login required. Results are instant.</p>
+      </div>
+    </div>
+
+    <!-- ===== QUESTION SCREENS (generated by JS) ===== -->
+    <div id="questionsContainer"></div>
+
+    <!-- ===== EMAIL CAPTURE ===== -->
+    <div class="screen state-hidden-right" id="screen-email">
+      <div class="card email-card">
+        <span class="email-icon" aria-hidden="true">📬</span>
+        <h2>Get Your Estate Plan Report</h2>
+        <p class="email-sub">We'll send your personalized score, gap analysis, and next steps — free of charge.</p>
+        <div class="form-group">
+          <label for="fieldName">Your Name</label>
+          <input type="text" id="fieldName" name="name" placeholder="First &amp; Last Name" autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label for="fieldEmail">Email Address</label>
+          <input type="email" id="fieldEmail" name="email" placeholder="you@example.com" autocomplete="email">
+        </div>
+        <button class="btn-email-submit" onclick="submitEmail()">Get My Results →</button>
+        <button class="btn-skip" onclick="skipEmail()">Skip — just show my results</button>
+      </div>
+    </div>
+
+    <!-- ===== RESULTS ===== -->
+    <div class="screen state-hidden-right results-screen" id="screen-results">
+      <div class="card">
+        <!-- Results header -->
+        <div class="results-header">
+          <div class="gauge-wrap" aria-hidden="true">
+            <svg class="gauge-svg" viewBox="0 0 160 160" id="gaugeSvg">
+              <circle class="gauge-track" cx="80" cy="80" r="66"/>
+              <circle class="gauge-fill" cx="80" cy="80" r="66" id="gaugeFill"
+                stroke="#c49a2a"
+                stroke-dasharray="414.7"
+                stroke-dashoffset="414.7"/>
+              <text class="gauge-score-text" x="80" y="76" id="gaugeScoreText">0</text>
+              <text class="gauge-label-text" x="80" y="100">/ 100</text>
+            </svg>
+          </div>
+          <p class="results-grade" id="resultsGrade"></p>
+          <h2 class="results-headline" id="resultsHeadline"></h2>
+        </div>
+
+        <!-- Results body -->
+        <div class="results-body">
+
+          <!-- Gaps -->
+          <div id="gapsSection">
+            <p class="results-section-title" id="gapsTitle"></p>
+            <div class="gap-list" id="gapsList"></div>
+          </div>
+
+          <!-- Strengths -->
+          <div id="strengthsSection">
+            <p class="results-section-title" id="strengthsTitle"></p>
+            <div class="strength-list" id="strengthsList"></div>
+          </div>
+
+          <!-- Recommendation -->
+          <div class="recommendation-box" id="recommendationBox">
+            <p class="rec-label">Cornerstone Recommendation</p>
+            <p class="rec-title" id="recTitle"></p>
+            <p class="rec-desc" id="recDesc"></p>
+          </div>
+
+          <!-- CTAs -->
+          <div class="results-ctas" id="resultsCtas">
+            <a href="#" class="btn-cta-primary" id="btnPrimary">Start My Estate Plan →</a>
+            <a href="contact.html" class="btn-cta-secondary">Schedule a Free Consultation</a>
+            <button class="btn-share" id="btnShare" onclick="shareScore()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+              Share Your Estate Plan Score
+              <span class="share-copied" id="shareCopied">Copied!</span>
+            </button>
+          </div>
+
+          <button class="btn-retake" onclick="retakeQuiz()">← Retake the quiz</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Toast notification -->
+<div class="toast" id="toast" role="alert" aria-live="assertive"></div>
+
+<!-- Keyboard hint -->
+<p class="keyboard-hint" id="keyboardHint" aria-hidden="true">Press <kbd>1–4</kbd> to select · <kbd>Enter</kbd> to continue · <kbd>←</kbd> to go back</p>
+
+
+<script>
+/* ==========================================================
+   QUIZ DATA
+   Each answer: { text, score (0–10), type: 'good'|'gap'|'neutral' }
+   ========================================================== */
+const questions = [
+  {
+    id: 'will',
+    emoji: '📜',
+    text: 'Do you have a current Will or Trust?',
+    options: [
+      { text: '✅  Yes — updated in the last 3 years',            score: 10, type: 'good' },
+      { text: '⚠️  Yes — but it\'s more than 3 years old',         score: 4,  type: 'gap'  },
+      { text: '❌  No — I don\'t have one',                        score: 0,  type: 'gap'  },
+    ]
+  },
+  {
+    id: 'realestate',
+    emoji: '🏠',
+    text: 'Do you own real estate in Florida?',
+    options: [
+      { text: 'Yes — titled in my name only',                     score: 4,  type: 'gap'  },
+      { text: 'Yes — held in a trust or LLC',                     score: 10, type: 'good' },
+      { text: 'Yes — including out-of-state property',            score: 3,  type: 'gap'  },
+      { text: 'No — I don\'t own real estate',                    score: 10, type: 'neutral' },
+    ]
+  },
+  {
+    id: 'minorchildren',
+    emoji: '👶',
+    text: 'Do you have minor children?',
+    options: [
+      { text: 'Yes',                                              score: 5,  type: 'neutral' },
+      { text: 'No',                                               score: 10, type: 'neutral' },
+      { text: 'Not yet — but planning to',                        score: 5,  type: 'neutral' },
+    ]
+  },
+  {
+    id: 'guardian',
+    emoji: '🛡️',
+    text: 'Have you named a legal guardian for your children in writing?',
+    subtitle: 'Skip if you have no minor children.',
+    options: [
+      { text: 'Yes — named in my Will',                           score: 10, type: 'good' },
+      { text: 'No — it\'s not documented',                       score: 0,  type: 'gap'  },
+      { text: 'N/A — I have no minor children',                  score: 10, type: 'neutral' },
+    ]
+  },
+  {
+    id: 'poa',
+    emoji: '⚖️',
+    text: 'Do you have a Durable Power of Attorney?',
+    options: [
+      { text: 'Yes — it\'s current',                             score: 10, type: 'good' },
+      { text: 'Yes — but it\'s older than 5 years',              score: 4,  type: 'gap'  },
+      { text: 'No',                                               score: 0,  type: 'gap'  },
+    ]
+  },
+  {
+    id: 'healthcare',
+    emoji: '🏥',
+    text: 'Do you have a Healthcare Surrogate designation?',
+    options: [
+      { text: 'Yes — I have a Healthcare Surrogate',             score: 10, type: 'good' },
+      { text: 'No — I haven\'t set one up',                     score: 0,  type: 'gap'  },
+    ]
+  },
+  {
+    id: 'beneficiaries',
+    emoji: '📑',
+    text: 'Have you reviewed your beneficiary designations on IRAs, 401(k)s, and life insurance in the last 2 years?',
+    options: [
+      { text: 'Yes — all accounts are current',                  score: 10, type: 'good' },
+      { text: 'Some — but not all accounts',                     score: 5,  type: 'gap'  },
+      { text: 'No — I haven\'t reviewed them',                   score: 0,  type: 'gap'  },
+      { text: 'N/A — I don\'t have these accounts',             score: 10, type: 'neutral' },
+    ]
+  },
+  {
+    id: 'livingwill',
+    emoji: '📋',
+    text: 'Do you have a Living Will / Advance Directive?',
+    options: [
+      { text: 'Yes — I have a Living Will',                      score: 10, type: 'good' },
+      { text: 'No — I haven\'t created one',                    score: 0,  type: 'gap'  },
+    ]
+  },
+  {
+    id: 'estatesize',
+    emoji: '💰',
+    text: 'What is the approximate size of your estate?',
+    subtitle: 'Include home equity, investments, retirement accounts, and life insurance.',
+    options: [
+      { text: '$500K – $2M',                                     score: 7,  type: 'neutral' },
+      { text: '$2M – $10M',                                      score: 6,  type: 'neutral' },
+      { text: 'Over $10M',                                       score: 5,  type: 'neutral' },
+      { text: 'Under $500K',                                     score: 8,  type: 'neutral' },
+    ]
+  },
+  {
+    id: 'business',
+    emoji: '💼',
+    text: 'Do you own a business, LLC, or partnership?',
+    options: [
+      { text: 'Yes — and I have a succession plan',              score: 10, type: 'good' },
+      { text: 'Yes — but no succession plan in place',           score: 0,  type: 'gap'  },
+      { text: 'No — I don\'t own a business',                   score: 10, type: 'neutral' },
+    ]
+  },
+  {
+    id: 'newresident',
+    emoji: '🌴',
+    text: 'Have you moved to Florida in the last 3 years?',
+    options: [
+      { text: 'Yes — I\'m a recent Florida resident',           score: 3,  type: 'gap'  },
+      { text: 'No — lifelong Florida resident (or 3+ years)',   score: 10, type: 'neutral' },
+    ]
+  },
+  {
+    id: 'digital',
+    emoji: '💻',
+    text: 'Do you have digital assets? (crypto, online accounts, digital files)',
+    options: [
+      { text: 'Yes — and they\'re addressed in my estate plan', score: 10, type: 'good' },
+      { text: 'Yes — but they\'re NOT covered in my plan',     score: 0,  type: 'gap'  },
+      { text: 'No — I don\'t have significant digital assets',  score: 10, type: 'neutral' },
+    ]
+  },
+];
+
+/* ==========================================================
+   GAP DEFINITIONS — keyed to question ID + answer index
+   ========================================================== */
+const gapMessages = {
+  will_1: {
+    title: 'Your Will or Trust needs updating',
+    desc: 'A document over 3 years old may not reflect major life changes — marriages, divorces, births, deaths, or new assets. Florida law also evolves. An outdated plan can create unintended consequences.',
+    strength: false
+  },
+  will_2: {
+    title: 'You have no Will or Trust',
+    desc: 'Without these documents, Florida\'s intestacy laws decide who inherits your estate — not you. Your assets could go to unintended heirs, and the process through probate could take years.',
+    strength: false
+  },
+  will_0: {
+    title: 'Current Will or Trust in place',
+    desc: 'You have a foundational document that reflects your current wishes.',
+    strength: true
+  },
+  realestate_0: {
+    title: 'Florida real estate in your name alone',
+    desc: 'Property titled only in your name goes through Florida probate — a public, time-consuming, and often expensive court process. A trust or Lady Bird deed can avoid this entirely.',
+    strength: false
+  },
+  realestate_2: {
+    title: 'Out-of-state property may trigger ancillary probate',
+    desc: 'Real estate in multiple states can require separate probate proceedings in each state. Proper titling or a trust can eliminate this multi-state problem.',
+    strength: false
+  },
+  realestate_1: {
+    title: 'Real estate properly held in trust or LLC',
+    desc: 'Your property is structured to avoid probate and transfer efficiently to your heirs.',
+    strength: true
+  },
+  guardian_1: {
+    title: 'No legal guardian named for your children',
+    desc: 'Without a written designation, a Florida court will appoint a guardian for your minor children — someone you may not have chosen. This is one of the most important documents any parent can have.',
+    strength: false
+  },
+  guardian_0: {
+    title: 'Legal guardian designated for your children',
+    desc: 'You\'ve made one of the most important decisions a parent can document.',
+    strength: true
+  },
+  poa_1: {
+    title: 'Power of Attorney is outdated (5+ years)',
+    desc: 'Florida banks and financial institutions can refuse to honor an old POA. An updated document ensures someone you trust can act immediately if you\'re incapacitated — without a costly court process.',
+    strength: false
+  },
+  poa_2: {
+    title: 'No Durable Power of Attorney',
+    desc: 'If you become incapacitated without a POA, a court must appoint a guardian to manage your finances. This takes months, costs thousands, and removes your family\'s control.',
+    strength: false
+  },
+  poa_0: {
+    title: 'Current Durable Power of Attorney',
+    desc: 'Your finances are protected if you\'re ever unable to manage them yourself.',
+    strength: true
+  },
+  healthcare_1: {
+    title: 'No Healthcare Surrogate designation',
+    desc: 'Without this document, doctors may be unable to consult your family on critical medical decisions. In Florida, the right to make healthcare decisions defaults to a statutory priority list — not necessarily your chosen person.',
+    strength: false
+  },
+  healthcare_0: {
+    title: 'Healthcare Surrogate in place',
+    desc: 'Someone you trust can make medical decisions on your behalf if needed.',
+    strength: true
+  },
+  beneficiaries_1: {
+    title: 'Some beneficiary designations incomplete',
+    desc: 'Beneficiary designations override your Will. An outdated or missing designation on even one IRA or life insurance policy can send assets to the wrong person — or into probate.',
+    strength: false
+  },
+  beneficiaries_2: {
+    title: 'Beneficiary designations not reviewed',
+    desc: 'These designations supersede everything in your Will. Stale designations — a deceased ex-spouse, an estranged relative — are among the most common and costly estate planning mistakes.',
+    strength: false
+  },
+  beneficiaries_0: {
+    title: 'Beneficiary designations current',
+    desc: 'Your retirement accounts and life insurance are aligned with your overall estate plan.',
+    strength: true
+  },
+  livingwill_1: {
+    title: 'No Living Will / Advance Directive',
+    desc: 'A Living Will tells doctors what life-sustaining treatment you want (or don\'t want) if you can\'t speak for yourself. Without it, your family may face an agonizing decision — or a legal battle.',
+    strength: false
+  },
+  livingwill_0: {
+    title: 'Living Will / Advance Directive in place',
+    desc: 'Your end-of-life wishes are documented and will be honored.',
+    strength: true
+  },
+  business_1: {
+    title: 'Business with no succession plan',
+    desc: 'Without a buy-sell agreement or succession plan, your death or incapacity could force a fire sale, dissolve the business, or create co-ownership with people you never intended as partners.',
+    strength: false
+  },
+  business_0: {
+    title: 'Business succession plan in place',
+    desc: 'Your business interests are protected and have a clear path forward.',
+    strength: true
+  },
+  newresident_0: {
+    title: 'Recent Florida move — prior estate plan may be invalid',
+    desc: 'Documents drafted in another state may not meet Florida\'s execution requirements. More importantly, Florida offers unique planning tools — homestead exemption, Lady Bird deeds, asset protection — that your old plan may not capture.',
+    strength: false
+  },
+  digital_1: {
+    title: 'Digital assets not covered in your estate plan',
+    desc: 'Crypto wallets, online accounts, and digital files can be permanently lost if your executor doesn\'t know about them or have access. Florida\'s Revised Uniform Fiduciary Access to Digital Assets Act requires specific authorization in your estate documents.',
+    strength: false
+  },
+  digital_0: {
+    title: 'Digital assets covered in estate plan',
+    desc: 'Your digital legacy is protected and accessible to your executor.',
+    strength: true
+  },
+};
+
+/* ==========================================================
+   RECOMMENDATIONS
+   ========================================================== */
+const recommendations = {
+  critical: {
+    title: 'Foundation Estate Planning Package',
+    desc: 'You need core documents in place — a Will or Revocable Living Trust, Durable Power of Attorney, Healthcare Surrogate designation, and Living Will. Cornerstone\'s Foundation Package covers all four documents, delivered remotely or in person.',
+    cta: 'Start My Foundation Package →',
+    link: 'start.html#package=foundation'
+  },
+  at_risk: {
+    title: 'Complete Estate Planning Package',
+    desc: 'You have some pieces, but critical gaps remain. Cornerstone\'s Complete Package addresses your missing documents and coordinates them into a cohesive plan — including beneficiary alignment and real property review.',
+    cta: 'Start My Complete Package →',
+    link: 'start.html#package=complete'
+  },
+  fair: {
+    title: 'Estate Plan Review & Update',
+    desc: 'Your plan has a solid foundation but needs targeted updates. An Estate Plan Review session with Cornerstone will identify stale documents, outdated designations, and Florida-specific improvements.',
+    cta: 'Schedule My Plan Review →',
+    link: 'start.html#package=review'
+  },
+  good: {
+    title: 'Estate Plan Optimization',
+    desc: 'You\'re doing well — now optimize. Whether it\'s business succession planning, advanced trust structures, or digital asset protection, Cornerstone can help you close the remaining gaps and future-proof your plan.',
+    cta: 'Optimize My Estate Plan →',
+    link: 'start.html#package=optimize'
+  },
+  excellent: {
+    title: 'Annual Estate Plan Maintenance',
+    desc: 'Your estate plan is comprehensive and current. Enroll in Cornerstone\'s Annual Maintenance Program to keep it that way — one annual review call, automatic reminders when documents approach their refresh window, and priority scheduling.',
+    cta: 'Enroll in Maintenance Program →',
+    link: 'start.html#package=maintenance'
+  },
+};
+
+/* ==========================================================
+   GRADES
+   ========================================================== */
+const grades = [
+  { min: 85, max: 100, key: 'excellent', label: 'Excellent', headline: 'Your Florida Estate Plan Is Solid', color: '#1a7a4a' },
+  { min: 65, max: 84,  key: 'good',      label: 'Good',      headline: 'A Few Gaps to Close',               color: '#2a7a2a' },
+  { min: 45, max: 64,  key: 'fair',      label: 'Fair',      headline: 'Important Issues Need Attention',   color: '#c45c00' },
+  { min: 25, max: 44,  key: 'at_risk',   label: 'At Risk',   headline: 'Your Family Needs This Done Now',  color: '#b45309' },
+  { min: 0,  max: 24,  key: 'critical',  label: 'Critical',  headline: 'You Have No Estate Plan Protection', color: '#b91c1c' },
+];
+
+/* ==========================================================
+   STATE
+   ========================================================== */
+let currentScreen = 'intro';    // 'intro' | 'q0'..'q11' | 'email' | 'results'
+let currentQ = -1;              // -1 = intro, 0–11 = questions, 12 = email
+let answers = {};               // { questionId: answerIndex }
+let capturedEmail = null;
+
+/* ==========================================================
+   BUILD QUESTION CARDS
+   ========================================================== */
+function buildQuestions() {
+  const container = document.getElementById('questionsContainer');
+  questions.forEach((q, qi) => {
+    const screen = document.createElement('div');
+    screen.className = 'screen state-hidden-right';
+    screen.id = `screen-q${qi}`;
+    screen.setAttribute('role', 'region');
+    screen.setAttribute('aria-label', `Question ${qi+1} of ${questions.length}`);
+
+    const optionsHtml = q.options.map((opt, oi) => {
+      const keys = ['A','B','C','D'];
+      return `
+        <button
+          class="option-btn"
+          id="opt-${qi}-${oi}"
+          data-q="${qi}"
+          data-o="${oi}"
+          onclick="selectOption(${qi}, ${oi})"
+          aria-pressed="false"
+        >
+          <span class="option-key" aria-hidden="true">${keys[oi]}</span>
+          <span class="option-text">${opt.text}</span>
+          <span class="option-indicator" aria-hidden="true">✓</span>
+        </button>`;
+    }).join('');
+
+    const subtitleHtml = q.subtitle
+      ? `<p class="q-subtitle">${q.subtitle}</p>`
+      : '';
+
+    screen.innerHTML = `
+      <div class="card">
+        <p class="q-number">Question ${qi+1} of ${questions.length}</p>
+        <span class="q-emoji" aria-hidden="true">${q.emoji}</span>
+        <h2 class="q-text">${q.text}</h2>
+        ${subtitleHtml}
+        <div class="options-list" role="group" aria-label="Answer options">
+          ${optionsHtml}
+        </div>
+        <div class="q-nav">
+          <button class="btn-back" onclick="goBack()" ${qi === 0 ? '' : ''}>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            Back
+          </button>
+          <button class="btn-next" id="btn-next-${qi}" onclick="nextQuestion(${qi})" disabled>
+            ${qi < questions.length - 1 ? 'Next' : 'Get My Results'}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>`;
+
+    container.appendChild(screen);
+  });
+}
+
+/* ==========================================================
+   NAVIGATION
+   ========================================================== */
+function transitionTo(fromId, toId, direction = 'forward') {
+  const from = document.getElementById(fromId);
+  const to   = document.getElementById(toId);
+  if (!from || !to) return;
+
+  // Exit current
+  from.classList.remove('state-active');
+  from.classList.add(direction === 'forward' ? 'state-hidden-left' : 'state-hidden-right');
+
+  // Enter next
+  to.classList.remove('state-hidden-right', 'state-hidden-left');
+
+  // Slight delay so CSS animation fires
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      to.classList.add('state-active');
+      // Scroll to top smoothly
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+}
+
+function startQuiz() {
+  currentQ = 0;
+  currentScreen = 'q0';
+  transitionTo('screen-intro', 'screen-q0');
+  updateProgress();
+  showKeyboardHint(true);
+}
+
+function selectOption(qi, oi) {
+  const q = questions[qi];
+  answers[q.id] = oi;
+
+  // Update UI
+  const allOpts = document.querySelectorAll(`[data-q="${qi}"]`);
+  allOpts.forEach(btn => {
+    btn.classList.remove('selected');
+    btn.setAttribute('aria-pressed', 'false');
+  });
+  const chosen = document.getElementById(`opt-${qi}-${oi}`);
+  chosen.classList.add('selected');
+  chosen.setAttribute('aria-pressed', 'true');
+
+  // Enable next
+  const nextBtn = document.getElementById(`btn-next-${qi}`);
+  nextBtn.disabled = false;
+  nextBtn.classList.add('ready');
+}
+
+function nextQuestion(qi) {
+  const q = questions[qi];
+  if (answers[q.id] === undefined) return;
+
+  if (qi < questions.length - 1) {
+    currentQ = qi + 1;
+    transitionTo(`screen-q${qi}`, `screen-q${qi+1}`);
+    updateProgress();
+  } else {
+    // Last question → email capture
+    transitionTo(`screen-q${qi}`, 'screen-email');
+    currentScreen = 'email';
+    hideProgressBar();
+  }
+}
+
+function goBack() {
+  if (currentScreen === 'email') {
+    transitionTo('screen-email', `screen-q${questions.length - 1}`, 'back');
+    currentScreen = `q${questions.length - 1}`;
+    currentQ = questions.length - 1;
+    showProgressBar();
+    updateProgress();
+    return;
+  }
+
+  const qi = parseInt(currentScreen.replace('q',''));
+  if (isNaN(qi)) return;
+
+  if (qi === 0) {
+    transitionTo('screen-q0', 'screen-intro', 'back');
+    currentScreen = 'intro';
+    currentQ = -1;
+    hideProgressBar();
+    showKeyboardHint(false);
+  } else {
+    currentQ = qi - 1;
+    currentScreen = `q${currentQ}`;
+    transitionTo(`screen-q${qi}`, `screen-q${currentQ}`, 'back');
+    updateProgress();
+  }
+}
+
+function updateProgress() {
+  const total = questions.length;
+  const done  = currentQ;
+  const pct   = Math.round((done / total) * 100);
+
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = `${done} / ${total}`;
+  document.getElementById('progressRegion').setAttribute('aria-valuenow', done);
+}
+
+function hideProgressBar() {
+  document.getElementById('progressFill').style.width = '100%';
+  document.getElementById('progressLabel').textContent = '';
+}
+
+function showProgressBar() {
+  updateProgress();
+}
+
+/* ==========================================================
+   EMAIL CAPTURE
+   ========================================================== */
+function submitEmail() {
+  const name  = document.getElementById('fieldName').value.trim();
+  const email = document.getElementById('fieldEmail').value.trim();
+
+  if (!email || !email.includes('@')) {
+    showToast('Please enter a valid email address.');
+    return;
+  }
+
+  capturedEmail = { name, email };
+
+  // In production: POST to your CRM/Zapier/Mailchimp endpoint
+  // fetch('/api/leads', { method: 'POST', body: JSON.stringify(capturedEmail) });
+
+  showResults();
+}
+
+function skipEmail() {
+  showResults();
+}
+
+/* ==========================================================
+   SCORING & RESULTS
+   ========================================================== */
+function calcScore() {
+  let total = 0;
+  let maxPossible = 0;
+
+  questions.forEach(q => {
+    const maxOpt = Math.max(...q.options.map(o => o.score));
+    maxPossible += maxOpt;
+
+    const ai = answers[q.id];
+    if (ai !== undefined) {
+      total += q.options[ai].score;
+    }
+  });
+
+  // Normalize to 100
+  const score = Math.round((total / maxPossible) * 100);
+  return Math.min(100, Math.max(0, score));
+}
+
+function getGrade(score) {
+  return grades.find(g => score >= g.min && score <= g.max) || grades[grades.length - 1];
+}
+
+function buildGapsAndStrengths() {
+  const gaps = [];
+  const strengths = [];
+
+  questions.forEach(q => {
+    const ai = answers[q.id];
+    if (ai === undefined) return;
+
+    const opt = q.options[ai];
+    const key = `${q.id}_${ai}`;
+
+    if (gapMessages[key]) {
+      const msg = gapMessages[key];
+      if (msg.strength) {
+        strengths.push(msg);
+      } else {
+        gaps.push(msg);
+      }
+    } else if (opt.type === 'gap') {
+      // fallback
+      gaps.push({ title: `Review: ${q.text}`, desc: 'This area of your plan may need attention.' });
+    } else if (opt.type === 'good') {
+      strengths.push({ title: `Strong: ${q.text}`, desc: 'This area is well-handled.' });
+    }
+  });
+
+  return { gaps, strengths };
+}
+
+function showResults() {
+  transitionTo('screen-email', 'screen-results');
+  currentScreen = 'results';
+
+  const score = calcScore();
+  const grade = getGrade(score);
+  const { gaps, strengths } = buildGapsAndStrengths();
+  const rec = recommendations[grade.key];
+
+  // Set grade text
+  document.getElementById('resultsGrade').textContent = grade.label;
+  document.getElementById('resultsHeadline').textContent = grade.headline;
+
+  // Animate gauge
+  setTimeout(() => animateGauge(score, grade.color), 300);
+
+  // Render gaps
+  const gapsList = document.getElementById('gapsList');
+  gapsList.innerHTML = '';
+  const gapsSection = document.getElementById('gapsSection');
+
+  if (gaps.length > 0) {
+    document.getElementById('gapsTitle').textContent = `⚠ ${gaps.length} Gap${gaps.length > 1 ? 's' : ''} Found in Your Plan`;
+    gaps.forEach((g, i) => {
+      const el = document.createElement('div');
+      el.className = 'gap-item';
+      el.innerHTML = `
+        <span class="gap-icon" aria-hidden="true">⚠️</span>
+        <div class="gap-content">
+          <h4>${g.title}</h4>
+          <p>${g.desc}</p>
+        </div>`;
+      gapsList.appendChild(el);
+      setTimeout(() => el.classList.add('visible'), 600 + i * 100);
+    });
+  } else {
+    gapsSection.style.display = 'none';
+  }
+
+  // Render strengths
+  const strengthsList = document.getElementById('strengthsList');
+  strengthsList.innerHTML = '';
+  const strengthsSection = document.getElementById('strengthsSection');
+
+  if (strengths.length > 0) {
+    document.getElementById('strengthsTitle').textContent = `✓ ${strengths.length} Strength${strengths.length > 1 ? 's' : ''} in Your Plan`;
+    strengths.forEach((s, i) => {
+      const el = document.createElement('div');
+      el.className = 'strength-item';
+      el.innerHTML = `
+        <span class="gap-icon" aria-hidden="true">✅</span>
+        <div class="gap-content">
+          <h4>${s.title}</h4>
+          <p>${s.desc}</p>
+        </div>`;
+      strengthsList.appendChild(el);
+      const delay = 600 + (gaps.length * 100) + i * 100;
+      setTimeout(() => el.classList.add('visible'), delay);
+    });
+  } else {
+    strengthsSection.style.display = 'none';
+  }
+
+  // Recommendation
+  const recDelay = 600 + (gaps.length + strengths.length) * 100 + 150;
+  document.getElementById('recTitle').textContent = rec.title;
+  document.getElementById('recDesc').textContent = rec.desc;
+  setTimeout(() => {
+    document.getElementById('recommendationBox').classList.add('visible');
+  }, recDelay);
+
+  // CTAs
+  const ctaDelay = recDelay + 150;
+  const encodedAnswers = encodeURIComponent(JSON.stringify(answers));
+  document.getElementById('btnPrimary').textContent = rec.cta;
+  document.getElementById('btnPrimary').href = `${rec.link}&answers=${encodedAnswers}`;
+  setTimeout(() => {
+    document.getElementById('resultsCtas').classList.add('visible');
+  }, ctaDelay);
+}
+
+/* ==========================================================
+   GAUGE ANIMATION
+   ========================================================== */
+function animateGauge(targetScore, color) {
+  const fill = document.getElementById('gaugeFill');
+  const scoreText = document.getElementById('gaugeScoreText');
+  const circumference = 2 * Math.PI * 66; // 414.7
+
+  fill.style.stroke = color;
+  fill.style.strokeDasharray = circumference;
+  fill.style.strokeDashoffset = circumference; // start empty
+
+  const targetOffset = circumference * (1 - targetScore / 100);
+  const duration = 1800;
+  const start = performance.now();
+  let startOffset = circumference;
+  let startNum = 0;
+
+  function step(now) {
+    const elapsed = now - start;
+    const t = Math.min(elapsed / duration, 1);
+    const ease = t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2; // ease in-out cubic
+
+    const currentOffset = startOffset + (targetOffset - startOffset) * ease;
+    const currentNum = Math.round(startNum + (targetScore - startNum) * ease);
+
+    fill.style.strokeDashoffset = currentOffset;
+    scoreText.textContent = currentNum;
+
+    if (t < 1) {
+      requestAnimationFrame(step);
+    } else {
+      fill.style.strokeDashoffset = targetOffset;
+      scoreText.textContent = targetScore;
+    }
+  }
+
+  requestAnimationFrame(step);
+}
+
+/* ==========================================================
+   SHARE
+   ========================================================== */
+function shareScore() {
+  const score = calcScore();
+  const grade = getGrade(score);
+  const url = window.location.href.split('?')[0] + `?ref=share&score=${score}`;
+  const text = `I scored ${score}/100 on the Florida Estate Plan Quiz. Grade: "${grade.label}" — ${grade.headline}. Take the free quiz:`;
+
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(`${text} ${url}`).then(() => {
+      const el = document.getElementById('shareCopied');
+      el.classList.add('show');
+      setTimeout(() => el.classList.remove('show'), 2500);
+      showToast('Link copied to clipboard! Share your score.');
+    });
+  } else {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = `${text} ${url}`;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('Link copied to clipboard!');
+  }
+}
+
+/* ==========================================================
+   RETAKE
+   ========================================================== */
+function retakeQuiz() {
+  answers = {};
+  capturedEmail = null;
+  currentQ = -1;
+  currentScreen = 'intro';
+
+  // Reset all selections
+  document.querySelectorAll('.option-btn').forEach(btn => {
+    btn.classList.remove('selected');
+    btn.setAttribute('aria-pressed', 'false');
+  });
+  document.querySelectorAll('.btn-next').forEach(btn => {
+    btn.disabled = true;
+    btn.classList.remove('ready');
+  });
+
+  // Reset results
+  document.getElementById('gapsSection').style.display = '';
+  document.getElementById('strengthsSection').style.display = '';
+  document.querySelectorAll('.gap-item, .strength-item').forEach(el => el.classList.remove('visible'));
+  document.getElementById('recommendationBox').classList.remove('visible');
+  document.getElementById('resultsCtas').classList.remove('visible');
+
+  // Reset gauge
+  const fill = document.getElementById('gaugeFill');
+  fill.style.strokeDashoffset = '414.7';
+  document.getElementById('gaugeScoreText').textContent = '0';
+
+  // Hide results, show intro
+  transitionTo('screen-results', 'screen-intro', 'back');
+  document.getElementById('progressFill').style.width = '0%';
+  document.getElementById('progressLabel').textContent = '';
+  showKeyboardHint(false);
+}
+
+/* ==========================================================
+   KEYBOARD NAVIGATION
+   ========================================================== */
+document.addEventListener('keydown', function(e) {
+  if (currentScreen === 'intro' || currentScreen === 'email' || currentScreen === 'results') return;
+
+  const qi = parseInt(currentScreen.replace('q', ''));
+  if (isNaN(qi)) return;
+
+  const q = questions[qi];
+
+  // Number keys 1–4 select options
+  const optIndex = ['1','2','3','4'].indexOf(e.key);
+  if (optIndex >= 0 && optIndex < q.options.length) {
+    selectOption(qi, optIndex);
+    return;
+  }
+
+  // Letter keys A–D
+  const letterIndex = ['a','b','c','d'].indexOf(e.key.toLowerCase());
+  if (letterIndex >= 0 && letterIndex < q.options.length) {
+    selectOption(qi, letterIndex);
+    return;
+  }
+
+  // Enter / ArrowRight → next
+  if ((e.key === 'Enter' || e.key === 'ArrowRight') && answers[q.id] !== undefined) {
+    e.preventDefault();
+    nextQuestion(qi);
+    return;
+  }
+
+  // ArrowLeft / Backspace → back
+  if (e.key === 'ArrowLeft' || e.key === 'Backspace' && currentScreen !== 'intro') {
+    e.preventDefault();
+    goBack();
+    return;
+  }
+});
+
+/* ==========================================================
+   TOAST
+   ========================================================== */
+function showToast(msg, duration = 3000) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), duration);
+}
+
+/* ==========================================================
+   KEYBOARD HINT
+   ========================================================== */
+function showKeyboardHint(show) {
+  const el = document.getElementById('keyboardHint');
+  if (el) el.style.opacity = show ? '1' : '0';
+}
+
+/* ==========================================================
+   INIT
+   ========================================================== */
+buildQuestions();
+document.getElementById('progressLabel').textContent = '';
+</script>
+</body>
+</html>

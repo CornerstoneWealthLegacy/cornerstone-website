@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moving to Florida Estate Planning | Cornerstone Wealth & Legacy Law</title>
+  <meta name="description" content="Recently moved to Florida? Your out-of-state will, trust, and power of attorney may not work. Cornerstone Wealth & Legacy Law updates estate plans for Florida newcomers.">
+  <meta name="keywords" content="Florida estate planning, moving to Florida estate plan, Florida trust restatement, snowbird estate plan, Florida homestead law, domicile change Florida">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="images/logo-icon.png">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* ── Page-specific overrides ── */
+    :root {
+      --navy: #0f2744;
+      --navy-dark: #081a30;
+      --gold: #c49a2a;
+      --gold-hover: #a8821f;
+    }
+
+    /* Hero */
+    .sb-hero {
+      background: linear-gradient(150deg, #081a30 0%, #0f2744 55%, #1a3a6e 100%);
+      color: #fff;
+      padding: 90px 24px 80px;
+    }
+    .sb-hero .container { max-width: 860px; }
+    .sb-hero h1 { color: #fff; font-size: clamp(2rem, 4.5vw, 3.2rem); margin-bottom: 22px; }
+    .sb-hero h1 em { color: #c49a2a; font-style: normal; }
+    .sb-hero .subhead {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,.78);
+      max-width: 660px;
+      line-height: 1.8;
+      margin-bottom: 36px;
+    }
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 36px; }
+    .trust-badges { display: flex; gap: 12px; flex-wrap: wrap; }
+    .trust-badge {
+      background: rgba(196,154,42,.15);
+      border: 1px solid rgba(196,154,42,.4);
+      color: #c49a2a;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 7px 14px;
+      border-radius: 30px;
+    }
+
+    /* Problem section */
+    .problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 24px; }
+    .problem-card {
+      background: #fff;
+      border: 1px solid #e8e4de;
+      border-top: 4px solid #c49a2a;
+      border-radius: 6px;
+      padding: 32px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.07);
+      transition: box-shadow .18s ease, transform .18s ease;
+    }
+    .problem-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,.13); transform: translateY(-3px); }
+    .problem-card .emoji { font-size: 2rem; margin-bottom: 14px; display: block; }
+    .problem-card h3 { color: #0f2744; margin-bottom: 12px; font-size: 1.15rem; }
+    .problem-card ul { list-style: none; padding: 0; }
+    .problem-card ul li {
+      padding: 7px 0 7px 22px;
+      position: relative;
+      font-size: .88rem;
+      color: #4a4844;
+      border-bottom: 1px solid #f0ede8;
+      line-height: 1.6;
+    }
+    .problem-card ul li:last-child { border-bottom: none; }
+    .problem-card ul li::before { content: '→'; position: absolute; left: 0; color: #c49a2a; font-weight: 700; }
+
+    /* Calculator */
+    .calc-section {
+      background: #0f2744;
+      padding: 80px 24px;
+      color: #fff;
+    }
+    .calc-section h2 { color: #fff; margin-bottom: 8px; }
+    .calc-intro { color: rgba(255,255,255,.7); margin-bottom: 36px; font-size: 1.05rem; }
+    .calc-control {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .calc-control label { font-weight: 600; font-size: .95rem; color: rgba(255,255,255,.85); white-space: nowrap; }
+    .state-select {
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.3);
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 6px;
+      font-size: .95rem;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      min-width: 200px;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c49a2a' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 38px;
+    }
+    .state-select option { background: #0f2744; color: #fff; }
+    .calc-results {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity .4s ease, transform .4s ease;
+    }
+    .calc-results.visible { opacity: 1; transform: translateY(0); }
+    .savings-card {
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(196,154,42,.3);
+      border-radius: 8px;
+      padding: 24px 20px;
+      text-align: center;
+    }
+    .savings-card .savings-label { font-size: .75rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.55); margin-bottom: 10px; display: block; }
+    .savings-card .savings-amount { font-family: 'Playfair Display', serif; font-size: 2.1rem; color: #c49a2a; font-weight: 700; line-height: 1; margin-bottom: 6px; display: block; }
+    .savings-card .savings-note { font-size: .75rem; color: rgba(255,255,255,.45); }
+    .savings-total-card {
+      background: rgba(196,154,42,.15);
+      border: 2px solid rgba(196,154,42,.5);
+      border-radius: 8px;
+      padding: 24px 20px;
+      text-align: center;
+    }
+    .savings-total-card .savings-label { font-size: .75rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #c49a2a; margin-bottom: 10px; display: block; }
+    .savings-total-card .savings-amount { font-family: 'Playfair Display', serif; font-size: 2.6rem; color: #e8c04a; font-weight: 700; line-height: 1; margin-bottom: 6px; display: block; }
+    .savings-total-card .savings-note { font-size: .8rem; color: rgba(255,255,255,.55); }
+    .calc-disclaimer { font-size: .72rem; color: rgba(255,255,255,.35); margin-top: 20px; font-style: italic; }
+
+    /* Checklist section */
+    .checklist-section { background: #fff; padding: 80px 24px; }
+    .checklist-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px; margin-top: 12px; }
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 18px 20px;
+      background: #faf9f7;
+      border: 1px solid #e8e4de;
+      border-left: 3px solid #c49a2a;
+      border-radius: 0 6px 6px 0;
+    }
+    .check-icon {
+      width: 22px;
+      height: 22px;
+      background: #c49a2a;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .check-icon svg { width: 12px; height: 12px; stroke: #fff; stroke-width: 2.5; }
+    .checklist-item-text strong { display: block; color: #0f2744; font-size: .9rem; font-weight: 600; margin-bottom: 2px; }
+    .checklist-item-text span { font-size: .8rem; color: #8a8680; }
+
+    /* Domicile widget */
+    .domicile-section { background: #f7f6f4; padding: 80px 24px; }
+    .domicile-widget {
+      background: #fff;
+      border: 1px solid #e8e4de;
+      border-radius: 8px;
+      padding: 40px 44px;
+      max-width: 700px;
+      margin: 0 auto;
+      box-shadow: 0 2px 16px rgba(0,0,0,.07);
+    }
+    .domicile-widget h3 { color: #0f2744; margin-bottom: 6px; }
+    .domicile-subtitle { font-size: .88rem; color: #8a8680; margin-bottom: 28px; }
+    .domicile-steps { list-style: none; padding: 0; }
+    .domicile-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid #f0ede8;
+      cursor: pointer;
+      user-select: none;
+    }
+    .domicile-step:last-child { border-bottom: none; }
+    .domicile-step .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid #d4d0ca;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .8rem;
+      font-weight: 700;
+      color: #8a8680;
+      flex-shrink: 0;
+      transition: all .2s;
+    }
+    .domicile-step.checked .step-num {
+      background: #c49a2a;
+      border-color: #c49a2a;
+      color: #fff;
+    }
+    .domicile-step.checked .step-num::after { content: '✓'; font-size: .75rem; }
+    .domicile-step.checked .step-num .num-text { display: none; }
+    .domicile-step-text { flex: 1; }
+    .domicile-step-text strong { display: block; font-size: .9rem; color: #0f2744; font-weight: 600; }
+    .domicile-step-text span { font-size: .8rem; color: #8a8680; }
+    .domicile-step.checked .domicile-step-text strong { text-decoration: line-through; color: #8a8680; }
+    .domicile-progress { margin-top: 20px; }
+    .domicile-progress-bar { height: 6px; background: #e8e4de; border-radius: 3px; overflow: hidden; }
+    .domicile-progress-fill { height: 100%; background: #c49a2a; border-radius: 3px; transition: width .3s ease; width: 0%; }
+    .domicile-progress-label { font-size: .78rem; color: #8a8680; margin-top: 6px; }
+
+    /* Pricing */
+    .pricing-section { background: #0f2744; padding: 80px 24px; text-align: center; }
+    .pricing-section h2 { color: #fff; margin-bottom: 12px; }
+    .pricing-intro { color: rgba(255,255,255,.7); max-width: 560px; margin: 0 auto 48px; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; max-width: 900px; margin: 0 auto 48px; }
+    .pricing-card {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 8px;
+      padding: 32px 24px;
+      text-align: center;
+      transition: background .2s, transform .2s;
+    }
+    .pricing-card:hover { background: rgba(255,255,255,.1); transform: translateY(-3px); }
+    .pricing-card.featured {
+      background: rgba(196,154,42,.12);
+      border: 2px solid rgba(196,154,42,.5);
+    }
+    .pricing-card h4 { color: #fff; font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: 8px; }
+    .pricing-card .price { font-family: 'Playfair Display', serif; font-size: 2rem; color: #c49a2a; font-weight: 700; display: block; margin-bottom: 8px; }
+    .pricing-card .price-note { font-size: .8rem; color: rgba(255,255,255,.45); }
+
+    /* State alerts rotator */
+    .alerts-section { background: #fff; padding: 80px 24px; }
+    .alerts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 8px; }
+    .state-alert {
+      background: #faf9f7;
+      border: 1px solid #e8e4de;
+      border-left: 4px solid #c49a2a;
+      border-radius: 0 6px 6px 0;
+      padding: 22px 24px;
+      transition: box-shadow .2s;
+    }
+    .state-alert:hover { box-shadow: 0 4px 16px rgba(0,0,0,.1); }
+    .state-alert .state-tag {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #c49a2a;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .state-alert p { font-size: .88rem; color: #4a4844; margin: 0; line-height: 1.7; }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .domicile-widget { padding: 28px 20px; }
+      .calc-control { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 480px) {
+      .sb-hero { padding: 64px 20px 56px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <img src="images/logo-icon.png" alt="Cornerstone" class="logo-img-icon">
+        <div>
+          <span class="logo-name">Cornerstone Wealth &amp; Legacy Law</span>
+          <span class="logo-sub">PLLC &nbsp;·&nbsp; Florida</span>
+        </div>
+      </a>
+
+      <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="site-nav" role="navigation" aria-label="Main navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <div class="dropdown">
+          <a href="#" class="nav-link active" aria-haspopup="true">Estate Planning</a>
+          <div class="dropdown-menu" role="menu">
+            <a href="estate-planning.html" class="dropdown-item" role="menuitem">Wills, Estates &amp; Trusts</a>
+            <a href="elder-law.html" class="dropdown-item" role="menuitem">Elder Law</a>
+            <a href="snowbird.html" class="dropdown-item active" role="menuitem">New to Florida</a>
+          </div>
+        </div>
+        <a href="elder-law.html" class="nav-link">Elder Law</a>
+        <a href="real-estate.html" class="nav-link">Probate Calculator</a>
+        <a href="start.html" class="nav-link">Start Now</a>
+      </nav>
+
+      <a href="start.html" class="btn btn-gold header-cta" style="font-size:.85rem;padding:10px 20px">Start Your Plan →</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ===== HERO ===== -->
+    <section class="sb-hero">
+      <div class="container">
+        <span class="section-label">Moving to Florida</span>
+        <h1>You Moved to Florida.<br><em>Your Estate Plan Didn't.</em></h1>
+        <p class="subhead">An out-of-state trust may fail Florida's requirements. A New York will can't account for Florida homestead law. Your old Power of Attorney may be refused by Florida banks.</p>
+        <div class="hero-ctas">
+          <a href="start.html" class="btn btn-gold" style="font-size:1.05rem;padding:16px 36px">Get Your Florida Estate Plan →</a>
+        </div>
+        <div class="trust-badges">
+          <span class="trust-badge">F.S. Chapter 736 Compliant</span>
+          <span class="trust-badge">25 Years Florida Estate Law</span>
+          <span class="trust-badge">Serving Snowbirds &amp; New Residents</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== THE PROBLEM ===== -->
+    <section class="section section--gray">
+      <div class="container">
+        <div class="section-intro">
+          <span class="section-label">Why It Matters</span>
+          <h2>Three ways your old estate plan fails in Florida</h2>
+          <p>Florida has its own body of estate law. Documents that worked perfectly in New York or California may be legally deficient — or outright invalid — once you establish Florida domicile.</p>
+        </div>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <span class="emoji">📋</span>
+            <h3>Your old will doesn't know Florida law</h3>
+            <ul>
+              <li>Florida does <strong>not</strong> recognize holographic (handwritten) wills</li>
+              <li>Florida homestead restrictions may invalidate property devises in your NY/NJ/IL will</li>
+              <li>Your Personal Representative may not qualify — Florida restricts non-resident PRs</li>
+              <li>Two-witness requirement must be strictly followed under Florida execution rules</li>
+            </ul>
+          </div>
+          <div class="problem-card">
+            <span class="emoji">🏠</span>
+            <h3>Your old trust may have gaps</h3>
+            <ul>
+              <li>Out-of-state trusts often need restatement under Florida law (F.S. Chapter 736)</li>
+              <li>California community property provisions require special handling</li>
+              <li>Multi-state property creates ancillary probate if not properly held in trust</li>
+              <li>Florida-specific trustee powers and distribution standards may be missing</li>
+            </ul>
+          </div>
+          <div class="problem-card">
+            <span class="emoji">💰</span>
+            <h3>You're leaving money on the table</h3>
+            <ul>
+              <li><strong>$0</strong> Florida state estate tax — but domicile must be documented</li>
+              <li><strong>$0</strong> Florida state income tax on wages or retirement income</li>
+              <li><strong>Unlimited</strong> homestead asset protection — but title must be correct</li>
+              <li>Prior state may still claim you as a domiciliary without documented change</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SAVINGS CALCULATOR ===== -->
+    <section class="calc-section">
+      <div class="container">
+        <span class="section-label" style="color:#c49a2a">Tax Savings Estimator</span>
+        <h2>See what Florida saves you</h2>
+        <p class="calc-intro">Based on $250,000 annual income and $2,500,000 estate — illustrative only. Actual savings depend on your specific situation.</p>
+
+        <div class="calc-control">
+          <label for="stateSelect">I moved from:</label>
+          <select id="stateSelect" class="state-select">
+            <option value="">— Select your prior state —</option>
+            <option value="NY">New York</option>
+            <option value="NJ">New Jersey</option>
+            <option value="CA">California</option>
+            <option value="IL">Illinois</option>
+            <option value="MA">Massachusetts</option>
+            <option value="WA">Washington</option>
+            <option value="CT">Connecticut</option>
+            <option value="OTHER">Other state</option>
+          </select>
+        </div>
+
+        <div class="calc-results" id="calcResults">
+          <div class="savings-card">
+            <span class="savings-label">Annual Income Tax Savings</span>
+            <span class="savings-amount" id="incomeSavings">—</span>
+            <span class="savings-note">Based on $250K income</span>
+          </div>
+          <div class="savings-card">
+            <span class="savings-label">Estate Tax Savings</span>
+            <span class="savings-amount" id="estateSavings">—</span>
+            <span class="savings-note">Based on $2.5M estate</span>
+          </div>
+          <div class="savings-card">
+            <span class="savings-label">Capital Gains Savings</span>
+            <span class="savings-amount" id="capGainsSavings">—</span>
+            <span class="savings-note">On $100K capital gains</span>
+          </div>
+          <div class="savings-total-card">
+            <span class="savings-label">Estimated Annual Benefit</span>
+            <span class="savings-amount" id="totalSavings">—</span>
+            <span class="savings-note">First-year combined estimate</span>
+          </div>
+        </div>
+        <p class="calc-disclaimer">* Estimates are illustrative and not legal or tax advice. Consult a tax professional for your specific situation. Estate tax savings assume estate exceeds prior state exemption. Florida has no state estate tax, income tax, or capital gains tax.</p>
+      </div>
+    </section>
+
+    <!-- ===== WHAT YOU NEED ===== -->
+    <section class="checklist-section">
+      <div class="container">
+        <div class="section-intro">
+          <span class="section-label">Your Florida Estate Plan</span>
+          <h2>What a complete Florida estate plan includes</h2>
+          <p>Every item below should be reviewed and updated after establishing Florida domicile. Missing even one can expose your estate to delays, costs, or unintended outcomes.</p>
+        </div>
+        <div class="checklist-grid">
+          <div class="checklist-item">
+            <div class="check-icon">
+              <svg viewBox="0 0 12 12" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg>
+            </div>
+            <div class="checklist-item-text">
+              <strong>Florida Restatement of Existing Trust OR New Florida Revocable Living Trust</strong>
+              <span>Compliant with F.S. Chapter 736 — Florida Trust Code</span>
+            </div>
+          </div>
+          <div class="checklist-item">
+            <div class="check-icon">
+              <svg viewBox="0 0 12 12" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg>
+            </div>
+            <div class="checklist-item-text">
+              <strong>Florida Pour-Over Will</strong>
+              <span>Properly executed under Florida's two-witness execution requirements</span>
+            </div>
+          </div>
+          <div class="checklist-item">
+            <div class="check-icon">
+              <svg viewBox="0 0 12 12" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg>
+            </div>
+            <div class="checklist-item-text">
+              <strong>Florida Durable Power of Attorney</strong>
+              <span>F.S. Chapter 709 — the only POA Florida banks and institutions will reliably honor</span>
+            </div>
+          </div>
+          <div class="checklist-item">
+            <div class="check-icon">
+              <svg viewBox="0 0 12 12" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg>
+            </div>
+            <div class="checklist-item-text">
+              <strong>Florida Healthcare Surrogate Designation</strong>
+              <span>F.S. Chapter 765 — designates who makes medical decisions if you cannot</span>
+            </div>
+          </div>
+          <div class="checklist-item">
+            <div class="check-icon">
+              <svg viewBox="0 0 12 12" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg>
+            </div>
+            <div class="checklist-item-text">
+              <strong>Florida Living Will / Advance Directive</strong>
+              <span>Sets out your end-of-life care wishes — Florida-specific form required</span>
+            </div>
+          </div>
+          <div class="checklist-item">
+            <div class="check-icon">
+              <svg viewBox="0 0 12 12" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg>
+            </div>
+            <div class="checklist-item-text">
+              <strong>Deed — Retitle Florida Real Estate to Trust</strong>
+              <span>Or Lady Bird Deed for homestead protection and probate avoidance</span>
+            </div>
+          </div>
+          <div class="checklist-item">
+            <div class="check-icon">
+              <svg viewBox="0 0 12 12" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg>
+            </div>
+            <div class="checklist-item-text">
+              <strong>Domicile Documentation</strong>
+              <span>FL driver's license, voter registration, declaration of domicile on file</span>
+            </div>
+          </div>
+          <div class="checklist-item">
+            <div class="check-icon">
+              <svg viewBox="0 0 12 12" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg>
+            </div>
+            <div class="checklist-item-text">
+              <strong>IRA / Retirement Account Beneficiary Review</strong>
+              <span>Coordinate beneficiary designations with your updated trust structure</span>
+            </div>
+          </div>
+          <div class="checklist-item">
+            <div class="check-icon">
+              <svg viewBox="0 0 12 12" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg>
+            </div>
+            <div class="checklist-item-text">
+              <strong>CA Community Property Analysis (if applicable)</strong>
+              <span>Community property characterization follows assets — must be addressed in your trust</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== DOMICILE CHECKLIST ===== -->
+    <section class="domicile-section">
+      <div class="container">
+        <div class="section-intro centered" style="text-align:center;margin-left:auto;margin-right:auto">
+          <span class="section-label">Establish Florida Domicile</span>
+          <h2>Check off your domicile steps</h2>
+          <p>Florida domicile must be established and documented before your prior state stops taxing you. Click each step as you complete it.</p>
+        </div>
+        <div class="domicile-widget">
+          <h3>Florida Domicile Checklist</h3>
+          <p class="domicile-subtitle">Click each item to mark it complete</p>
+          <ul class="domicile-steps" id="domicileSteps">
+            <li class="domicile-step" data-step="0">
+              <div class="step-num"><span class="num-text">1</span></div>
+              <div class="domicile-step-text">
+                <strong>Obtain Florida driver's license</strong>
+                <span>Most important step — strongest evidence of domicile intent</span>
+              </div>
+            </li>
+            <li class="domicile-step" data-step="1">
+              <div class="step-num"><span class="num-text">2</span></div>
+              <div class="domicile-step-text">
+                <strong>Register to vote in Florida</strong>
+                <span>Cancel your registration in your prior state</span>
+              </div>
+            </li>
+            <li class="domicile-step" data-step="2">
+              <div class="step-num"><span class="num-text">3</span></div>
+              <div class="domicile-step-text">
+                <strong>File Florida Declaration of Domicile</strong>
+                <span>File with your county clerk — public record that cuts off prior state claims</span>
+              </div>
+            </li>
+            <li class="domicile-step" data-step="3">
+              <div class="step-num"><span class="num-text">4</span></div>
+              <div class="domicile-step-text">
+                <strong>File Florida Homestead Exemption (Form DR-501) by March 1</strong>
+                <span>Saves up to $50,000 on property taxes and activates homestead protection</span>
+              </div>
+            </li>
+            <li class="domicile-step" data-step="4">
+              <div class="step-num"><span class="num-text">5</span></div>
+              <div class="domicile-step-text">
+                <strong>Spend 183+ days per year in Florida</strong>
+                <span>Keep travel records — your prior state may audit</span>
+              </div>
+            </li>
+            <li class="domicile-step" data-step="5">
+              <div class="step-num"><span class="num-text">6</span></div>
+              <div class="domicile-step-text">
+                <strong>Change mailing address on all accounts to Florida address</strong>
+                <span>Bank accounts, brokerage, insurance, and credit cards</span>
+              </div>
+            </li>
+            <li class="domicile-step" data-step="6">
+              <div class="step-num"><span class="num-text">7</span></div>
+              <div class="domicile-step-text">
+                <strong>Update your estate plan to reflect Florida domicile</strong>
+                <span>Critical — estate plan should expressly declare Florida as your domicile state</span>
+              </div>
+            </li>
+            <li class="domicile-step" data-step="7">
+              <div class="step-num"><span class="num-text">8</span></div>
+              <div class="domicile-step-text">
+                <strong>Resign from boards/clubs in prior state if possible</strong>
+                <span>Social ties are evidence of domicile — reduce prior-state connections</span>
+              </div>
+            </li>
+            <li class="domicile-step" data-step="8">
+              <div class="step-num"><span class="num-text">9</span></div>
+              <div class="domicile-step-text">
+                <strong>File final-year tax return in prior state</strong>
+                <span>Mark as a part-year return — establish the date of departure</span>
+              </div>
+            </li>
+          </ul>
+          <div class="domicile-progress">
+            <div class="domicile-progress-bar">
+              <div class="domicile-progress-fill" id="domicileProgressFill"></div>
+            </div>
+            <p class="domicile-progress-label" id="domicileProgressLabel">0 of 9 steps completed</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== STATE-SPECIFIC WARNINGS ===== -->
+    <section class="alerts-section">
+      <div class="container">
+        <div class="section-intro">
+          <span class="section-label">State-Specific Alerts</span>
+          <h2>What you specifically need to know</h2>
+          <p>The risks of an outdated estate plan vary depending on where you moved from. Here's what matters most by state.</p>
+        </div>
+        <div class="alerts-grid">
+          <div class="state-alert">
+            <span class="state-tag">New York Alert</span>
+            <p><strong>Estate tax cliff:</strong> NY estates just over $6.94M are taxed on the <em>entire</em> amount at up to 16% — not just the excess. Florida domicile eliminates this entirely. Even a $7M estate avoids $1.1M in tax.</p>
+          </div>
+          <div class="state-alert">
+            <span class="state-tag">California Alert</span>
+            <p><strong>Community property follows you:</strong> California community property remains community property after you move. Your Florida trust must expressly address CA community property, or your spouse's share may be mishandled.</p>
+          </div>
+          <div class="state-alert">
+            <span class="state-tag">New Jersey Alert</span>
+            <p><strong>Inheritance tax survives you:</strong> NJ still charges inheritance tax up to 15% on transfers to siblings and others — even if you've moved. Florida has zero inheritance tax on any relationship.</p>
+          </div>
+          <div class="state-alert">
+            <span class="state-tag">Illinois Alert</span>
+            <p><strong>No portability:</strong> Illinois has a $4M estate tax exemption with no portability between spouses. A couple with $8M in assets faces tax on the second death without planning. Florida has no estate tax at all.</p>
+          </div>
+          <div class="state-alert">
+            <span class="state-tag">Massachusetts Alert</span>
+            <p><strong>$2M exemption — lowest in the country:</strong> MA taxes estates over $2M at up to 16%. A $3M estate owes MA $182,000. Florida: $0. MA also taxes capital gains at up to 9%.</p>
+          </div>
+          <div class="state-alert">
+            <span class="state-tag">Washington State Alert</span>
+            <p><strong>Capital gains tax + estate tax:</strong> WA imposes a 7% capital gains tax and an estate tax up to 20% on estates over $2.19M — one of the highest rates nationally. Florida has neither.</p>
+          </div>
+          <div class="state-alert">
+            <span class="state-tag">Connecticut Alert</span>
+            <p><strong>Taxed even after you leave:</strong> CT has historically pursued domicile audits aggressively. Your estate plan must clearly document Florida domicile to withstand a CT challenge.</p>
+          </div>
+          <div class="state-alert">
+            <span class="state-tag">All States</span>
+            <p><strong>Prior-state audits are real:</strong> High-tax states audit domicile claims. Your estate plan should expressly declare Florida domicile. We document this in every plan we prepare for new Florida residents.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PRICING ===== -->
+    <section class="pricing-section">
+      <div class="container">
+        <span class="section-label" style="color:#c49a2a">Transparent Pricing</span>
+        <h2>Florida estate plan packages</h2>
+        <p class="pricing-intro">Flat-fee pricing — no surprises. We quote the full scope upfront and hold to it.</p>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <h4>Trust Restatement</h4>
+            <span class="price">From $1,499</span>
+            <p class="price-note">Update your existing out-of-state trust to Florida law — includes Florida-specific provisions, trustee powers, and domicile declaration</p>
+          </div>
+          <div class="pricing-card featured">
+            <h4>New Florida Trust Package</h4>
+            <span class="price">From $1,499</span>
+            <p class="price-note">Florida Revocable Living Trust + Pour-Over Will + POA + Healthcare Surrogate + Living Will</p>
+          </div>
+          <div class="pricing-card">
+            <h4>Complete Estate Plan</h4>
+            <span class="price">From $1,999</span>
+            <p class="price-note">Will + Trust + all ancillary documents + deed coordination + domicile documentation package</p>
+          </div>
+        </div>
+        <a href="start.html" class="btn btn-gold" style="font-size:1.1rem;padding:18px 48px">Start My Florida Estate Plan →</a>
+        <p style="color:rgba(255,255,255,.45);font-size:.8rem;margin-top:16px"><a href="https://calendly.com/arthursimpson/new-to-florida-domicile-estate-plan-review" target="_blank" rel="noopener" style="color:rgba(255,255,255,.7);text-decoration:underline">Free 20-minute phone consultation</a> for new clients moving from out of state</p>
+      </div>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section class="cta-section">
+      <div class="container">
+        <h2>The clock starts when you arrive</h2>
+        <p>Every day you spend in Florida with an outdated estate plan is a day your old documents govern your future. Let's fix that.</p>
+        <div class="cta-btns">
+          <a href="start.html" class="btn btn-gold">Start My Florida Estate Plan →</a>
+          <a href="https://calendly.com/arthursimpson/new-to-florida-domicile-estate-plan-review" target="_blank" rel="noopener" class="btn btn-outline-white">Schedule a Consultation</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="footer-logo-name">Cornerstone Wealth &amp; Legacy Law</span>
+          <span class="footer-logo-sub">PLLC &nbsp;·&nbsp; Florida</span>
+          <p class="footer-tagline">"Building legal foundations for lasting wealth."</p>
+          <div class="footer-contact" style="margin-top:16px">
+            <p>Florida Bar Registered</p>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Practice Areas</h4>
+          <a href="estate-planning.html">Wills, Estates &amp; Trusts</a>
+          <a href="elder-law.html">Elder Law</a>
+          <a href="snowbird.html">New to Florida</a>
+          <a href="real-estate.html">Real Estate</a>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="insights.html">Insights</a>
+          <a href="start.html">Start Your Plan</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+      <p class="footer-disclaimer">Cornerstone Wealth &amp; Legacy Law, PLLC is a Florida law firm. The information on this website is for general informational purposes only and does not constitute legal advice. No attorney-client relationship is formed by reading this website or submitting an inquiry. Past results do not guarantee future outcomes. This page contains general tax and estate planning information — consult a qualified attorney and tax advisor for advice specific to your situation. Tax savings figures are estimates based on published state tax rates and are illustrative only.</p>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Cornerstone Wealth &amp; Legacy Law, PLLC. All rights reserved.</span>
+        <div class="footer-legal">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+          <a href="#">FL Bar Disclaimer</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // ── State savings calculator ──
+    const stateData = {
+      NY:    { income: 0.109,  estateRate: 0.16, estateExempt: 6940000,  capGains: 0.0685 },
+      NJ:    { income: 0.1075, estateRate: 0,    estateExempt: null,     capGains: 0.1075, inheritTax: 0.15 },
+      CA:    { income: 0.133,  estateRate: 0,    estateExempt: null,     capGains: 0.133  },
+      IL:    { income: 0.0495, estateRate: 0.16, estateExempt: 4000000,  capGains: 0.0495 },
+      MA:    { income: 0.09,   estateRate: 0.16, estateExempt: 2000000,  capGains: 0.09   },
+      WA:    { income: 0,      estateRate: 0.20, estateExempt: 2190000,  capGains: 0.07   },
+      CT:    { income: 0.0699, estateRate: 0.12, estateExempt: 12920000, capGains: 0.0699 },
+      OTHER: { income: 0.05,   estateRate: 0,    estateExempt: null,     capGains: 0.05   }
+    };
+
+    const INCOME = 250000;
+    const ESTATE = 2500000;
+    const CAP_GAINS = 100000;
+
+    function fmt(n) {
+      return '$' + Math.round(n).toLocaleString();
+    }
+
+    document.getElementById('stateSelect').addEventListener('change', function() {
+      const state = this.value;
+      const results = document.getElementById('calcResults');
+      if (!state) { results.classList.remove('visible'); return; }
+
+      const d = stateData[state];
+      const incomeSav  = INCOME * d.income;
+      const estateSav  = d.estateExempt && ESTATE > d.estateExempt
+        ? (ESTATE - d.estateExempt) * d.estateRate
+        : (d.inheritTax ? ESTATE * d.inheritTax * 0.15 : 0); // rough estimate for NJ
+      const capGainsSav = CAP_GAINS * d.capGains;
+      const total = incomeSav + estateSav + capGainsSav;
+
+      document.getElementById('incomeSavings').textContent  = fmt(incomeSav);
+      document.getElementById('estateSavings').textContent  = d.estateExempt && ESTATE > d.estateExempt
+        ? fmt(estateSav)
+        : (d.inheritTax ? '~' + fmt(ESTATE * 0.02) : '$0');
+      document.getElementById('capGainsSavings').textContent = fmt(capGainsSav);
+      document.getElementById('totalSavings').textContent    = fmt(total);
+
+      results.classList.remove('visible');
+      requestAnimationFrame(() => requestAnimationFrame(() => results.classList.add('visible')));
+    });
+
+    // ── Domicile checklist ──
+    const steps = document.querySelectorAll('.domicile-step');
+    const fill  = document.getElementById('domicileProgressFill');
+    const label = document.getElementById('domicileProgressLabel');
+    const total = steps.length;
+
+    function updateProgress() {
+      const done = document.querySelectorAll('.domicile-step.checked').length;
+      fill.style.width = (done / total * 100) + '%';
+      label.textContent = done + ' of ' + total + ' steps completed';
+    }
+
+    steps.forEach(step => {
+      step.addEventListener('click', () => {
+        step.classList.toggle('checked');
+        updateProgress();
+      });
+    });
+  </script>
+</body>
+</html>
