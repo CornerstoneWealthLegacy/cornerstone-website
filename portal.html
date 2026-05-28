@@ -643,9 +643,7 @@ function renderGreeting(d) {
     || (d.name || '').trim()
     || '';
 
-  console.log('[Portal] Name debug:', { gFirst: d.gFirst, gLast: d.gLast, clientName: d.clientName, name: d.name, fullName });
-
-  greetingName.textContent = fullName ? `Welcome, ${fullName}.` : 'Welcome.';
+greetingName.textContent = fullName ? `Welcome, ${fullName}.` : 'Welcome.';
   greetingName.style.opacity = '1';
   const statusMap = {
     'documents_ready':        'Your documents are ready to review and print.',
