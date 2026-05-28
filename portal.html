@@ -702,6 +702,30 @@ function renderStatusBanner(d) {
   `;
 }
 
+function portalFmtDate(ts) {
+  if (!ts) return '—';
+  // Firestore Timestamp object
+  if (ts && typeof ts.toDate === 'function') return ts.toDate().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  // Firestore REST-style { seconds, nanoseconds }
+  if (ts && ts.seconds) return new Date(ts.seconds * 1000).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  // Plain date string or number
+  const d = new Date(ts);
+  return isNaN(d) ? '—' : d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+function portalTrustName(d) {
+  if (d.customName) return d.customName;
+  const g = (d.gFirst || '') + (d.gLast ? ' ' + d.gLast : '');
+  const last = d.gLast || 'Family';
+  switch (d.nameType) {
+    case 'family':   return `The ${last} Family Revocable Trust`;
+    case 'dated':    return `The ${g.trim()} Revocable Living Trust`;
+    case 'legacy':   return `The ${last} Legacy Trust`;
+    case 'custom':   return d.customName || `The ${g.trim()} Revocable Living Trust`;
+    default:         return g.trim() ? `The ${g.trim()} Revocable Living Trust` : '—';
+  }
+}
+
 function renderPlanSummary(d) {
   const planLabels = {
     trust:      'Revocable Living Trust Package',
@@ -713,8 +737,8 @@ function renderPlanSummary(d) {
   const items = [
     { label: 'Plan',       value: planLabels[d.docCategory] || d.docCategory || '—' },
     { label: 'Structure',  value: d.structure === 'joint' ? 'Joint (Married Couple)' : d.structure === 'separate' ? 'Separate Trusts' : 'Individual' },
-    { label: 'Order Date', value: d.createdAt ? new Date(d.createdAt.seconds * 1000).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '—' },
-    { label: 'Trust Name', value: d.trustName || '—' }
+    { label: 'Order Date', value: portalFmtDate(d.createdAt || d.updatedAt || d.lastActive) },
+    { label: 'Trust Name', value: d.trustName || portalTrustName(d) || '—' }
   ];
 
   planMetaGrid.innerHTML = items.map(i => `
