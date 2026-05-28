@@ -12909,6 +12909,24 @@ function _unlockDocuments(){
   document.body.classList.add('payment-confirmed');
   document.querySelectorAll('.doc-draft-watermark,.doc-paywall-overlay').forEach(el=>el.remove());
   showToast('✅ Documents unlocked — you can now print, save, and download.');
+
+  // Show portal banner so client knows they can access docs anytime
+  if (!document.getElementById('portalBanner')) {
+    const banner = document.createElement('div');
+    banner.id = 'portalBanner';
+    banner.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1B2A4A;color:#fff;padding:14px 24px;border-radius:10px;box-shadow:0 4px 20px rgba(0,0,0,0.25);z-index:9999;display:flex;align-items:center;gap:16px;max-width:480px;width:90%;font-family:Inter,sans-serif;font-size:14px;';
+    banner.innerHTML = `
+      <div style="font-size:24px;">📁</div>
+      <div style="flex:1;">
+        <div style="font-weight:700;margin-bottom:2px;">Your documents are saved</div>
+        <div style="opacity:0.8;font-size:13px;">Access them anytime at your secure portal.</div>
+      </div>
+      <a href="/portal" target="_blank" style="background:#C9A84C;color:#1B2A4A;padding:8px 16px;border-radius:7px;font-weight:700;text-decoration:none;white-space:nowrap;font-size:13px;">Open Portal →</a>
+    `;
+    document.body.appendChild(banner);
+    // Auto-dismiss after 12 seconds
+    setTimeout(() => banner.remove(), 12000);
+  }
 }
 
 function closePaywallAndPay(){

@@ -646,11 +646,11 @@ function renderStatusBanner(d) {
     icon  = '⏳';
     title = 'Documents being prepared';
     body  = 'Your payment was received. Your documents will be ready within a few minutes.';
-  } else if (!s || s === 'in_progress' || s === 'draft') {
-    type  = 'ready';
-    icon  = '📄';
-    title = 'Your documents are ready to preview';
-    body  = 'Click <strong>View</strong> to open any document. Complete your payment to finalize and receive signing instructions. Call <strong>(386) 222-1907</strong> to complete your order.';
+  } else if (!s || s === 'in_progress' || s === 'draft' || s === 'questionnaire_complete') {
+    type  = 'pending';
+    icon  = '🔒';
+    title = 'Questionnaire complete — payment required';
+    body  = 'Your information has been saved. <a href="/start" style="color:var(--navy);font-weight:700;">Return to your plan →</a> to complete payment and unlock your documents.';
   } else {
     type  = 'review';
     icon  = 'ℹ️';
@@ -709,10 +709,10 @@ const DOC_META = {
 };
 
 function renderDocuments(d) {
-  // Generate documents whenever plan data exists.
-  // Payment-gated statuses show a banner; documents are generated client-side regardless.
-  const isPaid = ['documents_ready', 'needs_attorney_review', 'paid', 'payment_complete'].includes(d.status);
-  const isReady = !!(d.docCategory || d.gFirst); // has any plan data at all
+  // Documents are only accessible after payment is confirmed
+  const isPaid = d.paymentStatus === 'paid'
+    || ['documents_ready', 'needs_attorney_review', 'paid', 'payment_complete'].includes(d.status);
+  const isReady = isPaid && !!(d.docCategory || d.gFirst);
 
   // Parse beneficiary arrays
   const benes      = safeArray(d.beneficiaries);
@@ -731,6 +731,40 @@ function renderDocuments(d) {
 
   if (docs.length === 0) {
     const catDocs = expectedDocNames(d.docCategory);
+    const hasPlanData = !!(d.docCategory || d.gFirst);
+
+    // Not paid — show locked doc list with payment CTA
+    if (hasPlanData && !isPaid) {
+      docList.innerHTML = `
+        <div style="background:#fff8e6;border:1.5px solid #f0c050;border-radius:10px;padding:20px 24px;margin-bottom:16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+          <div style="font-size:28px;">🔒</div>
+          <div style="flex:1;min-width:200px;">
+            <div style="font-weight:700;color:#7a5c00;margin-bottom:4px;">Payment required to unlock your documents</div>
+            <div style="font-size:13px;color:#7a5c00;line-height:1.5;">Your questionnaire is complete. Complete your payment on the next step to receive your full document package.</div>
+          </div>
+          <a href="/start" style="background:#1B2A4A;color:#fff;padding:11px 22px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;white-space:nowrap;">Complete My Order →</a>
+        </div>
+      ` + catDocs.map(name => {
+        const meta = DOC_META[name] || { icon: '📄', desc: '' };
+        return `
+          <div class="doc-item" style="opacity:0.5;">
+            <div class="doc-item-left">
+              <div class="doc-icon">${meta.icon}</div>
+              <div>
+                <div class="doc-name">${name}</div>
+                <div class="doc-desc">${meta.desc}</div>
+              </div>
+            </div>
+            <div class="doc-actions">
+              <button class="btn-doc view" disabled style="cursor:not-allowed;">🔒 Locked</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+      return;
+    }
+
+    // No plan data at all — show empty state
     docList.innerHTML = catDocs.map(name => {
       const meta = DOC_META[name] || { icon: '📄', desc: '' };
       return `
