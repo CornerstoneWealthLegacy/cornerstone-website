@@ -266,3 +266,8 @@
   from = "/how-trust-builder-works"
   to = "/articles/florida-trust-builder.html"
   status = 301
+
+[[redirects]]
+  from = "/portal"
+  to = "/portal.html"
+  status = 200

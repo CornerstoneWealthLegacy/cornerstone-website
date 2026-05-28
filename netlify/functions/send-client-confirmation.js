@@ -112,6 +112,19 @@ exports.handler = async (event) => {
               </ul>
             </div>
 
+            <!-- Portal CTA -->
+            <div style="background:#f0f4fa;border:1px solid #c8d8ee;border-radius:10px;padding:22px 26px;margin-bottom:32px">
+              <div style="font-size:13px;font-weight:700;color:#0f2744;text-transform:uppercase;letter-spacing:.08em;font-family:Arial,sans-serif;margin-bottom:10px">📁 Access Your Documents</div>
+              <div style="font-size:14px;color:#444;line-height:1.7;margin-bottom:16px">
+                Your documents are available in your secure client portal. Log in to view, print, or save any document as a PDF.
+              </div>
+              <a href="https://cornerstonewealthlegacy.com/portal"
+                 style="display:inline-block;background:#0f2744;color:#ffffff;font-size:14px;font-weight:700;font-family:Arial,sans-serif;text-decoration:none;padding:12px 28px;border-radius:7px">
+                Open My Document Portal →
+              </a>
+              <div style="font-size:12px;color:#888;margin-top:10px">Sign in with the email address you used when completing your questionnaire.</div>
+            </div>
+
             <!-- What happens next -->
             <div style="margin-bottom:32px">
               <div style="font-size:13px;font-weight:700;color:#0f2744;text-transform:uppercase;letter-spacing:.08em;font-family:Arial,sans-serif;margin-bottom:20px">What Happens Next</div>
@@ -220,6 +233,11 @@ exports.handler = async (event) => {
     `Your ${planStr} documents have been prepared and are ready for attorney review.`,
     ``,
     `Your Cornerstone Estate Planning Advisor will review your documents and contact you within 1–2 business days.`,
+    ``,
+    `ACCESS YOUR DOCUMENTS:`,
+    `Log in to your client portal to view and print your documents:`,
+    `https://cornerstonewealthlegacy.com/portal`,
+    `(Sign in with this email address)`,
     ``,
     `WHAT HAPPENS NEXT:`,
     `1. Attorney Review — Your Cornerstone Estate Planning Advisor reviews all documents`,

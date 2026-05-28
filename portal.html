@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>My Documents — Cornerstone Wealth &amp; Legacy Law</title>
+  <meta name="robots" content="noindex,nofollow">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --navy:   #1B2A4A;
+      --gold:   #C9A84C;
+      --cream:  #F9F5EE;
+      --white:  #FFFFFF;
+      --gray50: #F8F9FA;
+      --gray100:#F1F3F5;
+      --gray300:#CED4DA;
+      --gray500:#6C757D;
+      --gray700:#495057;
+      --gray900:#212529;
+      --green:  #1A6E3C;
+      --green-bg:#D4EDDA;
+      --orange: #E07B00;
+      --orange-bg:#FFF3CD;
+      --red:    #C0392B;
+      --red-bg: #F8D7DA;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--gray900);
+      background: var(--cream);
+      min-height: 100vh;
+    }
+
+    /* ── Header ─────────────────────────────────────── */
+    header {
+      background: var(--navy);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    }
+    .logo {
+      font-family: 'EB Garamond', serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-accent { color: var(--gold); }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    #user-email {
+      font-size: 13px;
+      color: rgba(255,255,255,0.7);
+      display: none;
+    }
+    #sign-out-btn {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.35);
+      color: var(--white);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      font-family: inherit;
+      display: none;
+      transition: background 0.15s;
+    }
+    #sign-out-btn:hover { background: rgba(255,255,255,0.1); }
+
+    /* ── Main layout ─────────────────────────────────── */
+    main { max-width: 860px; margin: 0 auto; padding: 40px 20px 80px; }
+
+    /* ── Auth screen ─────────────────────────────────── */
+    #auth-section {
+      max-width: 420px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+      padding: 40px 36px;
+    }
+    #auth-section h1 {
+      font-family: 'EB Garamond', serif;
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+    #auth-section p.subtitle {
+      font-size: 14px;
+      color: var(--gray500);
+      margin-bottom: 28px;
+    }
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray700);
+      margin-bottom: 6px;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid var(--gray300);
+      border-radius: 8px;
+      font-size: 15px;
+      font-family: inherit;
+      transition: border-color 0.15s;
+    }
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--navy);
+    }
+    .btn-primary {
+      width: 100%;
+      padding: 12px;
+      background: var(--navy);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.15s;
+      margin-top: 4px;
+    }
+    .btn-primary:hover { background: #253a61; }
+    .btn-primary:disabled { background: var(--gray300); cursor: not-allowed; }
+    #auth-error {
+      color: var(--red);
+      font-size: 13px;
+      margin-top: 12px;
+      display: none;
+    }
+    .auth-help {
+      text-align: center;
+      font-size: 13px;
+      color: var(--gray500);
+      margin-top: 20px;
+    }
+    .auth-help a { color: var(--navy); }
+
+    /* ── Portal screen ───────────────────────────────── */
+    #portal-section { display: none; }
+
+    .portal-greeting {
+      margin-bottom: 32px;
+    }
+    .portal-greeting h1 {
+      font-family: 'EB Garamond', serif;
+      font-size: 30px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .portal-greeting p {
+      color: var(--gray500);
+      font-size: 14px;
+    }
+
+    /* Status banner */
+    .status-banner {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 20px;
+      border-radius: 10px;
+      margin-bottom: 32px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .status-banner.ready   { background: var(--green-bg); border: 1px solid #a3d4b3; }
+    .status-banner.pending { background: var(--orange-bg); border: 1px solid #f0c050; }
+    .status-banner.review  { background: #e8eaf6; border: 1px solid #9fa8da; }
+    .status-banner.error   { background: var(--red-bg); border: 1px solid #e8a0a0; }
+    .status-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+    .status-title { font-weight: 600; margin-bottom: 2px; }
+
+    /* Plan summary card */
+    .plan-card {
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+      padding: 24px;
+      margin-bottom: 28px;
+    }
+    .plan-card h2 {
+      font-family: 'EB Garamond', serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--gray100);
+    }
+    .plan-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 24px;
+    }
+    .plan-meta-item { font-size: 13px; }
+    .plan-meta-item .label { color: var(--gray500); font-weight: 500; }
+    .plan-meta-item .value { color: var(--gray900); font-weight: 600; }
+
+    /* Documents list */
+    .docs-section h2 {
+      font-family: 'EB Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 16px;
+    }
+    .doc-list { display: flex; flex-direction: column; gap: 10px; }
+    .doc-item {
+      background: var(--white);
+      border: 1.5px solid var(--gray100);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      transition: box-shadow 0.15s, border-color 0.15s;
+    }
+    .doc-item:hover {
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      border-color: var(--gray300);
+    }
+    .doc-item-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .doc-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--cream);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .doc-name {
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--gray900);
+    }
+    .doc-desc {
+      font-size: 12px;
+      color: var(--gray500);
+      margin-top: 2px;
+    }
+    .doc-actions { display: flex; gap: 8px; }
+    .btn-doc {
+      padding: 7px 16px;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      transition: background 0.15s, opacity 0.15s;
+    }
+    .btn-doc.view {
+      background: var(--navy);
+      color: var(--white);
+    }
+    .btn-doc.view:hover { background: #253a61; }
+    .btn-doc.print {
+      background: var(--cream);
+      color: var(--navy);
+      border: 1.5px solid var(--gray300);
+    }
+    .btn-doc.print:hover { background: var(--gray100); }
+    .btn-doc:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* Print all button */
+    .portal-actions {
+      margin-top: 28px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn-secondary {
+      padding: 11px 22px;
+      background: var(--white);
+      border: 1.5px solid var(--navy);
+      color: var(--navy);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-secondary:hover { background: var(--gray100); }
+
+    /* Attorney contact box */
+    .attorney-box {
+      background: var(--navy);
+      color: var(--white);
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-top: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .attorney-box p { font-size: 14px; opacity: 0.85; margin-top: 4px; }
+    .attorney-box strong { font-size: 16px; }
+    .btn-call {
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      border-radius: 8px;
+      padding: 11px 22px;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: filter 0.15s;
+    }
+    .btn-call:hover { filter: brightness(1.08); }
+
+    /* Loading spinner */
+    #loading-screen {
+      text-align: center;
+      padding: 80px 20px;
+    }
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--gray300);
+      border-top-color: var(--navy);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin: 0 auto 20px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .plan-meta { grid-template-columns: 1fr; }
+      .doc-item { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .doc-actions { width: 100%; }
+      .btn-doc { flex: 1; text-align: center; }
+      .attorney-box { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="/">
+    <span class="logo-accent">⚖</span>
+    Cornerstone Wealth &amp; Legacy
+  </a>
+  <div class="header-right">
+    <span id="user-email"></span>
+    <button id="sign-out-btn">Sign Out</button>
+  </div>
+</header>
+
+<main>
+
+  <!-- Loading -->
+  <div id="loading-screen">
+    <div class="spinner"></div>
+    <p style="color:var(--gray500);font-size:14px;">Loading your portal…</p>
+  </div>
+
+  <!-- Auth -->
+  <div id="auth-section" style="display:none;">
+    <h1>Access Your Documents</h1>
+    <p class="subtitle">Sign in with the email address you used when you placed your order.</p>
+    <div class="form-group">
+      <label for="email-input">Email Address</label>
+      <input type="email" id="email-input" placeholder="you@example.com" autocomplete="email">
+    </div>
+    <div class="form-group">
+      <label for="password-input">Password</label>
+      <input type="password" id="password-input" placeholder="••••••••" autocomplete="current-password">
+    </div>
+    <button class="btn-primary" id="sign-in-btn">Sign In</button>
+    <p id="auth-error"></p>
+    <p class="auth-help" style="margin-top:16px;">
+      First time? Check your confirmation email for a link to set your password.<br>
+      Need help? <a href="tel:+13862221907">(386) 222-1907</a>
+    </p>
+  </div>
+
+  <!-- Portal -->
+  <div id="portal-section">
+
+    <div class="portal-greeting">
+      <h1 id="greeting-name">Welcome Back</h1>
+      <p id="greeting-sub">Your estate planning documents are ready below.</p>
+    </div>
+
+    <div id="status-banner-container"></div>
+
+    <div class="plan-card" id="plan-summary-card" style="display:none;">
+      <h2>Your Plan Summary</h2>
+      <div class="plan-meta" id="plan-meta-grid"></div>
+    </div>
+
+    <div class="docs-section">
+      <h2>Your Documents</h2>
+      <div class="doc-list" id="doc-list"></div>
+    </div>
+
+    <div class="portal-actions" id="portal-actions" style="display:none;">
+      <button class="btn-secondary" id="print-all-btn">🖨 Print All Documents</button>
+    </div>
+
+    <div class="attorney-box">
+      <div>
+        <strong>Ready to sign? Schedule your appointment.</strong>
+        <p>Arthur Simpson, Esq. will witness and notarize your documents. Most signings take 30–45 minutes.</p>
+      </div>
+      <a class="btn-call" href="tel:+13862221907">📞 (386) 222-1907</a>
+    </div>
+
+  </div>
+
+</main>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+<!-- Document generation library -->
+<script src="/js/documents.js"></script>
+
+<script>
+'use strict';
+
+// ── Firebase init ────────────────────────────────────────────────────
+const firebaseConfig = {
+  apiKey:            "AIzaSyDu2Fs6akMU2wvfyTTvPXVahQIO2z8o3ek",
+  authDomain:        "cornerstone-wealth-and-legacy.firebaseapp.com",
+  projectId:         "cornerstone-wealth-and-legacy",
+  storageBucket:     "cornerstone-wealth-and-legacy.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId:             "YOUR_APP_ID"
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db   = firebase.firestore();
+
+// ── DOM refs ─────────────────────────────────────────────────────────
+const loadingScreen   = document.getElementById('loading-screen');
+const authSection     = document.getElementById('auth-section');
+const portalSection   = document.getElementById('portal-section');
+const emailInput      = document.getElementById('email-input');
+const passwordInput   = document.getElementById('password-input');
+const signInBtn       = document.getElementById('sign-in-btn');
+const authError       = document.getElementById('auth-error');
+const signOutBtn      = document.getElementById('sign-out-btn');
+const userEmailEl     = document.getElementById('user-email');
+const greetingName    = document.getElementById('greeting-name');
+const greetingSub     = document.getElementById('greeting-sub');
+const statusContainer = document.getElementById('status-banner-container');
+const planSummaryCard = document.getElementById('plan-summary-card');
+const planMetaGrid    = document.getElementById('plan-meta-grid');
+const docList         = document.getElementById('doc-list');
+const portalActions   = document.getElementById('portal-actions');
+const printAllBtn     = document.getElementById('print-all-btn');
+
+// ── Auth state ────────────────────────────────────────────────────────
+auth.onAuthStateChanged(async (user) => {
+  loadingScreen.style.display = 'none';
+  if (!user) {
+    showAuth();
+    return;
+  }
+  showPortal(user);
+});
+
+function showAuth() {
+  authSection.style.display  = 'block';
+  portalSection.style.display = 'none';
+}
+
+// ── Sign in ───────────────────────────────────────────────────────────
+signInBtn.addEventListener('click', signIn);
+passwordInput.addEventListener('keydown', e => { if (e.key === 'Enter') signIn(); });
+
+async function signIn() {
+  const email    = emailInput.value.trim();
+  const password = passwordInput.value;
+  if (!email || !password) {
+    showAuthError('Please enter your email and password.');
+    return;
+  }
+  signInBtn.disabled = true;
+  signInBtn.textContent = 'Signing in…';
+  authError.style.display = 'none';
+
+  try {
+    await auth.signInWithEmailAndPassword(email, password);
+  } catch (err) {
+    signInBtn.disabled = false;
+    signInBtn.textContent = 'Sign In';
+    showAuthError(friendlyAuthError(err.code));
+  }
+}
+
+function showAuthError(msg) {
+  authError.textContent = msg;
+  authError.style.display = 'block';
+}
+
+function friendlyAuthError(code) {
+  switch (code) {
+    case 'auth/user-not-found':
+    case 'auth/wrong-password':
+    case 'auth/invalid-credential':
+      return 'Incorrect email or password. Please try again.';
+    case 'auth/too-many-requests':
+      return 'Too many attempts. Please wait a few minutes and try again.';
+    case 'auth/invalid-email':
+      return 'Please enter a valid email address.';
+    default:
+      return 'Sign-in failed. Please contact (386) 222-1907 for help.';
+  }
+}
+
+// ── Sign out ──────────────────────────────────────────────────────────
+signOutBtn.addEventListener('click', () => auth.signOut());
+
+// ── Portal ────────────────────────────────────────────────────────────
+async function showPortal(user) {
+  authSection.style.display   = 'none';
+  portalSection.style.display = 'block';
+  signOutBtn.style.display    = 'inline-block';
+  userEmailEl.style.display   = 'inline';
+  userEmailEl.textContent     = user.email;
+
+  // Load client plan from Firestore
+  let planData = null;
+  try {
+    const snap = await db.collection('plans')
+      .where('email', '==', user.email)
+      .orderBy('createdAt', 'desc')
+      .limit(1)
+      .get();
+
+    if (!snap.empty) {
+      planData = snap.docs[0].data();
+    }
+  } catch (err) {
+    console.error('Firestore load error:', err);
+  }
+
+  if (!planData) {
+    renderNoOrder();
+    return;
+  }
+
+  renderGreeting(planData);
+  renderStatusBanner(planData);
+  renderPlanSummary(planData);
+  renderDocuments(planData);
+}
+
+function renderGreeting(d) {
+  const firstName = d.gFirst || 'there';
+  greetingName.textContent = `Welcome, ${firstName}.`;
+  const statusMap = {
+    'documents_ready':        'Your documents are ready to review and print.',
+    'payment_complete':       'Your payment was received — your documents are being prepared.',
+    'ai_review_pending':      'Your documents are being reviewed. They will be ready shortly.',
+    'needs_attorney_review':  'Your documents are ready with attorney notes inside.',
+    'payment_pending':        'Complete your payment to access your documents.'
+  };
+  greetingSub.textContent = statusMap[d.status] || 'Your estate planning portal.';
+}
+
+function renderStatusBanner(d) {
+  const s = d.status || '';
+  let type, icon, title, body;
+
+  if (s === 'documents_ready' || s === 'needs_attorney_review') {
+    type  = 'ready';
+    icon  = '✅';
+    title = 'Your documents are ready';
+    body  = 'Click <strong>View</strong> to open any document in a new tab. Use your browser\'s <strong>File → Print → Save as PDF</strong> to save a copy. Documents require attorney-supervised signing to be legally effective.';
+  } else if (s === 'ai_review_pending') {
+    type  = 'pending';
+    icon  = '⏳';
+    title = 'Preparing your documents';
+    body  = 'Our AI review is checking your documents for accuracy. This usually takes less than 2 minutes. Refresh the page or come back shortly.';
+  } else if (s === 'payment_pending') {
+    type  = 'pending';
+    icon  = '💳';
+    title = 'Payment required';
+    body  = 'Please complete payment to unlock your documents. Contact <strong>(386) 222-1907</strong> if you need assistance.';
+  } else if (s === 'payment_complete') {
+    type  = 'pending';
+    icon  = '⏳';
+    title = 'Documents being prepared';
+    body  = 'Your payment was received. Your documents will be ready within a few minutes.';
+  } else {
+    type  = 'review';
+    icon  = 'ℹ️';
+    title = 'Account active';
+    body  = 'Contact <strong>(386) 222-1907</strong> or <a href="mailto:info@cornerstonewealthlegacy.com">info@cornerstonewealthlegacy.com</a> if you have questions.';
+  }
+
+  statusContainer.innerHTML = `
+    <div class="status-banner ${type}">
+      <div class="status-icon">${icon}</div>
+      <div>
+        <div class="status-title">${title}</div>
+        <div>${body}</div>
+      </div>
+    </div>
+  `;
+}
+
+function renderPlanSummary(d) {
+  const planLabels = {
+    trust:      'Revocable Living Trust Package',
+    will:       'Last Will & Testament Package',
+    both:       'Comprehensive Trust + Will Package',
+    land_trust: 'Florida Land Trust',
+    gun_trust:  'NFA Gun Trust'
+  };
+  const items = [
+    { label: 'Plan',       value: planLabels[d.docCategory] || d.docCategory || '—' },
+    { label: 'Structure',  value: d.structure === 'joint' ? 'Joint (Married Couple)' : d.structure === 'separate' ? 'Separate Trusts' : 'Individual' },
+    { label: 'Order Date', value: d.createdAt ? new Date(d.createdAt.seconds * 1000).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '—' },
+    { label: 'Trust Name', value: d.trustName || '—' }
+  ];
+
+  planMetaGrid.innerHTML = items.map(i => `
+    <div class="plan-meta-item">
+      <div class="label">${i.label}</div>
+      <div class="value">${i.value}</div>
+    </div>
+  `).join('');
+  planSummaryCard.style.display = 'block';
+}
+
+// Document descriptions
+const DOC_META = {
+  'Revocable Living Trust':                  { icon: '📜', desc: 'Core trust document — holds your assets and directs distribution' },
+  'Pour-Over Will':                          { icon: '📋', desc: 'Directs any probate assets into your trust at death' },
+  'Last Will and Testament':                 { icon: '📋', desc: 'Full testamentary will with beneficiary designations' },
+  'Certificate of Trust':                    { icon: '🔖', desc: 'Provides trustee authority to banks and third parties' },
+  'Assignment of Personal Property to Trust':{ icon: '📦', desc: 'Transfers household goods and personal items to your trust' },
+  'Durable Power of Attorney':               { icon: '✍️', desc: 'Authorizes your agent to manage finances if you are incapacitated' },
+  'Designation of Health Care Surrogate':    { icon: '🏥', desc: 'Names someone to make medical decisions on your behalf' },
+  'Living Will':                             { icon: '💙', desc: 'States your end-of-life care wishes in writing' },
+  'HIPAA Authorization':                     { icon: '🔐', desc: 'Allows key people to access your medical records' },
+  'Florida Land Trust Agreement':            { icon: '🏠', desc: 'Holds real property with privacy and probate avoidance' },
+  'NFA Gun Trust':                           { icon: '🔒', desc: 'ATF 41F-compliant trust for NFA-regulated firearms' }
+};
+
+function renderDocuments(d) {
+  const isReady = d.status === 'documents_ready' || d.status === 'needs_attorney_review';
+
+  // Parse beneficiary arrays
+  const benes      = safeArray(d.beneficiaries);
+  const contingents= safeArray(d.contingents);
+  const successors = safeArray(d.successors);
+
+  // Generate docs
+  let docs = [];
+  if (isReady) {
+    try {
+      docs = window.generateDocPackage(d, benes, contingents, successors);
+    } catch (err) {
+      console.error('Doc generation error:', err);
+    }
+  }
+
+  if (docs.length === 0) {
+    const catDocs = expectedDocNames(d.docCategory);
+    docList.innerHTML = catDocs.map(name => {
+      const meta = DOC_META[name] || { icon: '📄', desc: '' };
+      return `
+        <div class="doc-item">
+          <div class="doc-item-left">
+            <div class="doc-icon">${meta.icon}</div>
+            <div>
+              <div class="doc-name">${name}</div>
+              <div class="doc-desc">${meta.desc}</div>
+            </div>
+          </div>
+          <div class="doc-actions">
+            <button class="btn-doc view" disabled>View</button>
+            <button class="btn-doc print" disabled>Print</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+    return;
+  }
+
+  docList.innerHTML = docs.map((doc, idx) => {
+    const meta = DOC_META[doc.title] || { icon: '📄', desc: '' };
+    return `
+      <div class="doc-item">
+        <div class="doc-item-left">
+          <div class="doc-icon">${meta.icon}</div>
+          <div>
+            <div class="doc-name">${doc.title}</div>
+            <div class="doc-desc">${meta.desc}</div>
+          </div>
+        </div>
+        <div class="doc-actions">
+          <button class="btn-doc view" data-idx="${idx}">View</button>
+          <button class="btn-doc print" data-idx="${idx}">Print</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Store docs on window for button handlers
+  window._portalDocs = docs;
+
+  // View button
+  docList.querySelectorAll('.btn-doc.view').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const doc = window._portalDocs[+btn.dataset.idx];
+      openDocInTab(doc);
+    });
+  });
+
+  // Print button
+  docList.querySelectorAll('.btn-doc.print').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const doc = window._portalDocs[+btn.dataset.idx];
+      printDoc(doc);
+    });
+  });
+
+  portalActions.style.display = 'flex';
+
+  // Print all
+  printAllBtn.addEventListener('click', () => {
+    if (!window._portalDocs) return;
+    window._portalDocs.forEach((doc, i) => {
+      setTimeout(() => printDoc(doc), i * 400);
+    });
+  });
+}
+
+function openDocInTab(doc) {
+  const win = window.open('', '_blank');
+  if (!win) {
+    alert('Pop-up was blocked. Please allow pop-ups for this site and try again.');
+    return;
+  }
+  win.document.write(doc.html);
+  win.document.close();
+}
+
+function printDoc(doc) {
+  const win = window.open('', '_blank');
+  if (!win) {
+    alert('Pop-up was blocked. Please allow pop-ups for this site and try again.');
+    return;
+  }
+  win.document.write(doc.html);
+  win.document.close();
+  // Give fonts a moment to load before triggering print
+  win.onload = () => setTimeout(() => win.print(), 600);
+}
+
+function safeArray(val) {
+  if (Array.isArray(val)) return val;
+  if (val && typeof val === 'object') return Object.values(val);
+  return [];
+}
+
+function expectedDocNames(cat) {
+  switch ((cat || 'trust').toLowerCase()) {
+    case 'trust':
+      return ['Revocable Living Trust','Pour-Over Will','Certificate of Trust',
+              'Assignment of Personal Property to Trust','Durable Power of Attorney',
+              'Designation of Health Care Surrogate','Living Will','HIPAA Authorization'];
+    case 'will':
+      return ['Last Will and Testament','Durable Power of Attorney',
+              'Designation of Health Care Surrogate','Living Will','HIPAA Authorization'];
+    case 'both':
+      return ['Revocable Living Trust','Pour-Over Will','Certificate of Trust',
+              'Assignment of Personal Property to Trust','Last Will and Testament',
+              'Durable Power of Attorney','Designation of Health Care Surrogate',
+              'Living Will','HIPAA Authorization'];
+    case 'land_trust':
+      return ['Florida Land Trust Agreement'];
+    case 'gun_trust':
+      return ['NFA Gun Trust'];
+    default:
+      return ['Revocable Living Trust','Durable Power of Attorney',
+              'Designation of Health Care Surrogate','Living Will'];
+  }
+}
+
+function renderNoOrder() {
+  portalSection.style.display = 'block';
+  greetingName.textContent = 'Welcome to Your Portal';
+  greetingSub.textContent  = 'No order was found for this account.';
+  statusContainer.innerHTML = `
+    <div class="status-banner review">
+      <div class="status-icon">ℹ️</div>
+      <div>
+        <div class="status-title">No order found</div>
+        <div>We couldn't find an order linked to your email address. Please contact us at
+        <strong>(386) 222-1907</strong> or
+        <a href="mailto:info@cornerstonewealthlegacy.com">info@cornerstonewealthlegacy.com</a>
+        and we'll look into it right away.</div>
+      </div>
+    </div>
+  `;
+}
+</script>
+
+</body>
+</html>

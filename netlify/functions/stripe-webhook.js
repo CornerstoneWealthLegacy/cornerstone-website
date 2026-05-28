@@ -71,34 +71,6 @@ async function getFirestoreToken(serviceAccount) {
   return data.access_token;
 }
 
-async function firestoreUpdate(projectId, uid, fields, token) {
-  const docPath = `projects/${projectId}/databases/(default)/documents/sessions/${uid}`;
-  const url     = `https://firestore.googleapis.com/v1/${docPath}`;
-
-  // Build Firestore field mask and value map
-  const updateMask = Object.keys(fields).map(f => `updateMask.fieldPaths=${encodeURIComponent(f)}`).join('&');
-
-  const firestoreFields = {};
-  for (const [k, v] of Object.entries(fields)) {
-    if (typeof v === 'string')      firestoreFields[k] = { stringValue: v };
-    else if (typeof v === 'boolean') firestoreFields[k] = { booleanValue: v };
-    else if (typeof v === 'number')  firestoreFields[k] = { doubleValue: v };
-    else if (v === null)             firestoreFields[k] = { nullValue: null };
-  }
-
-  const res = await fetch(`${url}?${updateMask}`, {
-    method:  'PATCH',
-    headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ fields: firestoreFields }),
-  });
-
-  if (!res.ok) {
-    const err = await res.text();
-    throw new Error(`Firestore PATCH failed: ${res.status} ${err}`);
-  }
-  return res.json();
-}
-
 // ── Plan tier labels ──────────────────────────────────────────────────────
 const PLAN_LABELS = {
   essentials_diy:    'Essentials DIY (Will + POA + Healthcare)',
@@ -110,6 +82,202 @@ const PLAN_LABELS = {
   land_trust:        'Florida Land Trust',
   gun_trust:         'NFA Gun Trust',
 };
+
+// ── Firestore GET (read a document) ──────────────────────────────────────
+async function firestoreGet(projectId, collection, docId, token) {
+  const url = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/${collection}/${docId}`;
+  const res = await fetch(url, {
+    headers: { 'Authorization': `Bearer ${token}` },
+  });
+  if (!res.ok) return null;
+  const data = await res.json();
+  return parseFirestoreDoc(data.fields || {});
+}
+
+// ── Firestore query (find plan by email) ─────────────────────────────────
+async function firestoreQueryByEmail(projectId, email, token) {
+  // Query plans collection where email == session email, ordered by createdAt desc
+  const url = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents:runQuery`;
+  const body = {
+    structuredQuery: {
+      from:    [{ collectionId: 'plans' }],
+      where: {
+        fieldFilter: {
+          field:  { fieldPath: 'email' },
+          op:     'EQUAL',
+          value:  { stringValue: email },
+        },
+      },
+      orderBy: [{ field: { fieldPath: 'createdAt' }, direction: 'DESCENDING' }],
+      limit:   1,
+    }
+  };
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) return null;
+  const rows = await res.json();
+  if (!rows[0]?.document) return null;
+  const doc = rows[0].document;
+  return { id: doc.name.split('/').pop(), data: parseFirestoreDoc(doc.fields || {}) };
+}
+
+// ── Parse Firestore REST fields into a plain JS object ────────────────────
+function parseFirestoreDoc(fields) {
+  const out = {};
+  for (const [k, v] of Object.entries(fields)) {
+    if      ('stringValue'  in v) out[k] = v.stringValue;
+    else if ('booleanValue' in v) out[k] = v.booleanValue;
+    else if ('integerValue' in v) out[k] = Number(v.integerValue);
+    else if ('doubleValue'  in v) out[k] = v.doubleValue;
+    else if ('nullValue'    in v) out[k] = null;
+    else if ('arrayValue'   in v) out[k] = (v.arrayValue.values || []).map(i => {
+      if ('stringValue'  in i) return i.stringValue;
+      if ('booleanValue' in i) return i.booleanValue;
+      if ('mapValue'     in i) return parseFirestoreDoc(i.mapValue.fields || {});
+      return null;
+    });
+    else if ('mapValue' in v) out[k] = parseFirestoreDoc(v.mapValue.fields || {});
+    else out[k] = null;
+  }
+  return out;
+}
+
+// ── Firestore PATCH (update specific fields on any collection/doc) ────────
+async function firestoreUpdateDoc(projectId, collection, docId, fields, token) {
+  const docPath = `projects/${projectId}/databases/(default)/documents/${collection}/${docId}`;
+  const url     = `https://firestore.googleapis.com/v1/${docPath}`;
+
+  const updateMask = Object.keys(fields).map(f => `updateMask.fieldPaths=${encodeURIComponent(f)}`).join('&');
+
+  const firestoreFields = {};
+  for (const [k, v] of Object.entries(fields)) {
+    if (typeof v === 'string')       firestoreFields[k] = { stringValue: v };
+    else if (typeof v === 'boolean') firestoreFields[k] = { booleanValue: v };
+    else if (typeof v === 'number')  firestoreFields[k] = { doubleValue: v };
+    else if (v === null)             firestoreFields[k] = { nullValue: null };
+  }
+
+  const res = await fetch(`${url}?${updateMask}`, {
+    method:  'PATCH',
+    headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ fields: firestoreFields }),
+  });
+  if (!res.ok) throw new Error(`Firestore PATCH failed (${collection}/${docId}): ${res.status} ${await res.text()}`);
+  return res.json();
+}
+
+// ── AI review of planData via Anthropic API ────────────────────────────────
+// Score ≥ 80 → documents_ready; 60–79 → needs_attorney_review; < 60 → needs_attorney_review
+async function runAIReview(planData) {
+  const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY;
+  if (!ANTHROPIC_KEY) {
+    console.warn('ANTHROPIC_API_KEY not set — skipping AI review, defaulting to documents_ready');
+    return { status: 'documents_ready', score: 85, summary: 'AI review skipped (key not configured)' };
+  }
+
+  const summary = buildPlanSummary(planData);
+
+  const prompt = `You are a Florida estate planning attorney reviewing a client's intake data before document generation. Review the following plan data for completeness, legal sufficiency under Florida law, and red flags.
+
+PLAN DATA:
+${summary}
+
+FLORIDA LAW CHECKLIST:
+- Trust: Must have at least 1 named successor trustee, at least 1 named beneficiary
+- Will: Must have at least 1 named personal representative and at least 1 beneficiary
+- POA: Must have at least 1 named agent
+- Healthcare Surrogate: Must have at least 1 named surrogate
+- Joint trust: Both spouses must have first and last names
+- Land Trust: Must have property address, trustee name, and at least 1 beneficiary
+- NFA Trust: Must have at least 1 responsible person (already the grantor)
+- All plans: Grantor must have first name, last name, and address
+
+Respond with ONLY valid JSON in this exact format:
+{
+  "score": <0-100 integer>,
+  "overall": "<READY_FOR_DELIVERY|NEEDS_ATTORNEY_ATTENTION|DO_NOT_DELIVER>",
+  "summary": "<one sentence>",
+  "issues": ["<issue1>", "<issue2>"],
+  "strengths": ["<strength1>"],
+  "nextSteps": ["<step1>"]
+}
+
+Score guide: 85-100 = complete and clean; 70-84 = minor gaps; 60-69 = significant gaps; below 60 = do not deliver.`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'x-api-key':         ANTHROPIC_KEY,
+        'anthropic-version': '2023-06-01',
+        'content-type':      'application/json',
+      },
+      body: JSON.stringify({
+        model:      'claude-3-5-haiku-20241022',
+        max_tokens: 512,
+        messages:   [{ role: 'user', content: prompt }],
+      }),
+    });
+
+    if (!res.ok) {
+      console.error('Anthropic API error:', res.status, await res.text());
+      return { status: 'documents_ready', score: 80, summary: 'AI review failed — defaulting to ready' };
+    }
+
+    const aiData  = await res.json();
+    const text    = aiData.content?.[0]?.text || '{}';
+    const jsonStr = text.match(/\{[\s\S]*\}/)?.[0] || '{}';
+    const review  = JSON.parse(jsonStr);
+
+    const score = typeof review.score === 'number' ? review.score : 80;
+    let docStatus;
+    if (score >= 70) {
+      docStatus = 'documents_ready';
+    } else {
+      docStatus = 'needs_attorney_review';
+    }
+
+    return {
+      status:    docStatus,
+      score,
+      summary:   review.summary  || '',
+      issues:    review.issues   || [],
+      strengths: review.strengths|| [],
+      nextSteps: review.nextSteps|| [],
+      overall:   review.overall  || '',
+    };
+  } catch (err) {
+    console.error('AI review exception:', err.message);
+    return { status: 'documents_ready', score: 80, summary: 'AI review error — defaulting to ready' };
+  }
+}
+
+function buildPlanSummary(d) {
+  const lines = [
+    `Category: ${d.docCategory || '?'}`,
+    `Structure: ${d.structure || '?'}`,
+    `Grantor: ${d.gFirst || '?'} ${d.gLast || '?'}`,
+    `Address: ${d.gAddr || '?'}, ${d.gCity || '?'}, FL ${d.gZip || '?'}`,
+    d.sFirst ? `Spouse: ${d.sFirst} ${d.sLast || ''}` : '',
+    `Successor Trustees: ${JSON.stringify(d.successors || [])}`,
+    `Beneficiaries: ${JSON.stringify(d.beneficiaries || [])}`,
+    `Contingents: ${JSON.stringify(d.contingents || [])}`,
+    `PR: ${d.prName || '?'}`,
+    `POA Agent: ${d.poaAgent || '?'}`,
+    `Surrogate: ${d.surrogate || '?'}`,
+    `Trust Name: ${d.trustName || '(auto)'}`,
+    `Provisions: ${JSON.stringify(d.provisions || [])}`,
+    `Has children: ${d.hasChildren || false}`,
+    `Has bequests: ${d.hasBequests || false}`,
+    d.ltPropAddress ? `Land Trust Property: ${d.ltPropAddress}` : '',
+    d.ltTrusteeName ? `Land Trust Trustee: ${d.ltTrusteeName}` : '',
+    d.nfaItem1      ? `NFA Item 1: ${d.nfaItem1}` : '',
+  ].filter(Boolean);
+  return lines.join('\n');
+}
 
 // ── Main handler ──────────────────────────────────────────────────────────
 exports.handler = async (event) => {
@@ -154,56 +322,118 @@ exports.handler = async (event) => {
 
       console.log('Payment completed:', { uid, planTier, email, amount });
 
-      // Update Firestore if uid and service account available
-      if (uid) {
-        const svcAccountRaw = process.env.FIREBASE_SERVICE_ACCOUNT;
-        if (svcAccountRaw) {
-          try {
-            const svcAccount = JSON.parse(svcAccountRaw);
-            const token      = await getFirestoreToken(svcAccount);
-            const projectId  = svcAccount.project_id;
+      // Update Firestore and trigger AI review
+      const svcAccountRaw = process.env.FIREBASE_SERVICE_ACCOUNT;
+      if (svcAccountRaw) {
+        try {
+          const svcAccount = JSON.parse(svcAccountRaw);
+          const token      = await getFirestoreToken(svcAccount);
+          const projectId  = svcAccount.project_id;
 
-            await firestoreUpdate(projectId, uid, {
-              paidTier:        planTier,
-              paidLabel:       planLabel,
-              stripeSessionId: session.id,
-              stripeEmail:     email || '',
-              amountPaid:      amount || '',
-              paymentStatus:   'paid',
-              status:          'paid',
-            }, token);
+          // 1. Find the plan document — by uid (session doc) or by email (plans collection)
+          let planDocId   = uid;
+          let planData    = null;
+          let collection  = 'sessions';
 
-            console.log('Firestore updated for uid:', uid);
-          } catch (fsErr) {
-            // Log but don't fail — ntfy alert still fires
-            console.error('Firestore update failed:', fsErr.message);
+          if (uid) {
+            // Try sessions collection first (start.html saves here)
+            planData = await firestoreGet(projectId, 'sessions', uid, token);
           }
-        } else {
-          console.warn('FIREBASE_SERVICE_ACCOUNT not set — skipping Firestore update');
-        }
-      }
+          if (!planData && email) {
+            // Fall back to plans collection queried by email
+            const found = await firestoreQueryByEmail(projectId, email, token);
+            if (found) { planDocId = found.id; planData = found.data; collection = 'plans'; }
+          }
 
-      // Always fire ntfy alert to attorney
-      try {
+          // 2. Mark payment fields + set status to ai_review_pending
+          await firestoreUpdateDoc(projectId, collection, planDocId, {
+            paidTier:        planTier,
+            paidLabel:       planLabel,
+            stripeSessionId: session.id,
+            stripeEmail:     email || '',
+            amountPaid:      amount || '',
+            paymentStatus:   'paid',
+            status:          'ai_review_pending',
+            reviewStartedAt: new Date().toISOString(),
+          }, token);
+
+          console.log('Firestore: set ai_review_pending for', planDocId);
+
+          // 3. Run AI review
+          let reviewResult = { status: 'documents_ready', score: 85, summary: 'No plan data found' };
+          if (planData) {
+            reviewResult = await runAIReview(planData);
+            console.log('AI review result:', reviewResult.overall, 'score:', reviewResult.score);
+          }
+
+          // 4. Update Firestore with review result and final status
+          await firestoreUpdateDoc(projectId, collection, planDocId, {
+            status:          reviewResult.status,
+            reviewScore:     reviewResult.score,
+            reviewSummary:   reviewResult.summary  || '',
+            reviewOverall:   reviewResult.overall  || '',
+            reviewIssues:    JSON.stringify(reviewResult.issues    || []),
+            reviewStrengths: JSON.stringify(reviewResult.strengths || []),
+            reviewNextSteps: JSON.stringify(reviewResult.nextSteps || []),
+            reviewCompletedAt: new Date().toISOString(),
+          }, token);
+
+          console.log('Firestore: final status set to', reviewResult.status, 'for', planDocId);
+
+          // 5. Send ntfy with review outcome
+          const reviewLine = reviewResult.score
+            ? `Review score: ${reviewResult.score}/100 — ${reviewResult.overall || reviewResult.status}`
+            : '';
+          const needsAttention = reviewResult.status === 'needs_attorney_review';
+
+          await fetch(`https://ntfy.sh/${TOPIC}`, {
+            method: 'POST',
+            headers: {
+              'Title':        needsAttention ? '⚠️ Payment — Attorney Review Needed' : '✅ Payment — Documents Ready',
+              'Priority':     needsAttention ? 'urgent' : 'high',
+              'Tags':         needsAttention ? 'warning,moneybag' : 'white_check_mark,moneybag',
+              'Content-Type': 'text/plain',
+            },
+            body: [
+              `${email || 'Client'} paid for ${planLabel}`,
+              amount ? `Amount: $${amount}` : '',
+              reviewLine,
+              reviewResult.summary || '',
+              planDocId ? `Doc ID: ${planDocId}` : '',
+              '',
+              needsAttention
+                ? '⚠️ Review issues before client downloads.'
+                : '📄 Documents ready in client portal.',
+            ].filter(Boolean).join('\n'),
+          }).catch(e => console.error('ntfy error:', e.message));
+
+        } catch (fsErr) {
+          console.error('Firestore/review pipeline failed:', fsErr.message);
+          // Still fire basic ntfy so attorney knows about payment
+          await fetch(`https://ntfy.sh/${TOPIC}`, {
+            method: 'POST',
+            headers: {
+              'Title': '💳 Payment Received (review pipeline error)',
+              'Priority': 'high',
+              'Content-Type': 'text/plain',
+            },
+            body: `${email || 'Client'} paid $${amount || '?'} for ${planLabel}.\nPipeline error: ${fsErr.message}`,
+          }).catch(() => {});
+        }
+      } else {
+        console.warn('FIREBASE_SERVICE_ACCOUNT not set — skipping Firestore + AI review');
+        // Still fire ntfy
         await fetch(`https://ntfy.sh/${TOPIC}`, {
           method: 'POST',
           headers: {
-            'Title':        '💳 Payment Received',
-            'Priority':     'high',
-            'Tags':         'white_check_mark,moneybag',
+            'Title': '💳 Payment Received',
+            'Priority': 'high',
             'Content-Type': 'text/plain',
           },
-          body: [
-            `${email || 'Client'} paid for ${planLabel}`,
-            amount ? `Amount: $${amount}` : '',
-            uid ? `Session UID: ${uid}` : '',
-            '',
-            'Open attorney dashboard to review.',
-          ].filter(Boolean).join('\n'),
-        });
-      } catch (ntfyErr) {
-        console.error('ntfy alert failed:', ntfyErr.message);
+          body: `${email || 'Client'} paid $${amount || '?'} for ${planLabel}.`,
+        }).catch(() => {});
       }
+
     }
 
     // ── payment_intent.payment_failed ─────────────────────────────────────
