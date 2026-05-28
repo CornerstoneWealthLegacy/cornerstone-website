@@ -271,3 +271,8 @@
   from = "/portal"
   to = "/portal.html"
   status = 200
+
+[[redirects]]
+  from = "/signing"
+  to = "/signing.html"
+  status = 200

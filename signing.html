@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Schedule Your Signing Appointment — Cornerstone Wealth & Legacy Law</title>
+  <meta name="description" content="Schedule your estate plan document signing appointment with Cornerstone Wealth & Legacy Law — sign online via secure video or in person at our Daytona Beach office.">
+  <meta name="robots" content="noindex,nofollow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="images/logo-icon.png">
+
+  <style>
+    :root {
+      --navy:   #1B2A4A;
+      --gold:   #C9A84C;
+      --cream:  #F9F5EE;
+      --white:  #FFFFFF;
+      --gray100:#F1F3F5;
+      --gray300:#CED4DA;
+      --gray500:#6C757D;
+      --gray700:#495057;
+      --gray900:#212529;
+      --green:  #1A6E3C;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--gray900);
+      background: var(--cream);
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--navy);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    }
+    .logo {
+      font-family: 'EB Garamond', serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-accent { color: var(--gold); }
+    .back-link {
+      font-size: 13px;
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.15s;
+    }
+    .back-link:hover { color: var(--white); }
+
+    /* ── Layout ── */
+    main { max-width: 860px; margin: 0 auto; padding: 48px 20px 80px; }
+
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .hero h1 {
+      font-family: 'EB Garamond', serif;
+      font-size: 36px;
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1.25;
+      margin-bottom: 16px;
+    }
+    .hero p {
+      font-size: 16px;
+      color: var(--gray700);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ── Options grid ── */
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+    @media (max-width: 640px) {
+      .options-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 28px; }
+    }
+
+    .option-card {
+      background: var(--white);
+      border-radius: 16px;
+      border: 2px solid var(--gray300);
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .option-card:hover {
+      border-color: var(--navy);
+      box-shadow: 0 4px 24px rgba(27,42,74,0.1);
+    }
+    .option-card.featured {
+      border-color: var(--gold);
+    }
+    .option-card.featured:hover {
+      border-color: var(--navy);
+    }
+
+    .option-icon {
+      font-size: 36px;
+      margin-bottom: 16px;
+      line-height: 1;
+    }
+    .option-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--gold);
+      color: var(--navy);
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+    .option-card h2 {
+      font-family: 'EB Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+    .option-card p {
+      font-size: 14px;
+      color: var(--gray700);
+      line-height: 1.7;
+      flex: 1;
+      margin-bottom: 24px;
+    }
+
+    .option-details {
+      margin-bottom: 24px;
+    }
+    .option-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--gray700);
+      margin-bottom: 8px;
+    }
+    .option-detail-icon {
+      color: var(--green);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .btn-book {
+      display: block;
+      text-align: center;
+      padding: 14px 20px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      text-decoration: none;
+      transition: filter 0.15s, transform 0.15s;
+      cursor: pointer;
+    }
+    .btn-book:hover { filter: brightness(1.06); transform: translateY(-1px); }
+    .btn-book-primary {
+      background: var(--navy);
+      color: var(--white);
+    }
+    .btn-book-secondary {
+      background: var(--cream);
+      color: var(--navy);
+      border: 2px solid var(--navy);
+    }
+
+    /* ── What to bring ── */
+    .prep-section {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 36px 32px;
+      margin-bottom: 32px;
+    }
+    .prep-section h3 {
+      font-family: 'EB Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 20px;
+    }
+    .prep-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 560px) { .prep-grid { grid-template-columns: 1fr; } }
+
+    .prep-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      background: var(--gray100);
+      border-radius: 10px;
+    }
+    .prep-item-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .prep-item-text strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 2px;
+    }
+    .prep-item-text span {
+      font-size: 12px;
+      color: var(--gray500);
+    }
+
+    /* ── Important notice ── */
+    .notice {
+      background: #FFFBEB;
+      border: 1px solid #F59E0B;
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-bottom: 32px;
+      font-size: 13px;
+      color: #92400E;
+      line-height: 1.6;
+    }
+    .notice strong { display: block; margin-bottom: 4px; font-size: 14px; }
+
+    /* ── Contact strip ── */
+    .contact-strip {
+      text-align: center;
+      padding: 28px 20px;
+      background: var(--navy);
+      border-radius: 12px;
+      color: rgba(255,255,255,0.8);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    .contact-strip strong { color: var(--white); }
+    .contact-strip a { color: var(--gold); text-decoration: none; }
+    .contact-strip a:hover { text-decoration: underline; }
+
+    /* ── Divider ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 32px;
+      color: var(--gray500);
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--gray300);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">
+    <span class="logo-accent">Cornerstone</span>&nbsp;Wealth &amp; Legacy Law
+  </a>
+  <a href="/portal" class="back-link">← Back to My Documents</a>
+</header>
+
+<main>
+
+  <div class="hero">
+    <div class="hero-eyebrow">Document Execution</div>
+    <h1>Schedule Your Signing Appointment</h1>
+    <p>Your documents are attorney-prepared drafts. To make them legally effective under Florida law, they must be signed in front of two witnesses and a notary — either in person or via secure video.</p>
+  </div>
+
+  <div class="options-grid">
+
+    <!-- RON -->
+    <div class="option-card featured">
+      <div class="option-icon">🎥</div>
+      <div class="option-badge">Most Popular</div>
+      <h2>Remote Online Notarization</h2>
+      <p>Sign from anywhere — your home, office, or vacation — via a secure video call. A Florida-commissioned online notary and two witnesses will be present on screen.</p>
+      <div class="option-details">
+        <div class="option-detail">
+          <span class="option-detail-icon">✓</span>
+          <span>Sign from anywhere — no travel required</span>
+        </div>
+        <div class="option-detail">
+          <span class="option-detail-icon">✓</span>
+          <span>Fully legal under Florida F.S. §§ 117.201–117.209</span>
+        </div>
+        <div class="option-detail">
+          <span class="option-detail-icon">✓</span>
+          <span>Appointment typically 60–90 minutes</span>
+        </div>
+        <div class="option-detail">
+          <span class="option-detail-icon">✓</span>
+          <span>Need: computer or tablet with camera &amp; microphone</span>
+        </div>
+        <div class="option-detail">
+          <span class="option-detail-icon">✓</span>
+          <span>Government-issued photo ID to verify identity</span>
+        </div>
+      </div>
+      <a class="btn-book btn-book-primary"
+         href="https://calendly.com/arthursimpson/document-signing-remote-online-notarization"
+         target="_blank" rel="noopener">
+        Book RON Appointment →
+      </a>
+    </div>
+
+    <!-- In Office -->
+    <div class="option-card">
+      <div class="option-icon">🏛</div>
+      <h2>In-Office Signing<br><span style="font-size:18px;font-weight:400;">Daytona Beach</span></h2>
+      <p>Come to our Daytona Beach office. Arthur will walk you through each document, answer any final questions, and notarize everything on the spot.</p>
+      <div class="option-details">
+        <div class="option-detail">
+          <span class="option-detail-icon">✓</span>
+          <span>Meet with Arthur Simpson, Esq. directly</span>
+        </div>
+        <div class="option-detail">
+          <span class="option-detail-icon">✓</span>
+          <span>Witnesses and notary provided in office</span>
+        </div>
+        <div class="option-detail">
+          <span class="option-detail-icon">✓</span>
+          <span>Appointment typically 60–90 minutes</span>
+        </div>
+        <div class="option-detail">
+          <span class="option-detail-icon">✓</span>
+          <span>Bring: government-issued photo ID</span>
+        </div>
+        <div class="option-detail">
+          <span class="option-detail-icon">✓</span>
+          <span>Daytona Beach, Florida</span>
+        </div>
+      </div>
+      <a class="btn-book btn-book-secondary"
+         href="https://calendly.com/arthursimpson/document-signing-in-office"
+         target="_blank" rel="noopener"
+         id="inoffice-btn">
+        Book In-Office Appointment →
+      </a>
+    </div>
+
+  </div>
+
+  <div class="divider">Before Your Appointment</div>
+
+  <div class="prep-section">
+    <h3>What to Have Ready</h3>
+    <div class="prep-grid">
+      <div class="prep-item">
+        <div class="prep-item-icon">🪪</div>
+        <div class="prep-item-text">
+          <strong>Government-Issued Photo ID</strong>
+          <span>Driver's license, passport, or state ID — required to verify identity</span>
+        </div>
+      </div>
+      <div class="prep-item">
+        <div class="prep-item-icon">📄</div>
+        <div class="prep-item-text">
+          <strong>Your Documents</strong>
+          <span>Available in your portal — review them before the appointment</span>
+        </div>
+      </div>
+      <div class="prep-item">
+        <div class="prep-item-icon">💻</div>
+        <div class="prep-item-text">
+          <strong>Camera &amp; Mic (RON only)</strong>
+          <span>Computer, tablet, or phone with a working camera and microphone</span>
+        </div>
+      </div>
+      <div class="prep-item">
+        <div class="prep-item-icon">❓</div>
+        <div class="prep-item-text">
+          <strong>Your Questions</strong>
+          <span>Write down anything you'd like Arthur to clarify before you sign</span>
+        </div>
+      </div>
+      <div class="prep-item">
+        <div class="prep-item-icon">👤</div>
+        <div class="prep-item-text">
+          <strong>Spouse (if joint plan)</strong>
+          <span>Both spouses must be present for a joint trust signing</span>
+        </div>
+      </div>
+      <div class="prep-item">
+        <div class="prep-item-icon">🏦</div>
+        <div class="prep-item-text">
+          <strong>Asset Info (optional)</strong>
+          <span>Account numbers or property info helps speed up trust funding afterward</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="notice">
+    <strong>⚠ Important — Do Not Sign in Advance</strong>
+    Your documents are attorney-prepared drafts. Do not sign any document before your scheduled appointment — signing without proper witnesses and notarization as required by Florida law can invalidate your documents entirely.
+  </div>
+
+  <div class="contact-strip">
+    <strong>Questions before your appointment?</strong><br>
+    Call or text <a href="tel:+13862221907">(386) 222-1907</a> &nbsp;·&nbsp;
+    Email <a href="mailto:arthur@cornerstonewealthlegacy.com">arthur@cornerstonewealthlegacy.com</a><br>
+    <span style="font-size:12px;opacity:0.7;margin-top:4px;display:block;">Cornerstone Wealth &amp; Legacy Law, PLLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265</span>
+  </div>
+
+</main>
+
+</body>
+</html>
