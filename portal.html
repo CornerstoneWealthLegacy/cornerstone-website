@@ -595,9 +595,12 @@ async function showPortal(user) {
     const sessionSnap = await db.collection('sessions').doc(user.uid).get();
     if (sessionSnap.exists) {
       const raw = sessionSnap.data();
-      // Flatten: top-level fields win; state.d form fields fill in the rest
-      planData = { ...(raw.state?.d || {}), ...raw };
-      // Remove the nested state object now that it's flattened
+      // start.html saves form fields nested as session.state.d.gFirst etc.
+      // Flatten state.d to top level so document generators can access them directly.
+      const stateD = raw.state?.d || {};
+      planData = { ...stateD, ...raw };
+      // Keep a direct reference for debugging
+      planData._stateD = stateD;
       delete planData.state;
     }
   } catch (err) {
@@ -631,11 +634,17 @@ async function showPortal(user) {
 }
 
 function renderGreeting(d) {
-  // Try assembled name first, fall back to saved clientName/name fields
-  const fullName = [d.gFirst, d.gLast].filter(Boolean).join(' ')
-    || d.clientName
-    || d.name
+  // Try every possible path — state.d fields, top-level clientName, or nested fallback
+  const firstName = (d.gFirst || d._stateD?.gFirst || '').trim();
+  const lastName  = (d.gLast  || d._stateD?.gLast  || '').trim();
+  const assembled = [firstName, lastName].filter(Boolean).join(' ');
+  const fullName  = assembled
+    || (d.clientName || '').trim()
+    || (d.name || '').trim()
     || '';
+
+  console.log('[Portal] Name debug:', { gFirst: d.gFirst, gLast: d.gLast, clientName: d.clientName, name: d.name, fullName });
+
   greetingName.textContent = fullName ? `Welcome, ${fullName}.` : 'Welcome.';
   greetingName.style.opacity = '1';
   const statusMap = {
