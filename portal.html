@@ -800,31 +800,11 @@ function portalTrustName(d) {
     case 'dated':    return `The ${g.trim()} Revocable Living Trust`;
     case 'legacy':   return `The ${last} Legacy Trust`;
     case 'custom':   return customName || `The ${g.trim()} Revocable Living Trust`;
-    default:         return g.trim() ? `The ${g.trim()} Revocable Living Trust` : '—';
+    default:         return g.trim() ? `The ${g.trim()} Revocable Living Trust` : '';
   }
 }
 
 function renderPlanSummary(d) {
-  // TEMP DEBUG — shows on-page so we can diagnose the trust name issue. Remove after.
-  try {
-    const dbg = document.createElement('div');
-    dbg.style.cssText = 'background:#1B2A4A;color:#fff;font-family:monospace;font-size:12px;padding:16px;border-radius:8px;margin-bottom:20px;white-space:pre-wrap;word-break:break-word;line-height:1.6';
-    dbg.textContent =
-      'PORTAL DEBUG (temporary)\n' +
-      'docCategory: ' + JSON.stringify(d.docCategory) + '\n' +
-      'gFirst: '      + JSON.stringify(d.gFirst) + '\n' +
-      'gLast: '       + JSON.stringify(d.gLast) + '\n' +
-      'nameType: '    + JSON.stringify(d.nameType) + '\n' +
-      'customName: '  + JSON.stringify(d.customName) + '\n' +
-      'trustName: '   + JSON.stringify(d.trustName) + '\n' +
-      '_stateD keys: '+ JSON.stringify(Object.keys(d._stateD || {})) + '\n' +
-      '_stateD.gFirst: '   + JSON.stringify(d._stateD?.gFirst) + '\n' +
-      '_stateD.gLast: '    + JSON.stringify(d._stateD?.gLast) + '\n' +
-      '_stateD.nameType: ' + JSON.stringify(d._stateD?.nameType) + '\n' +
-      '_stateD.customName: ' + JSON.stringify(d._stateD?.customName);
-    planMetaGrid.parentNode.insertBefore(dbg, planMetaGrid);
-  } catch(e) {}
-
   const planLabels = {
     trust:      'Revocable Living Trust Package',
     will:       'Last Will & Testament Package',
@@ -834,29 +814,33 @@ function renderPlanSummary(d) {
   };
   const cat = (d.docCategory || 'trust').toLowerCase();
 
+  // Friendly placeholder shown when a field hasn't been filled in yet
+  const PENDING = '<span style="color:#adb5bd;font-style:italic;font-weight:400;">To be completed</span>';
+
   // 4th row varies by plan type — check top-level and _stateD fallback for every field
   const sd4 = d._stateD || {};
   let row4;
   if (cat === 'will') {
     // Will plan — no trust name; show Personal Representative instead
     const pr = (d.prName || sd4.prName || '').trim();
-    row4 = { label: 'Personal Representative', value: pr || '—' };
+    row4 = { label: 'Personal Representative', value: pr || PENDING };
   } else if (cat === 'land_trust') {
     const prop = (d.ltPropAddress || sd4.ltPropAddress || '').trim();
-    row4 = { label: 'Property Address', value: prop || '—' };
+    row4 = { label: 'Property Address', value: prop || PENDING };
   } else if (cat === 'gun_trust') {
-    const gLast4 = (d.gLast || sd4.gLast || 'Family').trim();
-    row4 = { label: 'Trust Name', value: (d.trustName || sd4.trustName || `The ${gLast4} NFA Gun Trust`) };
+    const gLast4 = (d.gLast || sd4.gLast || '').trim();
+    row4 = { label: 'Trust Name', value: (d.trustName || sd4.trustName || (gLast4 ? `The ${gLast4} NFA Gun Trust` : '')) || PENDING };
   } else {
     // trust or both — compute trust name from nameType + grantor name
     const tName = (d.trustName || sd4.trustName || '').trim() || portalTrustName(d);
-    row4 = { label: 'Trust Name', value: tName || '—' };
+    row4 = { label: 'Trust Name', value: tName || PENDING };
   }
 
+  const orderDate = portalFmtDate(d.createdAt || d.updatedAt || d.lastActive);
   const items = [
-    { label: 'Plan',       value: planLabels[cat] || d.docCategory || '—' },
+    { label: 'Plan',       value: planLabels[cat] || d.docCategory || PENDING },
     { label: 'Structure',  value: (d.structure || sd4.structure) === 'joint' ? 'Joint (Married Couple)' : (d.structure || sd4.structure) === 'separate' ? 'Separate Trusts' : 'Individual' },
-    { label: 'Order Date', value: portalFmtDate(d.createdAt || d.updatedAt || d.lastActive) },
+    { label: 'Order Date', value: orderDate === '—' ? PENDING : orderDate },
     row4
   ];
 

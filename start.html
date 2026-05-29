@@ -9678,6 +9678,22 @@ function generate(){
 function startOver(){
   S={step:0,d:{},beneficiaries:[],contingents:[],successors:[]};
   localStorage.removeItem('cw_trust_state');
+  // Also reset the cloud session so the portal doesn't show a stale "complete"
+  // status against wiped questionnaire data. Only resets sessions that aren't paid.
+  try {
+    if (currentUser && db) {
+      db.collection('sessions').doc(currentUser.uid).get().then(snap => {
+        const st = snap.exists ? (snap.data().status || '') : '';
+        const paid = ['paid','payment_complete','documents_ready','needs_attorney_review','ai_review_pending'].includes(st);
+        if (!paid) {
+          db.collection('sessions').doc(currentUser.uid).set({
+            state: S, step: 0, status: 'draft',
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+          }, { merge: true });
+        }
+      });
+    }
+  } catch(e) { /* non-fatal */ }
   $('qaCard').style.display='block';
   $('progCard').style.display='block';
   const _mps3=document.getElementById('mobileProgStrip');if(_mps3)_mps3.style.display='block';
