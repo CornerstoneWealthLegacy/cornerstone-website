@@ -136,7 +136,7 @@ a:hover { color: var(--gold-hover); }
   mix-blend-mode: screen;
 }
 .footer-logo-img {
-  height: 80px;
+  height: 150px;
   width: auto;
   object-fit: contain;
   mix-blend-mode: screen;
