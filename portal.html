@@ -805,12 +805,25 @@ function portalTrustName(d) {
 }
 
 function renderPlanSummary(d) {
-  // TEMP DEBUG — remove after diagnosing trust name issue
-  console.log('PORTAL DEBUG — docCategory:', d.docCategory,
-    '| gFirst:', d.gFirst, '| gLast:', d.gLast,
-    '| nameType:', d.nameType, '| customName:', d.customName,
-    '| trustName:', d.trustName,
-    '| _stateD:', d._stateD);
+  // TEMP DEBUG — shows on-page so we can diagnose the trust name issue. Remove after.
+  try {
+    const dbg = document.createElement('div');
+    dbg.style.cssText = 'background:#1B2A4A;color:#fff;font-family:monospace;font-size:12px;padding:16px;border-radius:8px;margin-bottom:20px;white-space:pre-wrap;word-break:break-word;line-height:1.6';
+    dbg.textContent =
+      'PORTAL DEBUG (temporary)\n' +
+      'docCategory: ' + JSON.stringify(d.docCategory) + '\n' +
+      'gFirst: '      + JSON.stringify(d.gFirst) + '\n' +
+      'gLast: '       + JSON.stringify(d.gLast) + '\n' +
+      'nameType: '    + JSON.stringify(d.nameType) + '\n' +
+      'customName: '  + JSON.stringify(d.customName) + '\n' +
+      'trustName: '   + JSON.stringify(d.trustName) + '\n' +
+      '_stateD keys: '+ JSON.stringify(Object.keys(d._stateD || {})) + '\n' +
+      '_stateD.gFirst: '   + JSON.stringify(d._stateD?.gFirst) + '\n' +
+      '_stateD.gLast: '    + JSON.stringify(d._stateD?.gLast) + '\n' +
+      '_stateD.nameType: ' + JSON.stringify(d._stateD?.nameType) + '\n' +
+      '_stateD.customName: ' + JSON.stringify(d._stateD?.customName);
+    planMetaGrid.parentNode.insertBefore(dbg, planMetaGrid);
+  } catch(e) {}
 
   const planLabels = {
     trust:      'Revocable Living Trust Package',
