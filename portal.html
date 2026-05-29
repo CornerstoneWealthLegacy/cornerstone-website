@@ -805,6 +805,13 @@ function portalTrustName(d) {
 }
 
 function renderPlanSummary(d) {
+  // TEMP DEBUG — remove after diagnosing trust name issue
+  console.log('PORTAL DEBUG — docCategory:', d.docCategory,
+    '| gFirst:', d.gFirst, '| gLast:', d.gLast,
+    '| nameType:', d.nameType, '| customName:', d.customName,
+    '| trustName:', d.trustName,
+    '| _stateD:', d._stateD);
+
   const planLabels = {
     trust:      'Revocable Living Trust Package',
     will:       'Last Will & Testament Package',
