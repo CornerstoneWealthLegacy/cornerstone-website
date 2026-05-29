@@ -10217,7 +10217,7 @@ async function updateUserBar(user) {
     <div id="userMenu" style="display:none;position:absolute;top:52px;right:0;background:#fff;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.18);padding:8px;min-width:200px;z-index:200">
       ${isAtty ? '<button class="user-menu-item" onclick="showAttorneyDashboard()">⚖️ Attorney Dashboard</button>' : ''}
       ${(isAtty || isStaff) ? '<button class="user-menu-item" onclick="createCollabSession()">🤝 New Guided Session</button>' : ''}
-      ${!isAtty ? '<a class="user-menu-item" href="/portal" style="display:block;text-decoration:none;color:inherit">📁 My Documents</a>' : ''}
+      ${!isAtty ? '<a class="user-menu-item" href="/portal" style="display:block;text-decoration:none">📁 My Portal</a>' : ''}
       ${!isAtty ? '<button class="user-menu-item" onclick="document.getElementById(\'userMenu\').style.display=\'none\'">📋 My Trust Builder</button>' : ''}
       <div style="height:1px;background:#f1f3f5;margin:4px 0"></div>
       <button class="user-menu-item" style="color:#c0392b" onclick="signOut()">Sign Out</button>
