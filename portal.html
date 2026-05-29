@@ -751,11 +751,12 @@ function renderStatusBanner(d) {
     title = 'Documents being prepared';
     body  = 'Your payment was received. Your documents will be ready within a few minutes.';
   } else if (!s || s === 'in_progress' || s === 'draft' || s === 'questionnaire_complete') {
-    // Distinguish a genuinely complete questionnaire from an empty/in-progress one.
-    // We check whether real grantor data exists in the saved session.
+    // Distinguish a genuinely complete questionnaire from an empty/started-over one.
+    // The status field isn't reliable — a finished questionnaire is saved as 'draft'
+    // until payment. The only dependable signal is whether real grantor data exists.
     const sd = d._stateD || {};
     const hasName = !!((d.gFirst || sd.gFirst || '').trim() || (d.gLast || sd.gLast || '').trim());
-    const looksComplete = s === 'questionnaire_complete' || (hasName && s !== 'draft' && s !== 'in_progress');
+    const looksComplete = hasName || s === 'questionnaire_complete';
 
     type = 'pending';
     if (looksComplete) {
