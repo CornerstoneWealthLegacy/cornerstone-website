@@ -12559,9 +12559,17 @@ function proceedToPayment() {
     return;
   }
 
-  // Prefill client name and email if available
-  const name = encodeURIComponent(gName());
-  const prefilled = link + (link.includes('?') ? '&' : '?') + 'prefilled_name=' + name;
+  // Prefill client name and email, AND pass the Firebase uid as client_reference_id
+  // so the Stripe webhook can locate this client's session document and unlock the
+  // portal after payment. Without client_reference_id the webhook cannot map the
+  // payment back to the session and the portal will never unlock.
+  const params = [];
+  const name = (typeof gName === 'function' ? gName() : '').trim();
+  if (name) params.push('prefilled_name=' + encodeURIComponent(name));
+  const payEmail = (currentUser && currentUser.email) || S.d.gEmail || '';
+  if (payEmail) params.push('prefilled_email=' + encodeURIComponent(payEmail));
+  if (currentUser && currentUser.uid) params.push('client_reference_id=' + encodeURIComponent(currentUser.uid));
+  const prefilled = link + (link.includes('?') ? '&' : '?') + params.join('&');
 
   // Track pending payment in localStorage
   localStorage.setItem('cw_pending_payment', JSON.stringify({

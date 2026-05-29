@@ -94,13 +94,16 @@ async function firestoreGet(projectId, collection, docId, token) {
   return parseFirestoreDoc(data.fields || {});
 }
 
-// ── Firestore query (find plan by email) ─────────────────────────────────
+// ── Firestore query (find session by email) ──────────────────────────────
+// start.html saves client data to the 'sessions' collection (keyed by Firebase uid)
+// with an 'email' field. This is the fallback when client_reference_id is missing.
+// No orderBy — sessions may not all carry the same sortable timestamp field, and an
+// orderBy on a missing field silently returns zero rows.
 async function firestoreQueryByEmail(projectId, email, token) {
-  // Query plans collection where email == session email, ordered by createdAt desc
   const url = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents:runQuery`;
   const body = {
     structuredQuery: {
-      from:    [{ collectionId: 'plans' }],
+      from:    [{ collectionId: 'sessions' }],
       where: {
         fieldFilter: {
           field:  { fieldPath: 'email' },
@@ -108,7 +111,6 @@ async function firestoreQueryByEmail(projectId, email, token) {
           value:  { stringValue: email },
         },
       },
-      orderBy: [{ field: { fieldPath: 'createdAt' }, direction: 'DESCENDING' }],
       limit:   1,
     }
   };
@@ -330,20 +332,42 @@ exports.handler = async (event) => {
           const token      = await getFirestoreToken(svcAccount);
           const projectId  = svcAccount.project_id;
 
-          // 1. Find the plan document — by uid (session doc) or by email (plans collection)
+          // 1. Find the session document — by uid (client_reference_id) or by email
           let planDocId   = uid;
           let planData    = null;
-          let collection  = 'sessions';
+          const collection = 'sessions';
 
           if (uid) {
-            // Try sessions collection first (start.html saves here)
             planData = await firestoreGet(projectId, 'sessions', uid, token);
           }
           if (!planData && email) {
-            // Fall back to plans collection queried by email
+            // Fall back to querying sessions by email
             const found = await firestoreQueryByEmail(projectId, email, token);
-            if (found) { planDocId = found.id; planData = found.data; collection = 'plans'; }
+            if (found) { planDocId = found.id; planData = found.data; }
           }
+
+          if (!planDocId) {
+            // No way to locate the client's session — notify attorney to handle manually
+            throw new Error(`Cannot map payment to a session (uid=${uid}, email=${email})`);
+          }
+
+          // 1b. Idempotency — Stripe retries webhooks. If we already processed this
+          // exact checkout session, skip re-running the AI review and re-notifying.
+          if (planData && planData.stripeSessionId === session.id) {
+            console.log('Duplicate webhook for session', session.id, '— already processed, skipping.');
+            return { statusCode: 200, body: JSON.stringify({ received: true, duplicate: true }) };
+          }
+
+          // 1c. Flatten the nested session state so the AI review sees real client data.
+          // start.html stores form fields under state.d and lists under state.{beneficiaries,...}
+          const stateObj = planData?.state || {};
+          const flatPlan = {
+            ...(stateObj.d || {}),
+            ...(planData || {}),
+            beneficiaries: stateObj.beneficiaries || planData?.beneficiaries || [],
+            successors:    stateObj.successors    || planData?.successors    || [],
+            contingents:   stateObj.contingents   || planData?.contingents   || [],
+          };
 
           // 2. Mark payment fields + set status to ai_review_pending
           await firestoreUpdateDoc(projectId, collection, planDocId, {
@@ -359,10 +383,10 @@ exports.handler = async (event) => {
 
           console.log('Firestore: set ai_review_pending for', planDocId);
 
-          // 3. Run AI review
+          // 3. Run AI review against the flattened plan data
           let reviewResult = { status: 'documents_ready', score: 85, summary: 'No plan data found' };
           if (planData) {
-            reviewResult = await runAIReview(planData);
+            reviewResult = await runAIReview(flatPlan);
             console.log('AI review result:', reviewResult.overall, 'score:', reviewResult.score);
           }
 
