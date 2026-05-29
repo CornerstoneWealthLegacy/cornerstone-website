@@ -726,6 +726,8 @@ button.chat-faq:hover{background:var(--sky)}
 .pay-cta{width:100%;padding:18px;background:var(--gold);color:#fff;border:none;border-radius:14px;font-size:1.05rem;font-weight:900;cursor:pointer;font-family:inherit;letter-spacing:.3px;transition:all .2s;margin-bottom:10px}
 .pay-cta:hover{background:#b8891f;transform:translateY(-1px);box-shadow:0 6px 24px rgba(196,154,42,.4)}
 .pay-stripe-note{text-align:center;font-size:.72rem;color:var(--muted);margin-bottom:20px}
+.pay-trust-row{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:14px 0 4px}
+.pay-trust-badge{display:inline-flex;align-items:center;gap:5px;background:#f1f5f9;border:1px solid #e2e8f0;color:#334155;font-size:.7rem;font-weight:700;padding:5px 12px;border-radius:20px}
 .pay-actions{display:flex;justify-content:space-between}
 .pay-link{background:none;border:none;color:var(--muted);font-size:.8rem;font-weight:700;cursor:pointer;font-family:inherit;padding:0;text-decoration:underline}
 .pay-link:hover{color:var(--navy)}
@@ -1372,7 +1374,7 @@ button.chat-faq:hover{background:var(--sky)}
 
   <!-- Feature strip -->
   <div class="wlc-bottom">
-    <div class="wlc-feature"><div class="wlc-feature-icon">⚖️</div>Personally reviewed by Arthur Simpson, Esq.</div>
+    <div class="wlc-feature"><div class="wlc-feature-icon">⚖️</div>Attorney review available — Arthur Simpson, Esq.</div>
     <div class="wlc-feature"><div class="wlc-feature-icon">🔒</div>Auto-saved — resume anytime</div>
     <div class="wlc-feature"><div class="wlc-feature-icon">💬</div>Live attorney chat available</div>
     <div class="wlc-feature"><div class="wlc-feature-icon">⚡</div>10–15 minutes to complete</div>
@@ -2057,7 +2059,7 @@ const STEPS=[
   {sec:'Document', lbl:'Getting Started',
    type:'choice', field:'docCategory', required:true,
    q:'What estate planning document do you need?',
-   hint:'Choose the document that best fits your situation. Our attorneys will review and finalize every instrument before execution.',
+   hint:'Choose the document that best fits your situation. Attorney review is available for any plan; Attorney-Guided plans are reviewed and finalized by Arthur Simpson, Esq. before execution.',
    opts:[
      {v:'trust', t:'Revocable Living Trust',
       d:"Florida's most powerful planning vehicle. Avoids probate, protects privacy, and provides seamless asset management during incapacity and at death. (F.S. Chapter 736)"},
@@ -3183,7 +3185,7 @@ function renderAttorneyWelcome(){
   return `<div class="atty-welcome">
     <div class="atty-avatar">AS</div>
     <div>
-      <div class="atty-msg">Welcome to Cornerstone Wealth &amp; Legacy Law's Estate Planning Portal. I'm Arthur Simpson, Esq., with over 25 years of Florida estate planning experience. Every document generated here is based on current Florida law and reviewed personally by our attorneys before execution. Whether you have a $50,000 estate or a $50 million estate — you deserve the same white-glove attention to protect what matters most. Let's build your plan.</div>
+      <div class="atty-msg">Welcome to Cornerstone Wealth &amp; Legacy Law's Estate Planning Portal. I'm Arthur Simpson, Esq., with over 25 years of Florida estate planning experience. Every document generated here is based on current Florida law; Attorney-Guided plans are reviewed personally by Arthur Simpson, Esq. before execution, and attorney review is available on any plan. Whether you have a $50,000 estate or a $50 million estate — you deserve the same white-glove attention to protect what matters most. Let's build your plan.</div>
       <div class="atty-name">Arthur Simpson, Esq. &nbsp;·&nbsp; Over 25 Years of Florida Estate Planning Experience</div>
     </div>
   </div>`;
@@ -9850,8 +9852,8 @@ render();
 <div id="paymentScreen">
   <div class="pay-panel">
     <div class="pay-logo">Cornerstone Wealth &amp; Legacy Law</div>
-    <div class="pay-title">Ready to Finalize</div>
-    <div class="pay-sub">Your documents have been prepared and are ready for attorney review. Complete your engagement below — Arthur Simpson, Esq. will personally review and finalize your documents within 3–5 business days.</div>
+    <div class="pay-title" id="payTitle">Ready to Finalize</div>
+    <div class="pay-sub" id="paySub">Your documents have been prepared and are ready for attorney review. Complete your engagement below — Arthur Simpson, Esq. will personally review and finalize your documents within 3–5 business days.</div>
 
     <div class="pay-summary" id="paySummary">
       <!-- populated by JS -->
@@ -9869,17 +9871,16 @@ render();
     </div>
 
     <div class="pay-total-row">
-      <div class="pay-total-label">Engagement Fee</div>
+      <div class="pay-total-label" id="payTotalLabel">Engagement Fee</div>
       <div class="pay-total-amount" id="payTotalAmount">$0</div>
     </div>
 
-    <div class="pay-features">
-      <div class="pay-feat"><div class="pay-feat-icon">✓</div>Personal attorney review by Arthur Simpson, Esq.</div>
-      <div class="pay-feat"><div class="pay-feat-icon">✓</div>Florida-compliant, citation-backed instruments</div>
-      <div class="pay-feat"><div class="pay-feat-icon">✓</div>Execution supervision &amp; witness coordination</div>
-      <div class="pay-feat"><div class="pay-feat-icon">✓</div>Trust funding assistance &amp; asset retitling</div>
-      <div class="pay-feat"><div class="pay-feat-icon">✓</div>Secure digital document delivery</div>
-      <div class="pay-feat"><div class="pay-feat-icon">✓</div>3–5 business day turnaround</div>
+    <div class="pay-features" id="payFeatures">
+      <!-- populated by JS based on tier (DIY vs attorney-guided) -->
+    </div>
+    <div class="pay-trust-row" id="payTrustRow">
+      <span class="pay-trust-badge">⚖️ Arthur Simpson, Esq. · Florida Bar #529265</span>
+      <span class="pay-trust-badge">📜 Drafted to current Florida statutes</span>
     </div>
 
     <!-- Execution Path Selection -->
@@ -12486,6 +12487,36 @@ function showPaymentScreen() {
   `;
 
   updatePayTotal();
+
+  // ── Tier-accurate copy: DIY (self-guided, no review) vs Attorney-Guided ──
+  const _feat = id => `<div class="pay-feat"><div class="pay-feat-icon">✓</div>${id}</div>`;
+  const _payTitle = document.getElementById('payTitle');
+  const _paySub   = document.getElementById('paySub');
+  const _payFeat  = document.getElementById('payFeatures');
+  const _payTotLbl= document.getElementById('payTotalLabel');
+  if (isDiy) {
+    if (_payTitle) _payTitle.textContent = 'Unlock Your Documents';
+    if (_paySub)   _paySub.textContent = 'Your Florida-compliant documents are ready. Complete your purchase below to unlock, download, and receive step-by-step filing & execution instructions. This is a self-guided (DIY) plan — optional attorney review is available on request for an added fee.';
+    if (_payTotLbl) _payTotLbl.textContent = 'Document Fee';
+    if (_payFeat) _payFeat.innerHTML =
+      _feat('Florida-compliant, citation-backed instruments') +
+      _feat('Instant document generation &amp; download') +
+      _feat('Step-by-step Filing &amp; Execution Instructions') +
+      _feat('Self-guided — complete at your own pace') +
+      _feat('Live attorney chat for quick questions') +
+      _feat('Optional attorney review available on request');
+  } else {
+    if (_payTitle) _payTitle.textContent = 'Ready to Finalize';
+    if (_paySub)   _paySub.textContent = 'Your documents have been prepared and are ready for attorney review. Complete your engagement below — Arthur Simpson, Esq. will personally review and finalize your documents within 3–5 business days.';
+    if (_payTotLbl) _payTotLbl.textContent = 'Engagement Fee';
+    if (_payFeat) _payFeat.innerHTML =
+      _feat('Personal attorney review by Arthur Simpson, Esq.') +
+      _feat('Florida-compliant, citation-backed instruments') +
+      _feat('Execution supervision &amp; witness coordination') +
+      _feat('Trust funding assistance &amp; asset retitling') +
+      _feat('Secure digital document delivery') +
+      _feat('3–5 business day turnaround');
+  }
 
   // Show attorney override only in attorney mode
   const customWrap = document.getElementById('payCustomWrap');
