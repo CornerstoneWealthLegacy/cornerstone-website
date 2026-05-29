@@ -201,4 +201,48 @@
     <lastmod>2026-05-29</lastmod>
   </url>
 
+  <!-- Areas we serve (hub + city pages) -->
+  <url>
+    <loc>https://cornerstonewealthlegacy.com/areas-we-serve</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-29</lastmod>
+  </url>
+  <url>
+    <loc>https://cornerstonewealthlegacy.com/port-orange-estate-planning</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-29</lastmod>
+  </url>
+  <url>
+    <loc>https://cornerstonewealthlegacy.com/ormond-beach-estate-planning</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-29</lastmod>
+  </url>
+  <url>
+    <loc>https://cornerstonewealthlegacy.com/new-smyrna-beach-estate-planning</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-29</lastmod>
+  </url>
+  <url>
+    <loc>https://cornerstonewealthlegacy.com/deland-estate-planning</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-29</lastmod>
+  </url>
+  <url>
+    <loc>https://cornerstonewealthlegacy.com/deltona-estate-planning</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-29</lastmod>
+  </url>
+  <url>
+    <loc>https://cornerstonewealthlegacy.com/palm-coast-estate-planning</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-29</lastmod>
+  </url>
+
 </urlset>
