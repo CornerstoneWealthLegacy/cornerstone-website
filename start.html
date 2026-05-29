@@ -5162,6 +5162,25 @@ ${provs.includes('pour_over')?`<div class="art">
   ${joint?`<div class="sig-row"><div class="sig-line">&nbsp;</div><div class="sig-lbl"><strong>${sn}</strong>, Co-Grantor${d.initTrustee==='both'?' &amp; Co-Trustee':''}</div></div>`:''}
   ${d.initTrustee==='corp'?`<div class="sig-row"><div class="sig-line">&nbsp;</div><div class="sig-lbl"><strong>___________________________________</strong><br><div class="sig-lbl">Professional / Corporate Trustee, Authorized Signatory</div></div>`:''}
 </div>
+<p class="dp" style="margin-top:24px"><strong>WITNESS ATTESTATION.</strong> To ensure the testamentary provisions of this Trust are valid and enforceable, this instrument is executed with the formalities of a will. (F.S. § 736.0403(2)(b); F.S. § 732.502) The Grantor${joint?' and Co-Grantor have':' has'} signed this Trust Agreement in the simultaneous presence of both undersigned witnesses, and each witness has signed in the presence of the Grantor${joint?' and Co-Grantor':''} and of each other. We, the undersigned witnesses, each being at least eighteen (18) years of age and competent to serve, certify that the Grantor${joint?' and Co-Grantor':''} signed this Trust Agreement in our presence and appeared to be of sound mind and under no duress, fraud, or undue influence.</p>
+<div class="sig-block" style="display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:16px">
+  <div>
+    <div class="sig-line">&nbsp;</div>
+    <div class="sig-lbl">Witness 1 — Signature</div>
+    <div class="sig-line" style="margin-top:16px">&nbsp;</div>
+    <div class="sig-lbl">Witness 1 — Printed Name</div>
+    <div class="sig-line" style="margin-top:16px">&nbsp;</div>
+    <div class="sig-lbl">Witness 1 — Address</div>
+  </div>
+  <div>
+    <div class="sig-line">&nbsp;</div>
+    <div class="sig-lbl">Witness 2 — Signature</div>
+    <div class="sig-line" style="margin-top:16px">&nbsp;</div>
+    <div class="sig-lbl">Witness 2 — Printed Name</div>
+    <div class="sig-line" style="margin-top:16px">&nbsp;</div>
+    <div class="sig-lbl">Witness 2 — Address</div>
+  </div>
+</div>
 </div>
 
 <div class="art">
@@ -5575,12 +5594,16 @@ function _buildSingleWill(testator, spouse, d, yr){
             <div class="sig-lbl">Witness 1 — Signature</div>
             <div class="sig-line" style="margin-top:16px">&nbsp;</div>
             <div class="sig-lbl">Witness 1 — Printed Name</div>
+            <div class="sig-line" style="margin-top:16px">&nbsp;</div>
+            <div class="sig-lbl">Witness 1 — Address</div>
           </div>
           <div>
             <div class="sig-line">&nbsp;</div>
             <div class="sig-lbl">Witness 2 — Signature</div>
             <div class="sig-line" style="margin-top:16px">&nbsp;</div>
             <div class="sig-lbl">Witness 2 — Printed Name</div>
+            <div class="sig-line" style="margin-top:16px">&nbsp;</div>
+            <div class="sig-lbl">Witness 2 — Address</div>
           </div>
         </div>
       </div>
@@ -5754,8 +5777,16 @@ function generateLandTrust() {
       <div style="font-size:.78rem">Printed Name</div>
       <div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;margin-top:24px;min-height:32px"></div>
       <div style="font-size:.78rem">Witness #1 Signature</div>
+      <div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;margin-top:18px;min-height:32px"></div>
+      <div style="font-size:.78rem">Witness #1 Printed Name</div>
+      <div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;margin-top:18px;min-height:32px"></div>
+      <div style="font-size:.78rem">Witness #1 Address</div>
       <div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;margin-top:24px;min-height:32px"></div>
       <div style="font-size:.78rem">Witness #2 Signature</div>
+      <div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;margin-top:18px;min-height:32px"></div>
+      <div style="font-size:.78rem">Witness #2 Printed Name</div>
+      <div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;margin-top:18px;min-height:32px"></div>
+      <div style="font-size:.78rem">Witness #2 Address</div>
     </div>
     <div>
       <div style="border:1.5px solid var(--border);border-radius:10px;padding:16px">
@@ -6116,10 +6147,12 @@ function generateAssignment(){
         <div>
           <div class="sig-line">&nbsp;</div><div class="sig-lbl">Witness 1 — Signature</div>
           <div class="sig-line" style="margin-top:18px">&nbsp;</div><div class="sig-lbl">Witness 1 — Printed Name</div>
+          <div class="sig-line" style="margin-top:18px">&nbsp;</div><div class="sig-lbl">Witness 1 — Address</div>
         </div>
         <div>
           <div class="sig-line">&nbsp;</div><div class="sig-lbl">Witness 2 — Signature</div>
           <div class="sig-line" style="margin-top:18px">&nbsp;</div><div class="sig-lbl">Witness 2 — Printed Name</div>
+          <div class="sig-line" style="margin-top:18px">&nbsp;</div><div class="sig-lbl">Witness 2 — Address</div>
         </div>
       </div>
       <p class="dp" style="margin-top:24px"><strong>OPTIONAL NOTARIZATION:</strong></p>
@@ -6345,13 +6378,13 @@ function _buildSingleHS(principal, surrogateName, surrogateRel, altSurrogate, d,
       <p class="dp">I may revoke this Designation at any time while competent by: (a) signing a written revocation; (b) destroying this document with intent to revoke; (c) orally expressing my intent to revoke in front of a healthcare provider; or (d) executing a new Designation. A subsequent Designation automatically revokes a prior one to the extent of any inconsistency. (F.S. § 765.104)</p>
     </div>
     <div class="art">
-      <div class="art-t">PART 7 — EXECUTION (F.S. § 765.203)</div>
-      <p class="dp" style="background:#f0f9ff;border:1px solid #3b82f6;border-radius:8px;padding:12px 16px"><strong>EXECUTION INSTRUCTIONS:</strong> This document must be signed by the Principal in the presence of TWO witnesses. No notary is required. WITNESS RESTRICTIONS — The following persons may NOT serve as a witness: (1) the designated Health Care Surrogate or any Alternate Surrogate; (2) the Principal's treating healthcare provider or any employee of the treating healthcare provider; (3) the operator, administrator, or employee of an adult care facility in which the Principal resides; (4) any person who would be a beneficiary of the Principal's estate under any will or trust. (F.S. § 765.203(2)) Give a copy to each Surrogate, your primary physician, and Cornerstone Wealth &amp; Legacy Law. Consider filing with the Florida Health Care Advance Directives Registry (F.S. § 765.502).</p>
+      <div class="art-t">PART 7 — EXECUTION (F.S. § 765.202)</div>
+      <p class="dp" style="background:#f0f9ff;border:1px solid #3b82f6;border-radius:8px;padding:12px 16px"><strong>EXECUTION INSTRUCTIONS:</strong> This document must be signed by the Principal in the presence of TWO subscribing adult witnesses. No notary is required. WITNESS REQUIREMENTS (F.S. § 765.202(1)) — (1) the person designated as the Health Care Surrogate (or any Alternate Surrogate) may NOT act as a witness; and (2) <strong>at least one witness must be neither the Principal's spouse nor a blood relative.</strong> As a best practice we further recommend that no witness be the Principal's treating healthcare provider (or an employee of that provider), the operator or an employee of a healthcare facility in which the Principal is a patient, or a beneficiary of the Principal's estate. Give a copy to each Surrogate, your primary physician, and Cornerstone Wealth &amp; Legacy Law. Consider filing with the Florida Health Care Advance Directives Registry (F.S. § 765.502).</p>
       <p class="dp">Signed this _____ day of _________________, ${yr}.</p>
       <div class="sig-block">
         <div class="sig-row"><div class="sig-line">&nbsp;</div><div class="sig-lbl"><strong>${gn}</strong>, Principal</div></div>
       </div>
-      <p class="dp" style="margin-top:20px"><strong>WITNESS ATTESTATION:</strong> We, the undersigned witnesses, each being at least 18 years of age, certify that the Principal signed this document in our presence, and that the Principal appeared to be of sound mind and was not under duress, fraud, or undue influence. Neither witness is the designated Surrogate, the Principal's healthcare provider or healthcare facility employee, or a beneficiary of the Principal's estate.</p>
+      <p class="dp" style="margin-top:20px"><strong>WITNESS ATTESTATION:</strong> We, the undersigned witnesses, each being at least 18 years of age, certify that the Principal signed this document in our presence, and that the Principal appeared to be of sound mind and was not under duress, fraud, or undue influence. Neither of us is the designated Surrogate or any Alternate Surrogate, and at least one of us is neither the Principal's spouse nor a blood relative of the Principal. (F.S. § 765.202)</p>
       <div class="sig-block" style="display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:16px">
         <div>
           <div class="sig-line">&nbsp;</div>
@@ -6489,13 +6522,13 @@ function _buildSingleLW(declarant, d, yr, docId){
       <p class="dp">I may revoke this Living Will at any time while competent by: (a) executing a written revocation; (b) physically destroying this document with intent to revoke; (c) orally expressing my intent to revoke in the presence of a healthcare provider (who must document the oral revocation in my medical record); or (d) executing a new, superseding Living Will. A later-executed Living Will automatically revokes any prior Living Will to the extent of any inconsistency. (F.S. § 765.104)</p>
     </div>
     <div class="art">
-      <div class="art-t">PART 9 — EXECUTION (F.S. § 765.303)</div>
-      <p class="dp" style="background:#f0f9ff;border:1px solid #3b82f6;border-radius:8px;padding:12px 16px"><strong>EXECUTION INSTRUCTIONS:</strong> This document must be signed by the Declarant in the presence of TWO qualified witnesses. No notary public is required. WITNESS RESTRICTIONS — The following persons may NOT serve as a witness: (1) the Declarant's spouse; (2) any blood relative of the Declarant; (3) any person who would be entitled to any portion of the Declarant's estate under any will or codicil or by intestate succession; (4) any person directly financially responsible for the Declarant's medical care; (5) the Declarant's attending physician or any employee of the attending physician; (6) the administrator or employee of a healthcare facility in which the Declarant is a patient. (F.S. § 765.303(2)) At least one witness must NOT be the Declarant's spouse or blood relative. Keep the original document; give copies to your Health Care Surrogate, your physician, all facilities you may use, and Cornerstone Wealth &amp; Legacy Law.</p>
+      <div class="art-t">PART 9 — EXECUTION (F.S. § 765.302)</div>
+      <p class="dp" style="background:#f0f9ff;border:1px solid #3b82f6;border-radius:8px;padding:12px 16px"><strong>EXECUTION INSTRUCTIONS:</strong> This document must be signed by the Declarant in the presence of TWO subscribing witnesses. No notary public is required. WITNESS REQUIREMENT (F.S. § 765.302(1)) — <strong>at least one of the two witnesses must be neither the Declarant's spouse nor a blood relative of the Declarant.</strong> (The other witness may be a spouse or relative.) As a best practice we further recommend that no witness be a person entitled to any portion of the Declarant's estate under a will or by intestate succession, a person directly financially responsible for the Declarant's medical care, the Declarant's attending physician or an employee of that physician, or the administrator or an employee of a healthcare facility in which the Declarant is a patient. Keep the original document; give copies to your Health Care Surrogate, your physician, all facilities you may use, and Cornerstone Wealth &amp; Legacy Law.</p>
       <p class="dp">IN WITNESS WHEREOF, I have hereunto set my hand this _____ day of _________________, ${yr}, in ${d.gCounty||'___'} County, Florida, declaring this to be my Living Will and Advance Directive.</p>
       <div class="sig-block">
         <div class="sig-row"><div class="sig-line">&nbsp;</div><div class="sig-lbl"><strong>${gn}</strong>, Declarant</div></div>
       </div>
-      <p class="dp" style="margin-top:20px"><strong>WITNESS ATTESTATION:</strong> We, the undersigned witnesses, each being at least 18 years of age, certify that the Declarant signed this Living Will in our presence, that the Declarant appeared to be of sound mind and was not acting under duress, fraud, or undue influence at the time of signing. Neither of us is the Declarant's spouse, blood relative, potential heir, or healthcare provider, and neither of us is directly financially responsible for the Declarant's medical care.</p>
+      <p class="dp" style="margin-top:20px"><strong>WITNESS ATTESTATION:</strong> We, the undersigned witnesses, each being at least 18 years of age, certify that the Declarant signed this Living Will in our presence, that the Declarant appeared to be of sound mind and was not acting under duress, fraud, or undue influence at the time of signing. At least one of us is neither the Declarant's spouse nor a blood relative of the Declarant. (F.S. § 765.302)</p>
       <div class="sig-block" style="display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:16px">
         <div>
           <div class="sig-line">&nbsp;</div>
@@ -6504,7 +6537,7 @@ function _buildSingleLW(declarant, d, yr, docId){
           <div class="sig-lbl">Witness 1 — Printed Name</div>
           <div class="sig-line" style="margin-top:18px">&nbsp;</div>
           <div class="sig-lbl">Witness 1 — Address</div>
-          <p style="font-size:.78rem;margin-top:8px">I am NOT a spouse, blood relative, heir, or healthcare provider of the Declarant: _______ (Initial)</p>
+          <p style="font-size:.78rem;margin-top:8px">Initial if applicable — I am neither the Declarant's spouse nor a blood relative: _______ (at least one of the two witnesses must initial)</p>
         </div>
         <div>
           <div class="sig-line">&nbsp;</div>
@@ -6513,7 +6546,7 @@ function _buildSingleLW(declarant, d, yr, docId){
           <div class="sig-lbl">Witness 2 — Printed Name</div>
           <div class="sig-line" style="margin-top:18px">&nbsp;</div>
           <div class="sig-lbl">Witness 2 — Address</div>
-          <p style="font-size:.78rem;margin-top:8px">I am NOT a spouse, blood relative, heir, or healthcare provider of the Declarant: _______ (Initial)</p>
+          <p style="font-size:.78rem;margin-top:8px">Initial if applicable — I am neither the Declarant's spouse nor a blood relative: _______ (at least one of the two witnesses must initial)</p>
         </div>
       </div>
       <p class="dp" style="margin-top:16px;font-size:.82rem;color:#555"><em>Prepared by: Arthur Simpson, Esq., Cornerstone Wealth &amp; Legacy Law, PLLC. This Living Will should be executed simultaneously with your Designation of Health Care Surrogate and HIPAA Authorization as part of your comprehensive advance healthcare directive package.</em></p>
@@ -6992,8 +7025,8 @@ function generateCodicil(){
       <div class="sig-block">
         <div class="sig-row"><div class="sig-line">&nbsp;</div><div class="sig-lbl"><strong>${gn}</strong>, Testator</div></div>
         <div class="sig-row" style="display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:16px">
-          <div><div class="sig-line">&nbsp;</div><div class="sig-lbl">Witness 1 — Signature</div></div>
-          <div><div class="sig-line">&nbsp;</div><div class="sig-lbl">Witness 2 — Signature</div></div>
+          <div><div class="sig-line">&nbsp;</div><div class="sig-lbl">Witness 1 — Signature</div><div class="sig-line" style="margin-top:18px">&nbsp;</div><div class="sig-lbl">Witness 1 — Printed Name</div><div class="sig-line" style="margin-top:18px">&nbsp;</div><div class="sig-lbl">Witness 1 — Address</div></div>
+          <div><div class="sig-line">&nbsp;</div><div class="sig-lbl">Witness 2 — Signature</div><div class="sig-line" style="margin-top:18px">&nbsp;</div><div class="sig-lbl">Witness 2 — Printed Name</div><div class="sig-line" style="margin-top:18px">&nbsp;</div><div class="sig-lbl">Witness 2 — Address</div></div>
         </div>
       </div>
       <p class="dp" style="margin-top:20px">Subscribed, sworn, and acknowledged before me this _____ day of _________________, ______, by <strong>${gn}</strong>, Testator, and by _________________________ and _________________________, witnesses.</p>
@@ -7295,8 +7328,8 @@ function generateSmartCodicil(){
       <div class="art-t">WITNESS ATTESTATION — F.S. § 732.502(1)(b)</div>
       <p class="dp">The foregoing instrument was signed, published, and declared by <strong>${gn}</strong> as a Codicil in our presence; we, in the Testator's presence and in the presence of each other, have subscribed our names as witnesses; and we believe the Testator to be of sound mind and under no constraint or undue influence.</p>
       <div class="sig-block" style="display:grid;grid-template-columns:1fr 1fr;gap:28px">
-        <div><div class="sig-line">&nbsp;</div><div class="sig-lbl">Witness 1 — Signature</div><div class="sig-line" style="margin-top:18px">&nbsp;</div><div class="sig-lbl">Witness 1 — Printed Name</div></div>
-        <div><div class="sig-line">&nbsp;</div><div class="sig-lbl">Witness 2 — Signature</div><div class="sig-line" style="margin-top:18px">&nbsp;</div><div class="sig-lbl">Witness 2 — Printed Name</div></div>
+        <div><div class="sig-line">&nbsp;</div><div class="sig-lbl">Witness 1 — Signature</div><div class="sig-line" style="margin-top:18px">&nbsp;</div><div class="sig-lbl">Witness 1 — Printed Name</div><div class="sig-line" style="margin-top:18px">&nbsp;</div><div class="sig-lbl">Witness 1 — Address</div></div>
+        <div><div class="sig-line">&nbsp;</div><div class="sig-lbl">Witness 2 — Signature</div><div class="sig-line" style="margin-top:18px">&nbsp;</div><div class="sig-lbl">Witness 2 — Printed Name</div><div class="sig-line" style="margin-top:18px">&nbsp;</div><div class="sig-lbl">Witness 2 — Address</div></div>
       </div>
     </div>
     <div class="art">
@@ -7806,8 +7839,8 @@ function generateSpecialNeedsTrust(){
       <p class="dp" style="font-style:italic">Florida Execution Requirements: Trusts must be signed by the Settlor and accepted by the Trustee. F.S. &sect; 736.0403(2)(b). Two witnesses and notarization are strongly recommended for SNTs that may hold real property or require court approval. If this Trust holds real property, record an Abstract of Trust or Memorandum of Trust in the county where the property is located. F.S. &sect; 689.071(6).</p>
       <div class="sig-row"><div class="sig-line"></div><p class="dp">Grantor/Settlor: ${gn} &nbsp;&nbsp; Date: ___________</p></div>
       <div class="sig-row"><div class="sig-line"></div><p class="dp">Trustee: ${d.trustee||'[TRUSTEE]'} &nbsp;&nbsp; Date: ___________</p></div>
-      <div class="sig-row"><div class="sig-line"></div><p class="dp">Witness 1: _________________________ &nbsp;&nbsp; Date: ___________</p></div>
-      <div class="sig-row"><div class="sig-line"></div><p class="dp">Witness 2: _________________________ &nbsp;&nbsp; Date: ___________</p></div>
+      <div class="sig-row"><div class="sig-line"></div><p class="dp">Witness 1: _________________________ &nbsp;&nbsp; Date: ___________<br>Witness 1 Address: _____________________________________________</p></div>
+      <div class="sig-row"><div class="sig-line"></div><p class="dp">Witness 2: _________________________ &nbsp;&nbsp; Date: ___________<br>Witness 2 Address: _____________________________________________</p></div>
       <p class="dp" style="margin-top:20px"><strong>State of Florida, County of _______________</strong></p>
       <p class="dp">Sworn to and subscribed before me this _____ day of _____________, ${yr}.</p>
       <div class="sig-row"><div class="sig-line"></div><p class="dp">Notary Public — State of Florida</p></div>
@@ -7900,8 +7933,8 @@ function generateMAPT(){
       <p class="dp" style="font-style:italic">Florida Execution: Irrevocable trusts should be executed with two witnesses and notarization. F.S. &sect; 736.0403(2). If real property is transferred, a Warranty Deed must be recorded in the county where the property is located. F.S. &sect; 689.01. Obtain a new EIN for the Trust (IRS Form SS-4) and update all title documents. Notify the Grantor's CPA of this irrevocable trust and the grantor trust income tax treatment.</p>
       <div class="sig-row"><div class="sig-line"></div><p class="dp">Grantor/Settlor: ${gn} &nbsp;&nbsp; Date: ___________</p></div>
       <div class="sig-row"><div class="sig-line"></div><p class="dp">Trustee: ${d.trustee||'[TRUSTEE]'} &nbsp;&nbsp; Date: ___________</p></div>
-      <div class="sig-row"><div class="sig-line"></div><p class="dp">Witness 1: _________________________ &nbsp;&nbsp; Date: ___________</p></div>
-      <div class="sig-row"><div class="sig-line"></div><p class="dp">Witness 2: _________________________ &nbsp;&nbsp; Date: ___________</p></div>
+      <div class="sig-row"><div class="sig-line"></div><p class="dp">Witness 1: _________________________ &nbsp;&nbsp; Date: ___________<br>Witness 1 Address: _____________________________________________</p></div>
+      <div class="sig-row"><div class="sig-line"></div><p class="dp">Witness 2: _________________________ &nbsp;&nbsp; Date: ___________<br>Witness 2 Address: _____________________________________________</p></div>
       <p class="dp" style="margin-top:20px"><strong>State of Florida, County of _______________</strong></p>
       <p class="dp">Sworn to and subscribed before me this _____ day of _____________, ${yr}.</p>
       <div class="sig-row"><div class="sig-line"></div><p class="dp">Notary Public — State of Florida</p></div>
@@ -7982,8 +8015,8 @@ function generateILIT(){
       <p class="dp"><strong>Annual ILIT Checklist:</strong> (1) Send Crummey notices within 5 days of each gift; (2) Wait 30-day Crummey period; (3) Pay premium; (4) Retain receipts; (5) File Form 709 by April 15 reporting all gifts; (6) Obtain annual policy illustration; (7) Review insurer rating; (8) Update Schedule A if policies changed.</p>
       <div class="sig-row"><div class="sig-line"></div><p class="dp">Grantor/Settlor: ${gn} &nbsp;&nbsp; Date: ___________</p></div>
       <div class="sig-row"><div class="sig-line"></div><p class="dp">Trustee: ${d.trustee||'[TRUSTEE]'} &nbsp;&nbsp; Date: ___________</p></div>
-      <div class="sig-row"><div class="sig-line"></div><p class="dp">Witness 1: _________________________ &nbsp;&nbsp; Date: ___________</p></div>
-      <div class="sig-row"><div class="sig-line"></div><p class="dp">Witness 2: _________________________ &nbsp;&nbsp; Date: ___________</p></div>
+      <div class="sig-row"><div class="sig-line"></div><p class="dp">Witness 1: _________________________ &nbsp;&nbsp; Date: ___________<br>Witness 1 Address: _____________________________________________</p></div>
+      <div class="sig-row"><div class="sig-line"></div><p class="dp">Witness 2: _________________________ &nbsp;&nbsp; Date: ___________<br>Witness 2 Address: _____________________________________________</p></div>
       <p class="dp" style="margin-top:20px"><strong>State of Florida, County of _______________</strong></p>
       <div class="sig-row"><div class="sig-line"></div><p class="dp">Notary Public — State of Florida</p></div>
       <p class="dp"><em>Prepared by: Arthur Simpson, Esq., Cornerstone Wealth &amp; Legacy Law. This ILIT is an irrevocable instrument. Consult your estate planning attorney and CPA before executing.</em></p>
@@ -8065,8 +8098,8 @@ function generateCRT(){
       <div class="sig-row"><div class="sig-line"></div><p class="dp">Donor/Grantor: ${gn} &nbsp;&nbsp; Date: ___________</p></div>
       <div class="sig-row"><div class="sig-line"></div><p class="dp">Trustee: ${d.trustee||'[TRUSTEE]'} &nbsp;&nbsp; Date: ___________</p></div>
       <div class="sig-row"><div class="sig-line"></div><p class="dp">Accepted by Remainder Beneficiary: ${charityName} &nbsp;&nbsp; Date: ___________</p></div>
-      <div class="sig-row"><div class="sig-line"></div><p class="dp">Witness 1: _________________________ &nbsp;&nbsp; Date: ___________</p></div>
-      <div class="sig-row"><div class="sig-line"></div><p class="dp">Witness 2: _________________________ &nbsp;&nbsp; Date: ___________</p></div>
+      <div class="sig-row"><div class="sig-line"></div><p class="dp">Witness 1: _________________________ &nbsp;&nbsp; Date: ___________<br>Witness 1 Address: _____________________________________________</p></div>
+      <div class="sig-row"><div class="sig-line"></div><p class="dp">Witness 2: _________________________ &nbsp;&nbsp; Date: ___________<br>Witness 2 Address: _____________________________________________</p></div>
       <p class="dp" style="margin-top:20px"><strong>State of Florida, County of _______________</strong></p>
       <div class="sig-row"><div class="sig-line"></div><p class="dp">Notary Public — State of Florida</p></div>
       <p class="dp"><em>Prepared by: Arthur Simpson, Esq., Cornerstone Wealth &amp; Legacy Law. A CRT is an irrevocable commitment. Verify the 10% charitable remainder and 5% probability test with your CPA or actuarial software before signing.</em></p>
@@ -8163,8 +8196,8 @@ function generateFLPAgreement(){
       <p class="dp" style="font-style:italic">Florida Execution Requirements: File Articles of Limited Partnership (F.S. &sect; 620.1201) or Articles of Organization (F.S. &sect; 605.0201) with the Florida Division of Corporations before or simultaneously with this Agreement. Obtain EIN (IRS Form SS-4). Open Entity bank account. Title all Entity assets in the Entity name. Execute and deliver all assignment documents for contributed property (deeds, bills of sale, assignment agreements). Obtain initial qualified appraisal for any interests gifted in the year of formation.</p>
       <div class="sig-row"><div class="sig-line"></div><p class="dp">Managing Partner/Manager: ${gn} &nbsp;&nbsp; Date: ___________</p></div>
       ${(d.spouseName) ? `<div class="sig-row"><div class="sig-line"></div><p class="dp">Co-Managing Partner/Member: ${d.spouseName} &nbsp;&nbsp; Date: ___________</p></div>` : ''}
-      <div class="sig-row"><div class="sig-line"></div><p class="dp">Witness 1: _________________________ &nbsp;&nbsp; Date: ___________</p></div>
-      <div class="sig-row"><div class="sig-line"></div><p class="dp">Witness 2: _________________________ &nbsp;&nbsp; Date: ___________</p></div>
+      <div class="sig-row"><div class="sig-line"></div><p class="dp">Witness 1: _________________________ &nbsp;&nbsp; Date: ___________<br>Witness 1 Address: _____________________________________________</p></div>
+      <div class="sig-row"><div class="sig-line"></div><p class="dp">Witness 2: _________________________ &nbsp;&nbsp; Date: ___________<br>Witness 2 Address: _____________________________________________</p></div>
       <p class="dp" style="margin-top:20px"><strong>State of Florida, County of _______________</strong></p>
       <div class="sig-row"><div class="sig-line"></div><p class="dp">Notary Public — State of Florida</p></div>
       <p class="dp"><em>Prepared by: Arthur Simpson, Esq., Cornerstone Wealth &amp; Legacy Law. FLP/LLC estate planning involves complex tax, valuation, and business law considerations. Do not form or fund a Family LP/LLC without consulting a qualified estate planning attorney and a certified business appraiser. Failure to observe entity formalities may cause the IRS to disregard the Entity and include all assets in the Grantor's gross estate under I.R.C. &sect; 2036(a).</em></p>
@@ -8620,12 +8653,16 @@ function generateLadyBirdDeed(){
           <div class="dp" style="font-size:.78rem">Witness #1 Signature</div>
           <div style="border-bottom:1px solid #000;margin:8px 0 4px;height:30px"></div>
           <div class="dp" style="font-size:.78rem">Witness #1 Printed Name</div>
+          <div style="border-bottom:1px solid #000;margin:8px 0 4px;height:30px"></div>
+          <div class="dp" style="font-size:.78rem">Witness #1 Address</div>
         </div>
         <div>
           <div style="border-bottom:1px solid #000;margin-bottom:4px;height:30px"></div>
           <div class="dp" style="font-size:.78rem">Witness #2 Signature</div>
           <div style="border-bottom:1px solid #000;margin:8px 0 4px;height:30px"></div>
           <div class="dp" style="font-size:.78rem">Witness #2 Printed Name</div>
+          <div style="border-bottom:1px solid #000;margin:8px 0 4px;height:30px"></div>
+          <div class="dp" style="font-size:.78rem">Witness #2 Address</div>
         </div>
       </div>
     </div>
