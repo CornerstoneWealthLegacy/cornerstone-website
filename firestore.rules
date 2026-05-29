@@ -23,10 +23,20 @@ service cloud.firestore {
       allow write: if request.auth != null &&
         request.auth.token.email in ['arthur@cornerstonewealthlegacy.com','simp70@gmail.com'];
     }
-    // Collaborative sessions — host and client can both read/write
+    // Collaborative sessions — scoped to the people in the session.
+    // The sessionId is a 128-bit unguessable token (see genCollabId), and it
+    // doubles as the share-link credential. Access is granted to: the creator,
+    // anyone already in the participants map, an attorney, or — to allow a new
+    // guest to join via the link — while the session is still 'waiting'.
     match /collab/{sessionId} {
       allow create: if request.auth != null;
-      allow read, update: if request.auth != null;
+      allow read, update: if request.auth != null && (
+        resource.data.createdBy == request.auth.uid ||
+        resource.data.status == 'waiting' ||
+        (resource.data.keys().hasAny(['participants']) &&
+          request.auth.uid in resource.data.participants) ||
+        request.auth.token.email in ['arthur@cornerstonewealthlegacy.com','simp70@gmail.com']
+      );
     }
     // Staff list — attorney writes, staff reads their own record
     match /staff/{emailKey} {

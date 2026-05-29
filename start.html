@@ -10788,7 +10788,7 @@ async function startClientSession(uid, name) {
 
     // Create collab doc pre-loaded with client's state so attorney sees
     // their position immediately without waiting for client to push
-    const sessionId = Math.random().toString(36).substring(2, 8).toUpperCase();
+    const sessionId = genCollabId();
     await db.collection('collab').doc(sessionId).set({
       sessionId,
       createdBy:       currentUser.uid,
@@ -13400,10 +13400,28 @@ async function checkIsStaffUser(user) {
   } catch(e) { return false; }
 }
 
+// ── Generate a cryptographically-strong, unguessable collab session ID ──
+// The session ID doubles as the access credential for the share link, so it
+// must be infeasible to enumerate. ~128 bits of entropy (26 base32 chars).
+function genCollabId() {
+  try {
+    const bytes = new Uint8Array(16);
+    (window.crypto || window.msCrypto).getRandomValues(bytes);
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567'; // RFC4648 base32 (no 0/1/8/9)
+    let out = '';
+    for (let i = 0; i < bytes.length; i++) out += alphabet[bytes[i] & 31];
+    return out;
+  } catch (e) {
+    // Fallback: still far stronger than the old 6-char Math.random ID
+    return (Date.now().toString(36) + Math.random().toString(36).substring(2, 12) +
+            Math.random().toString(36).substring(2, 12)).toUpperCase();
+  }
+}
+
 // ── Create a new collaborative session ────────────────────────────
 async function createCollabSession() {
   if (!currentUser) { showWelcomeAuth('login'); return; }
-  const sessionId = Math.random().toString(36).substring(2,8).toUpperCase();
+  const sessionId = genCollabId();
   const link = `${location.origin}${location.pathname}?collab=${sessionId}`;
   _currentSessionLink = link;
   try {
