@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     TEMPLATE / BLUEPRINT — Real Estate city page (Phase 2B)
+     NOT yet wired into nav or sitemap. Prep-only.
+     Clone per city; swap {{CITY}}/{{COUNTY}}/{{COURTHOUSE}} and
+     local-angle content. Swept into the GripFast rename flip.
+     ============================================================ -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Smyrna Beach Real Estate Attorney | Closings, Deeds & Title | Cornerstone Wealth & Legacy Law</title>
+  <meta name="description" content="Real estate attorney serving New Smyrna Beach, Florida — residential and coastal closings, deeds, title review, and out-of-state seller transactions in Volusia County. Call (386) 293-5586.">
+  <link rel="canonical" href="https://cornerstonewealthlegacy.com/new-smyrna-beach-real-estate-attorney">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LegalService",
+        "@id": "https://cornerstonewealthlegacy.com/#firm",
+        "name": "Cornerstone Wealth & Legacy Law, PLLC",
+        "url": "https://cornerstonewealthlegacy.com/new-smyrna-beach-real-estate-attorney",
+        "telephone": "+1-386-293-5586",
+        "priceRange": "$$",
+        "image": "https://cornerstonewealthlegacy.com/images/logo-full.png",
+        "description": "Real estate attorney serving New Smyrna Beach and Volusia County, Florida — closings, deeds, title review, and out-of-state seller transactions.",
+        "address": { "@type": "PostalAddress", "addressLocality": "Daytona Beach", "addressRegion": "FL", "addressCountry": "US" },
+        "geo": { "@type": "GeoCoordinates", "latitude": 29.2108, "longitude": -81.0228 },
+        "areaServed": [
+          { "@type": "City", "name": "New Smyrna Beach, Florida" },
+          { "@type": "AdministrativeArea", "name": "Volusia County, Florida" },
+          { "@type": "State", "name": "Florida" }
+        ],
+        "founder": { "@type": "Attorney", "name": "Arthur Simpson", "honorificSuffix": "Esq." }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Do I need a real estate attorney to close on a New Smyrna Beach property?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Florida does not require an attorney at a real estate closing the way some states do, but for New Smyrna Beach buyers and sellers — especially with beachfront condos, vacation rentals, or higher-value coastal property — an attorney reviews the contract, title, and closing documents to catch problems a title company may not flag. The cost is small compared to the value being transferred." }
+          },
+          {
+            "@type": "Question",
+            "name": "I'm an out-of-state owner selling my New Smyrna Beach property. What's involved?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Many New Smyrna Beach properties are second homes owned by out-of-state residents. We can coordinate a remote closing, review the deed and title, and address issues common to non-resident sellers, including federal FIRPTA withholding for foreign sellers and proper conveyance of the correct legal description. You generally do not need to travel to Florida to close." }
+          },
+          {
+            "@type": "Question",
+            "name": "What's the difference between a quitclaim deed and a warranty deed in Florida?",
+            "acceptedAnswer": { "@type": "Answer", "text": "A warranty deed guarantees clear title and protects the buyer if a title defect later appears; a quitclaim deed transfers only whatever interest the grantor has, with no guarantee. Warranty deeds are standard for arm's-length sales, while quitclaim deeds are common between family members or to fix title — but choosing the wrong one can leave a New Smyrna Beach buyer unprotected." }
+          },
+          {
+            "@type": "Question",
+            "name": "Can you handle my New Smyrna Beach closing remotely?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. Cornerstone Wealth & Legacy Law handles New Smyrna Beach real estate matters by phone, email, and video, with documents prepared and signed under Florida's notarization and recording rules. In-person appointments are available when preferred." }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    .city-hero { background: linear-gradient(135deg,#111c33 0%,#1d2d4a 70%,#233660 100%); color:#fff; padding: 56px 0; }
+    .city-hero .container { max-width: 1080px; }
+    .city-hero .crumb { font-size:.8rem; color:rgba(255,255,255,.6); margin-bottom:16px; }
+    .city-hero .crumb a { color:rgba(255,255,255,.75); text-decoration:none; }
+    .city-hero h1 { color:#fff; font-family:'Playfair Display',serif; font-size:2.1rem; line-height:1.2; margin-bottom:14px; }
+    .city-hero p { color:rgba(255,255,255,.82); max-width:680px; font-size:1.02rem; line-height:1.7; }
+    .city-hero .hero-actions { margin-top:24px; display:flex; gap:14px; flex-wrap:wrap; }
+    .city-body { max-width: 820px; margin:0 auto; }
+    .city-body h2 { font-family:'Playfair Display',serif; font-size:1.5rem; margin:38px 0 14px; color:var(--navy,#1d2d4a); }
+    .city-body p, .city-body li { color:var(--gray-600,#4a5568); line-height:1.8; margin-bottom:14px; }
+    .city-body ul { padding-left:22px; margin-bottom:14px; }
+    .city-faq h3 { font-size:1.06rem; margin:24px 0 6px; color:var(--navy,#1d2d4a); }
+    .city-cta { background:rgba(184,149,42,.08); border:1px solid rgba(184,149,42,.28); border-radius:10px; padding:30px; margin:40px 0 8px; text-align:center; }
+    .city-cta h2 { margin-top:0; }
+    .city-disclaimer { font-size:.78rem; color:var(--gray-500,#718096); line-height:1.6; margin-top:28px; border-top:1px solid var(--gray-200,#e5e7eb); padding-top:18px; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <img src="images/logo-icon.png" alt="Cornerstone" class="logo-img-icon">
+        <div>
+          <span class="logo-name">Cornerstone Wealth &amp; Legacy Law</span>
+        </div>
+      </a>
+      <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="site-nav" role="navigation" aria-label="Main navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <div class="dropdown">
+          <a href="#" class="nav-link" aria-haspopup="true">Practice Areas</a>
+          <div class="dropdown-menu" role="menu">
+            <a href="real-estate.html" class="dropdown-item" role="menuitem">Real Estate</a>
+            <a href="estate-planning.html" class="dropdown-item" role="menuitem">Wills, Estates &amp; Trusts</a>
+            <a href="elder-law.html" class="dropdown-item" role="menuitem">Elder Law</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <a href="#" class="nav-link" aria-haspopup="true">Free Tools</a>
+          <div class="dropdown-menu" role="menu">
+            <a href="/quiz" class="dropdown-item" role="menuitem">📋 Estate Plan Score Quiz</a>
+            <a href="/probate-calculator" class="dropdown-item" role="menuitem">🧮 Probate Cost Calculator</a>
+            <a href="/snowbird" class="dropdown-item" role="menuitem">☀️ New to Florida Guide</a>
+          </div>
+        </div>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="insights.html" class="nav-link">Insights</a>
+        <a href="/areas-we-serve" class="nav-link">Areas We Serve</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <a href="https://calendly.com/arthursimpson/free-20-minute-discovery-call" target="_blank" rel="noopener" class="btn btn-primary header-cta">Schedule a Consultation</a>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="city-hero">
+      <div class="container">
+        <div class="crumb"><a href="index.html">Home</a> &nbsp;›&nbsp; <a href="/areas-we-serve">Areas We Serve</a> &nbsp;›&nbsp; New Smyrna Beach Real Estate</div>
+        <h1>New Smyrna Beach Real Estate Attorney</h1>
+        <p>Residential and coastal closings, deeds, title review, and out-of-state seller transactions for New Smyrna Beach property owners — under current Florida law, handled conveniently by phone, email, video, or appointment.</p>
+        <div class="hero-actions">
+          <a href="https://calendly.com/arthursimpson/free-20-minute-discovery-call" target="_blank" rel="noopener" class="btn btn-primary">Free 20-Minute Consultation</a>
+          <a href="tel:+13862935586" class="btn btn-outline-white">Call (386) 293-5586</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--white">
+      <div class="container">
+        <div class="city-body">
+
+          <p>New Smyrna Beach is a coastal market unlike any other in Volusia County — a mix of full-time residents, an active arts community, and a large share of second homes and vacation rentals owned by people who live somewhere else. Those transactions carry risks a standard closing can miss: out-of-state sellers, beachfront title quirks, and deeds that have to be exactly right. Cornerstone Wealth &amp; Legacy Law helps New Smyrna Beach buyers, sellers, and owners protect what is usually the largest transaction of their lives.</p>
+
+          <h2>Residential &amp; Coastal Closings in New Smyrna Beach</h2>
+          <p>Florida does not require an attorney at every closing, but for beachfront condos, vacation property, and higher-value coastal homes, having a lawyer review the purchase contract, title commitment, and closing documents catches problems before they become expensive. We represent buyers and sellers, review surveys and HOA or condo documents, and make sure the deal that closes is the deal you agreed to.</p>
+          <ul>
+            <li>Purchase and sale contract review for buyers and sellers</li>
+            <li>Title review and resolution of clouds on title before closing</li>
+            <li><a href="/articles/quitclaim-vs-warranty-deed-florida">Deed preparation — warranty and quitclaim deeds</a></li>
+            <li><a href="/articles/florida-tenancy-by-the-entireties">Titling between spouses and co-owners</a></li>
+            <li><a href="/articles/lady-bird-deed-florida">Lady Bird (enhanced life estate) deeds</a> to pass property without probate</li>
+          </ul>
+
+          <h2>Out-of-State Owners &amp; Second Homes</h2>
+          <p>A large number of New Smyrna Beach properties are second homes owned by buyers from out of state or abroad. Selling or transferring one of these involves issues that a local, year-round sale does not — coordinating a remote closing, addressing federal FIRPTA withholding when the seller is a foreign person, and making sure the legal description and conveyance are correct so the title stays clean for the next owner. We handle these transactions so you generally never need to travel to Florida to close.</p>
+
+          <h2>Deeds, Title &amp; Where Disputes Are Heard</h2>
+          <p>New Smyrna Beach is in Volusia County, part of Florida's Seventh Judicial Circuit, with the county's main courthouse in DeLand and a branch in Daytona Beach. Most real estate work — closings, deed recording, title curative steps — happens entirely outside the courthouse, recorded through the Volusia County Clerk. When a genuine dispute arises (a boundary, an easement, a quiet-title action), it is heard in the Seventh Circuit, but careful work up front is what keeps most New Smyrna Beach transactions out of court in the first place.</p>
+
+          <h2>How We Work With New Smyrna Beach Clients</h2>
+          <p>Real estate moves fast, and you should not have to chase your attorney. Cornerstone serves New Smyrna Beach clients by phone, email, and video, with documents prepared and executed under Florida's notarization and recording rules. In-person appointments are available when you would rather sit down. Whether you are buying your forever home on the beach or selling a property from another state, we keep the transaction clear and protected from contract to closing.</p>
+
+          <div class="city-faq">
+            <h2>New Smyrna Beach Real Estate FAQs</h2>
+
+            <h3>Do I need a real estate attorney to close on a New Smyrna Beach property?</h3>
+            <p>Florida doesn't require it, but for beachfront condos, vacation rentals, or higher-value coastal property, an attorney reviews the contract, title, and closing documents to catch problems a title company may not flag. The cost is small next to the value being transferred.</p>
+
+            <h3>I'm an out-of-state owner selling my New Smyrna Beach property — what's involved?</h3>
+            <p>Many properties here are second homes owned out of state. We can coordinate a remote closing, review the deed and title, and handle issues common to non-resident sellers — including federal FIRPTA withholding for foreign sellers — so you generally don't need to travel to Florida to close.</p>
+
+            <h3>What's the difference between a quitclaim deed and a warranty deed?</h3>
+            <p>A warranty deed guarantees clear title and protects the buyer if a defect later appears; a quitclaim transfers only whatever interest the grantor has, with no guarantee. Warranty deeds are standard for sales; quitclaims are common between family or to fix title — and choosing wrong can leave a buyer unprotected.</p>
+
+            <h3>Can you handle my closing remotely?</h3>
+            <p>Yes. We handle New Smyrna Beach real estate by phone, email, and video, with documents prepared and signed under Florida's notarization and recording rules. In-person appointments are available when preferred.</p>
+          </div>
+
+          <h2>Related Reading</h2>
+          <ul>
+            <li><a href="/articles/quitclaim-vs-warranty-deed-florida">Quitclaim vs. Warranty Deed in Florida</a> — which deed protects you.</li>
+            <li><a href="/articles/lady-bird-deed-florida">The Florida Lady Bird Deed</a> — pass property without probate.</li>
+            <li><a href="/articles/florida-tenancy-by-the-entireties">Tenancy by the Entireties</a> — how Florida spouses hold title.</li>
+          </ul>
+
+          <div class="city-cta">
+            <h2>Protect your New Smyrna Beach transaction</h2>
+            <p>Start with a free 20-minute conversation. We'll review where you are and what needs attention, with no pressure and no obligation.</p>
+            <a href="https://calendly.com/arthursimpson/free-20-minute-discovery-call" target="_blank" rel="noopener" class="btn btn-primary">Schedule Your Free Consultation</a>
+          </div>
+
+          <p class="city-disclaimer">Cornerstone Wealth &amp; Legacy Law, PLLC is licensed in the State of Florida and serves clients throughout the state. This page is attorney advertising and general information, not legal advice, and does not create an attorney-client relationship. Real estate outcomes depend on your individual facts, the terms of your contract, and the proper execution and recording of documents under Florida law.</p>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="images/logo-full.png" alt="Cornerstone Wealth &amp; Legacy Law" class="footer-logo-img">
+          <div class="footer-contact">
+            <p>Serving clients throughout Florida</p>
+            <p><a href="tel:+13862935586" style="color:inherit;text-decoration:none">(386) 293-5586</a></p>
+            <p>By phone, video &amp; appointment</p>
+          </div>
+          <p class="footer-tagline">Built to last. Planned to pass on.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Practice Areas</h4>
+          <a href="real-estate.html">Real Estate</a>
+          <a href="estate-planning.html">Wills, Estates &amp; Trusts</a>
+          <a href="elder-law.html">Elder Law</a>
+        </div>
+        <div class="footer-col">
+          <h4>Firm</h4>
+          <a href="about.html">About Arthur Simpson</a>
+          <a href="insights.html">Insights</a>
+          <a href="contact.html">Contact</a>
+          <a href="https://calendly.com/arthursimpson/free-20-minute-discovery-call" target="_blank" rel="noopener">Schedule a Consultation</a>
+        </div>
+        <div class="footer-col">
+          <h4>Areas We Serve</h4>
+          <a href="/port-orange-estate-planning">Port Orange</a>
+          <a href="/ormond-beach-estate-planning">Ormond Beach</a>
+          <a href="/new-smyrna-beach-estate-planning">New Smyrna Beach</a>
+          <a href="/deland-estate-planning">DeLand</a>
+          <a href="/deltona-estate-planning">Deltona</a>
+          <a href="/palm-coast-estate-planning">Palm Coast</a>
+          <a href="/areas-we-serve">All areas &rarr;</a>
+        </div>
+      </div>
+      <p class="footer-disclaimer">Cornerstone Wealth &amp; Legacy Law, PLLC is licensed in the State of Florida. The information on this website is for general informational purposes only and does not constitute legal advice. Visiting this site or contacting the firm does not create an attorney-client relationship. Past results do not guarantee future outcomes. The hiring of a lawyer is an important decision that should not be based solely upon advertisements. Before you decide, ask us to send you free written information about our qualifications and experience.</p>
+      <div class="footer-bottom">
+        <span>© 2026 Cornerstone Wealth &amp; Legacy Law, PLLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #XXXXXX</span>
+        <div class="footer-legal">
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+          <a href="disclaimer.html">Disclaimer</a>
+          <a href="accessibility.html">Accessibility</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

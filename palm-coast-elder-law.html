@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     TEMPLATE / BLUEPRINT — Elder Law city page (Phase 2A)
+     NOT yet wired into nav or sitemap. Prep-only.
+     Clone this file per city; swap the {{CITY}} / {{COUNTY}} /
+     {{COURTHOUSE}} / local-angle content. Will be swept into the
+     GripFast rename flip with the rest of the site.
+     ============================================================ -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Palm Coast Elder Law Attorney | Medicaid & Long-Term Care Planning | Cornerstone Wealth & Legacy Law</title>
+  <meta name="description" content="Elder law attorney serving Palm Coast, Florida — Medicaid planning, long-term care, asset protection, and guardianship in Flagler County. Handled by phone, video, and appointment. Call (386) 293-5586.">
+  <link rel="canonical" href="https://cornerstonewealthlegacy.com/palm-coast-elder-law">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LegalService",
+        "@id": "https://cornerstonewealthlegacy.com/#firm",
+        "name": "Cornerstone Wealth & Legacy Law, PLLC",
+        "url": "https://cornerstonewealthlegacy.com/palm-coast-elder-law",
+        "telephone": "+1-386-293-5586",
+        "priceRange": "$$",
+        "image": "https://cornerstonewealthlegacy.com/images/logo-full.png",
+        "description": "Elder law attorney serving Palm Coast and Flagler County, Florida — Medicaid planning, long-term care, asset protection, and guardianship.",
+        "address": { "@type": "PostalAddress", "addressLocality": "Daytona Beach", "addressRegion": "FL", "addressCountry": "US" },
+        "geo": { "@type": "GeoCoordinates", "latitude": 29.2108, "longitude": -81.0228 },
+        "areaServed": [
+          { "@type": "City", "name": "Palm Coast, Florida" },
+          { "@type": "AdministrativeArea", "name": "Flagler County, Florida" },
+          { "@type": "State", "name": "Florida" }
+        ],
+        "founder": { "@type": "Attorney", "name": "Arthur Simpson", "honorificSuffix": "Esq." }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the Florida Medicaid look-back period for a Palm Coast resident entering long-term care?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Florida uses a five-year (60-month) look-back period for long-term-care Medicaid. The state reviews asset transfers made in the five years before application, and gifts or below-value transfers in that window can trigger a penalty period of ineligibility. Because Palm Coast has a large retiree population, planning ahead of a health crisis is often the difference between protecting savings and spending them down." }
+          },
+          {
+            "@type": "Question",
+            "name": "Where is guardianship or probate filed for a Palm Coast resident?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Palm Coast is in Flagler County, part of Florida's Seventh Judicial Circuit. Guardianship and probate matters are handled at the Kim C. Hammond Justice Center in Bunnell, the county seat. Most filings are made electronically, so families rarely need to appear in person except for required hearings." }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I protect my home and savings from a nursing home in Palm Coast?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Often, yes. Florida's homestead protections, properly structured irrevocable trusts, qualified income trusts, and other lawful elder-law tools can help protect assets while qualifying for long-term-care Medicaid. The right strategy depends on your facts and timing, which is why early planning matters far more than waiting for a crisis." }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I have to come into an office for elder law help in Palm Coast?",
+            "acceptedAnswer": { "@type": "Answer", "text": "No. Cornerstone Wealth & Legacy Law serves Palm Coast clients by phone and video, prepares documents remotely, and guides signing under Florida's witnessing and notarization rules. In-person appointments are available when preferred, including for families coordinating care for an aging parent." }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    .city-hero { background: linear-gradient(135deg,#111c33 0%,#1d2d4a 70%,#233660 100%); color:#fff; padding: 56px 0; }
+    .city-hero .container { max-width: 1080px; }
+    .city-hero .crumb { font-size:.8rem; color:rgba(255,255,255,.6); margin-bottom:16px; }
+    .city-hero .crumb a { color:rgba(255,255,255,.75); text-decoration:none; }
+    .city-hero h1 { color:#fff; font-family:'Playfair Display',serif; font-size:2.1rem; line-height:1.2; margin-bottom:14px; }
+    .city-hero p { color:rgba(255,255,255,.82); max-width:680px; font-size:1.02rem; line-height:1.7; }
+    .city-hero .hero-actions { margin-top:24px; display:flex; gap:14px; flex-wrap:wrap; }
+    .city-body { max-width: 820px; margin:0 auto; }
+    .city-body h2 { font-family:'Playfair Display',serif; font-size:1.5rem; margin:38px 0 14px; color:var(--navy,#1d2d4a); }
+    .city-body p, .city-body li { color:var(--gray-600,#4a5568); line-height:1.8; margin-bottom:14px; }
+    .city-body ul { padding-left:22px; margin-bottom:14px; }
+    .city-faq h3 { font-size:1.06rem; margin:24px 0 6px; color:var(--navy,#1d2d4a); }
+    .city-cta { background:rgba(184,149,42,.08); border:1px solid rgba(184,149,42,.28); border-radius:10px; padding:30px; margin:40px 0 8px; text-align:center; }
+    .city-cta h2 { margin-top:0; }
+    .city-disclaimer { font-size:.78rem; color:var(--gray-500,#718096); line-height:1.6; margin-top:28px; border-top:1px solid var(--gray-200,#e5e7eb); padding-top:18px; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <img src="images/logo-icon.png" alt="Cornerstone" class="logo-img-icon">
+        <div>
+          <span class="logo-name">Cornerstone Wealth &amp; Legacy Law</span>
+        </div>
+      </a>
+      <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="site-nav" role="navigation" aria-label="Main navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <div class="dropdown">
+          <a href="#" class="nav-link" aria-haspopup="true">Practice Areas</a>
+          <div class="dropdown-menu" role="menu">
+            <a href="real-estate.html" class="dropdown-item" role="menuitem">Real Estate</a>
+            <a href="estate-planning.html" class="dropdown-item" role="menuitem">Wills, Estates &amp; Trusts</a>
+            <a href="elder-law.html" class="dropdown-item" role="menuitem">Elder Law</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <a href="#" class="nav-link" aria-haspopup="true">Free Tools</a>
+          <div class="dropdown-menu" role="menu">
+            <a href="/quiz" class="dropdown-item" role="menuitem">📋 Estate Plan Score Quiz</a>
+            <a href="/probate-calculator" class="dropdown-item" role="menuitem">🧮 Probate Cost Calculator</a>
+            <a href="/snowbird" class="dropdown-item" role="menuitem">☀️ New to Florida Guide</a>
+          </div>
+        </div>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="insights.html" class="nav-link">Insights</a>
+        <a href="/areas-we-serve" class="nav-link">Areas We Serve</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <a href="https://calendly.com/arthursimpson/free-20-minute-discovery-call" target="_blank" rel="noopener" class="btn btn-primary header-cta">Schedule a Consultation</a>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="city-hero">
+      <div class="container">
+        <div class="crumb"><a href="index.html">Home</a> &nbsp;›&nbsp; <a href="/areas-we-serve">Areas We Serve</a> &nbsp;›&nbsp; Palm Coast Elder Law</div>
+        <h1>Palm Coast Elder Law &amp; Medicaid Planning Attorney</h1>
+        <p>Long-term care and Medicaid planning, asset protection, powers of attorney, and guardianship for Palm Coast seniors and their families — under current Florida law, handled conveniently by phone, video, or appointment.</p>
+        <div class="hero-actions">
+          <a href="https://calendly.com/arthursimpson/free-20-minute-discovery-call" target="_blank" rel="noopener" class="btn btn-primary">Free 20-Minute Consultation</a>
+          <a href="tel:+13862935586" class="btn btn-outline-white">Call (386) 293-5586</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--white">
+      <div class="container">
+        <div class="city-body">
+
+          <p>Palm Coast is one of Florida's most retiree-rich communities — a master-planned city of canal homes, golf neighborhoods, and snowbirds who came for the coast and stayed for good. For many of these families, the most pressing legal question is not just who inherits, but how to protect a lifetime of savings from the cost of long-term care. Cornerstone Wealth &amp; Legacy Law helps Palm Coast seniors and their adult children plan ahead — so a health crisis does not force a choice between care and the family's security.</p>
+
+          <h2>Elder Law for Palm Coast Seniors</h2>
+          <p>Elder law brings together several tools that protect both a person and what they have built as they age. For Palm Coast residents, a complete approach usually includes a durable power of attorney, a health care surrogate designation, a living will, and — where appropriate — trusts and Medicaid planning. Together these decide who manages your affairs if you cannot, who speaks for your medical care, and whether your home and savings survive the cost of care.</p>
+          <ul>
+            <li><a href="/articles/florida-durable-power-of-attorney">Durable power of attorney</a> and <a href="/articles/florida-healthcare-surrogate-living-will">health care directives</a></li>
+            <li><a href="/articles/florida-medicaid-planning-lookback">Medicaid &amp; long-term-care planning</a> with the five-year look-back in mind</li>
+            <li><a href="/articles/florida-asset-protection">Asset protection</a> using homestead and lawful trust strategies</li>
+            <li><a href="/articles/florida-special-needs-trust">Special needs trusts</a> for a disabled child or grandchild</li>
+            <li><a href="/articles/florida-guardianship">Guardianship</a> when a loved one can no longer manage their own affairs</li>
+          </ul>
+
+          <h2>Medicaid &amp; Long-Term Care Planning</h2>
+          <p>The cost of skilled nursing or assisted living in Florida can run thousands of dollars a month, and it is the single biggest threat to most retirees' savings. Long-term-care Medicaid can help — but Florida applies a five-year (60-month) look-back to asset transfers, and gifts made in that window can create a penalty period. The earlier a Palm Coast family plans, the more options remain: properly structured irrevocable trusts, qualified income (Miller) trusts, homestead protection, and spend-down strategies that keep more of what you worked for. Waiting until a parent is already in a facility narrows the choices, but even then lawful crisis planning is often possible.</p>
+
+          <h2>Where Flagler County Handles Guardianship &amp; Probate</h2>
+          <p>Palm Coast sits in Flagler County, part of Florida's Seventh Judicial Circuit. Guardianship proceedings and probate are handled at the Kim C. Hammond Justice Center in Bunnell, the county seat. Because Florida courts rely on electronic filing, families usually do not need to travel to Bunnell except for required hearings. When an aging loved one has lost the ability to manage their affairs and no power of attorney is in place, guardianship may be the only path — which is exactly why we encourage planning the documents that can avoid it.</p>
+
+          <h2>How We Work With Palm Coast Families</h2>
+          <p>You should not have to move an aging parent across the county to get help. Cornerstone serves Palm Coast clients primarily by phone and video: we talk through the situation, prepare the documents, and walk you through signing them correctly under Florida's witness and notary rules. In-person appointments are available by appointment when a family would rather sit down together. Every plan is offered as a self-guided option or an Attorney-Guided plan personally reviewed by Arthur Simpson, Esq.</p>
+
+          <div class="city-faq">
+            <h2>Palm Coast Elder Law FAQs</h2>
+
+            <h3>What is the Florida Medicaid look-back period for a Palm Coast resident?</h3>
+            <p>Florida uses a five-year (60-month) look-back for long-term-care Medicaid. The state reviews asset transfers made in the five years before application, and gifts or below-value transfers in that window can trigger a penalty period of ineligibility. With Palm Coast's large retiree population, planning before a health crisis is often the difference between protecting savings and spending them down.</p>
+
+            <h3>Where is guardianship or probate filed for a Palm Coast resident?</h3>
+            <p>Palm Coast is in Flagler County, part of the Seventh Judicial Circuit. Guardianship and probate are handled at the Kim C. Hammond Justice Center in Bunnell, the county seat. Most filings are electronic, so families rarely need to appear in person except for required hearings.</p>
+
+            <h3>Can I protect my home and savings from a nursing home in Palm Coast?</h3>
+            <p>Often, yes. Florida's homestead protections, properly structured irrevocable trusts, qualified income trusts, and other lawful elder-law tools can help protect assets while qualifying for long-term-care Medicaid. The right strategy depends on your facts and timing — which is why early planning matters far more than waiting for a crisis.</p>
+
+            <h3>Do I have to come into an office for elder law help?</h3>
+            <p>No. We serve Palm Coast clients by phone and video, prepare documents remotely, and guide you through signing under Florida's witnessing and notarization requirements. In-person appointments are available when preferred, including for families coordinating care for an aging parent.</p>
+          </div>
+
+          <h2>Related Reading</h2>
+          <ul>
+            <li><a href="/articles/florida-medicaid-planning-lookback">Florida Medicaid Planning &amp; the 5-Year Look-Back</a> — what counts and how to plan.</li>
+            <li><a href="/articles/florida-asset-protection">Florida Asset Protection</a> — lawful ways to protect what you've built.</li>
+            <li><a href="/articles/florida-healthcare-surrogate-living-will">Health Care Surrogate &amp; Living Will</a> — who speaks for your care.</li>
+          </ul>
+
+          <div class="city-cta">
+            <h2>Protect what you've built in Palm Coast</h2>
+            <p>Start with a free 20-minute conversation. We'll help you understand what — if anything — needs your attention, with no pressure and no obligation.</p>
+            <a href="https://calendly.com/arthursimpson/free-20-minute-discovery-call" target="_blank" rel="noopener" class="btn btn-primary">Schedule Your Free Consultation</a>
+          </div>
+
+          <p class="city-disclaimer">Cornerstone Wealth &amp; Legacy Law, PLLC is licensed in the State of Florida and serves clients throughout the state. This page is attorney advertising and general information, not legal advice, and does not create an attorney-client relationship. Elder law and Medicaid outcomes depend on your individual facts, current Florida and federal law, and the proper execution of documents.</p>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="images/logo-full.png" alt="Cornerstone Wealth &amp; Legacy Law" class="footer-logo-img">
+          <div class="footer-contact">
+            <p>Serving clients throughout Florida</p>
+            <p><a href="tel:+13862935586" style="color:inherit;text-decoration:none">(386) 293-5586</a></p>
+            <p>By phone, video &amp; appointment</p>
+          </div>
+          <p class="footer-tagline">Built to last. Planned to pass on.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Practice Areas</h4>
+          <a href="real-estate.html">Real Estate</a>
+          <a href="estate-planning.html">Wills, Estates &amp; Trusts</a>
+          <a href="elder-law.html">Elder Law</a>
+        </div>
+        <div class="footer-col">
+          <h4>Firm</h4>
+          <a href="about.html">About Arthur Simpson</a>
+          <a href="insights.html">Insights</a>
+          <a href="contact.html">Contact</a>
+          <a href="https://calendly.com/arthursimpson/free-20-minute-discovery-call" target="_blank" rel="noopener">Schedule a Consultation</a>
+        </div>
+        <div class="footer-col">
+          <h4>Areas We Serve</h4>
+          <a href="/port-orange-estate-planning">Port Orange</a>
+          <a href="/ormond-beach-estate-planning">Ormond Beach</a>
+          <a href="/new-smyrna-beach-estate-planning">New Smyrna Beach</a>
+          <a href="/deland-estate-planning">DeLand</a>
+          <a href="/deltona-estate-planning">Deltona</a>
+          <a href="/palm-coast-estate-planning">Palm Coast</a>
+          <a href="/areas-we-serve">All areas &rarr;</a>
+        </div>
+      </div>
+      <p class="footer-disclaimer">Cornerstone Wealth &amp; Legacy Law, PLLC is licensed in the State of Florida. The information on this website is for general informational purposes only and does not constitute legal advice. Visiting this site or contacting the firm does not create an attorney-client relationship. Past results do not guarantee future outcomes. The hiring of a lawyer is an important decision that should not be based solely upon advertisements. Before you decide, ask us to send you free written information about our qualifications and experience.</p>
+      <div class="footer-bottom">
+        <span>© 2026 Cornerstone Wealth &amp; Legacy Law, PLLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #XXXXXX</span>
+        <div class="footer-legal">
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+          <a href="disclaimer.html">Disclaimer</a>
+          <a href="accessibility.html">Accessibility</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
