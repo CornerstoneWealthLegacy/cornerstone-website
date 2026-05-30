@@ -183,6 +183,13 @@ a:hover { color: var(--gold-hover); }
   text-decoration: none;
 }
 .dropdown-item:hover { background: var(--gray-50); color: var(--navy); padding-left: 22px; }
+.dropdown-item .di-icon { display: inline-block; width: 1.5em; text-align: center; margin-right: 4px; }
+
+/* Insights mega-dropdown (auto-built in js/main.js) */
+.dropdown-menu-insights { left: auto; right: 0; min-width: 320px; max-height: 74vh; overflow-y: auto; overscroll-behavior: contain; }
+.dropdown-group { padding: 11px 18px 4px; font-size: .66rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--gold); }
+.dropdown-group:first-child { padding-top: 4px; }
+.dropdown-menu-insights .dropdown-item { padding-top: 8px; padding-bottom: 8px; }
 
 .header-cta { flex-shrink: 0; }
 
