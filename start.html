@@ -845,6 +845,10 @@ button.chat-faq:hover{background:var(--sky)}
 [data-theme="dark"] .mps-bar{background:#2d3748}
 @media(min-width:960px){.mobile-prog-strip{display:none!important}}
 
+/* ── Hide the full sidebar on mobile (the compact .mobile-prog-strip replaces
+      it) so questions are at the top instead of below the whole status list ── */
+@media(max-width:959px){#sidebarNav{display:none!important}}
+
 /* ── Hide original prog-card everywhere ── */
 #progCard{display:none!important}
 
