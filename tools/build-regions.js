@@ -393,6 +393,14 @@ ${STATUTE_LIST}
             <p>${esc(faqNeed)}</p>
             <h3>Can I handle my ${esc(r.name)} estate plan remotely?</h3>
             <p>${esc(faqRemote)}</p>
+            <h3>How long does probate take in ${esc(r.name)}?</h3>
+            <p>${esc(fTime)}</p>
+            <h3>What is summary administration, and does my ${esc(r.name)} estate qualify?</h3>
+            <p>${esc(fSummary)}</p>
+            <h3>What happens if someone dies without a will in ${esc(r.name)}?</h3>
+            <p>${esc(fIntestate)}</p>
+            <h3>Does Florida have an estate or inheritance tax?</h3>
+            <p>${esc(fTax)}</p>
           </div>
 
           <div class="city-cta">
