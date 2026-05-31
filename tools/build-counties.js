@@ -224,6 +224,10 @@ function buildPage(countyName) {
   const faqCities = `Cornerstone Wealth & Legacy Law serves the entire county, including ${oxford(cities.slice(0, 6))}. Florida estate planning and probate law is the same statewide, so we can help any ${countyName} County family regardless of city.`;
   const faqAvoid = `The most common way to avoid probate in ${countyName} County is a properly funded revocable living trust, which lets your Florida assets pass to your beneficiaries without a court filing. Beneficiary designations, payable-on-death accounts, and certain deeds can also transfer specific assets outside probate. The key with a trust is funding it by retitling assets into the trust.`;
   const faqRemote = `Yes. Cornerstone serves ${countyName} County clients by phone and video, preparing documents remotely and guiding you through signing under Florida's witnessing and notarization requirements. In-person appointments are available in the Daytona Beach area when preferred.`;
+  const faqTime = `Most ${countyName} County formal probate administrations take roughly six months to a year, driven largely by Florida's creditor claim period. After the personal representative publishes a notice to creditors, creditors generally have until the later of three months from first publication or 30 days from service to file claims (Fla. Stat. §733.702), subject to a two-year absolute bar (§733.710). When an estate qualifies for summary administration, it is often completed in a few weeks to a couple of months.`;
+  const faqSummary = `Summary administration is Florida's streamlined probate process, available when the probate estate — excluding exempt and homestead property — is worth $75,000 or less, or when the decedent has been deceased for more than two years (Fla. Stat. Chapter 735). Many ${countyName} County estates qualify, especially when most assets passed by trust, beneficiary designation, or joint title. Estates that do not qualify proceed as a formal administration under Chapter 733.`;
+  const faqIntestate = `If a ${countyName} County resident dies without a will, Florida's intestate succession statute (Fla. Stat. Chapter 732) decides who inherits. A surviving spouse generally inherits the entire estate when all descendants are shared, but that share changes when there are children from another relationship. Dying without a will also forfeits your ability to name your own personal representative, a guardian for minor children, or a trust for your beneficiaries — which is why even a simple Florida will is worthwhile.`;
+  const faqTax = `Florida has no state estate tax and no state inheritance tax, so most ${countyName} County estates owe no death tax at the state level. Only very large estates may owe federal estate tax, which applies above the federal exemption amount. The absence of a state estate tax, combined with Florida's homestead protections, is one reason careful titling and beneficiary planning matter so much here.`;
 
   // intro paragraph
   const introHook = d.hook ? ' ' + d.hook : '';
@@ -316,6 +320,26 @@ ${areaServedCities},
             "@type": "Question",
             "name": "Can I handle my ${jsonEsc(countyName)} County estate plan remotely?",
             "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(faqRemote)}" }
+          },
+          {
+            "@type": "Question",
+            "name": "How long does probate take in ${jsonEsc(countyName)} County?",
+            "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(faqTime)}" }
+          },
+          {
+            "@type": "Question",
+            "name": "What is summary administration, and does my ${jsonEsc(countyName)} County estate qualify?",
+            "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(faqSummary)}" }
+          },
+          {
+            "@type": "Question",
+            "name": "What happens if someone dies without a will in ${jsonEsc(countyName)} County?",
+            "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(faqIntestate)}" }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Florida have an estate or inheritance tax?",
+            "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(faqTax)}" }
           }
         ]
       }
@@ -415,9 +439,26 @@ ${areaServedCities},
 
           <h2>Probate in ${esc(countyName)} County &amp; the ${ordinal} Judicial Circuit</h2>
           <p>When a ${esc(countyName)} County resident passes away with assets that do not transfer automatically, the estate is administered through the Clerk of the Circuit Court for ${esc(countyName)} County, part of Florida's <strong>${ordinal} Judicial Circuit</strong>${alsoCoversClean}. ${courthouse} Because Florida probate is handled largely through electronic court filing, a personal representative usually does not need to travel to the courthouse — but the process still follows strict statutory deadlines, including the creditor notice period under Florida Statutes Chapter 733. We guide families through both formal administration and summary administration, and, where possible, help them avoid probate entirely with proper planning.</p>
+
+          <h2>Formal vs. Summary Administration in ${esc(countyName)} County</h2>
+          <p>Florida offers two main probate paths, and which one a ${esc(countyName)} County estate uses depends largely on its size and timing. <strong>Summary administration</strong> (Fla. Stat. Chapter 735) is available when the probate estate — not counting exempt or homestead property — is worth $75,000 or less, or when the decedent has been deceased for more than two years; it is faster and does not require an appointed personal representative. <strong>Formal administration</strong> (Fla. Stat. Chapter 733) is the full process used for larger estates: the court appoints a personal representative who marshals assets, publishes a notice to creditors, pays valid claims, and distributes what remains. We help ${esc(countyName)} County families determine which path applies and handle the filings with the ${ordinal} Judicial Circuit either way.</p>
+
+          <h2>Florida Homestead &amp; Your ${esc(countyName)} County Home</h2>
+          <p>For most ${esc(countyName)} County homeowners, the residence is the most valuable — and most legally protected — asset in the estate. Florida's constitutional homestead protection (Art. X, §4 of the Florida Constitution) shields a primary residence from most creditors and restricts how it may be left when you are survived by a spouse or minor child (Fla. Stat. §732.401). Homestead generally passes outside the probate estate, but the title still has to be cleared, often through a petition to determine homestead status. Transferring the home correctly — sometimes with an enhanced life estate ("Lady Bird") deed or a funded revocable trust — is one of the highest-value steps a ${esc(countyName)} County family can take.</p>
 ${citiesSection}${regionUplink}
           <h2>How We Work With ${esc(countyName)} County Clients</h2>
           <p>Cornerstone serves ${esc(countyName)} County clients primarily by phone and video: we talk through your situation, prepare your documents, and walk you through signing them correctly under Florida's witness and notary rules. In-person meetings are available by appointment in the Daytona Beach area when you would rather sit down face to face. Every plan is offered as a self-guided option or an Attorney-Guided plan personally reviewed by Arthur Simpson, Esq.</p>
+
+          <h2>Key Florida Statutes for ${esc(countyName)} County Estates</h2>
+          <p>Florida estate and probate law is statewide; these are the provisions that most often shape how a ${esc(countyName)} County estate is planned and administered:</p>
+          <ul>
+            <li><strong>Fla. Stat. §732.502</strong> — execution of wills: a Florida will must be signed by the testator and attested by at least two witnesses.</li>
+            <li><strong>Fla. Stat. §732.901</strong> — the original will must be deposited with the clerk of court within 10 days of learning of the death.</li>
+            <li><strong>Fla. Stat. Chapter 732</strong> — intestate succession and the surviving spouse's elective share.</li>
+            <li><strong>Fla. Stat. §732.401</strong> &amp; Art. X, §4, Fla. Const. — descent of homestead and its creditor protection.</li>
+            <li><strong>Fla. Stat. Chapter 733</strong> — formal administration, including notice to creditors and the claim period under §733.702.</li>
+            <li><strong>Fla. Stat. Chapter 735</strong> — summary administration and disposition without administration.</li>
+          </ul>
 
           <div class="city-faq">
             <h2>${esc(countyName)} County Estate Planning &amp; Probate FAQs</h2>
@@ -433,6 +474,18 @@ ${citiesSection}${regionUplink}
 
             <h3>Can I handle my ${esc(countyName)} County estate plan remotely?</h3>
             <p>${esc(faqRemote)}</p>
+
+            <h3>How long does probate take in ${esc(countyName)} County?</h3>
+            <p>${esc(faqTime)}</p>
+
+            <h3>What is summary administration, and does my ${esc(countyName)} County estate qualify?</h3>
+            <p>${esc(faqSummary)}</p>
+
+            <h3>What happens if someone dies without a will in ${esc(countyName)} County?</h3>
+            <p>${esc(faqIntestate)}</p>
+
+            <h3>Does Florida have an estate or inheritance tax?</h3>
+            <p>${esc(faqTax)}</p>
           </div>
 
           <h2>Related Reading</h2>
