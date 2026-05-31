@@ -116,8 +116,8 @@ a:hover { color: var(--gold-hover); }
   height: 68px;
   gap: 16px;
 }
-.logo { display: flex; flex-direction: row; align-items: center; text-decoration: none; gap: 10px; }
-.logo-name { font-family: var(--font-serif); font-size: 1.1rem; color: var(--white); line-height: 1.2; }
+.logo { display: flex; flex-direction: row; align-items: center; text-decoration: none; gap: 10px; flex-shrink: 0; }
+.logo-name { font-family: var(--font-serif); font-size: 1.1rem; color: var(--white); line-height: 1.2; white-space: nowrap; }
 .logo-sub { font-size: .65rem; color: rgba(255,255,255,.55); letter-spacing: .09em; text-transform: uppercase; }
 .logo:hover .logo-name { color: var(--gold); }
 
@@ -510,6 +510,9 @@ a:hover { color: var(--gold-hover); }
   .site-nav.open { display: flex; }
   .nav-toggle { display: flex; flex-direction: column; justify-content: center; }
   .header-cta { display: none; }
+  .logo-img-icon { height: 34px; width: 34px; }
+  .logo-name { font-size: .98rem; }
+  .logo { gap: 8px; }
   .dropdown-menu { position: static; box-shadow: none; border: none; background: rgba(255,255,255,.05); border-top: none; padding: 0 0 4px 12px; min-width: unset; }
   .dropdown-item { color: rgba(255,255,255,.7); padding: 8px 12px; font-size: .85rem; }
   .dropdown-item:hover { background: rgba(255,255,255,.06); padding-left: 16px; }
@@ -526,4 +529,6 @@ a:hover { color: var(--gold-hover); }
 @media (max-width: 480px) {
   .hero h1 { font-size: 1.7rem; }
   h2 { font-size: 1.5rem; }
+  .logo-img-icon { height: 30px; width: 30px; }
+  .logo-name { font-size: .8rem; }
 }
