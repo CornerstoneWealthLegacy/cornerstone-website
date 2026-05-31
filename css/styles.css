@@ -123,8 +123,8 @@ a:hover { color: var(--gold-hover); }
 
 /* ── Logo Images ── */
 .logo-img-icon {
-  height: 44px;
-  width: 44px;
+  height: 52px;
+  width: 52px;
   object-fit: contain;
   mix-blend-mode: screen;
   flex-shrink: 0;
@@ -510,7 +510,7 @@ a:hover { color: var(--gold-hover); }
   .site-nav.open { display: flex; }
   .nav-toggle { display: flex; flex-direction: column; justify-content: center; }
   .header-cta { display: none; }
-  .logo-img-icon { height: 38px; width: 38px; }
+  .logo-img-icon { height: 46px; width: 46px; }
   .logo-name { font-size: 1.2rem; }
   .logo { gap: 9px; }
   .dropdown-menu { position: static; box-shadow: none; border: none; background: rgba(255,255,255,.05); border-top: none; padding: 0 0 4px 12px; min-width: unset; }
@@ -529,6 +529,6 @@ a:hover { color: var(--gold-hover); }
 @media (max-width: 480px) {
   .hero h1 { font-size: 1.7rem; }
   h2 { font-size: 1.5rem; }
-  .logo-img-icon { height: 34px; width: 34px; }
+  .logo-img-icon { height: 40px; width: 40px; }
   .logo-name { font-size: 1.05rem; }
 }
