@@ -1,0 +1,388 @@
+#!/usr/bin/env node
+/*
+ * build-regions.js
+ * Generates the regional tier above the 67 county hubs:
+ *   - 20 judicial-circuit hubs  ([ordinal]-judicial-circuit-estate-planning.html)
+ *   - 8  marketing-region hubs  ([region]-estate-planning.html)
+ * Each groups its counties (links down to county hubs) and is differentiated
+ * by its real legal/geographic footprint.
+ *
+ * Run:  node tools/build-regions.js [--dry]
+ */
+const fs = require('fs');
+const path = require('path');
+const { CIRCUITS, COUNTY_CIRCUIT, COUNTIES, REGIONS, esc, jsonEsc, oxford, SITE, OUT_DIR, CALENDLY } = require('./build-counties.js');
+
+function countySlug(name) { return name.toLowerCase().replace(/\./g, '').replace(/'/g, '').replace(/\s+/g, '-'); }
+const countyHref = (n) => `/${countySlug(n)}-county-estate-planning`;
+
+// ---- shared shell ----------------------------------------------------------
+function shell({ title, desc, url, jsonld, h1, heroP, body }) {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${title}</title>
+  <meta name="description" content="${desc}">
+  <link rel="canonical" href="${url}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="application/ld+json">
+${jsonld}
+  </script>
+  <style>
+    .city-hero { background: linear-gradient(135deg,#111c33 0%,#1d2d4a 70%,#233660 100%); color:#fff; padding: 56px 0; }
+    .city-hero .container { max-width: 1080px; }
+    .city-hero .crumb { font-size:.8rem; color:rgba(255,255,255,.6); margin-bottom:16px; }
+    .city-hero .crumb a { color:rgba(255,255,255,.75); text-decoration:none; }
+    .city-hero h1 { color:#fff; font-family:'Playfair Display',serif; font-size:2.1rem; line-height:1.2; margin-bottom:14px; }
+    .city-hero p { color:rgba(255,255,255,.82); max-width:680px; font-size:1.02rem; line-height:1.7; }
+    .city-hero .hero-actions { margin-top:24px; display:flex; gap:14px; flex-wrap:wrap; }
+    .city-body { max-width: 820px; margin:0 auto; }
+    .city-body h2 { font-family:'Playfair Display',serif; font-size:1.5rem; margin:38px 0 14px; color:var(--navy,#1d2d4a); }
+    .city-body p, .city-body li { color:var(--gray-600,#4a5568); line-height:1.8; margin-bottom:14px; }
+    .city-body ul { padding-left:22px; margin-bottom:14px; }
+    .city-faq h3 { font-size:1.06rem; margin:24px 0 6px; color:var(--navy,#1d2d4a); }
+    .county-cities { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:18px 0 8px; list-style:none; padding-left:0; }
+    .county-cities a { display:block; border:1px solid var(--gray-200,#e5e7eb); border-radius:8px; padding:12px 14px; text-decoration:none; color:var(--navy,#1d2d4a); font-weight:600; font-size:.95rem; transition:border-color .15s,box-shadow .15s; }
+    .county-cities a:hover { border-color:rgba(184,149,42,.45); box-shadow:0 4px 14px rgba(17,28,51,.08); }
+    .city-cta { background:rgba(184,149,42,.08); border:1px solid rgba(184,149,42,.28); border-radius:10px; padding:30px; margin:40px 0 8px; text-align:center; }
+    .city-cta h2 { margin-top:0; }
+    .city-disclaimer { font-size:.78rem; color:var(--gray-500,#718096); line-height:1.6; margin-top:28px; border-top:1px solid var(--gray-200,#e5e7eb); padding-top:18px; }
+    @media (max-width:560px){ .county-cities{ grid-template-columns:1fr 1fr; } }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <img src="images/logo-icon.png" alt="Cornerstone" class="logo-img-icon">
+        <div>
+          <span class="logo-name">Cornerstone Wealth &amp; Legacy Law</span>
+        </div>
+      </a>
+      <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="site-nav" role="navigation" aria-label="Main navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <div class="dropdown">
+          <a href="#" class="nav-link" aria-haspopup="true">Practice Areas</a>
+          <div class="dropdown-menu" role="menu">
+            <a href="real-estate.html" class="dropdown-item" role="menuitem">Real Estate</a>
+            <a href="estate-planning.html" class="dropdown-item" role="menuitem">Wills, Estates &amp; Trusts</a>
+            <a href="elder-law.html" class="dropdown-item" role="menuitem">Elder Law</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <a href="#" class="nav-link" aria-haspopup="true">Free Tools</a>
+          <div class="dropdown-menu" role="menu">
+            <a href="/quiz" class="dropdown-item" role="menuitem">\u{1F4CB} Estate Plan Score Quiz</a>
+            <a href="/probate-calculator" class="dropdown-item" role="menuitem">\u{1F9EE} Probate Cost Calculator</a>
+            <a href="/snowbird" class="dropdown-item" role="menuitem">☀️ New to Florida Guide</a>
+          </div>
+        </div>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="insights.html" class="nav-link">Insights</a>
+        <a href="/areas-we-serve" class="nav-link">Areas We Serve</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <a href="${CALENDLY}" target="_blank" rel="noopener" class="btn btn-primary header-cta">Schedule a Consultation</a>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="city-hero">
+      <div class="container">
+        <div class="crumb"><a href="index.html">Home</a> &nbsp;›&nbsp; <a href="/areas-we-serve">Areas We Serve</a> &nbsp;›&nbsp; ${esc(h1)}</div>
+        <h1>${esc(h1)}</h1>
+        <p>${esc(heroP)}</p>
+        <div class="hero-actions">
+          <a href="${CALENDLY}" target="_blank" rel="noopener" class="btn btn-primary">Free 20-Minute Consultation</a>
+          <a href="tel:+13862935586" class="btn btn-outline-white">Call (386) 293-5586</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--white">
+      <div class="container">
+        <div class="city-body">
+${body}
+          <p class="city-disclaimer">Cornerstone Wealth &amp; Legacy Law, PLLC is licensed in the State of Florida and serves clients throughout the state. This page is attorney advertising and general information, not legal advice, and does not create an attorney-client relationship. Estate planning and probate outcomes depend on your individual facts and the proper execution of documents under Florida law.</p>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="images/logo-full.png" alt="Cornerstone Wealth &amp; Legacy Law" class="footer-logo-img">
+          <div class="footer-contact">
+            <p>Serving clients throughout Florida</p>
+            <p><a href="tel:+13862935586" style="color:inherit;text-decoration:none">(386) 293-5586</a></p>
+            <p>By phone, video &amp; appointment</p>
+          </div>
+          <p class="footer-tagline">Built to last. Planned to pass on.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Practice Areas</h4>
+          <a href="real-estate.html">Real Estate</a>
+          <a href="estate-planning.html">Wills, Estates &amp; Trusts</a>
+          <a href="elder-law.html">Elder Law</a>
+        </div>
+        <div class="footer-col">
+          <h4>Firm</h4>
+          <a href="about.html">About Arthur Simpson</a>
+          <a href="insights.html">Insights</a>
+          <a href="contact.html">Contact</a>
+          <a href="${CALENDLY}" target="_blank" rel="noopener">Schedule a Consultation</a>
+        </div>
+        <div class="footer-col">
+          <h4>Areas We Serve</h4>
+          <a href="/central-florida-estate-planning">Central Florida</a>
+          <a href="/northeast-florida-estate-planning">Northeast Florida</a>
+          <a href="/southeast-florida-estate-planning">Southeast Florida</a>
+          <a href="/areas-we-serve">All areas &rarr;</a>
+        </div>
+      </div>
+      <p class="footer-disclaimer">Cornerstone Wealth &amp; Legacy Law, PLLC is licensed in the State of Florida. The information on this website is for general informational purposes only and does not constitute legal advice. Visiting this site or contacting the firm does not create an attorney-client relationship. Past results do not guarantee future outcomes. The hiring of a lawyer is an important decision that should not be based solely upon advertisements. Before you decide, ask us to send you free written information about our qualifications and experience.</p>
+      <div class="footer-bottom">
+        <span>© 2026 Cornerstone Wealth &amp; Legacy Law, PLLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #XXXXXX</span>
+        <div class="footer-legal">
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+          <a href="disclaimer.html">Disclaimer</a>
+          <a href="accessibility.html">Accessibility</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+`;
+}
+
+function countyGrid(counties) {
+  return counties.map(c => `            <li><a href="${countyHref(c)}">${esc(c)} County</a></li>`).join('\n');
+}
+
+// ---- circuit hub -----------------------------------------------------------
+function buildCircuit(num) {
+  const c = CIRCUITS[num];
+  const ordinal = c.ordinal;
+  const counties = c.counties;
+  const slug = `${ordinal.toLowerCase()}-judicial-circuit-estate-planning`;
+  const url = `${SITE}/${slug}`;
+  const seats = counties.map(n => `${esc(n)} County (${esc(COUNTIES[n].seat)})`);
+  const repGeo = COUNTIES[counties[0]];
+
+  const faqWhat = `Florida's ${ordinal} Judicial Circuit is the trial-court circuit that handles probate and estate administration for ${oxford(counties.map(n => n + ' County'))}. Each county files probate with its own Clerk of the Circuit Court, but all sit within the ${ordinal} Circuit. Florida estate planning law is uniform statewide.`;
+  const faqProbate = `Probate is filed in the county where the decedent lived, with that county's Clerk of the Circuit Court. In the ${ordinal} Judicial Circuit that means ${oxford(counties.map(n => `${n} County (courthouse in ${COUNTIES[n].seat})`))}. Florida probate is largely electronic, so a personal representative usually does not need to appear in person.`;
+  const faqServe = `Yes. Cornerstone Wealth & Legacy Law serves every county in the ${ordinal} Judicial Circuit — ${oxford(counties.map(n => n + ' County'))} — by phone, video, and appointment, with in-person meetings available in the Daytona Beach area.`;
+  const faqAvoid = `The most reliable way to avoid probate anywhere in the ${ordinal} Judicial Circuit is a properly funded revocable living trust, supported by beneficiary designations, payable-on-death accounts, and appropriate deeds. The trust must be funded by retitling assets into it to keep them out of the county probate court.`;
+
+  const jsonld = `  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LegalService",
+        "@id": "https://cornerstonewealthlegacy.com/#firm",
+        "name": "Cornerstone Wealth & Legacy Law, PLLC",
+        "url": "${url}",
+        "telephone": "+1-386-293-5586",
+        "priceRange": "$$",
+        "image": "https://cornerstonewealthlegacy.com/images/logo-full.png",
+        "description": "Estate planning, elder law, and probate attorney serving every county in Florida's ${ordinal} Judicial Circuit, by phone, video, and appointment.",
+        "address": { "@type": "PostalAddress", "addressLocality": "Daytona Beach", "addressRegion": "FL", "addressCountry": "US" },
+        "geo": { "@type": "GeoCoordinates", "latitude": ${repGeo.lat}, "longitude": ${repGeo.lng} },
+        "areaServed": [
+${counties.map(n => `          { "@type": "AdministrativeArea", "name": "${jsonEsc(n)} County, Florida" }`).join(',\n')},
+          { "@type": "State", "name": "Florida" }
+        ],
+        "founder": { "@type": "Attorney", "name": "Arthur Simpson", "honorificSuffix": "Esq." }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "What counties are in Florida's ${ordinal} Judicial Circuit?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(faqWhat)}" } },
+          { "@type": "Question", "name": "Where is probate filed in the ${ordinal} Judicial Circuit?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(faqProbate)}" } },
+          { "@type": "Question", "name": "Does Cornerstone serve the whole ${ordinal} Judicial Circuit?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(faqServe)}" } },
+          { "@type": "Question", "name": "How do I avoid probate in the ${ordinal} Judicial Circuit?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(faqAvoid)}" } }
+        ]
+      }
+    ]
+  }`;
+
+  const body = `
+          <p>Florida's <strong>${ordinal} Judicial Circuit</strong> is the trial-court circuit responsible for probate and estate administration in ${oxford(counties.map(n => `<a href="${countyHref(n)}">${esc(n)} County</a>`))}. Cornerstone Wealth &amp; Legacy Law helps families across the entire circuit prepare wills, revocable living trusts, powers of attorney, and health care directives — and guides them through probate when a loved one passes. Estate planning law is the same statewide, but where your estate is administered is decided at the county level within this circuit.</p>
+
+          <h2>Counties in the ${ordinal} Judicial Circuit</h2>
+          <p>Each county files probate with its own Clerk of the Circuit Court at the county courthouse. Explore the county you need:</p>
+          <ul class="county-cities">
+${countyGrid(counties)}
+            <li><a href="/areas-we-serve">All areas &rarr;</a></li>
+          </ul>
+          <p>County seats and courthouses in this circuit: ${seats.join('; ')}.</p>
+
+          <h2>Probate in the ${ordinal} Judicial Circuit</h2>
+          <p>When a resident of the ${ordinal} Circuit passes away with assets that do not transfer automatically, the estate is administered through the Clerk of the Circuit Court in the county where they lived. Because Florida probate is handled largely through electronic court filing, a personal representative usually does not need to travel to the courthouse — but the process still follows strict statutory deadlines, including the creditor notice period under Florida Statutes Chapter 733. We guide families through both formal administration and summary administration, and, where possible, help them avoid probate entirely with proper planning.</p>
+
+          <h2>Start Your Estate Plan Online — the Easy Way</h2>
+          <p>Anywhere in the ${ordinal} Circuit, you can put a Florida-valid will, revocable living trust, durable power of attorney, and health care directives in place from home in three simple steps: answer a few questions in our secure online intake, let us prepare your documents under current Florida law (with an Attorney-Guided option reviewed by Arthur Simpson, Esq.), and sign correctly under Florida's witness and notary rules. <a href="/quiz">Take the free Estate Plan Score quiz</a> or <a href="${CALENDLY}" target="_blank" rel="noopener">book a free 20-minute call</a>.</p>
+
+          <div class="city-faq">
+            <h2>${ordinal} Judicial Circuit Estate Planning &amp; Probate FAQs</h2>
+            <h3>What counties are in Florida's ${ordinal} Judicial Circuit?</h3>
+            <p>${esc(faqWhat)}</p>
+            <h3>Where is probate filed in the ${ordinal} Judicial Circuit?</h3>
+            <p>${esc(faqProbate)}</p>
+            <h3>Does Cornerstone serve the whole ${ordinal} Judicial Circuit?</h3>
+            <p>${esc(faqServe)}</p>
+            <h3>How do I avoid probate in the ${ordinal} Judicial Circuit?</h3>
+            <p>${esc(faqAvoid)}</p>
+          </div>
+
+          <div class="city-cta">
+            <h2>Plan ahead, anywhere in the ${ordinal} Circuit</h2>
+            <p>Start with a free 20-minute conversation. We'll help you understand what — if anything — needs your attention, with no pressure and no obligation.</p>
+            <a href="${CALENDLY}" target="_blank" rel="noopener" class="btn btn-primary">Schedule Your Free Consultation</a>
+          </div>
+`;
+
+  return { slug, html: shell({
+    title: `Florida ${ordinal} Judicial Circuit Estate Planning &amp; Probate Attorney | Cornerstone Wealth &amp; Legacy Law`,
+    desc: `Estate planning &amp; probate attorney for Florida's ${ordinal} Judicial Circuit — ${esc(oxford(counties.map(n => n + ' County')))}. Wills, trusts, powers of attorney &amp; probate. By phone, video &amp; appointment. Call (386) 293-5586.`,
+    url,
+    jsonld,
+    h1: `Florida ${ordinal} Judicial Circuit Estate Planning & Probate Attorney`,
+    heroP: `Wills, revocable living trusts, powers of attorney, and probate guidance for families across every county in Florida's ${ordinal} Judicial Circuit — prepared under current Florida law and handled by phone, video, or appointment.`,
+    body,
+  }) };
+}
+
+// ---- region hub ------------------------------------------------------------
+function buildRegion(r) {
+  const url = `${SITE}/${r.slug}`;
+  const counties = r.counties;
+  const circuitsInRegion = [...new Set(counties.map(n => CIRCUITS[COUNTY_CIRCUIT[n]].ordinal))];
+
+  const faqWhere = `${r.name} covers ${oxford(counties.map(n => n + ' County'))}. Cornerstone Wealth & Legacy Law serves every one of these counties by phone, video, and appointment, helping families with wills, trusts, powers of attorney, and probate under Florida law.`;
+  const faqProbate = `Probate in ${r.name} is filed in the county where the person lived, with that county's Clerk of the Circuit Court. The region spans the ${oxford(circuitsInRegion.map(o => o))} Judicial ${circuitsInRegion.length === 1 ? 'Circuit' : 'Circuits'}. Florida probate is largely electronic, so a personal representative usually does not need to appear in person.`;
+  const faqNeed = `Most adults in ${r.name} benefit from a will, a durable power of attorney, a health care surrogate designation, and a living will; homeowners and parents, and anyone who wants to avoid probate, should also consider a revocable living trust. The right plan depends on your assets and family under Florida law.`;
+  const faqRemote = `Yes. Cornerstone serves ${r.name} clients by phone and video — we prepare your documents remotely and guide you through signing under Florida's witnessing and notarization requirements, with in-person appointments available in the Daytona Beach area.`;
+
+  const jsonld = `  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LegalService",
+        "@id": "https://cornerstonewealthlegacy.com/#firm",
+        "name": "Cornerstone Wealth & Legacy Law, PLLC",
+        "url": "${url}",
+        "telephone": "+1-386-293-5586",
+        "priceRange": "$$",
+        "image": "https://cornerstonewealthlegacy.com/images/logo-full.png",
+        "description": "Estate planning, elder law, and probate attorney serving ${jsonEsc(r.name)}, Florida, by phone, video, and appointment.",
+        "address": { "@type": "PostalAddress", "addressLocality": "Daytona Beach", "addressRegion": "FL", "addressCountry": "US" },
+        "geo": { "@type": "GeoCoordinates", "latitude": ${r.lat}, "longitude": ${r.lng} },
+        "areaServed": [
+${counties.map(n => `          { "@type": "AdministrativeArea", "name": "${jsonEsc(n)} County, Florida" }`).join(',\n')},
+          { "@type": "State", "name": "Florida" }
+        ],
+        "founder": { "@type": "Attorney", "name": "Arthur Simpson", "honorificSuffix": "Esq." }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "What counties make up ${jsonEsc(r.name)}?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(faqWhere)}" } },
+          { "@type": "Question", "name": "Where is probate filed in ${jsonEsc(r.name)}?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(faqProbate)}" } },
+          { "@type": "Question", "name": "What estate planning documents do I need in ${jsonEsc(r.name)}?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(faqNeed)}" } },
+          { "@type": "Question", "name": "Can I handle my ${jsonEsc(r.name)} estate plan remotely?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(faqRemote)}" } }
+        ]
+      }
+    ]
+  }`;
+
+  const body = `
+          <p>Cornerstone Wealth &amp; Legacy Law serves families throughout <strong>${esc(r.name)}</strong> — ${esc(r.alias)} — with wills, revocable living trusts, powers of attorney, health care directives, and probate guidance. The region spans ${oxford(counties.map(n => `<a href="${countyHref(n)}">${esc(n)} County</a>`))}. Florida estate planning law is the same statewide, but where your estate is administered is decided at the county level, so we connect every ${esc(r.name)} family to the right county process.</p>
+
+          <h2>Counties We Serve in ${esc(r.name)}</h2>
+          <p>Explore the county overview that fits you — each links to local cities and the courthouse that handles its probate:</p>
+          <ul class="county-cities">
+${countyGrid(counties)}
+            <li><a href="/areas-we-serve">All areas &rarr;</a></li>
+          </ul>
+
+          <h2>Probate in ${esc(r.name)}</h2>
+          <p>When a ${esc(r.name)} resident passes away with assets that do not transfer automatically, the estate is administered through the Clerk of the Circuit Court in the county where they lived — within the ${oxford(circuitsInRegion)} Judicial ${circuitsInRegion.length === 1 ? 'Circuit' : 'Circuits'}. Because Florida probate is largely electronic, a personal representative usually does not need to travel to the courthouse, but the process still follows strict statutory deadlines, including the creditor notice period under Florida Statutes Chapter 733. We guide families through formal and summary administration and, where possible, help them avoid probate entirely.</p>
+
+          <h2>Start Your ${esc(r.name)} Estate Plan Online — the Easy Way</h2>
+          <p>Across ${esc(r.name)}, you can put a Florida-valid will, revocable living trust, durable power of attorney, and health care directives in place from home in three simple steps: answer a few questions in our secure online intake (about 20 minutes), let us prepare your documents under current Florida law — with an Attorney-Guided option personally reviewed by Arthur Simpson, Esq. — and sign correctly under Florida's witness and notary rules. <a href="/quiz">Take the free Estate Plan Score quiz</a> or <a href="${CALENDLY}" target="_blank" rel="noopener">book a free 20-minute call</a>.</p>
+
+          <div class="city-faq">
+            <h2>${esc(r.name)} Estate Planning &amp; Probate FAQs</h2>
+            <h3>What counties make up ${esc(r.name)}?</h3>
+            <p>${esc(faqWhere)}</p>
+            <h3>Where is probate filed in ${esc(r.name)}?</h3>
+            <p>${esc(faqProbate)}</p>
+            <h3>What estate planning documents do I need in ${esc(r.name)}?</h3>
+            <p>${esc(faqNeed)}</p>
+            <h3>Can I handle my ${esc(r.name)} estate plan remotely?</h3>
+            <p>${esc(faqRemote)}</p>
+          </div>
+
+          <div class="city-cta">
+            <h2>Plan ahead for your family in ${esc(r.name)}</h2>
+            <p>Start with a free 20-minute conversation. We'll help you understand what — if anything — needs your attention, with no pressure and no obligation.</p>
+            <a href="${CALENDLY}" target="_blank" rel="noopener" class="btn btn-primary">Schedule Your Free Consultation</a>
+          </div>
+`;
+
+  return { slug: r.slug, html: shell({
+    title: `${esc(r.name)} Estate Planning &amp; Probate Attorney | Cornerstone Wealth &amp; Legacy Law`,
+    desc: `Estate planning &amp; probate attorney serving ${esc(r.name)}, Florida — ${esc(oxford(counties.map(n => n + ' County')))}. Wills, trusts, powers of attorney &amp; probate. By phone, video &amp; appointment. Call (386) 293-5586.`,
+    url,
+    jsonld,
+    h1: `${r.name} Estate Planning & Probate Attorney`,
+    heroP: `Wills, revocable living trusts, powers of attorney, and probate guidance for families across ${r.name} — ${r.alias} — prepared under current Florida law and handled by phone, video, or appointment.`,
+    body,
+  }) };
+}
+
+// ---- main ------------------------------------------------------------------
+const dry = process.argv.includes('--dry');
+const circuitSlugs = [];
+const regionSlugs = [];
+
+for (let n = 1; n <= 20; n++) {
+  const { slug, html } = buildCircuit(n);
+  circuitSlugs.push(slug);
+  if (!dry) fs.writeFileSync(path.join(OUT_DIR, `${slug}.html`), html, 'utf8');
+}
+for (const r of REGIONS) {
+  const { slug, html } = buildRegion(r);
+  regionSlugs.push(slug);
+  if (!dry) fs.writeFileSync(path.join(OUT_DIR, `${slug}.html`), html, 'utf8');
+}
+
+// coverage sanity check
+const assigned = REGIONS.flatMap(r => r.counties);
+const allCounties = Object.keys(COUNTIES);
+const missing = allCounties.filter(c => !assigned.includes(c));
+const dup = assigned.filter((c, i) => assigned.indexOf(c) !== i);
+console.log(`${dry ? 'Would generate' : 'Generated'} ${circuitSlugs.length} circuit hubs + ${regionSlugs.length} region hubs.`);
+console.log(`Region coverage: ${assigned.length} county-slots; missing: ${missing.length ? missing.join(', ') : 'none'}; duplicates: ${dup.length ? dup.join(', ') : 'none'}`);
+fs.writeFileSync(path.join(__dirname, 'region-slugs.json'), JSON.stringify({ circuits: circuitSlugs, regions: regionSlugs }, null, 2));

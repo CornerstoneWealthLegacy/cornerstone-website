@@ -1,0 +1,34 @@
+{
+  "circuits": [
+    "first-judicial-circuit-estate-planning",
+    "second-judicial-circuit-estate-planning",
+    "third-judicial-circuit-estate-planning",
+    "fourth-judicial-circuit-estate-planning",
+    "fifth-judicial-circuit-estate-planning",
+    "sixth-judicial-circuit-estate-planning",
+    "seventh-judicial-circuit-estate-planning",
+    "eighth-judicial-circuit-estate-planning",
+    "ninth-judicial-circuit-estate-planning",
+    "tenth-judicial-circuit-estate-planning",
+    "eleventh-judicial-circuit-estate-planning",
+    "twelfth-judicial-circuit-estate-planning",
+    "thirteenth-judicial-circuit-estate-planning",
+    "fourteenth-judicial-circuit-estate-planning",
+    "fifteenth-judicial-circuit-estate-planning",
+    "sixteenth-judicial-circuit-estate-planning",
+    "seventeenth-judicial-circuit-estate-planning",
+    "eighteenth-judicial-circuit-estate-planning",
+    "nineteenth-judicial-circuit-estate-planning",
+    "twentieth-judicial-circuit-estate-planning"
+  ],
+  "regions": [
+    "northwest-florida-estate-planning",
+    "north-central-florida-estate-planning",
+    "northeast-florida-estate-planning",
+    "central-florida-estate-planning",
+    "tampa-bay-estate-planning",
+    "southwest-florida-estate-planning",
+    "treasure-coast-estate-planning",
+    "southeast-florida-estate-planning"
+  ]
+}
