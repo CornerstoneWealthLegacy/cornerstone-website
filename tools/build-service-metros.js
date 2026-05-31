@@ -403,25 +403,28 @@ function realestate(m) {
   const h1 = `Real Estate Attorney in ${m.metro}, FL`;
   const serviceName = `Real estate attorney`;
   const faqs = [
-    [`Do I need a real estate attorney to close in ${m.metro}?`, `Florida does not require an attorney to close a home sale, but using one protects you when a title company alone cannot give legal advice. For ${m.metro} buyers and sellers, an attorney reviews the contract, examines title, prepares deeds, and resolves problems before closing — often for a comparable cost to a title-only closing.`],
-    [`What does a real estate attorney do in ${m.metro}?`, `A ${m.metro} real estate attorney reviews and drafts purchase and sale contracts, examines title and clears defects, issues title insurance, prepares deeds and closing documents, and handles the closing itself. We also assist with for-sale-by-owner deals, refinances, and disputes affecting ${c.county} County property.`],
-    [`Can I close on a ${m.metro} property remotely or online?`, `Yes. Florida permits remote online notarization (Fla. Stat. Chapter 117, Part II), so many ${m.metro} closings can be completed electronically. Cornerstone handles transactions by phone, video, and secure e-signing, coordinating recording with the ${c.county} County Clerk so you rarely need to appear in person.`],
+    [`What real estate services does Cornerstone offer in ${m.metro}?`, `For ${m.metro} owners and families we focus on deeds and property transfers, Florida homestead and title questions, and reviewing purchase or sale contracts and for-sale-by-owner documents. We do not currently provide closing, escrow, or settlement services — our role is the legal and planning side of your ${c.county} County property, handled by phone and video.`],
     [`Can you prepare a deed for my ${m.metro} property?`, `Yes. We prepare and record warranty deeds, quitclaim deeds, and enhanced life estate ("Lady Bird") deeds for ${c.county} County property. The right deed depends on your goal — transferring to family, funding a trust, avoiding probate, or protecting Florida homestead under Art. X, §4 of the Florida Constitution. Documentary stamp tax and recording fees apply.`],
+    [`Can you help clear title to a ${m.metro} property after a death?`, `Often, yes. When an owner passes away, title to ${c.county} County real estate usually has to be cleared before it can be sold or transferred — frequently through a petition to determine homestead status or a probate transfer. We help ${m.metro} families establish clean title and move the property to the right people.`],
+    [`Can you review my ${m.metro} purchase or sale contract?`, `Yes. We review purchase and sale contracts and for-sale-by-owner paperwork for ${m.metro} buyers and sellers, explain your obligations and risks, and suggest changes before you sign. This is advisory and document work — we do not conduct the closing or hold escrow.`],
     [`How does real estate connect to my estate plan in ${m.metro}?`, `Your ${m.metro} home is usually your most valuable asset, so how it is titled drives whether it passes smoothly or lands in probate. We coordinate deeds, homestead, and beneficiary tools with your overall estate plan — for example, a Lady Bird deed or a funded revocable living trust can keep the property out of ${c.county} County probate entirely.`],
   ];
   const body = `
-          <p>Cornerstone Wealth &amp; Legacy Law helps ${m.metro} buyers, sellers, and owners handle real estate transactions with the protection of an attorney — contract review, title examination, deed preparation, and closings — coordinated with your broader plan for the property. We serve <a href="${countyHref(c.county)}">${c.county} County</a> by phone, video, and secure electronic closing.</p>
+          <p>Cornerstone Wealth &amp; Legacy Law helps ${m.metro} owners and families with the legal and planning side of real estate — deeds and property transfers, Florida homestead and title questions, and review of purchase, sale, and for-sale-by-owner documents — coordinated with your broader plan for the property. We serve <a href="${countyHref(c.county)}">${c.county} County</a> by phone, video, and secure e-signing. (We do not currently provide closing, escrow, or settlement services.)</p>
 
-          <h2>Residential &amp; Commercial Closings in ${m.metro}</h2>
-          <p>Whether you are buying a first home, selling, refinancing, or closing a for-sale-by-owner deal in ${m.metro}, we manage the legal side end to end: reviewing the contract, examining title and clearing defects, issuing title insurance, preparing the closing documents, and recording with the ${c.county} County Clerk. Florida allows remote online notarization (Fla. Stat. Chapter 117, Part II), so many ${m.metro} closings are completed without an in-person meeting.</p>
+          <h2>Deeds &amp; Property Transfers in ${m.metro}</h2>
+          <p>Moving a ${m.metro} property to family, into a trust, or out of a deceased owner's name takes the right deed prepared correctly. We draft and record warranty deeds, quitclaim deeds, and enhanced life estate ("Lady Bird") deeds for ${c.county} County property, choosing the form that fits your goal — transferring to loved ones, funding a revocable living trust, or keeping the home out of probate. Documentary stamp tax and recording fees apply, and we handle the recording with the ${c.county} County Clerk.</p>
 
-          <h2>Deeds, Title &amp; Homestead</h2>
+          <h2>Homestead &amp; Clearing Title</h2>
           <ul>
-            <li>Warranty, quitclaim, and enhanced life estate (<a href="/articles/florida-homestead-exemption">"Lady Bird"</a>) deeds for ${c.county} County property</li>
-            <li>Title examination, curative work, and title insurance</li>
-            <li><a href="/articles/florida-homestead-exemption">Florida homestead</a> protection (Art. X, §4, Fla. Const.) and transfer planning</li>
-            <li>For-sale-by-owner contracts and closing coordination</li>
+            <li><a href="/articles/florida-homestead-exemption">Florida homestead</a> protection and transfer planning (Art. X, §4, Fla. Const.)</li>
+            <li>Clearing title to ${c.county} County property after a death</li>
+            <li>Petitions to determine homestead status in probate</li>
+            <li>Removing a deceased owner from a deed and confirming clean ownership</li>
           </ul>
+
+          <h2>Contract &amp; Document Review for ${m.metro} Buyers &amp; Sellers</h2>
+          <p>Before you sign, it helps to have a lawyer explain what a contract actually commits you to. We review purchase and sale agreements and for-sale-by-owner paperwork for ${m.metro} buyers and sellers, flag risks, and suggest changes — advisory and document work, separate from any closing or escrow service.</p>
 
           <h2>Real Estate That Fits Your ${m.metro} Estate Plan</h2>
           <p>Because your ${m.metro} home is likely your most valuable asset, how it is titled shapes your whole estate. We align your deed and homestead strategy with your <a href="/articles/florida-revocable-living-trust">revocable living trust</a> and beneficiary plan so the property passes the way you intend — often keeping it out of ${c.county} County probate. <a href="/quiz">Take the free Estate Plan Score quiz</a> to see how your property fits in.</p>
@@ -432,17 +435,17 @@ ${faqHtml(faqs)}
           </div>
 
           <div class="city-cta">
-            <h2>Buying or selling in ${m.metro}?</h2>
-            <p>Start with a free 20-minute call. We'll explain how an attorney-handled closing protects you and how we can do it remotely.</p>
+            <h2>Need a deed or property transfer in ${m.metro}?</h2>
+            <p>Start with a free 20-minute call. We'll explain the right deed or title step for your property and how we handle it remotely.</p>
             <a href="${CALENDLY}" target="_blank" rel="noopener" class="btn btn-primary">Schedule Your Free Consultation</a>
           </div>
 `;
   const jsonld = `  {\n    "@context": "https://schema.org",\n    "@graph": [\n${legalServiceJson(serviceName + ' in ' + m.metro, url, c)},\n${faqJson(faqs)}\n    ]\n  }`;
   return { slug, html: shell({
-    title: `Real Estate Attorney in ${m.metro}, FL | Closings, Title &amp; Deeds | Cornerstone Wealth &amp; Legacy Law`,
-    desc: `Real estate attorney for ${m.metro}, Florida — residential &amp; commercial closings, title, deeds &amp; for-sale-by-owner. Remote closings available. Call (386) 293-5586.`,
+    title: `Real Estate Attorney in ${m.metro}, FL | Deeds, Title &amp; Property Transfers | Cornerstone Wealth &amp; Legacy Law`,
+    desc: `Real estate attorney for ${m.metro}, Florida — deeds, property transfers, homestead &amp; title, and contract review. By phone, video &amp; appointment. Call (386) 293-5586.`,
     url, jsonld, h1,
-    heroP: `Attorney-handled real estate closings, title work, and deeds for ${m.metro} buyers, sellers, and owners — coordinated with your estate plan and available by phone, video, and secure electronic closing.`,
+    heroP: `Deeds, property transfers, homestead and title help, and contract review for ${m.metro} owners and families — coordinated with your estate plan and handled by phone, video, and secure e-signing.`,
     body,
   }) };
 }
