@@ -130,6 +130,20 @@ const COUNTIES = {
   'Washington':  { seat: 'Chipley', lat: 30.78, lng: -85.54, cities: ['Chipley', 'Vernon', 'Wausau'] },
 };
 
+// ---- merge supplemental municipalities (extra-cities.js) -------------------
+// Any city whose slug already exists is skipped by the global de-dupe in
+// build-cities.js, so this only widens coverage — it never creates repeats.
+try {
+  const EXTRA = require('./extra-cities.js');
+  for (const [county, extra] of Object.entries(EXTRA)) {
+    if (!COUNTIES[county]) { console.error('extra-cities: unknown county', county); continue; }
+    const seen = new Set(COUNTIES[county].cities.map(c => c.toLowerCase()));
+    for (const c of extra) {
+      if (!seen.has(c.toLowerCase())) { COUNTIES[county].cities.push(c); seen.add(c.toLowerCase()); }
+    }
+  }
+} catch (e) { /* extra-cities optional */ }
+
 // ---- 8 marketing regions (every county assigned exactly once) --------------
 const REGIONS = [
   { name: 'Northwest Florida', alias: 'the Panhandle', slug: 'northwest-florida-estate-planning', lat: 30.44, lng: -84.28,
