@@ -123,8 +123,8 @@ a:hover { color: var(--gold-hover); }
 
 /* ── Logo Images ── */
 .logo-img-icon {
-  height: 56px;
-  width: 56px;
+  height: 50px;
+  width: 50px;
   object-fit: contain;
   mix-blend-mode: screen;
   flex-shrink: 0;
