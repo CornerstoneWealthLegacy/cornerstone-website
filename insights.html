@@ -203,6 +203,116 @@
           <div class="insight-card">
             <div class="insight-card-category">
               <span class="tag">Estate Planning</span>
+              <h3>Online Estate Planning vs. a Traditional Attorney in Florida</h3>
+            </div>
+            <div class="insight-card-body">
+              <p>Online service, traditional attorney, or both? A side-by-side comparison of cost, Florida-law accuracy, and risk — and the attorney-reviewed middle path most families actually want.</p>
+              <a href="articles/online-estate-planning-vs-attorney-florida.html" class="read-link">Read more →</a>
+            </div>
+          </div>
+
+          <div class="insight-card">
+            <div class="insight-card-category">
+              <span class="tag">Estate Planning</span>
+              <h3>The Cornerstone Trust Builder: Estate Planning Online</h3>
+            </div>
+            <div class="insight-card-body">
+              <p>Create a complete, attorney-reviewed Florida estate plan online — revocable trust, will, powers of attorney, and health care documents — without the traditional price tag.</p>
+              <a href="articles/florida-trust-builder.html" class="read-link">Read more →</a>
+            </div>
+          </div>
+
+          <div class="insight-card">
+            <div class="insight-card-category">
+              <span class="tag">Estate Planning</span>
+              <h3>How Much Does Estate Planning Cost in Florida?</h3>
+            </div>
+            <div class="insight-card-body">
+              <p>From a few hundred dollars for a DIY form to $5,000+ at a traditional firm — here's what Florida estate planning actually costs, and what you get at each level.</p>
+              <a href="articles/florida-estate-planning-cost.html" class="read-link">Read more →</a>
+            </div>
+          </div>
+
+          <div class="insight-card">
+            <div class="insight-card-category">
+              <span class="tag">Estate Planning</span>
+              <h3>Florida Probate: What It Costs and How to Avoid It</h3>
+            </div>
+            <div class="insight-card-body">
+              <p>Florida probate runs 3–5% of the gross estate and 6–18 months. Here's what it really costs, how long it takes, and three reliable ways to avoid it.</p>
+              <a href="articles/florida-probate-cost-how-to-avoid.html" class="read-link">Read more →</a>
+            </div>
+          </div>
+
+          <div class="insight-card">
+            <div class="insight-card-category">
+              <span class="tag">Estate Planning</span>
+              <h3>What Happens If You Die Without a Will in Florida?</h3>
+            </div>
+            <div class="insight-card-body">
+              <p>Die without a will and Florida's intestacy statute decides who inherits — not you. See who gets your home and assets, and why even a simple will matters.</p>
+              <a href="articles/die-without-will-florida.html" class="read-link">Read more →</a>
+            </div>
+          </div>
+
+          <div class="insight-card">
+            <div class="insight-card-category">
+              <span class="tag">Estate Planning</span>
+              <h3>The Florida Irrevocable Trust</h3>
+            </div>
+            <div class="insight-card-body">
+              <p>Irrevocable trusts offer asset protection, Medicaid planning, and tax control a revocable trust can't. Here's when a Florida family actually needs one.</p>
+              <a href="articles/florida-irrevocable-trust.html" class="read-link">Read more →</a>
+            </div>
+          </div>
+
+          <div class="insight-card">
+            <div class="insight-card-category">
+              <span class="tag">Elder Law</span>
+              <h3>Florida Special Needs Trusts</h3>
+            </div>
+            <div class="insight-card-body">
+              <p>Leaving money directly to a disabled loved one can cost them SSI and Medicaid. A special needs trust preserves the inheritance without ending their benefits.</p>
+              <a href="articles/florida-special-needs-trust.html" class="read-link">Read more →</a>
+            </div>
+          </div>
+
+          <div class="insight-card">
+            <div class="insight-card-category">
+              <span class="tag">Estate Planning</span>
+              <h3>Health Care Surrogate &amp; Living Will in Florida</h3>
+            </div>
+            <div class="insight-card-body">
+              <p>A health care surrogate names who makes medical decisions if you can't; a living will states your end-of-life wishes. Here's how each works under Florida law.</p>
+              <a href="articles/florida-healthcare-surrogate-living-will.html" class="read-link">Read more →</a>
+            </div>
+          </div>
+
+          <div class="insight-card">
+            <div class="insight-card-category">
+              <span class="tag">Estate Planning</span>
+              <h3>Estate Planning for Married Couples in Florida</h3>
+            </div>
+            <div class="insight-card-body">
+              <p>Joint trust or separate trusts? Florida's elective share and homestead rules shape every married couple's plan. Here's how to protect each other and your heirs.</p>
+              <a href="articles/florida-estate-planning-married-couples.html" class="read-link">Read more →</a>
+            </div>
+          </div>
+
+          <div class="insight-card">
+            <div class="insight-card-category">
+              <span class="tag">Estate Planning</span>
+              <h3>Digital Assets in Your Florida Estate Plan</h3>
+            </div>
+            <div class="insight-card-body">
+              <p>Crypto, online accounts, and digital files can be lost forever without a plan. Here's how Florida's RUFADAA law lets you pass on your digital life.</p>
+              <a href="articles/florida-digital-assets-estate-planning.html" class="read-link">Read more →</a>
+            </div>
+          </div>
+
+          <div class="insight-card">
+            <div class="insight-card-category">
+              <span class="tag">Estate Planning</span>
               <h3>Florida Estate Planning Checklist: Where to Start</h3>
             </div>
             <div class="insight-card-body">
@@ -590,13 +700,30 @@
 
   <script src="js/main.js"></script>
   <script>
-    // Simple filter behavior for insights
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+    // Filter the insight cards by category when a filter button is clicked.
+    (function () {
+      var btns = document.querySelectorAll('.filter-btn');
+      var cards = document.querySelectorAll('.insight-card');
+      // Map each card to its category tag once.
+      cards.forEach(function (card) {
+        var tagEl = card.querySelector('.tag');
+        var tag = tagEl ? tagEl.textContent.trim() : '';
+        // Group "Probate" under Estate Planning so it isn't orphaned.
+        if (tag === 'Probate') tag = 'Estate Planning';
+        card.dataset.category = tag;
       });
-    });
+      btns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          btns.forEach(function (b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          var filter = btn.textContent.trim();
+          cards.forEach(function (card) {
+            var show = (filter === 'All') || (card.dataset.category === filter);
+            card.style.display = show ? '' : 'none';
+          });
+        });
+      });
+    })();
   </script>
 </body>
 </html>
