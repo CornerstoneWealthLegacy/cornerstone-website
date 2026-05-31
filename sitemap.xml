@@ -4075,8 +4075,7 @@
     <lastmod>2026-05-30</lastmod>
   </url>
 
-
-  <!-- Service x metro intent pages (probate / estate planning / elder law) -->
+  <!-- Service x metro intent pages (probate / estate planning / elder law / real estate) -->
   <url>
     <loc>https://cornerstonewealthlegacy.com/probate-attorney-miami</loc>
     <changefreq>monthly</changefreq>
@@ -4091,6 +4090,12 @@
   </url>
   <url>
     <loc>https://cornerstonewealthlegacy.com/elder-law-attorney-miami</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <lastmod>2026-05-31</lastmod>
+  </url>
+  <url>
+    <loc>https://cornerstonewealthlegacy.com/real-estate-attorney-miami</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <lastmod>2026-05-31</lastmod>
@@ -4114,6 +4119,12 @@
     <lastmod>2026-05-31</lastmod>
   </url>
   <url>
+    <loc>https://cornerstonewealthlegacy.com/real-estate-attorney-tampa</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <lastmod>2026-05-31</lastmod>
+  </url>
+  <url>
     <loc>https://cornerstonewealthlegacy.com/probate-attorney-orlando</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
@@ -4127,6 +4138,12 @@
   </url>
   <url>
     <loc>https://cornerstonewealthlegacy.com/elder-law-attorney-orlando</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <lastmod>2026-05-31</lastmod>
+  </url>
+  <url>
+    <loc>https://cornerstonewealthlegacy.com/real-estate-attorney-orlando</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <lastmod>2026-05-31</lastmod>
@@ -4150,6 +4167,12 @@
     <lastmod>2026-05-31</lastmod>
   </url>
   <url>
+    <loc>https://cornerstonewealthlegacy.com/real-estate-attorney-jacksonville</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <lastmod>2026-05-31</lastmod>
+  </url>
+  <url>
     <loc>https://cornerstonewealthlegacy.com/probate-attorney-st-petersburg</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
@@ -4163,6 +4186,12 @@
   </url>
   <url>
     <loc>https://cornerstonewealthlegacy.com/elder-law-attorney-st-petersburg</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <lastmod>2026-05-31</lastmod>
+  </url>
+  <url>
+    <loc>https://cornerstonewealthlegacy.com/real-estate-attorney-st-petersburg</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <lastmod>2026-05-31</lastmod>
@@ -4186,6 +4215,12 @@
     <lastmod>2026-05-31</lastmod>
   </url>
   <url>
+    <loc>https://cornerstonewealthlegacy.com/real-estate-attorney-fort-lauderdale</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <lastmod>2026-05-31</lastmod>
+  </url>
+  <url>
     <loc>https://cornerstonewealthlegacy.com/probate-attorney-tallahassee</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
@@ -4199,6 +4234,12 @@
   </url>
   <url>
     <loc>https://cornerstonewealthlegacy.com/elder-law-attorney-tallahassee</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <lastmod>2026-05-31</lastmod>
+  </url>
+  <url>
+    <loc>https://cornerstonewealthlegacy.com/real-estate-attorney-tallahassee</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <lastmod>2026-05-31</lastmod>
@@ -4222,6 +4263,12 @@
     <lastmod>2026-05-31</lastmod>
   </url>
   <url>
+    <loc>https://cornerstonewealthlegacy.com/real-estate-attorney-fort-myers</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <lastmod>2026-05-31</lastmod>
+  </url>
+  <url>
     <loc>https://cornerstonewealthlegacy.com/probate-attorney-sarasota</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
@@ -4235,6 +4282,12 @@
   </url>
   <url>
     <loc>https://cornerstonewealthlegacy.com/elder-law-attorney-sarasota</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <lastmod>2026-05-31</lastmod>
+  </url>
+  <url>
+    <loc>https://cornerstonewealthlegacy.com/real-estate-attorney-sarasota</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <lastmod>2026-05-31</lastmod>
@@ -4258,6 +4311,12 @@
     <lastmod>2026-05-31</lastmod>
   </url>
   <url>
+    <loc>https://cornerstonewealthlegacy.com/real-estate-attorney-west-palm-beach</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <lastmod>2026-05-31</lastmod>
+  </url>
+  <url>
     <loc>https://cornerstonewealthlegacy.com/probate-attorney-naples</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
@@ -4271,6 +4330,12 @@
   </url>
   <url>
     <loc>https://cornerstonewealthlegacy.com/elder-law-attorney-naples</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <lastmod>2026-05-31</lastmod>
+  </url>
+  <url>
+    <loc>https://cornerstonewealthlegacy.com/real-estate-attorney-naples</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <lastmod>2026-05-31</lastmod>
@@ -4294,6 +4359,12 @@
     <lastmod>2026-05-31</lastmod>
   </url>
   <url>
+    <loc>https://cornerstonewealthlegacy.com/real-estate-attorney-gainesville</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <lastmod>2026-05-31</lastmod>
+  </url>
+  <url>
     <loc>https://cornerstonewealthlegacy.com/probate-attorney-pensacola</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
@@ -4307,6 +4378,12 @@
   </url>
   <url>
     <loc>https://cornerstonewealthlegacy.com/elder-law-attorney-pensacola</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <lastmod>2026-05-31</lastmod>
+  </url>
+  <url>
+    <loc>https://cornerstonewealthlegacy.com/real-estate-attorney-pensacola</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <lastmod>2026-05-31</lastmod>
@@ -4330,6 +4407,12 @@
     <lastmod>2026-05-31</lastmod>
   </url>
   <url>
+    <loc>https://cornerstonewealthlegacy.com/real-estate-attorney-daytona-beach</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <lastmod>2026-05-31</lastmod>
+  </url>
+  <url>
     <loc>https://cornerstonewealthlegacy.com/probate-attorney-ocala</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
@@ -4343,6 +4426,12 @@
   </url>
   <url>
     <loc>https://cornerstonewealthlegacy.com/elder-law-attorney-ocala</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <lastmod>2026-05-31</lastmod>
+  </url>
+  <url>
+    <loc>https://cornerstonewealthlegacy.com/real-estate-attorney-ocala</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <lastmod>2026-05-31</lastmod>
@@ -4366,6 +4455,12 @@
     <lastmod>2026-05-31</lastmod>
   </url>
   <url>
+    <loc>https://cornerstonewealthlegacy.com/real-estate-attorney-lakeland</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <lastmod>2026-05-31</lastmod>
+  </url>
+  <url>
     <loc>https://cornerstonewealthlegacy.com/probate-attorney-clearwater</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
@@ -4379,6 +4474,12 @@
   </url>
   <url>
     <loc>https://cornerstonewealthlegacy.com/elder-law-attorney-clearwater</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <lastmod>2026-05-31</lastmod>
+  </url>
+  <url>
+    <loc>https://cornerstonewealthlegacy.com/real-estate-attorney-clearwater</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <lastmod>2026-05-31</lastmod>
@@ -4402,6 +4503,12 @@
     <lastmod>2026-05-31</lastmod>
   </url>
   <url>
+    <loc>https://cornerstonewealthlegacy.com/real-estate-attorney-port-st-lucie</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <lastmod>2026-05-31</lastmod>
+  </url>
+  <url>
     <loc>https://cornerstonewealthlegacy.com/probate-attorney-melbourne</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
@@ -4420,6 +4527,12 @@
     <lastmod>2026-05-31</lastmod>
   </url>
   <url>
+    <loc>https://cornerstonewealthlegacy.com/real-estate-attorney-melbourne</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <lastmod>2026-05-31</lastmod>
+  </url>
+  <url>
     <loc>https://cornerstonewealthlegacy.com/probate-attorney-boca-raton</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
@@ -4433,6 +4546,12 @@
   </url>
   <url>
     <loc>https://cornerstonewealthlegacy.com/elder-law-attorney-boca-raton</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <lastmod>2026-05-31</lastmod>
+  </url>
+  <url>
+    <loc>https://cornerstonewealthlegacy.com/real-estate-attorney-boca-raton</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <lastmod>2026-05-31</lastmod>
