@@ -116,7 +116,7 @@ a:hover { color: var(--gold-hover); }
   height: 68px;
   gap: 16px;
 }
-.logo { display: flex; flex-direction: column; text-decoration: none; gap: 1px; }
+.logo { display: flex; flex-direction: row; align-items: center; text-decoration: none; gap: 10px; }
 .logo-name { font-family: var(--font-serif); font-size: 1.1rem; color: var(--white); line-height: 1.2; }
 .logo-sub { font-size: .65rem; color: rgba(255,255,255,.55); letter-spacing: .09em; text-transform: uppercase; }
 .logo:hover .logo-name { color: var(--gold); }
