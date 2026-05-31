@@ -16,6 +16,23 @@ const { CIRCUITS, COUNTY_CIRCUIT, COUNTIES, REGIONS, esc, jsonEsc, oxford, SITE,
 function countySlug(name) { return name.toLowerCase().replace(/\./g, '').replace(/'/g, '').replace(/\s+/g, '-'); }
 const countyHref = (n) => `/${countySlug(n)}-county-estate-planning`;
 
+// ---- shared statute-grounded content (accurate, verifiable Florida law) ----
+// `place` is a natural-language label, e.g. "the Seventh Judicial Circuit" or
+// "Central Florida". Reused by both the circuit and region hub builders.
+function faqTime(place) { return `Most formal probate administrations in ${place} take roughly six months to a year, driven largely by Florida's creditor claim period. After the personal representative publishes a notice to creditors, creditors generally have until the later of three months from first publication or 30 days from service to file claims (Fla. Stat. §733.702), subject to a two-year absolute bar (§733.710). Estates that qualify for summary administration are often completed in a few weeks to a couple of months.`; }
+function faqSummary(place) { return `Summary administration is Florida's streamlined probate process, available when the probate estate — excluding exempt and homestead property — is worth $75,000 or less, or when the decedent has been deceased for more than two years (Fla. Stat. Chapter 735). Many estates in ${place} qualify, especially when most assets passed by trust, beneficiary designation, or joint title. Estates that do not qualify proceed as a formal administration under Chapter 733.`; }
+function faqIntestate(place) { return `If someone in ${place} dies without a will, Florida's intestate succession statute (Fla. Stat. Chapter 732) decides who inherits. A surviving spouse generally inherits the entire estate when all descendants are shared, but that share changes when there are children from another relationship. Dying without a will also forfeits the ability to name your own personal representative, a guardian for minor children, or a trust for your beneficiaries.`; }
+function faqTax(place) { return `Florida has no state estate tax and no state inheritance tax, so most estates in ${place} owe no death tax at the state level. Only very large estates may owe federal estate tax, which applies above the federal exemption amount. Combined with Florida's homestead protections, the absence of a state estate tax is a key reason careful titling and beneficiary planning matter here.`; }
+function homesteadPara(place) { return `For most homeowners in ${place}, the residence is the most valuable — and most legally protected — asset in the estate. Florida's constitutional homestead protection (Art. X, §4 of the Florida Constitution) shields a primary residence from most creditors and restricts how it may be left when you are survived by a spouse or minor child (Fla. Stat. §732.401). Homestead generally passes outside the probate estate, but the title still has to be cleared, often through a petition to determine homestead status. Transferring the home correctly — sometimes with an enhanced life estate ("Lady Bird") deed or a funded revocable trust — is one of the highest-value planning steps a family can take.`; }
+const STATUTE_LIST = `          <ul>
+            <li><strong>Fla. Stat. §732.502</strong> — execution of wills: a Florida will must be signed by the testator and attested by at least two witnesses.</li>
+            <li><strong>Fla. Stat. §732.901</strong> — the original will must be deposited with the clerk of court within 10 days of learning of the death.</li>
+            <li><strong>Fla. Stat. Chapter 732</strong> — intestate succession and the surviving spouse's elective share.</li>
+            <li><strong>Fla. Stat. §732.401</strong> &amp; Art. X, §4, Fla. Const. — descent of homestead and its creditor protection.</li>
+            <li><strong>Fla. Stat. Chapter 733</strong> — formal administration, including notice to creditors and the claim period under §733.702.</li>
+            <li><strong>Fla. Stat. Chapter 735</strong> — summary administration and disposition without administration.</li>
+          </ul>`;
+
 // ---- shared shell ----------------------------------------------------------
 function shell({ title, desc, url, jsonld, h1, heroP, body }) {
   return `<!DOCTYPE html>
@@ -193,6 +210,8 @@ function buildCircuit(num) {
   const faqProbate = `Probate is filed in the county where the decedent lived, with that county's Clerk of the Circuit Court. In the ${ordinal} Judicial Circuit that means ${oxford(counties.map(n => `${n} County (courthouse in ${COUNTIES[n].seat})`))}. Florida probate is largely electronic, so a personal representative usually does not need to appear in person.`;
   const faqServe = `Yes. Cornerstone Wealth & Legacy Law serves every county in the ${ordinal} Judicial Circuit — ${oxford(counties.map(n => n + ' County'))} — by phone, video, and appointment, with in-person meetings available in the Daytona Beach area.`;
   const faqAvoid = `The most reliable way to avoid probate anywhere in the ${ordinal} Judicial Circuit is a properly funded revocable living trust, supported by beneficiary designations, payable-on-death accounts, and appropriate deeds. The trust must be funded by retitling assets into it to keep them out of the county probate court.`;
+  const place = `the ${ordinal} Judicial Circuit`;
+  const fTime = faqTime(place), fSummary = faqSummary(place), fIntestate = faqIntestate(place), fTax = faqTax(place);
 
   const jsonld = `  {
     "@context": "https://schema.org",
@@ -220,7 +239,11 @@ ${counties.map(n => `          { "@type": "AdministrativeArea", "name": "${jsonE
           { "@type": "Question", "name": "What counties are in Florida's ${ordinal} Judicial Circuit?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(faqWhat)}" } },
           { "@type": "Question", "name": "Where is probate filed in the ${ordinal} Judicial Circuit?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(faqProbate)}" } },
           { "@type": "Question", "name": "Does Cornerstone serve the whole ${ordinal} Judicial Circuit?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(faqServe)}" } },
-          { "@type": "Question", "name": "How do I avoid probate in the ${ordinal} Judicial Circuit?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(faqAvoid)}" } }
+          { "@type": "Question", "name": "How do I avoid probate in the ${ordinal} Judicial Circuit?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(faqAvoid)}" } },
+          { "@type": "Question", "name": "How long does probate take in the ${ordinal} Judicial Circuit?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(fTime)}" } },
+          { "@type": "Question", "name": "What is summary administration, and does my estate qualify?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(fSummary)}" } },
+          { "@type": "Question", "name": "What happens if someone dies without a will in the ${ordinal} Judicial Circuit?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(fIntestate)}" } },
+          { "@type": "Question", "name": "Does Florida have an estate or inheritance tax?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(fTax)}" } }
         ]
       }
     ]
@@ -240,6 +263,13 @@ ${countyGrid(counties)}
           <h2>Probate in the ${ordinal} Judicial Circuit</h2>
           <p>When a resident of the ${ordinal} Circuit passes away with assets that do not transfer automatically, the estate is administered through the Clerk of the Circuit Court in the county where they lived. Because Florida probate is handled largely through electronic court filing, a personal representative usually does not need to travel to the courthouse — but the process still follows strict statutory deadlines, including the creditor notice period under Florida Statutes Chapter 733. We guide families through both formal administration and summary administration, and, where possible, help them avoid probate entirely with proper planning.</p>
 
+          <h2>Florida Homestead &amp; Your Home in the ${ordinal} Circuit</h2>
+          <p>${esc(homesteadPara(place))}</p>
+
+          <h2>Key Florida Statutes for Estates in the ${ordinal} Circuit</h2>
+          <p>Florida estate and probate law is statewide; these are the provisions that most often shape how an estate is planned and administered:</p>
+${STATUTE_LIST}
+
           <h2>Start Your Estate Plan Online — the Easy Way</h2>
           <p>Anywhere in the ${ordinal} Circuit, you can put a Florida-valid will, revocable living trust, durable power of attorney, and health care directives in place from home in three simple steps: answer a few questions in our secure online intake, let us prepare your documents under current Florida law (with an Attorney-Guided option reviewed by Arthur Simpson, Esq.), and sign correctly under Florida's witness and notary rules. <a href="/quiz">Take the free Estate Plan Score quiz</a> or <a href="${CALENDLY}" target="_blank" rel="noopener">book a free 20-minute call</a>.</p>
 
@@ -253,6 +283,14 @@ ${countyGrid(counties)}
             <p>${esc(faqServe)}</p>
             <h3>How do I avoid probate in the ${ordinal} Judicial Circuit?</h3>
             <p>${esc(faqAvoid)}</p>
+            <h3>How long does probate take in the ${ordinal} Judicial Circuit?</h3>
+            <p>${esc(fTime)}</p>
+            <h3>What is summary administration, and does my estate qualify?</h3>
+            <p>${esc(fSummary)}</p>
+            <h3>What happens if someone dies without a will in the ${ordinal} Judicial Circuit?</h3>
+            <p>${esc(fIntestate)}</p>
+            <h3>Does Florida have an estate or inheritance tax?</h3>
+            <p>${esc(fTax)}</p>
           </div>
 
           <div class="city-cta">
@@ -283,6 +321,8 @@ function buildRegion(r) {
   const faqProbate = `Probate in ${r.name} is filed in the county where the person lived, with that county's Clerk of the Circuit Court. The region spans the ${oxford(circuitsInRegion.map(o => o))} Judicial ${circuitsInRegion.length === 1 ? 'Circuit' : 'Circuits'}. Florida probate is largely electronic, so a personal representative usually does not need to appear in person.`;
   const faqNeed = `Most adults in ${r.name} benefit from a will, a durable power of attorney, a health care surrogate designation, and a living will; homeowners and parents, and anyone who wants to avoid probate, should also consider a revocable living trust. The right plan depends on your assets and family under Florida law.`;
   const faqRemote = `Yes. Cornerstone serves ${r.name} clients by phone and video — we prepare your documents remotely and guide you through signing under Florida's witnessing and notarization requirements, with in-person appointments available in the Daytona Beach area.`;
+  const place = r.name;
+  const fTime = faqTime(place), fSummary = faqSummary(place), fIntestate = faqIntestate(place), fTax = faqTax(place);
 
   const jsonld = `  {
     "@context": "https://schema.org",
@@ -310,7 +350,11 @@ ${counties.map(n => `          { "@type": "AdministrativeArea", "name": "${jsonE
           { "@type": "Question", "name": "What counties make up ${jsonEsc(r.name)}?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(faqWhere)}" } },
           { "@type": "Question", "name": "Where is probate filed in ${jsonEsc(r.name)}?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(faqProbate)}" } },
           { "@type": "Question", "name": "What estate planning documents do I need in ${jsonEsc(r.name)}?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(faqNeed)}" } },
-          { "@type": "Question", "name": "Can I handle my ${jsonEsc(r.name)} estate plan remotely?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(faqRemote)}" } }
+          { "@type": "Question", "name": "Can I handle my ${jsonEsc(r.name)} estate plan remotely?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(faqRemote)}" } },
+          { "@type": "Question", "name": "How long does probate take in ${jsonEsc(r.name)}?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(fTime)}" } },
+          { "@type": "Question", "name": "What is summary administration, and does my ${jsonEsc(r.name)} estate qualify?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(fSummary)}" } },
+          { "@type": "Question", "name": "What happens if someone dies without a will in ${jsonEsc(r.name)}?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(fIntestate)}" } },
+          { "@type": "Question", "name": "Does Florida have an estate or inheritance tax?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(fTax)}" } }
         ]
       }
     ]
@@ -328,6 +372,13 @@ ${countyGrid(counties)}
 
           <h2>Probate in ${esc(r.name)}</h2>
           <p>When a ${esc(r.name)} resident passes away with assets that do not transfer automatically, the estate is administered through the Clerk of the Circuit Court in the county where they lived — within the ${oxford(circuitsInRegion)} Judicial ${circuitsInRegion.length === 1 ? 'Circuit' : 'Circuits'}. Because Florida probate is largely electronic, a personal representative usually does not need to travel to the courthouse, but the process still follows strict statutory deadlines, including the creditor notice period under Florida Statutes Chapter 733. We guide families through formal and summary administration and, where possible, help them avoid probate entirely.</p>
+
+          <h2>Florida Homestead &amp; Your ${esc(r.name)} Home</h2>
+          <p>${esc(homesteadPara(place))}</p>
+
+          <h2>Key Florida Statutes for ${esc(r.name)} Estates</h2>
+          <p>Florida estate and probate law is statewide; these are the provisions that most often shape how an estate is planned and administered:</p>
+${STATUTE_LIST}
 
           <h2>Start Your ${esc(r.name)} Estate Plan Online — the Easy Way</h2>
           <p>Across ${esc(r.name)}, you can put a Florida-valid will, revocable living trust, durable power of attorney, and health care directives in place from home in three simple steps: answer a few questions in our secure online intake (about 20 minutes), let us prepare your documents under current Florida law — with an Attorney-Guided option personally reviewed by Arthur Simpson, Esq. — and sign correctly under Florida's witness and notary rules. <a href="/quiz">Take the free Estate Plan Score quiz</a> or <a href="${CALENDLY}" target="_blank" rel="noopener">book a free 20-minute call</a>.</p>
