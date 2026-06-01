@@ -15,7 +15,7 @@ const path = require('path');
 
 const SITE = 'https://cornerstonewealthlegacy.com';
 const OUT_DIR = path.resolve(__dirname, '..');
-const CALENDLY = 'https://calendly.com/arthursimpson/free-20-minute-discovery-call';
+const CALENDLY = '/book'; // on-site consultation page with the Calendly scheduler embedded inline
 
 // ---- Judicial circuits (20) -> counties ------------------------------------
 const CIRCUITS = {

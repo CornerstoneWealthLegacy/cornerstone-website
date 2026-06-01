@@ -350,9 +350,8 @@
           <span>Government-issued photo ID to verify identity</span>
         </div>
       </div>
-      <a class="btn-book btn-book-primary"
-         href="https://calendly.com/arthursimpson/document-signing-remote-online-notarization"
-         target="_blank" rel="noopener">
+      <a class="btn-book btn-book-primary" role="button" href="#signingCal"
+         onclick="showSigningCal('https://calendly.com/arthursimpson/document-signing-remote-online-notarization','Remote Online Notarization');return false;">
         Book RON Appointment →
       </a>
     </div>
@@ -384,15 +383,16 @@
           <span>Daytona Beach, Florida</span>
         </div>
       </div>
-      <a class="btn-book btn-book-secondary"
-         href="https://calendly.com/arthursimpson/document-signing-in-office"
-         target="_blank" rel="noopener"
-         id="inoffice-btn">
+      <a class="btn-book btn-book-secondary" role="button" href="#signingCal" id="inoffice-btn"
+         onclick="showSigningCal('https://calendly.com/arthursimpson/document-signing-in-office','In-Office Signing — Daytona Beach');return false;">
         Book In-Office Appointment →
       </a>
     </div>
 
   </div>
+
+  <!-- Inline Calendly embed (loads in-page when a signing option is chosen) -->
+  <div id="signingCal" style="display:none;max-width:880px;margin:8px auto 0;"></div>
 
   <div class="divider">Before Your Appointment</div>
 
@@ -457,6 +457,21 @@
   </div>
 
 </main>
+
+<script>
+  // Embed the Calendly scheduler inline (stays on our site) instead of opening
+  // calendly.com in a new tab — matches the attorney-guided booking experience.
+  function showSigningCal(url, label) {
+    var box = document.getElementById('signingCal');
+    if (!box) return;
+    box.innerHTML =
+      '<div style="text-align:center;font-weight:700;color:#0f2744;margin:8px 0 14px;font-size:1.05rem">Booking: ' + label + '</div>' +
+      '<iframe src="' + url + '?hide_gdpr_banner=1" title="Schedule your ' + label + ' appointment" ' +
+      'width="100%" height="760" frameborder="0" style="border:1px solid #dde3ec;border-radius:14px;display:block;background:#fff"></iframe>';
+    box.style.display = 'block';
+    box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+</script>
 
 </body>
 </html>
