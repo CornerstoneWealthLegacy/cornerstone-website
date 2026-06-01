@@ -5,6 +5,45 @@
 // Firebase ID token verified for authenticated clients only
 
 const FIREBASE_WEB_API_KEY = 'AIzaSyDu2Fs6akMU2wvfyTTvPXVahQIO2z8o3ek';
+const crypto = require('crypto');
+
+// ── Firestore helpers — enroll the client in abandoned-checkout recovery.
+//    The abandoned-drip scheduled function emails anyone who finished the
+//    questionnaire but didn't pay; stripe-webhook suppresses on purchase.
+async function _fsToken(sa) {
+  const now = Math.floor(Date.now() / 1000);
+  const header  = Buffer.from(JSON.stringify({ alg: 'RS256', typ: 'JWT' })).toString('base64url');
+  const payload = Buffer.from(JSON.stringify({
+    iss: sa.client_email, sub: sa.client_email, aud: 'https://oauth2.googleapis.com/token',
+    iat: now, exp: now + 3600, scope: 'https://www.googleapis.com/auth/datastore',
+  })).toString('base64url');
+  const sigInput = `${header}.${payload}`;
+  const sign = crypto.createSign('RSA-SHA256'); sign.update(sigInput);
+  const jwt = `${sigInput}.${sign.sign(sa.private_key, 'base64url')}`;
+  const res = await fetch('https://oauth2.googleapis.com/token', {
+    method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({ grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer', assertion: jwt }),
+  });
+  return (await res.json()).access_token;
+}
+function _leadId(email) { return email.toLowerCase().replace(/[^a-z0-9]/g, '_').slice(0, 400); }
+async function _fsExists(pid, col, id, token) {
+  const r = await fetch(`https://firestore.googleapis.com/v1/projects/${pid}/databases/(default)/documents/${col}/${id}`, { headers: { Authorization: `Bearer ${token}` } });
+  return r.ok;
+}
+async function _fsUpsert(pid, col, id, fields, token) {
+  const fsf = {};
+  for (const [k, v] of Object.entries(fields)) {
+    if (typeof v === 'string') fsf[k] = { stringValue: v };
+    else if (typeof v === 'boolean') fsf[k] = { booleanValue: v };
+    else if (typeof v === 'number') fsf[k] = { doubleValue: v };
+  }
+  const mask = Object.keys(fields).map(f => `updateMask.fieldPaths=${encodeURIComponent(f)}`).join('&');
+  await fetch(`https://firestore.googleapis.com/v1/projects/${pid}/databases/(default)/documents/${col}/${id}?${mask}`, {
+    method: 'PATCH', headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ fields: fsf }),
+  });
+}
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
@@ -57,7 +96,7 @@ exports.handler = async (event) => {
     : '<li>Your complete document package</li>';
   const isRon      = executionPath === 'ron';
 
-  const subject = `Your ${planStr} Is Ready — Cornerstone Wealth & Legacy Law`;
+  const subject = `Your ${planStr} Draft Is Ready to Review — Cornerstone Wealth & Legacy Law`;
 
   const html = `<!DOCTYPE html>
 <html lang="en">
@@ -77,7 +116,7 @@ exports.handler = async (event) => {
         <tr>
           <td style="background:#0f2744;border-radius:12px 12px 0 0;padding:32px 40px;text-align:center">
             <div style="color:#c49a2a;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-family:Arial,sans-serif;margin-bottom:8px">Cornerstone Wealth &amp; Legacy Law, PLLC</div>
-            <div style="color:#ffffff;font-size:26px;font-weight:700;letter-spacing:.01em">Your Documents Are Ready</div>
+            <div style="color:#ffffff;font-size:26px;font-weight:700;letter-spacing:.01em">Your Draft Documents Are Ready</div>
             <div style="height:2px;background:#c49a2a;width:60px;margin:16px auto 0"></div>
           </td>
         </tr>
@@ -90,9 +129,9 @@ exports.handler = async (event) => {
               Dear ${firstName},
             </p>
             <p style="margin:0 0 24px;font-size:16px;color:#333;line-height:1.8">
-              Your <strong>${planStr}</strong>${coupleNote} has been prepared and is ready for review.
-              Your Cornerstone Estate Planning Advisor will reach out within
-              <strong>1–2 business days</strong> to schedule your execution appointment.
+              Your <strong>${planStr}</strong>${coupleNote} has been prepared as a draft and is ready for you to review.
+              When you're ready to finalize, the steps below explain what happens next — and we're here to help
+              whenever you'd like to move forward.
             </p>
 
             <!-- Plan summary card -->
@@ -127,7 +166,7 @@ exports.handler = async (event) => {
 
             <!-- What happens next -->
             <div style="margin-bottom:32px">
-              <div style="font-size:13px;font-weight:700;color:#0f2744;text-transform:uppercase;letter-spacing:.08em;font-family:Arial,sans-serif;margin-bottom:20px">What Happens Next</div>
+              <div style="font-size:13px;font-weight:700;color:#0f2744;text-transform:uppercase;letter-spacing:.08em;font-family:Arial,sans-serif;margin-bottom:20px">When You Finalize Your Plan</div>
 
               <table width="100%" cellpadding="0" cellspacing="0">
                 <tr>
@@ -135,8 +174,8 @@ exports.handler = async (event) => {
                     <div style="width:32px;height:32px;border-radius:50%;background:#0f2744;color:#c49a2a;text-align:center;line-height:32px;font-size:13px;font-weight:700;font-family:Arial,sans-serif">1</div>
                   </td>
                   <td style="padding-bottom:20px">
-                    <div style="font-size:15px;font-weight:700;color:#0f2744;margin-bottom:4px">Attorney Review</div>
-                    <div style="font-size:14px;color:#555;line-height:1.6">Your Cornerstone Estate Planning Advisor will review all documents against Florida statutes and your specific situation. You may receive follow-up questions about any details that need clarification.</div>
+                    <div style="font-size:15px;font-weight:700;color:#0f2744;margin-bottom:4px">Attorney Review (Attorney-Guided plans)</div>
+                    <div style="font-size:14px;color:#555;line-height:1.6">If you choose an Attorney-Guided plan, Arthur Simpson, Esq. reviews your documents against Florida statutes and your specific situation before signing, and may follow up on any details that need clarification.</div>
                   </td>
                 </tr>
                 <tr>
@@ -230,9 +269,9 @@ exports.handler = async (event) => {
   const text = [
     `Dear ${firstName},`,
     ``,
-    `Your ${planStr} documents have been prepared and are ready for attorney review.`,
+    `Your ${planStr} documents have been prepared as drafts and are ready for you to review.`,
     ``,
-    `Your Cornerstone Estate Planning Advisor will review your documents and contact you within 1–2 business days.`,
+    `When you're ready to finalize, the steps below explain what happens next. (If you choose an Attorney-Guided plan, Arthur Simpson, Esq. reviews your documents before signing.)`,
     ``,
     `ACCESS YOUR DOCUMENTS:`,
     `Log in to your client portal to view and print your documents:`,
@@ -280,6 +319,26 @@ exports.handler = async (event) => {
     }
 
     console.log('Client confirmation sent to:', clientEmail);
+
+    // Enroll in abandoned-checkout recovery (completed questionnaire, not yet paid).
+    // Only initialize if not already enrolled, so we never reset an in-progress drip.
+    // Suppressed on purchase by stripe-webhook. Best-effort, non-fatal.
+    try {
+      const saRaw = process.env.FIREBASE_SERVICE_ACCOUNT;
+      if (saRaw) {
+        const sa = JSON.parse(saRaw);
+        const tk = await _fsToken(sa);
+        const id = _leadId(clientEmail);
+        if (!(await _fsExists(sa.project_id, 'abandoned_checkout', id, tk))) {
+          await _fsUpsert(sa.project_id, 'abandoned_checkout', id, {
+            email: clientEmail, name: clientName || '', planLabel: planStr,
+            createdAt: Date.now(), step: 1, nextSendAt: Date.now() + 86400000,
+            purchased: false, unsubscribed: false,
+          }, tk);
+        }
+      }
+    } catch (e) { console.error('abandoned enroll (non-fatal):', e.message); }
+
     return { statusCode: 200, body: JSON.stringify({ ok: true }) };
 
   } catch (err) {

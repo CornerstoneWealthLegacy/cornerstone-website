@@ -11,6 +11,15 @@
 [functions."nurture-drip"]
   schedule = "0 */6 * * *"
 
+# Post-purchase onboarding drip — sends sign/fund reminders (1–4) every 6 hours.
+[functions."post-purchase-drip"]
+  schedule = "0 */6 * * *"
+
+# Abandoned-checkout recovery — emails those who finished the questionnaire but
+# didn't pay (1–3), every 6 hours.
+[functions."abandoned-drip"]
+  schedule = "0 */6 * * *"
+
 # Stripe webhook — receives raw body for signature verification
 [functions."stripe-webhook"]
   included_files = []

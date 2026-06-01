@@ -332,12 +332,27 @@ exports.handler = async (event) => {
           const token      = await getFirestoreToken(svcAccount);
           const projectId  = svcAccount.project_id;
 
-          // 0. Suppress the quiz nurture drip for anyone who purchased (best-effort, non-fatal)
+          // 0a. Suppress the quiz nurture + abandoned-checkout drips for buyers (best-effort, non-fatal)
+          if (email) {
+            const leadId = email.toLowerCase().replace(/[^a-z0-9]/g, '_').slice(0, 400);
+            try { await firestoreUpdateDoc(projectId, 'quiz_leads', leadId, { purchased: true }, token); }
+            catch (e) { console.error('lead suppress (non-fatal):', e.message); }
+            try { await firestoreUpdateDoc(projectId, 'abandoned_checkout', leadId, { purchased: true }, token); }
+            catch (e) { console.error('abandoned suppress (non-fatal):', e.message); }
+          }
+
+          // 0b. Enroll the buyer in the post-purchase onboarding sequence (sign + fund).
+          //     Handled by the post-purchase-drip scheduled function. Best-effort, non-fatal.
           if (email) {
             try {
-              const leadId = email.toLowerCase().replace(/[^a-z0-9]/g, '_').slice(0, 400);
-              await firestoreUpdateDoc(projectId, 'quiz_leads', leadId, { purchased: true }, token);
-            } catch (e) { console.error('lead suppress (non-fatal):', e.message); }
+              const ppId = email.toLowerCase().replace(/[^a-z0-9]/g, '_').slice(0, 400);
+              const ppName = session.customer_details?.name || '';
+              await firestoreUpdateDoc(projectId, 'post_purchase', ppId, {
+                email, name: ppName, planLabel,
+                purchasedAt: Date.now(), step: 1, nextSendAt: Date.now() + 2 * 86400000,
+                unsubscribed: false, completed: false,
+              }, token);
+            } catch (e) { console.error('post-purchase enroll (non-fatal):', e.message); }
           }
 
           // 1. Find the session document — by uid (client_reference_id) or by email

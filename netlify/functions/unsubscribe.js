@@ -29,7 +29,10 @@ function page(msg) {
 }
 
 exports.handler = async (event) => {
-  const id = (event.queryStringParameters && event.queryStringParameters.e || '').slice(0, 400);
+  const q = event.queryStringParameters || {};
+  const id = (q.e || '').slice(0, 400);
+  // Which list to unsubscribe from (default: quiz nurture). Allowlisted.
+  const col = (['quiz_leads', 'post_purchase', 'abandoned_checkout'].includes(q.c)) ? q.c : 'quiz_leads';
   const headers = { 'Content-Type': 'text/html; charset=utf-8' };
   if (!id) return { statusCode: 400, headers, body: page('Invalid unsubscribe link.') };
 
@@ -37,7 +40,7 @@ exports.handler = async (event) => {
   const pid = sa.project_id;
   try {
     const token = await getToken(sa);
-    await fetch(`https://firestore.googleapis.com/v1/projects/${pid}/databases/(default)/documents/quiz_leads/${id}?updateMask.fieldPaths=unsubscribed`, {
+    await fetch(`https://firestore.googleapis.com/v1/projects/${pid}/databases/(default)/documents/${col}/${id}?updateMask.fieldPaths=unsubscribed`, {
       method: 'PATCH', headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({ fields: { unsubscribed: { booleanValue: true } } }),
     });
