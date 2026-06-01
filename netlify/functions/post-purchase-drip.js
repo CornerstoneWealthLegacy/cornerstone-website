@@ -86,6 +86,10 @@ function btn(href, label) {
 }
 const PORTAL = 'https://cornerstonewealthlegacy.com/portal';
 const CAL = 'https://calendly.com/arthursimpson/free-20-minute-discovery-call';
+// ⚠️ Paste your Google Business Profile review link here once GBP is verified
+// (e.g. https://g.page/r/XXXXXXXX/review). Until it's a real URL, the review
+// ask is automatically omitted from the email — no broken links go out.
+const REVIEW_URL = '';
 
 const EMAILS = {
   1: {
@@ -131,8 +135,9 @@ ${btn(CAL, 'Book a Quick Call →')}
 <li>We recommend a quick review every few years to keep everything current under Florida law.</li>
 </ul>
 <p>Thank you for trusting Cornerstone with something this important. If a friend or family member needs a Florida plan, we'd be grateful for the introduction.</p>
+${REVIEW_URL ? `<p>And if your experience was a good one, a quick review means a lot to a small firm: <a href="${REVIEW_URL}" style="color:#0f2744;font-weight:700">leave us a Google review</a>. If anything fell short, just reply to this email — we'd genuinely like to make it right.</p>` : `<p>And if anything about your experience fell short, just reply to this email — we'd genuinely like to make it right.</p>`}
 ${btn(PORTAL, 'Access My Documents →')}`,
-    text: (f) => `Hi ${f},\n\nYour plan should now be signed, funded, and stored safely. Tell your representatives where the documents are, and revisit the plan after major life events. Thank you for trusting Cornerstone. Documents: ${PORTAL}`,
+    text: (f) => `Hi ${f},\n\nYour plan should now be signed, funded, and stored safely. Tell your representatives where the documents are, and revisit the plan after major life events. Thank you for trusting Cornerstone.${REVIEW_URL ? `\n\nIf your experience was a good one, a quick Google review means a lot: ${REVIEW_URL}` : ''}\nIf anything fell short, just reply — we'd like to make it right.\nDocuments: ${PORTAL}`,
   },
 };
 

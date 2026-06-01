@@ -13104,13 +13104,16 @@ function showReviewPrompt() {
 function rateStar(n) {
   const stars = document.querySelectorAll('.review-star');
   stars.forEach((s, i) => s.classList.toggle('lit', i < n));
-  if (n >= 4) {
-    document.getElementById('reviewFeedback').style.display = 'none';
-    document.getElementById('reviewGoogleBtn').style.display = 'block';
-  } else {
-    document.getElementById('reviewGoogleBtn').style.display = 'none';
-    document.getElementById('reviewFeedback').style.display = 'block';
-  }
+  // Compliance (FTC 2024 review rule, Google policy, FL Bar 4-7.13): do NOT gate
+  // the public review by rating. Show the same options to everyone — a public
+  // Google review AND a private feedback channel — regardless of the score.
+  // The Google button is only hidden until a real review link is configured
+  // (to avoid a dead link), then it shows for all ratings.
+  const reviewReady = GOOGLE_REVIEW_URL.indexOf('PLACEHOLDER') === -1;
+  const g  = document.getElementById('reviewGoogleBtn');
+  const fb = document.getElementById('reviewFeedback');
+  if (g)  g.style.display  = reviewReady ? 'block' : 'none';
+  if (fb) fb.style.display = 'block';
 }
 
 function goGoogleReview() {
