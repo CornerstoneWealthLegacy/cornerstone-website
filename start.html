@@ -846,6 +846,10 @@ button.chat-faq:hover{background:var(--sky)}
 .mps-fill{height:100%;background:linear-gradient(90deg,var(--navy),#2a5298,var(--gold));border-radius:5px;transition:width .5s cubic-bezier(.4,0,.2,1)}
 [data-theme="dark"] .mobile-prog-strip{background:#1e293b}
 [data-theme="dark"] .mps-bar{background:#2d3748}
+.mps-plan{display:flex;align-items:center;gap:6px;margin-top:11px}
+.mps-plan-label{font-size:.68rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-right:2px;white-space:nowrap}
+.mps-plan-btn{flex:1;padding:8px 6px;border:1px solid var(--border);border-radius:8px;background:#fff;color:#64748b;font-size:.78rem;font-weight:700;font-family:inherit;cursor:pointer;transition:all .15s}
+.mps-plan-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
 @media(min-width:960px){.mobile-prog-strip{display:none!important}}
 
 /* ── Hide the full sidebar on mobile (the compact .mobile-prog-strip replaces
@@ -1581,6 +1585,11 @@ function switchPlanType(type) {
   const sc = document.getElementById('sbBtnCouple');
   if (si) si.classList.toggle('active', type === 'individual');
   if (sc) sc.classList.toggle('active', type === 'couple');
+  // Update mobile progress-strip toggle (mobile has no sidebar)
+  const mi = document.getElementById('mpsBtnIndividual');
+  const mc = document.getElementById('mpsBtnCouple');
+  if (mi) mi.classList.toggle('active', type === 'individual');
+  if (mc) mc.classList.toggle('active', type === 'couple');
   // Update session state
   if (typeof S !== 'undefined') {
     // FIX: same guard fix as setPlanType — don't block on !S.d.structure
@@ -1878,6 +1887,11 @@ function _launchQuickStart(docCategory, mode){
     <span id="mProgCt" class="mps-ct">Step 1</span>
   </div>
   <div class="mps-bar"><div id="mProgFill" class="mps-fill" style="width:0%"></div></div>
+  <div class="mps-plan">
+    <span class="mps-plan-label">Plan for</span>
+    <button type="button" id="mpsBtnIndividual" class="mps-plan-btn active" onclick="switchPlanType('individual')">Individual</button>
+    <button type="button" id="mpsBtnCouple" class="mps-plan-btn" onclick="switchPlanType('couple')">Married Couple</button>
+  </div>
 </div>
 
 <div class="prog-card" id="progCard">
