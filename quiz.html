@@ -1541,6 +1541,20 @@ function showResults() {
   const { gaps, strengths } = buildGapsAndStrengths();
   const rec = recommendations[grade.key];
 
+  // Conversion event: quiz completed (a captured lead)
+  if (window.gtag) gtag('event', 'generate_lead', { event_category: 'quiz', score: score, grade: grade.key });
+
+  // Store the lead + start the nurture email sequence (only if an email was given)
+  if (typeof capturedEmail !== 'undefined' && capturedEmail && capturedEmail.email) {
+    try {
+      fetch('/.netlify/functions/capture-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: capturedEmail.email, name: capturedEmail.name || '', score: score, grade: grade.key })
+      }).catch(function () {});
+    } catch (e) {}
+  }
+
   // Set grade text
   document.getElementById('resultsGrade').textContent = grade.label;
   document.getElementById('resultsHeadline').textContent = grade.headline;
@@ -1783,5 +1797,6 @@ function showKeyboardHint(show) {
 buildQuestions();
 document.getElementById('progressLabel').textContent = '';
 </script>
+<script src="js/main.js"></script>
 </body>
 </html>

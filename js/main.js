@@ -129,3 +129,40 @@ document.querySelectorAll('.nav-link, .dropdown-item').forEach(link => {
     link.classList.add('active');
   }
 });
+
+/* ---------------------------------------------------------------------------
+ * Analytics (GA4) + conversion-event tracking
+ * Loads GA4 on every page that includes main.js (the whole marketing site),
+ * sends page_view, and fires intent events used to measure & optimize ads.
+ * The app (start.html) loads GA4 via Firebase and fires the purchase event
+ * itself, so this guards against double-loading.
+ * ------------------------------------------------------------------------- */
+(function () {
+  var GA_ID = 'G-333CR3Q4N6';
+  if (!window.gtag) {
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag('js', new Date());
+    gtag('config', GA_ID);
+  }
+  function ev(name, params) { if (window.gtag) gtag('event', name, params || {}); }
+
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a');
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (/(^|\/)start(\b|\/|\.html|$)/.test(href)) {
+      ev('begin_checkout', { event_category: 'trust_builder', source: location.pathname });
+    } else if (/(^|\/)quiz(\b|\/|\.html|$)/.test(href)) {
+      ev('start_quiz', { event_category: 'lead', source: location.pathname });
+    } else if (href.indexOf('tel:') === 0) {
+      ev('phone_click', { event_category: 'contact', source: location.pathname });
+    } else if (href.indexOf('calendly.com') > -1) {
+      ev('schedule_click', { event_category: 'contact', source: location.pathname });
+    }
+  }, true);
+})();

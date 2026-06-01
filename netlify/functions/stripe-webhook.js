@@ -332,6 +332,14 @@ exports.handler = async (event) => {
           const token      = await getFirestoreToken(svcAccount);
           const projectId  = svcAccount.project_id;
 
+          // 0. Suppress the quiz nurture drip for anyone who purchased (best-effort, non-fatal)
+          if (email) {
+            try {
+              const leadId = email.toLowerCase().replace(/[^a-z0-9]/g, '_').slice(0, 400);
+              await firestoreUpdateDoc(projectId, 'quiz_leads', leadId, { purchased: true }, token);
+            } catch (e) { console.error('lead suppress (non-fatal):', e.message); }
+          }
+
           // 1. Find the session document — by uid (client_reference_id) or by email
           let planDocId   = uid;
           let planData    = null;

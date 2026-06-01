@@ -7,6 +7,10 @@
 [functions."health-check"]
   schedule = "0 11 * * *"
 
+# Quiz lead nurture drip — sends due sequence emails (1–5) every 6 hours.
+[functions."nurture-drip"]
+  schedule = "0 */6 * * *"
+
 # Stripe webhook — receives raw body for signature verification
 [functions."stripe-webhook"]
   included_files = []
@@ -46,7 +50,7 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(self)"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://js.stripe.com https://www.gstatic.com https://apis.google.com https://www.google.com https://www.recaptcha.net https://assets.calendly.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://assets.calendly.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.firebaseio.com https://*.googleapis.com https://api.stripe.com https://firestore.googleapis.com https://cornerstone-wealth-and-legacy.firebaseapp.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://api.twilio.com https://calendly.com; frame-src https://js.stripe.com https://hooks.stripe.com https://cornerstone-wealth-and-legacy.firebaseapp.com https://www.google.com https://www.recaptcha.net https://calendly.com; object-src 'none'; base-uri 'self'"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://js.stripe.com https://www.gstatic.com https://apis.google.com https://www.google.com https://www.recaptcha.net https://assets.calendly.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://assets.calendly.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.firebaseio.com https://*.googleapis.com https://api.stripe.com https://firestore.googleapis.com https://cornerstone-wealth-and-legacy.firebaseapp.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://api.twilio.com https://calendly.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com; frame-src https://js.stripe.com https://hooks.stripe.com https://cornerstone-wealth-and-legacy.firebaseapp.com https://www.google.com https://www.recaptcha.net https://calendly.com; object-src 'none'; base-uri 'self'"
 
 [[headers]]
   for = "/start.html"
@@ -91,7 +95,7 @@
 
 [[redirects]]
   from = "/trust-builder"
-  to = "/start.html"
+  to = "/trust-builder.html"
   status = 200
 
 [[redirects]]

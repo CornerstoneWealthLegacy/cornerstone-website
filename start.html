@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-333CR3Q4N6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-333CR3Q4N6');</script>
 <title>Cornerstone Trust Builder — Cornerstone Wealth & Legacy Law</title>
 <meta name="description" content="Attorney-guided Florida estate planning — Wills, Trusts, Powers of Attorney. Cornerstone Wealth & Legacy Law.">
 <meta name="theme-color" content="#0f2744">
@@ -13049,6 +13052,17 @@ showDocTab = function(name){
 (function checkStripeReturn() {
   const params = new URLSearchParams(window.location.search);
   if (params.get('payment') === 'success') {
+    // GA4 purchase conversion (read pending-payment details before clearing)
+    try {
+      var _pend = JSON.parse(localStorage.getItem('cw_pending_payment') || '{}');
+      var _val = Number(String(_pend.price == null ? '' : _pend.price).replace(/[^0-9.]/g, ''));
+      if (window.gtag) gtag('event', 'purchase', {
+        transaction_id: String(_pend.ts || Date.now()),
+        value: isNaN(_val) ? undefined : _val,
+        currency: 'USD',
+        items: [{ item_name: _pend.dc || 'Estate Plan' }]
+      });
+    } catch (e) {}
     // This tab was the Stripe return tab — set paid flag (fires storage event in parent tab)
     localStorage.removeItem('cw_pending_payment');
     localStorage.setItem('cw_paid_session', '1');
