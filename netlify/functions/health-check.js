@@ -10,7 +10,7 @@ exports.handler = async (event) => {
   // ── 1. URL checks ─────────────────────────────────────────────────────────
   const urlChecks = [
     { url: SITE,                                              label: 'Homepage' },
-    { url: `${SITE}/start`,                                   label: 'Trust Builder (/start)' },
+    { url: `${SITE}/start`,                                   label: 'Florida Estate Kit (/start)' },
     { url: `${SITE}/about`,                                   label: 'About' },
     { url: `${SITE}/contact`,                                 label: 'Contact' },
     { url: `${SITE}/estate-planning`,                         label: 'Estate Planning' },

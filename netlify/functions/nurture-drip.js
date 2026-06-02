@@ -91,7 +91,7 @@ Daytona Beach, Florida &nbsp;·&nbsp; cornerstonewealthlegacy.com<br><br>
 function btn(href, label) {
   return `<div style="text-align:center;margin:26px 0"><a href="${href}" style="background:#c49a2a;color:#0f2744;font-weight:700;font-family:Arial,sans-serif;text-decoration:none;padding:14px 30px;border-radius:8px;display:inline-block">${label}</a></div>`;
 }
-const TB = 'https://cornerstonewealthlegacy.com/trust-builder';
+const TB = 'https://cornerstonewealthlegacy.com/florida-estate-kit';
 const CAL = 'https://calendly.com/arthursimpson/free-20-minute-discovery-call';
 
 // ── The sequence (steps 1–5) ───────────────────────────────────────────────
@@ -112,18 +112,18 @@ ${btn(TB, 'Start Your Plan →')}`,
 <p>Quick, plain-English version:</p>
 <p><strong>A will</strong> is instructions <em>for the probate court</em> — your family still goes through the process.<br>
 <strong>A revocable living trust</strong> skips probate entirely, stays private, and plans for incapacity.</p>
-<p>For most Florida homeowners, a funded trust is the centerpiece. For simpler situations, a will plus beneficiary designations may be enough — and the Trust Builder helps you figure out which fits.</p>
+<p>For most Florida homeowners, a funded trust is the centerpiece. For simpler situations, a will plus beneficiary designations may be enough — and Florida Estate Kit helps you figure out which fits.</p>
 ${btn(TB, 'See Which Fits You →')}`,
-    text: (f) => `Hi ${f},\n\nA will = instructions for probate (your family still goes through it). A revocable living trust = skips probate, private, plans for incapacity. The Trust Builder helps you choose:\n${TB}`,
+    text: (f) => `Hi ${f},\n\nA will = instructions for probate (your family still goes through it). A revocable living trust = skips probate, private, plans for incapacity. Florida Estate Kit helps you choose:\n${TB}`,
   },
   3: {
     subject: '“Can I really do this online?”',
     title: 'Online — and Florida-Valid',
     html: (f) => `<p>Hi ${f},</p>
 <p>Yes — and here's the difference that matters. Generic national form sites aren't built for Florida law and have no attorney behind them. That's where DIY plans fail: homestead, witnessing rules, trust funding.</p>
-<p>The Cornerstone Trust Builder is built for Florida, with an <strong>Attorney-Guided option personally reviewed by Arthur Simpson, Esq.</strong> Answer a few questions, we prepare your documents, and we guide you through signing correctly (including remote online notarization).</p>
+<p>The Florida Estate Kit is built for Florida, with an <strong>Attorney-Guided option personally reviewed by Arthur Simpson, Esq.</strong> Answer a few questions, we prepare your documents, and we guide you through signing correctly (including remote online notarization).</p>
 ${btn(TB, 'See How It Works →')}`,
-    text: (f) => `Hi ${f},\n\nYes — Florida recognizes online estate planning. The difference: the Cornerstone Trust Builder is built for Florida law, with an attorney-review option by Arthur Simpson, Esq. See how it works:\n${TB}`,
+    text: (f) => `Hi ${f},\n\nYes — Florida recognizes online estate planning. The difference: the Florida Estate Kit is built for Florida law, with an attorney-review option by Arthur Simpson, Esq. See how it works:\n${TB}`,
   },
   4: {
     subject: 'Your home is your most important document',

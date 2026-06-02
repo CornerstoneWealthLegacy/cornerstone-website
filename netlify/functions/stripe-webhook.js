@@ -14,6 +14,47 @@
 
 const crypto = require('crypto');
 
+// ── Server-side ad conversions ─────────────────────────────────────────────
+// Bulletproof purchase tracking: fires from the webhook (not the browser), so it
+// counts every paid order even if the buyer closed the tab or blocks pixels.
+const sha256 = (s) => crypto.createHash('sha256').update(String(s).trim().toLowerCase()).digest('hex');
+
+// Meta (Facebook) Conversions API — Purchase event.
+// Env: META_PIXEL_ID, META_CAPI_ACCESS_TOKEN  (System User token from Meta Events Manager)
+async function sendMetaCAPIPurchase({ email, name, value, currency, eventId, eventSourceUrl }) {
+  const PIXEL = process.env.META_PIXEL_ID;
+  const TOKEN = process.env.META_CAPI_ACCESS_TOKEN;
+  if (!PIXEL || !TOKEN) { console.warn('Meta CAPI not configured (META_PIXEL_ID / META_CAPI_ACCESS_TOKEN) — skipping'); return; }
+
+  const user_data = {};
+  if (email) user_data.em = [sha256(email)];
+  if (name) {
+    const parts = String(name).trim().toLowerCase().split(/\s+/);
+    if (parts[0]) user_data.fn = [sha256(parts[0])];
+    if (parts.length > 1) user_data.ln = [sha256(parts[parts.length - 1])];
+  }
+
+  const payload = {
+    data: [{
+      event_name: 'Purchase',
+      event_time: Math.floor(Date.now() / 1000),
+      event_id: eventId,                  // dedups with any browser-side Purchase sharing this id
+      action_source: 'website',
+      event_source_url: eventSourceUrl || 'https://cornerstonewealthlegacy.com/florida-estate-kit',
+      user_data,
+      custom_data: { currency: currency || 'USD', value: Number(value) || 0 },
+    }],
+  };
+
+  try {
+    const res = await fetch(`https://graph.facebook.com/v19.0/${PIXEL}/events?access_token=${encodeURIComponent(TOKEN)}`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload),
+    });
+    if (!res.ok) console.error('Meta CAPI error:', res.status, await res.text());
+    else console.log('Meta CAPI Purchase sent:', eventId, '$' + (value || 0));
+  } catch (e) { console.error('Meta CAPI exception (non-fatal):', e.message); }
+}
+
 // ── Stripe signature verification (no SDK needed) ──────────────────────────
 function verifyStripeSignature(rawBody, sigHeader, secret) {
   const parts     = sigHeader.split(',');
@@ -323,6 +364,17 @@ exports.handler = async (event) => {
       const amount    = amountRaw ? (amountRaw / 100).toFixed(2) : null;
 
       console.log('Payment completed:', { uid, planTier, email, amount });
+
+      // ── Server-side ad conversion (Meta CAPI) — bulletproof, fires for every paid order ──
+      // event_id = Stripe session id, so Stripe webhook retries dedupe to a single Purchase.
+      await sendMetaCAPIPurchase({
+        email,
+        name: session.customer_details?.name || '',
+        value: amount,
+        currency: (session.currency || 'usd').toUpperCase(),
+        eventId: session.id,
+        eventSourceUrl: 'https://cornerstonewealthlegacy.com/florida-estate-kit',
+      });
 
       // Update Firestore and trigger AI review
       const svcAccountRaw = process.env.FIREBASE_SERVICE_ACCOUNT;

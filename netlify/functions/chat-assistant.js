@@ -1,4 +1,4 @@
-// Netlify Function — AI chat assistant for the Cornerstone Trust Builder
+// Netlify Function — AI chat assistant for the Florida Estate Kit
 // Answers client questions in real-time using Claude (Haiku — fast & cost-efficient for chat)
 // Context-aware: receives the client's current questionnaire step and plan details
 // Auth: Firebase ID token verified before responding
@@ -7,9 +7,9 @@
 const FIREBASE_WEB_API_KEY = 'AIzaSyDu2Fs6akMU2wvfyTTvPXVahQIO2z8o3ek';
 const CHAT_MODEL = 'claude-haiku-4-5'; // Fast, cost-efficient — ideal for chat responses
 
-const SYSTEM_PROMPT = `You are the Cornerstone Estate Planning Advisor — a friendly, knowledgeable guide for clients using the Cornerstone Trust Builder at Cornerstone Wealth & Legacy Law, a Florida estate planning firm in Daytona Beach. The supervising attorney is Arthur Simpson, Esq. (Florida Bar #529265), who reviews all documents before execution.
+const SYSTEM_PROMPT = `You are the Cornerstone Estate Planning Advisor — a friendly, knowledgeable guide for clients using the Florida Estate Kit at Cornerstone Wealth & Legacy Law, a Florida estate planning firm in Daytona Beach. The supervising attorney is Arthur Simpson, Esq. (Florida Bar #529265), who reviews all documents before execution.
 
-Your role: Help clients with ANY question about the Cornerstone Trust Builder questionnaire — what any section or field means, who to name for each role, what each document does, why a question is being asked, and general Florida estate planning guidance. You have complete knowledge of the entire Trust Builder, so you can answer questions about any section regardless of where the client currently is.
+Your role: Help clients with ANY question about the Florida Estate Kit questionnaire — what any section or field means, who to name for each role, what each document does, why a question is being asked, and general Florida estate planning guidance. You have complete knowledge of the entire Florida Estate Kit, so you can answer questions about any section regardless of where the client currently is.
 
 Introduce yourself as "your Cornerstone Estate Planning Advisor" if asked who you are. Never claim to be an attorney or give specific legal advice — you guide, explain, and support.
 
@@ -283,7 +283,7 @@ ${context.allSections && context.allSections.length ? `- All sections in their p
   const userMessage = `${contextBlock}
 CLIENT QUESTION: ${question}
 
-Answer this question helpfully. You know the full Trust Builder — answer about any section or concept even if it's not the current step. Be warm and concise.`;
+Answer this question helpfully. You know the full Florida Estate Kit — answer about any section or concept even if it's not the current step. Be warm and concise.`;
 
   try {
     const aiRes = await fetch('https://api.anthropic.com/v1/messages', {

@@ -1187,6 +1187,9 @@ button.chat-faq:hover{background:var(--sky)}
 .shadow-msg-input{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:10px 12px;font-family:inherit;font-size:.85rem;resize:none;height:80px;margin-bottom:8px}
 .shadow-msg-send{width:100%;padding:10px;background:var(--gold);color:#fff;border:none;border-radius:8px;font-weight:800;cursor:pointer;font-family:inherit;font-size:.82rem}
 </style>
+<!-- Meta Pixel base (init handled in js/ads-tracking.js once FB_PIXEL_ID is set) -->
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');</script>
+<script src="js/ads-tracking.js" defer></script>
 </head>
 <body>
 
@@ -1821,7 +1824,7 @@ function _launchQuickStart(docCategory, mode){
   </div>
   <div class="hdr-right">
     <div class="badge2">F.S. Chapter 736</div>
-    <div class="badge">Trust Builder</div>
+    <div class="badge">Florida Estate Kit</div>
     <button id="matterDashBtn" onclick="openMatterDash()" style="display:none;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);color:#fff;padding:6px 14px;border-radius:8px;cursor:pointer;font-size:.78rem;font-weight:700;font-family:inherit">📋 Matters</button>
     <button id="darkToggle" onclick="toggleDark()" title="Toggle dark mode" style="background:none;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.8);padding:6px 12px;border-radius:8px;cursor:pointer;font-size:1rem;line-height:1">🌙</button>
     <div id="userBar" style="position:relative"></div>
@@ -12666,6 +12669,12 @@ function proceedToPayment() {
     dc, price: currentPrice, client: gName(), ts: Date.now()
   }));
 
+  // Ad-platform begin-checkout signal (mid-funnel optimization event)
+  try {
+    if (window.gtag) gtag('event', 'begin_checkout', { currency: 'USD', value: currentPrice });
+    if (window.fbq) fbq('track', 'InitiateCheckout', { currency: 'USD', value: currentPrice });
+  } catch (e) {}
+
   // Open Stripe in a NEW TAB so this tab keeps documents in memory.
   // When payment succeeds, the new tab sets cw_paid_session in localStorage,
   // which fires a 'storage' event here and unlocks documents automatically.
@@ -13025,6 +13034,14 @@ function _unlockDocuments(){
   localStorage.setItem('cw_paid_session','1');
   document.body.classList.add('payment-confirmed');
   document.querySelectorAll('.doc-draft-watermark,.doc-paywall-overlay').forEach(el=>el.remove());
+  // Ad-platform purchase conversion (fires once per session, not on every reload of a paid session)
+  try {
+    if (window.trackPurchase && localStorage.getItem('cw_purchase_tracked') !== '1') {
+      localStorage.setItem('cw_purchase_tracked','1');
+      var _amt = (typeof currentPrice !== 'undefined' && currentPrice) ? currentPrice : 0;
+      window.trackPurchase(_amt);
+    }
+  } catch (e) {}
   showToast('✅ Documents unlocked — you can now print, save, and download.');
 
   // Show portal banner so client knows they can access docs anytime

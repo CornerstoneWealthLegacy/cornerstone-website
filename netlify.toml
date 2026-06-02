@@ -102,9 +102,21 @@
   to = "/start.html"
   status = 200
 
+# Old Trust Builder URL → 301 to the rebranded Florida Estate Kit page (preserve SEO equity)
 [[redirects]]
   from = "/trust-builder"
-  to = "/trust-builder.html"
+  to = "/florida-estate-kit"
+  status = 301
+
+[[redirects]]
+  from = "/florida-estate-kit"
+  to = "/florida-estate-kit.html"
+  status = 200
+
+# Nav-stripped PPC ad landing page (noindex)
+[[redirects]]
+  from = "/estate-kit-offer"
+  to = "/estate-kit-offer.html"
   status = 200
 
 [[redirects]]

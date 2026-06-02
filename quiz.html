@@ -840,6 +840,9 @@
       clip: rect(0,0,0,0); white-space: nowrap;
     }
   </style>
+  <!-- Meta Pixel base (init handled in js/ads-tracking.js once FB_PIXEL_ID is set) -->
+  <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');</script>
+  <script src="js/ads-tracking.js" defer></script>
 </head>
 <body>
 
@@ -1553,6 +1556,8 @@ function showResults() {
         body: JSON.stringify({ email: capturedEmail.email, name: capturedEmail.name || '', score: score, grade: grade.key })
       }).catch(function () {});
     } catch (e) {}
+    // Ad-platform lead conversion (Google Ads + Meta) — fires only when an email was captured
+    if (window.trackLead) window.trackLead();
   }
 
   // Set grade text

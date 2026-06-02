@@ -75,9 +75,9 @@ async function sendWelcome(key, email, name, score, id) {
   const body = `<p>Hi ${first},</p>
 <p>Thanks for taking the Estate Plan Score Quiz. ${scoreLine}</p>
 <p>The good news: putting a Florida-valid plan in place is more straightforward — and more affordable — than most people think. You can build yours online in about 20 minutes, with the option to have it reviewed by a Florida attorney.</p>
-${btn('https://cornerstonewealthlegacy.com/trust-builder', 'See Your Options →')}
+${btn('https://cornerstonewealthlegacy.com/florida-estate-kit', 'See Your Options →')}
 <p style="font-size:14px;color:#666">Prefer to talk it through first? <a href="https://calendly.com/arthursimpson/free-20-minute-discovery-call" style="color:#0f2744">Book a free 20-minute call</a>.</p>`;
-  const text = `Hi ${first},\n\nThanks for taking the Estate Plan Score Quiz. ${score ? 'Your score is ' + score + '/100.' : ''}\n\nYou can build a Florida-valid estate plan online in about 20 minutes, with an attorney-review option:\nhttps://cornerstonewealthlegacy.com/trust-builder\n\nPrefer to talk first? https://calendly.com/arthursimpson/free-20-minute-discovery-call\n\nCornerstone Wealth & Legacy Law, PLLC · Arthur Simpson, Esq. · Florida Bar #529265 · Daytona Beach, FL\nAttorney advertising. Unsubscribe: ${unsub}`;
+  const text = `Hi ${first},\n\nThanks for taking the Estate Plan Score Quiz. ${score ? 'Your score is ' + score + '/100.' : ''}\n\nYou can build a Florida-valid estate plan online in about 20 minutes, with an attorney-review option:\nhttps://cornerstonewealthlegacy.com/florida-estate-kit\n\nPrefer to talk first? https://calendly.com/arthursimpson/free-20-minute-discovery-call\n\nCornerstone Wealth & Legacy Law, PLLC · Arthur Simpson, Esq. · Florida Bar #529265 · Daytona Beach, FL\nAttorney advertising. Unsubscribe: ${unsub}`;
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST', headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
