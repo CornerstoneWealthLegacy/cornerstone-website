@@ -233,20 +233,6 @@ function _css() {
         overflow: hidden;
       }
       .notary-block p { margin-bottom: 6pt; font-size: 10.5pt; }
-      .notary-block .notary-seal {
-        float: right;
-        width: 1.1in;
-        height: 1.1in;
-        border: 1px dashed #888;
-        text-align: center;
-        font-size: 7.5pt;
-        color: #888;
-        line-height: 1.3;
-        padding-top: 0.35in;
-        margin-left: 14pt;
-        margin-bottom: 8pt;
-        break-inside: avoid;
-      }
 
       /* ── Witness block ───────────────────────────────────────────────── */
       .witness-section {
@@ -357,12 +343,14 @@ function _printNote() {
 }
 
 function _notaryBlock(county) {
-  const c = county || '_______________';
+  // County is intentionally left blank for the notary to complete at signing —
+  // the acknowledgment county is where the document is actually signed, which may
+  // differ from the client's county of residence. No seal box: the notary applies
+  // their own Florida stamp in the open space.
   return `
     <div class="notary-block">
-      <div class="notary-seal">NOTARY<br>SEAL</div>
       <p><strong>STATE OF FLORIDA</strong></p>
-      <p><strong>COUNTY OF ${c.toUpperCase()}</strong></p>
+      <p><strong>COUNTY OF _______________________</strong></p>
       <p>The foregoing instrument was acknowledged before me by means of
       ☐ physical presence or ☐ online notarization, this ______ day of
       _______________, ${_year()}, by ___________________________________,
@@ -1092,8 +1080,7 @@ ${_printNote()}
   a sworn statement by the testator and witnesses before a notary public.</p>
 
   <div class="notary-block">
-    <div class="notary-seal">NOTARY<br>SEAL</div>
-    <p><strong>STATE OF FLORIDA, COUNTY OF ${county.toUpperCase()}</strong></p>
+    <p><strong>STATE OF FLORIDA, COUNTY OF _______________________</strong></p>
     <p>Before me, the undersigned authority, personally appeared the Testator,
     <strong>${_gnUpper(d)}</strong>, and the witnesses,
     ___________________________ and ___________________________, known to me

@@ -5200,7 +5200,7 @@ ${provs.includes('pour_over')?`<div class="art">
 
 <div class="art">
 <div class="art-t">Notarial Acknowledgment</div>
-<p class="dp" style="font-size:.88rem">STATE OF FLORIDA<br>COUNTY OF ${d.gCounty?d.gCounty.toUpperCase():'_______________'}</p>
+<p class="dp" style="font-size:.88rem">STATE OF FLORIDA<br>COUNTY OF _______________________</p>
 <p class="dp">The foregoing instrument was acknowledged before me by means of ☐ physical presence &nbsp; ☐ online notarization, this _____ day of _________________________, ${yr}, by <strong>${gn}${joint?` and ${sn}`:''}</strong>, who is/are personally known to me or produced __________________________________ as identification.</p>
 <div class="sig-block"><div class="sig-row">
   <div class="sig-line">&nbsp;</div>
@@ -5597,7 +5597,7 @@ function _buildSingleWill(testator, spouse, d, yr){
 
     <div class="art">
       <div class="art-t">Self-Proving Affidavit (F.S. § 732.503)</div>
-      <p class="dp">STATE OF FLORIDA<br>COUNTY OF ${county.toUpperCase()}</p>
+      <p class="dp">STATE OF FLORIDA<br>COUNTY OF _______________________</p>
       <p class="dp">Before me, the undersigned authority, personally appeared <strong>${testator}</strong> (the "Testator"), and the witnesses, _________________________ and _________________________, known to me to be the Testator and the witnesses whose names are signed to the foregoing instrument, and being first duly sworn, do hereby declare to me, the undersigned authority, as follows:</p>
       <p class="dp"><strong>The Testator declares:</strong> The foregoing instrument is my Last Will and Testament; I willingly signed and executed it as my free and voluntary act for the purposes therein expressed; I am eighteen (18) years of age or older, of sound mind, and under no constraint or undue influence; and I signed and executed this instrument in the simultaneous presence of both of the undersigned witnesses.</p>
       <p class="dp"><strong>Each Witness declares:</strong> The Testator signed this instrument as his/her Last Will and Testament in our presence; the Testator appeared to be of sound mind and memory and not under duress, fraud, menace, or undue influence; we signed this Will as witnesses in the presence and at the request of the Testator and in the presence of each other; at the time of our attestation, the Testator was at least eighteen (18) years of age; we are each at least eighteen (18) years of age and are competent to serve as witnesses. (F.S. § 732.503)</p>
@@ -5805,7 +5805,7 @@ function generateLandTrust() {
     </div>
     <div>
       <div style="border:1.5px solid var(--border);border-radius:10px;padding:16px">
-        <div style="font-size:.78rem;font-weight:700;margin-bottom:12px">STATE OF FLORIDA<br>COUNTY OF ${county.toUpperCase()}</div>
+        <div style="font-size:.78rem;font-weight:700;margin-bottom:12px">STATE OF FLORIDA<br>COUNTY OF _______________________</div>
         <p style="font-size:.78rem;line-height:1.6">The foregoing instrument was acknowledged before me this _____ day of _____________, ${yr}, by _________________________, who is personally known to me or has produced _________________________ as identification.</p>
         <div style="border-bottom:1px solid #000;padding-bottom:4px;margin:20px 0 6px;min-height:32px"></div>
         <div style="font-size:.78rem">Notary Public Signature<br>My Commission Expires: __________<br>Commission No.: __________</div>
@@ -5892,7 +5892,7 @@ function generateLandTrust() {
     </div>
     <div style="margin-top:32px;border:1.5px solid var(--border);border-radius:10px;padding:20px">
       <div style="font-size:.78rem;font-weight:700;margin-bottom:10px">NOTARIZATION (for the Trustee's signature)</div>
-      <p style="font-size:.78rem;line-height:1.6">STATE OF FLORIDA, COUNTY OF ${county.toUpperCase()}<br>
+      <p style="font-size:.78rem;line-height:1.6">STATE OF FLORIDA, COUNTY OF _______________________<br>
       The foregoing instrument was acknowledged before me this _____ day of _____________, ${yr}, by ${trusteeName}, as Trustee, who is personally known to me or has produced _________________________ as identification.</p>
       <div style="border-bottom:1px solid #000;padding-bottom:4px;margin:20px 0 6px;min-height:32px"></div>
       <div style="font-size:.78rem">Notary Public | Commission Expires: __________ | No.: __________</div>
@@ -5955,7 +5955,7 @@ function generateLandTrust() {
     </div>
     <div style="border:1.5px solid var(--border);border-radius:10px;padding:16px">
       <div style="font-size:.78rem;font-weight:700;margin-bottom:8px">NOTARIZATION</div>
-      <p style="font-size:.78rem;line-height:1.6">STATE OF FLORIDA, COUNTY OF ${county.toUpperCase()}<br>Acknowledged before me this _____ day of _____________, ${yr}, by ${trusteeName}, as Trustee.</p>
+      <p style="font-size:.78rem;line-height:1.6">STATE OF FLORIDA, COUNTY OF _______________________<br>Acknowledged before me this _____ day of _____________, ${yr}, by ${trusteeName}, as Trustee.</p>
       <div style="border-bottom:1px solid #000;padding-bottom:4px;margin:16px 0 6px;min-height:30px"></div>
       <div style="font-size:.78rem">Notary Public | Commission Expires: __________</div>
     </div>
@@ -5990,7 +5990,7 @@ function generateLandTrust() {
     </div>
     <div style="border:1.5px solid var(--border);border-radius:10px;padding:16px">
       <div style="font-size:.78rem;font-weight:700;margin-bottom:8px">NOTARIZATION — REQUIRED FOR RECORDING</div>
-      <p style="font-size:.78rem;line-height:1.6">STATE OF FLORIDA, COUNTY OF ${county.toUpperCase()}<br>The foregoing Certification was acknowledged before me this _____ day of _____________, ${yr}, by ${trusteeName}, as Trustee, who is personally known to me or has produced _________________________ as identification.</p>
+      <p style="font-size:.78rem;line-height:1.6">STATE OF FLORIDA, COUNTY OF _______________________<br>The foregoing Certification was acknowledged before me this _____ day of _____________, ${yr}, by ${trusteeName}, as Trustee, who is personally known to me or has produced _________________________ as identification.</p>
       <div style="border-bottom:1px solid #000;padding-bottom:4px;margin:16px 0 6px;min-height:30px"></div>
       <div style="font-size:.78rem">Notary Public | Commission Expires: __________ | No.: __________</div>
     </div>
@@ -6098,7 +6098,7 @@ function generateCertificateOfTrust(){
         <div class="sig-row"><div class="sig-line">&nbsp;</div><div class="sig-lbl"><strong>${gn}</strong>, Trustee &nbsp;&nbsp; Date: _______________</div></div>
         ${joint?`<div class="sig-row"><div class="sig-line">&nbsp;</div><div class="sig-lbl"><strong>${sn}</strong>, Co-Trustee &nbsp;&nbsp; Date: _______________</div></div>`:''}
       </div>
-      <p class="dp" style="margin-top:24px">STATE OF FLORIDA<br>COUNTY OF ${county}</p>
+      <p class="dp" style="margin-top:24px">STATE OF FLORIDA<br>COUNTY OF _______________________</p>
       <p class="dp">The foregoing instrument was acknowledged before me by means of ☐ physical presence or ☐ online notarization this _____ day of _________________, ${yr}, by <strong>${gn}</strong>${joint?` and <strong>${sn}</strong>`:''}, as Trustee${joint?'s':''} of the <strong>${tn}</strong>, who is/are: ☐ personally known to me, OR ☐ produced _________________________ as identification.</p>
       <div class="sig-block">
         <div class="sig-row">
@@ -6171,7 +6171,7 @@ function generateAssignment(){
         </div>
       </div>
       <p class="dp" style="margin-top:24px"><strong>OPTIONAL NOTARIZATION:</strong></p>
-      <p class="dp">STATE OF FLORIDA, COUNTY OF ${county}<br>The foregoing Assignment was acknowledged before me this _____ day of _________________, ${yr}, by <strong>${gn}${joint?` and ${sn}`:''}</strong>, who is/are: ☐ personally known to me, OR ☐ produced _________________________ as identification.</p>
+      <p class="dp">STATE OF FLORIDA, COUNTY OF _______________________<br>The foregoing Assignment was acknowledged before me this _____ day of _________________, ${yr}, by <strong>${gn}${joint?` and ${sn}`:''}</strong>, who is/are: ☐ personally known to me, OR ☐ produced _________________________ as identification.</p>
       <div class="sig-block">
         <div class="sig-row"><div class="sig-line">&nbsp;</div><div class="sig-lbl">Notary Public — State of Florida<br>Printed Name: _________________________<br>Commission No.: _________________________ &nbsp;&nbsp; Expires: _________________________</div></div>
       </div>
@@ -6271,7 +6271,7 @@ function _buildSinglePOA(principal, agentName, agentRel, agentAddr, succAgent, d
         </div>
       </div>
       <p class="dp" style="margin-top:24px"><strong>NOTARY ACKNOWLEDGMENT:</strong></p>
-      <p class="dp">STATE OF FLORIDA<br>COUNTY OF ${county}</p>
+      <p class="dp">STATE OF FLORIDA<br>COUNTY OF _______________________</p>
       <p class="dp">The foregoing instrument was acknowledged before me by means of ☐ physical presence or ☐ online notarization this _____ day of _________________, ${yr}, by <strong>${gn}</strong>, who is: ☐ personally known to me, OR ☐ produced _________________________ as identification.</p>
       <div class="sig-block">
         <div class="sig-row">
@@ -6733,7 +6733,7 @@ function generateTrusteeAcceptance(){
         <div class="sig-row"><div class="sig-line">&nbsp;</div><div class="sig-lbl"><strong>${gn}</strong>, ${joint?'Co-':''}Trustee &nbsp;&nbsp; Date: _______________</div></div>
         ${joint?`<div class="sig-row"><div class="sig-line">&nbsp;</div><div class="sig-lbl"><strong>${sn}</strong>, Co-Trustee &nbsp;&nbsp; Date: _______________</div></div>`:''}
       </div>
-      <p class="dp" style="margin-top:20px">STATE OF FLORIDA — COUNTY OF ${county}</p>
+      <p class="dp" style="margin-top:20px">STATE OF FLORIDA — COUNTY OF _______________________</p>
       <p class="dp">Acknowledged before me this _____ day of _________________, ${yr}, by <strong>${gn}</strong>${joint?` and <strong>${sn}</strong>`:''} as Trustee${joint?'s':''} of the <strong>${tn}</strong>.</p>
       <div class="sig-block"><div class="sig-row"><div class="sig-line">&nbsp;</div><div class="sig-lbl">Notary Public, State of Florida — Commission Expires: _______________</div></div></div>
     </div>
@@ -6962,7 +6962,7 @@ function generateAffidavitOfHeirs(){
       <div class="sig-block">
         <div class="sig-row"><div class="sig-line">&nbsp;</div><div class="sig-lbl">Affiant Signature / Printed Name / Date</div></div>
       </div>
-      <p class="dp" style="margin-top:20px">STATE OF FLORIDA — COUNTY OF ${county.toUpperCase()}</p>
+      <p class="dp" style="margin-top:20px">STATE OF FLORIDA — COUNTY OF _______________________</p>
       <p class="dp">Subscribed and sworn before me this _____ day of _________________, ${yr}, by _________________________.</p>
       <div class="sig-block"><div class="sig-row"><div class="sig-line">&nbsp;</div><div class="sig-lbl">Notary Public, State of Florida — Commission Expires: _______________ — Commission No.: _______________</div></div></div>
     </div>
@@ -7035,7 +7035,7 @@ function generateCodicil(){
     <div class="art">
       <div class="art-t">SELF-PROVING AFFIDAVIT — F.S. § 732.503</div>
       <p class="dp" style="font-size:.82rem;color:#64748b;font-style:italic">The Self-Proving Affidavit allows this Codicil to be admitted to probate without requiring the witnesses to appear in court. It is STRONGLY RECOMMENDED. Executed simultaneously with the Codicil.</p>
-      <p class="dp">STATE OF FLORIDA<br>COUNTY OF ${countyUC}</p>
+      <p class="dp">STATE OF FLORIDA<br>COUNTY OF _______________________</p>
       <p class="dp">We, <strong>${gn}</strong>, _________________________, and _________________________, the Testator and the witnesses whose names are signed to the foregoing instrument, being first duly sworn, do hereby declare to the undersigned authority that the Testator signed and executed this instrument as his/her Codicil; that the Testator signed willingly (or willingly directed another to sign for the Testator); that the Testator executed this instrument as a free and voluntary act for the purposes therein expressed; and that each of the witnesses, in the presence and hearing of the Testator, signed this Codicil as witness; and that to the best of each witness's knowledge the Testator was, at the time of signing, of lawful age, sound mind, and under no constraint or undue influence.</p>
       <div class="sig-block">
         <div class="sig-row"><div class="sig-line">&nbsp;</div><div class="sig-lbl"><strong>${gn}</strong>, Testator</div></div>
@@ -7246,7 +7246,7 @@ function generateTrustAmendment(){
 
     <div class="art">
       <div class="art-t">NOTARY ACKNOWLEDGMENT — F.S. § 117.05</div>
-      <p class="dp">STATE OF FLORIDA<br>COUNTY OF ${countyUC}</p>
+      <p class="dp">STATE OF FLORIDA<br>COUNTY OF _______________________</p>
       <p class="dp">The foregoing instrument was acknowledged before me this _____ day of _________________, ______, by <strong>${gn}</strong>, who is ☐ personally known to me OR ☐ has produced _________________________ as identification, and who did take an oath.</p>
       <div class="sig-block">
         <div class="sig-row">
@@ -7349,7 +7349,7 @@ function generateSmartCodicil(){
     </div>
     <div class="art">
       <div class="art-t">SELF-PROVING AFFIDAVIT — F.S. § 732.503</div>
-      <p class="dp">STATE OF FLORIDA<br>COUNTY OF ${countyUC}</p>
+      <p class="dp">STATE OF FLORIDA<br>COUNTY OF _______________________</p>
       <p class="dp">We, <strong>${gn}</strong>, _________________________, and _________________________, being duly sworn, declare that the Testator signed and executed this Codicil as a free and voluntary act; that each witness signed in the presence and hearing of the Testator; and that to the best of each witness's knowledge the Testator was of lawful age, sound mind, and under no constraint at the time of signing.</p>
       <div class="sig-block"><div class="sig-row"><div class="sig-line">&nbsp;</div><div class="sig-lbl"><strong>${gn}</strong>, Testator</div></div></div>
       <p class="dp" style="margin-top:16px">Subscribed and acknowledged before me this _____ day of _________________, ______, by <strong>${gn}</strong>, Testator, and by the above-named witnesses.</p>
@@ -8683,11 +8683,11 @@ function generateLadyBirdDeed(){
     </div>
 
     <div style="margin-top:32px;border:1.5px solid var(--border);border-radius:10px;padding:20px">
-      <p class="dp"><strong>STATE OF FLORIDA</strong><br><strong>COUNTY OF ${county.toUpperCase()}</strong></p>
+      <p class="dp"><strong>STATE OF FLORIDA</strong><br><strong>COUNTY OF _______________________</strong></p>
       <p class="dp">The foregoing instrument was acknowledged before me by means of ☐ physical presence or ☐ online notarization, this _____ day of ______________, ${yr}, by ${gn}${joint&&sn?` and ${sn}`:', who is/are'} personally known to me or who produced _________________________ as identification.</p>
       <div style="margin-top:24px;border-bottom:1px solid #000;height:30px"></div>
       <div class="dp" style="font-size:.78rem">Notary Public, State of Florida<br>Printed Name: _________________________________<br>My Commission Expires: _______________________<br>Commission No.: ______________________________</div>
-      <div style="margin-top:12px;border:1px dashed var(--border);height:80px;display:flex;align-items:center;justify-content:center;font-size:.75rem;color:var(--muted)">[NOTARY SEAL]</div>
+      <div style="margin-top:12px;height:80px"></div><!-- open space for the notary's Florida stamp -->
     </div>
     </div>
 
@@ -8785,7 +8785,7 @@ function generateTrusteeCert(){
     </div>
 
     <div style="margin-top:32px;border:1.5px solid var(--border);border-radius:10px;padding:20px">
-      <p class="dp"><strong>STATE OF FLORIDA</strong><br><strong>COUNTY OF ${county.toUpperCase()}</strong></p>
+      <p class="dp"><strong>STATE OF FLORIDA</strong><br><strong>COUNTY OF _______________________</strong></p>
       <p class="dp">The foregoing instrument was acknowledged before me by means of ☐ physical presence or ☐ online notarization, this _____ day of ______________, ${yr}, by ${iT}, as Trustee of the ${tn}, who is personally known to me or produced _________________________ as identification.</p>
       <div style="margin-top:20px;border-bottom:1px solid #000;height:30px"></div>
       <div class="dp" style="font-size:.78rem">Notary Public, State of Florida<br>Printed Name: _________________________________<br>My Commission Expires: _______________________</div>
@@ -8987,7 +8987,7 @@ function generateGunTrust(){
     </div>
 
     <div style="margin-top:24px;border:1.5px solid var(--border);border-radius:10px;padding:20px">
-      <p class="dp"><strong>STATE OF FLORIDA</strong><br><strong>COUNTY OF ${county.toUpperCase()}</strong></p>
+      <p class="dp"><strong>STATE OF FLORIDA</strong><br><strong>COUNTY OF _______________________</strong></p>
       <p class="dp">The foregoing instrument was acknowledged before me by means of ☐ physical presence or ☐ online notarization, this _____ day of ______________, ${yr}, by ${gn}, who is personally known to me or produced _________________________ as identification.</p>
       <div style="margin-top:20px;border-bottom:1px solid #000;height:30px;max-width:300px"></div>
       <div class="dp" style="font-size:.78rem">Notary Public, State of Florida</div>
