@@ -6,12 +6,12 @@
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-333CR3Q4N6"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-333CR3Q4N6');</script>
-<title>Cornerstone Trust Builder — Cornerstone Wealth & Legacy Law</title>
+<title>Florida Estate Kit — Cornerstone Wealth & Legacy Law</title>
 <meta name="description" content="Attorney-guided Florida estate planning — Wills, Trusts, Powers of Attorney. Cornerstone Wealth & Legacy Law.">
 <meta name="theme-color" content="#0f2744">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Trust Builder">
+<meta name="apple-mobile-web-app-title" content="Florida Estate Kit">
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1761,7 +1761,7 @@ function _launchQuickStart(docCategory, mode){
 <canvas id="confettiCanvas"></canvas>
 <!-- ── PWA Install Banner ── -->
 <div id="pwaBanner">
-  <div class="pwa-text">📱 Add Trust Builder to your home screen for quick access</div>
+  <div class="pwa-text">📱 Add Florida Estate Kit to your home screen for quick access</div>
   <div class="pwa-btns">
     <button class="pwa-install" id="pwaInstallBtn">Install App</button>
     <button class="pwa-dismiss" onclick="document.getElementById('pwaBanner').classList.remove('show');localStorage.setItem('pwa_dismissed','1')">Not now</button>
@@ -1819,12 +1819,12 @@ function _launchQuickStart(docCategory, mode){
 <div class="gold-bar"></div>
 <header>
   <div class="hdr-left">
-    <div class="firm-name">CORNERSTONE <span>WEALTH</span> &amp; LEGACY LAW</div>
-    <div class="firm-tag">Florida Trust &amp; Estate Planning</div>
+    <div class="firm-name">FLORIDA <span>ESTATE</span> KIT</div>
+    <div class="firm-tag">by Cornerstone Wealth &amp; Legacy Law</div>
   </div>
   <div class="hdr-right">
     <div class="badge2">F.S. Chapter 736</div>
-    <div class="badge">Florida Estate Kit</div>
+    <div class="badge">Attorney-Reviewed</div>
     <button id="matterDashBtn" onclick="openMatterDash()" style="display:none;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);color:#fff;padding:6px 14px;border-radius:8px;cursor:pointer;font-size:.78rem;font-weight:700;font-family:inherit">📋 Matters</button>
     <button id="darkToggle" onclick="toggleDark()" title="Toggle dark mode" style="background:none;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.8);padding:6px 12px;border-radius:8px;cursor:pointer;font-size:1rem;line-height:1">🌙</button>
     <div id="userBar" style="position:relative"></div>
@@ -1927,7 +1927,7 @@ function _launchQuickStart(docCategory, mode){
 
 <script>
 // ═══════════════════════════════════════════════════════════════════
-// CORNERSTONE WEALTH & LEGACY LAW — Cornerstone Trust Builder
+// CORNERSTONE WEALTH & LEGACY LAW — Florida Estate Kit
 //  F.S. Chapter 736 | Optimized for out-of-state mover / HNW clients
 // ═══════════════════════════════════════════════════════════════════
 
@@ -2288,7 +2288,7 @@ const STEPS=[
      {v:'vhnw',  t:'Very High Net Worth — $5M to $20M',
       d:'Advanced provisions: HEMS trusts, dynasty provisions, ILIT coordination, and enhanced asset protection.',premium:true},
      {v:'uhnw',  t:'Ultra High Net Worth — $20M+',
-      d:'Full suite: Dynasty/generation-skipping trust, SLAT, DAPT, charitable planning, and business succession provisions.',premium:true,badge:'PREMIUM'},
+      d:'Full suite: Dynasty/generation-skipping trust, SLAT, asset-protection planning, charitable planning, and business succession provisions.',premium:true,badge:'PREMIUM'},
      {v:'standard',t:'Standard Estate — Under $1M',
       d:'Clean, straightforward revocable trust focused on probate avoidance and beneficiary distribution.'},
    ]
@@ -2363,7 +2363,6 @@ const STEPS=[
    opts:[
      {v:'revocable',   t:'Revocable Living Trust',               d:'Full control during lifetime; avoids probate; Florida\'s most common planning vehicle. (F.S. § 736.0602)'},
      {v:'irrevocable', t:'Irrevocable Trust',                    d:'Permanent structure for asset protection, Medicaid planning, or removing assets from your taxable estate.',premium:true},
-     {v:'dapt',        t:'Florida Domestic Asset Protection Trust (DAPT)',d:'Self-settled spendthrift trust providing strong creditor protection while you remain a discretionary beneficiary.',premium:true,badge:'ASSET PROTECTION'},
      {v:'dynasty',     t:'Dynasty / Generation-Skipping Trust',  d:"Florida allows trusts to last up to 360 years — ideal for transferring wealth across multiple generations while minimizing transfer taxes.",premium:true,badge:'HNW'},
      {v:'ilit',        t:'Irrevocable Life Insurance Trust (ILIT)',d:'Removes life insurance proceeds from your taxable estate; trustee holds policy outside your estate.',premium:true},
      {v:'special_needs',t:'Special Needs Trust (SNT)',           d:'For a beneficiary with a disability. Preserves government benefit eligibility (SSI, Medicaid). (F.S. § 736.0507)'},
@@ -2440,7 +2439,6 @@ const STEPS=[
      {v:'digital',       t:'Digital Assets Provision',                d:'Authorizes Trustee to manage digital accounts, cryptocurrency, NFTs. (FL Fiduciary Access to Digital Assets Act, F.S. § 740.002)'},
      {v:'minors',        t:'Minor Beneficiary Sub-Trust',             d:'Holds a minor\'s share separately until adulthood. Essential if you have children under 18.'},
      {v:'dynasty_prov',  t:'Florida Dynasty Trust Provisions (360-Year)',d:"Extends trust's perpetuities period to FL's 360-year maximum. Eliminates estate tax at each generation transition.",badge:'HNW'},
-     {v:'dapt_prov',     t:'Domestic Asset Protection Provisions',    d:'Self-settled spendthrift language providing maximum creditor protection under FL law.',badge:'ASSET PROTECTION'},
      {v:'gst',           t:'Generation-Skipping Transfer (GST) Planning Language',d:'Allocates GST exemption and addresses skip-person distributions. Coordinate with tax counsel.',badge:'HNW'},
      {v:'charitable',    t:'Charitable Remainder / Philanthropy Provisions',d:'Designates a charitable remainder or includes a donor-advised fund as partial beneficiary.',premium:true},
      {v:'pour_over',     t:'Pour-Over Will Coordination',             d:'Ensures any assets not titled in the trust flow into it via a Pour-Over Will. (F.S. § 732.513)'},
@@ -3375,8 +3373,8 @@ function renderRedFlags(){
     });
   })();
   // Irrevocable trust for a standard plan — strong warning
-  if(d.trustType==='irrevocable'&&!['dapt','mapt','ilit','crt'].includes(d.docCategory)){
-    flags.push({level:'critical',icon:'⚠️',title:'Irrevocable Trust — Confirm Intent',desc:'This plan uses an irrevocable trust structure. Once executed and funded, the Grantor cannot revoke or amend this trust. Irrevocable trusts are typically used for Medicaid planning (MAPT), life insurance (ILIT), or asset protection (DAPT) — not standard estate plans. Confirm this is intentional and advise the client of the permanent consequences before signing.'});
+  if(d.trustType==='irrevocable'&&!['mapt','ilit','crt'].includes(d.docCategory)){
+    flags.push({level:'critical',icon:'⚠️',title:'Irrevocable Trust — Confirm Intent',desc:'This plan uses an irrevocable trust structure. Once executed and funded, the Grantor cannot revoke or amend this trust. Irrevocable trusts are typically used for Medicaid planning (MAPT), life insurance (ILIT), or asset protection (irrevocable, non-self-settled trusts) — not standard estate plans. Confirm this is intentional and advise the client of the permanent consequences before signing.'});
   }
   // No contingent beneficiaries named
   if(!(S.contingents||[]).filter(c=>c.name).length&&(S.beneficiaries||[]).filter(b=>b.name).length>0){
@@ -3611,9 +3609,9 @@ const OPT_INFO={
     l:"F.S. § 736.0602 — a settlor of a revocable trust may amend the trust at any time. The amendment must be signed with the same formalities as the original trust (F.S. § 736.0403): settlor's signature, notarized, and two witnesses.",
     e:"Your 2019 Florida trust names your brother as successor trustee. He moved abroad and is no longer able to serve. You execute a 'First Amendment' naming your adult daughter as the new successor trustee — a targeted change that leaves everything else intact."},
   situation_asset_prot:{t:'Asset Protection Focus',
-    m:"Your primary goal is protecting existing or future wealth from creditors, lawsuits, professional liability, or future claims. Florida offers some of the strongest asset protection laws in the United States — including unlimited homestead protection, strong LLC charging order protection, Domestic Asset Protection Trusts (DAPTs), and Tenancy by the Entireties for married couples.",
-    l:"Art. X, § 4, Fla. Const. — unlimited homestead creditor exemption. F.S. § 736.0505 — self-settled spendthrift trust (DAPT) provisions. Beal Bank v. Almand & Associates (2001) — TBE protection for married couples. F.S. § 608.433 — LLC charging order exclusive remedy.",
-    e:"You are a physician with significant malpractice exposure. We structure your plan with a DAPT for liquid assets, TBE ownership of jointly held assets with your spouse, your home in the homestead exemption, and an LLC for your rental properties. This multi-layered structure makes you a difficult target."},
+    m:"Your primary goal is protecting existing or future wealth from creditors, lawsuits, professional liability, or future claims. Florida offers some of the strongest asset protection laws in the United States — including unlimited homestead protection, strong LLC charging-order protection, robust statutory exemptions (life insurance, annuities, retirement accounts), and Tenancy by the Entireties for married couples. Note: Florida does NOT recognize self-settled domestic asset protection trusts; a true DAPT must be established under another state's law and is handled by attorney consultation.",
+    l:"Art. X, § 4, Fla. Const. — unlimited homestead creditor exemption. F.S. § 736.0505(1)(b) — a settlor's creditors CAN reach a self-settled trust (Florida does not authorize self-settled asset-protection trusts). Beal Bank v. Almand & Associates (2001) — TBE protection for married couples. F.S. § 605.0503 — LLC charging order exclusive remedy.",
+    e:"You are a physician with significant malpractice exposure. We structure your plan with Tenancy by the Entireties ownership of jointly held assets with your spouse, your home under the homestead exemption, statutory exemptions for retirement and insurance, and an LLC for your rental properties. If a self-settled asset-protection trust is warranted, we coordinate one under a DAPT-friendly state's law by consultation. This multi-layered structure makes you a difficult target."},
 
   // ── priorState ───────────────────────────────────────────────────
   priorState_ny:{t:'Coming from New York',
@@ -3659,13 +3657,13 @@ const OPT_INFO={
     l:'SECURE Act 2.0 (Pub. L. 117-328) — inherited IRA 10-year rule affects beneficiary planning. IRC § 401(a)(9) — required minimum distributions. F.S. § 736.0502 — spendthrift trust protection for beneficiaries. F.S. § 689.071 — land trust for investment property.',
     e:"You have a $3M estate: your home, a rental property, brokerage accounts, and a $1.2M IRA. We structure the plan to protect the rental in a land trust, address the IRA beneficiary designation under SECURE Act 2.0, and include spendthrift protection for your children's shares."},
   wealthProfile_vhnw:{t:'Very High Net Worth — $5M to $20M',
-    m:"At $5M–$20M, estate tax planning becomes relevant, particularly if the current federal exemption sunsets to approximately $7M per person in 2026. We add advanced provisions: HEMS trust standards for creditor protection, dynasty provisions to skip transfer taxes across generations, ILIT coordination for large life insurance, and Florida's strong DAPT structure.",
-    l:'IRC § 2001 — federal estate tax at 40% above exemption. Potential 2026 exemption sunset to ~$7M per person. IRC § 2642 — GST exemption allocation. F.S. § 736.0505 — DAPT self-settled spendthrift trust. HEMS standard: Health, Education, Maintenance & Support (IRC § 2041).',
-    e:"You have a $12M estate including a business interest. We plan for the potential 2026 exemption reduction, structure a DAPT with $3M for asset protection, coordinate your $5M life insurance policy into an ILIT to remove it from your taxable estate, and add dynasty provisions."},
+    m:"At $5M–$20M, estate tax planning becomes relevant, particularly if the current federal exemption sunsets to approximately $7M per person in 2026. We add advanced provisions: HEMS trust standards for creditor protection, dynasty provisions to skip transfer taxes across generations, ILIT coordination for large life insurance, and — where warranted — asset-protection planning using Florida's homestead, TBE, LLC, and exemption tools (a self-settled DAPT, if used, is sited under another state's law by consultation).",
+    l:'IRC § 2001 — federal estate tax at 40% above exemption. Potential 2026 exemption sunset to ~$7M per person. IRC § 2642 — GST exemption allocation. F.S. § 736.0505(1)(b) — Florida does not protect self-settled trusts from the settlor\'s creditors. HEMS standard: Health, Education, Maintenance & Support (IRC § 2041).',
+    e:"You have a $12M estate including a business interest. We plan for the potential 2026 exemption reduction, layer asset protection through TBE, statutory exemptions, and an LLC, coordinate your $5M life insurance policy into an ILIT to remove it from your taxable estate, and add dynasty provisions."},
   wealthProfile_uhnw:{t:'Ultra High Net Worth — $20M+',
-    m:"At $20M+, the full suite of advanced planning is available and warranted: Dynasty trusts lasting up to 360 years in Florida, Spousal Lifetime Access Trusts (SLATs), Grantor Retained Annuity Trusts (GRATs), Charitable Remainder Trusts (CRTs), DAPTs, ILIT structures, and generation-skipping planning. This tier requires coordination with your CPA and financial advisors.",
+    m:"At $20M+, the full suite of advanced planning is available and warranted: Dynasty trusts lasting up to 360 years in Florida, Spousal Lifetime Access Trusts (SLATs), Grantor Retained Annuity Trusts (GRATs), Charitable Remainder Trusts (CRTs), out-of-state asset-protection trusts, ILIT structures, and generation-skipping planning. This tier requires coordination with your CPA and financial advisors.",
     l:'IRC §§ 2001, 2010(c), 2642 — estate, gift, and GST tax. F.S. § 736.1205 — Florida allows trusts to last up to 360 years. IRC § 664 — charitable remainder trusts. Rev. Rul. 2004-64 — SLAT income tax treatment.',
-    e:"A $45M family uses a $15M dynasty trust for generation-skipping planning, a SLAT to give the spouse access while removing assets from the taxable estate, an ILIT for $10M of life insurance, and a DAPT for additional asset protection. Full integration with annual gifting program."},
+    e:"A $45M family uses a $15M dynasty trust for generation-skipping planning, a SLAT to give the spouse access while removing assets from the taxable estate, an ILIT for $10M of life insurance, and an out-of-state asset-protection trust for additional protection. Full integration with annual gifting program."},
 
   // ── structure ────────────────────────────────────────────────────
   structure_individual:{t:'Individual Trust',
@@ -3684,16 +3682,12 @@ const OPT_INFO={
   // ── trustType ────────────────────────────────────────────────────
   trustType_revocable:{t:'Revocable Living Trust',
     m:"The most common estate planning trust in Florida. You retain complete control — you can change it, revoke it, add assets, remove assets, or terminate it at any time. It becomes irrevocable only at your death. During your lifetime it is completely transparent for income tax purposes (your SSN is the trust's tax ID).",
-    l:'F.S. § 736.0602 — the settlor of a revocable trust may revoke or amend the trust at any time. F.S. § 736.0505(2) — a revocable trust does NOT protect assets from the settlor\'s own creditors during lifetime (this is why irrevocable/DAPT structures exist for asset protection).',
+    l:'F.S. § 736.0602 — the settlor of a revocable trust may revoke or amend the trust at any time. F.S. § 736.0505(2) — a revocable trust does NOT protect assets from the settlor\'s own creditors during lifetime (this is why irrevocable, non-self-settled structures exist for asset protection).',
     e:"You own a home, brokerage accounts, and a bank account. A revocable trust holds everything. You remain in complete control. At your death, your successor trustee distributes assets to your children without any probate court involvement."},
   trustType_irrevocable:{t:'Irrevocable Trust',
     m:"Once signed, you surrender control. You cannot revoke it, amend it, or take the assets back. In exchange, the trust assets are generally removed from your taxable estate and protected from most creditors. Irrevocable trusts are used for Medicaid planning, estate tax reduction, and permanent asset protection.",
     l:'F.S. § 736.0411 — an irrevocable trust may only be modified or terminated with court approval under limited circumstances (F.S. § 736.04113). Once assets are transferred, you lose ownership. F.S. § 736.0505(1) — assets in an irrevocable trust ARE protected from the settlor\'s creditors (unlike revocable).',
     e:"A 78-year-old wants to protect her home from Medicaid spend-down if she enters a nursing home. She transfers the home into an irrevocable Medicaid Asset Protection Trust (MAPT). After the 60-month look-back period, the home is protected — even if she needs Medicaid nursing home coverage."},
-  trustType_dapt:{t:'Florida Domestic Asset Protection Trust (DAPT)',
-    m:"A self-settled spendthrift trust — meaning you (the settlor) can also be a discretionary beneficiary. Normally, self-settled trusts offer no creditor protection. Florida's DAPT statute is an exception: you can contribute assets, remain eligible to receive distributions, and still have the assets protected from future creditors after a seasoning period.",
-    l:"F.S. § 736.0505(3) — Florida DAPT statute. Assets must be transferred in good faith (not to defraud existing creditors). Four-year seasoning period before assets are protected against most creditors. Trustee must be a Florida-qualified trustee (bank, trust company, or FL-resident individual). Not available against existing creditors at time of transfer.",
-    e:"A surgeon with high malpractice exposure contributes $2M to a Florida DAPT. An independent Florida trustee holds the assets. After four years, a future malpractice judgment creditor cannot reach the DAPT assets. The surgeon remains eligible for discretionary distributions for education and health."},
   trustType_dynasty:{t:'Dynasty / Generation-Skipping Trust',
     m:"A trust designed to hold wealth across multiple generations — potentially up to 360 years in Florida. Assets in a dynasty trust avoid estate tax at each generation transition (no estate tax when assets pass from your children to grandchildren to great-grandchildren). Spendthrift protection applies at every level.",
     l:"F.S. § 736.1205 — Florida's Rule Against Perpetuities has been extended to 360 years, one of the longest in the US. IRC § 2631 — each person has a $13.99M (2025) GST exemption that can be allocated to a dynasty trust. Once allocated, assets grow free of transfer tax through the trust's entire term.",
@@ -3771,7 +3765,7 @@ const OPT_INFO={
   provisions_fl_situs:{t:'Florida Situs & Choice-of-Law Clause',
     m:"Expressly designates Florida as the governing law for the trust. This is particularly critical for restatements — without it, a court could apply the old state's law instead of Florida's more favorable law. Also important if you have assets in multiple states.",
     l:'F.S. § 736.0108 — Florida law governs a trust if the instrument so provides AND Florida has a significant relationship to the trust (FL-resident trustee, FL administration, FL-resident grantor). Must be combined with actual FL contacts.',
-    e:"You moved from New York and restated your NY trust as a Florida trust. Without an explicit FL situs clause, a dispute might be governed by NY law — losing the benefit of Florida's stronger asset protection provisions, DAPT statute, and 360-year dynasty period."},
+    e:"You moved from New York and restated your NY trust as a Florida trust. Without an explicit FL situs clause, a dispute might be governed by NY law — losing the benefit of Florida's stronger asset protection provisions and 360-year dynasty period."},
   provisions_spendthrift:{t:'Spendthrift Clause',
     m:"A spendthrift clause prevents a beneficiary from voluntarily assigning their trust interest to a creditor, and prevents creditors from attaching trust assets before distribution. Florida courts strongly enforce spendthrift provisions. This is the foundational creditor protection provision for all trust beneficiaries.",
     l:"F.S. § 736.0502 — a spendthrift clause is valid and enforceable in Florida. F.S. § 736.0503 — exceptions apply for: child support claims, alimony claims, creditors providing necessities, and government claimants. A creditor must wait until distribution to collect.",
@@ -3812,10 +3806,6 @@ const OPT_INFO={
     m:"Extends your trust's perpetuities period to Florida's 360-year maximum. Without this provision, trusts in Florida are still subject to the older 'wait and see' approach and may be required to terminate sooner. Dynasty provisions also allocate GST exemption, establish generation-skipping distribution rules, and prepare the trust to serve multiple generations.",
     l:"F.S. § 736.1205 — Florida's 360-year rule against perpetuities. IRC § 2631 — GST tax exemption ($13.99M in 2025). IRC § 2641 — inclusion ratio controls GST tax on distributions. Properly drafted dynasty provisions include GST exemption allocation language and skip-person distribution standards.",
     e:"You fund a trust with $5M today. With dynasty provisions and 6% annual growth, 100 years from now the trust may hold $1.7 billion — all shielded from estate tax at each generation. Your great-great-grandchildren can benefit. Without dynasty provisions, the trust might terminate at your grandchildren's deaths."},
-  provisions_dapt_prov:{t:'Domestic Asset Protection Provisions',
-    m:"Florida-law self-settled spendthrift trust provisions that allow you (the settlor) to remain a discretionary beneficiary while shielding assets from future creditors. Unlike a standard irrevocable trust where you give up access entirely, a DAPT lets you remain eligible for distributions while creditors cannot compel them.",
-    l:"F.S. § 736.0505(3) — Florida DAPT provision. Requirements: (1) at least one qualified Florida trustee; (2) transfers not made to defraud existing creditors; (3) 4-year seasoning period for most creditor claims. Florida's DAPT is one of the strongest in the US alongside Nevada and South Dakota.",
-    e:"You are a physician generating $600,000/year with significant malpractice exposure. You contribute $1M to a DAPT. After four years, a future patient's lawsuit cannot reach those assets. The trustee can still make discretionary distributions to you for health, education, and support."},
   provisions_gst:{t:'Generation-Skipping Transfer (GST) Tax Provisions',
     m:"The GST tax is a 40% federal tax that applies when assets skip a generation — passing directly to grandchildren rather than children. Each person has a $13.99M GST exemption (2025). GST provisions in your trust properly allocate this exemption to trust assets and establish the correct distribution structure for skip persons.",
     l:'IRC § 2601 — GST tax at 40% on generation-skipping transfers. IRC § 2631 — each person has a $13.99M GST exemption (2025). IRC § 2642 — the inclusion ratio determines how much GST tax applies. Proper allocation of GST exemption at trust funding eliminates future GST tax on all growth.',
@@ -4134,10 +4124,12 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeOptInfo
 // ── Choice ─────────────────────────────────────────────────────────
 function renderChoice(step){
   const cur=S.d[step.field];
+  // Attorney-only options (e.g. DAPT) are hidden from DIY/self-guided clients.
+  const opts = (step.opts||[]).filter(o => !(o.attorneyOnly && (window.appMode||'self')!=='attorney'));
   // Use 2-column grid when there are 4+ options and none have very long descriptions
-  const use2col = step.opts && step.opts.length>=4 && !step.opts.some(o=>(o.d||'').length>90) && !step.custom;
+  const use2col = opts.length>=4 && !opts.some(o=>(o.d||'').length>90) && !step.custom;
   let html=`<div class="options${use2col?' opts-2col':''}">`;
-  step.opts.forEach(o=>{
+  opts.forEach(o=>{
     const sel=cur===o.v?'sel':'', prem=o.premium?'premium':'';
     const infoKey=`${step.field}_${o.v}`;
     const hasInfo=!!OPT_INFO[infoKey];
@@ -4274,10 +4266,12 @@ function addAllRecommended(){
 
 function renderMulti(step){
   const cur=S.d[step.field]||[];
+  // Attorney-only options (e.g. DAPT provisions) are hidden from DIY/self-guided clients.
+  const opts = (step.opts||[]).filter(o => !(o.attorneyOnly && (window.appMode||'self')!=='attorney'));
   let html='';
   if(step.field==='provisions') html+=renderProvisionRecommender();
   html+=`<div class="options">`;
-  step.opts.forEach(o=>{
+  opts.forEach(o=>{
     const sel=cur.includes(o.v)?'sel':'', prem=o.premium?'premium':'';
     const infoKey=`${step.field}_${o.v}`;
     const hasInfo=!!OPT_INFO[infoKey];
@@ -4630,7 +4624,7 @@ function generateWelcomePackage(){
       <div class="art-t">What You Can Expect — Our Process</div>
       <p class="dp">Cornerstone Wealth &amp; Legacy Law follows a proven 5-step process to ensure your estate plan is not only legally correct but actually implemented — because a trust you never fund and a will stuffed in a drawer protect no one.</p>
       <p class="dp" style="background:#f8fafc;border-left:4px solid #c49a2a;padding:14px 18px;border-radius:0 10px 10px 0;margin-bottom:12px"><strong>Step 1 — Intake Questionnaire (Complete)</strong><br>You have completed our comprehensive intake interview covering your assets, family, and goals. This drives the initial draft.</p>
-      <p class="dp" style="background:#f8fafc;border-left:4px solid #0f2744;padding:14px 18px;border-radius:0 10px 10px 0;margin-bottom:12px"><strong>Step 2 — Attorney Review &amp; Consultation</strong><br>Arthur Simpson, Esq. reviews your draft, contacts you to discuss any open questions, and finalizes your documents. Typical turnaround: 3–5 business days. Complex matters (QDOT, DAPT, international, business succession): 7–10 business days.</p>
+      <p class="dp" style="background:#f8fafc;border-left:4px solid #0f2744;padding:14px 18px;border-radius:0 10px 10px 0;margin-bottom:12px"><strong>Step 2 — Attorney Review &amp; Consultation</strong><br>Arthur Simpson, Esq. reviews your draft, contacts you to discuss any open questions, and finalizes your documents. Typical turnaround: 3–5 business days. Complex matters (QDOT, asset protection, international, business succession): 7–10 business days.</p>
       <p class="dp" style="background:#f8fafc;border-left:4px solid #0f2744;padding:14px 18px;border-radius:0 10px 10px 0;margin-bottom:12px"><strong>Step 3 — Document Preparation &amp; Delivery</strong><br>Final documents are delivered to you in PDF and Word format for review. We walk you through every provision. Any changes at this stage are made without additional charge.</p>
       <p class="dp" style="background:#f8fafc;border-left:4px solid #0f2744;padding:14px 18px;border-radius:0 10px 10px 0;margin-bottom:12px"><strong>Step 4 — Execution</strong><br>We supervise the signing ceremony — in our office, your home, or via Florida's Remote Online Notarization (RON) system. (F.S. §§ 117.201–117.209) A will requires two witnesses and a notary. (F.S. § 732.502) A trust requires a notary. (F.S. § 736.0403) We provide all witnesses.</p>
       <p class="dp" style="background:#f8fafc;border-left:4px solid #059669;padding:14px 18px;border-radius:0 10px 10px 0;margin-bottom:12px"><strong>Step 5 — Funding &amp; Implementation</strong><br>The most important step most attorneys skip. We coordinate every asset transfer: deeds, account retitling, beneficiary designation updates, business interest assignments, and more. An unfunded trust does NOT avoid probate.</p>
@@ -4940,15 +4934,9 @@ function generateTrust(){
   </div>`:
   '';
 
-  const daptArt = (provs.includes('dapt_prov')||d.trustType==='dapt')
-    ?`<div class="art">
-    <div class="art-t">Domestic Asset Protection Trust Provisions</div>
-    <p class="dp"><strong>Self-Settled Spendthrift Trust.</strong> If and to the extent this Trust is structured as a Domestic Asset Protection Trust (DAPT) under Florida law, the Grantor may be included as a discretionary beneficiary of the Trust, and the spendthrift provisions of Article VIII herein shall apply to the Grantor's interest. (F.S. § 736.0505(3))</p>
-    <p class="dp"><strong>Qualified Disposition.</strong> Any transfer of assets to this Trust that is intended to constitute a "qualified disposition" for asset protection purposes must satisfy the requirements of F.S. § 736.04117, including the execution of a Qualified Disposition Affidavit by the Grantor affirming that the transfer is not made with intent to hinder, delay, or defraud any known creditor.</p>
-    <p class="dp"><strong>Applicable Statutes of Limitation.</strong> Claims against assets transferred to this Trust are subject to the shorter of: (a) four (4) years from the date of transfer; or (b) one (1) year after the claimant discovers or reasonably should have discovered the transfer. (F.S. § 736.04117(2))</p>
-    <p class="dp"><em style="color:#555;font-size:.88rem">DAPT structures require careful implementation. Transfers made with intent to defraud existing creditors will not receive protection. Consult Cornerstone Wealth &amp; Legacy Law for proper execution of Qualified Disposition documentation.</em></p>
-  </div>`:
-  '';
+  // DAPT removed entirely: Florida does not recognize self-settled domestic asset
+  // protection trusts. Asset protection is handled by attorney consultation.
+  const daptArt = '';
 
   const homesteadArt = provs.includes('homestead')
     ?`<div class="art">
@@ -8542,7 +8530,7 @@ function generateTrustFundingGuide(){
         <p class="dp" style="font-size:1.05em;font-weight:800;color:#c49a2a">CORNERSTONE WEALTH &amp; LEGACY LAW</p>
         <p class="dp">Arthur Simpson, Esq.</p>
         <p class="dp">📧 arthur@cornerstonewealthlegacy.com</p>
-        <p class="dp">🌐 cornerstonelaw.com</p>
+        <p class="dp">🌐 cornerstonewealthlegacy.com</p>
         <p class="dp" style="font-size:.85em;color:rgba(255,255,255,.6);margin-top:8px"><em>This guide is provided for informational purposes as part of your estate planning engagement. It does not constitute legal advice for any transaction not covered by our engagement agreement. Laws change — review your plan every 3–5 years or after major life events.</em></p>
       </div>
     </div>
@@ -8587,7 +8575,7 @@ function generateLadyBirdDeed(){
     </div>
 
     <p class="dp"><strong>PREPARED BY AND RETURN TO:</strong></p>
-    <p class="dp">Arthur Simpson, Esq.<br>Cornerstone Wealth &amp; Legacy Law<br>Florida Bar No.: 529265<br>cornerstonelaw.com</p>
+    <p class="dp">Arthur Simpson, Esq.<br>Cornerstone Wealth &amp; Legacy Law<br>Florida Bar No.: 529265<br>cornerstonewealthlegacy.com</p>
 
     <p class="dp" style="margin-top:16px"><strong>PARCEL/FOLIO NUMBER:</strong> _____________________________ (verify with ${county} Property Appraiser)</p>
 
@@ -9034,10 +9022,10 @@ function downloadICS(){
   const next=new Date(now.getFullYear()+1,now.getMonth(),now.getDate());
   const pad=n=>String(n).padStart(2,'0');
   const fmtDt=dt=>`${dt.getFullYear()}${pad(dt.getMonth()+1)}${pad(dt.getDate())}`;
-  const uid=`trust-review-${Date.now()}@cornerstonelaw.com`;
+  const uid=`trust-review-${Date.now()}@cornerstonewealthlegacy.com`;
   const ics=[
     'BEGIN:VCALENDAR','VERSION:2.0',
-    'PRODID:-//Cornerstone Wealth & Legacy Law//Trust Builder//EN',
+    'PRODID:-//Cornerstone Wealth & Legacy Law//Florida Estate Kit//EN',
     'BEGIN:VEVENT',
     `UID:${uid}`,
     `DTSTART;VALUE=DATE:${fmtDt(next)}`,
@@ -9050,7 +9038,7 @@ function downloadICS(){
       `• Has tax law changed since the trust was drafted?\\n` +
       `• Is funding complete — are all intended assets titled to the trust?\\n\\n` +
       `Contact Cornerstone Wealth & Legacy Law to schedule your review appointment.`,
-    'LOCATION:Cornerstone Wealth & Legacy Law — cornerstonelaw.com',
+    'LOCATION:Cornerstone Wealth & Legacy Law — cornerstonewealthlegacy.com',
     'RRULE:FREQ=YEARLY',
     `DTSTAMP:${fmtDt(now)}T000000Z`,
     'END:VEVENT','END:VCALENDAR'
@@ -10297,7 +10285,7 @@ async function updateUserBar(user) {
       ${isAtty ? '<button class="user-menu-item" onclick="showAttorneyDashboard()">⚖️ Attorney Dashboard</button>' : ''}
       ${(isAtty || isStaff) ? '<button class="user-menu-item" onclick="createCollabSession()">🤝 New Guided Session</button>' : ''}
       ${!isAtty ? '<a class="user-menu-item" href="/portal" style="display:block;text-decoration:none">📁 My Portal</a>' : ''}
-      ${!isAtty ? '<button class="user-menu-item" onclick="document.getElementById(\'userMenu\').style.display=\'none\'">📋 My Trust Builder</button>' : ''}
+      ${!isAtty ? '<button class="user-menu-item" onclick="document.getElementById(\'userMenu\').style.display=\'none\'">📋 My Florida Estate Kit</button>' : ''}
       <div style="height:1px;background:#f1f3f5;margin:4px 0"></div>
       <button class="user-menu-item" style="color:#c0392b" onclick="signOut()">Sign Out</button>
     </div>
@@ -11657,7 +11645,7 @@ if(pwaInstallBtn){
     if(!_pwaPrompt)return;
     _pwaPrompt.prompt();
     const{outcome}=await _pwaPrompt.userChoice;
-    if(outcome==='accepted'){showToast('✓ Trust Builder installed!');}
+    if(outcome==='accepted'){showToast('✓ Florida Estate Kit installed!');}
     _pwaPrompt=null;
     const banner=document.getElementById('pwaBanner');
     if(banner)banner.classList.remove('show');
@@ -11858,7 +11846,7 @@ const HELP_DATA = {
     text: `<p>Your situation determines which questions you'll see, which Florida advantages apply to you, and what type of document gets generated.</p>
     <p><strong>New Florida Resident</strong> — We create a brand-new Florida trust and highlight tax savings vs. your prior state.</p>
     <p><strong>Existing Out-of-State Trust</strong> — We generate a formal <em>Restatement</em>, which preserves your original trust's creation date while updating everything to Florida law. This is the most common scenario for movers from NY, CA, NJ, IL, and MA.</p>
-    <p><strong>Asset Protection Focus</strong> — We include Florida's Domestic Asset Protection Trust (DAPT) provisions and creditor-shielding language.</p>`
+    <p><strong>Asset Protection Focus</strong> — We layer Florida's homestead, tenancy-by-the-entireties, LLC charging-order, and statutory exemption protections, with creditor-shielding trust language. (Florida does not recognize self-settled DAPTs; a true DAPT is handled by attorney consultation under another state's law.)</p>`
   },
   'Prior State': {
     icon: '📍',
@@ -11875,7 +11863,7 @@ const HELP_DATA = {
     <p><strong>Under $1M</strong> — Clean, standard revocable trust focused on probate avoidance.</p>
     <p><strong>$1M–$5M</strong> — Adds spendthrift protection, per stirpes distribution, and detailed trustee powers.</p>
     <p><strong>$5M–$20M</strong> — Adds dynasty provisions, HEMS discretionary distribution, and institutional investment authority.</p>
-    <p><strong>$20M+</strong> — Full suite: generation-skipping trust, DAPT asset protection, GST exemption allocation, charitable provisions, and 360-year Florida perpetuities planning.</p>`
+    <p><strong>$20M+</strong> — Full suite: generation-skipping trust, asset-protection planning, GST exemption allocation, charitable provisions, and 360-year Florida perpetuities planning.</p>`
   },
   'Structure': {
     icon: '👥',
@@ -11889,7 +11877,7 @@ const HELP_DATA = {
     q: 'Which trust type is right for me?',
     text: `<p><strong>Revocable Living Trust</strong> — The gold standard for most clients. You keep full control, can change it anytime, and assets pass to heirs without probate.</p>
     <p><strong>Irrevocable Trust</strong> — Used for asset protection, Medicaid planning, or removing assets from your taxable estate. Once signed, terms generally can't be changed.</p>
-    <p><strong>DAPT (Domestic Asset Protection Trust)</strong> — Florida's self-settled spendthrift trust. You can be a discretionary beneficiary while shielding assets from future creditors. Requires a Qualified Disposition Affidavit.</p>
+    <p><strong>DAPT (Domestic Asset Protection Trust)</strong> — A self-settled spendthrift trust where the settlor can also be a discretionary beneficiary. <strong>Florida does not authorize DAPTs</strong> — under F.S. § 736.0505(1)(b) a settlor's creditors can reach a self-settled trust. A true DAPT must be sited under another state's law (e.g., Nevada, South Dakota) and is handled by attorney consultation.</p>
     <p><strong>Dynasty Trust</strong> — Florida allows trusts to last 360 years — longer than any other state. Ideal for transferring wealth across multiple generations while avoiding estate tax at each generational transfer.</p>`
   },
   'Trustees': {
@@ -11978,14 +11966,14 @@ const CHAT_ANSWERS = {
   // ── Trusts ──
   'What is a revocable living trust?': "A revocable living trust is a legal document where you (the Grantor) transfer assets to yourself (as Trustee) to hold for your benefit during your lifetime. You keep complete control — you can change, amend, or revoke it at any time. At death, the Successor Trustee distributes assets to your beneficiaries privately and immediately, with no probate. It's the cornerstone of modern Florida estate planning.",
   'What is an irrevocable trust?': "An irrevocable trust cannot be changed or revoked once signed (with limited exceptions). Why would anyone do this? Because irrevocable trusts offer what revocable trusts cannot: (1) Asset protection from creditors; (2) Removal of assets from your taxable estate; (3) Medicaid planning (MAPT); (4) Special needs planning (SNT); (5) ILIT for life insurance. You give up control to gain protection and tax benefits.",
-  'What is a Florida DAPT?': "A Domestic Asset Protection Trust (DAPT) is Florida's self-settled spendthrift trust (F.S. § 736.0505(3)). Unique feature: you can be a DISCRETIONARY beneficiary of your own irrevocable trust — meaning the trustee can make distributions to you at their discretion — while the assets are protected from your future creditors. Florida requires a Qualified Disposition Affidavit and a 4-year look-back period. Excellent for doctors, business owners, and real estate professionals facing lawsuit risk.",
+  'What is a Florida DAPT?': "Despite the name, Florida does NOT have a domestic asset protection trust statute. Under Florida Statutes § 736.0505(1)(b), if you are a beneficiary of a trust you created, your creditors can reach the maximum amount distributable to you — so a self-settled trust gives no creditor protection here. Floridians instead get strong protection through other tools: unlimited homestead, tenancy by the entireties, LLC charging-order protection, and exemptions for retirement accounts, life insurance, and annuities. If a true DAPT is appropriate, it must be established under another state's law (such as Nevada or South Dakota) — that is attorney-guided planning, not a do-it-yourself document.",
   'Can a trust be contested in Florida?': "Yes. A trust can be challenged on grounds of: lack of capacity, undue influence, fraud, duress, or mistake. (F.S. § 736.0604) The statute of limitations is generally 4 years from discovery of the grounds, or 6 months after the trustee gives notice of the trust to the beneficiary — whichever is earlier. Cornerstone's trusts include anti-contest provisions, no-contest clauses (F.S. § 736.1008), and mandatory mediation clauses to deter frivolous challenges.",
   'What is a spendthrift trust?': "A spendthrift trust includes a clause (F.S. § 736.0502) that prevents a beneficiary from transferring their interest to someone else AND prevents the beneficiary's creditors from reaching trust assets BEFORE distribution. For example: your adult child goes through a divorce or bankruptcy — the spendthrift clause shields their inheritance from the ex-spouse or bankruptcy trustee until the trustee actually distributes assets to them. Nearly every Florida trust should have a spendthrift clause.",
   'How is a trust taxed in Florida?': "A revocable living trust is a 'grantor trust' — it's ignored for income tax purposes (IRC § 671-677). All income is reported on your personal return using your Social Security number — no separate trust tax return needed while you're alive and the trust is revocable. After death, an irrevocable estate trust (Form 1041) is required. Florida has NO state income tax, so trusts also benefit. Special rules apply to foreign trusts, SNTs, and charitable trusts.",
-  'What is a dynasty trust in Florida?': "Florida allows trusts to last up to 360 years (F.S. § 689.225) — one of the longest in the nation. A dynasty trust can hold wealth across multiple generations, with assets growing free from estate tax at each generation. Combined with a $15M GST (generation-skipping transfer) exemption per person (permanent under OBBBA, 2026+) and Florida's DAPT provisions, a Florida dynasty trust is one of the most powerful wealth preservation tools available anywhere in the country. A properly structured dynasty trust with GST allocation can shelter assets from transfer tax for generations.",
+  'What is a dynasty trust in Florida?': "Florida allows trusts to last up to 360 years (F.S. § 689.225) — one of the longest in the nation. A dynasty trust can hold wealth across multiple generations, with assets growing free from estate tax at each generation. Combined with a $15M GST (generation-skipping transfer) exemption per person (permanent under OBBBA, 2026+), a Florida dynasty trust is one of the most powerful wealth preservation tools available anywhere in the country. A properly structured dynasty trust with GST allocation can shelter assets from transfer tax for generations.",
   // ── Asset Protection ──
   'How do I protect assets from nursing home costs in Florida?': "The 5-year Medicaid look-back rule (42 U.S.C. § 1396p(c)) means that transfers made within 5 years before applying for Medicaid long-term care benefits are subject to a penalty period. Planning strategies include: (1) Medicaid Asset Protection Trust (MAPT) — funded more than 5 years before applying; (2) Exempt asset conversion — purchasing an exempt annuity, prepaid funeral, or improving your home (homestead is exempt); (3) Caregiver child exception; (4) Spouse protection. START PLANNING EARLY — 5+ years before you anticipate needing care.",
-  'What assets are protected from creditors in Florida?': "Florida has the most powerful creditor protection in the nation: (1) Homestead — unlimited value exemption (Art. X § 4 Fla. Const.); (2) Head-of-household wages — up to $750/week (F.S. § 222.11); (3) Life insurance cash value and death benefits (F.S. § 222.14); (4) Annuity proceeds (F.S. § 222.14); (5) IRA and retirement accounts (F.S. § 222.21) — unlimited if properly structured; (6) TBE property — shielded from individual creditor of one spouse; (7) DAPT — self-settled trust after 4-year look-back.",
+  'What assets are protected from creditors in Florida?': "Florida has the most powerful creditor protection in the nation: (1) Homestead — unlimited value exemption (Art. X § 4 Fla. Const.); (2) Head-of-household wages — up to $750/week (F.S. § 222.11); (3) Life insurance cash value and death benefits (F.S. § 222.14); (4) Annuity proceeds (F.S. § 222.14); (5) IRA and retirement accounts (F.S. § 222.21) — unlimited if properly structured; (6) TBE property — shielded from individual creditor of one spouse; (7) statutory exemptions for head-of-household wages, life insurance, and annuities (F.S. §§ 222.11, 222.14). Note: Florida does NOT recognize self-settled domestic asset protection trusts (DAPTs); a true DAPT requires another state's law.",
   'What is tenancy by the entireties in Florida?': "Tenancy by the Entireties (TBE) is a form of ownership available only to legally married couples in Florida. TBE property is held by both spouses as a unified whole — meaning a creditor of ONLY ONE spouse CANNOT attach or force sale of TBE property. (Beal Bank v. Almand, 780 So.2d 45 (Fla. 2001)) This is automatic for jointly titled real estate between spouses in Florida. For financial accounts, you must specify 'as tenants by the entireties' on the account title.",
   // ── Taxes ──
   'Does Florida have inheritance tax?': "No — Florida has NO inheritance tax and NO estate tax at the state level. Assets pass to your heirs completely free of Florida tax, regardless of size. The FEDERAL estate tax applies if your estate exceeds $15M per person (2026+) — this exemption is NOW PERMANENT under the One Big Beautiful Bill Act (OBBBA, signed 2025), which repealed the TCJA sunset and increased the basic exclusion amount to $15M per person, inflation-adjusted from 2027 forward. For married couples with a portability election (Form 706 filed at first death), the combined exemption is $30M+.",
@@ -12003,7 +11991,7 @@ const CHAT_ANSWERS = {
   'I am a foreign national — can I own property in Florida?': "Yes. Foreign nationals can own real property in Florida with full legal title. However, special planning is critical: (1) US estate tax applies to non-resident aliens (NRAs) on US-sited assets with only a $60,000 exemption (vs. $15M for US citizens, permanent under OBBBA 2026+) — IRC §§ 2101-2108; (2) FIRPTA withholding (15% of sale price) applies when NRAs sell US real property — IRC § 1445; (3) FBAR reporting required for US financial accounts over $10,000; (4) Many tax treaties (UK, Germany, Canada, etc.) provide increased exemptions. A properly structured foreign grantor trust or domestic trust can dramatically reduce your US estate tax exposure.",
   'What is a QDOT trust?': "A Qualified Domestic Trust (QDOT) is required when a US citizen wants to leave assets to a NON-citizen spouse and claim the marital deduction (IRC § 2056A). Without a QDOT, assets passing to a non-citizen spouse do NOT qualify for the marital deduction and are subject to estate tax at the first death. A QDOT defers the estate tax until the non-citizen spouse either dies or takes a principal distribution. At least one QDOT trustee must be a US citizen or US bank.",
   // ── Process ──
-  'How much does a trust cost in Florida?': "Attorney fees for a basic revocable living trust in Florida typically range from $1,500–$3,500 for an individual, $2,500–$5,000 for a married couple. Complex trusts (DAPT, dynasty, SNT, ILIT) run $3,500–$10,000+. Cornerstone's pricing is transparent and includes the full companion document package. Consider: a trust that costs $3,000 now saves your family $15,000–$30,000 in probate fees — and delivers peace of mind that has no price.",
+  'How much does a trust cost in Florida?': "Attorney fees for a basic revocable living trust in Florida typically range from $1,500–$3,500 for an individual, $2,500–$5,000 for a married couple. Complex trusts (dynasty, SNT, ILIT, asset-protection) run $3,500–$10,000+. Cornerstone's pricing is transparent and includes the full companion document package. Consider: a trust that costs $3,000 now saves your family $15,000–$30,000 in probate fees — and delivers peace of mind that has no price.",
   'How long does it take to create a trust?': "With Cornerstone's digital platform, you can complete your Q&A intake in 20–45 minutes. Document drafting is immediate. Attorney review and approval: typically 3–5 business days. Execution (signing ceremony): scheduled at your convenience. Funding coordination: 2–6 weeks depending on asset complexity. Total time from start to fully funded trust: 3–8 weeks.",
   'Do I need a lawyer to make a trust in Florida?': "Florida law does not require an attorney to create a trust — but the risks of a DIY trust are severe. Common DIY errors: improper execution, failure to include required Florida provisions, failure to fund the trust, tax planning mistakes, and failure to coordinate with beneficiary designations. One missed provision can cost your family far more than the attorney fee. Cornerstone combines the efficiency of technology with attorney oversight at every step.",
   'When should I update my trust?': "Review and potentially update your trust after: (1) Marriage, divorce, or domestic partnership change; (2) Birth or adoption of a child or grandchild; (3) Death of a beneficiary, trustee, or guardian; (4) Significant change in assets (buying/selling real estate, business, large inheritance); (5) Moving to or from Florida; (6) Change in tax law (the OBBBA made the $15M exemption permanent — review SLAT, GRAT, and IDGT strategies accordingly); (7) Change in relationship with named fiduciaries; (8) Change in disability or special needs status of a beneficiary. Best practice: annual review with your estate planning attorney.",

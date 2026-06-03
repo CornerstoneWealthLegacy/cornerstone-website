@@ -346,9 +346,11 @@ function _printNote() {
     <div class="print-notice">
       <strong>Before you print:</strong> Review every blank line and bracketed placeholder.
       Use your browser's <strong>File → Print</strong> (or Ctrl+P / ⌘P) and choose
-      <strong>"Save as PDF"</strong> for a clean digital copy. These documents require
+      <strong>"Save as PDF"</strong> for a clean digital copy. In the print dialog, open
+      <strong>"More settings"</strong> and turn <strong>OFF "Headers and footers"</strong> so the
+      page URL and date do not print on your document. These documents require
       attorney review, notarization, and proper witnessing before they are legally effective.
-      <strong>Contact Cornerstone Wealth &amp; Legacy Law at (386) 222-1907</strong> to
+      <strong>Contact Cornerstone Wealth &amp; Legacy Law at (386) 293-5586</strong> to
       schedule your signing appointment.
     </div>
   `;
@@ -399,7 +401,7 @@ function _firmFooter() {
   return `
     <p class="centered statutory" style="margin-top:36pt; border-top:1px solid #ccc; padding-top:12pt;">
       Prepared by: Arthur Simpson, Esq. &nbsp;|&nbsp; Cornerstone Wealth &amp; Legacy Law
-      &nbsp;|&nbsp; Daytona Beach, Florida &nbsp;|&nbsp; (386) 222-1907
+      &nbsp;|&nbsp; Ormond Beach, Florida &nbsp;|&nbsp; (386) 293-5586
       &nbsp;|&nbsp; cornerstonewealthlegacy.com
     </p>
   `;
@@ -461,8 +463,10 @@ function _trust(d, benes, contingents, successors) {
     to the terms hereof, then that beneficiary shall forfeit all right, title, and interest
     in and to any distribution otherwise provided herein, and such forfeited interest shall
     pass as though that beneficiary had predeceased the Grantor without issue.
-    <em>Note: Florida courts enforce no-contest clauses; however, a contest brought with
-    probable cause may be exempt from forfeiture. F.S. § 736.1108.</em></p>
+    <em>Note: Under Florida Statutes § 736.1108, a provision penalizing a beneficiary for
+    contesting a trust is generally unenforceable in Florida. This Section expresses the
+    Grantor's intent and request that this Trust not be contested, and may not operate as an
+    enforceable forfeiture under current Florida law.</em></p>
   ` : '';
 
   // Digital assets clause
@@ -494,27 +498,9 @@ function _trust(d, benes, contingents, successors) {
     Florida law.</p>
   ` : '';
 
-  // DAPT / asset protection provisions
-  const dapt = d.trustType === 'dapt' ? `
-    <h2 class="article-title">Article X — Asset Protection (DAPT)</h2>
-    <p>This Trust is established as a Domestic Asset Protection Trust pursuant to
-    Florida Statutes § 736.0505(3). To qualify for asset protection:</p>
-    <ol class="alpha">
-      <li>The Trust is irrevocable or revocable only with the consent of a qualified
-      trustee or an adverse party;</li>
-      <li>The Trust does not require that any part of the income or principal be
-      distributed to the Grantor;</li>
-      <li>The Trust was not intended to defraud specific creditors;</li>
-      <li>At least one qualified trustee is a Florida resident or an entity
-      authorized to act as trustee in Florida.</li>
-    </ol>
-    <p>The Qualified Trustee, as defined herein, shall at all times be a Florida
-    resident individual or a Florida-authorized corporate trustee. The Grantor
-    specifically retains no powers inconsistent with § 736.0505(3).</p>
-    <p class="statutory">Creditor claims against a DAPT are governed by F.S. § 736.05053.
-    Self-settled trusts created on or after July 1, 2021 may qualify for protection under
-    § 736.0505(3) if all statutory requirements are satisfied.</p>
-  ` : '';
+  // DAPT removed: Florida does not recognize self-settled domestic asset protection trusts.
+  // Asset-protection planning is handled by attorney consultation, not self-serve generation.
+  const dapt = '';
 
   // Dynasty / GST provisions
   const dynasty = _has(d, 'dynasty_prov') ? `
@@ -545,14 +531,13 @@ ${_printNote()}
 
   <!-- COVER PAGE -->
   <div class="doc-cover">
-    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law &nbsp;·&nbsp; Daytona Beach, Florida</div>
+    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law</div>
     <h1>${tName.toUpperCase()}</h1>
     <div class="doc-subtitle">A Florida Revocable Living Trust</div>
     <div class="doc-parties">
       <strong>GRANTOR${joint ? 'S' : ''}:</strong> ${_gnUpper(d)}${joint ? ' AND ' + _snUpper(d) : ''}<br>
       ${gAddr}<br>
     </div>
-    <div class="doc-date">Executed: ${_today()}</div>
   </div>
 
   <!-- PREAMBLE -->
@@ -658,8 +643,8 @@ ${_printNote()}
   manage property or business affairs effectively due to mental illness, mental
   deficiency, physical illness, disability, chronic use of drugs or alcohol, or
   confinement. The Trustee's physician and one additional physician selected by the
-  majority of qualified adult beneficiaries shall provide such certification.
-  F.S. § 736.0604.</p>
+  majority of qualified adult beneficiaries shall provide such certification. This
+  incapacity standard is established by the terms of this Trust instrument.</p>
 
   <!-- ARTICLE IV — DISTRIBUTION DURING GRANTOR'S LIFETIME -->
   <h2 class="article-title">Article IV — Distributions During Grantor's Lifetime</h2>
@@ -818,7 +803,7 @@ ${_printNote()}
   <p>The Grantor intends to execute a Pour-Over Will contemporaneously with this
   Trust Agreement, directing that all assets of the Grantor's probate estate not
   otherwise disposed of shall pour over into this Trust and be administered as
-  part of the Trust Estate. F.S. § 732.2725.</p>
+  part of the Trust Estate. F.S. § 732.513.</p>
 
   <h3 class="section-title">Section 8.2 — Disclaimer</h3>
   <p>Any beneficiary may disclaim any interest in this Trust in the manner prescribed
@@ -839,8 +824,7 @@ ${_printNote()}
   <p>This Trust Agreement constitutes the complete and exclusive statement of the
   terms of this Trust and supersedes all prior arrangements or understandings
   regarding the subject matter hereof. If any provision is found invalid or
-  unenforceable, the remaining provisions shall continue in full force and effect.
-  F.S. § 736.1012.</p>
+  unenforceable, the remaining provisions shall continue in full force and effect.</p>
 
   <h3 class="section-title">Section 8.5 — Certification of Trust</h3>
   <p>The Trustee may execute a Certification of Trust pursuant to F.S. § 736.1017
@@ -963,7 +947,7 @@ ${_printNote()}
 // ═══════════════════════════════════════════════════════════════════════
 //  DOCUMENT 2 — POUR-OVER WILL
 //  Authority: F.S. § 732.502 (will execution), § 732.503 (self-proof),
-//             § 732.2725 (pour-over wills), § 736.0401 (trust created
+//             § 732.513 (pour-over wills), § 736.0401 (trust created
 //             before or concurrently with will)
 // ═══════════════════════════════════════════════════════════════════════
 
@@ -1010,11 +994,10 @@ ${_printNote()}
 <div class="doc-wrapper">
 
   <div class="doc-cover">
-    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law &nbsp;·&nbsp; Daytona Beach, Florida</div>
+    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law</div>
     <h1>LAST WILL AND TESTAMENT<br>(Pour-Over Will)</h1>
     <div class="doc-subtitle">Pours to: ${tName}</div>
     <div class="doc-parties"><strong>TESTATOR:</strong> ${_gnUpper(d)}</div>
-    <div class="doc-date">Executed: ${_today()}</div>
   </div>
 
   <p>I, <strong>${_gnUpper(d)}</strong>, a resident of ${county} County, Florida,
@@ -1043,7 +1026,7 @@ ${_printNote()}
   per stirpes. If I have no then-living descendants, then to my heirs at law
   as determined under Florida Statutes § 732.103.</p>
 
-  <p class="statutory">Authority: F.S. § 732.2725 permits the devise of property
+  <p class="statutory">Authority: F.S. § 732.513 permits the devise of property
   to the trustee of a trust established before, at the same time as, or after
   the will. The trust need not be funded to be valid as a recipient of a pour-over
   devise.</p>
@@ -1210,10 +1193,9 @@ ${_printNote()}
 <div class="doc-wrapper">
 
   <div class="doc-cover">
-    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law &nbsp;·&nbsp; Daytona Beach, Florida</div>
+    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law</div>
     <h1>LAST WILL AND TESTAMENT</h1>
     <div class="doc-parties"><strong>TESTATOR:</strong> ${_gnUpper(d)}</div>
-    <div class="doc-date">Executed: ${_today()}</div>
   </div>
 
   <p>I, <strong>${_gnUpper(d)}</strong>, a resident of ${county} County, Florida,
@@ -1298,7 +1280,7 @@ ${_printNote()}
 
   <h3 class="section-title">Section 6.3 — No-Contest</h3>
   ${_has(d, 'no_contest')
-    ? '<p>If any beneficiary directly or indirectly contests the probate of this Will or any provision hereof, such beneficiary shall forfeit all gifts and devises made herein, and such forfeited interest shall pass as if that beneficiary had predeceased me without descendants. F.S. § 732.517.</p>'
+    ? '<p>I request that no beneficiary contest the probate of this Will. I acknowledge that under Florida Statutes § 732.517, a provision penalizing a person for contesting a will is generally unenforceable in Florida; this provision therefore expresses my intent and request rather than an enforceable forfeiture.</p>'
     : '<p>All dispositions under this Will are made freely and voluntarily.</p>'}
 
   <h3 class="section-title">Section 6.4 — Digital Assets</h3>
@@ -1373,14 +1355,13 @@ ${_printNote()}
 <div class="doc-wrapper">
 
   <div class="doc-cover">
-    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law &nbsp;·&nbsp; Daytona Beach, Florida</div>
+    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law</div>
     <h1>FLORIDA DURABLE POWER OF ATTORNEY</h1>
     <div class="doc-subtitle">Effective Immediately · Survives Incapacity</div>
     <div class="doc-parties">
       <strong>PRINCIPAL:</strong> ${_gnUpper(d)}<br>
       <strong>AGENT:</strong> ${agent.toUpperCase()}
     </div>
-    <div class="doc-date">Executed: ${_today()}</div>
   </div>
 
   <div class="no-break" style="border:2px solid #c00;padding:12pt;margin-bottom:16pt;">
@@ -1477,9 +1458,11 @@ ${_printNote()}
     file tax returns and other tax documents on my behalf; to represent me before
     any taxing authority; to make tax elections;</li>
 
-    <li><strong>Gifts</strong> (F.S. § 709.2202(1)): <em>[RESTRICTED — requires
-    express grant below]</em> My Agent ☐ IS / ☐ IS NOT authorized to make gifts
-    on my behalf. If authorized, gifts shall not exceed the annual federal gift
+    <li><strong>Gifts</strong> (F.S. § 709.2202(1)): <em>[RESTRICTED — superpower]</em>
+    My Agent IS authorized to make gifts on my behalf <strong>ONLY IF</strong> I separately
+    sign or initial here, as required by Florida Statutes § 709.2202:
+    &nbsp;Principal's signature / initials: <u>&nbsp;__________&nbsp;</u>.
+    If authorized, gifts shall not exceed the annual federal gift
     tax exclusion per recipient per year ($19,000 for 2025) and shall be limited
     to gifts to my descendants and the organizations I regularly contribute to;</li>
 
@@ -1589,14 +1572,13 @@ ${_printNote()}
 <div class="doc-wrapper">
 
   <div class="doc-cover">
-    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law &nbsp;·&nbsp; Daytona Beach, Florida</div>
+    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law</div>
     <h1>DESIGNATION OF HEALTH CARE SURROGATE</h1>
     <div class="doc-subtitle">Florida Statutes § 765.202</div>
     <div class="doc-parties">
       <strong>PRINCIPAL:</strong> ${_gnUpper(d)}<br>
       <strong>SURROGATE:</strong> ${surrogate.toUpperCase()}
     </div>
-    <div class="doc-date">Executed: ${_today()}</div>
   </div>
 
   <div class="no-break" style="border:2px solid #1a1a1a;padding:12pt;margin-bottom:16pt;background:#f8f8f8;">
@@ -1736,11 +1718,10 @@ ${_printNote()}
 <div class="doc-wrapper">
 
   <div class="doc-cover">
-    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law &nbsp;·&nbsp; Daytona Beach, Florida</div>
+    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law</div>
     <h1>LIVING WILL AND DECLARATION</h1>
     <div class="doc-subtitle">Florida Statutes § 765.303 — Declaration of Desire for a Natural Death</div>
     <div class="doc-parties"><strong>DECLARANT:</strong> ${_gnUpper(d)}</div>
-    <div class="doc-date">Executed: ${_today()}</div>
   </div>
 
   <h2 class="article-title">Declaration</h2>
@@ -1888,11 +1869,10 @@ ${_printNote()}
 <div class="doc-wrapper">
 
   <div class="doc-cover">
-    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law &nbsp;·&nbsp; Daytona Beach, Florida</div>
+    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law</div>
     <h1>HIPAA AUTHORIZATION FOR DISCLOSURE<br>OF PROTECTED HEALTH INFORMATION</h1>
     <div class="doc-subtitle">45 C.F.R. § 164.508 · Florida Statutes § 765.205</div>
     <div class="doc-parties"><strong>INDIVIDUAL:</strong> ${_gnUpper(d)}</div>
-    <div class="doc-date">Executed: ${_today()}</div>
   </div>
 
   <h2 class="article-title">Authorization</h2>
@@ -2006,14 +1986,13 @@ ${_printNote()}
 <div class="doc-wrapper">
 
   <div class="doc-cover">
-    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law &nbsp;·&nbsp; Daytona Beach, Florida</div>
+    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law</div>
     <h1>CERTIFICATION OF TRUST</h1>
     <div class="doc-subtitle">Florida Statutes § 736.1017</div>
     <div class="doc-parties">
       <strong>TRUST:</strong> ${tName.toUpperCase()}<br>
       <strong>TRUSTEE:</strong> ${_gnUpper(d)}${joint ? ' AND ' + _snUpper(d) : ''}
     </div>
-    <div class="doc-date">Issued: ${_today()}</div>
   </div>
 
   <p>The undersigned Trustee${joint ? 's' : ''} of the <strong>${tName}</strong>
@@ -2130,13 +2109,12 @@ ${_printNote()}
 <div class="doc-wrapper">
 
   <div class="doc-cover">
-    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law &nbsp;·&nbsp; Daytona Beach, Florida</div>
+    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law</div>
     <h1>ASSIGNMENT OF PERSONAL PROPERTY TO REVOCABLE LIVING TRUST</h1>
     <div class="doc-parties">
       <strong>ASSIGNOR:</strong> ${_gnUpper(d)}${joint ? ' AND ' + _snUpper(d) : ''}<br>
       <strong>ASSIGNEE (TRUSTEE OF):</strong> ${tName.toUpperCase()}
     </div>
-    <div class="doc-date">Executed: ${_today()}</div>
   </div>
 
   <p>For good and valuable consideration, the receipt and sufficiency of which
@@ -2218,7 +2196,7 @@ ${_printNote()}
 //  Authority: F.S. § 689.071 (Florida Land Trust Act)
 //             § 689.073 (trustee powers and duties)
 //             § 689.074 (disclosure)
-//             § 192.037 (homestead eligibility)
+//             § 196.031 (homestead eligibility — beneficial title for life)
 // ═══════════════════════════════════════════════════════════════════════
 
 function _landTrust(d) {
@@ -2275,7 +2253,7 @@ ${_printNote()}
 <div class="doc-wrapper">
 
   <div class="doc-cover">
-    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law &nbsp;·&nbsp; Daytona Beach, Florida</div>
+    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law</div>
     <h1>FLORIDA LAND TRUST AGREEMENT</h1>
     <div class="doc-subtitle">${ltTrustName}</div>
     <div class="doc-subtitle">Pursuant to Florida Statutes § 689.071</div>
@@ -2283,7 +2261,6 @@ ${_printNote()}
       <strong>TRUSTEE:</strong> ${ltTrustee.toUpperCase()}<br>
       <strong>PROPERTY:</strong> ${ltProp}
     </div>
-    <div class="doc-date">Dated: ${ltTrustDate}</div>
   </div>
 
   <!-- RECITALS -->
@@ -2424,12 +2401,18 @@ ${_printNote()}
 
   <!-- ARTICLE V — HOMESTEAD -->
   <h2 class="article-title">Article V — Homestead Eligibility</h2>
-  <p>The Beneficiary who occupies the Property as their primary residence is
-  entitled to claim and maintain the Florida homestead exemption for ad valorem
-  tax purposes pursuant to Florida Statutes § 192.037 and Article X, § 4
-  of the Florida Constitution, notwithstanding that legal title is held by
-  the Trustee. The Trustee and Beneficiary shall cooperate to ensure that
-  all homestead exemption applications and renewals are timely filed.</p>
+  <p>A Beneficiary who occupies the Property as their permanent residence may be
+  entitled to claim the Florida homestead exemption for ad valorem tax purposes
+  under Florida Statutes § 196.031 and § 196.041(2) (which extends the exemption to
+  qualifying holders of equitable or beneficial title) and Article X, § 4 of the Florida Constitution,
+  notwithstanding that legal title is held by the Trustee — <em>provided</em> the
+  Beneficiary holds equitable title amounting to a beneficial interest for life and
+  otherwise qualifies (a beneficiary holding only a term-of-years interest may not
+  qualify; eligibility is determined by the county property appraiser). The Beneficiary
+  is responsible for applying for any homestead exemption directly with the property
+  appraiser in the county where the Property is located, and for timely filing any
+  renewals; the Trustee shall cooperate by providing the trust documentation the property
+  appraiser requires. This Trust does not itself grant or guarantee the homestead exemption.</p>
 
   <!-- ARTICLE VI — TERM -->
   <h2 class="article-title">Article VI — Term</h2>
@@ -2528,12 +2511,11 @@ ${_printNote()}
 <div class="doc-wrapper">
 
   <div class="doc-cover">
-    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law &nbsp;·&nbsp; Daytona Beach, Florida</div>
+    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law</div>
     <h1>NFA GUN TRUST AGREEMENT</h1>
     <div class="doc-subtitle">${tName}</div>
     <div class="doc-subtitle">ATF 41F Compliant · 27 C.F.R. § 479.62</div>
     <div class="doc-parties"><strong>SETTLOR/TRUSTEE:</strong> ${_gnUpper(d)}</div>
-    <div class="doc-date">Executed: ${_today()}</div>
   </div>
 
   <div class="no-break" style="border:2px solid #c00;padding:12pt;margin-bottom:16pt;">
@@ -2571,7 +2553,7 @@ ${_printNote()}
     <li>Short-Barreled Shotguns (SBS) — 26 U.S.C. § 5845(a)(1);</li>
     <li>Suppressors/Silencers — 26 U.S.C. § 5845(a)(7);</li>
     <li>Machine Guns (pre-1986 only, registered) — 26 U.S.C. § 5845(b);
-    26 U.S.C. § 922(o);</li>
+    18 U.S.C. § 922(o);</li>
     <li>Destructive Devices — 26 U.S.C. § 5845(f); and</li>
     <li>Any Other Weapons (AOW) — 26 U.S.C. § 5845(e).</li>
   </ol>
@@ -2776,6 +2758,301 @@ ${_printNote()}
 }
 
 // ═══════════════════════════════════════════════════════════════════════
+//  COMPANION DOCUMENT — TRUST FUNDING GUIDE
+//  Client guide for re-titling assets into the trust. Not a legal instrument;
+//  informational. Mirrors the guidance promised in post-purchase emails.
+// ═══════════════════════════════════════════════════════════════════════
+
+function _fundingGuide(d) {
+  const gName = _gn(d);
+  const sName = _sn(d);
+  const joint = _isJoint(d);
+  const tName = d.trustName || _trustName(d);
+  const who   = gName + (joint && sName ? ' &amp; ' + sName : '');
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Trust Funding Guide — ${gName}</title>
+  ${_css()}
+  <style>
+    .fg-callout{border-radius:8px;padding:12px 18px;margin:12px 0;font-size:10.5pt;}
+    .fg-warn{background:#fffbeb;border:1px solid #f59e0b;}
+    .fg-danger{background:#fef2f2;border:2px solid #ef4444;}
+    .fg-ok{background:#f0fdf4;border:1px solid #22c55e;}
+    .fg-info{background:#eef4ff;border:1px solid #3b82f6;}
+    .fg-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:9.5pt;}
+    .fg-table th{background:#0f2744;color:#fff;text-align:left;padding:7px 9px;}
+    .fg-table td{border-bottom:1px solid #e2e8f0;padding:7px 9px;vertical-align:top;}
+  </style>
+</head>
+<body>
+${_printNote()}
+<div class="doc-wrapper">
+
+  <div class="doc-cover">
+    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law</div>
+    <h1>TRUST FUNDING GUIDE</h1>
+    <div class="doc-subtitle">Client Funding Guide — Confidential</div>
+    <div class="doc-parties"><em>${tName}</em><br>${who}</div>
+  </div>
+
+  <h2 class="article-title">Why Funding Is the Most Important Step</h2>
+  <p>Signing your trust documents is only half the job. A revocable living trust only
+  controls assets that are <strong>titled in the name of the trust</strong> or for which the
+  trust is named as <strong>beneficiary</strong>. An unfunded trust — one with no assets in it —
+  will not avoid probate, will not protect your privacy, and will not ensure your wishes are carried out.</p>
+  <div class="fg-callout fg-warn"><strong>⚠️ COMMON MISTAKE:</strong> Many people sign a beautiful
+  trust and then never transfer any assets into it. At death, the estate goes through probate anyway —
+  defeating the entire purpose. Do not let this happen to you.</div>
+  <p><strong>Your trust name for titling purposes:</strong></p>
+  <div class="fg-callout fg-info"><strong>${tName}</strong><br>
+  Use this exact name when retitling accounts and recording deeds. Slight variations by institution are normal — confirm with your attorney if unsure.</div>
+
+  <h2 class="article-title">Section 1 — Florida Real Estate</h2>
+  <p>Real property is transferred to your trust by recording a new <strong>Warranty Deed or
+  Quit-Claim Deed</strong> in the county where the property is located. Your attorney's office should prepare the deed.</p>
+  <div class="fg-callout fg-ok"><strong>✅ Homestead (primary residence):</strong> Florida allows transfer
+  of your homestead to a revocable living trust without losing the homestead tax exemption
+  (Art. VII, § 6, Fla. Const.) or the Save Our Homes cap (F.S. § 193.155), provided the trust is
+  revocable and you retain a beneficial interest. After recording the new deed:
+  <ul>
+    <li>Re-file the Homestead Exemption application with the county property appraiser (Form DR-501) — required because the owner of record changed.</li>
+    <li>Notify your homeowner's insurer — add the trust as an additional insured.</li>
+    <li>Notify your mortgage servicer (a "due-on-sale" waiver is routinely granted for revocable trusts).</li>
+    <li>Record with the county clerk (recording fees typically $10–$20 per page).</li>
+  </ul></div>
+  <div class="fg-callout fg-warn"><strong>⚠️ LLC-held property</strong> is owned by the LLC, not you — assign
+  the LLC interest instead of deeding the property. <strong>Out-of-state real estate</strong> must be
+  transferred under that state's law; use a licensed attorney there or ask us for a referral.</div>
+
+  <h2 class="article-title">Section 2 — Bank &amp; Credit-Union Accounts</h2>
+  <ol class="decimal">
+    <li>Bring your <strong>Certificate of Trust</strong> and a government-issued photo ID to a branch.</li>
+    <li>Either <strong>retitle</strong> the account into the trust (preferred) or add the trust as a
+    <strong>Payable-on-Death (POD)</strong> beneficiary (acceptable backup).</li>
+    <li>Both spouses present for joint accounts.</li>
+    <li>Keep one small personal account outside the trust for day-to-day debit/direct deposit if your bank requires it.</li>
+  </ol>
+  <div class="fg-callout fg-info"><strong>Say this to your bank:</strong> "I'd like to retitle account
+  #XXXX into my revocable living trust, <strong>${tName}</strong>. Here is my Certificate of Trust."</div>
+
+  <h2 class="article-title">Section 3 — Brokerage / Investment Accounts</h2>
+  <p>Non-retirement investment accounts retitle directly into the trust. Ask the firm (Fidelity, Schwab,
+  Vanguard, Edward Jones, etc.) for their <strong>"Trust Transfer" or "Ownership Change"</strong> form and
+  provide a copy of your Certificate of Trust. The account is retitled to <strong>${tName}</strong>.</p>
+  <div class="fg-callout fg-ok"><strong>✅ This will NOT</strong> trigger capital gains tax, restart holding
+  periods, change your cost basis, or affect your investment strategy. It is purely administrative.</div>
+
+  <h2 class="article-title">Section 4 — Retirement Accounts (IRA, 401(k), 403(b), TSP, Pension)</h2>
+  <div class="fg-callout fg-danger"><strong>🚨 DO NOT RETITLE RETIREMENT ACCOUNTS INTO YOUR TRUST.</strong>
+  Transferring an IRA or 401(k) into a trust is treated as a <strong>taxable distribution</strong> of the
+  entire balance. A $500,000 IRA retitled into a trust means income tax on $500,000 in the year of transfer —
+  one of the most catastrophic estate-planning mistakes possible.</div>
+  <p><strong>What to do instead — name beneficiaries:</strong></p>
+  <ul>
+    <li><strong>Primary:</strong> usually your spouse (if married), or adult children named individually.</li>
+    <li><strong>Contingent:</strong> your children, or your trust (if there is no living spouse).</li>
+    <li><strong>Name the trust as IRA beneficiary only</strong> if a beneficiary is a minor, has special needs, is financially vulnerable, or you have a blended family — consult your attorney first (SECURE Act conduit/accumulation rules, IRC § 401(a)(9)(H)).</li>
+    <li>Update via your plan administrator's Beneficiary Designation form; review after every major life event.</li>
+  </ul>
+  <div class="fg-callout fg-warn"><strong>SECURE Act 10-year rule:</strong> most non-spouse beneficiaries must
+  fully distribute an inherited IRA within 10 years. Plan distributions to minimize the income-tax hit.</div>
+
+  <h2 class="article-title">Section 5 — Life Insurance</h2>
+  <ul>
+    <li><strong>Standard approach:</strong> name your spouse as primary beneficiary and your trust as contingent.</li>
+    <li><strong>If you have an ILIT:</strong> the ILIT owns and is the beneficiary — do not change it (IRC § 2042).</li>
+    <li>Update the carrier's Beneficiary Designation form and keep copies with your estate documents.</li>
+  </ul>
+
+  <h2 class="article-title">Section 6 — Business Interests (LLC, S-Corp, Partnership)</h2>
+  <ul>
+    <li><strong>LLC:</strong> execute an Assignment of Membership Interest to the trust, amend the operating
+    agreement (member changes from "${gName}" to "${tName}"), and update the Florida annual report at sunbiz.org.</li>
+    <li><strong>S-Corp:</strong> a revocable trust is a qualified shareholder (IRC § 1361); transfer by stock
+    assignment and update the ledger. After death, watch the 2-year QSST/ESBT window.</li>
+    <li><strong>Partnership:</strong> check the agreement for consent requirements; assign your interest and amend the agreement.</li>
+  </ul>
+
+  <h2 class="article-title">Section 7 — Vehicles, Boats &amp; Aircraft</h2>
+  <p>Often left out of the trust on purpose — a single vehicle can pass cheaply through your pour-over will
+  (Florida summary administration, F.S. § 735.201, if the estate is under $75,000), and trust ownership can
+  complicate auto insurance. To retitle anyway: complete FLHSMV Form HSMV 82040 with your Certificate of
+  Trust and notify your insurer. New title shows "${tName}, ${gName}, Trustee."</p>
+
+  <h2 class="article-title">Section 8 — Annuities</h2>
+  <div class="fg-callout fg-warn"><strong>⚠️ Don't retitle blindly.</strong> A non-qualified annuity owned by
+  a trust can lose its tax-deferred status (IRC § 72(u)). The safest approach is usually to name the trust
+  as <strong>beneficiary</strong>, not owner — confirm with the carrier and a tax advisor first.</div>
+
+  <h2 class="article-title">Section 9 — Safe Deposit Box &amp; Tangible Personal Property</h2>
+  <ul>
+    <li>Use the <strong>Personal Property Memorandum</strong> to list specific items and who receives them (binding under F.S. § 732.515).</li>
+    <li>Execute the <strong>Assignment of Personal Property</strong> (included) to transfer your tangible property to the trust as a class.</li>
+    <li>Add your successor trustee as an authorized signer on the safe deposit box so they can access it without a court order.</li>
+  </ul>
+
+  <h2 class="article-title">Section 10 — Digital Assets &amp; Cryptocurrency</h2>
+  <p>Florida's Revised Uniform Fiduciary Access to Digital Assets Act (F.S. §§ 740.001–740.0402) governs trustee access to digital accounts.</p>
+  <ul>
+    <li>Keep credentials in an encrypted password manager; record the master-access method in your safe deposit box.</li>
+    <li>Set the "legacy contact" / "inactive account manager" on Apple, Google, and Facebook.</li>
+    <li><strong>Crypto:</strong> store the seed phrase on paper or metal in a fireproof safe; document its location for your trustee.</li>
+  </ul>
+  <div class="fg-callout fg-danger"><strong>⚠️ Never put your crypto seed phrase in your will or trust</strong> — if your pour-over will is ever filed, it becomes public record through probate.</div>
+
+  <h2 class="article-title">Section 11 — What Does NOT Go Into the Trust</h2>
+  <table class="fg-table">
+    <tr><th>Asset</th><th>What to do</th><th>Why</th></tr>
+    <tr><td>IRA / 401(k) / Roth</td><td>Name beneficiaries directly</td><td>Retitling = immediate full taxation</td></tr>
+    <tr><td>Life insurance (if ILIT)</td><td>ILIT owns &amp; is beneficiary — leave it</td><td>Keeps benefit out of taxable estate (§ 2042)</td></tr>
+    <tr><td>HSA / FSA</td><td>Name spouse as beneficiary</td><td>Individually owned</td></tr>
+    <tr><td>529 plan</td><td>Trust as successor owner</td><td>Needs an individual owner</td></tr>
+    <tr><td>Vehicles (optional)</td><td>Pour-over will covers them</td><td>Summary administration is inexpensive</td></tr>
+    <tr><td>JTWROS property</td><td>Nothing — passes to co-owner</td><td>Survivorship controls; no probate</td></tr>
+  </table>
+
+  <h2 class="article-title">Section 12 — Your 30-Day Funding Action Plan</h2>
+  <div class="fg-callout fg-info">
+    ☐ <strong>Week 1:</strong> Store original signed documents safely; make 3 certified copies of your Certificate of Trust.<br>
+    ☐ <strong>Week 1:</strong> Retitle checking/savings accounts (bring Certificate of Trust + ID).<br>
+    ☐ <strong>Week 1:</strong> Request brokerage "Trust Transfer" forms.<br>
+    ☐ <strong>Week 1:</strong> Update retirement-account beneficiaries.<br>
+    ☐ <strong>Week 2:</strong> Update life-insurance beneficiaries.<br>
+    ☐ <strong>Week 2:</strong> Have the attorney prepare &amp; record your real-estate deed(s).<br>
+    ☐ <strong>Week 2:</strong> Re-file homestead (DR-501) after the deed records; notify your insurer.<br>
+    ☐ <strong>Week 3:</strong> Assign any LLC/business interest; update the sunbiz annual report.<br>
+    ☐ <strong>Week 3:</strong> Set digital legacy contacts; organize trustee access to your password manager.<br>
+    ☐ <strong>Week 4:</strong> Review the checklist; follow up on anything open; schedule a 6-month check-in.<br>
+    ☐ <strong>Ongoing:</strong> Revisit after any major life event (marriage, divorce, new child, new asset, death).
+  </div>
+
+  <p style="font-size:9.5pt;color:#64748b;margin-top:18pt"><em>This guide is provided for informational
+  purposes as part of your estate-planning engagement. It does not constitute legal advice for any
+  transaction not covered by our engagement. Laws change — review your plan every 3–5 years or after major life events.</em></p>
+
+  ${_firmFooter()}
+</div>
+</body>
+</html>`;
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  COMPANION DOCUMENT — FILING & EXECUTION INSTRUCTIONS
+//  How to sign each document correctly under Florida law. Informational.
+// ═══════════════════════════════════════════════════════════════════════
+
+function _filingInstructions(d) {
+  const gName = _gn(d);
+  const cat   = (d.docCategory || 'trust').toLowerCase();
+  const hasTrust = (cat === 'trust' || cat === 'both');
+  const hasWill  = (cat === 'will'  || cat === 'both');
+
+  const rows = [];
+  if (hasTrust) {
+    rows.push(['Revocable Living Trust', 'Grantor(s)', 'Recommended: 2', 'Signed before a notary (recommended)']);
+    rows.push(['Pour-Over Will', 'You (the testator)', '<strong>2 — all present together with you</strong>', 'Yes — notarize the self-proving affidavit (F.S. § 732.503)']);
+    rows.push(['Certificate of Trust', 'Trustee(s)', '—', 'Yes — notarized (F.S. § 736.1017)']);
+    rows.push(['Assignment of Personal Property', 'Assignor(s) + Trustee', 'Recommended for high-value items', 'Recommended (required by some registries)']);
+  }
+  if (hasWill) {
+    rows.push(['Last Will &amp; Testament', 'You (the testator)', '<strong>2 — all present together with you</strong>', 'Yes — notarize the self-proving affidavit (F.S. § 732.503)']);
+  }
+  // POA + advance directives accompany every estate-plan category
+  rows.push(['Durable Power of Attorney', 'The principal', '<strong>2</strong>', '<strong>Yes — principal, both witnesses, and notary must ALL be present together</strong> (F.S. § 709.2105), or the document is VOID']);
+  rows.push(['Designation of Health Care Surrogate', 'The principal', '<strong>2 — at least one NOT your spouse or blood relative</strong>; the surrogate may not witness (F.S. § 765.202)', 'No notary required']);
+  rows.push(['Living Will', 'The declarant', '<strong>2 — at least one NOT your spouse or blood relative</strong> (F.S. § 765.302)', 'No notary required']);
+  rows.push(['HIPAA Authorization', 'The individual', 'None required', 'No']);
+
+  const tableRows = rows.map(r =>
+    `<tr><td><strong>${r[0]}</strong></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`
+  ).join('\n');
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Filing &amp; Execution Instructions — ${gName}</title>
+  ${_css()}
+  <style>
+    .fi-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:9.5pt;}
+    .fi-table th{background:#0f2744;color:#fff;text-align:left;padding:7px 9px;}
+    .fi-table td{border-bottom:1px solid #e2e8f0;padding:7px 9px;vertical-align:top;}
+    .fi-callout{border-radius:8px;padding:12px 18px;margin:12px 0;font-size:10.5pt;}
+    .fi-danger{background:#fef2f2;border:2px solid #ef4444;}
+    .fi-warn{background:#fffbeb;border:1px solid #f59e0b;}
+    .fi-info{background:#eef4ff;border:1px solid #3b82f6;}
+  </style>
+</head>
+<body>
+${_printNote()}
+<div class="doc-wrapper">
+
+  <div class="doc-cover">
+    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law</div>
+    <h1>FILING &amp; EXECUTION INSTRUCTIONS</h1>
+    <div class="doc-subtitle">How to sign your documents correctly under Florida law</div>
+    <div class="doc-parties"><em>Prepared for ${gName}</em></div>
+  </div>
+
+  <div class="fi-callout fi-danger"><strong>Do not sign anything until you read this.</strong> In Florida,
+  a document signed the wrong way is simply void — it will not be honored, no matter how well it is written.
+  Each document has different requirements.</div>
+
+  <h2 class="article-title">Two Ways to Sign</h2>
+  <ul>
+    <li><strong>Remote Online Notarization (RON):</strong> We coordinate a secure video signing with a Florida
+    online notary and witnesses — completed from home. Reply to your confirmation email or book a time.</li>
+    <li><strong>Sign locally:</strong> You arrange your own notary and the required witnesses, using the
+    per-document requirements below.</li>
+  </ul>
+
+  <h2 class="article-title">Requirements by Document</h2>
+  <table class="fi-table">
+    <tr><th>Document</th><th>Signed by</th><th>Witnesses</th><th>Notary?</th></tr>
+    ${tableRows}
+  </table>
+
+  <div class="fi-callout fi-warn"><strong>Witness rules that trip people up:</strong> For the Health Care
+  Surrogate and Living Will, at least one witness must be someone who is <em>not</em> your spouse and
+  <em>not</em> a blood relative. As a best practice, do not use anyone who inherits under your plan, your
+  treating physician, or an employee of a facility where you are a patient. The person named as Health Care
+  Surrogate may not serve as a witness.</div>
+
+  <div class="fi-callout fi-info"><strong>The Power of Attorney is the strictest.</strong> Under F.S. § 709.2105,
+  the principal, both witnesses, and the notary must all be in the same place at the same time during signing.
+  A Power of Attorney that does not meet this requirement is void and will not be honored by banks.</div>
+
+  <h2 class="article-title">After You Sign — Storage</h2>
+  <ul>
+    <li>Keep originals in a fireproof home safe or safe deposit box. Do not unstaple a signed will — missing-page questions can invalidate it.</li>
+    <li>Give your Health Care Surrogate and physician a copy of the Surrogate designation and Living Will.</li>
+    <li>Give your financial agent a copy of the Durable Power of Attorney.</li>
+    <li>Tell your successor trustee and personal representative that the documents exist and where they are kept.</li>
+  </ul>
+
+  ${hasTrust ? `<h2 class="article-title">Notice of Trust (for your successor trustee)</h2>
+  <p>After the death of a settlor, Florida law (F.S. § 736.05055) requires the trustee to file a
+  <strong>Notice of Trust</strong> with the clerk of the circuit court of the county of the settlor's domicile
+  <strong>within 30 days</strong> of death. Your successor trustee should contact our office promptly upon a
+  death to coordinate this filing and the broader trust administration.</p>` : ''}
+
+  <p style="font-size:9.5pt;color:#64748b;margin-top:18pt"><em>These instructions are provided for
+  informational purposes as part of your estate-planning engagement and summarize Florida execution
+  requirements current as of preparation. If you have any question about how to sign, contact our office
+  before signing — improper execution is the most common reason a plan fails.</em></p>
+
+  ${_firmFooter()}
+</div>
+</body>
+</html>`;
+}
+
+// ═══════════════════════════════════════════════════════════════════════
 //  DISPATCHER — window.generateDocPackage
 //  Takes planData from Firestore and returns an array of documents
 //  [{title, filename, html}] based on the plan chosen
@@ -2845,6 +3122,24 @@ window.generateDocPackage = function(d, benes, contingents, successors) {
       title:    'HIPAA Authorization',
       filename: 'hipaa-authorization.html',
       html:     _hipaa(d, benes, successors)
+    });
+  }
+
+  // Trust Funding Guide — only when a revocable trust is part of the plan
+  if (cat === 'trust' || cat === 'both') {
+    docs.push({
+      title:    'Trust Funding Guide',
+      filename: 'trust-funding-guide.html',
+      html:     _fundingGuide(d)
+    });
+  }
+
+  // Filing & Execution Instructions — accompany every estate-plan package
+  if (cat === 'trust' || cat === 'will' || cat === 'both') {
+    docs.push({
+      title:    'Filing & Execution Instructions',
+      filename: 'filing-execution-instructions.html',
+      html:     _filingInstructions(d)
     });
   }
 

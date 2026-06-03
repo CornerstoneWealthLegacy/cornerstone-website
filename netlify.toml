@@ -24,12 +24,48 @@
 [functions."stripe-webhook"]
   included_files = []
 
+# PDF generation — headless Chromium renders documents to clean PDFs.
+# Keep the chromium + puppeteer-core packages external (don't let esbuild
+# inline them) and bundle the chromium binary files with the function.
+[functions]
+  node_bundler = "esbuild"
+  external_node_modules = ["@sparticuz/chromium", "puppeteer-core"]
+
+[functions."generate-pdf"]
+  included_files = ["node_modules/@sparticuz/chromium/**"]
+
 # Secrets scanning — suppress false positives for intentionally public client-side keys.
 # Stripe publishable keys (pk_test_/pk_live_) and Firebase web apiKeys are designed to be
 # embedded in browser code and carry no privileged access. Real secrets (NOTIFY_SECRET,
 # TWILIO_*, etc.) live only in Netlify environment variables, never in source files.
 [build.environment]
   SECRETS_SCAN_ENABLED = "false"
+
+# Block internal/working files from being served publicly (publish dir is ".")
+# Internal planning docs, build tooling, and generated sample documents.
+[[redirects]]
+  from = "/sample-documents/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/tools/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/*.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/package.json"
+  to = "/404.html"
+  status = 404
+  force = true
 
 # Force HTTPS — redirect all HTTP to HTTPS
 [[redirects]]
@@ -310,4 +346,9 @@
 [[redirects]]
   from = "/signing"
   to = "/signing.html"
+  status = 200
+
+[[redirects]]
+  from = "/refund"
+  to = "/refund.html"
   status = 200

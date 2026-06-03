@@ -22,7 +22,7 @@ const INSIGHTS_MENU = [
     { icon: '🔒', title: 'Florida Land Trust', url: '/articles/florida-land-trust' },
     { icon: '♿', title: 'Special Needs Trust', url: '/articles/florida-special-needs-trust' },
     { icon: '🐾', title: 'Pet Trust', url: '/articles/florida-pet-trust' },
-    { icon: '🏗️', title: 'How the Trust Builder Works', url: '/articles/florida-trust-builder' },
+    { icon: '🏗️', title: 'How the Florida Estate Kit Works', url: '/articles/florida-trust-builder' },
     { icon: '📂', title: 'Trust Administration', url: '/articles/florida-trust-administration' },
   ]},
   { group: 'Probate', items: [

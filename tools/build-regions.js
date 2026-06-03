@@ -73,6 +73,9 @@ ${jsonld}
     .city-disclaimer { font-size:.78rem; color:var(--gray-500,#718096); line-height:1.6; margin-top:28px; border-top:1px solid var(--gray-200,#e5e7eb); padding-top:18px; }
     @media (max-width:560px){ .county-cities{ grid-template-columns:1fr 1fr; } }
   </style>
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-333CR3Q4N6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-333CR3Q4N6");</script>
 </head>
 <body>
 
@@ -107,7 +110,7 @@ ${jsonld}
         </div>
         <a href="about.html" class="nav-link">About</a>
         <a href="insights.html" class="nav-link">Insights</a>
-        <a href="/trust-builder" class="nav-link">Trust Builder</a>
+        <a href="/trust-builder" class="nav-link">Florida Estate Kit</a>
         <a href="/areas-we-serve" class="nav-link">Areas We Serve</a>
         <a href="contact.html" class="nav-link">Contact</a>
       </nav>
@@ -180,7 +183,7 @@ ${body}
         <div class="footer-legal">
           <a href="privacy.html">Privacy</a>
           <a href="terms.html">Terms</a>
-          <a href="disclaimer.html">Disclaimer</a>
+          <a href="refund.html">Refunds</a> <a href="disclaimer.html">Disclaimer</a>
           <a href="accessibility.html">Accessibility</a>
         </div>
       </div>
@@ -272,7 +275,7 @@ ${countyGrid(counties)}
 ${STATUTE_LIST}
 
           <h2>Start Your Estate Plan Online — the Easy Way</h2>
-          <p>Anywhere in the ${ordinal} Circuit, you can put a Florida-valid will, revocable living trust, durable power of attorney, and health care directives in place from home in three simple steps: answer a few questions in our secure online intake, let us prepare your documents under current Florida law (with an Attorney-Guided option reviewed by Arthur Simpson, Esq.), and sign correctly under Florida's witness and notary rules. Start with the <a href="/trust-builder">Cornerstone Trust Builder</a>, <a href="/quiz">take the free Estate Plan Score quiz</a>, or <a href="${CALENDLY}" target="_blank" rel="noopener">book a free 20-minute call</a>.</p>
+          <p>Anywhere in the ${ordinal} Circuit, you can put a Florida-valid will, revocable living trust, durable power of attorney, and health care directives in place from home in three simple steps: answer a few questions in our secure online intake, let us prepare your documents under current Florida law (with an Attorney-Guided option reviewed by Arthur Simpson, Esq.), and sign correctly under Florida's witness and notary rules. Start with the <a href="/trust-builder">Florida Estate Kit</a>, <a href="/quiz">take the free Estate Plan Score quiz</a>, or <a href="${CALENDLY}" target="_blank" rel="noopener">book a free 20-minute call</a>.</p>
 
           <div class="city-faq">
             <h2>${ordinal} Judicial Circuit Estate Planning &amp; Probate FAQs</h2>
@@ -382,7 +385,7 @@ ${countyGrid(counties)}
 ${STATUTE_LIST}
 
           <h2>Start Your ${esc(r.name)} Estate Plan Online — the Easy Way</h2>
-          <p>Across ${esc(r.name)}, you can put a Florida-valid will, revocable living trust, durable power of attorney, and health care directives in place from home in three simple steps: answer a few questions in our secure online intake (about 20 minutes), let us prepare your documents under current Florida law — with an Attorney-Guided option personally reviewed by Arthur Simpson, Esq. — and sign correctly under Florida's witness and notary rules. Start with the <a href="/trust-builder">Cornerstone Trust Builder</a>, <a href="/quiz">take the free Estate Plan Score quiz</a>, or <a href="${CALENDLY}" target="_blank" rel="noopener">book a free 20-minute call</a>.</p>
+          <p>Across ${esc(r.name)}, you can put a Florida-valid will, revocable living trust, durable power of attorney, and health care directives in place from home in three simple steps: answer a few questions in our secure online intake (about 20 minutes), let us prepare your documents under current Florida law — with an Attorney-Guided option personally reviewed by Arthur Simpson, Esq. — and sign correctly under Florida's witness and notary rules. Start with the <a href="/trust-builder">Florida Estate Kit</a>, <a href="/quiz">take the free Estate Plan Score quiz</a>, or <a href="${CALENDLY}" target="_blank" rel="noopener">book a free 20-minute call</a>.</p>
 
           <div class="city-faq">
             <h2>${esc(r.name)} Estate Planning &amp; Probate FAQs</h2>

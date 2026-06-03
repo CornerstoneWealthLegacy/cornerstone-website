@@ -349,6 +349,11 @@
       border: 1.5px solid var(--gray300);
     }
     .btn-doc.print:hover { background: var(--gray100); }
+    .btn-doc.pdf {
+      background: var(--gold, #b8952a);
+      color: var(--white);
+    }
+    .btn-doc.pdf:hover { filter: brightness(0.93); }
     .btn-doc:disabled {
       opacity: 0.4;
       cursor: not-allowed;
@@ -432,6 +437,9 @@
       .attorney-box > div:last-child { flex-direction: row; flex-wrap: wrap; }
     }
   </style>
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-333CR3Q4N6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-333CR3Q4N6");</script>
 </head>
 <body>
 
@@ -451,7 +459,7 @@
       </button>
       <div id="account-dropdown">
         <a class="acct-menu-item" href="/portal">📁 My Portal</a>
-        <a class="acct-menu-item" href="/start">📋 My Trust Builder</a>
+        <a class="acct-menu-item" href="/start">📋 My Florida Estate Kit</a>
         <div class="acct-menu-divider"></div>
         <button class="acct-menu-item" style="color:#c0392b" onclick="auth.signOut()">Sign Out</button>
       </div>
@@ -483,7 +491,7 @@
     <p id="auth-error"></p>
     <p class="auth-help" style="margin-top:16px;">
       First time? Check your confirmation email for a link to set your password.<br>
-      Need help? <a href="tel:+13862221907">(386) 222-1907</a>
+      Need help? <a href="tel:+13862935586">(386) 293-5586</a>
     </p>
   </div>
 
@@ -508,13 +516,14 @@
     </div>
 
     <div class="portal-actions" id="portal-actions" style="display:none;">
+      <button class="btn-primary" id="download-all-pdf-btn">⬇ Download All as PDF</button>
       <button class="btn-secondary" id="print-all-btn">🖨 Print All Documents</button>
     </div>
 
     <div class="attorney-box">
       <div style="flex:1;">
         <strong>Ready to sign? Schedule your appointment.</strong>
-        <p>A Cornerstone Estate Planning Advisor will witness and notarize your documents. Choose how you'd like to sign — from anywhere via secure video, or in person at our Daytona Beach office.</p>
+        <p>A Cornerstone Estate Planning Advisor will witness and notarize your documents. Choose how you'd like to sign — from anywhere via secure video, or in person at our Ormond Beach office.</p>
       </div>
       <div style="display:flex;flex-direction:column;gap:10px;flex-shrink:0;">
         <a class="btn-call"
@@ -571,6 +580,7 @@ const planMetaGrid    = document.getElementById('plan-meta-grid');
 const docList         = document.getElementById('doc-list');
 const portalActions   = document.getElementById('portal-actions');
 const printAllBtn     = document.getElementById('print-all-btn');
+const downloadAllPdfBtn = document.getElementById('download-all-pdf-btn');
 
 // ── Auth state ────────────────────────────────────────────────────────
 auth.onAuthStateChanged(async (user) => {
@@ -627,7 +637,7 @@ function friendlyAuthError(code) {
     case 'auth/invalid-email':
       return 'Please enter a valid email address.';
     default:
-      return 'Sign-in failed. Please contact (386) 222-1907 for help.';
+      return 'Sign-in failed. Please contact (386) 293-5586 for help.';
   }
 }
 
@@ -746,7 +756,7 @@ function renderStatusBanner(d) {
     type  = 'pending';
     icon  = '💳';
     title = 'Payment required';
-    body  = 'Please complete payment to unlock your documents. Contact <strong>(386) 222-1907</strong> if you need assistance.';
+    body  = 'Please complete payment to unlock your documents. Contact <strong>(386) 293-5586</strong> if you need assistance.';
   } else if (s === 'payment_complete') {
     type  = 'pending';
     icon  = '⏳';
@@ -774,7 +784,7 @@ function renderStatusBanner(d) {
     type  = 'review';
     icon  = 'ℹ️';
     title = 'Account active';
-    body  = 'Contact <strong>(386) 222-1907</strong> or <a href="mailto:info@cornerstonewealthlegacy.com">info@cornerstonewealthlegacy.com</a> if you have questions.';
+    body  = 'Contact <strong>(386) 293-5586</strong> or <a href="mailto:info@cornerstonewealthlegacy.com">info@cornerstonewealthlegacy.com</a> if you have questions.';
   }
 
   statusContainer.innerHTML = `
@@ -879,6 +889,8 @@ const DOC_META = {
   'Designation of Health Care Surrogate':    { icon: '🏥', desc: 'Names someone to make medical decisions on your behalf' },
   'Living Will':                             { icon: '💙', desc: 'States your end-of-life care wishes in writing' },
   'HIPAA Authorization':                     { icon: '🔐', desc: 'Allows key people to access your medical records' },
+  'Trust Funding Guide':                     { icon: '📒', desc: 'Step-by-step guide to re-titling assets into your trust' },
+  'Filing & Execution Instructions':         { icon: '🖊️', desc: 'How to sign each document correctly under Florida law' },
   'Florida Land Trust Agreement':            { icon: '🏠', desc: 'Holds real property with privacy and probate avoidance' },
   'NFA Gun Trust':                           { icon: '🔒', desc: 'ATF 41F-compliant trust for NFA-regulated firearms' }
 };
@@ -974,6 +986,7 @@ function renderDocuments(d) {
         </div>
         <div class="doc-actions">
           <button class="btn-doc view" data-idx="${idx}">View</button>
+          <button class="btn-doc pdf" data-idx="${idx}">PDF</button>
           <button class="btn-doc print" data-idx="${idx}">Print</button>
         </div>
       </div>
@@ -999,6 +1012,14 @@ function renderDocuments(d) {
     });
   });
 
+  // PDF button — clean server-rendered PDF (no browser footer)
+  docList.querySelectorAll('.btn-doc.pdf').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const doc = window._portalDocs[+btn.dataset.idx];
+      downloadPdf(doc.html, doc.title, btn);
+    });
+  });
+
   portalActions.style.display = 'flex';
 
   // Print all
@@ -1008,6 +1029,58 @@ function renderDocuments(d) {
       setTimeout(() => printDoc(doc), i * 400);
     });
   });
+
+  // Download full packet as one PDF
+  if (downloadAllPdfBtn) {
+    downloadAllPdfBtn.addEventListener('click', () => {
+      if (!window._portalDocs || !window._portalDocs.length) return;
+      const combined = buildCombinedHtml(window._portalDocs);
+      downloadPdf(combined, 'Florida Estate Plan', downloadAllPdfBtn);
+    });
+  }
+}
+
+// ── PDF download (server-rendered via /generate-pdf) ─────────────────────────
+async function downloadPdf(html, title, btn) {
+  const original = btn ? btn.textContent : '';
+  if (btn) { btn.disabled = true; btn.textContent = 'Preparing…'; }
+  try {
+    const res = await fetch('/.netlify/functions/generate-pdf', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ html, filename: title }),
+    });
+    if (!res.ok) throw new Error('PDF service returned ' + res.status);
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = (title || 'document').replace(/[^a-z0-9._ -]/gi, '_') + '.pdf';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+  } catch (err) {
+    console.error('PDF download failed:', err);
+    alert('Sorry — the PDF could not be generated just now. You can use "Print" → "Save as PDF" as a backup.');
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = original; }
+  }
+}
+
+// Merge all document HTML into one print-ready HTML (shared <head>/CSS, page breaks between docs)
+function buildCombinedHtml(docs) {
+  const parser = new DOMParser();
+  const first = parser.parseFromString(docs[0].html, 'text/html');
+  const head = first.head ? first.head.innerHTML : '';
+  const bodies = docs.map((doc, i) => {
+    const d = parser.parseFromString(doc.html, 'text/html');
+    const wrapper = d.querySelector('.doc-wrapper');
+    const inner = wrapper ? wrapper.outerHTML : (d.body ? d.body.innerHTML : '');
+    const brk = i === 0 ? '' : ' style="page-break-before:always;"';
+    return `<div${brk}>${inner}</div>`;
+  }).join('\n');
+  return `<!DOCTYPE html><html lang="en"><head>${head}</head><body>${bodies}</body></html>`;
 }
 
 function openDocInTab(doc) {
@@ -1043,15 +1116,18 @@ function expectedDocNames(cat) {
     case 'trust':
       return ['Revocable Living Trust','Pour-Over Will','Certificate of Trust',
               'Assignment of Personal Property to Trust','Durable Power of Attorney',
-              'Designation of Health Care Surrogate','Living Will','HIPAA Authorization'];
+              'Designation of Health Care Surrogate','Living Will','HIPAA Authorization',
+              'Trust Funding Guide','Filing & Execution Instructions'];
     case 'will':
       return ['Last Will and Testament','Durable Power of Attorney',
-              'Designation of Health Care Surrogate','Living Will','HIPAA Authorization'];
+              'Designation of Health Care Surrogate','Living Will','HIPAA Authorization',
+              'Filing & Execution Instructions'];
     case 'both':
       return ['Revocable Living Trust','Pour-Over Will','Certificate of Trust',
               'Assignment of Personal Property to Trust','Last Will and Testament',
               'Durable Power of Attorney','Designation of Health Care Surrogate',
-              'Living Will','HIPAA Authorization'];
+              'Living Will','HIPAA Authorization',
+              'Trust Funding Guide','Filing & Execution Instructions'];
     case 'land_trust':
       return ['Florida Land Trust Agreement'];
     case 'gun_trust':
@@ -1073,7 +1149,7 @@ function renderNoOrder() {
       <div>
         <div class="status-title">No order found</div>
         <div>We couldn't find an order linked to your email address. Please contact us at
-        <strong>(386) 222-1907</strong> or
+        <strong>(386) 293-5586</strong> or
         <a href="mailto:info@cornerstonewealthlegacy.com">info@cornerstonewealthlegacy.com</a>
         and we'll look into it right away.</div>
       </div>

@@ -83,7 +83,7 @@ function shell(title, bodyHtml, unsubUrl) {
 <tr><td style="background:#0f2744;border-radius:0 0 12px 12px;padding:20px 36px;text-align:center">
 <div style="font-size:11px;color:#8899aa;line-height:1.7;font-family:Arial,sans-serif">
 Cornerstone Wealth &amp; Legacy Law, PLLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265<br>
-Daytona Beach, Florida &nbsp;·&nbsp; cornerstonewealthlegacy.com<br><br>
+Ormond Beach, Florida &nbsp;·&nbsp; cornerstonewealthlegacy.com<br><br>
 <em>Attorney advertising. This email is general information, not legal advice, and does not create an attorney-client relationship.</em><br>
 <a href="${unsubUrl}" style="color:#8899aa">Unsubscribe</a></div></td></tr>
 </table></td></tr></table></body></html>`;

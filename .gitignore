@@ -70,3 +70,9 @@ node_modules/
 
 # Local Netlify folder
 .netlify
+
+# macOS
+.DS_Store
+
+# Generated sample documents (regenerate with `npm run samples`) — not for the live site
+sample-documents/

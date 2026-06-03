@@ -88,6 +88,9 @@ ${jsonld}
     .city-cta h2 { margin-top:0; }
     .city-disclaimer { font-size:.78rem; color:var(--gray-500,#718096); line-height:1.6; margin-top:28px; border-top:1px solid var(--gray-200,#e5e7eb); padding-top:18px; }
   </style>
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-333CR3Q4N6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-333CR3Q4N6");</script>
 </head>
 <body>
 
@@ -122,7 +125,7 @@ ${jsonld}
         </div>
         <a href="about.html" class="nav-link">About</a>
         <a href="insights.html" class="nav-link">Insights</a>
-        <a href="/trust-builder" class="nav-link">Trust Builder</a>
+        <a href="/trust-builder" class="nav-link">Florida Estate Kit</a>
         <a href="/areas-we-serve" class="nav-link">Areas We Serve</a>
         <a href="contact.html" class="nav-link">Contact</a>
       </nav>
@@ -192,7 +195,7 @@ ${body}
         <div class="footer-legal">
           <a href="privacy.html">Privacy</a>
           <a href="terms.html">Terms</a>
-          <a href="disclaimer.html">Disclaimer</a>
+          <a href="refund.html">Refunds</a> <a href="disclaimer.html">Disclaimer</a>
           <a href="accessibility.html">Accessibility</a>
         </div>
       </div>
@@ -321,7 +324,7 @@ function estate(m) {
           <p>For most ${m.metro} homeowners, the goal is to pass the home and accounts to family without a ${c.county} County court filing. A funded revocable living trust is usually the most direct route, supported by beneficiary designations, payable-on-death accounts, and the right deeds. Florida's constitutional homestead protection (Art. X, §4, Fla. Const.) adds another layer for your primary residence.</p>
 
           <h2>Start Your ${m.metro} Estate Plan Online — the Easy Way</h2>
-          <p>You don't have to drive across ${m.metro} to get this done. In three steps — answer a few questions, let us prepare your documents under Florida law, and sign correctly under Florida's witness and notary rules — you can have a complete plan in place. Start with the <a href="/trust-builder">Cornerstone Trust Builder</a>, <a href="/quiz">take the free Estate Plan Score quiz</a>, or <a href="${CALENDLY}" target="_blank" rel="noopener">book a free 20-minute call</a>.</p>
+          <p>You don't have to drive across ${m.metro} to get this done. In three steps — answer a few questions, let us prepare your documents under Florida law, and sign correctly under Florida's witness and notary rules — you can have a complete plan in place. Start with the <a href="/trust-builder">Florida Estate Kit</a>, <a href="/quiz">take the free Estate Plan Score quiz</a>, or <a href="${CALENDLY}" target="_blank" rel="noopener">book a free 20-minute call</a>.</p>
 
           <div class="city-faq">
             <h2>${m.metro} Estate Planning FAQs</h2>
