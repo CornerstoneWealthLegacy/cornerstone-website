@@ -238,7 +238,7 @@ exports.handler = async (event) => {
                   <strong style="color:#0f2744">Questions?</strong> Reach Arthur directly:<br>
                   📧 <a href="mailto:arthur@cornerstonewealthlegacy.com" style="color:#0f2744">arthur@cornerstonewealthlegacy.com</a><br>
                   🌐 <a href="https://cornerstonewealthlegacy.com" style="color:#0f2744">cornerstonewealthlegacy.com</a><br>
-                  📍 Ormond Beach, Florida
+                  📍 P.O. Box 2574, Ormond Beach, FL 32175
                 </td>
               </tr>
             </table>
@@ -251,7 +251,7 @@ exports.handler = async (event) => {
           <td style="background:#0f2744;border-radius:0 0 12px 12px;padding:24px 40px;text-align:center">
             <div style="font-size:11px;color:#8899aa;line-height:1.7;font-family:Arial,sans-serif">
               Cornerstone Wealth &amp; Legacy Law, PLLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265<br>
-              Ormond Beach, Florida &nbsp;·&nbsp; cornerstonewealthlegacy.com<br><br>
+              P.O. Box 2574, Ormond Beach, FL 32175 &nbsp;·&nbsp; cornerstonewealthlegacy.com<br><br>
               <em>This email confirms receipt of your completed questionnaire. The documents referenced are attorney-prepared drafts
               and do not constitute legal advice. An attorney-client relationship is established only upon execution of a written engagement agreement.
               This communication is confidential and intended solely for the named recipient.</em>
@@ -293,7 +293,7 @@ exports.handler = async (event) => {
     ``,
     `Cornerstone Wealth & Legacy Law, PLLC`,
     `Arthur Simpson, Esq. | Florida Bar #529265`,
-    `Ormond Beach, Florida`,
+    `P.O. Box 2574, Ormond Beach, FL 32175`,
   ].join('\n');
 
   try {
