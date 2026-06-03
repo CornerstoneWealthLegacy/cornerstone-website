@@ -101,9 +101,9 @@ const EMAILS = {
     title: 'The Plan Florida Writes For You',
     html: (f) => `<p>Hi ${f},</p>
 <p>If something happens before your plan is in place, Florida's intestacy law decides who inherits — not you. If you're married with children from a prior relationship, your spouse and children may have to <em>split</em> your estate. And your home carries special homestead rules that can override what you'd want.</p>
-<p>Probate to sort it out is public, takes 6–18 months, and costs a percentage of the estate. A properly funded revocable living trust avoids all of it.</p>
+<p>Probate to sort it out is public, takes 6–18 months, and costs a percentage of the estate. A properly funded revocable living trust keeps those assets out of probate.</p>
 ${btn(TB, 'Start Your Plan →')}`,
-    text: (f) => `Hi ${f},\n\nWithout a plan, Florida's intestacy law decides who inherits — and probate is public, slow (6–18 months), and costs a percentage of your estate. A funded revocable living trust avoids it.\n\nStart your plan: ${TB}`,
+    text: (f) => `Hi ${f},\n\nWithout a plan, Florida's intestacy law decides who inherits — and probate is public, slow (6–18 months), and costs a percentage of your estate. A funded revocable living trust keeps those assets out of probate.\n\nStart your plan: ${TB}`,
   },
   2: {
     subject: 'Will or trust — which do you actually need?',
