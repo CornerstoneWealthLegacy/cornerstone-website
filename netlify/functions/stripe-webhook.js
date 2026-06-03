@@ -259,7 +259,7 @@ Score guide: 85-100 = complete and clean; 70-84 = minor gaps; 60-69 = significan
         'content-type':      'application/json',
       },
       body: JSON.stringify({
-        model:      'claude-3-5-haiku-20241022',
+        model:      'claude-haiku-4-5',
         max_tokens: 512,
         messages:   [{ role: 'user', content: prompt }],
       }),

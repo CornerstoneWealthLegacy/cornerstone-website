@@ -16,7 +16,7 @@ exports.handler = async (event) => {
     { url: `${SITE}/estate-planning`,                         label: 'Estate Planning' },
     { url: `${SITE}/elder-law`,                               label: 'Elder Law' },
     { url: `${SITE}/real-estate`,                             label: 'Real Estate' },
-    { url: `${SITE}/articles/florida-trust-builder`,          label: 'Article: Trust Builder' },
+    { url: `${SITE}/articles/florida-trust-builder`,          label: 'Article: Florida Estate Kit' },
     { url: `${SITE}/articles/trust-vs-will-florida`,          label: 'Article: Trust vs Will' },
     { url: `${SITE}/articles/florida-probate-cost-how-to-avoid`, label: 'Article: Probate Costs' },
     { url: `${SITE}/articles/lady-bird-deed-florida`,         label: 'Article: Lady Bird Deed' },

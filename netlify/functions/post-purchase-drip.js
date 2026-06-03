@@ -76,7 +76,7 @@ function shell(title, bodyHtml, unsubUrl) {
 <tr><td style="background:#0f2744;border-radius:0 0 12px 12px;padding:20px 36px;text-align:center">
 <div style="font-size:11px;color:#8899aa;line-height:1.7;font-family:Arial,sans-serif">
 Cornerstone Wealth &amp; Legacy Law, PLLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265<br>
-Daytona Beach, Florida &nbsp;·&nbsp; cornerstonewealthlegacy.com<br><br>
+Ormond Beach, Florida &nbsp;·&nbsp; cornerstonewealthlegacy.com<br><br>
 <em>Client service message regarding your estate plan.</em><br>
 <a href="${unsubUrl}" style="color:#8899aa">Stop these reminders</a></div></td></tr>
 </table></td></tr></table></body></html>`;
@@ -151,7 +151,7 @@ async function send(key, to, step, name, id) {
       from: 'Arthur Simpson <arthur@cornerstonewealthlegacy.com>',
       to: [to], subject: e.subject,
       html: shell(e.title, e.html(first), unsub),
-      text: e.text(first) + `\n\nCornerstone Wealth & Legacy Law, PLLC · Florida Bar #529265 · Daytona Beach, FL\nStop these reminders: ${unsub}`,
+      text: e.text(first) + `\n\nCornerstone Wealth & Legacy Law, PLLC · Florida Bar #529265 · Ormond Beach, FL\nStop these reminders: ${unsub}`,
     }),
   });
   if (!res.ok) throw new Error(`Resend ${res.status}: ${await res.text()}`);

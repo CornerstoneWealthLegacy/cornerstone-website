@@ -1,0 +1,13 @@
+{
+  "name": "cornerstone-florida-estate-kit",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cornerstone Wealth & Legacy Law — Florida Estate Kit site + Netlify functions.",
+  "scripts": {
+    "samples": "node tools/gen-samples.js"
+  },
+  "dependencies": {
+    "@sparticuz/chromium": "^131.0.0",
+    "puppeteer-core": "^23.8.0"
+  }
+}

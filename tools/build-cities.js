@@ -144,6 +144,9 @@ function buildCityPage(cityName, countyName) {
     .city-cta h2 { margin-top:0; }
     .city-disclaimer { font-size:.78rem; color:var(--gray-500,#718096); line-height:1.6; margin-top:28px; border-top:1px solid var(--gray-200,#e5e7eb); padding-top:18px; }
   </style>
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-333CR3Q4N6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-333CR3Q4N6");</script>
 </head>
 <body>
 
@@ -178,7 +181,7 @@ function buildCityPage(cityName, countyName) {
         </div>
         <a href="about.html" class="nav-link">About</a>
         <a href="insights.html" class="nav-link">Insights</a>
-        <a href="/trust-builder" class="nav-link">Trust Builder</a>
+        <a href="/trust-builder" class="nav-link">Florida Estate Kit</a>
         <a href="/areas-we-serve" class="nav-link">Areas We Serve</a>
         <a href="contact.html" class="nav-link">Contact</a>
       </nav>
@@ -231,7 +234,7 @@ function buildCityPage(cityName, countyName) {
             <li><strong>We prepare your documents.</strong> Your plan is drafted under current Florida law, with an Attorney-Guided option personally reviewed by Arthur Simpson, Esq.</li>
             <li><strong>Sign correctly.</strong> We walk you through Florida's witness and notary requirements — by video or in person — so your documents are valid.</li>
           </ol>
-          <p>Ready to begin? Build your plan now with the <a href="/trust-builder">Cornerstone Trust Builder</a> — self-guided or attorney-guided. Not sure where to start? <a href="/quiz">Take the free 2-minute Estate Plan Score quiz</a> to see what your ${esc(cityName)} family needs, or <a href="${CALENDLY}" target="_blank" rel="noopener">book a free 20-minute call</a>.</p>
+          <p>Ready to begin? Build your plan now with the <a href="/trust-builder">Florida Estate Kit</a> — self-guided or attorney-guided. Not sure where to start? <a href="/quiz">Take the free 2-minute Estate Plan Score quiz</a> to see what your ${esc(cityName)} family needs, or <a href="${CALENDLY}" target="_blank" rel="noopener">book a free 20-minute call</a>.</p>
 
           <div class="city-faq">
             <h2>${esc(cityName)} Estate Planning &amp; Probate FAQs</h2>
@@ -307,7 +310,7 @@ function buildCityPage(cityName, countyName) {
         <div class="footer-legal">
           <a href="privacy.html">Privacy</a>
           <a href="terms.html">Terms</a>
-          <a href="disclaimer.html">Disclaimer</a>
+          <a href="refund.html">Refunds</a> <a href="disclaimer.html">Disclaimer</a>
           <a href="accessibility.html">Accessibility</a>
         </div>
       </div>
