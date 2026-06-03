@@ -88,7 +88,7 @@ exports.handler = async (event) => {
     return { statusCode: 500, body: 'Email service not configured' };
   }
 
-  const firstName  = (clientName || '').split(' ')[0] || 'there';
+  const firstName  = ((clientName || '').split(' ')[0] || 'there').replace(/^./, c => c.toUpperCase());
   const planStr    = planLabel || 'Estate Plan';
   const coupleNote = planType === 'couple' ? ' for you and your spouse' : '';
   const docList    = Array.isArray(documents) && documents.length

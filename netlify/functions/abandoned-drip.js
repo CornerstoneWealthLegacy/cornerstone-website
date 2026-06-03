@@ -125,7 +125,7 @@ ${btn(RESUME, 'Pick Up Where I Left Off →')}
 
 async function send(key, to, step, name, id) {
   const e = EMAILS[step];
-  const first = (name || '').split(' ')[0] || 'there';
+  const first = ((name || '').split(' ')[0] || 'there').replace(/^./, c => c.toUpperCase());
   const unsub = `https://cornerstonewealthlegacy.com/.netlify/functions/unsubscribe?c=abandoned_checkout&e=${encodeURIComponent(id)}`;
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST', headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },

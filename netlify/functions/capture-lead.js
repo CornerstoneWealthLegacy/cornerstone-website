@@ -69,7 +69,7 @@ function btn(href, label) {
   return `<div style="text-align:center;margin:26px 0"><a href="${href}" style="background:#c49a2a;color:#0f2744;font-weight:700;font-family:Arial,sans-serif;text-decoration:none;padding:14px 30px;border-radius:8px;display:inline-block">${label}</a></div>`;
 }
 async function sendWelcome(key, email, name, score, id) {
-  const first = (name || '').split(' ')[0] || 'there';
+  const first = ((name || '').split(' ')[0] || 'there').replace(/^./, c => c.toUpperCase());
   const unsub = `https://cornerstonewealthlegacy.com/.netlify/functions/unsubscribe?e=${encodeURIComponent(id)}`;
   const scoreLine = score ? `Based on your answers, your Estate Plan Score is <strong>${score}/100</strong>.` : '';
   const body = `<p>Hi ${first},</p>
