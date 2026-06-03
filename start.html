@@ -2094,9 +2094,8 @@ const STEPS=[
       d:'The gold standard for Florida estate planning. A funded trust avoids probate on all titled assets; a pour-over will captures everything else. Recommended for most clients.',premium:true,badge:'RECOMMENDED'},
      ,{v:'land_trust', t:'Florida Land Trust — Real Estate Privacy & Control',
       d:'A Florida Land Trust (F.S. § 689.071) holds title to real property privately. Your name never appears in public records. Avoids probate on real estate. Preserves homestead. Ideal for investment property, privacy, and LLC structures.', badge:'PRIVACY'}
-     ,{v:'gun_trust', t:'NFA / Gun Trust — Title II Firearms',
-      d:'A Special Purpose Revocable Trust for holding NFA Title II items (suppressors, SBRs, SBSs, machine guns, DDs, AOWs). Complies with ATF Rule 41F, 27 C.F.R. § 479.62. Each responsible person included. Eliminates CLEO sign-off requirement.',
-      badge:'ATF COMPLIANT'}
+     // NFA / Gun Trust intentionally NOT listed here — it serves a different buyer and is
+     // offered via its own dedicated path (/nfa-gun-trust → quickStart('gun_trust')).
    ]
   },
 
