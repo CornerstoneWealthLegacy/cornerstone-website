@@ -332,9 +332,7 @@ function _printNote() {
     <div class="print-notice">
       <strong>Before you print:</strong> Review every blank line and bracketed placeholder.
       Use your browser's <strong>File → Print</strong> (or Ctrl+P / ⌘P) and choose
-      <strong>"Save as PDF"</strong> for a clean digital copy. In the print dialog, open
-      <strong>"More settings"</strong> and turn <strong>OFF "Headers and footers"</strong> so the
-      page URL and date do not print on your document. These documents require
+      <strong>"Save as PDF"</strong> for a clean digital copy. These documents require
       attorney review, notarization, and proper witnessing before they are legally effective.
       <strong>Contact Cornerstone Wealth &amp; Legacy Law at (386) 293-5586</strong> to
       schedule your signing appointment.
