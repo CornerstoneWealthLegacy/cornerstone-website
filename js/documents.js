@@ -1457,6 +1457,21 @@ ${_printNote()}
     NOT grant these enumerated powers. If you need your Agent to make gifts, sign this
     document in person.</strong></li>
 
+    <li><strong>Beneficiary Designations</strong> (F.S. § 709.2202(1)): <em>[RESTRICTED — superpower]</em>
+    My Agent IS authorized to create or change beneficiary designations on my bank, brokerage,
+    life-insurance, annuity, and retirement accounts <strong>ONLY IF</strong> I separately sign or
+    initial here, as required by Florida Statutes § 709.2202:
+    &nbsp;Principal's signature / initials: <u>&nbsp;__________&nbsp;</u>.
+    <em>(Like the gift power above, this authority is effective only if this Power of Attorney is
+    signed with witnesses physically present — not via remote online notarization.)</em></li>
+
+    <li><strong>Rights of Survivorship</strong> (F.S. § 709.2202(1)): <em>[RESTRICTED — superpower]</em>
+    My Agent IS authorized to create or change rights of survivorship on my property and accounts
+    (for example, payable-on-death or joint-with-survivorship registrations) <strong>ONLY IF</strong>
+    I separately sign or initial here, as required by Florida Statutes § 709.2202:
+    &nbsp;Principal's signature / initials: <u>&nbsp;__________&nbsp;</u>.
+    <em>(Effective only if signed in person, not via remote online notarization.)</em></li>
+
     <li><strong>Digital Assets</strong> (F.S. § 740.002): To access, manage,
     and control my digital assets, including online accounts, cryptocurrency,
     and electronically stored information, to the extent authorized by applicable
