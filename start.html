@@ -21,6 +21,8 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-check-compat.js"></script>
+<!-- Spanish translation dictionary (es) — consumed by the L() helper when toggled to ES -->
+<script src="js/i18n-es.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -3237,7 +3239,12 @@ let LANG = (function(){
   try { const s = localStorage.getItem('cw_lang'); if (s === 'es' || s === 'en') return s; } catch(e){}
   return (navigator.language || '').toLowerCase().indexOf('es') === 0 ? 'es' : 'en';
 })();
-function L(en, es){ return (LANG === 'es' && es) ? es : en; }
+function L(en, es){
+  if (LANG !== 'es') return en;
+  if (es) return es;                                                        // inline _es field wins
+  if (typeof ES_DICT !== 'undefined' && en != null && ES_DICT[en]) return ES_DICT[en]; // dictionary by English text
+  return en;                                                                // untranslated → English
+}
 function setLang(l){
   LANG = (l === 'es') ? 'es' : 'en';
   try { localStorage.setItem('cw_lang', LANG); } catch(e){}
@@ -12173,7 +12180,7 @@ async function sendChat() {
     const res = await fetch('/.netlify/functions/chat-assistant', {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ question: msg, context: ctx }),
+      body: JSON.stringify({ question: msg, context: ctx, lang: (typeof LANG !== 'undefined' ? LANG : 'en') }),
     });
 
     removeTypingIndicator(typingId);

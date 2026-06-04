@@ -1,0 +1,95 @@
+/* Florida Estate Kit — Spanish (es) translation dictionary.
+ *
+ * Keyed by the exact English source string. The builder's L(en, es) helper looks
+ * up this map when the user toggles to Spanish; any string NOT present here falls
+ * back to English, so partial coverage is always safe.
+ *
+ * ⚠️ DRAFT — requires bilingual / attorney review before launch. Legal terms are
+ * kept accurate; the English term is shown in parentheses on first use where helpful.
+ * The generated legal DOCUMENTS remain in English regardless of this setting.
+ */
+window.ES_DICT = {
+
+  /* ── Builder questions (step headers) ───────────────────────────────────── */
+  "What estate planning document do you need?": "¿Qué documento de planificación patrimonial necesita?",
+  "What NFA items will this trust hold?": "¿Qué artículos NFA tendrá este fideicomiso?",
+  "Tell us about the property going into the land trust": "Cuéntenos sobre la propiedad que se incluirá en el fideicomiso de tierras",
+  "Name your land trust and choose a trustee": "Nombre su fideicomiso de tierras y elija un fideicomisario (trustee)",
+  "Who will hold the beneficial interest in this land trust?": "¿Quién tendrá el interés beneficiario en este fideicomiso de tierras?",
+  "Tell us about the LLC that will hold the beneficial interest": "Cuéntenos sobre la LLC que tendrá el interés beneficiario",
+  "Who are the individual beneficiaries?": "¿Quiénes son los beneficiarios individuales?",
+  "How do the co-beneficiaries hold their interests?": "¿Cómo mantienen sus intereses los co-beneficiarios?",
+  "Who inherits the beneficial interest when a beneficiary dies?": "¿Quién hereda el interés beneficiario cuando fallece un beneficiario?",
+  "Who holds the Power of Direction?": "¿Quién tiene el Poder de Dirección (Power of Direction)?",
+  "What is the primary purpose of this land trust?": "¿Cuál es el propósito principal de este fideicomiso de tierras?",
+  "Is there an existing mortgage or lien on this property?": "¿Existe una hipoteca o gravamen sobre esta propiedad?",
+  "Which state are you coming from?": "¿De qué estado proviene?",
+  "What best describes your estate profile?": "¿Qué describe mejor su perfil patrimonial?",
+  "Tell us about your existing trust(s)": "Cuéntenos sobre su(s) fideicomiso(s) existente(s)",
+  "Your legal information": "Su información legal",
+  "Is this an individual or joint trust with your spouse?": "¿Es este un fideicomiso individual o conjunto con su cónyuge?",
+  "What type of trust instrument?": "¿Qué tipo de instrumento de fideicomiso?",
+  "How should the trust be named?": "¿Cómo se debe nombrar el fideicomiso?",
+  "Who will manage your trust?": "¿Quién administrará su fideicomiso?",
+  "Who inherits from this trust?": "¿Quién hereda de este fideicomiso?",
+  "Distribution terms for beneficiaries": "Términos de distribución para los beneficiarios",
+  "Florida-specific and special provisions": "Disposiciones especiales y específicas de Florida",
+  "How much authority should your trustee have?": "¿Cuánta autoridad debe tener su fideicomisario?",
+  "Do you have children or other descendants?": "¿Tiene hijos u otros descendientes?",
+  "Children and descendants": "Hijos y descendientes",
+  "Personal Representative (Executor)": "Representante Personal (Albacea)",
+  "Guardian for minor children": "Tutor para hijos menores",
+  "Do you want to leave specific gifts to particular people?": "¿Desea dejar legados específicos a personas en particular?",
+  "Describe each specific gift": "Describa cada legado específico",
+  "Who receives everything else?": "¿Quién recibe todo lo demás?",
+  "Do any of your beneficiaries have a disability or receive government benefits?": "¿Alguno de sus beneficiarios tiene una discapacidad o recibe beneficios del gobierno?",
+  "Tell us about your special needs beneficiary": "Cuéntenos sobre su beneficiario con necesidades especiales",
+  "Do you have pets you want to provide for?": "¿Tiene mascotas para las que desea proveer?",
+  "Tell us about your pets and caretaker": "Cuéntenos sobre sus mascotas y su cuidador",
+  "Do you own an interest in a business, LLC, partnership, or closely held corporation?": "¿Posee una participación en un negocio, LLC, sociedad o corporación cerrada?",
+  "Tell us about your business interests": "Cuéntenos sobre sus participaciones empresariales",
+  "Do you wish to make any charitable gifts as part of your estate plan?": "¿Desea hacer donaciones benéficas como parte de su plan patrimonial?",
+  "Tell us about your charitable gifts": "Cuéntenos sobre sus donaciones benéficas",
+  "Do you have life insurance policies?": "¿Tiene pólizas de seguro de vida?",
+  "Tell us about your life insurance policies": "Cuéntenos sobre sus pólizas de seguro de vida",
+  "Do you own any NFA-regulated firearms (suppressors, SBRs, machine guns, etc.)?": "¿Posee armas de fuego reguladas por la NFA (supresores, SBR, ametralladoras, etc.)?",
+  "Are you a veteran of the United States Armed Forces?": "¿Es usted veterano de las Fuerzas Armadas de los Estados Unidos?",
+  "Do you have international assets or connections?": "¿Tiene bienes o vínculos internacionales?",
+  "Do you have IRA, 401(k), or other retirement accounts?": "¿Tiene cuentas IRA, 401(k) u otras cuentas de jubilación?",
+  "Do you own cryptocurrency or other digital assets?": "¿Posee criptomonedas u otros activos digitales?",
+  "Do you own fine art, jewelry, wine, collectibles, or other high-value personal property?": "¿Posee obras de arte, joyas, vino, coleccionables u otros bienes personales de alto valor?",
+  "Are you concerned about long-term care costs or Medicaid planning?": "¿Le preocupan los costos de cuidado a largo plazo o la planificación para Medicaid?",
+  "Do you have children from a prior relationship, step-children, or a blended family situation?": "¿Tiene hijos de una relación anterior, hijastros o una familia mixta?",
+  "Is your spouse a US citizen?": "¿Su cónyuge es ciudadano estadounidense?",
+  "Who will act as your Power of Attorney Agent?": "¿Quién actuará como su Apoderado (Power of Attorney)?",
+  "Who will make medical decisions for you?": "¿Quién tomará las decisiones médicas por usted?",
+  "Review your estate plan": "Revise su plan patrimonial",
+  "Your information": "Su información",
+  "What do you need to change?": "¿Qué necesita cambiar?",
+  "Who should be your new Agent and Healthcare Surrogate?": "¿Quién debe ser su nuevo Apoderado y Representante de Atención Médica?",
+  "Beneficiary change details": "Detalles del cambio de beneficiario",
+  "New trustee or executor details": "Detalles del nuevo fideicomisario o albacea",
+  "New guardian details": "Detalles del nuevo tutor",
+  "Asset or property change details": "Detalles del cambio de bienes o propiedad",
+  "Life event details": "Detalles del acontecimiento de vida",
+  "Change details": "Detalles del cambio",
+  "How extensive is this change?": "¿Qué tan amplio es este cambio?",
+  "Anything else to include?": "¿Algo más que incluir?",
+  "Review your amendment details": "Revise los detalles de su enmienda",
+
+  /* ── Common interface chrome (used once those controls are wired to L()) ── */
+  "Continue": "Continuar",
+  "Back": "Atrás",
+  "Next": "Siguiente",
+  "Skip": "Omitir",
+  "Save": "Guardar",
+  "Yes": "Sí",
+  "No": "No",
+  "Add": "Agregar",
+  "Remove": "Quitar",
+  "Edit": "Editar",
+  "Done": "Listo",
+  "Optional": "Opcional",
+  "Required": "Obligatorio"
+
+};

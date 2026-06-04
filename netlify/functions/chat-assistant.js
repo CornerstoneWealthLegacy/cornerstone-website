@@ -258,8 +258,13 @@ exports.handler = async (event) => {
   try { body = JSON.parse(event.body); }
   catch { return { statusCode: 400, body: 'Bad Request' }; }
 
-  const { question, context } = body;
+  const { question, context, lang } = body;
   if (!question) return { statusCode: 400, body: 'Missing question' };
+
+  // If the client toggled the kit to Spanish, answer in Spanish.
+  const systemPrompt = SYSTEM_PROMPT + (lang === 'es'
+    ? `\n\nLANGUAGE: This client is using the Spanish-language interface. Respond ENTIRELY in clear, professional Spanish (US/Latin American Spanish). Keep legal terms accurate; on first use you may put the English term in parentheses for clarity (e.g., "fideicomiso en vida (revocable living trust)"). Apply all of the same compliance rules — no legal advice, no guarantees, attorney reviews all documents.`
+    : '');
 
   // Build the user message with full questionnaire context
   const contextBlock = context ? `
@@ -296,7 +301,7 @@ Answer this question helpfully. You know the full Florida Estate Kit — answer 
       body: JSON.stringify({
         model:      CHAT_MODEL,
         max_tokens: 400,
-        system:     SYSTEM_PROMPT,
+        system:     systemPrompt,
         messages:   [{ role: 'user', content: userMessage }],
       }),
     });
