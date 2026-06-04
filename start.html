@@ -1256,6 +1256,12 @@ button.chat-faq:hover{background:var(--sky)}
   <!-- Hero -->
   <div class="wlc-top">
 
+    <!-- Language toggle (welcome screen) -->
+    <div class="lang-toggle" title="Language / Idioma" style="position:absolute;top:16px;left:16px;z-index:6">
+      <button data-l="en" onclick="setLang('en')">EN</button>
+      <button data-l="es" onclick="setLang('es')">ES</button>
+    </div>
+
     <!-- Sign in bar — shown when not logged in -->
     <div class="wlc-topbar" id="wlcTopbar">
       <span class="wlc-topbar-text">Already have an account?</span>
@@ -1834,8 +1840,8 @@ function _launchQuickStart(docCategory, mode){
       .lang-toggle button.active{background:var(--gold,#c49a2a);color:#0f2744}
     </style>
     <div class="lang-toggle" title="Language / Idioma">
-      <button id="langEn" onclick="setLang('en')">EN</button>
-      <button id="langEs" onclick="setLang('es')">ES</button>
+      <button id="langEn" data-l="en" onclick="setLang('en')">EN</button>
+      <button id="langEs" data-l="es" onclick="setLang('es')">ES</button>
     </div>
     <button id="darkToggle" onclick="toggleDark()" title="Toggle dark mode" style="background:none;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.8);padding:6px 12px;border-radius:8px;cursor:pointer;font-size:1rem;line-height:1">🌙</button>
     <div id="userBar" style="position:relative"></div>
@@ -3253,9 +3259,10 @@ function setLang(l){
   try { if (typeof S !== 'undefined' && S && typeof S.step === 'number') render(); } catch(e){}
 }
 function updateLangUI(){
-  const en = document.getElementById('langEn'), es = document.getElementById('langEs');
-  if (en) en.classList.toggle('active', LANG === 'en');
-  if (es) es.classList.toggle('active', LANG === 'es');
+  // Mark the active button on every language toggle on the page (header + welcome).
+  document.querySelectorAll('.lang-toggle button[data-l]').forEach(function(b){
+    b.classList.toggle('active', b.getAttribute('data-l') === LANG);
+  });
 }
 // Static HTML (welcome/chrome): swap innerHTML by [data-i18n] key. Captures the
 // original English once, so toggling back to EN restores it. Safe if ES_DICT lacks a key.
