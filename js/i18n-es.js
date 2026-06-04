@@ -392,6 +392,19 @@ window.ES_DICT = {
   "wlc.mode.atty": "Sesión Guiada por Abogado",
   "wlc.mode.atty.sub": "Desde $950 · Servicio completo · Su abogado dirige cada paso",
 
+  /* ── Payment screen (static, via data-i18n) ─────────────────────────────── */
+  "pay.execLabel": "¿Cómo firmará sus documentos?",
+  "pay.self.name": "Firmar por Mi Cuenta",
+  "pay.self.price": "Incluido — sin cargo adicional",
+  "pay.self.desc": "Usted consigue un notario local y 2 testigos. Nosotros le damos las Instrucciones de Presentación paso a paso.",
+  "pay.ron.badge": "Premium",
+  "pay.ron.name": "RON — Notarización Remota en Línea",
+  "pay.ron.desc": "Firme desde cualquier lugar por video seguro con su Asesor de Planificación Patrimonial de Cornerstone. Nosotros nos encargamos de los testigos y la notarización.",
+  "pay.ack": "Entiendo que mis documentos son borradores legalmente válidos. Conseguiré mi propio notario y 2 testigos antes de firmar. <strong>No</strong> firmaré ningún documento sin los testigos y la notarización adecuados, según se describe en mis Instrucciones de Presentación.",
+  "pay.cta": "Confirmar y Pagar de Forma Segura →",
+  "pay.stripeNote": "🔒 Protegido por Stripe · Se aceptan todas las tarjetas principales · Cifrado SSL de 256 bits",
+  "pay.back": "← Volver a los Documentos",
+
   /* ── Common interface chrome (used once those controls are wired to L()) ── */
   "Continue": "Continuar",
   "Back": "Atrás",

@@ -9955,29 +9955,29 @@ render();
 
     <!-- Execution Path Selection -->
     <div class="exec-path-section" id="execPathSection">
-      <div class="exec-path-label">How will you execute your documents?</div>
+      <div class="exec-path-label" data-i18n="pay.execLabel">How will you execute your documents?</div>
       <div class="exec-path-cards">
         <button class="exec-path-card selected" id="execCardSelf" onclick="selectExecPath('self')">
           <div class="exec-path-checkmark">✓</div>
           <div class="exec-path-icon">📝</div>
-          <div class="exec-path-name">Self-Execute</div>
-          <div class="exec-path-price-tag included">Included — no extra charge</div>
-          <div class="exec-path-desc">You find a local notary &amp; 2 witnesses. We provide step-by-step Filing Instructions.</div>
+          <div class="exec-path-name" data-i18n="pay.self.name">Self-Execute</div>
+          <div class="exec-path-price-tag included" data-i18n="pay.self.price">Included — no extra charge</div>
+          <div class="exec-path-desc" data-i18n="pay.self.desc">You find a local notary &amp; 2 witnesses. We provide step-by-step Filing Instructions.</div>
         </button>
         <button class="exec-path-card" id="execCardRon" onclick="selectExecPath('ron')">
           <div class="exec-path-checkmark">✓</div>
-          <div class="exec-path-badge">Premium</div>
+          <div class="exec-path-badge" data-i18n="pay.ron.badge">Premium</div>
           <div class="exec-path-icon">🎥</div>
-          <div class="exec-path-name">RON — Remote Online Notarization</div>
+          <div class="exec-path-name" data-i18n="pay.ron.name">RON — Remote Online Notarization</div>
           <div class="exec-path-price-tag premium" id="execRonPriceTag">+$275 · video signing appointment</div>
-          <div class="exec-path-desc">Sign from anywhere via secure video with your Cornerstone Estate Planning Advisor. We handle witnesses &amp; notarization.</div>
+          <div class="exec-path-desc" data-i18n="pay.ron.desc">Sign from anywhere via secure video with your Cornerstone Estate Planning Advisor. We handle witnesses &amp; notarization.</div>
         </button>
       </div>
       <!-- Self-execute acknowledgment -->
       <div class="exec-ack show" id="execAckBox">
         <div class="exec-ack-row">
           <input type="checkbox" id="execAckCheck" onchange="_onExecAckChange()">
-          <label class="exec-ack-text" for="execAckCheck">
+          <label class="exec-ack-text" for="execAckCheck" data-i18n="pay.ack">
             I understand my documents are legally valid drafts. I will arrange my own notary and 2 witnesses before signing. I will <strong>not</strong> sign any document without proper witnesses and notarization as described in my Filing Instructions.
           </label>
         </div>
@@ -9997,13 +9997,13 @@ render();
       </div>
     </div>
 
-    <button class="pay-cta" id="payBtn" onclick="proceedToPayment()" disabled>
+    <button class="pay-cta" id="payBtn" onclick="proceedToPayment()" disabled data-i18n="pay.cta">
       Confirm &amp; Pay Securely →
     </button>
-    <div class="pay-stripe-note">🔒 Secured by Stripe · All major cards accepted · 256-bit SSL encryption</div>
+    <div class="pay-stripe-note" data-i18n="pay.stripeNote">🔒 Secured by Stripe · All major cards accepted · 256-bit SSL encryption</div>
 
     <div class="pay-actions">
-      <button class="pay-link" onclick="closePaymentScreen()">← Back to Documents</button>
+      <button class="pay-link" onclick="closePaymentScreen()" data-i18n="pay.back">← Back to Documents</button>
       <button class="pay-link" onclick="startOver()">${window.appMode==='attorney'?'New Matter':'Start Over'}</button>
     </div>
   </div>
@@ -12565,27 +12565,27 @@ function showPaymentScreen() {
   const _payFeat  = document.getElementById('payFeatures');
   const _payTotLbl= document.getElementById('payTotalLabel');
   if (isDiy) {
-    if (_payTitle) _payTitle.textContent = 'Unlock Your Documents';
-    if (_paySub)   _paySub.textContent = 'Your Florida-compliant documents are ready. Complete your purchase below to unlock, download, and receive step-by-step filing & execution instructions. This is a self-guided (DIY) plan — optional attorney review is available on request for an added fee.';
-    if (_payTotLbl) _payTotLbl.textContent = 'Document Fee';
+    if (_payTitle) _payTitle.textContent = L('Unlock Your Documents','Desbloquee Sus Documentos');
+    if (_paySub)   _paySub.textContent = L('Your Florida-compliant documents are ready. Complete your purchase below to unlock, download, and receive step-by-step filing & execution instructions. This is a self-guided (DIY) plan — optional attorney review is available on request for an added fee.','Sus documentos conformes a Florida están listos. Complete su compra a continuación para desbloquearlos, descargarlos y recibir instrucciones paso a paso de presentación y firma. Este es un plan autoguiado (DIY) — la revisión opcional por un abogado está disponible a solicitud por un cargo adicional.');
+    if (_payTotLbl) _payTotLbl.textContent = L('Document Fee','Tarifa de Documentos');
     if (_payFeat) _payFeat.innerHTML =
-      _feat('Florida-compliant, citation-backed instruments') +
-      _feat('Instant document generation &amp; download') +
-      _feat('Step-by-step Filing &amp; Execution Instructions') +
-      _feat('Self-guided — complete at your own pace') +
-      _feat('Live attorney chat for quick questions') +
-      _feat('Optional attorney review available on request');
+      _feat(L('Florida-compliant, citation-backed instruments','Instrumentos conformes a Florida y respaldados por citas legales')) +
+      _feat(L('Instant document generation &amp; download','Generación y descarga instantánea de documentos')) +
+      _feat(L('Step-by-step Filing &amp; Execution Instructions','Instrucciones de presentación y firma paso a paso')) +
+      _feat(L('Self-guided — complete at your own pace','Autoguiado — complete a su propio ritmo')) +
+      _feat(L('Live attorney chat for quick questions','Chat en vivo con abogado para preguntas rápidas')) +
+      _feat(L('Optional attorney review available on request','Revisión opcional por abogado disponible a solicitud'));
   } else {
-    if (_payTitle) _payTitle.textContent = 'Ready to Finalize';
-    if (_paySub)   _paySub.textContent = 'Your documents have been prepared and are ready for attorney review. Complete your engagement below — Arthur Simpson, Esq. will personally review and finalize your documents within 3–5 business days.';
-    if (_payTotLbl) _payTotLbl.textContent = 'Engagement Fee';
+    if (_payTitle) _payTitle.textContent = L('Ready to Finalize','Listo para Finalizar');
+    if (_paySub)   _paySub.textContent = L('Your documents have been prepared and are ready for attorney review. Complete your engagement below — Arthur Simpson, Esq. will personally review and finalize your documents within 3–5 business days.','Sus documentos han sido preparados y están listos para la revisión del abogado. Complete su contratación a continuación — Arthur Simpson, Esq. revisará y finalizará personalmente sus documentos en un plazo de 3 a 5 días hábiles.');
+    if (_payTotLbl) _payTotLbl.textContent = L('Engagement Fee','Tarifa de Contratación');
     if (_payFeat) _payFeat.innerHTML =
-      _feat('Personal attorney review by Arthur Simpson, Esq.') +
-      _feat('Florida-compliant, citation-backed instruments') +
-      _feat('Execution supervision &amp; witness coordination') +
-      _feat('Trust funding assistance &amp; asset retitling') +
-      _feat('Secure digital document delivery') +
-      _feat('3–5 business day turnaround');
+      _feat(L('Personal attorney review by Arthur Simpson, Esq.','Revisión personal del abogado Arthur Simpson, Esq.')) +
+      _feat(L('Florida-compliant, citation-backed instruments','Instrumentos conformes a Florida y respaldados por citas legales')) +
+      _feat(L('Execution supervision &amp; witness coordination','Supervisión de la firma y coordinación de testigos')) +
+      _feat(L('Trust funding assistance &amp; asset retitling','Asistencia para financiar el fideicomiso y retitulación de bienes')) +
+      _feat(L('Secure digital document delivery','Entrega digital segura de documentos')) +
+      _feat(L('3–5 business day turnaround','Entrega en 3 a 5 días hábiles'));
   }
 
   // Show attorney override only in attorney mode
