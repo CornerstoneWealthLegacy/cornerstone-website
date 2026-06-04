@@ -387,7 +387,7 @@ function _firmFooter() {
   return `
     <p class="centered statutory" style="margin-top:36pt; border-top:1px solid #ccc; padding-top:12pt;">
       Prepared by: Arthur Simpson, Esq. &nbsp;|&nbsp; Cornerstone Wealth &amp; Legacy Law
-      &nbsp;|&nbsp; Ormond Beach, Florida &nbsp;|&nbsp; (386) 293-5586
+      &nbsp;|&nbsp; P.O. Box 2574, Ormond Beach, FL 32175 &nbsp;|&nbsp; (386) 293-5586
       &nbsp;|&nbsp; cornerstonewealthlegacy.com
     </p>
   `;
