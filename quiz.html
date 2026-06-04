@@ -875,8 +875,8 @@
     <div class="screen state-active" id="screen-intro" aria-label="Quiz introduction">
       <div class="card intro-card">
         <span class="intro-emoji" aria-hidden="true">📋</span>
-        <h1>Is Your Florida Estate Plan Complete?</h1>
-        <p class="intro-sub">Answer 12 questions and get your personalized estate plan score — plus a gap analysis that shows exactly what your family could be missing.</p>
+        <h1 id="introH1">Is Your Florida Estate Plan Complete?</h1>
+        <p class="intro-sub" id="introSub">Answer 12 questions and get your personalized estate plan score — plus a gap analysis that shows exactly what your family could be missing.</p>
         <div class="intro-badges">
           <span class="badge">⏱ 3 minutes</span>
           <span class="badge">📊 12 questions</span>
@@ -1556,7 +1556,7 @@ function showResults() {
       fetch('/.netlify/functions/capture-lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: capturedEmail.email, name: capturedEmail.name || '', score: score, grade: grade.key })
+        body: JSON.stringify(Object.assign({ email: capturedEmail.email, name: capturedEmail.name || '', score: score, grade: grade.key }, (window._attribution || {})))
       }).catch(function () {});
     } catch (e) {}
     // Ad-platform lead conversion (Google Ads + Meta) — fires only when an email was captured
@@ -1804,6 +1804,43 @@ function showKeyboardHint(show) {
    ========================================================== */
 buildQuestions();
 document.getElementById('progressLabel').textContent = '';
+</script>
+<!-- Ad attribution + message-match (Instagram/Meta/Google campaigns) -->
+<script>
+(function () {
+  // 1) Capture campaign attribution once, persist across the quiz steps + to the lead.
+  var p = new URLSearchParams(location.search);
+  var saved = {};
+  try { saved = JSON.parse(sessionStorage.getItem('cw_attr') || '{}'); } catch (e) {}
+  var attr = {
+    utm_source:   p.get('utm_source')   || saved.utm_source   || '',
+    utm_medium:   p.get('utm_medium')   || saved.utm_medium   || '',
+    utm_campaign: p.get('utm_campaign') || saved.utm_campaign || '',
+    utm_content:  p.get('utm_content')  || saved.utm_content  || '',
+    utm_term:     p.get('utm_term')     || saved.utm_term     || '',
+    ad:           p.get('ad')           || saved.ad           || '',
+    referrer:     saved.referrer || document.referrer || '',
+    landing:      saved.landing  || (location.pathname + location.search)
+  };
+  try { sessionStorage.setItem('cw_attr', JSON.stringify(attr)); } catch (e) {}
+  window._attribution = attr;
+
+  // 2) Message-match: swap the intro headline to match the ad creative the visitor clicked.
+  var AD_HEADLINES = {
+    'family-deserves-plan': {
+      h1: 'Your Family Deserves a Plan.',
+      sub: "Without a proper will or trust, the state decides what happens to everything you’ve built. Take the free 3-minute quiz to see exactly what your family needs."
+    }
+  };
+  var key = (attr.ad || attr.utm_campaign || '').toLowerCase().trim();
+  var match = AD_HEADLINES[key];
+  if (match) {
+    var h1 = document.getElementById('introH1');
+    var sub = document.getElementById('introSub');
+    if (h1) h1.textContent = match.h1;
+    if (sub) sub.textContent = match.sub;
+  }
+})();
 </script>
 <script src="js/main.js"></script>
 </body>

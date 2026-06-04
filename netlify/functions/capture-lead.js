@@ -60,7 +60,7 @@ function emailShell(title, bodyHtml, unsubUrl) {
 <tr><td style="background:#0f2744;border-radius:0 0 12px 12px;padding:20px 36px;text-align:center">
 <div style="font-size:11px;color:#8899aa;line-height:1.7;font-family:Arial,sans-serif">
 Cornerstone Wealth &amp; Legacy Law, PLLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265<br>
-Daytona Beach, Florida &nbsp;·&nbsp; cornerstonewealthlegacy.com<br><br>
+P.O. Box 2574, Ormond Beach, FL 32175 &nbsp;·&nbsp; cornerstonewealthlegacy.com<br><br>
 <em>Attorney advertising. This email is general information, not legal advice, and does not create an attorney-client relationship.</em><br>
 <a href="${unsubUrl}" style="color:#8899aa">Unsubscribe</a></div></td></tr>
 </table></td></tr></table></body></html>`;
@@ -77,7 +77,7 @@ async function sendWelcome(key, email, name, score, id) {
 <p>The good news: putting a Florida-valid plan in place is more straightforward — and more affordable — than most people think. You can build yours online in about 20 minutes, with the option to have it reviewed by a Florida attorney.</p>
 ${btn('https://cornerstonewealthlegacy.com/florida-estate-kit', 'See Your Options →')}
 <p style="font-size:14px;color:#666">Prefer to talk it through first? <a href="https://calendly.com/arthursimpson/free-20-minute-discovery-call" style="color:#0f2744">Book a free 20-minute call</a>.</p>`;
-  const text = `Hi ${first},\n\nThanks for taking the Estate Plan Score Quiz. ${score ? 'Your score is ' + score + '/100.' : ''}\n\nYou can build a Florida-valid estate plan online in about 20 minutes, with an attorney-review option:\nhttps://cornerstonewealthlegacy.com/florida-estate-kit\n\nPrefer to talk first? https://calendly.com/arthursimpson/free-20-minute-discovery-call\n\nCornerstone Wealth & Legacy Law, PLLC · Arthur Simpson, Esq. · Florida Bar #529265 · Daytona Beach, FL\nAttorney advertising. Unsubscribe: ${unsub}`;
+  const text = `Hi ${first},\n\nThanks for taking the Estate Plan Score Quiz. ${score ? 'Your score is ' + score + '/100.' : ''}\n\nYou can build a Florida-valid estate plan online in about 20 minutes, with an attorney-review option:\nhttps://cornerstonewealthlegacy.com/florida-estate-kit\n\nPrefer to talk first? https://calendly.com/arthursimpson/free-20-minute-discovery-call\n\nCornerstone Wealth & Legacy Law, PLLC · Arthur Simpson, Esq. · Florida Bar #529265 · P.O. Box 2574, Ormond Beach, FL 32175\nAttorney advertising. Unsubscribe: ${unsub}`;
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST', headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -99,6 +99,19 @@ exports.handler = async (event) => {
   const grade = (body.grade || '').toString().slice(0, 40);
   if (!email || !email.includes('@') || email.length > 200) return { statusCode: 400, body: 'Invalid email' };
 
+  // Campaign attribution (Instagram/Meta/Google ad tracking) — where this lead came from.
+  const a = k => (body[k] || '').toString().slice(0, 300);
+  const attribution = {
+    utmSource:   a('utm_source'),
+    utmMedium:   a('utm_medium'),
+    utmCampaign: a('utm_campaign'),
+    utmContent:  a('utm_content'),
+    utmTerm:     a('utm_term'),
+    adCreative:  a('ad'),
+    referrer:    a('referrer'),
+    landingPage: a('landing'),
+  };
+
   let sa; try { sa = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT); } catch { return { statusCode: 500, body: 'Not configured' }; }
   const pid = sa.project_id;
   const RESEND_KEY = process.env.RESEND_API_KEY;
@@ -118,6 +131,10 @@ exports.handler = async (event) => {
     // New lead: welcome goes out now; next email (step 1) due in 2 days
     await upsert(pid, 'quiz_leads', id, {
       email, name, score, grade,
+      utmSource: attribution.utmSource, utmMedium: attribution.utmMedium,
+      utmCampaign: attribution.utmCampaign, utmContent: attribution.utmContent,
+      utmTerm: attribution.utmTerm, adCreative: attribution.adCreative,
+      referrer: attribution.referrer, landingPage: attribution.landingPage,
       createdAt: now, step: 1, nextSendAt: now + 2 * DAY,
       unsubscribed: false, purchased: false, lastSentAt: now,
     }, token);
