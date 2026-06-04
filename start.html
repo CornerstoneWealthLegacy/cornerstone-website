@@ -1256,8 +1256,8 @@ button.chat-faq:hover{background:var(--sky)}
   <!-- Hero -->
   <div class="wlc-top">
 
-    <!-- Language toggle (welcome screen) -->
-    <div class="lang-toggle" title="Language / Idioma" style="position:absolute;top:16px;left:16px;z-index:6">
+    <!-- Language toggle (welcome screen) — z-index above .wlc-topbar (z-index:10) so clicks land -->
+    <div class="lang-toggle" title="Language / Idioma" style="position:absolute;top:14px;left:16px;z-index:20">
       <button data-l="en" onclick="setLang('en')">EN</button>
       <button data-l="es" onclick="setLang('es')">ES</button>
     </div>
