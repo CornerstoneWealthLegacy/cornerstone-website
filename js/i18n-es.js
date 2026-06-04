@@ -371,6 +371,27 @@ window.ES_DICT = {
   "The trust name appears in the public deed — use a neutral name (address or number) to maximize privacy. The trustee's name IS public; the beneficiary's name is NOT. An LLC can serve as trustee for added protection.": "El nombre del fideicomiso aparece en la escritura pública — use un nombre neutral (dirección o número) para maximizar la privacidad. El nombre del fideicomisario SÍ es público; el del beneficiario NO. Una LLC puede actuar como fideicomisario para mayor protección.",
   "This information populates the Special Needs Trust document. The more detail you provide, the more complete the document will be for attorney review. The trust is designed as a third-party SNT — funded with your assets, not the beneficiary's — so there is no Medicaid payback requirement. (F.S. § 736.0507; 42 U.S.C. § 1396p(d)(4)(C))": "Esta información completa el documento del Fideicomiso para Necesidades Especiales. Cuanto más detalle proporcione, más completo será el documento para la revisión del abogado. El fideicomiso está diseñado como un SNT de terceros — financiado con sus bienes, no los del beneficiario — por lo que no hay requisito de reembolso a Medicaid. (§ 736.0507; 42 U.S.C. § 1396p(d)(4)(C))",
 
+  /* ── Welcome screen (static, via data-i18n) ─────────────────────────────── */
+  "wlc.eyebrow": "Portal de Planificación Patrimonial de Florida",
+  "wlc.title": "Su Legado,<br><span>Hecho para Perdurar.</span>",
+  "wlc.sub": "La experiencia de planificación patrimonial guiada por abogado más completa de Florida. Responda algunas preguntas — obtenga un paquete de documentos completo y listo para los tribunales en minutos. Testamentos, fideicomisos, poderes notariales y más — todo adaptado a su familia y revisado por un abogado con licencia en Florida.",
+  "wlc.individual": "Individual",
+  "wlc.couple": "Pareja Casada",
+  "wlc.essentials.name": "Plan Esencial",
+  "wlc.essentials.desc": "Testamento + Poder Notarial Duradero + Representante de Atención Médica + Testamento Vital. Todos los documentos que necesita como base inicial — redactados conforme a los estándares de Florida.",
+  "wlc.complete.name": "Plan Patrimonial Completo",
+  "wlc.complete.desc": "Fideicomiso + Testamento + Poder Notarial + Directiva de Atención Médica + Testamento Vital. El estándar de excelencia — evita el proceso sucesorio por completo y protege cada bien.",
+  "wlc.legacy.name": "Plan de Legado",
+  "wlc.legacy.desc": "Plan Completo + ILIT o Sociedad Familiar Limitada — reducción fiscal avanzada, transferencia de riqueza multigeneracional y protección de bienes de primer nivel.",
+  "wlc.land.name": "Fideicomiso de Tierras de Florida",
+  "wlc.land.desc": "Mantenga bienes raíces de forma privada — su nombre nunca aparece en los registros públicos. Evita el proceso sucesorio, preserva el homestead. Ideal para inversionistas y estructuras de LLC.",
+  "wlc.badge.popular": "Más Popular",
+  "wlc.badge.hnw": "Alto Patrimonio",
+  "wlc.mode.diy": "Iniciar Mi Plan — Por Mi Cuenta",
+  "wlc.mode.diy.sub": "Desde $399 · Autoguiado · Chat con abogado disponible",
+  "wlc.mode.atty": "Sesión Guiada por Abogado",
+  "wlc.mode.atty.sub": "Desde $950 · Servicio completo · Su abogado dirige cada paso",
+
   /* ── Common interface chrome (used once those controls are wired to L()) ── */
   "Continue": "Continuar",
   "Back": "Atrás",

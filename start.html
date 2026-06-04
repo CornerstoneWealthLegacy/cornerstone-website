@@ -1270,14 +1270,14 @@ button.chat-faq:hover{background:var(--sky)}
 
     <div class="wlc-center">
       <div class="wlc-logo">Cornerstone Wealth &amp; Legacy Law</div>
-      <div class="wlc-eyebrow">Florida Estate Planning Portal</div>
-      <h1 class="wlc-title">Your Legacy,<br><span>Built to Last.</span></h1>
-      <p class="wlc-sub">Florida's most comprehensive attorney-guided estate planning experience. Answer a few questions — get a complete, court-ready document package in minutes. Wills, Trusts, Powers of Attorney, and more — all tailored to your family and reviewed by a Florida-licensed attorney.</p>
+      <div class="wlc-eyebrow" data-i18n="wlc.eyebrow">Florida Estate Planning Portal</div>
+      <h1 class="wlc-title" data-i18n="wlc.title">Your Legacy,<br><span>Built to Last.</span></h1>
+      <p class="wlc-sub" data-i18n="wlc.sub">Florida's most comprehensive attorney-guided estate planning experience. Answer a few questions — get a complete, court-ready document package in minutes. Wills, Trusts, Powers of Attorney, and more — all tailored to your family and reviewed by a Florida-licensed attorney.</p>
 
       <!-- Individual / Couple toggle -->
       <div class="wlc-couple-toggle">
-        <button class="wlc-couple-btn active" id="btnIndividual" onclick="setPlanType('individual')">Individual</button>
-        <button class="wlc-couple-btn" id="btnCouple" onclick="setPlanType('couple')">Married Couple</button>
+        <button class="wlc-couple-btn active" id="btnIndividual" onclick="setPlanType('individual')" data-i18n="wlc.individual">Individual</button>
+        <button class="wlc-couple-btn" id="btnCouple" onclick="setPlanType('couple')" data-i18n="wlc.couple">Married Couple</button>
       </div>
 
       <!-- Document type cards -->
@@ -1285,8 +1285,8 @@ button.chat-faq:hover{background:var(--sky)}
         <!-- Essentials -->
         <div class="wlc-dt-card" onclick="quickStart('essentials')" title="Click to start your Essentials Plan">
           <div class="wlc-dt-icon">📋</div>
-          <div class="wlc-dt-name">Essentials Plan</div>
-          <div class="wlc-dt-desc">Will + Durable POA + Healthcare Surrogate + Living Will. Every document you need as a starting foundation — drafted to Florida standards.</div>
+          <div class="wlc-dt-name" data-i18n="wlc.essentials.name">Essentials Plan</div>
+          <div class="wlc-dt-desc" data-i18n="wlc.essentials.desc">Will + Durable POA + Healthcare Surrogate + Living Will. Every document you need as a starting foundation — drafted to Florida standards.</div>
           <div class="wlc-dt-footer">
             <div class="wlc-dt-law">F.S. Ch. 709 &amp; 732</div>
             <div>
@@ -1297,10 +1297,10 @@ button.chat-faq:hover{background:var(--sky)}
         </div>
         <!-- Complete Plan — FEATURED -->
         <div class="wlc-dt-card wlc-dt-featured" onclick="quickStart('both')" title="Click to start your Complete Estate Plan">
-          <div class="wlc-dt-badge">Most Popular</div>
+          <div class="wlc-dt-badge" data-i18n="wlc.badge.popular">Most Popular</div>
           <div class="wlc-dt-icon">🏛️</div>
-          <div class="wlc-dt-name">Complete Estate Plan</div>
-          <div class="wlc-dt-desc">Trust + Will + POA + Healthcare Directive + Living Will. The gold standard — avoids probate entirely while protecting every asset.</div>
+          <div class="wlc-dt-name" data-i18n="wlc.complete.name">Complete Estate Plan</div>
+          <div class="wlc-dt-desc" data-i18n="wlc.complete.desc">Trust + Will + POA + Healthcare Directive + Living Will. The gold standard — avoids probate entirely while protecting every asset.</div>
           <div class="wlc-dt-footer">
             <div class="wlc-dt-law">F.S. Ch. 732 &amp; 736</div>
             <div>
@@ -1311,10 +1311,10 @@ button.chat-faq:hover{background:var(--sky)}
         </div>
         <!-- Legacy Plan -->
         <div class="wlc-dt-card wlc-dt-legacy" onclick="quickStart('legacy')" title="Click to start your Legacy Plan">
-          <div class="wlc-dt-badge-legacy">High Net Worth</div>
+          <div class="wlc-dt-badge-legacy" data-i18n="wlc.badge.hnw">High Net Worth</div>
           <div class="wlc-dt-icon">💎</div>
-          <div class="wlc-dt-name">Legacy Plan</div>
-          <div class="wlc-dt-desc">Complete Plan + ILIT or Family Limited Partnership — advanced tax reduction, multi-generational wealth transfer, and top-tier asset protection.</div>
+          <div class="wlc-dt-name" data-i18n="wlc.legacy.name">Legacy Plan</div>
+          <div class="wlc-dt-desc" data-i18n="wlc.legacy.desc">Complete Plan + ILIT or Family Limited Partnership — advanced tax reduction, multi-generational wealth transfer, and top-tier asset protection.</div>
           <div class="wlc-dt-footer">
             <div class="wlc-dt-law">IRC §§ 2503, 2036 &amp; F.S. 736</div>
             <div>
@@ -1326,8 +1326,8 @@ button.chat-faq:hover{background:var(--sky)}
         <!-- Florida Land Trust -->
         <div class="wlc-dt-card" onclick="quickStart('land_trust')" title="Click to start your Florida Land Trust">
           <div class="wlc-dt-icon">🔒</div>
-          <div class="wlc-dt-name">Florida Land Trust</div>
-          <div class="wlc-dt-desc">Hold real estate privately — your name never appears in public records. Avoids probate, preserves homestead. Ideal for investors &amp; LLC structures.</div>
+          <div class="wlc-dt-name" data-i18n="wlc.land.name">Florida Land Trust</div>
+          <div class="wlc-dt-desc" data-i18n="wlc.land.desc">Hold real estate privately — your name never appears in public records. Avoids probate, preserves homestead. Ideal for investors &amp; LLC structures.</div>
           <div class="wlc-dt-footer">
             <div class="wlc-dt-law">F.S. § 689.071</div>
             <div>
@@ -1360,12 +1360,12 @@ button.chat-faq:hover{background:var(--sky)}
 
       <div class="wlc-modes">
         <button class="wlc-btn wlc-btn-secondary" onclick="startApp('self')">
-          <span>Start My Plan — DIY</span>
-          <span class="wlc-btn-sub">From $399 · Self-guided · Live attorney chat available</span>
+          <span data-i18n="wlc.mode.diy">Start My Plan — DIY</span>
+          <span class="wlc-btn-sub" data-i18n="wlc.mode.diy.sub">From $399 · Self-guided · Live attorney chat available</span>
         </button>
         <button class="wlc-btn wlc-btn-primary" onclick="startApp('attorney')">
-          <span>Attorney-Guided Session</span>
-          <span class="wlc-btn-sub">From $950 · Full-service · Your attorney leads every step</span>
+          <span data-i18n="wlc.mode.atty">Attorney-Guided Session</span>
+          <span class="wlc-btn-sub" data-i18n="wlc.mode.atty.sub">From $950 · Full-service · Your attorney leads every step</span>
         </button>
       </div>
     </div>
@@ -3249,6 +3249,7 @@ function setLang(l){
   LANG = (l === 'es') ? 'es' : 'en';
   try { localStorage.setItem('cw_lang', LANG); } catch(e){}
   updateLangUI();
+  applyStaticI18n();
   try { if (typeof S !== 'undefined' && S && typeof S.step === 'number') render(); } catch(e){}
 }
 function updateLangUI(){
@@ -3256,7 +3257,20 @@ function updateLangUI(){
   if (en) en.classList.toggle('active', LANG === 'en');
   if (es) es.classList.toggle('active', LANG === 'es');
 }
-if (typeof window !== 'undefined') window.addEventListener('DOMContentLoaded', updateLangUI);
+// Static HTML (welcome/chrome): swap innerHTML by [data-i18n] key. Captures the
+// original English once, so toggling back to EN restores it. Safe if ES_DICT lacks a key.
+function applyStaticI18n(){
+  var es = (LANG === 'es');
+  var nodes = document.querySelectorAll('[data-i18n]');
+  for (var i = 0; i < nodes.length; i++) {
+    var el = nodes[i];
+    if (el.getAttribute('data-en') === null) el.setAttribute('data-en', el.innerHTML);
+    var key = el.getAttribute('data-i18n');
+    var orig = el.getAttribute('data-en');
+    el.innerHTML = (es && typeof ES_DICT !== 'undefined' && ES_DICT[key]) ? ES_DICT[key] : orig;
+  }
+}
+if (typeof window !== 'undefined') window.addEventListener('DOMContentLoaded', function(){ updateLangUI(); applyStaticI18n(); });
 
 function render(){
   const step=curStep(); if(!step)return;
