@@ -21,6 +21,8 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-check-compat.js"></script>
+<!-- Spanish translation dictionary (es) — consumed by the L() helper when toggled to ES -->
+<script src="js/i18n-es.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -1254,6 +1256,12 @@ button.chat-faq:hover{background:var(--sky)}
   <!-- Hero -->
   <div class="wlc-top">
 
+    <!-- Language toggle (welcome screen) -->
+    <div class="lang-toggle" title="Language / Idioma" style="position:absolute;top:16px;left:16px;z-index:6">
+      <button data-l="en" onclick="setLang('en')">EN</button>
+      <button data-l="es" onclick="setLang('es')">ES</button>
+    </div>
+
     <!-- Sign in bar — shown when not logged in -->
     <div class="wlc-topbar" id="wlcTopbar">
       <span class="wlc-topbar-text">Already have an account?</span>
@@ -1268,14 +1276,14 @@ button.chat-faq:hover{background:var(--sky)}
 
     <div class="wlc-center">
       <div class="wlc-logo">Cornerstone Wealth &amp; Legacy Law</div>
-      <div class="wlc-eyebrow">Florida Estate Planning Portal</div>
-      <h1 class="wlc-title">Your Legacy,<br><span>Built to Last.</span></h1>
-      <p class="wlc-sub">Florida's most comprehensive attorney-guided estate planning experience. Answer a few questions — get a complete, court-ready document package in minutes. Wills, Trusts, Powers of Attorney, and more — all tailored to your family and reviewed by a Florida-licensed attorney.</p>
+      <div class="wlc-eyebrow" data-i18n="wlc.eyebrow">Florida Estate Planning Portal</div>
+      <h1 class="wlc-title" data-i18n="wlc.title">Your Legacy,<br><span>Built to Last.</span></h1>
+      <p class="wlc-sub" data-i18n="wlc.sub">Florida's most comprehensive attorney-guided estate planning experience. Answer a few questions — get a complete, court-ready document package in minutes. Wills, Trusts, Powers of Attorney, and more — all tailored to your family and reviewed by a Florida-licensed attorney.</p>
 
       <!-- Individual / Couple toggle -->
       <div class="wlc-couple-toggle">
-        <button class="wlc-couple-btn active" id="btnIndividual" onclick="setPlanType('individual')">Individual</button>
-        <button class="wlc-couple-btn" id="btnCouple" onclick="setPlanType('couple')">Married Couple</button>
+        <button class="wlc-couple-btn active" id="btnIndividual" onclick="setPlanType('individual')" data-i18n="wlc.individual">Individual</button>
+        <button class="wlc-couple-btn" id="btnCouple" onclick="setPlanType('couple')" data-i18n="wlc.couple">Married Couple</button>
       </div>
 
       <!-- Document type cards -->
@@ -1283,8 +1291,8 @@ button.chat-faq:hover{background:var(--sky)}
         <!-- Essentials -->
         <div class="wlc-dt-card" onclick="quickStart('essentials')" title="Click to start your Essentials Plan">
           <div class="wlc-dt-icon">📋</div>
-          <div class="wlc-dt-name">Essentials Plan</div>
-          <div class="wlc-dt-desc">Will + Durable POA + Healthcare Surrogate + Living Will. Every document you need as a starting foundation — drafted to Florida standards.</div>
+          <div class="wlc-dt-name" data-i18n="wlc.essentials.name">Essentials Plan</div>
+          <div class="wlc-dt-desc" data-i18n="wlc.essentials.desc">Will + Durable POA + Healthcare Surrogate + Living Will. Every document you need as a starting foundation — drafted to Florida standards.</div>
           <div class="wlc-dt-footer">
             <div class="wlc-dt-law">F.S. Ch. 709 &amp; 732</div>
             <div>
@@ -1295,10 +1303,10 @@ button.chat-faq:hover{background:var(--sky)}
         </div>
         <!-- Complete Plan — FEATURED -->
         <div class="wlc-dt-card wlc-dt-featured" onclick="quickStart('both')" title="Click to start your Complete Estate Plan">
-          <div class="wlc-dt-badge">Most Popular</div>
+          <div class="wlc-dt-badge" data-i18n="wlc.badge.popular">Most Popular</div>
           <div class="wlc-dt-icon">🏛️</div>
-          <div class="wlc-dt-name">Complete Estate Plan</div>
-          <div class="wlc-dt-desc">Trust + Will + POA + Healthcare Directive + Living Will. The gold standard — avoids probate entirely while protecting every asset.</div>
+          <div class="wlc-dt-name" data-i18n="wlc.complete.name">Complete Estate Plan</div>
+          <div class="wlc-dt-desc" data-i18n="wlc.complete.desc">Trust + Will + POA + Healthcare Directive + Living Will. The gold standard — avoids probate entirely while protecting every asset.</div>
           <div class="wlc-dt-footer">
             <div class="wlc-dt-law">F.S. Ch. 732 &amp; 736</div>
             <div>
@@ -1309,10 +1317,10 @@ button.chat-faq:hover{background:var(--sky)}
         </div>
         <!-- Legacy Plan -->
         <div class="wlc-dt-card wlc-dt-legacy" onclick="quickStart('legacy')" title="Click to start your Legacy Plan">
-          <div class="wlc-dt-badge-legacy">High Net Worth</div>
+          <div class="wlc-dt-badge-legacy" data-i18n="wlc.badge.hnw">High Net Worth</div>
           <div class="wlc-dt-icon">💎</div>
-          <div class="wlc-dt-name">Legacy Plan</div>
-          <div class="wlc-dt-desc">Complete Plan + ILIT or Family Limited Partnership — advanced tax reduction, multi-generational wealth transfer, and top-tier asset protection.</div>
+          <div class="wlc-dt-name" data-i18n="wlc.legacy.name">Legacy Plan</div>
+          <div class="wlc-dt-desc" data-i18n="wlc.legacy.desc">Complete Plan + ILIT or Family Limited Partnership — advanced tax reduction, multi-generational wealth transfer, and top-tier asset protection.</div>
           <div class="wlc-dt-footer">
             <div class="wlc-dt-law">IRC §§ 2503, 2036 &amp; F.S. 736</div>
             <div>
@@ -1324,8 +1332,8 @@ button.chat-faq:hover{background:var(--sky)}
         <!-- Florida Land Trust -->
         <div class="wlc-dt-card" onclick="quickStart('land_trust')" title="Click to start your Florida Land Trust">
           <div class="wlc-dt-icon">🔒</div>
-          <div class="wlc-dt-name">Florida Land Trust</div>
-          <div class="wlc-dt-desc">Hold real estate privately — your name never appears in public records. Avoids probate, preserves homestead. Ideal for investors &amp; LLC structures.</div>
+          <div class="wlc-dt-name" data-i18n="wlc.land.name">Florida Land Trust</div>
+          <div class="wlc-dt-desc" data-i18n="wlc.land.desc">Hold real estate privately — your name never appears in public records. Avoids probate, preserves homestead. Ideal for investors &amp; LLC structures.</div>
           <div class="wlc-dt-footer">
             <div class="wlc-dt-law">F.S. § 689.071</div>
             <div>
@@ -1358,12 +1366,12 @@ button.chat-faq:hover{background:var(--sky)}
 
       <div class="wlc-modes">
         <button class="wlc-btn wlc-btn-secondary" onclick="startApp('self')">
-          <span>Start My Plan — DIY</span>
-          <span class="wlc-btn-sub">From $399 · Self-guided · Live attorney chat available</span>
+          <span data-i18n="wlc.mode.diy">Start My Plan — DIY</span>
+          <span class="wlc-btn-sub" data-i18n="wlc.mode.diy.sub">From $399 · Self-guided · Live attorney chat available</span>
         </button>
         <button class="wlc-btn wlc-btn-primary" onclick="startApp('attorney')">
-          <span>Attorney-Guided Session</span>
-          <span class="wlc-btn-sub">From $950 · Full-service · Your attorney leads every step</span>
+          <span data-i18n="wlc.mode.atty">Attorney-Guided Session</span>
+          <span class="wlc-btn-sub" data-i18n="wlc.mode.atty.sub">From $950 · Full-service · Your attorney leads every step</span>
         </button>
       </div>
     </div>
@@ -1826,6 +1834,15 @@ function _launchQuickStart(docCategory, mode){
     <div class="badge2">F.S. Chapter 736</div>
     <div class="badge">Attorney-Reviewed</div>
     <button id="matterDashBtn" onclick="openMatterDash()" style="display:none;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);color:#fff;padding:6px 14px;border-radius:8px;cursor:pointer;font-size:.78rem;font-weight:700;font-family:inherit">📋 Matters</button>
+    <style>
+      .lang-toggle{display:inline-flex;border:1px solid rgba(255,255,255,.25);border-radius:8px;overflow:hidden;margin-right:2px}
+      .lang-toggle button{background:none;border:none;color:rgba(255,255,255,.7);padding:6px 11px;cursor:pointer;font-family:inherit;font-size:.74rem;font-weight:700;line-height:1}
+      .lang-toggle button.active{background:var(--gold,#c49a2a);color:#0f2744}
+    </style>
+    <div class="lang-toggle" title="Language / Idioma">
+      <button id="langEn" data-l="en" onclick="setLang('en')">EN</button>
+      <button id="langEs" data-l="es" onclick="setLang('es')">ES</button>
+    </div>
     <button id="darkToggle" onclick="toggleDark()" title="Toggle dark mode" style="background:none;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.8);padding:6px 12px;border-radius:8px;cursor:pointer;font-size:1rem;line-height:1">🌙</button>
     <div id="userBar" style="position:relative"></div>
   </div>
@@ -2081,19 +2098,26 @@ let S={
 const STEPS=[
 
   // 0 — Document Category
-  {sec:'Document', lbl:'Getting Started',
+  {sec:'Document', lbl:'Getting Started', lbl_es:'Para Comenzar',
    type:'choice', field:'docCategory', required:true,
    q:'What estate planning document do you need?',
+   q_es:'¿Qué documento de planificación patrimonial necesita?',
    hint:'Choose the document that best fits your situation. Attorney review is available for any plan; Attorney-Guided plans are reviewed and finalized by Arthur Simpson, Esq. before execution.',
+   hint_es:'Elija el documento que mejor se ajuste a su situación. La revisión por un abogado está disponible para cualquier plan; los planes guiados por abogado son revisados y finalizados por Arthur Simpson, Esq. antes de firmarse.',
    opts:[
-     {v:'trust', t:'Revocable Living Trust',
-      d:"Florida's most powerful planning vehicle. Avoids probate, protects privacy, and provides seamless asset management during incapacity and at death. (F.S. Chapter 736)"},
-     {v:'will',  t:'Last Will & Testament',
-      d:'A legally binding document directing how your assets are distributed, naming your Personal Representative, and designating guardians for minor children. (F.S. Chapter 732)'},
-     {v:'both',  t:'Complete Estate Plan — Will + Trust',
-      d:'The gold standard for Florida estate planning. A funded trust avoids probate on all titled assets; a pour-over will captures everything else. Recommended for most clients.',premium:true,badge:'RECOMMENDED'},
-     ,{v:'land_trust', t:'Florida Land Trust — Real Estate Privacy & Control',
-      d:'A Florida Land Trust (F.S. § 689.071) holds title to real property privately. Your name never appears in public records. Avoids probate on real estate. Preserves homestead. Ideal for investment property, privacy, and LLC structures.', badge:'PRIVACY'}
+     {v:'trust', t:'Revocable Living Trust', t_es:'Fideicomiso en Vida Revocable',
+      d:"Florida's most powerful planning vehicle. Avoids probate, protects privacy, and provides seamless asset management during incapacity and at death. (F.S. Chapter 736)",
+      d_es:'El instrumento de planificación más poderoso de Florida. Evita el proceso sucesorio (probate), protege su privacidad y permite administrar sus bienes en caso de incapacidad y al fallecer. (Cap. 736 de los Estatutos de Florida)'},
+     {v:'will',  t:'Last Will & Testament', t_es:'Último Testamento',
+      d:'A legally binding document directing how your assets are distributed, naming your Personal Representative, and designating guardians for minor children. (F.S. Chapter 732)',
+      d_es:'Un documento legalmente vinculante que indica cómo se distribuirán sus bienes, nombra a su Representante Personal y designa tutores para hijos menores. (Cap. 732 de los Estatutos de Florida)'},
+     {v:'both',  t:'Complete Estate Plan — Will + Trust', t_es:'Plan Patrimonial Completo — Testamento + Fideicomiso',
+      d:'The gold standard for Florida estate planning. A funded trust avoids probate on all titled assets; a pour-over will captures everything else. Recommended for most clients.',
+      d_es:'El estándar de excelencia en la planificación patrimonial de Florida. Un fideicomiso con bienes transferidos evita el proceso sucesorio de todos los bienes con título; un testamento complementario cubre lo demás. Recomendado para la mayoría de los clientes.',
+      premium:true,badge:'RECOMMENDED',badge_es:'RECOMENDADO'},
+     ,{v:'land_trust', t:'Florida Land Trust — Real Estate Privacy & Control', t_es:'Fideicomiso de Tierras de Florida — Privacidad y Control de Bienes Raíces',
+      d:'A Florida Land Trust (F.S. § 689.071) holds title to real property privately. Your name never appears in public records. Avoids probate on real estate. Preserves homestead. Ideal for investment property, privacy, and LLC structures.',
+      d_es:'Un Fideicomiso de Tierras de Florida (§ 689.071) mantiene el título de bienes inmuebles de forma privada. Su nombre nunca aparece en los registros públicos. Evita el proceso sucesorio sobre los bienes raíces. Preserva la exención de homestead. Ideal para propiedades de inversión, privacidad y estructuras de LLC.', badge:'PRIVACY',badge_es:'PRIVACIDAD'}
      // NFA / Gun Trust intentionally NOT listed here — it serves a different buyer and is
      // offered via its own dedicated path (/nfa-gun-trust → quickStart('gun_trust')).
    ]
@@ -3214,12 +3238,54 @@ function renderAttorneyWelcome(){
 }
 
 // ── Main render ────────────────────────────────────────────────────
+// ── Language (i18n) ─────────────────────────────────────────────────────────
+// Additive only: Spanish appears when LANG==='es' AND a translation exists;
+// otherwise it falls back to English. The English flow is never altered.
+let LANG = (function(){
+  try { const p = new URLSearchParams(location.search).get('lang'); if (p === 'es' || p === 'en') return p; } catch(e){}
+  try { const s = localStorage.getItem('cw_lang'); if (s === 'es' || s === 'en') return s; } catch(e){}
+  return (navigator.language || '').toLowerCase().indexOf('es') === 0 ? 'es' : 'en';
+})();
+function L(en, es){
+  if (LANG !== 'es') return en;
+  if (es) return es;                                                        // inline _es field wins
+  if (typeof ES_DICT !== 'undefined' && en != null && ES_DICT[en]) return ES_DICT[en]; // dictionary by English text
+  return en;                                                                // untranslated → English
+}
+function setLang(l){
+  LANG = (l === 'es') ? 'es' : 'en';
+  try { localStorage.setItem('cw_lang', LANG); } catch(e){}
+  updateLangUI();
+  applyStaticI18n();
+  try { if (typeof S !== 'undefined' && S && typeof S.step === 'number') render(); } catch(e){}
+}
+function updateLangUI(){
+  // Mark the active button on every language toggle on the page (header + welcome).
+  document.querySelectorAll('.lang-toggle button[data-l]').forEach(function(b){
+    b.classList.toggle('active', b.getAttribute('data-l') === LANG);
+  });
+}
+// Static HTML (welcome/chrome): swap innerHTML by [data-i18n] key. Captures the
+// original English once, so toggling back to EN restores it. Safe if ES_DICT lacks a key.
+function applyStaticI18n(){
+  var es = (LANG === 'es');
+  var nodes = document.querySelectorAll('[data-i18n]');
+  for (var i = 0; i < nodes.length; i++) {
+    var el = nodes[i];
+    if (el.getAttribute('data-en') === null) el.setAttribute('data-en', el.innerHTML);
+    var key = el.getAttribute('data-i18n');
+    var orig = el.getAttribute('data-en');
+    el.innerHTML = (es && typeof ES_DICT !== 'undefined' && ES_DICT[key]) ? ES_DICT[key] : orig;
+  }
+}
+if (typeof window !== 'undefined') window.addEventListener('DOMContentLoaded', function(){ updateLangUI(); applyStaticI18n(); });
+
 function render(){
   const step=curStep(); if(!step)return;
   renderProgress();
-  let html=`<div class="q-label">${step.lbl}</div>
-            <div class="q-text">${step.q}</div>
-            <div class="q-hint">${step.hint}</div>`;
+  let html=`<div class="q-label">${L(step.lbl, step.lbl_es)}</div>
+            <div class="q-text">${L(step.q, step.q_es)}</div>
+            <div class="q-hint">${L(step.hint, step.hint_es)}</div>`;
 
   // California community property warning
   if(step.sec==='Co-Grantor'&&S.d.priorState==='ca'){
@@ -4133,9 +4199,9 @@ function renderChoice(step){
     const infoKey=`${step.field}_${o.v}`;
     const hasInfo=!!OPT_INFO[infoKey];
     html+=`<div class="opt ${sel} ${prem}" onclick="pick('${step.field}','${o.v}',this)">
-      ${o.badge?`<div class="opt-badge">${o.badge}</div>`:''}
+      ${o.badge?`<div class="opt-badge">${L(o.badge,o.badge_es)}</div>`:''}
       <div class="radio"></div>
-      <div><div class="opt-title">${o.t}</div><div class="opt-desc">${o.d}</div></div>
+      <div><div class="opt-title">${L(o.t,o.t_es)}</div><div class="opt-desc">${L(o.d,o.d_es)}</div></div>
       ${hasInfo?`<button class="opt-info-btn" onclick="showOptInfo('${infoKey}',event)" title="Learn more">?</button>`:''}
     </div>`;
   });
@@ -4275,9 +4341,9 @@ function renderMulti(step){
     const infoKey=`${step.field}_${o.v}`;
     const hasInfo=!!OPT_INFO[infoKey];
     html+=`<div class="opt checkbox ${sel} ${prem}" onclick="toggleM('${step.field}','${o.v}',this)">
-      ${o.badge?`<div class="opt-badge">${o.badge}</div>`:''}
+      ${o.badge?`<div class="opt-badge">${L(o.badge,o.badge_es)}</div>`:''}
       <div class="radio" style="border-radius:5px"></div>
-      <div><div class="opt-title">${o.t}</div><div class="opt-desc">${o.d}</div></div>
+      <div><div class="opt-title">${L(o.t,o.t_es)}</div><div class="opt-desc">${L(o.d,o.d_es)}</div></div>
       ${hasInfo?`<button class="opt-info-btn" onclick="showOptInfo('${infoKey}',event)" title="Learn more">?</button>`:''}
     </div>`;
   });
@@ -4529,16 +4595,16 @@ function renderReview(){
 // ── Nav ────────────────────────────────────────────────────────────
 function renderNav(step){
   const isLast=step.type==='review';
-  const genLabel=S.d.docCategory==='will'?'Generate My Will Package →'
-    :S.d.docCategory==='both'?'Generate My Complete Estate Plan →'
-    :S.d.docCategory==='land_trust'?'Generate My Land Trust →'
-    :S.d.docCategory==='gun_trust'?'Generate My NFA Gun Trust →'
-    :'Generate My Trust Package →';
+  const genLabel=S.d.docCategory==='will'?L('Generate My Will Package →','Generar Mi Paquete de Testamento →')
+    :S.d.docCategory==='both'?L('Generate My Complete Estate Plan →','Generar Mi Plan Patrimonial Completo →')
+    :S.d.docCategory==='land_trust'?L('Generate My Land Trust →','Generar Mi Fideicomiso de Tierras →')
+    :S.d.docCategory==='gun_trust'?L('Generate My NFA Gun Trust →','Generar Mi Fideicomiso de Armas NFA →')
+    :L('Generate My Trust Package →','Generar Mi Paquete de Fideicomiso →');
   return `<div class="nav">
-    ${S.step>0?`<button class="btn btn-back" onclick="goBack()">← Back</button>`:'<div></div>'}
+    ${S.step>0?`<button class="btn btn-back" onclick="goBack()">${L('← Back','← Atrás')}</button>`:'<div></div>'}
     ${isLast
       ?`<button class="btn btn-gen" onclick="generateWithReview()">${genLabel}</button>`
-      :`<button class="btn btn-next" onclick="goNext()">Continue →</button>`
+      :`<button class="btn btn-next" onclick="goNext()">${L('Continue →','Continuar →')}</button>`
     }
   </div>`;
 }
@@ -9897,29 +9963,29 @@ render();
 
     <!-- Execution Path Selection -->
     <div class="exec-path-section" id="execPathSection">
-      <div class="exec-path-label">How will you execute your documents?</div>
+      <div class="exec-path-label" data-i18n="pay.execLabel">How will you execute your documents?</div>
       <div class="exec-path-cards">
         <button class="exec-path-card selected" id="execCardSelf" onclick="selectExecPath('self')">
           <div class="exec-path-checkmark">✓</div>
           <div class="exec-path-icon">📝</div>
-          <div class="exec-path-name">Self-Execute</div>
-          <div class="exec-path-price-tag included">Included — no extra charge</div>
-          <div class="exec-path-desc">You find a local notary &amp; 2 witnesses. We provide step-by-step Filing Instructions.</div>
+          <div class="exec-path-name" data-i18n="pay.self.name">Self-Execute</div>
+          <div class="exec-path-price-tag included" data-i18n="pay.self.price">Included — no extra charge</div>
+          <div class="exec-path-desc" data-i18n="pay.self.desc">You find a local notary &amp; 2 witnesses. We provide step-by-step Filing Instructions.</div>
         </button>
         <button class="exec-path-card" id="execCardRon" onclick="selectExecPath('ron')">
           <div class="exec-path-checkmark">✓</div>
-          <div class="exec-path-badge">Premium</div>
+          <div class="exec-path-badge" data-i18n="pay.ron.badge">Premium</div>
           <div class="exec-path-icon">🎥</div>
-          <div class="exec-path-name">RON — Remote Online Notarization</div>
+          <div class="exec-path-name" data-i18n="pay.ron.name">RON — Remote Online Notarization</div>
           <div class="exec-path-price-tag premium" id="execRonPriceTag">+$275 · video signing appointment</div>
-          <div class="exec-path-desc">Sign from anywhere via secure video with your Cornerstone Estate Planning Advisor. We handle witnesses &amp; notarization.</div>
+          <div class="exec-path-desc" data-i18n="pay.ron.desc">Sign from anywhere via secure video with your Cornerstone Estate Planning Advisor. We handle witnesses &amp; notarization.</div>
         </button>
       </div>
       <!-- Self-execute acknowledgment -->
       <div class="exec-ack show" id="execAckBox">
         <div class="exec-ack-row">
           <input type="checkbox" id="execAckCheck" onchange="_onExecAckChange()">
-          <label class="exec-ack-text" for="execAckCheck">
+          <label class="exec-ack-text" for="execAckCheck" data-i18n="pay.ack">
             I understand my documents are legally valid drafts. I will arrange my own notary and 2 witnesses before signing. I will <strong>not</strong> sign any document without proper witnesses and notarization as described in my Filing Instructions.
           </label>
         </div>
@@ -9939,13 +10005,13 @@ render();
       </div>
     </div>
 
-    <button class="pay-cta" id="payBtn" onclick="proceedToPayment()" disabled>
+    <button class="pay-cta" id="payBtn" onclick="proceedToPayment()" disabled data-i18n="pay.cta">
       Confirm &amp; Pay Securely →
     </button>
-    <div class="pay-stripe-note">🔒 Secured by Stripe · All major cards accepted · 256-bit SSL encryption</div>
+    <div class="pay-stripe-note" data-i18n="pay.stripeNote">🔒 Secured by Stripe · All major cards accepted · 256-bit SSL encryption</div>
 
     <div class="pay-actions">
-      <button class="pay-link" onclick="closePaymentScreen()">← Back to Documents</button>
+      <button class="pay-link" onclick="closePaymentScreen()" data-i18n="pay.back">← Back to Documents</button>
       <button class="pay-link" onclick="startOver()">${window.appMode==='attorney'?'New Matter':'Start Over'}</button>
     </div>
   </div>
@@ -12136,7 +12202,7 @@ async function sendChat() {
     const res = await fetch('/.netlify/functions/chat-assistant', {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ question: msg, context: ctx }),
+      body: JSON.stringify({ question: msg, context: ctx, lang: (typeof LANG !== 'undefined' ? LANG : 'en') }),
     });
 
     removeTypingIndicator(typingId);
@@ -12507,27 +12573,27 @@ function showPaymentScreen() {
   const _payFeat  = document.getElementById('payFeatures');
   const _payTotLbl= document.getElementById('payTotalLabel');
   if (isDiy) {
-    if (_payTitle) _payTitle.textContent = 'Unlock Your Documents';
-    if (_paySub)   _paySub.textContent = 'Your Florida-compliant documents are ready. Complete your purchase below to unlock, download, and receive step-by-step filing & execution instructions. This is a self-guided (DIY) plan — optional attorney review is available on request for an added fee.';
-    if (_payTotLbl) _payTotLbl.textContent = 'Document Fee';
+    if (_payTitle) _payTitle.textContent = L('Unlock Your Documents','Desbloquee Sus Documentos');
+    if (_paySub)   _paySub.textContent = L('Your Florida-compliant documents are ready. Complete your purchase below to unlock, download, and receive step-by-step filing & execution instructions. This is a self-guided (DIY) plan — optional attorney review is available on request for an added fee.','Sus documentos conformes a Florida están listos. Complete su compra a continuación para desbloquearlos, descargarlos y recibir instrucciones paso a paso de presentación y firma. Este es un plan autoguiado (DIY) — la revisión opcional por un abogado está disponible a solicitud por un cargo adicional.');
+    if (_payTotLbl) _payTotLbl.textContent = L('Document Fee','Tarifa de Documentos');
     if (_payFeat) _payFeat.innerHTML =
-      _feat('Florida-compliant, citation-backed instruments') +
-      _feat('Instant document generation &amp; download') +
-      _feat('Step-by-step Filing &amp; Execution Instructions') +
-      _feat('Self-guided — complete at your own pace') +
-      _feat('Live attorney chat for quick questions') +
-      _feat('Optional attorney review available on request');
+      _feat(L('Florida-compliant, citation-backed instruments','Instrumentos conformes a Florida y respaldados por citas legales')) +
+      _feat(L('Instant document generation &amp; download','Generación y descarga instantánea de documentos')) +
+      _feat(L('Step-by-step Filing &amp; Execution Instructions','Instrucciones de presentación y firma paso a paso')) +
+      _feat(L('Self-guided — complete at your own pace','Autoguiado — complete a su propio ritmo')) +
+      _feat(L('Live attorney chat for quick questions','Chat en vivo con abogado para preguntas rápidas')) +
+      _feat(L('Optional attorney review available on request','Revisión opcional por abogado disponible a solicitud'));
   } else {
-    if (_payTitle) _payTitle.textContent = 'Ready to Finalize';
-    if (_paySub)   _paySub.textContent = 'Your documents have been prepared and are ready for attorney review. Complete your engagement below — Arthur Simpson, Esq. will personally review and finalize your documents within 3–5 business days.';
-    if (_payTotLbl) _payTotLbl.textContent = 'Engagement Fee';
+    if (_payTitle) _payTitle.textContent = L('Ready to Finalize','Listo para Finalizar');
+    if (_paySub)   _paySub.textContent = L('Your documents have been prepared and are ready for attorney review. Complete your engagement below — Arthur Simpson, Esq. will personally review and finalize your documents within 3–5 business days.','Sus documentos han sido preparados y están listos para la revisión del abogado. Complete su contratación a continuación — Arthur Simpson, Esq. revisará y finalizará personalmente sus documentos en un plazo de 3 a 5 días hábiles.');
+    if (_payTotLbl) _payTotLbl.textContent = L('Engagement Fee','Tarifa de Contratación');
     if (_payFeat) _payFeat.innerHTML =
-      _feat('Personal attorney review by Arthur Simpson, Esq.') +
-      _feat('Florida-compliant, citation-backed instruments') +
-      _feat('Execution supervision &amp; witness coordination') +
-      _feat('Trust funding assistance &amp; asset retitling') +
-      _feat('Secure digital document delivery') +
-      _feat('3–5 business day turnaround');
+      _feat(L('Personal attorney review by Arthur Simpson, Esq.','Revisión personal del abogado Arthur Simpson, Esq.')) +
+      _feat(L('Florida-compliant, citation-backed instruments','Instrumentos conformes a Florida y respaldados por citas legales')) +
+      _feat(L('Execution supervision &amp; witness coordination','Supervisión de la firma y coordinación de testigos')) +
+      _feat(L('Trust funding assistance &amp; asset retitling','Asistencia para financiar el fideicomiso y retitulación de bienes')) +
+      _feat(L('Secure digital document delivery','Entrega digital segura de documentos')) +
+      _feat(L('3–5 business day turnaround','Entrega en 3 a 5 días hábiles'));
   }
 
   // Show attorney override only in attorney mode
