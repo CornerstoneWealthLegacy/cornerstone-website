@@ -4573,16 +4573,16 @@ function renderReview(){
 // ── Nav ────────────────────────────────────────────────────────────
 function renderNav(step){
   const isLast=step.type==='review';
-  const genLabel=S.d.docCategory==='will'?'Generate My Will Package →'
-    :S.d.docCategory==='both'?'Generate My Complete Estate Plan →'
-    :S.d.docCategory==='land_trust'?'Generate My Land Trust →'
-    :S.d.docCategory==='gun_trust'?'Generate My NFA Gun Trust →'
-    :'Generate My Trust Package →';
+  const genLabel=S.d.docCategory==='will'?L('Generate My Will Package →','Generar Mi Paquete de Testamento →')
+    :S.d.docCategory==='both'?L('Generate My Complete Estate Plan →','Generar Mi Plan Patrimonial Completo →')
+    :S.d.docCategory==='land_trust'?L('Generate My Land Trust →','Generar Mi Fideicomiso de Tierras →')
+    :S.d.docCategory==='gun_trust'?L('Generate My NFA Gun Trust →','Generar Mi Fideicomiso de Armas NFA →')
+    :L('Generate My Trust Package →','Generar Mi Paquete de Fideicomiso →');
   return `<div class="nav">
-    ${S.step>0?`<button class="btn btn-back" onclick="goBack()">← Back</button>`:'<div></div>'}
+    ${S.step>0?`<button class="btn btn-back" onclick="goBack()">${L('← Back','← Atrás')}</button>`:'<div></div>'}
     ${isLast
       ?`<button class="btn btn-gen" onclick="generateWithReview()">${genLabel}</button>`
-      :`<button class="btn btn-next" onclick="goNext()">Continue →</button>`
+      :`<button class="btn btn-next" onclick="goNext()">${L('Continue →','Continuar →')}</button>`
     }
   </div>`;
 }
