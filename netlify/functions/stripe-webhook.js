@@ -358,7 +358,9 @@ exports.handler = async (event) => {
       const session   = stripeEvent.data.object;
       const uid       = session.metadata?.uid || session.client_reference_id || null;
       const planTier  = session.metadata?.planTier || 'complete_guided';
-      const planLabel = PLAN_LABELS[planTier] || planTier;
+      // Generic default; refined below once we load the client's actual session (which knows
+      // the real doc category + amount). Payment Links can't pass the tier through the URL.
+      let planLabel   = PLAN_LABELS[planTier] || planTier;
       const email     = session.customer_details?.email || session.metadata?.email || null;
       const amountRaw = session.amount_total;
       const amount    = amountRaw ? (amountRaw / 100).toFixed(2) : null;
@@ -443,6 +445,17 @@ exports.handler = async (event) => {
             successors:    stateObj.successors    || planData?.successors    || [],
             contingents:   stateObj.contingents   || planData?.contingents   || [],
           };
+
+          // Refine the plan label from the client's actual selection (the alert/email now
+          // shows the real product, e.g. "Florida Land Trust", not the generic default).
+          const CAT_LABELS = {
+            trust: 'Revocable Living Trust', will: 'Last Will & Testament',
+            both: 'Complete Estate Plan', land_trust: 'Florida Land Trust', gun_trust: 'NFA Gun Trust',
+          };
+          if (flatPlan.docCategory && CAT_LABELS[flatPlan.docCategory]) {
+            const tierWord = (flatPlan.appMode === 'attorney') ? ' (Attorney-Guided)' : '';
+            planLabel = CAT_LABELS[flatPlan.docCategory] + tierWord;
+          }
 
           // 2. Mark payment fields + set status to ai_review_pending
           await firestoreUpdateDoc(projectId, collection, planDocId, {
