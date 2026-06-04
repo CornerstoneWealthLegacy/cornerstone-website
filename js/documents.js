@@ -1449,7 +1449,13 @@ ${_printNote()}
     &nbsp;Principal's signature / initials: <u>&nbsp;__________&nbsp;</u>.
     If authorized, gifts shall not exceed the annual federal gift
     tax exclusion per recipient per year ($19,000 for 2025) and shall be limited
-    to gifts to my descendants and the organizations I regularly contribute to;</li>
+    to gifts to my descendants and the organizations I regularly contribute to.
+    <strong>⚠️ IMPORTANT — this gift authority (and any other "superpower" under
+    F.S. § 709.2202) is effective ONLY if this Power of Attorney is signed with the
+    notary and witnesses in your physical presence. Under Florida Statutes § 709.2202,
+    a power of attorney witnessed remotely (e.g., by remote online notarization) does
+    NOT grant these enumerated powers. If you need your Agent to make gifts, sign this
+    document in person.</strong></li>
 
     <li><strong>Digital Assets</strong> (F.S. § 740.002): To access, manage,
     and control my digital assets, including online accounts, cryptocurrency,
@@ -3011,6 +3017,13 @@ ${_printNote()}
   <div class="fi-callout fi-info"><strong>The Power of Attorney is the strictest.</strong> Under F.S. § 709.2105,
   the principal, both witnesses, and the notary must all be in the same place at the same time during signing.
   A Power of Attorney that does not meet this requirement is void and will not be honored by banks.</div>
+
+  <div class="fi-callout fi-warn"><strong>⚠️ POA "superpowers" require in-person signing.</strong> If your Power of
+  Attorney grants your Agent authority to make gifts (or any other enumerated "superpower" under F.S. § 709.2202),
+  that authority is effective <strong>only if the POA is signed with the witnesses physically present</strong>.
+  A POA witnessed remotely (remote online notarization) does <strong>not</strong> grant those powers. So if you
+  initialed the gift authority, choose <strong>in-person (self-execute)</strong> signing for your Power of Attorney —
+  not RON.</div>
 
   <h2 class="article-title">After You Sign — Storage</h2>
   <ul>
