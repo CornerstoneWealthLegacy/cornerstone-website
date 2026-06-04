@@ -588,6 +588,13 @@ ${_printNote()}
   the specific section(s) amended. The Trustee shall retain all amendments as
   part of the Trust records.</p>
 
+  <p><strong>Amendment by the Grantor's Agent.</strong> As expressly authorized by Florida
+  Statutes § 736.0602(5), the Grantor's agent acting under a durable power of attorney may
+  amend, modify, revoke, or terminate this Trust, but only to the extent the durable power of
+  attorney <em>expressly</em> grants such authority by separate signature or initial as required
+  by Florida Statutes § 709.2202. Absent such express authority in the power of attorney, the
+  Grantor's agent has no power to amend, modify, revoke, or terminate this Trust.</p>
+
   <h3 class="section-title">Section 2.3 — Effect of Revocation</h3>
   <p>Upon revocation, all Trust property shall revert to the Grantor free and clear
   of this Trust. Any Successor Trustee then serving shall promptly transfer all
@@ -1470,6 +1477,14 @@ ${_printNote()}
     (for example, payable-on-death or joint-with-survivorship registrations) <strong>ONLY IF</strong>
     I separately sign or initial here, as required by Florida Statutes § 709.2202:
     &nbsp;Principal's signature / initials: <u>&nbsp;__________&nbsp;</u>.
+    <em>(Effective only if signed in person, not via remote online notarization.)</em></li>
+
+    <li><strong>Create, Amend, or Revoke My Revocable Trust</strong> (F.S. § 709.2202(1)):
+    <em>[RESTRICTED — superpower]</em> My Agent IS authorized to create an inter vivos trust for me,
+    and to amend, modify, revoke, or terminate any revocable living trust I have created — to the
+    extent that trust expressly permits amendment by my agent (Florida Statutes § 736.0602(5)) —
+    <strong>ONLY IF</strong> I separately sign or initial here, as required by Florida Statutes
+    § 709.2202: &nbsp;Principal's signature / initials: <u>&nbsp;__________&nbsp;</u>.
     <em>(Effective only if signed in person, not via remote online notarization.)</em></li>
 
     <li><strong>Digital Assets</strong> (F.S. § 740.002): To access, manage,
