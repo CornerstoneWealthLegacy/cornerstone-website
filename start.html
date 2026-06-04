@@ -3242,6 +3242,7 @@ function renderAttorneyWelcome(){
 // Additive only: Spanish appears when LANG==='es' AND a translation exists;
 // otherwise it falls back to English. The English flow is never altered.
 let LANG = (function(){
+  try { const p = new URLSearchParams(location.search).get('lang'); if (p === 'es' || p === 'en') return p; } catch(e){}
   try { const s = localStorage.getItem('cw_lang'); if (s === 'es' || s === 'en') return s; } catch(e){}
   return (navigator.language || '').toLowerCase().indexOf('es') === 0 ? 'es' : 'en';
 })();
