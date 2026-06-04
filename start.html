@@ -1941,18 +1941,46 @@ const STRIPE_KEY = 'pk_test_51TYPnKJzPHQb3limbMhev4oxthWbzMHvD7g1CnIg4BbUv46v38b
 // DIY links keyed as "<plan>_diy" (lower price — no attorney session)
 // TODO: switch all links from test_ to live_ before launch
 const PAYMENT_LINKS = {
-  // ── Attorney-Guided (test links) ─────────────────────────────────
-  will:           'https://buy.stripe.com/test_14AeVe3q4887cea36p1ZS02',
-  trust:          'https://buy.stripe.com/test_eVqdRa6Cg4VV7XUgXf1ZS01',
-  both:           'https://buy.stripe.com/test_5kQ6oI8Ko743ba66iB1ZS00',
-  essentials:     '', // TODO: Stripe product at $950 / $1,450 couple
-  legacy:         '', // TODO: Stripe product at $4,500 / $5,500 couple
-  // ── DIY Self-Guided ───────────────────────────────────────────────
-  essentials_diy: '', // TODO: Stripe product at $399 / $599 couple
-  will_diy:       '', // TODO: Stripe product at $249 / $399 couple
-  both_diy:       '', // TODO: Stripe product at $699 / $999 couple
-  trust_diy:      '', // TODO: Stripe product at $699 / $999 couple
-  land_trust_diy: '', // TODO: Stripe product at $499
+  // ════════════════════════════════════════════════════════════════════════
+  //  Paste the LIVE Stripe Payment Link URL for each plan below.
+  //  Key scheme — the checkout picks the most specific available:
+  //    {plan}_diy_couple → {plan}_diy → {plan}_couple → {plan}
+  //  "_couple" links charge the higher couple price; "_diy" = self-guided rate.
+  //  Empty string = not yet live (that plan can't be purchased until filled).
+  // ════════════════════════════════════════════════════════════════════════
+
+  // ── DIY self-guided (public self-serve checkout) ──
+  essentials_diy:         '', // $399
+  essentials_diy_couple:  '', // $599
+  will_diy:               '', // $249
+  will_diy_couple:        '', // $399
+  trust_diy:              '', // $699
+  trust_diy_couple:       '', // $999
+  both_diy:               '', // $699
+  both_diy_couple:        '', // $999
+  land_trust_diy:         '', // $499  (no couple variant)
+  gun_trust:              '', // $349  (self-serve, single price)
+
+  // ── Attorney-guided ──
+  essentials:             '', // $950
+  essentials_couple:      '', // $1,450
+  will:                   '', // $850
+  will_couple:            '', // $1,300
+  trust:                  '', // $2,200
+  trust_couple:           '', // $2,950
+  both:                   '', // $2,950
+  both_couple:            '', // $3,750
+  legacy:                 '', // $4,500
+  legacy_couple:          '', // $5,500
+  legacy_plus:            '', // $6,500
+  legacy_plus_couple:     '', // $8,000
+  land_trust:             '', // $950  (attorney-guided)
+
+  // ── Amendments / updates (flat fee, no couple/DIY variants) ──
+  amendment:              '', // $350  (targeted trust amendment)
+  restatement:            '', // $750  (full trust rebuild)
+  codicil:                '', // $250  (will codicil)
+  poa_hc_bundle:          '', // $500  (new POA + Healthcare Surrogate + Living Will)
 };
 
 // ── Pricing — edit these to update firm rates ──────────────────────
@@ -12609,14 +12637,23 @@ function proceedToPayment() {
   const pricingKey = window._pricingKey || S.d.docCategory || 'trust';
   const dc = S.d.docCategory || 'trust';
   const plan = PRICING[pricingKey] || PRICING[dc] || PRICING.trust;
-  // Route to DIY payment link when in self-guided mode (and plan has a DIY tier)
+  // Route to the most specific payment link available, in priority order:
+  //   {key}_diy_couple → {key}_diy → {key}_couple → {key}
+  // so DIY vs attorney-guided AND individual vs couple each get the correct fixed price.
   const isDiy = window.appMode === 'self';
-  const diyLinkKey = pricingKey + '_diy';
-  const link = (isDiy && PAYMENT_LINKS[diyLinkKey]) ? PAYMENT_LINKS[diyLinkKey]
-             : PAYMENT_LINKS[pricingKey] || PAYMENT_LINKS[dc];
+  const isCouple2 = window.planType === 'couple' && S.d.structure !== 'separate';
+  const pickLink = (key) => {
+    const cands = [];
+    if (isDiy && isCouple2) cands.push(key + '_diy_couple');
+    if (isDiy)             cands.push(key + '_diy');
+    if (isCouple2)         cands.push(key + '_couple');
+    cands.push(key);
+    for (const c of cands) { if (PAYMENT_LINKS[c]) return PAYMENT_LINKS[c]; }
+    return '';
+  };
+  const link = pickLink(pricingKey) || pickLink(dc);
   // Determine the "standard" base price for custom-price detection
   const isDiyPlan = isDiy && plan.diyPrice !== undefined;
-  const isCouple2 = window.planType === 'couple' && S.d.structure !== 'separate';
   const standardBase = isDiyPlan
     ? ((isCouple2 && plan.diyCouple) ? plan.diyCouple : plan.diyPrice)
     : ((isCouple2 && plan.couplePrice) ? plan.couplePrice : plan.price);
