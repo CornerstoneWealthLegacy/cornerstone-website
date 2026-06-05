@@ -89,8 +89,17 @@ ${btn('https://cornerstonewealthlegacy.com/florida-estate-kit', 'See Your Option
   if (!res.ok) console.error('Resend welcome error:', res.status, await res.text());
 }
 
+// Only accept requests from our own site (blocks scripted lead-spam that would fire
+// welcome emails and hurt Resend sender reputation).
+const ALLOWED_HOST = /(?:^|\.)cornerstonewealthlegacy\.com$|\.netlify\.app$/;
+function fromAllowedOrigin(event) {
+  const ref = (event.headers && (event.headers.origin || event.headers.referer)) || '';
+  try { return ALLOWED_HOST.test(new URL(ref).hostname); } catch (e) { return false; }
+}
+
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') return { statusCode: 405, body: 'Method Not Allowed' };
+  if (!fromAllowedOrigin(event)) return { statusCode: 403, body: 'Forbidden' };
   let body; try { body = JSON.parse(event.body); } catch { return { statusCode: 400, body: 'Bad Request' }; }
 
   const email = (body.email || '').trim().toLowerCase();

@@ -240,14 +240,22 @@ FLORIDA LEGAL CONTEXT
 
 WHEN IN DOUBT: Reassure the client that no decision in this questionnaire is permanent — everything can be changed before signing. Arthur reviews everything. Encourage them to keep going.`;
 
+// Only accept requests originating from our own site (or a Netlify preview).
+const ALLOWED_HOST = /(?:^|\.)cornerstonewealthlegacy\.com$|\.netlify\.app$/;
+function fromAllowedOrigin(event) {
+  const ref = (event.headers && (event.headers.origin || event.headers.referer)) || '';
+  try { return ALLOWED_HOST.test(new URL(ref).hostname); } catch (e) { return false; }
+}
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
 
-  // No auth required — this is general Q&A, no sensitive data involved.
-  // Rate limiting is handled by Netlify's built-in request limits.
+  // Abuse guard: only answer requests that originate from our own site. This stops
+  // scripted/cross-origin calls from burning the Anthropic API budget. (Origin is sent
+  // by browsers on every POST; spoofable, but blocks casual abuse — paired with input caps.)
+  if (!fromAllowedOrigin(event)) return { statusCode: 403, body: 'Forbidden' };
 
   const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY;
   if (!ANTHROPIC_KEY) {
@@ -260,6 +268,7 @@ exports.handler = async (event) => {
 
   const { question, context } = body;
   if (!question) return { statusCode: 400, body: 'Missing question' };
+  if (typeof question !== 'string' || question.length > 2000) return { statusCode: 400, body: 'Invalid question' };
 
   // Build the user message with full questionnaire context
   const contextBlock = context ? `

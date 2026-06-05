@@ -27,6 +27,11 @@ exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, headers: cors(), body: 'Method Not Allowed' };
   }
+  // Only render for requests from our own site (Chromium renders are expensive).
+  const ref = (event.headers && (event.headers.origin || event.headers.referer)) || '';
+  let okOrigin = false;
+  try { okOrigin = /(?:^|\.)cornerstonewealthlegacy\.com$|\.netlify\.app$/.test(new URL(ref).hostname); } catch (e) {}
+  if (!okOrigin) return { statusCode: 403, headers: cors(), body: 'Forbidden' };
 
   let payload;
   try {
