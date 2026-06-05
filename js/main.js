@@ -157,7 +157,7 @@ document.querySelectorAll('.nav-link, .dropdown-item').forEach(link => {
    * set, nothing fires. This loads on every page that includes main.js, so
    * every visitor (homepage, articles, city pages) enters your retargeting
    * audience — not just the funnel pages. */
-  var FB_PIXEL_ID = '4385806301735765';   // Cornerstone Wealth & Legacy Law — Meta Pixel
+  var FB_PIXEL_ID = '1371957424980836';   // Cornerstone Wealth & Legacy Law — Meta Pixel (Cornerstone portfolio)
   if (FB_PIXEL_ID && !window._fbqInit) {
     window._fbqInit = true;
     !function (f, b, e, v, n, t, s) {
