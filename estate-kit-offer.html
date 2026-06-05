@@ -26,8 +26,8 @@
   n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
   t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
   'https://connect.facebook.net/en_US/fbevents.js');
-  if (window.FB_PIXEL_ID) { fbq('init', window.FB_PIXEL_ID); fbq('track', 'PageView'); }
-  // TODO: set window.FB_PIXEL_ID = 'XXXXXXXXXXXXXXX'; in js/ads-tracking.js
+  // Pixel init + PageView is handled in js/ads-tracking.js (loaded below),
+  // using the shared FB_PIXEL_ID that matches js/main.js.
 </script>
 <script src="js/ads-tracking.js" defer></script>
 

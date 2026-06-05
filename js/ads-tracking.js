@@ -25,9 +25,24 @@
   // Initialize Google Ads (in addition to GA4 already configured)
   if (CFG.GOOGLE_ADS_ID) gtag('config', CFG.GOOGLE_ADS_ID);
 
-  // Meta Pixel init + PageView is handled site-wide in js/main.js (single source
-  // of truth for FB_PIXEL_ID). Do NOT init here — it would double-count PageView
-  // on pages that load both scripts. This file only adds the conversion helpers.
+  // Meta Pixel init + PageView. js/main.js inits the Pixel across the marketing
+  // site, but the app/funnel pages (start.html, estate-kit-offer.html) load THIS
+  // file and NOT main.js — so init here too. The shared window._fbqInit guard
+  // means whichever script runs first wins; pages loading both never double-fire.
+  // FB_PIXEL_ID MUST stay identical to the one in js/main.js.
+  var FB_PIXEL_ID = '1371957424980836';
+  if (FB_PIXEL_ID && !window._fbqInit) {
+    window._fbqInit = true;
+    if (!window.fbq) {
+      !function (f, b, e, v, n, t, s) {
+        if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); };
+        if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = [];
+        t = b.createElement(e); t.async = !0; t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s);
+      }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+    }
+    fbq('init', FB_PIXEL_ID);
+    fbq('track', 'PageView');
+  }
 
   // ── Conversion helpers ────────────────────────────────────────────────────
   window.trackLead = function (value) {
