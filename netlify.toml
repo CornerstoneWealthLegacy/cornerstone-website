@@ -149,10 +149,20 @@
   to = "/florida-estate-kit.html"
   status = 200
 
-# Nav-stripped PPC ad landing page (noindex)
+# Nav-stripped PPC ad landing pages (noindex)
 [[redirects]]
   from = "/estate-kit-offer"
   to = "/estate-kit-offer.html"
+  status = 200
+
+[[redirects]]
+  from = "/florida-will"
+  to = "/florida-will.html"
+  status = 200
+
+[[redirects]]
+  from = "/florida-living-trust"
+  to = "/florida-living-trust.html"
   status = 200
 
 [[redirects]]
