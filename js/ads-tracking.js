@@ -7,7 +7,7 @@
  *   1. GOOGLE_ADS_ID        e.g. 'AW-1234567890'
  *   2. ADS_LEAD_LABEL       conversion label for "quiz lead"      e.g. 'abcDEF...'
  *   3. ADS_PURCHASE_LABEL   conversion label for "plan purchase"  e.g. 'ghiJKL...'
- *   4. FB_PIXEL_ID          e.g. '1234567890123456'
+ *   (Meta Pixel ID lives in js/main.js — it loads site-wide for retargeting.)
  *
  * Then call, at the moment each conversion actually happens:
  *   • On the QUIZ email capture success:   window.trackLead();
@@ -17,8 +17,7 @@
   var CFG = {
     GOOGLE_ADS_ID: '',        // 'AW-XXXXXXXXXX'
     ADS_LEAD_LABEL: '',       // 'XXXXXXXXXXXXXXXXXX'
-    ADS_PURCHASE_LABEL: '',   // 'XXXXXXXXXXXXXXXXXX'
-    FB_PIXEL_ID: ''           // 'XXXXXXXXXXXXXXX'
+    ADS_PURCHASE_LABEL: ''    // 'XXXXXXXXXXXXXXXXXX'
   };
 
   var gtag = window.gtag || function () { (window.dataLayer = window.dataLayer || []).push(arguments); };
@@ -26,8 +25,9 @@
   // Initialize Google Ads (in addition to GA4 already configured)
   if (CFG.GOOGLE_ADS_ID) gtag('config', CFG.GOOGLE_ADS_ID);
 
-  // Initialize Meta Pixel (fbq loader is on the page; init here once)
-  if (CFG.FB_PIXEL_ID && window.fbq) { fbq('init', CFG.FB_PIXEL_ID); fbq('track', 'PageView'); }
+  // Meta Pixel init + PageView is handled site-wide in js/main.js (single source
+  // of truth for FB_PIXEL_ID). Do NOT init here — it would double-count PageView
+  // on pages that load both scripts. This file only adds the conversion helpers.
 
   // ── Conversion helpers ────────────────────────────────────────────────────
   window.trackLead = function (value) {

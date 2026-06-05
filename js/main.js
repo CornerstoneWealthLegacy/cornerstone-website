@@ -149,6 +149,26 @@ document.querySelectorAll('.nav-link, .dropdown-item').forEach(link => {
     gtag('js', new Date());
     gtag('config', GA_ID);
   }
+
+  /* ── Meta (Facebook) Pixel — site-wide retargeting + PageView ──────────────
+   * Paste your Pixel ID below to go live. It MUST match the META_PIXEL_ID
+   * Netlify env var the Stripe webhook uses for the Conversions API, so the
+   * browser Pixel and the server-side Purchase share one pixel. Until an ID is
+   * set, nothing fires. This loads on every page that includes main.js, so
+   * every visitor (homepage, articles, city pages) enters your retargeting
+   * audience — not just the funnel pages. */
+  var FB_PIXEL_ID = '';   // e.g. '1234567890123456'  ← paste your Meta Pixel ID
+  if (FB_PIXEL_ID && !window._fbqInit) {
+    window._fbqInit = true;
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = [];
+      t = b.createElement(e); t.async = !0; t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s);
+    }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', FB_PIXEL_ID);
+    fbq('track', 'PageView');
+  }
+
   function ev(name, params) { if (window.gtag) gtag('event', name, params || {}); }
 
   document.addEventListener('click', function (e) {
