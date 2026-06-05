@@ -15,9 +15,9 @@
  * ==========================================================================*/
 (function () {
   var CFG = {
-    GOOGLE_ADS_ID: '',        // 'AW-XXXXXXXXXX'
-    ADS_LEAD_LABEL: '',       // 'XXXXXXXXXXXXXXXXXX'
-    ADS_PURCHASE_LABEL: ''    // 'XXXXXXXXXXXXXXXXXX'
+    GOOGLE_ADS_ID: 'AW-18216901802',  // Cornerstone Wealth & Legacy Law — Google Ads
+    ADS_LEAD_LABEL: 'BmGOCL3XxbkcEKq5v-5D',      // "Quiz Lead" conversion
+    ADS_PURCHASE_LABEL: '93kDCIetxbkcEKq5v-5D'   // "Purchase" conversion
   };
 
   var gtag = window.gtag || function () { (window.dataLayer = window.dataLayer || []).push(arguments); };
