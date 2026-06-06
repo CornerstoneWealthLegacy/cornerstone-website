@@ -127,7 +127,7 @@ ${jsonld}
         <p>${esc(heroP)}</p>
         <div class="hero-actions">
           <a href="${CALENDLY}" target="_blank" rel="noopener" class="btn btn-primary">Free 20-Minute Consultation</a>
-          <a href="tel:+13862935586" class="btn btn-outline-white">Call (386) 293-5586</a>
+          <a href="tel:+18778676077" class="btn btn-outline-white">Call (877) 867-6077</a>
         </div>
       </div>
     </section>
@@ -151,7 +151,7 @@ ${body}
           <img src="images/logo-full.png" alt="Cornerstone Wealth &amp; Legacy Law" class="footer-logo-img">
           <div class="footer-contact">
             <p>Serving clients throughout Florida</p>
-            <p><a href="tel:+13862935586" style="color:inherit;text-decoration:none">(386) 293-5586</a></p>
+            <p><a href="tel:+18778676077" style="color:inherit;text-decoration:none">(877) 867-6077</a></p>
             <p>By phone, video &amp; appointment</p>
           </div>
           <p class="footer-tagline">Built to last. Planned to pass on.</p>
@@ -225,7 +225,7 @@ function buildCircuit(num) {
         "@id": "https://cornerstonewealthlegacy.com/#firm",
         "name": "Cornerstone Wealth & Legacy Law, PLLC",
         "url": "${url}",
-        "telephone": "+1-386-293-5586",
+        "telephone": "+1-877-867-6077",
         "priceRange": "$$",
         "image": "https://cornerstonewealthlegacy.com/images/logo-full.png",
         "description": "Estate planning, elder law, and probate attorney serving every county in Florida's ${ordinal} Judicial Circuit, by phone, video, and appointment.",
@@ -306,7 +306,7 @@ ${STATUTE_LIST}
 
   return { slug, html: shell({
     title: `Florida ${ordinal} Judicial Circuit Estate Planning &amp; Probate Attorney | Cornerstone Wealth &amp; Legacy Law`,
-    desc: `Estate planning &amp; probate attorney for Florida's ${ordinal} Judicial Circuit — ${esc(oxford(counties.map(n => n + ' County')))}. Wills, trusts, powers of attorney &amp; probate. By phone, video &amp; appointment. Call (386) 293-5586.`,
+    desc: `Estate planning &amp; probate attorney for Florida's ${ordinal} Judicial Circuit — ${esc(oxford(counties.map(n => n + ' County')))}. Wills, trusts, powers of attorney &amp; probate. By phone, video &amp; appointment. Call (877) 867-6077.`,
     url,
     jsonld,
     h1: `Florida ${ordinal} Judicial Circuit Estate Planning & Probate Attorney`,
@@ -336,7 +336,7 @@ function buildRegion(r) {
         "@id": "https://cornerstonewealthlegacy.com/#firm",
         "name": "Cornerstone Wealth & Legacy Law, PLLC",
         "url": "${url}",
-        "telephone": "+1-386-293-5586",
+        "telephone": "+1-877-867-6077",
         "priceRange": "$$",
         "image": "https://cornerstonewealthlegacy.com/images/logo-full.png",
         "description": "Estate planning, elder law, and probate attorney serving ${jsonEsc(r.name)}, Florida, by phone, video, and appointment.",
@@ -416,7 +416,7 @@ ${STATUTE_LIST}
 
   return { slug: r.slug, html: shell({
     title: `${esc(r.name)} Estate Planning &amp; Probate Attorney | Cornerstone Wealth &amp; Legacy Law`,
-    desc: `Estate planning &amp; probate attorney serving ${esc(r.name)}, Florida — ${esc(oxford(counties.map(n => n + ' County')))}. Wills, trusts, powers of attorney &amp; probate. By phone, video &amp; appointment. Call (386) 293-5586.`,
+    desc: `Estate planning &amp; probate attorney serving ${esc(r.name)}, Florida — ${esc(oxford(counties.map(n => n + ' County')))}. Wills, trusts, powers of attorney &amp; probate. By phone, video &amp; appointment. Call (877) 867-6077.`,
     url,
     jsonld,
     h1: `${r.name} Estate Planning & Probate Attorney`,

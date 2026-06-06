@@ -142,7 +142,7 @@ ${jsonld}
         <p>${esc(heroP)}</p>
         <div class="hero-actions">
           <a href="${CALENDLY}" target="_blank" rel="noopener" class="btn btn-primary">Free 20-Minute Consultation</a>
-          <a href="tel:+13862935586" class="btn btn-outline-white">Call (386) 293-5586</a>
+          <a href="tel:+18778676077" class="btn btn-outline-white">Call (877) 867-6077</a>
         </div>
       </div>
     </section>
@@ -166,7 +166,7 @@ ${body}
           <img src="images/logo-full.png" alt="Cornerstone Wealth &amp; Legacy Law" class="footer-logo-img">
           <div class="footer-contact">
             <p>Serving clients throughout Florida</p>
-            <p><a href="tel:+13862935586" style="color:inherit;text-decoration:none">(386) 293-5586</a></p>
+            <p><a href="tel:+18778676077" style="color:inherit;text-decoration:none">(877) 867-6077</a></p>
             <p>By phone, video &amp; appointment</p>
           </div>
           <p class="footer-tagline">Built to last. Planned to pass on.</p>
@@ -214,7 +214,7 @@ function legalServiceJson(serviceName, url, c) {
         "@id": "https://cornerstonewealthlegacy.com/#firm",
         "name": "Cornerstone Wealth & Legacy Law, PLLC",
         "url": "${url}",
-        "telephone": "+1-386-293-5586",
+        "telephone": "+1-877-867-6077",
         "priceRange": "$$",
         "image": "https://cornerstonewealthlegacy.com/images/logo-full.png",
         "description": "${jsonEsc(serviceName)} serving ${jsonEsc(c.county)} County, Florida, by phone, video, and appointment.",
@@ -287,7 +287,7 @@ ${faqHtml(faqs)}
   const jsonld = `  {\n    "@context": "https://schema.org",\n    "@graph": [\n${legalServiceJson(serviceName + ' in ' + m.metro, url, c)},\n${faqJson(faqs)}\n    ]\n  }`;
   return { slug, html: shell({
     title: `Probate Attorney in ${m.metro}, FL | ${c.county} County Probate | Cornerstone Wealth &amp; Legacy Law`,
-    desc: `Probate attorney for ${m.metro}, Florida. We handle ${c.county} County probate (${c.ordinal} Judicial Circuit) remotely — formal &amp; summary administration. Call (386) 293-5586.`,
+    desc: `Probate attorney for ${m.metro}, Florida. We handle ${c.county} County probate (${c.ordinal} Judicial Circuit) remotely — formal &amp; summary administration. Call (877) 867-6077.`,
     url, jsonld, h1,
     heroP: `Compassionate, efficient probate help for ${m.metro} families — ${c.county} County estate administration handled by phone, video, and e-filing, so you rarely set foot in the ${c.seat} courthouse.`,
     body,
@@ -340,7 +340,7 @@ ${faqHtml(faqs)}
   const jsonld = `  {\n    "@context": "https://schema.org",\n    "@graph": [\n${legalServiceJson(serviceName + ' in ' + m.metro, url, c)},\n${faqJson(faqs)}\n    ]\n  }`;
   return { slug, html: shell({
     title: `Estate Planning &amp; Trust Attorney in ${m.metro}, FL | Wills &amp; Trusts | Cornerstone Wealth &amp; Legacy Law`,
-    desc: `Estate planning attorney for ${m.metro}, Florida — wills, revocable living trusts, powers of attorney &amp; health care directives. By phone, video &amp; appointment. Call (386) 293-5586.`,
+    desc: `Estate planning attorney for ${m.metro}, Florida — wills, revocable living trusts, powers of attorney &amp; health care directives. By phone, video &amp; appointment. Call (877) 867-6077.`,
     url, jsonld, h1,
     heroP: `Wills, revocable living trusts, powers of attorney, and health care directives for ${m.metro} families — prepared under current Florida law and handled conveniently by phone, video, or appointment.`,
     body,
@@ -392,7 +392,7 @@ ${faqHtml(faqs)}
   const jsonld = `  {\n    "@context": "https://schema.org",\n    "@graph": [\n${legalServiceJson(serviceName + ' in ' + m.metro, url, c)},\n${faqJson(faqs)}\n    ]\n  }`;
   return { slug, html: shell({
     title: `Elder Law &amp; Medicaid Attorney in ${m.metro}, FL | Long-Term Care Planning | Cornerstone Wealth &amp; Legacy Law`,
-    desc: `Elder law &amp; Medicaid planning attorney for ${m.metro}, Florida — long-term care, asset protection, powers of attorney &amp; guardianship. By phone, video &amp; appointment. Call (386) 293-5586.`,
+    desc: `Elder law &amp; Medicaid planning attorney for ${m.metro}, Florida — long-term care, asset protection, powers of attorney &amp; guardianship. By phone, video &amp; appointment. Call (877) 867-6077.`,
     url, jsonld, h1,
     heroP: `Long-term care and Medicaid planning, incapacity documents, and asset protection for ${m.metro} seniors and their families — handled with care by phone, video, or appointment.`,
     body,
@@ -447,7 +447,7 @@ ${faqHtml(faqs)}
   const jsonld = `  {\n    "@context": "https://schema.org",\n    "@graph": [\n${legalServiceJson(serviceName + ' in ' + m.metro, url, c)},\n${faqJson(faqs)}\n    ]\n  }`;
   return { slug, html: shell({
     title: `Real Estate Attorney in ${m.metro}, FL | Deeds, Title &amp; Property Transfers | Cornerstone Wealth &amp; Legacy Law`,
-    desc: `Real estate attorney for ${m.metro}, Florida — deeds, property transfers, homestead &amp; title, and contract review. By phone, video &amp; appointment. Call (386) 293-5586.`,
+    desc: `Real estate attorney for ${m.metro}, Florida — deeds, property transfers, homestead &amp; title, and contract review. By phone, video &amp; appointment. Call (877) 867-6077.`,
     url, jsonld, h1,
     heroP: `Deeds, property transfers, homestead and title help, and contract review for ${m.metro} owners and families — coordinated with your estate plan and handled by phone, video, and secure e-signing.`,
     body,

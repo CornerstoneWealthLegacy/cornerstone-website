@@ -334,7 +334,7 @@ function _printNote() {
       Use your browser's <strong>File → Print</strong> (or Ctrl+P / ⌘P) and choose
       <strong>"Save as PDF"</strong> for a clean digital copy. These documents require
       attorney review, notarization, and proper witnessing before they are legally effective.
-      <strong>Contact Cornerstone Wealth &amp; Legacy Law at (386) 293-5586</strong> to
+      <strong>Contact Cornerstone Wealth &amp; Legacy Law at (877) 867-6077</strong> to
       schedule your signing appointment.
     </div>
   `;
@@ -387,7 +387,7 @@ function _firmFooter() {
   return `
     <p class="centered statutory" style="margin-top:36pt; border-top:1px solid #ccc; padding-top:12pt;">
       Prepared by: Arthur Simpson, Esq. &nbsp;|&nbsp; Cornerstone Wealth &amp; Legacy Law
-      &nbsp;|&nbsp; P.O. Box 2574, Ormond Beach, FL 32175 &nbsp;|&nbsp; (386) 293-5586
+      &nbsp;|&nbsp; P.O. Box 2574, Ormond Beach, FL 32175 &nbsp;|&nbsp; (877) 867-6077
       &nbsp;|&nbsp; cornerstonewealthlegacy.com
     </p>
   `;

@@ -268,7 +268,7 @@ ${gridItems}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${esc(countyName)} County Estate Planning &amp; Probate Attorney | Cornerstone Wealth &amp; Legacy Law</title>
-  <meta name="description" content="Estate planning and probate attorney serving all of ${esc(countyName)} County, Florida — ${esc(oxford(cities.slice(0, 4)))} and beyond. Probate is filed in the ${ordinal} Judicial Circuit. By phone, video &amp; appointment. Call (386) 293-5586.">
+  <meta name="description" content="Estate planning and probate attorney serving all of ${esc(countyName)} County, Florida — ${esc(oxford(cities.slice(0, 4)))} and beyond. Probate is filed in the ${ordinal} Judicial Circuit. By phone, video &amp; appointment. Call (877) 867-6077.">
   <link rel="canonical" href="${url}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -285,7 +285,7 @@ ${gridItems}
         "@id": "https://cornerstonewealthlegacy.com/#firm",
         "name": "Cornerstone Wealth & Legacy Law, PLLC",
         "url": "${url}",
-        "telephone": "+1-386-293-5586",
+        "telephone": "+1-877-867-6077",
         "priceRange": "$$",
         "image": "https://cornerstonewealthlegacy.com/images/logo-full.png",
         "description": "Estate planning, elder law, and probate attorney serving all of ${jsonEsc(countyName)} County, Florida, by phone, video, and appointment.",
@@ -421,7 +421,7 @@ ${areaServedCities},
         <p>Wills, revocable living trusts, powers of attorney, and probate guidance for families across all of ${esc(countyName)} County — prepared under current Florida law and handled conveniently by phone, video, or appointment.</p>
         <div class="hero-actions">
           <a href="${CALENDLY}" target="_blank" rel="noopener" class="btn btn-primary">Free 20-Minute Consultation</a>
-          <a href="tel:+13862935586" class="btn btn-outline-white">Call (386) 293-5586</a>
+          <a href="tel:+18778676077" class="btn btn-outline-white">Call (877) 867-6077</a>
         </div>
       </div>
     </section>
@@ -520,7 +520,7 @@ ${citiesSection}${regionUplink}
           <img src="images/logo-full.png" alt="Cornerstone Wealth &amp; Legacy Law" class="footer-logo-img">
           <div class="footer-contact">
             <p>Serving clients throughout Florida</p>
-            <p><a href="tel:+13862935586" style="color:inherit;text-decoration:none">(386) 293-5586</a></p>
+            <p><a href="tel:+18778676077" style="color:inherit;text-decoration:none">(877) 867-6077</a></p>
             <p>By phone, video &amp; appointment</p>
           </div>
           <p class="footer-tagline">Built to last. Planned to pass on.</p>
