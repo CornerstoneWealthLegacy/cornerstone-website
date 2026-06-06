@@ -26,10 +26,11 @@ const SITE = 'https://cornerstonewealthlegacy.com';
 const ARTICLES = require('./fb-autopost-articles.json');
 
 exports.handler = async (event) => {
-  const PAGE_ID = process.env.FB_PAGE_ID;
+  // Cornerstone Facebook Page ID (public, not secret). Override via FB_PAGE_ID env if needed.
+  const PAGE_ID = process.env.FB_PAGE_ID || '1124648047400873';
   const TOKEN = process.env.FB_PAGE_ACCESS_TOKEN;
-  if (!PAGE_ID || !TOKEN) {
-    return { statusCode: 200, body: 'fb-autopost not configured (set FB_PAGE_ID and FB_PAGE_ACCESS_TOKEN).' };
+  if (!TOKEN) {
+    return { statusCode: 200, body: 'fb-autopost not configured (set FB_PAGE_ACCESS_TOKEN).' };
   }
 
   const interval = Math.max(1, parseInt(process.env.POST_INTERVAL_DAYS || '3', 10));
