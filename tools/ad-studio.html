@@ -48,6 +48,15 @@
   .sub{font-size:16px;line-height:1.5;color:rgba(255,255,255,.86);max-width:60%}
   .r45 .sub{max-width:74%}
   .sub b{color:var(--gold);font-weight:700}
+  /* 9:16 Stories / Reels — photo on top, text below */
+  .card.r916{width:540px;height:960px}
+  .r916 .photo{width:100%;height:50%;top:0;left:0;right:auto;object-position:60% 14%}
+  .r916 .photo-fade{width:100%;height:60%;top:0;left:0;right:auto;
+    background:linear-gradient(180deg,rgba(20,35,63,0) 46%,rgba(20,35,63,.8) 78%,var(--navy) 100%)}
+  .r916 .content{padding-top:470px;justify-content:flex-start}
+  .r916 .head{font-size:54px;max-width:96%}
+  .r916 .sub{max-width:94%}
+  .r916 .bullets{margin-top:22px}
   .bullets{list-style:none;margin-top:auto;padding-top:18px}
   .bullets li{font-size:14px;font-weight:600;color:#e7ecf5;padding:6px 0 6px 22px;position:relative}
   .bullets li::before{content:"";position:absolute;left:0;top:12px;width:8px;height:8px;border-radius:50%;background:var(--gold)}
@@ -60,7 +69,7 @@
   <h1>Ad Studio — Cornerstone Wealth &amp; Legacy Law</h1>
   <p>
     Open this file <b>locally in Chrome</b> (it's hidden from the live site). Each ad renders at Meta-ready size.
-    <b>Click any text to edit it.</b> Then hit <b>Download PNG</b> — it exports at 2× (1:1 → 1080×1080, 4:5 → 1080×1350).
+    <b>Click any text to edit it.</b> Then hit <b>Download PNG</b> — exports at 2× (1:1 → 1080×1080, 4:5 → 1080×1350, 9:16 → 1080×1920 for Stories/Reels).
     Compliance reminder: keep the "Attorney advertising / not legal advice" line in the ad's <i>text</i> when you upload (it doesn't need to be on the image).
   </p>
 </div>
@@ -108,7 +117,7 @@
     },
   ];
 
-  const RATIOS = [{cls:"r11",label:"1:1 (1080×1080)"},{cls:"r45",label:"4:5 (1080×1350)"}];
+  const RATIOS = [{cls:"r11",label:"1:1 (1080×1080)"},{cls:"r45",label:"4:5 (1080×1350)"},{cls:"r916",label:"9:16 (1080×1920) Stories/Reels"}];
 
   function cardHTML(ad, ratioCls){
     return `<div class="card ${ratioCls}" id="card-${ad.id}-${ratioCls}">
