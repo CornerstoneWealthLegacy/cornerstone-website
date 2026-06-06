@@ -31,25 +31,26 @@
     background-image:linear-gradient(#9fb4dd 1px,transparent 1px),linear-gradient(90deg,#9fb4dd 1px,transparent 1px);
     background-size:38px 38px}
   .topbar{position:absolute;top:0;left:0;right:0;height:7px;background:linear-gradient(90deg,var(--gold),#e7cd86)}
-  .photo{position:absolute;right:0;top:0;height:100%;width:54%;object-fit:cover;object-position:50% 16%}
-  /* Narrow blend strip on the photo's LEFT edge only — face stays fully clear */
-  .photo-fade{position:absolute;left:46%;right:auto;top:0;height:100%;width:15%;
-    background:linear-gradient(90deg,var(--navy) 0%,rgba(20,35,63,.7) 40%,rgba(20,35,63,0) 100%)}
-  .content{position:relative;z-index:3;padding:42px 38px;height:100%;display:flex;flex-direction:column}
+  .photo{position:absolute;right:0;top:0;height:100%;width:52%;object-fit:cover;object-position:50% 14%}
+  /* Thin blend strip at the photo's left edge ONLY — ends well left of the face */
+  .photo-fade{position:absolute;left:46%;right:auto;top:0;height:100%;width:12%;
+    background:linear-gradient(90deg,var(--navy) 0%,rgba(20,35,63,.55) 45%,rgba(20,35,63,0) 100%)}
+  .content{position:relative;z-index:3;padding:36px 32px;height:100%;display:flex;flex-direction:column}
   .pill{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;
-    border:1px solid rgba(200,164,77,.55);border-radius:999px;padding:7px 16px;
-    font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--gold);background:rgba(200,164,77,.06)}
+    border:1px solid rgba(200,164,77,.55);border-radius:999px;padding:6px 14px;
+    font-size:10.5px;font-weight:700;letter-spacing:.1em;color:var(--gold);background:rgba(200,164,77,.06)}
   .pill::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gold)}
-  .kicker{margin-top:26px;font-size:11px;font-weight:700;letter-spacing:.22em;color:#8ba0c4}
-  .head{font-family:'Playfair Display',serif;font-weight:800;line-height:1.04;margin-top:12px;
-    font-size:42px;max-width:100%;text-shadow:0 2px 14px rgba(0,0,0,.25)}
-  .r45 .head{font-size:46px}
+  .kicker{margin-top:16px;font-size:10.5px;font-weight:700;letter-spacing:.2em;color:#8ba0c4}
+  .head{font-family:'Playfair Display',serif;font-weight:800;line-height:1.05;margin-top:10px;
+    font-size:36px;max-width:100%;text-wrap:balance;hyphens:none;text-shadow:0 2px 14px rgba(0,0,0,.25)}
+  .r11 .head{font-size:32px}
+  .r45 .head{font-size:38px}
   .head em{color:var(--gold);font-style:italic;font-weight:800}
-  .uline{width:64px;height:4px;background:var(--gold);border-radius:3px;margin:18px 0}
-  .sub{font-size:16px;line-height:1.5;color:rgba(255,255,255,.86);max-width:100%}
-  /* Keep all text in the left half so it never crosses the photo/face */
-  .r11 .content{width:48%}
-  .r45 .content{width:52%}
+  .uline{width:60px;height:4px;background:var(--gold);border-radius:3px;margin:14px 0}
+  .sub{font-size:14px;line-height:1.5;color:rgba(255,255,255,.86);max-width:100%;text-wrap:balance}
+  /* Keep text clear of the face; balance + these widths avoid orphan wraps */
+  .r11 .content{width:54%}
+  .r45 .content{width:56%}
   .sub b{color:var(--gold);font-weight:700}
   /* 9:16 Stories / Reels — photo on top, text below */
   .card.r916{width:540px;height:960px}
@@ -60,10 +61,10 @@
   .r916 .head{font-size:54px;max-width:96%}
   .r916 .sub{max-width:94%}
   .r916 .bullets{margin-top:22px}
-  .bullets{list-style:none;margin-top:auto;padding-top:18px}
-  .bullets li{font-size:14px;font-weight:600;color:#e7ecf5;padding:6px 0 6px 22px;position:relative}
-  .bullets li::before{content:"";position:absolute;left:0;top:12px;width:8px;height:8px;border-radius:50%;background:var(--gold)}
-  .foot{margin-top:14px;display:flex;align-items:center;gap:10px;font-size:12px;color:#9fb0cd;font-weight:600}
+  .bullets{list-style:none;margin-top:16px}
+  .bullets li{font-size:13px;font-weight:600;color:#e7ecf5;padding:4px 0 4px 20px;position:relative}
+  .bullets li::before{content:"";position:absolute;left:0;top:10px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
+  .foot{margin-top:16px;display:flex;align-items:center;gap:10px;font-size:11px;color:#9fb0cd;font-weight:600}
   [contenteditable]:focus{outline:2px dashed rgba(200,164,77,.6);outline-offset:3px}
 </style>
 </head>
