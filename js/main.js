@@ -9,6 +9,7 @@ const INSIGHTS_MENU = [
     { icon: '🧭', title: 'Estate Planning Checklist', url: '/articles/florida-estate-planning-checklist' },
     { icon: '💰', title: 'Estate Planning Costs', url: '/articles/florida-estate-planning-cost' },
     { icon: '⚖️', title: 'Trust vs. Will in Florida', url: '/articles/trust-vs-will-florida' },
+    { icon: '⚠️', title: 'Common Mistakes to Avoid', url: '/articles/florida-estate-planning-mistakes' },
   ]},
   { group: 'Wills', items: [
     { icon: '✍️', title: 'How to Make a Will', url: '/articles/how-to-make-a-will-florida' },
@@ -16,6 +17,7 @@ const INSIGHTS_MENU = [
     { icon: '💻', title: 'Online & Electronic Wills', url: '/articles/online-electronic-wills-florida' },
     { icon: '🔄', title: 'How to Change or Revoke a Will', url: '/articles/how-to-change-revoke-will-florida' },
     { icon: '📋', title: 'Dying Without a Will', url: '/articles/die-without-will-florida' },
+    { icon: '💵', title: 'How Much a Will Costs', url: '/articles/florida-will-cost' },
   ]},
   { group: 'Trusts', items: [
     { icon: '🏛️', title: 'Revocable Living Trust', url: '/articles/florida-revocable-living-trust' },
@@ -25,11 +27,14 @@ const INSIGHTS_MENU = [
     { icon: '🐾', title: 'Pet Trust', url: '/articles/florida-pet-trust' },
     { icon: '🏗️', title: 'How the Florida Estate Kit Works', url: '/articles/florida-trust-builder' },
     { icon: '📂', title: 'Trust Administration', url: '/articles/florida-trust-administration' },
+    { icon: '💵', title: 'How Much a Living Trust Costs', url: '/articles/florida-living-trust-cost' },
+    { icon: '🧰', title: 'How to Fund a Living Trust', url: '/articles/how-to-fund-a-living-trust-florida' },
   ]},
   { group: 'Probate', items: [
     { icon: '🧮', title: 'Florida Probate Costs', url: '/articles/florida-probate-cost-how-to-avoid' },
     { icon: '⏱️', title: 'Probate Process & Timeline', url: '/articles/florida-probate-process-timeline' },
     { icon: '🔀', title: 'Probate vs. Trust Administration', url: '/articles/florida-probate-vs-trust-administration' },
+    { icon: '🚫', title: 'How to Avoid Probate', url: '/articles/how-to-avoid-probate-florida' },
   ]},
   { group: 'Beneficiaries & Fiduciaries', items: [
     { icon: '🏷️', title: 'Beneficiary Designations (POD/TOD)', url: '/articles/florida-beneficiary-designations-pod-tod' },
@@ -46,6 +51,7 @@ const INSIGHTS_MENU = [
     { icon: '💑', title: 'Married Couples', url: '/articles/florida-estate-planning-married-couples' },
     { icon: '👪', title: 'Blended Families', url: '/articles/florida-estate-planning-blended-families' },
     { icon: '⚖️', title: 'Spousal Elective Share', url: '/articles/florida-elective-share-spouse' },
+    { icon: '🍼', title: 'For New Parents', url: '/articles/estate-planning-for-new-parents-florida' },
   ]},
   { group: 'Real Estate', items: [
     { icon: '🏠', title: 'Lady Bird Deed', url: '/articles/lady-bird-deed-florida' },
@@ -55,6 +61,9 @@ const INSIGHTS_MENU = [
   ]},
   { group: 'Special Topics', items: [
     { icon: '☀️', title: 'Planning for Snowbirds', url: '/articles/florida-estate-planning-snowbirds' },
+    { icon: '🧳', title: 'Moving to Florida Checklist', url: '/articles/moving-to-florida-estate-planning-checklist' },
+    { icon: '🌅', title: 'For Florida Retirees', url: '/articles/estate-planning-florida-retirees' },
+    { icon: '💼', title: 'For Business Owners', url: '/articles/estate-planning-for-business-owners-florida' },
     { icon: '₿', title: 'Digital Assets & Crypto', url: '/articles/florida-digital-assets-estate-planning' },
     { icon: '🧾', title: 'Estate & Inheritance Tax', url: '/articles/florida-estate-inheritance-tax' },
   ]},
