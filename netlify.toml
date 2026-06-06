@@ -166,6 +166,16 @@
   status = 200
 
 [[redirects]]
+  from = "/estate-workshop"
+  to = "/estate-workshop.html"
+  status = 200
+
+[[redirects]]
+  from = "/workshop-thanks"
+  to = "/workshop-thanks.html"
+  status = 200
+
+[[redirects]]
   from = "/quiz"
   to = "/quiz.html"
   status = 200
