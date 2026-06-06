@@ -20,6 +20,12 @@
 [functions."abandoned-drip"]
   schedule = "0 */6 * * *"
 
+# Facebook auto-post — runs daily at 14:00 UTC (~9–10 AM ET) but only publishes
+# every POST_INTERVAL_DAYS (default 3), rotating through curated articles.
+# Requires FB_PAGE_ID + FB_PAGE_ACCESS_TOKEN env vars to actually post.
+[functions."fb-autopost"]
+  schedule = "0 14 * * *"
+
 # Stripe webhook — receives raw body for signature verification
 [functions."stripe-webhook"]
   included_files = []
