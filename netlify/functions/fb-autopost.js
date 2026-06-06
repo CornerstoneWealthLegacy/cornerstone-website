@@ -19,26 +19,11 @@
 
 const SITE = 'https://cornerstonewealthlegacy.com';
 
-// Curated rotation. Add or reorder freely — captions are factual and
+// Full rotation of all indexable articles. Generated from each article's meta
+// description (with hand-written captions for key pieces). Captions are factual and
 // guarantee-free (FL Bar / attorney-advertising safe). The Page identifies the firm.
-const ARTICLES = [
-  { slug: 'articles/florida-living-trust-cost', msg: "Wondering what a living trust actually costs in Florida? Here's a straight breakdown of attorney fees vs. flat-fee options — and what should be included." },
-  { slug: 'articles/how-to-avoid-probate-florida', msg: "Florida probate is public, slow, and costly — but most of it is avoidable. Six proven ways to keep your estate out of the court system." },
-  { slug: 'articles/moving-to-florida-estate-planning-checklist', msg: "Just moved to Florida? Your out-of-state will or trust may not work the way you think. Here's the checklist every new resident should run through." },
-  { slug: 'articles/estate-planning-for-new-parents-florida', msg: "New parents: the most important thing your will does isn't about money — it's naming who would raise your children. Here's what to put in place." },
-  { slug: 'articles/estate-planning-florida-retirees', msg: "Retired in Florida? Here's how to protect your home and savings — and spare your family the probate maze." },
-  { slug: 'articles/florida-will-cost', msg: "How much does a will cost in Florida? Real 2026 numbers — and how to make sure 'affordable' doesn't mean 'invalid.'" },
-  { slug: 'articles/how-to-fund-a-living-trust-florida', msg: "Created a living trust? If you never funded it, it avoids nothing. Here's how to actually move your assets into your Florida trust." },
-  { slug: 'articles/florida-estate-planning-mistakes', msg: "After years of Florida practice, these are the 10 estate planning mistakes we see most — and every one of them is avoidable." },
-  { slug: 'articles/estate-planning-unmarried-couples-florida', msg: "Not married? In Florida, your partner has no automatic right to inherit or make medical decisions for you. Here's how to protect each other." },
-  { slug: 'articles/what-happens-to-debt-when-you-die-florida', msg: "Will your family inherit your debt in Florida? The answer is usually reassuring — here's how it actually works." },
-  { slug: 'articles/florida-pour-over-will', msg: "If you have a living trust, you need a pour-over will too. Here's the safety net that catches anything left out of your trust." },
-  { slug: 'articles/estate-planning-for-business-owners-florida', msg: "Your business may be your largest asset. Without a succession plan it can stall in probate. What every Florida business owner should set up." },
-  { slug: 'articles/trust-vs-will-florida', msg: "Trust or will — which do you actually need in Florida? A plain-English comparison to help you decide." },
-  { slug: 'articles/how-to-make-a-will-florida', msg: "How to make a will that's actually valid in Florida: the signing rules, the two-witness requirement, and what happens if you skip them." },
-  { slug: 'articles/lady-bird-deed-florida', msg: "A lady bird deed lets you pass your Florida home to your family automatically — no probate — while keeping full control during your life. Here's how it works." },
-  { slug: 'articles/florida-homestead-exemption', msg: "Florida homestead is one of the most powerful protections in the state — and one of the most misunderstood in estate planning. What every homeowner should know." },
-];
+// To add an article: drop it into fb-autopost-articles.json.
+const ARTICLES = require('./fb-autopost-articles.json');
 
 exports.handler = async (event) => {
   const PAGE_ID = process.env.FB_PAGE_ID;
