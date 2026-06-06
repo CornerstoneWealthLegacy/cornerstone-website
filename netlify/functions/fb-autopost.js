@@ -49,11 +49,22 @@ exports.handler = async (event) => {
   const a = ARTICLES[idx];
   const link = `${SITE}/${a.slug}`;
 
+  // Facebook wants a PAGE access token to publish to a page feed. The token in env
+  // may be a system-user/user token, so exchange it for the page-specific token
+  // first. If that fails, fall back to using the provided token directly.
+  let pageToken = TOKEN;
+  try {
+    const tr = await fetch(`https://graph.facebook.com/v19.0/${encodeURIComponent(PAGE_ID)}?fields=access_token&access_token=${encodeURIComponent(TOKEN)}`);
+    const td = await tr.json().catch(() => ({}));
+    if (tr.ok && td.access_token) pageToken = td.access_token;
+    else console.warn('fb-autopost: page-token exchange returned no token', JSON.stringify(td));
+  } catch (e) { console.warn('fb-autopost: page-token exchange failed', e.message); }
+
   try {
     const res = await fetch(`https://graph.facebook.com/v19.0/${encodeURIComponent(PAGE_ID)}/feed`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: a.msg, link, access_token: TOKEN }),
+      body: JSON.stringify({ message: a.msg, link, access_token: pageToken }),
     });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) {
