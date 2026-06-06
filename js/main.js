@@ -29,12 +29,14 @@ const INSIGHTS_MENU = [
     { icon: '📂', title: 'Trust Administration', url: '/articles/florida-trust-administration' },
     { icon: '💵', title: 'How Much a Living Trust Costs', url: '/articles/florida-living-trust-cost' },
     { icon: '🧰', title: 'How to Fund a Living Trust', url: '/articles/how-to-fund-a-living-trust-florida' },
+    { icon: '🪣', title: 'What Is a Pour-Over Will?', url: '/articles/florida-pour-over-will' },
   ]},
   { group: 'Probate', items: [
     { icon: '🧮', title: 'Florida Probate Costs', url: '/articles/florida-probate-cost-how-to-avoid' },
     { icon: '⏱️', title: 'Probate Process & Timeline', url: '/articles/florida-probate-process-timeline' },
     { icon: '🔀', title: 'Probate vs. Trust Administration', url: '/articles/florida-probate-vs-trust-administration' },
     { icon: '🚫', title: 'How to Avoid Probate', url: '/articles/how-to-avoid-probate-florida' },
+    { icon: '💳', title: 'What Happens to Debt at Death', url: '/articles/what-happens-to-debt-when-you-die-florida' },
   ]},
   { group: 'Beneficiaries & Fiduciaries', items: [
     { icon: '🏷️', title: 'Beneficiary Designations (POD/TOD)', url: '/articles/florida-beneficiary-designations-pod-tod' },
@@ -52,6 +54,7 @@ const INSIGHTS_MENU = [
     { icon: '👪', title: 'Blended Families', url: '/articles/florida-estate-planning-blended-families' },
     { icon: '⚖️', title: 'Spousal Elective Share', url: '/articles/florida-elective-share-spouse' },
     { icon: '🍼', title: 'For New Parents', url: '/articles/estate-planning-for-new-parents-florida' },
+    { icon: '💞', title: 'For Unmarried Couples', url: '/articles/estate-planning-unmarried-couples-florida' },
   ]},
   { group: 'Real Estate', items: [
     { icon: '🏠', title: 'Lady Bird Deed', url: '/articles/lady-bird-deed-florida' },
