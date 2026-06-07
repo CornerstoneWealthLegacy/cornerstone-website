@@ -1,9 +1,10 @@
 # Cornerstone — Faceless Higgsfield Video Pack (you are NOT on camera)
 
 **Purpose:** Top-of-funnel "value" videos + lead-magnet drivers that need no presenter.
-Fully AI-generated B-roll + on-screen text + AI voiceover. Arthur never appears.
+AI-generated B-roll + on-screen text. Arthur is never on camera but records the
+voiceover himself (audio only).
 **Scope:** Estate Planning · Real Estate · Elder Law ONLY. No personal injury.
-**Pipeline:** Higgsfield (image→video shots) → ElevenLabs / built-in TTS (voiceover) →
+**Pipeline:** Higgsfield (image→video shots) → Arthur records VO (audio only) →
 Postiz (schedule). Burn captions in; most viewers watch muted.
 
 ## Why faceless changes the compliance rules (read once)
@@ -47,7 +48,7 @@ wishes. If you can't check off all five, there's a gap worth closing."
 **On-screen CTA:** "Free Florida Estate Checklist — link in bio"
 **End-card:** logo + disclaimer.
 **Destination:** /florida-estate-checklist
-**Caption:** The 5 documents most Florida families are missing one of 👇 Grab the free checklist (link in bio). Visuals in this video are AI-generated; narration is the attorney.&apos;s own. Attorney advertising · Arthur Simpson, Esq., Cornerstone Wealth & Legacy Law, PLLC · FL Bar #529265 · general info, not legal advice.
+**Caption:** The 5 documents most Florida families are missing one of 👇 Grab the free checklist (link in bio). Visuals are AI-generated; narration is the attorney's own. Attorney advertising · Arthur Simpson, Esq., Cornerstone Wealth & Legacy Law, PLLC · FL Bar #529265 · general info, not legal advice.
 
 ### F-LM2 — "Will vs. Trust in 30 seconds" (animated explainer) — ~30s
 **On-screen title:** "Will vs. Trust"
@@ -60,7 +61,7 @@ different path. Which one your family needs depends on what you own."
 right 'TRUST → home passes directly → private'. Animated arrows, clean iconography.
 **CTA:** "Not sure which you need? Free 3-min quiz — link in bio"
 **Destination:** /quiz
-**Caption:** Will vs. Trust, explained in 30 seconds 👇 Free quiz tells you which your family needs (link in bio). AI-generated video. Attorney advertising · FL Bar #529265 · not legal advice.
+**Caption:** Will vs. Trust, explained in 30 seconds 👇 Free quiz tells you which your family needs (link in bio). AI-generated visuals. Attorney advertising · FL Bar #529265 · not legal advice.
 
 ### F-LM3 — "New to Florida? Update these 3 things" — ~30s
 **On-screen title:** "New to Florida? Update these."
@@ -73,7 +74,7 @@ review now saves your family a mess later."
 **Shot list:** moving truck → Florida palm/coastline → animated map of FL → checklist ticks.
 **CTA:** "Free new-to-Florida checklist — link in bio"
 **Destination:** /florida-estate-checklist
-**Caption:** Moved to Florida? 3 estate-planning things to update now 👇 Free checklist in bio. AI-generated video. Attorney advertising · Arthur Simpson, Esq. · FL Bar #529265 · general info, not legal advice.
+**Caption:** Moved to Florida? 3 estate-planning things to update now 👇 Free checklist in bio. AI-generated visuals. Attorney advertising · Arthur Simpson, Esq. · FL Bar #529265 · general info, not legal advice.
 
 ---
 
