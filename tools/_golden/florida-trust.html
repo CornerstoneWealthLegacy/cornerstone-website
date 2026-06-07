@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>The Robert A Sample Revocable Living Trust</title>
+  
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
+      /* ── Page setup ─────────────────────────────────────────────────── */
+      @page {
+        size: letter portrait;   /* 8.5in × 11in */
+        margin: 1in 1in 1in 1in; /* standard legal margins */
+      }
+      /* Cover gets extra top breathing room */
+      @page :first {
+        margin-top: 1.25in;
+      }
+
+      /* ── Reset ───────────────────────────────────────────────────────── */
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      /* ── Screen: simulate the printed page ──────────────────────────── */
+      body {
+        font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
+        font-size: 12pt;
+        line-height: 1.65;
+        color: #1a1a1a;
+        background: #e8e8e8;
+        padding: 0.5in 0;
+      }
+
+      .doc-wrapper {
+        /* 8.5in paper - 2in total margins = 6.5in text area */
+        width: 6.5in;
+        min-height: 9in;
+        margin: 0 auto 0.5in;
+        padding: 1in;
+        background: #fff;
+        box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+      }
+
+      /* ── Cover / title block ─────────────────────────────────────────── */
+      .doc-cover {
+        text-align: center;
+        margin-bottom: 48pt;
+        padding-bottom: 24pt;
+        border-bottom: 2px solid #1a1a1a;
+        break-after: avoid;
+      }
+      .doc-cover .firm-name {
+        font-size: 9.5pt;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #555;
+        margin-bottom: 36pt;
+      }
+      .doc-cover h1 {
+        font-size: 15pt;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        line-height: 1.4;
+        margin-bottom: 10pt;
+      }
+      .doc-cover .doc-subtitle {
+        font-size: 11pt;
+        font-style: italic;
+        color: #444;
+        margin-bottom: 14pt;
+      }
+      .doc-cover .doc-parties {
+        font-size: 11pt;
+        margin-top: 16pt;
+        line-height: 1.8;
+      }
+      .doc-cover .doc-date {
+        font-size: 10pt;
+        color: #555;
+        margin-top: 10pt;
+      }
+
+      /* ── Article / section headings ──────────────────────────────────── */
+      h2.article-title {
+        font-size: 11.5pt;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        text-align: center;
+        margin: 24pt 0 8pt;
+        border-top: 1px solid #bbb;
+        padding-top: 14pt;
+        break-after: avoid;
+        page-break-after: avoid;
+      }
+      h3.section-title {
+        font-size: 12pt;
+        font-weight: 600;
+        margin: 16pt 0 5pt;
+        break-after: avoid;
+        page-break-after: avoid;
+      }
+
+      /* ── Body text ───────────────────────────────────────────────────── */
+      p {
+        margin-bottom: 9pt;
+        text-align: justify;
+        orphans: 3;
+        widows: 3;
+      }
+      p.indent    { text-indent: 0.5in; }
+      p.centered  { text-align: center; }
+      p.recital   { margin-left: 0.5in; font-style: italic; margin-bottom: 8pt; }
+      p.statutory { font-size: 10pt; color: #333; font-style: italic; margin: 5pt 0; }
+
+      /* ── Lists ───────────────────────────────────────────────────────── */
+      ol.alpha   { list-style-type: lower-alpha; padding-left: 0.6in; margin-bottom: 9pt; }
+      ol.roman   { list-style-type: lower-roman; padding-left: 0.6in; margin-bottom: 9pt; }
+      ol.decimal { list-style-type: decimal;     padding-left: 0.6in; margin-bottom: 9pt; }
+      ol li {
+        margin-bottom: 5pt;
+        text-align: justify;
+        orphans: 2;
+        widows: 2;
+      }
+
+      /* ── Signature blocks ────────────────────────────────────────────── */
+      .sig-section {
+        margin-top: 32pt;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      .sig-block {
+        display: inline-block;
+        width: 44%;
+        vertical-align: top;
+        margin-right: 4%;
+        margin-bottom: 28pt;
+      }
+      .sig-block.full-width { width: 88%; }
+      .sig-line {
+        border-bottom: 1px solid #1a1a1a;
+        height: 36pt;   /* tall enough for an actual signature */
+        margin-bottom: 4pt;
+      }
+      .sig-label { font-size: 10pt; color: #333; }
+      .sig-name  { font-size: 11pt; font-weight: 600; margin-top: 3pt; }
+      .sig-title { font-size: 10pt; font-style: italic; }
+
+      /* ── Notary block ────────────────────────────────────────────────── */
+      .notary-block {
+        border: 1px solid #888;
+        padding: 14pt 16pt;
+        margin: 22pt 0;
+        break-inside: avoid;
+        page-break-inside: avoid;
+        overflow: hidden;
+      }
+      .notary-block p { margin-bottom: 6pt; font-size: 10.5pt; }
+
+      /* ── Witness block ───────────────────────────────────────────────── */
+      .witness-section {
+        margin-top: 22pt;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      /* ── Print notice (screen only) ──────────────────────────────────── */
+      .print-notice {
+        background: #fffbcc;
+        border: 1.5px solid #e6c800;
+        border-radius: 6px;
+        padding: 10pt 14pt;
+        margin-bottom: 20pt;
+        font-size: 10.5pt;
+        line-height: 1.5;
+        /* Not inside doc-wrapper — sits above it on screen */
+        width: 6.5in;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+      }
+      .print-notice strong { color: #7a5c00; }
+
+      /* ── Schedule / exhibit box ──────────────────────────────────────── */
+      .schedule-box {
+        border: 1.5px solid #1a1a1a;
+        padding: 18pt;
+        margin: 22pt 0;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      .schedule-box h3 {
+        text-align: center;
+        margin-bottom: 12pt;
+        font-size: 11.5pt;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      /* ── Tables ──────────────────────────────────────────────────────── */
+      table { font-size: 10.5pt; }
+      th, td { padding: 7pt 9pt; }
+
+      /* ── Page break helpers ──────────────────────────────────────────── */
+      .page-break {
+        break-before: page;
+        page-break-before: always;
+      }
+      .no-break {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      /* ── PRINT OVERRIDES ─────────────────────────────────────────────── */
+      @media print {
+        /* Body becomes invisible wrapper — @page handles all margins */
+        body {
+          background: #fff;
+          padding: 0;
+          margin: 0;
+        }
+        /* Wrapper fills the @page content area exactly */
+        .doc-wrapper {
+          width: 100%;
+          min-height: 0;
+          margin: 0;
+          padding: 0;
+          box-shadow: none;
+        }
+        /* Hide screen-only elements */
+        .print-notice { display: none !important; }
+        /* Preserve colors for borders and signature lines */
+        * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        /* Links print as plain text */
+        a { color: inherit; text-decoration: none; }
+        /* Ensure headings don't orphan at page bottom */
+        h2, h3 {
+          break-after: avoid;
+          page-break-after: avoid;
+        }
+        /* Keep paragraphs from splitting across pages mid-sentence */
+        p {
+          orphans: 3;
+          widows: 3;
+        }
+      }
+    </style>
+  
+</head>
+<body>
+
+    <div class="print-notice">
+      <strong>Before you print:</strong> Review every blank line and bracketed placeholder.
+      Use your browser's <strong>File → Print</strong> (or Ctrl+P / ⌘P) and choose
+      <strong>"Save as PDF"</strong> for a clean digital copy. These documents require
+      attorney review, notarization, and proper witnessing before they are legally effective.
+      <strong>Contact Cornerstone Wealth &amp; Legacy Law at (877) 867-6077</strong> to
+      schedule your signing appointment.
+    </div>
+  
+<div class="doc-wrapper">
+
+  <!-- COVER PAGE -->
+  <div class="doc-cover">
+    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law</div>
+    <h1>THE ROBERT A SAMPLE REVOCABLE LIVING TRUST</h1>
+    <div class="doc-subtitle">A Florida Revocable Living Trust</div>
+    <div class="doc-parties">
+      <strong>GRANTOR:</strong> ROBERT A SAMPLE<br>
+      Ormond Beach, Florida, 32174<br>
+    </div>
+  </div>
+
+  <!-- PREAMBLE -->
+  <h2 class="article-title">Preamble</h2>
+  <p>This Revocable Living Trust Agreement ("<strong>Trust</strong>" or "<strong>Trust Agreement</strong>")
+  is entered into this June 6, 2026, by and between
+  <strong>ROBERT A SAMPLE</strong>,
+  residing at Ormond Beach, Florida, 32174 (hereinafter individually and collectively referred to as
+  "<strong>Grantor</strong>"), as
+  Grantor and initial Trustee,
+  and any Successor Trustee acting pursuant to the terms hereof.</p>
+
+  <p>This Trust is created pursuant to and shall be governed by the laws of the
+  State of Florida, including without limitation the Florida Trust Code,
+  Florida Statutes Chapter 736. The Grantor declares
+  that all property transferred to this Trust by any means, including but not limited
+  to the Schedules attached hereto, shall be held, managed, and distributed by the
+  Trustee in accordance with the terms of this Trust Agreement.</p>
+
+  
+
+  <!-- ARTICLE I — TRUST IDENTIFICATION -->
+  <h2 class="article-title">Article I — Trust Identification</h2>
+
+  <h3 class="section-title">Section 1.1 — Name of Trust</h3>
+  <p>This Trust shall be known as the <strong>"The Robert A Sample Revocable Living Trust"</strong>
+  (the "<strong>Trust</strong>").</p>
+
+  <h3 class="section-title">Section 1.2 — Trust Situs and Governing Law</h3>
+  <p>This Trust is created in the State of Florida and shall be governed by
+  and construed in accordance with the laws of the State of Florida,
+  including the Florida Trust Code (F.S. Chapter 736) as amended from time
+  to time, without regard to conflicts of law principles.
+  </p>
+
+  <h3 class="section-title">Section 1.3 — Purpose</h3>
+  <p>The primary purposes of this Trust are: (a) to provide for the management and
+  administration of the Grantor's assets during the Grantor's lifetime; (b) to provide
+  for the management of assets in the event of the Grantor's incapacity; and (c) to
+  facilitate the transfer of the Grantor's assets to the designated beneficiaries upon
+  the Grantor's death, without the necessity of probate proceedings pursuant to
+  Florida Statutes Chapters 732 and 733.</p>
+
+  <!-- ARTICLE II — REVOCABILITY -->
+  <h2 class="article-title">Article II — Revocability and Amendment</h2>
+
+  <h3 class="section-title">Section 2.1 — Revocation During Lifetime</h3>
+  <p>During the Grantor's lifetime and while the Grantor is not Incapacitated (as defined
+  herein), the Grantor reserves the right to revoke or amend this Trust Agreement in
+  whole or in part at any time and from time to time, without the consent of any
+  beneficiary or Trustee, by a written instrument signed by the Grantor and delivered
+  to the Trustee, pursuant to Florida Statutes § 736.0602. The power to revoke is
+  personal to the Grantor and shall not be exercisable by a guardian, conservator,
+  or attorney-in-fact unless the trust instrument expressly permits such exercise
+  and such authorization is specifically stated in the relevant power of attorney
+  instrument. F.S. § 736.0602(3).</p>
+
+  <h3 class="section-title">Section 2.2 — Amendment Procedure</h3>
+  <p>This Trust may be amended in the same manner as it may be revoked.
+  Any amendment shall be effective upon delivery of the signed written instrument
+  to the Trustee. Amendments shall be numbered consecutively and shall reference
+  the specific section(s) amended. The Trustee shall retain all amendments as
+  part of the Trust records.</p>
+
+  <p><strong>Amendment by the Grantor's Agent.</strong> As expressly authorized by Florida
+  Statutes § 736.0602(5), the Grantor's agent acting under a durable power of attorney may
+  amend, modify, revoke, or terminate this Trust, but only to the extent the durable power of
+  attorney <em>expressly</em> grants such authority by separate signature or initial as required
+  by Florida Statutes § 709.2202. Absent such express authority in the power of attorney, the
+  Grantor's agent has no power to amend, modify, revoke, or terminate this Trust.</p>
+
+  <h3 class="section-title">Section 2.3 — Effect of Revocation</h3>
+  <p>Upon revocation, all Trust property shall revert to the Grantor free and clear
+  of this Trust. Any Successor Trustee then serving shall promptly transfer all
+  Trust assets to the Grantor upon receipt of a valid revocation instrument and
+  shall be entitled to reimbursement for reasonable expenses incurred in connection
+  with such transfer.</p>
+
+  <!-- ARTICLE III — TRUSTEES -->
+  <h2 class="article-title">Article III — Trustees</h2>
+
+  <h3 class="section-title">Section 3.1 — Initial Trustee</h3>
+  <p><strong>ROBERT A SAMPLE</strong>
+  shall serve as initial Trustee of this Trust. </p>
+
+  <h3 class="section-title">Section 3.2 — Successor Trustees</h3>
+  <p>Upon the death, resignation, or Incapacity of the initial Trustee,
+  the following persons shall serve as Successor Trustee in the order listed:</p>
+  <ol class="decimal"><li>First Successor Trustee: <strong>Mary B. Sample</strong>, Spouse</li><li>Second Successor Trustee: <strong>Emily Sample</strong>, Daughter</li></ol>
+  <p>Any Successor Trustee must be a natural person who is at least eighteen (18)
+  years of age and a United States citizen, or a financial institution authorized
+  to act as trustee in the State of Florida. No bond shall be required of any
+  Trustee named herein unless required by a court of competent jurisdiction.</p>
+
+  <h3 class="section-title">Section 3.3 — Resignation of Trustee</h3>
+  <p>A Trustee may resign by delivering a written notice of resignation to all
+  qualified beneficiaries and any co-trustee or successor trustee, pursuant to
+  F.S. § 736.0705. The resignation shall be effective no earlier than thirty (30)
+  days after delivery of such notice unless a shorter period is agreed upon.</p>
+
+  <h3 class="section-title">Section 3.4 — Trustee Compensation</h3>
+  <p>Any Trustee who is also a beneficiary shall serve without compensation unless
+  approved by all adult, competent beneficiaries. A non-beneficiary Trustee shall
+  be entitled to reasonable compensation consistent with prevailing rates in Volusia
+  County, Florida, for similar fiduciary services. F.S. § 736.0708.</p>
+
+  <h3 class="section-title">Section 3.5 — Definition of Incapacity</h3>
+  <p>For purposes of this Trust, a Trustee shall be deemed "Incapacitated" upon the
+  written certification of two (2) licensed physicians that the Trustee is unable to
+  manage property or business affairs effectively due to mental illness, mental
+  deficiency, physical illness, disability, chronic use of drugs or alcohol, or
+  confinement. The Trustee's physician and one additional physician selected by the
+  majority of qualified adult beneficiaries shall provide such certification. This
+  incapacity standard is established by the terms of this Trust instrument.</p>
+
+  <!-- ARTICLE IV — DISTRIBUTION DURING GRANTOR'S LIFETIME -->
+  <h2 class="article-title">Article IV — Distributions During Grantor's Lifetime</h2>
+
+  <h3 class="section-title">Section 4.1 — Income and Principal</h3>
+  <p>During the Grantor's lifetime and while the Grantor is not Incapacitated, the
+  Trustee shall distribute to or for the benefit of the Grantor all net income of
+  the Trust and such amounts of principal as the Grantor may request from time to
+  time, in the Grantor's sole and absolute discretion. The Grantor's right to
+  withdraw principal is unrestricted.</p>
+
+  <h3 class="section-title">Section 4.2 — Incapacity Provisions</h3>
+  <p>If the Grantor becomes Incapacitated, the Successor Trustee shall hold, manage,
+  and apply so much of the net income and principal of the Trust as the Trustee,
+  in the Trustee's sole discretion, deems necessary or appropriate for the health,
+  education, maintenance, and support of the Grantor and, to the extent funds remain
+  available, for the health, education, maintenance, and support of the Grantor's
+  spouse and minor children, having regard for their accustomed standard of living
+  and any other resources available to them. Any undistributed income shall be added
+  to principal.</p>
+
+  <h3 class="section-title">Section 4.3 — Right to Occupy Residence</h3>
+  <p>During any period of Incapacity, the Grantor and the Grantor's spouse shall
+  have the right to occupy any residence held in trust at no charge, and the Trustee
+  shall pay all carrying costs of such residence (mortgage, taxes, insurance, and
+  maintenance) from Trust assets.</p>
+
+  
+  
+
+  <!-- ARTICLE V — DISPOSITION AT DEATH -->
+  <h2 class="article-title">Article V — Disposition Upon Death</h2>
+
+  <h3 class="section-title">Section 5.1 — Payment of Debts and Expenses</h3>
+  <p>Upon the death of the Grantor (or the death of the survivor of joint Grantors),
+  the Trustee shall pay from the Trust Estate: (a) all legally enforceable debts of
+  the Grantor; (b) expenses of the Grantor's last illness and funeral; (c) costs of
+  administration of this Trust and the Grantor's probate estate, if any; and (d) all
+  estate, inheritance, succession, and similar taxes, if any, attributable to the Trust
+  Estate, unless the Trustee in its discretion determines that apportionment among
+  beneficiaries is more equitable. F.S. § 736.05053.</p>
+
+  <h3 class="section-title">Section 5.2 — Specific Bequests</h3>
+  <p>No specific bequests have been designated by the Grantor at this time. The Grantor may designate specific bequests by amendment to this Trust.</p>
+
+  <h3 class="section-title">Section 5.3 — Distribution of Residuary Trust Estate</h3>
+  <p>After payment of all debts, expenses, and specific bequests described above,
+  the Trustee shall distribute the remaining Trust Estate (the "<strong>Residuary
+  Trust Estate</strong>") as follows:</p>
+  <ol class="alpha">
+    <li><strong>Primary Beneficiaries:</strong><br>
+    <ol class="decimal"><li>Emily Sample (Daughter): 50% of the Trust Estate</li><li>Jacob Sample (Son): 50% of the Trust Estate</li></ol>
+    </li>
+    <li><strong>If any Primary Beneficiary predeceases the Grantor:</strong>
+    That beneficiary's share shall pass to such beneficiary's then-living
+    descendants, per stirpes. If the predeceased beneficiary has no then-living
+    descendants, the share shall be distributed equally among the surviving
+    Primary Beneficiaries.</li>
+    <li><strong>Contingent Beneficiaries</strong> (if all Primary Beneficiaries predecease
+    the Grantor without living descendants):<br>
+    <ol class="decimal"><li>Sample Family Foundation (Charity): 100%</li></ol>
+    </li>
+  </ol>
+  <p>All distributions shall be made outright and free of trust, in equal shares per stirpes.</p>
+
+  
+
+  <!-- ARTICLE VI — TRUSTEE POWERS -->
+  <h2 class="article-title">Article VI — Trustee Powers</h2>
+
+  <p>In addition to the powers granted by Florida law, including those set forth in
+  Florida Statutes §§ 736.0816 and 736.08135, the Trustee shall have the following
+  powers, exercisable in the Trustee's sole and absolute discretion without court
+  order or approval:</p>
+
+  <ol class="alpha">
+    <li><strong>Retain Property:</strong> Retain any property originally transferred to
+    the Trust or subsequently acquired, regardless of any lack of diversification,
+    depreciation in value, or improper investment;</li>
+    <li><strong>Invest:</strong> Invest and reinvest in any property, real or personal,
+    domestic or foreign, including stocks, bonds, mutual funds, ETFs, limited
+    partnership interests, LLC interests, real estate, commodities, and any other
+    investments, consistent with the prudent investor standard of F.S. § 518.11;</li>
+    <li><strong>Sell and Exchange:</strong> Sell, exchange, or otherwise dispose of
+    any Trust property at public or private sale, for cash or on credit, with or
+    without security;</li>
+    <li><strong>Real Estate Powers:</strong> Purchase, hold, improve, repair, maintain,
+    lease, mortgage, partition, subdivide, dedicate, develop, or otherwise deal with
+    real property on such terms as the Trustee deems advisable; execute deeds,
+    mortgages, and all other instruments relating to real property;</li>
+    <li><strong>Borrow:</strong> Borrow money from any source, including from any
+    beneficiary or a Trustee in their individual capacity, at reasonable interest rates,
+    and mortgage or pledge Trust property as security;</li>
+    <li><strong>Business Interests:</strong> Operate, continue, reorganize, incorporate,
+    liquidate, or otherwise deal with any business interest held in the Trust;
+    enter into partnerships, LLCs, or joint ventures;</li>
+    <li><strong>Tax Elections:</strong> Make, or refrain from making, any tax elections
+    available to the Trust or its beneficiaries, including elections under the
+    Internal Revenue Code, without obligation to compensate any beneficiary
+    affected by such election;</li>
+    <li><strong>Distributions in Kind:</strong> Make distributions in cash or in kind,
+    or partly in each, and allocate specific assets to different beneficiaries without
+    regard to the income tax basis of such assets;</li>
+    <li><strong>Professional Advisors:</strong> Employ attorneys, accountants, investment
+    advisors, and other agents and pay reasonable compensation from Trust assets;</li>
+    
+    <li><strong>Nominee:</strong> Hold any property in the name of a nominee or in bearer
+    form, without disclosure of the Trust, and register securities in the name of a
+    nominee;</li>
+    <li><strong>Settle Claims:</strong> Compromise, settle, arbitrate, or abandon any
+    claims on behalf of the Trust;</li>
+    <li><strong>Execute Documents:</strong> Execute and deliver any instruments necessary
+    to carry out any of the foregoing powers.</li>
+  </ol>
+
+  <!-- ARTICLE VII — TRUSTEE DUTIES AND STANDARDS -->
+  <h2 class="article-title">Article VII — Trustee Duties</h2>
+
+  <h3 class="section-title">Section 7.1 — Duty of Loyalty</h3>
+  <p>The Trustee shall administer this Trust solely in the interests of the
+  beneficiaries, pursuant to F.S. § 736.0802. Except as expressly permitted
+  herein, the Trustee shall not engage in transactions involving Trust property
+  for the Trustee's own account or that of a related party.</p>
+
+  <h3 class="section-title">Section 7.2 — Prudent Investor Standard</h3>
+  <p>The Trustee shall invest and manage Trust assets as a prudent investor would,
+  considering the purposes, terms, distribution requirements, and other circumstances
+  of the Trust and exercising reasonable care, skill, and caution, pursuant to
+  F.S. § 518.11 (Florida Uniform Prudent Investor Act).</p>
+
+  <h3 class="section-title">Section 7.3 — Duty to Inform and Account</h3>
+  <p>The Trustee shall keep the qualified beneficiaries reasonably informed about the
+  administration of the Trust and shall provide annual accountings pursuant to
+  F.S. § 736.08135. The Trustee shall promptly respond to reasonable requests for
+  information from qualified beneficiaries.</p>
+
+  <!-- ARTICLE VIII — MISCELLANEOUS PROVISIONS -->
+  <h2 class="article-title">Article VIII — Miscellaneous</h2>
+
+  <h3 class="section-title">Section 8.1 — Pour-Over Coordination</h3>
+  <p>The Grantor intends to execute a Pour-Over Will contemporaneously with this
+  Trust Agreement, directing that all assets of the Grantor's probate estate not
+  otherwise disposed of shall pour over into this Trust and be administered as
+  part of the Trust Estate. F.S. § 732.513.</p>
+
+  <h3 class="section-title">Section 8.2 — Disclaimer</h3>
+  <p>Any beneficiary may disclaim any interest in this Trust in the manner prescribed
+  by F.S. § 739.104, within nine (9) months of the creation of the interest (or
+  nine months of attaining age 21 for interests created while a minor).</p>
+
+  <h3 class="section-title">Section 8.3 — Simultaneous Death</h3>
+  
+  <p>If the Grantor and any beneficiary die simultaneously, the Uniform Simultaneous
+  Death Act (F.S. § 732.601) shall govern.</p>
+  
+
+  <h3 class="section-title">Section 8.4 — Merger; Amendment; Restatement</h3>
+  <p>This Trust Agreement constitutes the complete and exclusive statement of the
+  terms of this Trust and supersedes all prior arrangements or understandings
+  regarding the subject matter hereof. If any provision is found invalid or
+  unenforceable, the remaining provisions shall continue in full force and effect.</p>
+
+  <h3 class="section-title">Section 8.5 — Certification of Trust</h3>
+  <p>The Trustee may execute a Certification of Trust pursuant to F.S. § 736.1017
+  to provide to third parties in lieu of the full Trust Agreement. Such Certification
+  shall contain all information required by § 736.1017 and shall be binding
+  on the Trust and its beneficiaries.</p>
+
+  <h3 class="section-title">Section 8.6 — Spendthrift Trust Status</h3>
+  <p>This Trust is intended to qualify as a spendthrift trust under F.S. § 736.0502
+  to the fullest extent permitted by law.</p>
+
+  
+  
+  
+  
+
+  <!-- ARTICLE IX — DEFINITIONS -->
+  <h2 class="article-title">Article IX — Definitions</h2>
+  <p>"<strong>Incapacitated</strong>" has the meaning set forth in Section 3.5.</p>
+  <p>"<strong>Qualified Beneficiary</strong>" means a beneficiary as defined in F.S. § 736.0103(16).</p>
+  <p>"<strong>Trust Estate</strong>" means all property held in trust from time to time.</p>
+  <p>"<strong>Per Stirpes</strong>" means by right of representation: if a beneficiary
+  predeceases the Grantor, that beneficiary's share passes equally to the beneficiary's
+  then-living descendants, representing their predeceased ancestor.</p>
+  <p>"<strong>Trustee</strong>" means the initial Trustee(s) and any Successor Trustee(s)
+  then serving pursuant to the terms of this Trust.</p>
+
+  <!-- EXECUTION -->
+  <h2 class="article-title page-break">Execution</h2>
+
+  <p>IN WITNESS WHEREOF, the undersigned Grantor and Trustee
+  have executed this Revocable Living Trust Agreement as of the date first written above.</p>
+
+  <div class="sig-section">
+    <p><strong>GRANTOR AND INITIAL TRUSTEE:</strong></p>
+    <div class="sig-block">
+      <div class="sig-line"></div>
+      <div class="sig-name">ROBERT A SAMPLE</div>
+      <div class="sig-title">Grantor and Initial Trustee</div>
+      <div class="sig-label" style="margin-top:8pt">Date: _______________</div>
+    </div>
+    
+  </div>
+
+  <div class="witness-section">
+      <div class="sig-block">
+        <div class="sig-line"></div>
+        <div class="sig-label">Witness 1 Signature</div>
+        <div class="sig-line" style="margin-top:12pt"></div>
+        <div class="sig-label">Witness 1 Printed Name</div>
+        <div class="sig-line" style="margin-top:12pt"></div>
+        <div class="sig-label">Witness 1 Address</div>
+      </div>
+    
+      <div class="sig-block">
+        <div class="sig-line"></div>
+        <div class="sig-label">Witness 2 Signature</div>
+        <div class="sig-line" style="margin-top:12pt"></div>
+        <div class="sig-label">Witness 2 Printed Name</div>
+        <div class="sig-line" style="margin-top:12pt"></div>
+        <div class="sig-label">Witness 2 Address</div>
+      </div>
+    </div>
+
+  
+    <div class="notary-block">
+      <p><strong>STATE OF FLORIDA</strong></p>
+      <p><strong>COUNTY OF _______________________</strong></p>
+      <p>The foregoing instrument was acknowledged before me by means of
+      ☐ physical presence or ☐ online notarization, this ______ day of
+      _______________, 2026, by ___________________________________,
+      who ☐ is personally known to me or ☐ produced ____________________________
+      as identification.</p>
+      <br style="clear:both">
+      <div class="sig-block" style="width:60%">
+        <div class="sig-line"></div>
+        <div class="sig-label">Notary Public, State of Florida</div>
+        <div class="sig-label">My Commission Expires: _______________</div>
+        <div class="sig-label">Commission No.: _______________</div>
+      </div>
+    </div>
+  
+
+  <!-- ACCEPTANCE BY SUCCESSOR TRUSTEE(S) -->
+  <h2 class="article-title">Acceptance by Successor Trustee</h2>
+  <p>The undersigned, named as Successor Trustee(s) herein, hereby accept(s) the
+  duties and responsibilities of Successor Trustee, subject to the terms and
+  conditions of this Trust Agreement.</p>
+
+  <div class="sig-section">
+    
+        <div class="sig-block">
+          <div class="sig-line"></div>
+          <div class="sig-name">MARY B. SAMPLE</div>
+          <div class="sig-title">Successor Trustee</div>
+          <div class="sig-label" style="margin-top:8pt">Date: _______________</div>
+        </div>
+        <div class="sig-block">
+          <div class="sig-line"></div>
+          <div class="sig-name">EMILY SAMPLE</div>
+          <div class="sig-title">Successor Trustee</div>
+          <div class="sig-label" style="margin-top:8pt">Date: _______________</div>
+        </div>
+  </div>
+
+  <!-- SCHEDULE A — TRUST PROPERTY -->
+  <div class="schedule-box page-break">
+    <h3>SCHEDULE A — INITIAL TRUST PROPERTY</h3>
+    <p>The following property is hereby transferred to and made part of the
+    Trust Estate on the date of execution of this Trust Agreement:</p>
+    <br>
+    <p>1. ___________________________________________________________</p>
+    <p>2. ___________________________________________________________</p>
+    <p>3. ___________________________________________________________</p>
+    <p>4. ___________________________________________________________</p>
+    <p>5. ___________________________________________________________</p>
+    <p style="margin-top:16pt;font-style:italic;font-size:10pt;">
+    (Additional property may be added to this Trust at any time by deed, assignment,
+    beneficiary designation, or other transfer. Property held in the Grantor's name
+    at death that passes pursuant to the Pour-Over Will shall become part of the
+    Trust Estate without further action.)</p>
+  </div>
+
+  <!-- SCHEDULE B — BENEFICIARIES -->
+  <div class="schedule-box">
+    <h3>SCHEDULE B — DESIGNATED BENEFICIARIES</h3>
+    <p><strong>Primary Beneficiaries:</strong></p>
+    <p>Emily Sample (Daughter): 50%</p><p>Jacob Sample (Son): 50%</p>
+    <br>
+    <p><strong>Contingent Beneficiaries:</strong></p>
+    <p>Sample Family Foundation (Charity): 100%</p>
+  </div>
+
+  
+    <p class="centered statutory" style="margin-top:36pt; border-top:1px solid #ccc; padding-top:12pt;">
+      Prepared by: Arthur Simpson, Esq. &nbsp;|&nbsp; Cornerstone Wealth &amp; Legacy Law
+      &nbsp;|&nbsp; P.O. Box 2574, Ormond Beach, FL 32175 &nbsp;|&nbsp; (877) 867-6077
+      &nbsp;|&nbsp; cornerstonewealthlegacy.com
+    </p>
+  
+
+</div>
+</body>
+</html>
