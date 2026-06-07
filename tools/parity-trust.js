@@ -10,6 +10,15 @@
 // Safe: read-only against documents.js (shims window for Node).
 
 global.window = {};
+// Freeze "today" so date-bearing documents render deterministically across days.
+(function freezeDate() {
+  const FIXED = new (Date)('2026-01-15T00:00:00').getTime();
+  const RealDate = Date;
+  global.Date = class extends RealDate {
+    constructor(...a) { super(...(a.length ? a : [FIXED])); }
+    static now() { return FIXED; }
+  };
+})();
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
