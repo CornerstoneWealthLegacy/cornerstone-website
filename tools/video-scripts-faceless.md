@@ -7,10 +7,11 @@ Fully AI-generated B-roll + on-screen text + AI voiceover. Arthur never appears.
 Postiz (schedule). Burn captions in; most viewers watch muted.
 
 ## Why faceless changes the compliance rules (read once)
-1. **No spoken legal advice by an AI "person."** A faceless video must not show an
-   AI avatar of a lawyer giving advice. We use text + neutral B-roll + a *narrator*
-   voice that states general info — never "I" claims, never role-plays an attorney.
-2. **AI disclosure is mandatory in caption:** *"This video is AI-generated."*
+1. **No AI "person."** A faceless video must not show an AI avatar of a lawyer.
+   Visuals are AI B-roll + text only. **Narration = Arthur's own recorded voice**
+   (audio-only, not on camera) — authentic, and no AI-voice disclosure needed.
+2. **AI disclosure (visuals) in caption:** *"Visuals in this video are AI-generated."*
+   (Narration is real, so don't claim the whole video is AI.)
 3. **Standard FL Bar block stays:** no guarantees; on-screen in final 3s and in caption:
    **"Attorney advertising · Arthur Simpson, Esq. · FL Bar #529265 · General info, not legal advice."**
 4. **Brand the close, don't impersonate.** Last frame = Cornerstone logo card +
@@ -23,8 +24,9 @@ Postiz (schedule). Burn captions in; most viewers watch muted.
   cornerstonewealthlegacy.com", small disclaimer line at bottom.
 - **Lower-third disclaimer strip** (semi-transparent) to overlay last 3s of every clip.
 - **Brand kit:** navy #1d2d4a, gold #b88a3e, Playfair Display headings, Inter body.
-- **Narrator voice:** one calm, warm, mid-age neutral voice (ElevenLabs) — same on all
-  videos for brand consistency. Not impersonating Arthur.
+- **Narration:** Arthur records the voiceover himself (audio only, phone mic is fine,
+  quiet room). ~2 min per script. Same voice across all videos = brand consistency,
+  and it's genuinely his — no AI-voice disclosure required.
 
 ---
 
@@ -45,7 +47,7 @@ wishes. If you can't check off all five, there's a gap worth closing."
 **On-screen CTA:** "Free Florida Estate Checklist — link in bio"
 **End-card:** logo + disclaimer.
 **Destination:** /florida-estate-checklist
-**Caption:** The 5 documents most Florida families are missing one of 👇 Grab the free checklist (link in bio). This video is AI-generated. Attorney advertising · Arthur Simpson, Esq., Cornerstone Wealth & Legacy Law, PLLC · FL Bar #529265 · general info, not legal advice.
+**Caption:** The 5 documents most Florida families are missing one of 👇 Grab the free checklist (link in bio). Visuals in this video are AI-generated; narration is the attorney.&apos;s own. Attorney advertising · Arthur Simpson, Esq., Cornerstone Wealth & Legacy Law, PLLC · FL Bar #529265 · general info, not legal advice.
 
 ### F-LM2 — "Will vs. Trust in 30 seconds" (animated explainer) — ~30s
 **On-screen title:** "Will vs. Trust"
@@ -85,7 +87,7 @@ never re-titled into the trust, it's unfunded — and it avoids nothing. If you 
 trust, check one thing this week: is your home titled in the trust's name?"
 **Shots:** empty safe/vault opening → deed document → magnifying glass over title line → checkbox.
 **CTA:** "Free checklist to check yours — link in bio" → /florida-estate-checklist
-**Caption:** Paid for a trust? It might be doing nothing. The box people forget 👇 AI-generated. Attorney advertising · FL Bar #529265 · not legal advice.
+**Caption:** Paid for a trust? It might be doing nothing. The box people forget 👇 AI-generated visuals. Attorney advertising · FL Bar #529265 · not legal advice.
 
 ### F-EP2 — "What probate actually costs" — ~30s
 **Title:** "Florida probate isn't free."
@@ -96,7 +98,7 @@ the whole file is public record. For most families, it's avoidable with planning
 ahead of time."
 **Shots:** calendar pages flipping → statute book → 'PUBLIC RECORD' stamp → house passing quietly to family (contrast).
 **CTA:** "See if your estate avoids probate — free quiz, link in bio" → /quiz
-**Caption:** Florida probate: months + statutory fees + public record. Usually avoidable 👇 AI-generated. Attorney advertising · Arthur Simpson, Esq. · FL Bar #529265 · general info, not legal advice.
+**Caption:** Florida probate: months + statutory fees + public record. Usually avoidable 👇 AI-generated visuals. Attorney advertising · Arthur Simpson, Esq. · FL Bar #529265 · general info, not legal advice.
 
 ---
 
@@ -111,7 +113,7 @@ and at death the home passes to a named person without probate. It isn't right f
 situation, but it's worth knowing about."
 **Shots:** Florida home exterior → animated deed with 'control retained' badge → arrow home→family, 'no probate' stamp.
 **CTA:** "Wondering if it fits? Book a consult — link in bio" → /book
-**Caption:** The Florida deed that keeps your home out of probate — and keeps you in control 👇 AI-generated. Attorney advertising · FL Bar #529265 · not legal advice.
+**Caption:** The Florida deed that keeps your home out of probate — and keeps you in control 👇 AI-generated visuals. Attorney advertising · FL Bar #529265 · not legal advice.
 
 ### F-RE2 — "Your deed beats your will" — ~25s
 **Title:** "Your deed beats your will."
@@ -122,7 +124,7 @@ way at death. Before you assume your will handles the house, check how the deed 
 actually held. The title controls."
 **Shots:** will document fading → deed document highlighted → four title types as labeled cards.
 **CTA:** "Free checklist walks you through titling — link in bio" → /florida-estate-checklist
-**Caption:** Your deed beats your will. How Florida home titling really decides who inherits 👇 AI-generated. Attorney advertising · Arthur Simpson, Esq. · FL Bar #529265 · general info, not legal advice.
+**Caption:** Your deed beats your will. How Florida home titling really decides who inherits 👇 AI-generated visuals. Attorney advertising · Arthur Simpson, Esq. · FL Bar #529265 · general info, not legal advice.
 
 ---
 
@@ -137,7 +139,7 @@ the option is gone — and the family is left going to court for guardianship. S
 is an hour that saves your family a year."
 **Shots:** clock ticking → pen signing (no face, hands only) → contrast: courthouse steps vs. signed document at home.
 **CTA:** "Make sure yours is in place — free checklist, link in bio" → /florida-estate-checklist
-**Caption:** You can't sign a power of attorney after you need it 👇 AI-generated. Attorney advertising · FL Bar #529265 · not legal advice.
+**Caption:** You can't sign a power of attorney after you need it 👇 AI-generated visuals. Attorney advertising · FL Bar #529265 · not legal advice.
 
 ### F-EL2 — "Long-term care costs more than you think" — ~30s
 **Title:** "$100k+ a year. Medicare won't cover most of it."
@@ -148,7 +150,7 @@ planning, a lifetime of savings can be spent down fast. Elder law planning, done
 looks at protecting some of what you've built while still getting care."
 **Shots:** rising bar-chart graphic → 'Medicare ✗' overlay → calm planning imagery (folder, gold accent).
 **CTA:** "Start the conversation — book a consult, link in bio" → /book
-**Caption:** $100k+/yr for Florida nursing care, and Medicare won't cover most of it. Plan early 👇 AI-generated. Attorney advertising · Arthur Simpson, Esq. · FL Bar #529265 · general info, not legal advice.
+**Caption:** $100k+/yr for Florida nursing care, and Medicare won't cover most of it. Plan early 👇 AI-generated visuals. Attorney advertising · Arthur Simpson, Esq. · FL Bar #529265 · general info, not legal advice.
 
 ---
 
