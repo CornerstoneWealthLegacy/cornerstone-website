@@ -171,6 +171,11 @@
   to = "/florida-estate-kit.html"
   status = 200
 
+[[redirects]]
+  from = "/legalzoom-alternative"
+  to = "/legalzoom-alternative.html"
+  status = 200
+
 # Nav-stripped PPC ad landing pages (noindex)
 [[redirects]]
   from = "/estate-kit-offer"
