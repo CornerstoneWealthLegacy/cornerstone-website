@@ -79,3 +79,6 @@ sample-documents/
 
 # Generated QA review output (regenerate via tools/scenario-matrix.js)
 tools/_scenarios/
+
+# Higgsfield CLI skills (dev tooling, not site content)
+.agents/
