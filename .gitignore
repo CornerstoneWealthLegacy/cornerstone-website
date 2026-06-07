@@ -76,3 +76,6 @@ node_modules/
 
 # Generated sample documents (regenerate with `npm run samples`) — not for the live site
 sample-documents/
+
+# Generated QA review output (regenerate via tools/scenario-matrix.js)
+tools/_scenarios/
