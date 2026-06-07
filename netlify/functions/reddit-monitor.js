@@ -107,6 +107,11 @@ async function ntfy(title, body, clickUrl) {
 }
 
 exports.handler = async () => {
+  // Dormant until Reddit API creds are configured — exit silently (no ntfy spam).
+  if (!process.env.REDDIT_CLIENT_ID || !process.env.REDDIT_CLIENT_SECRET) {
+    console.log('reddit-monitor: no Reddit API creds set — skipping.');
+    return { statusCode: 200, body: 'dormant: no reddit creds' };
+  }
   try {
     const token = await redditToken();
     const seen = new Set();
