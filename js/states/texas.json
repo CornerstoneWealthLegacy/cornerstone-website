@@ -1,0 +1,42 @@
+{
+  "_INSTRUCTIONS": "UNVERIFIED. A licensed Texas attorney must complete & verify EVERY legal field against current Texas law and set reviewedBy/reviewedDate before this state can generate documents.",
+  "state": "Texas",
+  "abbr": "TX",
+  "minWillAge": 18,
+  "will": {
+    "witnesses": null,
+    "witnessPresenceRule": "",
+    "notaryRequired": null,
+    "selfProvingAffidavit": null,
+    "selfProvingStatute": "",
+    "holographicValid": null,
+    "oralValid": null,
+    "electronicValid": null,
+    "executionStatute": ""
+  },
+  "property": {
+    "communityProperty": null,
+    "homesteadProtection": null,
+    "homesteadNotes": "",
+    "electiveShare": ""
+  },
+  "prRestrictions": "",
+  "poa": {
+    "witnesses": null,
+    "notaryRequired": null,
+    "superpowersRule": "",
+    "statute": ""
+  },
+  "healthcare": {
+    "surrogateForm": "",
+    "livingWillStatute": ""
+  },
+  "trust": {
+    "code": "",
+    "agentAmendmentRule": ""
+  },
+  "landTrust": null,
+  "ron": null,
+  "reviewedBy": "",
+  "reviewedDate": ""
+}
