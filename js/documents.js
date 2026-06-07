@@ -30,6 +30,18 @@ function _today() {
   return new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 function _year() { return new Date().getFullYear(); }
+// State configuration. Florida is the verified default. When the engine becomes fully
+// state-aware, d._stateConfig is injected from an attorney-verified js/states/<state>.json.
+// This pass parameterizes state-NAME labels only; statute citations remain Florida until
+// each state's attorney-verified clause library is supplied.
+function _stateCfg(d) {
+  var c = (d && d._stateConfig) || {};
+  return {
+    stateName: c.state || 'Florida',
+    stateAbbr: c.abbr  || 'FL'
+  };
+}
+
 function _trustName(d) {
   if (d.customName) return d.customName;
   const yr = new Date().getFullYear();
@@ -340,14 +352,15 @@ function _printNote() {
   `;
 }
 
-function _notaryBlock(county) {
+function _notaryBlock(county, stateName) {
+  stateName = stateName || 'Florida';
   // County is intentionally left blank for the notary to complete at signing —
   // the acknowledgment county is where the document is actually signed, which may
   // differ from the client's county of residence. No seal box: the notary applies
   // their own Florida stamp in the open space.
   return `
     <div class="notary-block">
-      <p><strong>STATE OF FLORIDA</strong></p>
+      <p><strong>STATE OF ${stateName.toUpperCase()}</strong></p>
       <p><strong>COUNTY OF _______________________</strong></p>
       <p>The foregoing instrument was acknowledged before me by means of
       ☐ physical presence or ☐ online notarization, this ______ day of
@@ -357,7 +370,7 @@ function _notaryBlock(county) {
       <br style="clear:both">
       <div class="sig-block" style="width:60%">
         <div class="sig-line"></div>
-        <div class="sig-label">Notary Public, State of Florida</div>
+        <div class="sig-label">Notary Public, State of ${stateName}</div>
         <div class="sig-label">My Commission Expires: _______________</div>
         <div class="sig-label">Commission No.: _______________</div>
       </div>
@@ -403,6 +416,7 @@ function _firmFooter() {
 // ═══════════════════════════════════════════════════════════════════════
 
 function _trust(d, benes, contingents, successors) {
+  const cfg      = _stateCfg(d);
   const joint    = _isJoint(d);
   const gName    = _gn(d);
   const sName    = _sn(d);
@@ -519,7 +533,7 @@ ${_printNote()}
   <div class="doc-cover">
     <div class="firm-name">Cornerstone Wealth &amp; Legacy Law</div>
     <h1>${tName.toUpperCase()}</h1>
-    <div class="doc-subtitle">A Florida Revocable Living Trust</div>
+    <div class="doc-subtitle">A ${cfg.stateName} Revocable Living Trust</div>
     <div class="doc-parties">
       <strong>GRANTOR${joint ? 'S' : ''}:</strong> ${_gnUpper(d)}${joint ? ' AND ' + _snUpper(d) : ''}<br>
       ${gAddr}<br>
