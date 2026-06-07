@@ -167,6 +167,11 @@
   status = 301
 
 [[redirects]]
+  from = "/florida-estate-checklist"
+  to = "/florida-estate-checklist.html"
+  status = 200
+
+[[redirects]]
   from = "/faq"
   to = "/faq.html"
   status = 200
