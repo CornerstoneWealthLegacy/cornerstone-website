@@ -1,0 +1,42 @@
+{
+  "_INSTRUCTIONS": "Copy to <state>.json. A licensed attorney IN THIS STATE must complete and verify EVERY field against current law before this module is used to generate documents. Do not guess. Do not ship unverified.",
+  "state": "",
+  "abbr": "",
+  "minWillAge": 18,
+  "will": {
+    "witnesses": null,
+    "witnessPresenceRule": "",
+    "notaryRequired": null,
+    "selfProvingAffidavit": null,
+    "selfProvingStatute": "",
+    "holographicValid": null,
+    "oralValid": null,
+    "electronicValid": null,
+    "executionStatute": ""
+  },
+  "property": {
+    "communityProperty": null,
+    "homesteadProtection": null,
+    "homesteadNotes": "",
+    "electiveShare": ""
+  },
+  "prRestrictions": "",
+  "poa": {
+    "witnesses": null,
+    "notaryRequired": null,
+    "superpowersRule": "",
+    "statute": ""
+  },
+  "healthcare": {
+    "surrogateForm": "",
+    "livingWillStatute": ""
+  },
+  "trust": {
+    "code": "",
+    "agentAmendmentRule": ""
+  },
+  "landTrust": null,
+  "ron": null,
+  "reviewedBy": "",
+  "reviewedDate": ""
+}

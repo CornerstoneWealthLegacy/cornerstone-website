@@ -1,0 +1,41 @@
+{
+  "state": "Florida",
+  "abbr": "FL",
+  "minWillAge": 18,
+  "will": {
+    "witnesses": 2,
+    "witnessPresenceRule": "Testator signs at the end in the presence of two witnesses, who each sign in the presence of the testator and of each other.",
+    "notaryRequired": false,
+    "selfProvingAffidavit": true,
+    "selfProvingStatute": "F.S. 732.503",
+    "holographicValid": false,
+    "oralValid": false,
+    "electronicValid": true,
+    "executionStatute": "F.S. 732.502; electronic wills F.S. 732.521-732.525"
+  },
+  "property": {
+    "communityProperty": false,
+    "homesteadProtection": true,
+    "homesteadNotes": "Constitutional homestead protection and devise restrictions (Fla. Const. Art. X, sec. 4); spouse/minor children restrict how the homestead may pass.",
+    "electiveShare": "Spousal elective share of 30% of the elective estate (F.S. 732.2065)."
+  },
+  "prRestrictions": "A nonresident may serve as personal representative only if related to the decedent (F.S. 733.304).",
+  "poa": {
+    "witnesses": 2,
+    "notaryRequired": true,
+    "superpowersRule": "Enumerated 'superpowers' must be separately signed or initialed (F.S. 709.2202).",
+    "statute": "F.S. Ch. 709 (Florida Power of Attorney Act); execution F.S. 709.2105"
+  },
+  "healthcare": {
+    "surrogateForm": "Designation of Health Care Surrogate (F.S. 765.202)",
+    "livingWillStatute": "F.S. 765.302"
+  },
+  "trust": {
+    "code": "F.S. Ch. 736 (Florida Trust Code)",
+    "agentAmendmentRule": "An agent under a durable POA may amend/revoke a trust only if expressly authorized (F.S. 736.0602(5) + F.S. 709.2202)."
+  },
+  "landTrust": "F.S. 689.071 (Florida Land Trust Act)",
+  "ron": true,
+  "reviewedBy": "Arthur Simpson, Esq. (FL Bar #529265)",
+  "reviewedDate": "2026-06-06"
+}
