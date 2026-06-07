@@ -182,6 +182,19 @@ document.querySelectorAll('.nav-link, .dropdown-item').forEach(link => {
     fbq('track', 'PageView');
   }
 
+  /* ── Microsoft Clarity — free heatmaps + session recordings (find drop-offs).
+   * Paste your Clarity project ID below (clarity.microsoft.com → new project).
+   * Loads site-wide. Keep this ID identical to the one inlined in start.html. */
+  var CLARITY_ID = '';   // e.g. 'abcd1234ef'  ← paste your Clarity project ID
+  if (CLARITY_ID && !window._clarityInit) {
+    window._clarityInit = true;
+    (function (c, l, a, r, i, t, y) {
+      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+      t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i;
+      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+    })(window, document, 'clarity', 'script', CLARITY_ID);
+  }
+
   function ev(name, params) { if (window.gtag) gtag('event', name, params || {}); }
 
   document.addEventListener('click', function (e) {
