@@ -6,6 +6,7 @@
 const INSIGHTS_MENU = [
   { group: 'Start Here', items: [
     { icon: '📖', title: 'Our Story', url: '/articles/our-story' },
+    { icon: '❓', title: 'FAQ', url: '/faq' },
     { icon: '🧭', title: 'Estate Planning Checklist', url: '/articles/florida-estate-planning-checklist' },
     { icon: '💰', title: 'Estate Planning Costs', url: '/articles/florida-estate-planning-cost' },
     { icon: '⚖️', title: 'Trust vs. Will in Florida', url: '/articles/trust-vs-will-florida' },
