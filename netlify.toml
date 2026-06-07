@@ -26,6 +26,13 @@
 [functions."fb-autopost"]
   schedule = "0 14 * * *"
 
+# Reddit monitor — scans target subreddits twice daily (13:00 + 23:00 UTC ≈ 9 AM & 7 PM ET)
+# for new Florida estate/real-estate/elder-law threads, drafts a compliant general-info
+# answer with Claude, and pushes one ntfy per thread. Never posts — you review & post.
+# Requires REDDIT_CLIENT_ID + REDDIT_CLIENT_SECRET (free script app) to run.
+[functions."reddit-monitor"]
+  schedule = "0 13,23 * * *"
+
 # Stripe webhook — receives raw body for signature verification
 [functions."stripe-webhook"]
   included_files = []
