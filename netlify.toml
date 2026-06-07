@@ -192,6 +192,20 @@
   to = "/new-to-florida.html"
   status = 200
 
+# National front door — pick-your-state entry + generalized waitlist
+[[redirects]]
+  from = "/national"
+  to = "/national.html"
+  status = 200
+[[redirects]]
+  from = "/waitlist"
+  to = "/state-waitlist.html"
+  status = 200
+[[redirects]]
+  from = "/state-waitlist"
+  to = "/state-waitlist.html"
+  status = 200
+
 # National demand-test (smoke test) — Texas waitlist
 [[redirects]]
   from = "/texas-estate-planning"

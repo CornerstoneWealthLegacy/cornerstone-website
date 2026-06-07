@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coming Soon to Your State | Estate Kit</title>
+<meta name="description" content="An online estate planning kit built for your state's law is coming soon. Join the waitlist to be first to know — and get launch pricing.">
+<meta name="robots" content="noindex,follow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-333CR3Q4N6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-333CR3Q4N6');</script>
+<script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+</script>
+<script src="js/ads-tracking.js" defer></script>
+<style>
+  :root{--navy:#1d2d4a;--navy2:#26365a;--gold:#b88a3e;--gold-dk:#9a722f;--ink:#1a2233;--gray:#4a5568;--gray2:#718096;--line:#e6e9ef}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);line-height:1.6;background:#fff}
+  .wrap{max-width:560px;margin:0 auto;padding:0 22px}
+  .hero{background:linear-gradient(150deg,var(--navy),var(--navy2));color:#fff;padding:60px 0 56px;text-align:center}
+  .badge{display:inline-block;border:1px solid rgba(184,138,62,.6);color:#e2c684;border-radius:999px;padding:7px 18px;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px}
+  h1{font-size:clamp(1.9rem,5vw,2.6rem);line-height:1.14;font-weight:800}
+  h1 span{color:var(--gold)}
+  .sub{font-size:1.08rem;color:rgba(255,255,255,.85);margin-top:16px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:30px;margin:-34px auto 0;box-shadow:0 18px 46px rgba(29,45,74,.14);position:relative;z-index:2}
+  .card h2{font-size:1.25rem;color:var(--navy);text-align:center;margin-bottom:4px}
+  .card .note{text-align:center;color:var(--gray2);font-size:.9rem;margin-bottom:18px}
+  label{display:block;font-size:.82rem;font-weight:600;color:var(--navy);margin:12px 0 5px}
+  input,select{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:9px;font-size:.98rem;font-family:inherit}
+  input:focus,select:focus{outline:2px solid var(--gold);border-color:var(--gold)}
+  .btn{display:block;width:100%;background:var(--gold);color:#fff;font-weight:700;padding:15px;border:none;border-radius:10px;font-size:1.05rem;cursor:pointer;margin-top:18px}
+  .btn:hover{background:var(--gold-dk)}
+  .fine{font-size:.74rem;color:var(--gray2);margin-top:13px;line-height:1.5;text-align:center}
+  .ok{display:none;text-align:center;padding:14px 0}
+  .ok .ck{width:58px;height:58px;border-radius:50%;background:#e8f5ee;color:#1f7a4d;font-size:1.7rem;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+  footer{color:var(--gray2);font-size:.78rem;padding:30px 0;text-align:center;line-height:1.6}
+</style>
+</head>
+<body>
+<section class="hero">
+  <div class="wrap">
+    <div class="badge" id="badge">Coming Soon</div>
+    <h1 id="headline">An estate plan <span>built for your state</span> — online.</h1>
+    <p class="sub">Wills, living trusts, and powers of attorney made for your state, with an attorney-review option. We're not live there yet — join the waitlist to be first to know.</p>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="card">
+    <form id="wl" name="state-waitlist" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/state-waitlist">
+      <input type="hidden" name="form-name" value="state-waitlist">
+      <input type="hidden" id="stateField" name="state" value="">
+      <p hidden><label>Don't fill: <input name="bot-field"></label></p>
+      <h2 id="formTitle">Join the waitlist</h2>
+      <p class="note">Be first to know when we launch — and get launch pricing.</p>
+      <label for="name">Full name</label>
+      <input id="name" name="name" type="text" required autocomplete="name">
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" required autocomplete="email">
+      <label for="need">What are you looking for?</label>
+      <select id="need" name="need">
+        <option>A will</option><option>A living trust</option>
+        <option>A complete estate plan</option><option>Just exploring</option>
+      </select>
+      <button class="btn" type="submit" data-cta="state-waitlist">Join the Waitlist →</button>
+      <p class="fine">We'll only email you about your state's launch. No spam. Reply STOP anytime.</p>
+    </form>
+    <div class="ok" id="ok">
+      <div class="ck">✓</div>
+      <h2 style="color:var(--navy)">You're on the list!</h2>
+      <p style="color:var(--gray);margin-top:8px" id="okMsg">Thanks — we'll be in touch the moment we launch in your state.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Estate Kit is self-help document software — <strong>not a law firm</strong> — and is <strong>not yet available</strong> in your state. Joining the waitlist does not create an attorney-client relationship and is not legal advice. When available, documents will be built for your state's law with an attorney-review option provided by a licensed attorney in your state.</p>
+  </div>
+</footer>
+
+<script>
+  // Personalize from ?state=
+  var params = new URLSearchParams(location.search);
+  var state = (params.get('state') || '').trim();
+  if (state) {
+    document.getElementById('badge').textContent = 'Coming Soon · ' + state;
+    document.getElementById('headline').innerHTML = 'An estate plan <span>built for ' + state + '</span> — online.';
+    document.getElementById('formTitle').textContent = 'Join the ' + state + ' waitlist';
+    document.getElementById('okMsg').textContent = 'Thanks — we’ll be in touch the moment we launch in ' + state + '.';
+    document.title = 'Coming Soon to ' + state + ' | Estate Kit';
+  }
+  document.getElementById('stateField').value = state || 'Unspecified';
+
+  document.getElementById('wl').addEventListener('submit', function(e){
+    e.preventDefault();
+    var f=e.target, data=new URLSearchParams(new FormData(f)).toString();
+    fetch('/', {method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:data})
+      .then(function(){
+        f.style.display='none'; document.getElementById('ok').style.display='block';
+        if(window.trackLead) window.trackLead();
+        gtag('event','generate_lead',{currency:'USD',value:0,label:'state_waitlist',state:state||'Unspecified'});
+        if(window.fbq) fbq('trackCustom','StateWaitlist',{state:state||'Unspecified'});
+      }).catch(function(){ f.submit(); });
+  });
+</script>
+</body>
+</html>
