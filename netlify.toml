@@ -68,6 +68,13 @@
   status = 404
   force = true
 
+# Internal working assets (Higgsfield brand stills, voiceover recordings) — never serve.
+[[redirects]]
+  from = "/assets-hf/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
 [[redirects]]
   from = "/_internal/*"
   to = "/404.html"
