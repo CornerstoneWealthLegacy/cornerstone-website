@@ -109,6 +109,22 @@
     X-Frame-Options = "SAMEORIGIN"
     Cache-Control = "no-cache, no-store, must-revalidate"
 
+# ── Static-asset caching for repeat-visit speed ──────────────────────────────
+# Images rarely change → long cache. CSS/JS change with deploys → short cache so
+# fixes propagate within an hour. (HTML keeps Netlify's must-revalidate default.)
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
 [[redirects]]
   from = "/estate-planning"
   to = "/estate-planning.html"
