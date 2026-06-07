@@ -217,6 +217,12 @@
   to = "/snowbird.html"
   status = 200
 
+# Browsers auto-request /favicon.ico — serve the PNG icon so it isn't a 404
+[[redirects]]
+  from = "/favicon.ico"
+  to = "/images/favicon-32.png"
+  status = 200
+
 [[redirects]]
   from = "/new-to-florida"
   to = "/snowbird.html"
