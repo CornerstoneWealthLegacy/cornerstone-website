@@ -21,6 +21,26 @@ function _snUpper(d) { return _sn(d).toUpperCase(); }
 function _isJoint(d) {
   return d.structure === 'joint' && d.sFirst;
 }
+// Builds a spouse-centric copy of the data so the spouse's personal documents
+// (POA, health-care surrogate, living will, HIPAA, pour-over/last will) name the
+// SPOUSE as principal/testator with the SPOUSE's own agents. Household address is
+// shared. Used only for joint (married) plans.
+function _spouseView(d) {
+  const s = Object.assign({}, d);
+  s.gFirst  = d.sFirst  || ''; s.gMiddle = d.sMiddle || ''; s.gLast = d.sLast || '';
+  s.gSuffix = d.sSuffix || '';
+  s.poaAgent     = d.sPoaAgent     || '';
+  s.poaAgentRel  = d.sPoaAgentRel  || '';
+  s.poaAgentAddr = d.sPoaAgentAddr || '';
+  s.poaSuccAgent = d.sSuccPoaAgent || '';
+  s.surrogate    = d.sSurrogate    || '';
+  s.surrogateRel = d.sSurrogateRel || '';
+  s.altSurrogate = d.sAltSurrogate || '';
+  // For the spouse's own individual instruments, the "spouse" reference flips back to the grantor.
+  s.sFirst = d.gFirst || ''; s.sMiddle = d.gMiddle || ''; s.sLast = d.gLast || '';
+  s.structure = 'individual';
+  return s;
+}
 function _fmtDate(s) {
   if (!s) return '_______________';
   const dt = new Date(s + 'T00:00:00');
@@ -3218,6 +3238,24 @@ window.generateDocPackage = function(d, benes, contingents, successors) {
       filename: 'nfa-gun-trust.html',
       html:     _gunTrust(d)
     });
+  }
+
+  // ── Spouse's personal documents (joint / married plans) ───────────────────
+  // The trust is shared, but each spouse needs their OWN will, POA, health-care
+  // surrogate, living will, and HIPAA naming themselves as principal/testator.
+  if (_isJoint(d) && (cat === 'trust' || cat === 'will' || cat === 'both')) {
+    const sp = _spouseView(d);
+    const spName = _sn(d) || 'Spouse';
+    if (cat === 'trust' || cat === 'both') {
+      docs.push({ title: `Pour-Over Will — ${spName}`, filename: 'pour-over-will-spouse.html', html: _pourOverWill(sp, benes) });
+    }
+    if (cat === 'will' || cat === 'both') {
+      docs.push({ title: `Last Will and Testament — ${spName}`, filename: 'last-will-testament-spouse.html', html: _will(sp, benes, contingents) });
+    }
+    docs.push({ title: `Durable Power of Attorney — ${spName}`,        filename: 'durable-power-of-attorney-spouse.html', html: _poa(sp) });
+    docs.push({ title: `Designation of Health Care Surrogate — ${spName}`, filename: 'health-care-surrogate-spouse.html', html: _hcs(sp) });
+    docs.push({ title: `Living Will — ${spName}`,                       filename: 'living-will-spouse.html',  html: _lw(sp) });
+    docs.push({ title: `HIPAA Authorization — ${spName}`,               filename: 'hipaa-authorization-spouse.html', html: _hipaa(sp, benes, successors) });
   }
 
   return docs;
