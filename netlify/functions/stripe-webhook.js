@@ -367,6 +367,18 @@ exports.handler = async (event) => {
 
       console.log('Payment completed:', { uid, planTier, email, amount });
 
+      // ── Notify attorney of a new PAID client (reliable server-side ntfy push) ──
+      // Fires for EVERY paid order, independent of the client-side/attorney-account logic.
+      try {
+        const topic = process.env.NTFY_TOPIC || 'cornerstone-atty-arthur';
+        const who   = session.customer_details?.name || email || 'A client';
+        await fetch(`https://ntfy.sh/${topic}`, {
+          method: 'POST',
+          headers: { 'Title': 'New Paid Client', 'Tags': 'money_with_wings,tada', 'Priority': 'high' },
+          body: `${who} just paid${amount ? ' $' + amount : ''}.${email ? ' (' + email + ')' : ''}`,
+        });
+      } catch (e) { console.error('paid-client ntfy failed:', e.message); }
+
       // ── Server-side ad conversion (Meta CAPI) — bulletproof, fires for every paid order ──
       // event_id = Stripe session id, so Stripe webhook retries dedupe to a single Purchase.
       await sendMetaCAPIPurchase({
