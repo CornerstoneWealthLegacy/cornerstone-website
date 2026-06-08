@@ -71,6 +71,38 @@ So it's "clone the pattern, swap the document library + questionnaires."
 3. Commercial lease (attorney-guided primary).
 4. Commercial sale + LOI.
 
+## Go-to-market: the broker / agent channel (Arthur's insight, 2026-06-08)
+The strongest wedge isn't the landlord/tenant directly — it's **commercial real estate
+agents and brokers who can't (or won't) draft leases.** Most FL real estate licensees
+can fill blanks on approved forms but **drafting custom lease terms risks UPL** — so they
+either pay an attorney per deal (slow, expensive) or cobble something risky together.
+Cornerstone's tool becomes their **fast, attorney-built, legal way to get a lease done.**
+
+Why this is powerful:
+- **Repeat B2B volume.** An agent does many deals/year — one happy agent = recurring use,
+  not a one-time consumer.
+- **Distribution, not just a product.** Agents/brokers become a referral channel (ties to
+  the referral-partner + dynamic-checkout tracking we already planned — credit each broker).
+- **Underserved.** Commercial leasing has no clean "FR/BAR for leases" equivalent the way
+  residential sales does — bespoke drafting is the norm, which is exactly the gap.
+
+The UPL-clean framing (critical):
+- The **law firm** (via its attorney-built tool) is what produces the legal document — NOT
+  the agent. The agent refers their client to Cornerstone, or facilitates; the agent never
+  "drafts." That keeps the agent on the right side of UPL and is itself the sales pitch:
+  *"You can't draft it — we did, the right way."*
+- Ideal end-user/client is the **principal** (landlord or tenant) party to the lease, with
+  the agent facilitating. Keep attorney-as-drafter clear; attorney-guided upsell for
+  anything negotiated/high-dollar.
+- Same dual-role discipline: this is the firm's legal service, distinct from Arthur's own
+  agent activity.
+
+Product implications:
+- A dedicated **"For Brokers & Agents"** entry/landing in the separate RE section.
+- Possible **broker accounts / volume pricing** (repeat users) + per-broker referral codes.
+- Lead with **commercial + residential leases** (the agent pain point) as the flagship,
+  even though residential leases are the simplest to verify first.
+
 ## Scoping decisions (Arthur, 2026-06-08)
 - **Residential sales → ADDENDA around the FR/BAR form.** We do NOT reproduce the
   copyrighted FR/BAR "AS IS" contract. We generate the disclosures, riders, and addenda
