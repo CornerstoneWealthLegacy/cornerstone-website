@@ -455,6 +455,21 @@ function _trust(d, benes, contingents, successors) {
     is valid and enforceable pursuant to Florida Statutes § 736.0502.</p>
   ` : '';
 
+  // HEMS distribution standard
+  const hems = _has(d, 'hems') ? `
+    <h3 class="section-title">Section 4.6 — HEMS Distribution Standard</h3>
+    <p>Except as otherwise expressly provided herein, the Trustee shall distribute or apply
+    income and principal to or for the benefit of a beneficiary only for that beneficiary's
+    health, education, maintenance, and support in his or her accustomed manner of living
+    (the "HEMS" standard). This standard is intended to constitute an ascertainable standard
+    within the meaning of Internal Revenue Code §§ 2041 and 2514 and the Treasury Regulations
+    thereunder, so that no beneficiary serving as Trustee shall be deemed to hold a general
+    power of appointment and trust property shall not be includable in such beneficiary's gross
+    estate by reason of such service. Limiting distributions to this standard further advances
+    the spendthrift and creditor-protective purposes of this Trust under Florida Statutes
+    §§ 736.0502 and 736.0504.</p>
+  ` : '';
+
   // No-contest clause
   const noContest = _has(d, 'no_contest') ? `
     <h3 class="section-title">Section 4.5 — No-Contest (In Terrorem) Provision</h3>
@@ -680,6 +695,7 @@ ${_printNote()}
   maintenance) from Trust assets.</p>
 
   ${spendthrift}
+  ${hems}
   ${noContest}
 
   <!-- ARTICLE V — DISPOSITION AT DEATH -->

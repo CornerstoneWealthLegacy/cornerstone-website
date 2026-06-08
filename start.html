@@ -2472,6 +2472,7 @@ const STEPS=[
    opts:[
      {v:'fl_situs',      t:'Florida Situs & Choice-of-Law Clause',   d:'Expressly designates FL as the governing law. Required for restatements from other-state trusts. (F.S. § 736.0108)',badge:'REQUIRED FOR MOVERS'},
      {v:'spendthrift',   t:'Spendthrift Clause',                      d:'Protects each beneficiary\'s share from creditors before receipt. Strongly recommended. (F.S. § 736.0502)'},
+     {v:'hems',          t:'HEMS Distribution Standard',              d:'Limits trustee distributions to a beneficiary\'s Health, Education, Maintenance & Support — an ascertainable standard (IRC § 2041) that maximizes creditor and divorce protection and keeps assets out of the beneficiary\'s taxable estate. (F.S. § 736.0814)'},
      {v:'homestead',     t:'Florida Homestead Coordination',          d:'Addresses Florida\'s unlimited homestead exemption and restrictions on devising homestead property. (F.S. § 732.401)'},
      {v:'tbe',           t:'Tenancy by the Entireties (TBE) Language',d:'For married couples — FL\'s TBE protection shields jointly-held property from creditors of one spouse.'},
      {v:'per_stirpes',   t:'Per Stirpes Distribution',                d:"If a beneficiary predeceases you, their share passes to their descendants. Recommended for all families."},
@@ -4258,10 +4259,10 @@ function getRecommendedProvisions(){
   recs.push({v:'spendthrift',reason:'Protects beneficiaries from creditors and divorce claims — essential for all Florida trusts'});
   recs.push({v:'hems',reason:'Health, Education, Maintenance & Support standard — maximizes creditor and divorce protection'});
   if(['hnw','vhnw','uhnw'].includes(d.wealthProfile)){
-    recs.push({v:'nocontest',reason:'No-contest clause deters frivolous litigation against your estate'});
+    recs.push({v:'no_contest',reason:'No-contest clause deters frivolous litigation against your estate'});
   }
   if(['vhnw','uhnw'].includes(d.wealthProfile)){
-    recs.push({v:'dynasty',reason:'Generation-skipping provisions preserve wealth across multiple generations GST-free'});
+    recs.push({v:'dynasty_prov',reason:'Generation-skipping provisions preserve wealth across multiple generations GST-free'});
     recs.push({v:'slat',reason:'SPOUSAL Lifetime Access Trust — removes assets from taxable estate while retaining indirect access'});
   }
   if(d.hasSpecialNeeds==='yes') recs.push({v:'snt',reason:'Special Needs Trust sub-trust — protects SSI/Medicaid eligibility for your beneficiary'});
