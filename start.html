@@ -10041,12 +10041,10 @@ auth.onAuthStateChanged(async user => {
     document.getElementById('authGate').classList.add('hidden');
     console.log('[CW Auth] Signed in as:', user.email, '| isAttorney:', checkIsAttorney(user));
 
-    // Block unverified email/password accounts (attorneys and Google sign-ins are exempt)
-    const isAtty = checkIsAttorney(user);
-    if (!isAtty && !user.emailVerified && user.providerData[0]?.providerId === 'password') {
-      _showVerifyScreen(user.email);
-      return;
-    }
+    // Soft email verification: we still SEND a welcome/verification email on signup,
+    // but we do NOT block access on it. The account is protected by the password, and
+    // Stripe validates a real email at checkout — so gating on Firebase's (often spam-
+    // filtered) verification email only risks locking out paying clients. No hard gate.
 
     updateUserBar(user);
     await loadUserProgress(user);
