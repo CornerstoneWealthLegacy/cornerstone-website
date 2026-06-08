@@ -9990,7 +9990,7 @@ render();
 
     <div class="pay-actions">
       <button class="pay-link" onclick="closePaymentScreen()">← Back to Documents</button>
-      <button class="pay-link" onclick="startOver()">${window.appMode==='attorney'?'New Matter':'Start Over'}</button>
+      <button class="pay-link" id="payStartOverBtn" onclick="startOver()">Start Over</button>
     </div>
   </div>
 </div>
@@ -12548,6 +12548,8 @@ function showPaymentScreen() {
   const _paySub   = document.getElementById('paySub');
   const _payFeat  = document.getElementById('payFeatures');
   const _payTotLbl= document.getElementById('payTotalLabel');
+  const _payStartOver = document.getElementById('payStartOverBtn');
+  if (_payStartOver) _payStartOver.textContent = window.appMode === 'attorney' ? 'New Matter' : 'Start Over';
   if (isDiy) {
     if (_payTitle) _payTitle.textContent = 'Unlock Your Documents';
     if (_paySub)   _paySub.textContent = 'Your Florida-compliant documents are ready. Complete your purchase below to unlock, download, and receive step-by-step filing & execution instructions. This is a self-guided (DIY) plan — optional attorney review is available on request for an added fee.';
