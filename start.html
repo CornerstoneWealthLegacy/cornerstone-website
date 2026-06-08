@@ -2417,7 +2417,7 @@ const STEPS=[
    type:'choice', field:'nameType', required:true,
    cond: d => d.docCategory !== 'will',
    q:'How should the trust be named?',
-   hint:'The trust name appears on deeds, account titles, and all legal instruments. For a restatement, the new name may differ from the prior trust name.',
+   hint:'The trust name appears on deeds, account titles, and all legal instruments. For a restatement, the new name may differ from the prior trust name. Don\'t worry about getting this perfect right now — you can change the name anytime before you finalize, and it can still be adjusted during attorney review.',
    opts:[
      {v:'standard',t:'[Your Name] Revocable Living Trust',       d:'Example: "The John A. Smith Revocable Living Trust" — Standard format.'},
      {v:'family',  t:'The [Last Name] Family Trust',             d:'Example: "The Smith Family Trust" — Clean and preferred for joint and multi-generational trusts.'},
@@ -3284,7 +3284,7 @@ function render(){
         html+=`<div id="trustNamePreview" class="trust-name-preview" style="display:none">
           <div class="tnp-label">Your Trust Will Be Named</div>
           <div class="tnp-name"></div>
-          <div style="font-size:.73rem;color:var(--muted);margin-top:4px">This is how your trust will appear on deeds, accounts, and all legal documents.</div>
+          <div style="font-size:.73rem;color:var(--muted);margin-top:4px">This is how your trust will appear on deeds, accounts, and all legal documents. Not final — you can change the name anytime before you finalize, and it can be adjusted during attorney review.</div>
         </div>`;
       }
       break;
