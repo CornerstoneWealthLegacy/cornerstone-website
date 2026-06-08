@@ -689,6 +689,17 @@ async function showPortal(user) {
       planData.beneficiaries = Array.isArray(st.beneficiaries) ? st.beneficiaries : [];
       planData.contingents   = Array.isArray(st.contingents)   ? st.contingents   : [];
       planData.successors    = Array.isArray(st.successors)    ? st.successors    : [];
+      // Normalize builder field names → the names documents.js expects. The builder saves
+      // the grantor's POA agent / surrogate under amend* keys; the generator reads poaAgent
+      // / surrogate. Without this mapping those fields render blank.
+      const pick = (...keys) => { for (const k of keys) { if (stateD[k]) return stateD[k]; } return ''; };
+      planData.poaAgent     = pick('poaAgent','amendNewAgent','gAgent');
+      planData.poaAgentRel  = pick('poaAgentRel','amendNewAgentRel','gAgentRel');
+      planData.poaAgentAddr = pick('poaAgentAddr','amendNewAgentAddr','gAgentAddr');
+      planData.poaSuccAgent = pick('poaSuccAgent','amendSuccAgent','gSuccAgent');
+      planData.surrogate    = pick('surrogate','amendNewSurrogate','gSurrogate');
+      planData.surrogateRel = pick('surrogateRel','amendSurrogateRel','gSurrogateRel');
+      planData.altSurrogate = pick('altSurrogate','amendSuccSurrogate','gAltSurrogate');
       // Keep a direct reference for debugging
       planData._stateD = stateD;
       delete planData.state;
