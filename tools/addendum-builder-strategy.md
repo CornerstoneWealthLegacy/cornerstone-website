@@ -69,6 +69,23 @@ that produces the custom addenda agents legally CANNOT draft themselves.
 **Specialty**
 - Short Sale Addendum · New Construction Addendum · Commercial (CC-5-style) addenda
 
+## Core product mechanic (the UPL-clean architecture)
+The need is genuine and organic: agents have all the forms and may fill blanks, but the
+moment they ADD custom terms to an addendum/contract it becomes UPL. The tool catches them
+exactly there. The critical design rule:
+
+> **Agent inputs plain-English FACTS / INTENT → attorney-built templates convert it into proper
+> CLAUSE language → output "Prepared by Cornerstone Wealth & Legacy Law."**
+
+- The agent describes the DEAL (e.g., "seller stays 14 days post-closing at $150/day, keeps the
+  fridge, $3,000 escrow holdback"). The agent does NOT type legal language.
+- The firm's attorney-authored logic produces the legal text. **The firm is the drafter, not the
+  agent.** This is the difference between lawful practice of law BY the firm and facilitated UPL.
+- ❌ Never ship a free-text box that just formats the agent's own legal wording — that makes the
+  agent the drafter and us the facilitator (UPL).
+- Truly bespoke terms outside the template logic → attorney-guided (Arthur drafts). Same model as
+  the estate builder: facts in → attorney-built generator → finished, attorney-prepared document.
+
 ## Ethical boundary (do NOT cross)
 - **Serve genuine need; never manufacture it.** Do not design the product to push agents into
   doing (or needing to avoid) UPL, or to engineer artificial complexity so a deal "becomes" legal
