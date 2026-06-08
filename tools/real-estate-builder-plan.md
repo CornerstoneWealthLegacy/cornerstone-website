@@ -103,6 +103,42 @@ Product implications:
 - Lead with **commercial + residential leases** (the agent pain point) as the flagship,
   even though residential leases are the simplest to verify first.
 
+## Commercial lease — build spec (clause taxonomy)
+Reference on hand: an NBI commercial-lease CLE handbook (Desktop/…/Commercial Leases) —
+**copyrighted; use as attorney study reference only, do NOT reproduce its text in templates.**
+The clause inventory below is the standard FL commercial-lease structure (ideas/checklist),
+to drive the questionnaire steps + generator sections. Arthur drafts/verifies the actual
+clause language.
+
+**Questionnaire / generator sections (commercial lease):**
+1. Parties & guaranty — landlord, tenant (+ entity type), personal/corporate guarantor
+2. Premises — address, suite, rentable vs usable sq ft, common areas, parking
+3. Term — commencement, expiration, options to renew/extend, holdover terms
+4. Rent — base rent, escalations (fixed %, CPI, steps), free rent/abatement, late fees
+5. **Net structure** — gross / modified gross / **triple-net (NNN)**; CAM, taxes, insurance
+   pass-throughs; expense stops; pro-rata share; CAM caps & audit rights
+6. Security deposit / letter of credit
+7. Use & exclusivity — permitted use, exclusive-use, prohibited uses, continuous-operation
+8. Maintenance & repair — landlord vs tenant responsibilities; HVAC; roof/structure
+9. Utilities & services — metering, after-hours HVAC, janitorial
+10. Improvements / build-out — tenant improvement allowance, work letter, alterations,
+    ownership of improvements, restoration at end
+11. Assignment & subletting — consent standard, recapture, profit-sharing
+12. Insurance & indemnity — liability limits, waiver of subrogation, additional insureds
+13. Casualty & condemnation — restoration vs termination thresholds
+14. Default & remedies — monetary/non-monetary cure periods, acceleration, landlord remedies
+15. Subordination/attornment (SNDA), estoppel certificates
+16. Surrender & holdover
+17. Brokerage — commission, who pays, broker disclosure
+18. Misc — notices, governing law (FL, Ch. 83 Part I), signage, ADA, environmental,
+    radon disclosure (§404.056), force majeure, entire agreement
+19. Exhibits — site/floor plan, work letter, rules & regs, guaranty, commencement memo
+
+**Residential lease (Ch. 83 Part II) — separate, simpler set:** parties, premises, term,
+rent, security deposit (§83.49 handling/notice), maintenance (§83.51), access (§83.53),
+prohibited provisions (§83.47), required disclosures (lead paint, radon, landlord/agent ID),
+late fees, pets/deposits, and the companion notices (3-day, 7-day cure/terminate, non-renewal).
+
 ## Scoping decisions (Arthur, 2026-06-08)
 - **Residential sales → ADDENDA around the FR/BAR form.** We do NOT reproduce the
   copyrighted FR/BAR "AS IS" contract. We generate the disclosures, riders, and addenda
