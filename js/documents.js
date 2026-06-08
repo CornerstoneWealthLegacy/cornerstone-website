@@ -119,8 +119,11 @@ function _css() {
       }
 
       .doc-wrapper {
-        /* 8.5in paper - 2in total margins = 6.5in text area */
-        width: 6.5in;
+        /* 8.5in paper with 1in padding each side = 6.5in text area.
+           (box-sizing is border-box globally, so width must be the full 8.5in
+           page width — using 6.5in here yielded only a 4.5in text column.) */
+        width: 8.5in;
+        max-width: 100%;
         min-height: 9in;
         margin: 0 auto 0.5in;
         padding: 1in;
