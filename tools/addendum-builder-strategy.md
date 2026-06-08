@@ -69,6 +69,17 @@ that produces the custom addenda agents legally CANNOT draft themselves.
 **Specialty**
 - Short Sale Addendum · New Construction Addendum · Commercial (CC-5-style) addenda
 
+## Ethical boundary (do NOT cross)
+- **Serve genuine need; never manufacture it.** Do not design the product to push agents into
+  doing (or needing to avoid) UPL, or to engineer artificial complexity so a deal "becomes" legal
+  work we then sell. That risks FL Bar Rule **4-5.5** (a lawyer shall not assist UPL) and is an
+  unfair-practice problem.
+- The demand is already large and organic: real deals constantly exceed the standard form
+  (escalation, appraisal gap, contingencies, leaseback, 1031, LLC vesting, assignment). We capture
+  the **real moment of need**, fast and compliantly — that is the entire value.
+- Stickiness comes from being the obvious fast/cheap/compliant option + honest education on when
+  an addendum is genuinely required — NOT from inflating complexity.
+
 ## Builder UX
 1. Agent/principal selects which base contract (FR/BAR AS-IS, FAR/BAR, commercial) — by NAME only.
 2. Enters the deal facts (parties, property, contract date, the specific need).
