@@ -13175,16 +13175,27 @@ function showReviewPrompt() {
 function rateStar(n) {
   const stars = document.querySelectorAll('.review-star');
   stars.forEach((s, i) => s.classList.toggle('lit', i < n));
+  window._reviewRating = n;
   // Compliance (FTC 2024 review rule, Google policy, FL Bar 4-7.13): do NOT gate
-  // the public review by rating. Show the same options to everyone — a public
-  // Google review AND a private feedback channel — regardless of the score.
-  // The Google button is only hidden until a real review link is configured
-  // (to avoid a dead link), then it shows for all ratings.
+  // the public review by rating. The Google review option is shown to EVERYONE once
+  // a real link is configured (hidden only while it's a placeholder, to avoid a dead
+  // link), and the private feedback box is always available too. Only the friendly
+  // copy adapts to the score — happy clients aren't told "we're sorry," and unhappy
+  // clients aren't told "we're thrilled."
   const reviewReady = GOOGLE_REVIEW_URL.indexOf('PLACEHOLDER') === -1;
+  const happy = n >= 4;
   const g  = document.getElementById('reviewGoogleBtn');
   const fb = document.getElementById('reviewFeedback');
+  const gh = document.getElementById('reviewGoogleHeader');
+  const fh = document.getElementById('reviewFeedbackHeader');
   if (g)  g.style.display  = reviewReady ? 'block' : 'none';
   if (fb) fb.style.display = 'block';
+  if (gh) gh.textContent = happy
+    ? "So glad you had a great experience — would you share it on Google?"
+    : "If you'd like, you can also share your experience on Google:";
+  if (fh) fh.textContent = happy
+    ? "Anything else you'd like to add? (optional)"
+    : "We'd love to make this right — tell us how we can improve:";
 }
 
 function goGoogleReview() {
@@ -13878,14 +13889,14 @@ async function handleAddStaff() {
         <span class="review-star" data-v="4" onclick="rateStar(4)">★</span>
         <span class="review-star" data-v="5" onclick="rateStar(5)">★</span>
       </div>
-      <div id="reviewFeedback" class="review-feedback">
-        <div style="font-size:.95rem;font-weight:700;color:var(--navy);margin-bottom:10px">We're sorry to hear that. Tell us how we can improve:</div>
-        <textarea id="reviewFeedbackText" placeholder="Please share what we could do better…"></textarea>
-        <button class="review-feedback-send" onclick="submitFeedback()">Send Feedback →</button>
-      </div>
       <div id="reviewGoogleBtn" style="display:none">
-        <div style="font-size:.95rem;font-weight:700;color:var(--navy);margin-bottom:14px">We're thrilled! Would you share your experience on Google?</div>
+        <div id="reviewGoogleHeader" style="font-size:.95rem;font-weight:700;color:var(--navy);margin-bottom:14px">Would you share your experience on Google?</div>
         <button class="review-cta google" onclick="goGoogleReview()">⭐ Leave a Google Review</button>
+      </div>
+      <div id="reviewFeedback" class="review-feedback">
+        <div id="reviewFeedbackHeader" style="font-size:.95rem;font-weight:700;color:var(--navy);margin-bottom:10px">Anything you'd like to share? (optional)</div>
+        <textarea id="reviewFeedbackText" placeholder="Share any feedback…"></textarea>
+        <button class="review-feedback-send" onclick="submitFeedback()">Send Feedback →</button>
       </div>
     </div>
     <div id="reviewThankYou" class="review-ty" style="display:none">
