@@ -1233,7 +1233,7 @@ ${_printNote()}
     ? 'My children, all of whom I intend to include in this Will, are: ' + kids.map(k => `${k.name}${k.dob ? ' (born ' + _fmtDate(k.dob) + ')' : ''}`).join('; ') + '.'
     : ''
   }</p>
-  ${d.hasStepChildren ? `<p>I acknowledge that I have stepchildren. Unless specifically named as a beneficiary in this Will, a stepchild has no right to inherit under this Will pursuant to Florida Statutes § 732.103.</p>` : ''}
+  ${d.hasStepChildren === 'yes' ? `<p>I acknowledge that I have stepchildren. Unless specifically named as a beneficiary in this Will, a stepchild has no right to inherit under this Will pursuant to Florida Statutes § 732.103.</p>` : ''}
 
   ${bequestSection}
 
