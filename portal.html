@@ -680,8 +680,15 @@ async function showPortal(user) {
       const raw = sessionSnap.data();
       // start.html saves form fields nested as session.state.d.gFirst etc.
       // Flatten state.d to top level so document generators can access them directly.
-      const stateD = raw.state?.d || {};
+      const st = raw.state || {};
+      const stateD = st.d || {};
       planData = { ...stateD, ...raw };
+      // CRITICAL: beneficiaries / successors / contingents are stored at the STATE level
+      // (S.beneficiaries, not S.d.beneficiaries). They must be carried over explicitly,
+      // otherwise the generator gets empty arrays → "To be determined" + blank trustees.
+      planData.beneficiaries = Array.isArray(st.beneficiaries) ? st.beneficiaries : [];
+      planData.contingents   = Array.isArray(st.contingents)   ? st.contingents   : [];
+      planData.successors    = Array.isArray(st.successors)    ? st.successors    : [];
       // Keep a direct reference for debugging
       planData._stateD = stateD;
       delete planData.state;
