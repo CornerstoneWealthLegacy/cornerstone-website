@@ -71,9 +71,18 @@ So it's "clone the pattern, swap the document library + questionnaires."
 3. Commercial lease (attorney-guided primary).
 4. Commercial sale + LOI.
 
-## Open questions to scope before building
-- Residential sales: build an original Cornerstone contract, or only the addenda around
-  the standard FR/BAR form?
+## Scoping decisions (Arthur, 2026-06-08)
+- **Residential sales → ADDENDA around the FR/BAR form.** We do NOT reproduce the
+  copyrighted FR/BAR "AS IS" contract. We generate the disclosures, riders, and addenda
+  that accompany it (seller's property disclosure, lead paint, as-is rider, financing /
+  inspection contingencies, HOA/condo rider, FIRPTA, closing/escrow instructions). This
+  sidesteps the copyright issue and matches how deals actually run.
+- **Placement → SEPARATE SITE SECTION** ("Cornerstone Real Estate Docs"), distinct from
+  the Florida Estate Kit. Its own landing, builder entry, and brand lane — kept clean from
+  the estate-planning product (and from the agent/realtor lane).
+
+## Still open (decide at build time)
 - Pricing model (flat per-document? subscription for landlords/investors with repeat use?).
 - Who attorney-verifies each template (you) and on what timeline — that's the real gate.
-- Separate brand/site section ("Cornerstone Real Estate Docs") vs. a tab in the existing kit.
+- Whether the separate section shares the same builder engine/portal under the hood
+  (recommended — reuse the code, just a different front door + document library).
