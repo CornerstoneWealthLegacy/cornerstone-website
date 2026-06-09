@@ -2,13 +2,19 @@
 
 The flat, scalable system (NOT the 3D chrome). Designer- and AI-ready. Contingent on final name.
 
-## The mark
-A **"D" monogram with a negative-space wave that doubles as an eye** — depth (ocean) + vision.
-- **Flat / geometric**, single weight. No bevels, no 3D extrusion, no chrome, no heavy gradients.
-- Must read at **16px** (favicon) and in **one color**. Test the wave at tiny size — if it muddies,
-  simplify to a single clean wave curve.
-- Three required forms: **D-only mark** (avatars/app icon/favicon), **stacked lockup** (mark above
-  DARCOCEAN), **horizontal lockup** (mark beside DARCOCEAN).
+## The mark  (DECISION: keep the 3D metallic "D + wave" as the hero logo)
+A **"D" monogram with a wave that doubles as an eye** — depth (ocean) + vision.
+**Two treatments of the SAME mark** (this is the system Arthur chose):
+- **PRIMARY / HERO = the 3D metallic blue + silver D-wave** (the logo Arthur loves). Use for:
+  website hero, signage, social banners, **video intros/outros**, business cards, premium/large
+  contexts. Wordmark line reads **"LAW"** (swap from "REAL ESTATE" — a text edit, NOT a re-gen).
+  Optional thin **gold** accent for the law arm.
+- **SECONDARY / FUNCTIONAL = a flat, one-color simplification of the same D-wave.** Required for:
+  **favicon (16/32px), app/social icon, document headers, stamps, embroidery, fax, single-color
+  & B&W print, tiny sizes, busy/light backgrounds.** The 3D version cannot do these jobs.
+- Forms needed: **D-only icon** (flat, for favicon/avatar), **stacked lockup**, **horizontal lockup**.
+- Production: the current art is an AI mockup — **rebuild as VECTOR** (3D hero version + flat mono
+  version + variants) before deployment.
 
 ## Color system (one mark, per-vertical accent)
 - **Darcocean Navy** `#0E2A47` (primary — trust, depth)
