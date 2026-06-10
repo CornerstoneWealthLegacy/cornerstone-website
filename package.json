@@ -2,7 +2,7 @@
   "name": "cornerstone-florida-estate-kit",
   "version": "1.0.0",
   "private": true,
-  "description": "Cornerstone Wealth & Legacy Law — Florida Estate Kit site + Netlify functions.",
+  "description": "Truestead Law — Florida Estate Kit site + Netlify functions.",
   "scripts": {
     "samples": "node tools/gen-samples.js"
   },

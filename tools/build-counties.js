@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /*
  * build-counties.js
- * Data-driven generator for Cornerstone Wealth & Legacy Law county estate-planning pages.
+ * Data-driven generator for Truestead Law county estate-planning pages.
  * Emits one static `[slug]-county-estate-planning.html` per Florida county (all 67),
  * each differentiated by judicial circuit, county seat / courthouse, and city list
  * (Florida probate venue is county-based, so each page is legally distinct).
@@ -13,7 +13,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const SITE = 'https://cornerstonewealthlegacy.com';
+const SITE = 'https://truesteadlaw.com';
 const OUT_DIR = path.resolve(__dirname, '..');
 const CALENDLY = '/book'; // on-site consultation page with the Calendly scheduler embedded inline
 
@@ -124,7 +124,7 @@ const COUNTIES = {
   'Suwannee':    { seat: 'Live Oak', lat: 30.29, lng: -82.98, cities: ['Live Oak', 'Branford'] },
   'Taylor':      { seat: 'Perry', lat: 30.12, lng: -83.58, cities: ['Perry', 'Steinhatchee'] },
   'Union':       { seat: 'Lake Butler', lat: 30.02, lng: -82.34, cities: ['Lake Butler', 'Raiford', 'Worthington Springs'] },
-  'Volusia':     { seat: 'DeLand', lat: 29.03, lng: -81.30, cities: ['Daytona Beach', 'Port Orange', 'Ormond Beach', 'New Smyrna Beach', 'DeLand', 'Deltona', 'Edgewater', 'Holly Hill', 'South Daytona', 'Orange City', 'DeBary'], annexCity: 'Daytona Beach', hook: 'Volusia County is home base for Cornerstone — from the beachside communities to West Volusia, we help families across the entire county.' },
+  'Volusia':     { seat: 'DeLand', lat: 29.03, lng: -81.30, cities: ['Daytona Beach', 'Port Orange', 'Ormond Beach', 'New Smyrna Beach', 'DeLand', 'Deltona', 'Edgewater', 'Holly Hill', 'South Daytona', 'Orange City', 'DeBary'], annexCity: 'Daytona Beach', hook: 'Volusia County is home base for Truestead — from the beachside communities to West Volusia, we help families across the entire county.' },
   'Wakulla':     { seat: 'Crawfordville', lat: 30.18, lng: -84.37, cities: ['Crawfordville', 'St. Marks', 'Sopchoppy', 'Panacea'] },
   'Walton':      { seat: 'DeFuniak Springs', lat: 30.72, lng: -86.12, cities: ['DeFuniak Springs', 'Santa Rosa Beach', 'Freeport', 'Miramar Beach'], hook: 'With 30A’s high-value beach homes, Walton County owners often use funded trusts to keep property out of probate.' },
   'Washington':  { seat: 'Chipley', lat: 30.78, lng: -85.54, cities: ['Chipley', 'Vernon', 'Wausau'] },
@@ -221,9 +221,9 @@ function buildPage(countyName) {
 
   // FAQ answers (county-specific)
   const faqProbate = `Probate for ${countyName} County residents is filed with the Clerk of the Circuit Court for ${countyName} County, part of Florida's ${ordinal} Judicial Circuit. ${courthousePlain} Because Florida probate uses electronic filing, a personal representative usually does not need to appear in person.`;
-  const faqCities = `Cornerstone Wealth & Legacy Law serves the entire county, including ${oxford(cities.slice(0, 6))}. Florida estate planning and probate law is the same statewide, so we can help any ${countyName} County family regardless of city.`;
+  const faqCities = `Truestead Law serves the entire county, including ${oxford(cities.slice(0, 6))}. Florida estate planning and probate law is the same statewide, so we can help any ${countyName} County family regardless of city.`;
   const faqAvoid = `The most common way to avoid probate in ${countyName} County is a properly funded revocable living trust, which lets your Florida assets pass to your beneficiaries without a court filing. Beneficiary designations, payable-on-death accounts, and certain deeds can also transfer specific assets outside probate. The key with a trust is funding it by retitling assets into the trust.`;
-  const faqRemote = `Yes. Cornerstone serves ${countyName} County clients by phone and video, preparing documents remotely and guiding you through signing under Florida's witnessing and notarization requirements. In-person appointments are available in the Daytona Beach area when preferred.`;
+  const faqRemote = `Yes. Truestead serves ${countyName} County clients by phone and video, preparing documents remotely and guiding you through signing under Florida's witnessing and notarization requirements. In-person appointments are available in the Daytona Beach area when preferred.`;
   const faqTime = `Most ${countyName} County formal probate administrations take roughly six months to a year, driven largely by Florida's creditor claim period. After the personal representative publishes a notice to creditors, creditors generally have until the later of three months from first publication or 30 days from service to file claims (Fla. Stat. §733.702), subject to a two-year absolute bar (§733.710). When an estate qualifies for summary administration, it is often completed in a few weeks to a couple of months.`;
   const faqSummary = `Summary administration is Florida's streamlined probate process, available when the probate estate — excluding exempt and homestead property — is worth $75,000 or less, or when the decedent has been deceased for more than two years (Fla. Stat. Chapter 735). Many ${countyName} County estates qualify, especially when most assets passed by trust, beneficiary designation, or joint title. Estates that do not qualify proceed as a formal administration under Chapter 733.`;
   const faqIntestate = `If a ${countyName} County resident dies without a will, Florida's intestate succession statute (Fla. Stat. Chapter 732) decides who inherits. A surviving spouse generally inherits the entire estate when all descendants are shared, but that share changes when there are children from another relationship. Dying without a will also forfeits your ability to name your own personal representative, a guardian for minor children, or a trust for your beneficiaries — which is why even a simple Florida will is worthwhile.`;
@@ -231,7 +231,7 @@ function buildPage(countyName) {
 
   // intro paragraph
   const introHook = d.hook ? ' ' + d.hook : '';
-  const intro = `${countyName} County families turn to Cornerstone Wealth & Legacy Law for wills, revocable living trusts, powers of attorney, and probate guidance prepared under current Florida law. Florida estate planning law is the same throughout the state, but where your estate is administered, and how, is decided at the county level — in ${countyName} County, through the ${ordinal} Judicial Circuit. This page explains how that works.${introHook}`;
+  const intro = `${countyName} County families turn to Truestead Law for wills, revocable living trusts, powers of attorney, and probate guidance prepared under current Florida law. Florida estate planning law is the same throughout the state, but where your estate is administered, and how, is decided at the county level — in ${countyName} County, through the ${ordinal} Judicial Circuit. This page explains how that works.${introHook}`;
 
   // cities grid — every city in the county links down to its dedicated page
   // (hand-built slugs via CITY_PAGES, all others via the generated city slug).
@@ -267,7 +267,7 @@ ${gridItems}
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${esc(countyName)} County Estate Planning &amp; Probate Attorney | Cornerstone Wealth &amp; Legacy Law</title>
+  <title>${esc(countyName)} County Estate Planning &amp; Probate Attorney | Truestead Law</title>
   <meta name="description" content="Estate planning and probate attorney serving all of ${esc(countyName)} County, Florida — ${esc(oxford(cities.slice(0, 4)))} and beyond. Probate is filed in the ${ordinal} Judicial Circuit. By phone, video &amp; appointment. Call (877) 867-6077.">
   <link rel="canonical" href="${url}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -282,12 +282,12 @@ ${gridItems}
     "@graph": [
       {
         "@type": "LegalService",
-        "@id": "https://cornerstonewealthlegacy.com/#firm",
-        "name": "Cornerstone Wealth & Legacy Law, PLLC",
+        "@id": "https://truesteadlaw.com/#firm",
+        "name": "Truestead Law, PLLC",
         "url": "${url}",
         "telephone": "+1-877-867-6077",
         "priceRange": "$$",
-        "image": "https://cornerstonewealthlegacy.com/images/logo-full.png",
+        "image": "https://truesteadlaw.com/images/logo-full.png",
         "description": "Estate planning, elder law, and probate attorney serving all of ${jsonEsc(countyName)} County, Florida, by phone, video, and appointment.",
         "address": { "@type": "PostalAddress", "addressLocality": "Daytona Beach", "addressRegion": "FL", "addressCountry": "US" },
         "geo": { "@type": "GeoCoordinates", "latitude": ${d.lat}, "longitude": ${d.lng} },
@@ -308,7 +308,7 @@ ${areaServedCities},
           },
           {
             "@type": "Question",
-            "name": "Which cities does Cornerstone serve in ${jsonEsc(countyName)} County?",
+            "name": "Which cities does Truestead serve in ${jsonEsc(countyName)} County?",
             "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(faqCities)}" }
           },
           {
@@ -376,9 +376,9 @@ ${areaServedCities},
   <header class="site-header">
     <div class="header-inner">
       <a href="index.html" class="logo">
-        <img src="images/logo-icon.png" alt="Cornerstone" class="logo-img-icon">
+        <img src="images/logo-icon.png" alt="Truestead" class="logo-img-icon">
         <div>
-          <span class="logo-name">Cornerstone Wealth<br>&amp; Legacy Law</span>
+          <span class="logo-name">Truestead Law<br>&amp; Legacy Law</span>
         </div>
       </a>
       <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false">
@@ -451,7 +451,7 @@ ${areaServedCities},
           <p>For most ${esc(countyName)} County homeowners, the residence is the most valuable — and most legally protected — asset in the estate. Florida's constitutional homestead protection (Art. X, §4 of the Florida Constitution) shields a primary residence from most creditors and restricts how it may be left when you are survived by a spouse or minor child (Fla. Stat. §732.401). Homestead generally passes outside the probate estate, but the title still has to be cleared, often through a petition to determine homestead status. Transferring the home correctly — sometimes with an enhanced life estate ("Lady Bird") deed or a funded revocable trust — is one of the highest-value steps a ${esc(countyName)} County family can take.</p>
 ${citiesSection}${regionUplink}
           <h2>How We Work With ${esc(countyName)} County Clients</h2>
-          <p>Cornerstone serves ${esc(countyName)} County clients primarily by phone and video: we talk through your situation, prepare your documents, and walk you through signing them correctly under Florida's witness and notary rules. In-person meetings are available by appointment in the Daytona Beach area when you would rather sit down face to face. Every plan is offered as a self-guided option or an Attorney-Guided plan personally reviewed by Arthur Simpson, Esq.</p>
+          <p>Truestead serves ${esc(countyName)} County clients primarily by phone and video: we talk through your situation, prepare your documents, and walk you through signing them correctly under Florida's witness and notary rules. In-person meetings are available by appointment in the Daytona Beach area when you would rather sit down face to face. Every plan is offered as a self-guided option or an Attorney-Guided plan personally reviewed by Arthur Simpson, Esq.</p>
 
           <h2>Key Florida Statutes for ${esc(countyName)} County Estates</h2>
           <p>Florida estate and probate law is statewide; these are the provisions that most often shape how a ${esc(countyName)} County estate is planned and administered:</p>
@@ -470,7 +470,7 @@ ${citiesSection}${regionUplink}
             <h3>Where is probate filed in ${esc(countyName)} County?</h3>
             <p>${esc(faqProbate)}</p>
 
-            <h3>Which cities does Cornerstone serve in ${esc(countyName)} County?</h3>
+            <h3>Which cities does Truestead serve in ${esc(countyName)} County?</h3>
             <p>${esc(faqCities)}</p>
 
             <h3>How can a ${esc(countyName)} County family avoid probate?</h3>
@@ -505,7 +505,7 @@ ${citiesSection}${regionUplink}
             <a href="${CALENDLY}" target="_blank" rel="noopener" class="btn btn-primary">Schedule Your Free Consultation</a>
           </div>
 
-          <p class="city-disclaimer">Cornerstone Wealth &amp; Legacy Law, PLLC is licensed in the State of Florida and serves clients throughout the state. This page is attorney advertising and general information, not legal advice, and does not create an attorney-client relationship. Estate planning and probate outcomes depend on your individual facts and the proper execution of documents under Florida law.</p>
+          <p class="city-disclaimer">Truestead Law, PLLC is licensed in the State of Florida and serves clients throughout the state. This page is attorney advertising and general information, not legal advice, and does not create an attorney-client relationship. Estate planning and probate outcomes depend on your individual facts and the proper execution of documents under Florida law.</p>
 
         </div>
       </div>
@@ -517,7 +517,7 @@ ${citiesSection}${regionUplink}
     <div class="footer-inner">
       <div class="footer-top">
         <div class="footer-brand">
-          <img src="images/logo-full.png" alt="Cornerstone Wealth &amp; Legacy Law" class="footer-logo-img">
+          <img src="images/logo-full.png" alt="Truestead Law" class="footer-logo-img">
           <div class="footer-contact">
             <p>Serving clients throughout Florida</p>
             <p><a href="tel:+18778676077" style="color:inherit;text-decoration:none">(877) 867-6077</a></p>
@@ -546,9 +546,9 @@ ${citiesSection}${regionUplink}
           <a href="/areas-we-serve">All areas &rarr;</a>
         </div>
       </div>
-      <p class="footer-disclaimer">Cornerstone Wealth &amp; Legacy Law, PLLC is licensed in the State of Florida. The information on this website is for general informational purposes only and does not constitute legal advice. Visiting this site or contacting the firm does not create an attorney-client relationship. Past results do not guarantee future outcomes. The hiring of a lawyer is an important decision that should not be based solely upon advertisements. Before you decide, ask us to send you free written information about our qualifications and experience.</p>
+      <p class="footer-disclaimer">Truestead Law, PLLC is licensed in the State of Florida. The information on this website is for general informational purposes only and does not constitute legal advice. Visiting this site or contacting the firm does not create an attorney-client relationship. Past results do not guarantee future outcomes. The hiring of a lawyer is an important decision that should not be based solely upon advertisements. Before you decide, ask us to send you free written information about our qualifications and experience.</p>
       <div class="footer-bottom">
-        <span>© 2026 Cornerstone Wealth &amp; Legacy Law, PLLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265</span>
+        <span>© 2026 Truestead Law, PLLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265</span>
         <div class="footer-legal">
           <a href="privacy.html">Privacy</a>
           <a href="terms.html">Terms</a>

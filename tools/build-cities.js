@@ -59,16 +59,16 @@ function buildCityPage(cityName, countyName) {
     : `Probate for ${cityName} residents is filed with the Clerk of the Circuit Court for ${countyName} County, part of Florida's ${ordinal} Judicial Circuit. The county courthouse is in ${seat}, the county seat. Because Florida probate uses electronic filing, a personal representative in ${cityName} usually does not need to travel to the courthouse.`;
   const faqNeed = `Most ${cityName} adults benefit from at least a will, a durable power of attorney, a health care surrogate designation, and a living will. Homeowners and parents of minor children, and anyone who wants to avoid probate, should also consider a revocable living trust. The right combination depends on your assets and family situation under Florida law.`;
   const faqAvoid = `The most common way for a ${cityName} family to avoid probate is a properly funded revocable living trust, which lets your Florida assets pass to your beneficiaries without a court filing. Beneficiary designations, payable-on-death accounts, and certain deeds can also transfer specific assets outside probate. A trust only works if it is funded by retitling assets into it.`;
-  const faqRemote = `Yes. Cornerstone serves ${cityName} clients by phone and video — we discuss your situation, prepare your documents, and guide you through signing under Florida's witnessing and notarization requirements. In-person appointments are available in the Daytona Beach area when preferred.`;
+  const faqRemote = `Yes. Truestead serves ${cityName} clients by phone and video — we discuss your situation, prepare your documents, and guide you through signing under Florida's witnessing and notarization requirements. In-person appointments are available in the Daytona Beach area when preferred.`;
 
-  const intro = `Cornerstone Wealth & Legacy Law helps ${cityName} families put the right documents in place — wills, revocable living trusts, powers of attorney, and health care directives — and guides them through probate when a loved one passes. ${cityName} is in ${countyName} County, where estates are administered through Florida's ${ordinal} Judicial Circuit. Florida estate planning law is the same statewide, but where your estate is handled is decided at the county level, so this page explains what that means for ${cityName}.`;
+  const intro = `Truestead Law helps ${cityName} families put the right documents in place — wills, revocable living trusts, powers of attorney, and health care directives — and guides them through probate when a loved one passes. ${cityName} is in ${countyName} County, where estates are administered through Florida's ${ordinal} Judicial Circuit. Florida estate planning law is the same statewide, but where your estate is handled is decided at the county level, so this page explains what that means for ${cityName}.`;
 
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${esc(cityName)} Estate Planning Attorney | Wills, Trusts &amp; Probate | Cornerstone Wealth &amp; Legacy Law</title>
+  <title>${esc(cityName)} Estate Planning Attorney | Wills, Trusts &amp; Probate | Truestead Law</title>
   <meta name="description" content="Estate planning and probate attorney serving ${esc(cityName)}, Florida (${esc(countyName)} County). Wills, revocable living trusts, powers of attorney &amp; probate, filed in the ${ordinal} Judicial Circuit. By phone, video &amp; appointment. Call (877) 867-6077.">
   <link rel="canonical" href="${url}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -83,12 +83,12 @@ function buildCityPage(cityName, countyName) {
     "@graph": [
       {
         "@type": "LegalService",
-        "@id": "https://cornerstonewealthlegacy.com/#firm",
-        "name": "Cornerstone Wealth & Legacy Law, PLLC",
+        "@id": "https://truesteadlaw.com/#firm",
+        "name": "Truestead Law, PLLC",
         "url": "${url}",
         "telephone": "+1-877-867-6077",
         "priceRange": "$$",
-        "image": "https://cornerstonewealthlegacy.com/images/logo-full.png",
+        "image": "https://truesteadlaw.com/images/logo-full.png",
         "description": "Estate planning, elder law, and probate attorney serving ${jsonEsc(cityName)}, Florida and all of ${jsonEsc(countyName)} County, by phone, video, and appointment.",
         "address": { "@type": "PostalAddress", "addressLocality": "Daytona Beach", "addressRegion": "FL", "addressCountry": "US" },
         "geo": { "@type": "GeoCoordinates", "latitude": ${d.lat}, "longitude": ${d.lng} },
@@ -153,9 +153,9 @@ function buildCityPage(cityName, countyName) {
   <header class="site-header">
     <div class="header-inner">
       <a href="index.html" class="logo">
-        <img src="images/logo-icon.png" alt="Cornerstone" class="logo-img-icon">
+        <img src="images/logo-icon.png" alt="Truestead" class="logo-img-icon">
         <div>
-          <span class="logo-name">Cornerstone Wealth<br>&amp; Legacy Law</span>
+          <span class="logo-name">Truestead Law<br>&amp; Legacy Law</span>
         </div>
       </a>
       <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false">
@@ -225,10 +225,10 @@ function buildCityPage(cityName, countyName) {
           <p>${neighborLine} Explore our <a href="${countyHref}">${esc(countyName)} County hub</a> or <a href="/areas-we-serve">all areas we serve</a> across Florida.</p>
 
           <h2>How We Work With ${esc(cityName)} Clients</h2>
-          <p>Cornerstone serves ${esc(cityName)} clients primarily by phone and video: we talk through your situation, prepare your documents, and walk you through signing them correctly under Florida's witness and notary rules. In-person meetings are available by appointment in the Daytona Beach area when you would rather sit down face to face. Every plan is offered as a self-guided option or an Attorney-Guided plan personally reviewed by Arthur Simpson, Esq.</p>
+          <p>Truestead serves ${esc(cityName)} clients primarily by phone and video: we talk through your situation, prepare your documents, and walk you through signing them correctly under Florida's witness and notary rules. In-person meetings are available by appointment in the Daytona Beach area when you would rather sit down face to face. Every plan is offered as a self-guided option or an Attorney-Guided plan personally reviewed by Arthur Simpson, Esq.</p>
 
           <h2>Start Your ${esc(cityName)} Estate Plan Online — the Easy Way</h2>
-          <p>You don't have to take weeks off or sit through multiple office visits to protect your family. Cornerstone's guided online process lets ${esc(cityName)} residents put a Florida-valid will, revocable living trust, durable power of attorney, and health care directives in place from home, in three simple steps:</p>
+          <p>You don't have to take weeks off or sit through multiple office visits to protect your family. Truestead's guided online process lets ${esc(cityName)} residents put a Florida-valid will, revocable living trust, durable power of attorney, and health care directives in place from home, in three simple steps:</p>
           <ol>
             <li><strong>Answer a few questions.</strong> Tell us about your family and assets in our secure online intake — most people finish in about 20 minutes.</li>
             <li><strong>We prepare your documents.</strong> Your plan is drafted under current Florida law, with an Attorney-Guided option personally reviewed by Arthur Simpson, Esq.</li>
@@ -265,7 +265,7 @@ function buildCityPage(cityName, countyName) {
             <a href="${CALENDLY}" target="_blank" rel="noopener" class="btn btn-primary">Schedule Your Free Consultation</a>
           </div>
 
-          <p class="city-disclaimer">Cornerstone Wealth &amp; Legacy Law, PLLC is licensed in the State of Florida and serves clients throughout the state. This page is attorney advertising and general information, not legal advice, and does not create an attorney-client relationship. Estate planning and probate outcomes depend on your individual facts and the proper execution of documents under Florida law.</p>
+          <p class="city-disclaimer">Truestead Law, PLLC is licensed in the State of Florida and serves clients throughout the state. This page is attorney advertising and general information, not legal advice, and does not create an attorney-client relationship. Estate planning and probate outcomes depend on your individual facts and the proper execution of documents under Florida law.</p>
 
         </div>
       </div>
@@ -277,7 +277,7 @@ function buildCityPage(cityName, countyName) {
     <div class="footer-inner">
       <div class="footer-top">
         <div class="footer-brand">
-          <img src="images/logo-full.png" alt="Cornerstone Wealth &amp; Legacy Law" class="footer-logo-img">
+          <img src="images/logo-full.png" alt="Truestead Law" class="footer-logo-img">
           <div class="footer-contact">
             <p>Serving clients throughout Florida</p>
             <p><a href="tel:+18778676077" style="color:inherit;text-decoration:none">(877) 867-6077</a></p>
@@ -304,9 +304,9 @@ function buildCityPage(cityName, countyName) {
           <a href="/areas-we-serve">All areas &rarr;</a>
         </div>
       </div>
-      <p class="footer-disclaimer">Cornerstone Wealth &amp; Legacy Law, PLLC is licensed in the State of Florida. The information on this website is for general informational purposes only and does not constitute legal advice. Visiting this site or contacting the firm does not create an attorney-client relationship. Past results do not guarantee future outcomes. The hiring of a lawyer is an important decision that should not be based solely upon advertisements. Before you decide, ask us to send you free written information about our qualifications and experience.</p>
+      <p class="footer-disclaimer">Truestead Law, PLLC is licensed in the State of Florida. The information on this website is for general informational purposes only and does not constitute legal advice. Visiting this site or contacting the firm does not create an attorney-client relationship. Past results do not guarantee future outcomes. The hiring of a lawyer is an important decision that should not be based solely upon advertisements. Before you decide, ask us to send you free written information about our qualifications and experience.</p>
       <div class="footer-bottom">
-        <span>© 2026 Cornerstone Wealth &amp; Legacy Law, PLLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265</span>
+        <span>© 2026 Truestead Law, PLLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265</span>
         <div class="footer-legal">
           <a href="privacy.html">Privacy</a>
           <a href="terms.html">Terms</a>

@@ -69,14 +69,14 @@ function shell(title, bodyHtml, unsubUrl) {
 <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f3f0;padding:28px 14px"><tr><td align="center">
 <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%">
 <tr><td style="background:#0f2744;border-radius:12px 12px 0 0;padding:26px 36px;text-align:center">
-<div style="color:#c49a2a;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-family:Arial,sans-serif">Cornerstone Wealth &amp; Legacy Law</div>
+<div style="color:#c49a2a;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-family:Arial,sans-serif">Truestead Law</div>
 <div style="color:#fff;font-size:22px;font-weight:700;margin-top:6px">${title}</div>
 <div style="height:2px;background:#c49a2a;width:54px;margin:14px auto 0"></div></td></tr>
 <tr><td style="background:#fff;padding:34px 36px;color:#333;font-size:16px;line-height:1.8">${bodyHtml}</td></tr>
 <tr><td style="background:#0f2744;border-radius:0 0 12px 12px;padding:20px 36px;text-align:center">
 <div style="font-size:11px;color:#8899aa;line-height:1.7;font-family:Arial,sans-serif">
-Cornerstone Wealth &amp; Legacy Law, PLLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265<br>
-P.O. Box 2574, Ormond Beach, FL 32175 &nbsp;·&nbsp; cornerstonewealthlegacy.com<br><br>
+Truestead Law, PLLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265<br>
+P.O. Box 2574, Ormond Beach, FL 32175 &nbsp;·&nbsp; truesteadlaw.com<br><br>
 <em>Client service message regarding your estate plan.</em><br>
 <a href="${unsubUrl}" style="color:#8899aa">Stop these reminders</a></div></td></tr>
 </table></td></tr></table></body></html>`;
@@ -84,7 +84,7 @@ P.O. Box 2574, Ormond Beach, FL 32175 &nbsp;·&nbsp; cornerstonewealthlegacy.com
 function btn(href, label) {
   return `<div style="text-align:center;margin:26px 0"><a href="${href}" style="background:#c49a2a;color:#0f2744;font-weight:700;font-family:Arial,sans-serif;text-decoration:none;padding:14px 30px;border-radius:8px;display:inline-block">${label}</a></div>`;
 }
-const PORTAL = 'https://cornerstonewealthlegacy.com/portal';
+const PORTAL = 'https://truesteadlaw.com/portal';
 const CAL = 'https://calendly.com/arthursimpson/free-20-minute-discovery-call';
 // ⚠️ Paste your Google Business Profile review link here once GBP is verified
 // (e.g. https://g.page/r/XXXXXXXX/review). Until it's a real URL, the review
@@ -134,24 +134,24 @@ ${btn(CAL, 'Book a Quick Call →')}
 <li>Revisit your plan after major life events — marriage, divorce, a new child, a move, or a significant change in assets.</li>
 <li>We recommend a quick review every few years to keep everything current under Florida law.</li>
 </ul>
-<p>Thank you for trusting Cornerstone with something this important. If a friend or family member needs a Florida plan, we'd be grateful for the introduction.</p>
+<p>Thank you for trusting Truestead with something this important. If a friend or family member needs a Florida plan, we'd be grateful for the introduction.</p>
 ${REVIEW_URL ? `<p>And if your experience was a good one, a quick review means a lot to a small firm: <a href="${REVIEW_URL}" style="color:#0f2744;font-weight:700">leave us a Google review</a>. If anything fell short, just reply to this email — we'd genuinely like to make it right.</p>` : `<p>And if anything about your experience fell short, just reply to this email — we'd genuinely like to make it right.</p>`}
 ${btn(PORTAL, 'Access My Documents →')}`,
-    text: (f) => `Hi ${f},\n\nYour plan should now be signed, funded, and stored safely. Tell your representatives where the documents are, and revisit the plan after major life events. Thank you for trusting Cornerstone.${REVIEW_URL ? `\n\nIf your experience was a good one, a quick Google review means a lot: ${REVIEW_URL}` : ''}\nIf anything fell short, just reply — we'd like to make it right.\nDocuments: ${PORTAL}`,
+    text: (f) => `Hi ${f},\n\nYour plan should now be signed, funded, and stored safely. Tell your representatives where the documents are, and revisit the plan after major life events. Thank you for trusting Truestead.${REVIEW_URL ? `\n\nIf your experience was a good one, a quick Google review means a lot: ${REVIEW_URL}` : ''}\nIf anything fell short, just reply — we'd like to make it right.\nDocuments: ${PORTAL}`,
   },
 };
 
 async function send(key, to, step, name, id) {
   const e = EMAILS[step];
   const first = ((name || '').split(' ')[0] || 'there').replace(/^./, c => c.toUpperCase());
-  const unsub = `https://cornerstonewealthlegacy.com/.netlify/functions/unsubscribe?c=post_purchase&e=${encodeURIComponent(id)}`;
+  const unsub = `https://truesteadlaw.com/.netlify/functions/unsubscribe?c=post_purchase&e=${encodeURIComponent(id)}`;
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST', headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      from: 'Arthur Simpson <arthur@cornerstonewealthlegacy.com>',
+      from: 'Arthur Simpson <arthur@truesteadlaw.com>',
       to: [to], subject: e.subject,
       html: shell(e.title, e.html(first), unsub),
-      text: e.text(first) + `\n\nCornerstone Wealth & Legacy Law, PLLC · Florida Bar #529265 · P.O. Box 2574, Ormond Beach, FL 32175\nStop these reminders: ${unsub}`,
+      text: e.text(first) + `\n\nTruestead Law, PLLC · Florida Bar #529265 · P.O. Box 2574, Ormond Beach, FL 32175\nStop these reminders: ${unsub}`,
     }),
   });
   if (!res.ok) throw new Error(`Resend ${res.status}: ${await res.text()}`);

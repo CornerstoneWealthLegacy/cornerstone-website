@@ -1,4 +1,4 @@
-// fb-autopost — scheduled function that posts one Cornerstone article to the
+// fb-autopost — scheduled function that posts one Truestead article to the
 // firm's Facebook Page on a rotating schedule (default: every 3 days).
 //
 // HOW IT WORKS
@@ -17,7 +17,7 @@
 //   FB_AUTOPOST_TEST_KEY   set a random string to allow a manual test post:
 //                          /.netlify/functions/fb-autopost?force=THAT_STRING
 
-const SITE = 'https://cornerstonewealthlegacy.com';
+const SITE = 'https://truesteadlaw.com';
 
 // Full rotation of all indexable articles. Generated from each article's meta
 // description (with hand-written captions for key pieces). Captions are factual and
@@ -26,7 +26,7 @@ const SITE = 'https://cornerstonewealthlegacy.com';
 const ARTICLES = require('./fb-autopost-articles.json');
 
 exports.handler = async (event) => {
-  // Cornerstone Facebook Page ID (public, not secret). Override via FB_PAGE_ID env if needed.
+  // Truestead Facebook Page ID (public, not secret). Override via FB_PAGE_ID env if needed.
   const PAGE_ID = process.env.FB_PAGE_ID || '1124648047400873';
   const TOKEN = process.env.FB_PAGE_ACCESS_TOKEN;
   if (!TOKEN) {

@@ -11,17 +11,17 @@ service cloud.firestore {
     match /sessions/{uid} {
       allow read, write: if request.auth != null && request.auth.uid == uid;
       allow read, update, delete: if request.auth != null &&
-        request.auth.token.email in ['arthur@cornerstonewealthlegacy.com','simp70@gmail.com'];
+        request.auth.token.email in ['arthur@truesteadlaw.com','simp70@gmail.com'];
     }
     match /feedback/{docId} {
       allow create: if request.auth != null;
       allow read: if request.auth != null &&
-        request.auth.token.email in ['arthur@cornerstonewealthlegacy.com','simp70@gmail.com'];
+        request.auth.token.email in ['arthur@truesteadlaw.com','simp70@gmail.com'];
     }
     match /attyMessages/{uid}/messages/{msgId} {
       allow read: if request.auth != null && request.auth.uid == uid;
       allow write: if request.auth != null &&
-        request.auth.token.email in ['arthur@cornerstonewealthlegacy.com','simp70@gmail.com'];
+        request.auth.token.email in ['arthur@truesteadlaw.com','simp70@gmail.com'];
     }
     // Collaborative sessions — scoped to the people in the session.
     // The sessionId is a 128-bit unguessable token (see genCollabId), and it
@@ -35,14 +35,14 @@ service cloud.firestore {
         resource.data.status == 'waiting' ||
         (resource.data.keys().hasAny(['participants']) &&
           request.auth.uid in resource.data.participants) ||
-        request.auth.token.email in ['arthur@cornerstonewealthlegacy.com','simp70@gmail.com']
+        request.auth.token.email in ['arthur@truesteadlaw.com','simp70@gmail.com']
       );
     }
     // Staff list — attorney writes, staff reads their own record
     match /staff/{emailKey} {
       allow read: if request.auth != null;
       allow write: if request.auth != null &&
-        request.auth.token.email in ['arthur@cornerstonewealthlegacy.com','simp70@gmail.com'];
+        request.auth.token.email in ['arthur@truesteadlaw.com','simp70@gmail.com'];
     }
     match /{document=**} {
       allow read, write: if false;

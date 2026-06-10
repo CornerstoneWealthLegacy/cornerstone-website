@@ -63,6 +63,12 @@
   force = true
 
 [[redirects]]
+  from = "/re-drafts/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
   from = "/tools/*"
   to = "/404.html"
   status = 404
@@ -89,14 +95,14 @@
 
 # Force HTTPS — redirect all HTTP to HTTPS
 [[redirects]]
-  from = "http://cornerstonewealthlegacy.com/*"
-  to = "https://cornerstonewealthlegacy.com/:splat"
+  from = "http://truesteadlaw.com/*"
+  to = "https://truesteadlaw.com/:splat"
   status = 301
   force = true
 
 [[redirects]]
-  from = "http://www.cornerstonewealthlegacy.com/*"
-  to = "https://cornerstonewealthlegacy.com/:splat"
+  from = "http://www.truesteadlaw.com/*"
+  to = "https://truesteadlaw.com/:splat"
   status = 301
   force = true
 

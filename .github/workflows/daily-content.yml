@@ -1,0 +1,46 @@
+name: Daily content engine
+
+# Generates FL-Bar-compliant scripts across every practice area, every day.
+# Hands-off: no always-on machine needed — GitHub runs it on the schedule.
+#
+# SETUP (one time):
+#   GitHub repo -> Settings -> Secrets and variables -> Actions -> New secret
+#     Name:  ANTHROPIC_API_KEY
+#     Value: sk-ant-...
+#   Then enable Actions on the repo. Adjust the cron below for your timezone.
+
+on:
+  schedule:
+    - cron: "0 11 * * *"   # 11:00 UTC daily ≈ 6-7am Florida. Change as you like.
+  workflow_dispatch:        # also run on-demand from the Actions tab
+    inputs:
+      per:
+        description: "Scripts per area per format"
+        default: "3"
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Anthropic SDK
+        run: npm install @anthropic-ai/sdk
+
+      - name: Generate scripts
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node tools/video-engine/generate.js --per=${{ github.event.inputs.per || '3' }}
+
+      - name: Upload scripts as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: scripts-${{ github.run_id }}
+          path: tools/video-engine/out/**
+          if-no-files-found: error
+          retention-days: 30

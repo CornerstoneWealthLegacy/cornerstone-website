@@ -1,4 +1,4 @@
-/* documents.js — Cornerstone Wealth & Legacy Law
+/* documents.js — Truestead Law
    Florida estate planning document generation library
    All documents comply with Florida Statutes as of 2026
    Generated client-side; client prints to PDF from browser
@@ -369,7 +369,7 @@ function _printNote() {
       Use your browser's <strong>File → Print</strong> (or Ctrl+P / ⌘P) and choose
       <strong>"Save as PDF"</strong> for a clean digital copy. These documents require
       attorney review, notarization, and proper witnessing before they are legally effective.
-      <strong>Contact Cornerstone Wealth &amp; Legacy Law at (877) 867-6077</strong> to
+      <strong>Contact Truestead Law at (877) 867-6077</strong> to
       schedule your signing appointment.
     </div>
   `;
@@ -422,9 +422,9 @@ function _witnessLines(n) {
 function _firmFooter() {
   return `
     <p class="centered statutory" style="margin-top:36pt; border-top:1px solid #ccc; padding-top:12pt;">
-      Prepared by: Arthur Simpson, Esq. &nbsp;|&nbsp; Cornerstone Wealth &amp; Legacy Law
+      Prepared by: Arthur Simpson, Esq. &nbsp;|&nbsp; Truestead Law
       &nbsp;|&nbsp; P.O. Box 2574, Ormond Beach, FL 32175 &nbsp;|&nbsp; (877) 867-6077
-      &nbsp;|&nbsp; cornerstonewealthlegacy.com
+      &nbsp;|&nbsp; truesteadlaw.com
     </p>
   `;
 }
@@ -569,7 +569,7 @@ ${_printNote()}
 
   <!-- COVER PAGE -->
   <div class="doc-cover">
-    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law</div>
+    <div class="firm-name">Truestead Law</div>
     <h1>${tName.toUpperCase()}</h1>
     <div class="doc-subtitle">A ${cfg.stateName} Revocable Living Trust</div>
     <div class="doc-parties">
@@ -1040,7 +1040,7 @@ ${_printNote()}
 <div class="doc-wrapper">
 
   <div class="doc-cover">
-    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law</div>
+    <div class="firm-name">Truestead Law</div>
     <h1>LAST WILL AND TESTAMENT<br>(Pour-Over Will)</h1>
     <div class="doc-subtitle">Pours to: ${tName}</div>
     <div class="doc-parties"><strong>TESTATOR:</strong> ${_gnUpper(d)}</div>
@@ -1238,7 +1238,7 @@ ${_printNote()}
 <div class="doc-wrapper">
 
   <div class="doc-cover">
-    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law</div>
+    <div class="firm-name">Truestead Law</div>
     <h1>LAST WILL AND TESTAMENT</h1>
     <div class="doc-parties"><strong>TESTATOR:</strong> ${_gnUpper(d)}</div>
   </div>
@@ -1400,7 +1400,7 @@ ${_printNote()}
 <div class="doc-wrapper">
 
   <div class="doc-cover">
-    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law</div>
+    <div class="firm-name">Truestead Law</div>
     <h1>FLORIDA DURABLE POWER OF ATTORNEY</h1>
     <div class="doc-subtitle">Effective Immediately · Survives Incapacity</div>
     <div class="doc-parties">
@@ -1646,7 +1646,7 @@ ${_printNote()}
 <div class="doc-wrapper">
 
   <div class="doc-cover">
-    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law</div>
+    <div class="firm-name">Truestead Law</div>
     <h1>DESIGNATION OF HEALTH CARE SURROGATE</h1>
     <div class="doc-subtitle">Florida Statutes § 765.202</div>
     <div class="doc-parties">
@@ -1792,7 +1792,7 @@ ${_printNote()}
 <div class="doc-wrapper">
 
   <div class="doc-cover">
-    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law</div>
+    <div class="firm-name">Truestead Law</div>
     <h1>LIVING WILL AND DECLARATION</h1>
     <div class="doc-subtitle">Florida Statutes § 765.303 — Declaration of Desire for a Natural Death</div>
     <div class="doc-parties"><strong>DECLARANT:</strong> ${_gnUpper(d)}</div>
@@ -1943,7 +1943,7 @@ ${_printNote()}
 <div class="doc-wrapper">
 
   <div class="doc-cover">
-    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law</div>
+    <div class="firm-name">Truestead Law</div>
     <h1>HIPAA AUTHORIZATION FOR DISCLOSURE<br>OF PROTECTED HEALTH INFORMATION</h1>
     <div class="doc-subtitle">45 C.F.R. § 164.508 · Florida Statutes § 765.205</div>
     <div class="doc-parties"><strong>INDIVIDUAL:</strong> ${_gnUpper(d)}</div>
@@ -2060,7 +2060,7 @@ ${_printNote()}
 <div class="doc-wrapper">
 
   <div class="doc-cover">
-    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law</div>
+    <div class="firm-name">Truestead Law</div>
     <h1>CERTIFICATION OF TRUST</h1>
     <div class="doc-subtitle">Florida Statutes § 736.1017</div>
     <div class="doc-parties">
@@ -2183,7 +2183,7 @@ ${_printNote()}
 <div class="doc-wrapper">
 
   <div class="doc-cover">
-    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law</div>
+    <div class="firm-name">Truestead Law</div>
     <h1>ASSIGNMENT OF PERSONAL PROPERTY TO REVOCABLE LIVING TRUST</h1>
     <div class="doc-parties">
       <strong>ASSIGNOR:</strong> ${_gnUpper(d)}${joint ? ' AND ' + _snUpper(d) : ''}<br>
@@ -2327,7 +2327,7 @@ ${_printNote()}
 <div class="doc-wrapper">
 
   <div class="doc-cover">
-    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law</div>
+    <div class="firm-name">Truestead Law</div>
     <h1>FLORIDA LAND TRUST AGREEMENT</h1>
     <div class="doc-subtitle">${ltTrustName}</div>
     <div class="doc-subtitle">Pursuant to Florida Statutes § 689.071</div>
@@ -2585,7 +2585,7 @@ ${_printNote()}
 <div class="doc-wrapper">
 
   <div class="doc-cover">
-    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law</div>
+    <div class="firm-name">Truestead Law</div>
     <h1>NFA GUN TRUST AGREEMENT</h1>
     <div class="doc-subtitle">${tName}</div>
     <div class="doc-subtitle">ATF 41F Compliant · 27 C.F.R. § 479.62</div>
@@ -2867,7 +2867,7 @@ ${_printNote()}
 <div class="doc-wrapper">
 
   <div class="doc-cover">
-    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law</div>
+    <div class="firm-name">Truestead Law</div>
     <h1>TRUST FUNDING GUIDE</h1>
     <div class="doc-subtitle">Client Funding Guide — Confidential</div>
     <div class="doc-parties"><em>${tName}</em><br>${who}</div>
@@ -3067,7 +3067,7 @@ ${_printNote()}
 <div class="doc-wrapper">
 
   <div class="doc-cover">
-    <div class="firm-name">Cornerstone Wealth &amp; Legacy Law</div>
+    <div class="firm-name">Truestead Law</div>
     <h1>FILING &amp; EXECUTION INSTRUCTIONS</h1>
     <div class="doc-subtitle">How to sign your documents correctly under Florida law</div>
     <div class="doc-parties"><em>Prepared for ${gName}</em></div>

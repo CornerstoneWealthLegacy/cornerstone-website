@@ -22,10 +22,10 @@ async function getToken(sa) {
 }
 
 function page(msg) {
-  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Unsubscribe — Cornerstone Wealth & Legacy Law</title>
+  return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Unsubscribe — Truestead Law</title>
 <style>body{margin:0;font-family:Georgia,serif;background:#0f2744;color:#fff;display:flex;min-height:100vh;align-items:center;justify-content:center;text-align:center}.box{max-width:480px;padding:40px}.g{color:#c49a2a;font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-family:Arial,sans-serif}h1{font-size:1.6rem;margin:14px 0}p{color:rgba(255,255,255,.8);line-height:1.7}a{color:#c49a2a}</style></head>
-<body><div class="box"><div class="g">Cornerstone Wealth &amp; Legacy Law</div><h1>${msg}</h1>
-<p>You can still reach us anytime at <a href="https://cornerstonewealthlegacy.com">cornerstonewealthlegacy.com</a> or (877) 867-6077.</p></div></body></html>`;
+<body><div class="box"><div class="g">Truestead Law</div><h1>${msg}</h1>
+<p>You can still reach us anytime at <a href="https://truesteadlaw.com">truesteadlaw.com</a> or (877) 867-6077.</p></div></body></html>`;
 }
 
 exports.handler = async (event) => {

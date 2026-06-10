@@ -82,3 +82,6 @@ tools/_scenarios/
 
 # Higgsfield CLI skills (dev tooling, not site content)
 .agents/
+
+# Real estate document working drafts (attorney review WIP)
+re-drafts/

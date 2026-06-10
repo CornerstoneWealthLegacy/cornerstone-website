@@ -8,7 +8,7 @@
 //   NTFY_TOPIC                   — ntfy topic (default: cornerstone-atty-arthur)
 //
 // Register this webhook URL in Stripe Dashboard:
-//   https://cornerstonewealthlegacy.com/.netlify/functions/stripe-webhook
+//   https://truesteadlaw.com/.netlify/functions/stripe-webhook
 //
 // Events to enable: checkout.session.completed, payment_intent.payment_failed
 
@@ -40,7 +40,7 @@ async function sendMetaCAPIPurchase({ email, name, value, currency, eventId, eve
       event_time: Math.floor(Date.now() / 1000),
       event_id: eventId,                  // dedups with any browser-side Purchase sharing this id
       action_source: 'website',
-      event_source_url: eventSourceUrl || 'https://cornerstonewealthlegacy.com/florida-estate-kit',
+      event_source_url: eventSourceUrl || 'https://truesteadlaw.com/florida-estate-kit',
       user_data,
       custom_data: { currency: currency || 'USD', value: Number(value) || 0 },
     }],
@@ -387,7 +387,7 @@ exports.handler = async (event) => {
         value: amount,
         currency: (session.currency || 'usd').toUpperCase(),
         eventId: session.id,
-        eventSourceUrl: 'https://cornerstonewealthlegacy.com/florida-estate-kit',
+        eventSourceUrl: 'https://truesteadlaw.com/florida-estate-kit',
       });
 
       // Update Firestore and trigger AI review

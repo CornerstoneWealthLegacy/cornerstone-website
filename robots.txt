@@ -1,5 +1,5 @@
-# Cornerstone Wealth & Legacy Law — robots.txt
-# cornerstonewealthlegacy.com
+# Truestead Law — robots.txt
+# truesteadlaw.com
 
 # ── Allow all standard search engines ────────────────────────────────────────
 User-agent: Googlebot
@@ -68,4 +68,4 @@ User-agent: Amazonbot
 Disallow: /
 
 # ── Sitemap ───────────────────────────────────────────────────────────────────
-Sitemap: https://cornerstonewealthlegacy.com/sitemap.xml
+Sitemap: https://truesteadlaw.com/sitemap.xml

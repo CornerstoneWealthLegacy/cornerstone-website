@@ -53,14 +53,14 @@ function emailShell(title, bodyHtml, unsubUrl) {
 <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f3f0;padding:28px 14px"><tr><td align="center">
 <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%">
 <tr><td style="background:#0f2744;border-radius:12px 12px 0 0;padding:26px 36px;text-align:center">
-<div style="color:#c49a2a;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-family:Arial,sans-serif">Cornerstone Wealth &amp; Legacy Law</div>
+<div style="color:#c49a2a;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-family:Arial,sans-serif">Truestead Law</div>
 <div style="color:#fff;font-size:22px;font-weight:700;margin-top:6px">${title}</div>
 <div style="height:2px;background:#c49a2a;width:54px;margin:14px auto 0"></div></td></tr>
 <tr><td style="background:#fff;padding:34px 36px;color:#333;font-size:16px;line-height:1.8">${bodyHtml}</td></tr>
 <tr><td style="background:#0f2744;border-radius:0 0 12px 12px;padding:20px 36px;text-align:center">
 <div style="font-size:11px;color:#8899aa;line-height:1.7;font-family:Arial,sans-serif">
-Cornerstone Wealth &amp; Legacy Law, PLLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265<br>
-P.O. Box 2574, Ormond Beach, FL 32175 &nbsp;·&nbsp; cornerstonewealthlegacy.com<br><br>
+Truestead Law, PLLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265<br>
+P.O. Box 2574, Ormond Beach, FL 32175 &nbsp;·&nbsp; truesteadlaw.com<br><br>
 <em>Attorney advertising. This email is general information, not legal advice, and does not create an attorney-client relationship.</em><br>
 <a href="${unsubUrl}" style="color:#8899aa">Unsubscribe</a></div></td></tr>
 </table></td></tr></table></body></html>`;
@@ -70,18 +70,18 @@ function btn(href, label) {
 }
 async function sendWelcome(key, email, name, score, id) {
   const first = ((name || '').split(' ')[0] || 'there').replace(/^./, c => c.toUpperCase());
-  const unsub = `https://cornerstonewealthlegacy.com/.netlify/functions/unsubscribe?e=${encodeURIComponent(id)}`;
+  const unsub = `https://truesteadlaw.com/.netlify/functions/unsubscribe?e=${encodeURIComponent(id)}`;
   const scoreLine = score ? `Based on your answers, your Estate Plan Score is <strong>${score}/100</strong>.` : '';
   const body = `<p>Hi ${first},</p>
 <p>Thanks for taking the Estate Plan Score Quiz. ${scoreLine}</p>
 <p>The good news: putting a Florida-valid plan in place is more straightforward — and more affordable — than most people think. You can build yours online in about 20 minutes, with the option to have it reviewed by a Florida attorney.</p>
-${btn('https://cornerstonewealthlegacy.com/florida-estate-kit', 'See Your Options →')}
+${btn('https://truesteadlaw.com/florida-estate-kit', 'See Your Options →')}
 <p style="font-size:14px;color:#666">Prefer to talk it through first? <a href="https://calendly.com/arthursimpson/free-20-minute-discovery-call" style="color:#0f2744">Book a free 20-minute call</a>.</p>`;
-  const text = `Hi ${first},\n\nThanks for taking the Estate Plan Score Quiz. ${score ? 'Your score is ' + score + '/100.' : ''}\n\nYou can build a Florida-valid estate plan online in about 20 minutes, with an attorney-review option:\nhttps://cornerstonewealthlegacy.com/florida-estate-kit\n\nPrefer to talk first? https://calendly.com/arthursimpson/free-20-minute-discovery-call\n\nCornerstone Wealth & Legacy Law, PLLC · Arthur Simpson, Esq. · Florida Bar #529265 · P.O. Box 2574, Ormond Beach, FL 32175\nAttorney advertising. Unsubscribe: ${unsub}`;
+  const text = `Hi ${first},\n\nThanks for taking the Estate Plan Score Quiz. ${score ? 'Your score is ' + score + '/100.' : ''}\n\nYou can build a Florida-valid estate plan online in about 20 minutes, with an attorney-review option:\nhttps://truesteadlaw.com/florida-estate-kit\n\nPrefer to talk first? https://calendly.com/arthursimpson/free-20-minute-discovery-call\n\nTruestead Law, PLLC · Arthur Simpson, Esq. · Florida Bar #529265 · P.O. Box 2574, Ormond Beach, FL 32175\nAttorney advertising. Unsubscribe: ${unsub}`;
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST', headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      from: 'Arthur Simpson <arthur@cornerstonewealthlegacy.com>',
+      from: 'Arthur Simpson <arthur@truesteadlaw.com>',
       to: [email], subject: 'Your Florida Estate Plan Score (+ what to do next)',
       html: emailShell('Your Estate Plan Score', body, unsub), text,
     }),
