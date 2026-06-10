@@ -85,3 +85,4 @@ tools/_scenarios/
 
 # Real estate document working drafts (attorney review WIP)
 re-drafts/
+.env.local
