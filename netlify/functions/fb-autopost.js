@@ -1,11 +1,12 @@
 // fb-autopost — scheduled function that posts one Truestead article to the
-// firm's Facebook Page on a rotating schedule (default: every 3 days).
+// firm's Facebook Page (default: one post per day).
 //
 // HOW IT WORKS
 //   • Netlify runs this daily (see schedule in netlify.toml).
-//   • It only posts every POST_INTERVAL_DAYS days (default 3), and rotates
-//     through the ARTICLES list below so posts never repeat for weeks.
-//   • Rotation is date-derived (stateless) — no database needed.
+//   • It posts every POST_INTERVAL_DAYS days (default 1 = daily). It first tries
+//     the newest fresh daily article (from the live articles-index.json), and
+//     falls back to rotating through the evergreen ARTICLES list below.
+//   • Selection is date-derived (stateless) — no database needed.
 //   • The post is a LINK post, so Facebook renders the article's Open Graph
 //     card (the branded preview image we added) automatically.
 //
@@ -13,7 +14,7 @@
 //   FB_PAGE_ID             your Facebook Page ID (NOT secret)
 //   FB_PAGE_ACCESS_TOKEN   Page access token with pages_manage_posts (SECRET)
 // OPTIONAL ENV
-//   POST_INTERVAL_DAYS     how many days between posts (default "3")
+//   POST_INTERVAL_DAYS     how many days between posts (default "1" = every day)
 //   FB_AUTOPOST_TEST_KEY   set a random string to allow a manual test post:
 //                          /.netlify/functions/fb-autopost?force=THAT_STRING
 
@@ -33,7 +34,7 @@ exports.handler = async (event) => {
     return { statusCode: 200, body: 'fb-autopost not configured (set FB_PAGE_ACCESS_TOKEN).' };
   }
 
-  const interval = Math.max(1, parseInt(process.env.POST_INTERVAL_DAYS || '3', 10));
+  const interval = Math.max(1, parseInt(process.env.POST_INTERVAL_DAYS || '1', 10));
   const dayNumber = Math.floor(Date.now() / 86400000); // days since epoch (UTC)
 
   // Manual test: ?force=<FB_AUTOPOST_TEST_KEY> posts immediately, bypassing the day gate.
@@ -44,9 +45,31 @@ exports.handler = async (event) => {
     return { statusCode: 200, body: `Not a posting day (every ${interval} days).` };
   }
 
-  const cycle = Math.floor(dayNumber / interval);
-  const idx = ((cycle % ARTICLES.length) + ARTICLES.length) % ARTICLES.length;
-  const a = ARTICLES[idx];
+  // Prefer a FRESH daily article (from the live articles-index.json the daily
+  // article agent publishes) whose date falls in the current posting window;
+  // otherwise fall back to the evergreen rotation below. This keeps new AI-written
+  // articles posting promptly — with their generated OG image — without server
+  // state and without double-posting (each posting day picks one window's newest).
+  let a = null;
+  try {
+    const r = await fetch(`${SITE}/articles-index.json`, { headers: { 'cache-control': 'no-cache' } });
+    if (r.ok) {
+      const data = await r.json().catch(() => ({}));
+      const epochDay = (s) => Math.floor(Date.parse(`${s}T00:00:00Z`) / 86400000);
+      const windowStart = dayNumber - interval + 1; // inclusive
+      const fresh = (data.articles || [])
+        .filter((x) => x && x.date && x.slug && !Number.isNaN(epochDay(x.date)))
+        .filter((x) => { const d = epochDay(x.date); return d >= windowStart && d <= dayNumber; })
+        .sort((x, y) => epochDay(y.date) - epochDay(x.date));
+      if (fresh.length) a = { slug: fresh[0].slug, msg: fresh[0].blurb || fresh[0].title };
+    }
+  } catch (e) { console.warn('fb-autopost: fresh-index fetch failed', e.message); }
+
+  if (!a) {
+    const cycle = Math.floor(dayNumber / interval);
+    const idx = ((cycle % ARTICLES.length) + ARTICLES.length) % ARTICLES.length;
+    a = ARTICLES[idx];
+  }
   const link = `${SITE}/${a.slug}`;
 
   // Facebook wants a PAGE access token to publish to a page feed. The token in env

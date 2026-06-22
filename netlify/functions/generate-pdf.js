@@ -30,7 +30,7 @@ exports.handler = async (event) => {
   // Only render for requests from our own site (Chromium renders are expensive).
   const ref = (event.headers && (event.headers.origin || event.headers.referer)) || '';
   let okOrigin = false;
-  try { okOrigin = /(?:^|\.)cornerstonewealthlegacy\.com$|\.netlify\.app$/.test(new URL(ref).hostname); } catch (e) {}
+  try { okOrigin = /(?:^|\.)(?:cornerstonewealthlegacy|truesteadlaw)\.com$|\.netlify\.app$/.test(new URL(ref).hostname); } catch (e) {}
   if (!okOrigin) return { statusCode: 403, headers: cors(), body: 'Forbidden' };
 
   let payload;
@@ -56,13 +56,23 @@ exports.handler = async (event) => {
       defaultViewport: chromium.defaultViewport,
       executablePath: await chromium.executablePath(),
       headless: chromium.headless,
+      protocolTimeout: 20000, // don't let a stuck DevTools call hang the whole function
     });
 
     const page = await browser.newPage();
     await page.setJavaScriptEnabled(false); // documents are static HTML/CSS
-    await page.setContent(html, { waitUntil: 'networkidle0', timeout: 30000 });
-    // Ensure web fonts are applied before snapshotting
-    try { await page.evaluateHandle('document.fonts && document.fonts.ready'); } catch (_) {}
+    // 'load' (not 'networkidle0'): networkidle0 waits for ALL network to go quiet,
+    // so one slow/blocked external resource (e.g. a font CDN) could hang until the
+    // function is killed. 'load' fires on the load event — fast and deterministic.
+    await page.setContent(html, { waitUntil: 'load', timeout: 8000 });
+    // Apply web fonts if present, but NEVER hang on a slow/blocked font host:
+    // race the fonts.ready promise against a hard 2.5s cap.
+    try {
+      await Promise.race([
+        page.evaluate('document.fonts ? document.fonts.ready.then(() => true) : true'),
+        new Promise((resolve) => setTimeout(resolve, 2500)),
+      ]);
+    } catch (_) {}
 
     const pdf = await page.pdf({
       printBackground: true,

@@ -32,7 +32,7 @@ exports.handler = async (event) => {
     'generateWill',
     'autoSave',
     'window.planType',
-    'cornerstonewealthlegacy',
+    'truesteadlaw',
   ];
 
   const failures = [];

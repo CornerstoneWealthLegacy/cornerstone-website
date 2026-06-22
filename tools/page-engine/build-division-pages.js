@@ -21,7 +21,8 @@ const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>
 const tc = s => s.replace(/-/g," ").replace(/\b\w/g,c=>c.toUpperCase());
 const LABELS = {"estate-planning":"Estate Planning","real-estate":"Real Estate Law","elder-law":"Elder Law","probate":"Probate & Trust Administration","business":"Business Law","personal-injury":"Personal Injury","family-law":"Family Law","criminal-defense":"Criminal Defense","business-litigation":"Business & Commercial Litigation","international-law":"International Law","construction-law":"Construction Law","healthcare-law":"Healthcare & Medical Law","financial-law":"Financial & Tax-Adjacent Law"};
 
-const ddItems = DIVISIONS.map(d=>`            <a href="/${d.slug}/" class="dropdown-item" role="menuitem">${esc(LABELS[d.id]||d.label)}</a>`).join("\n");
+const CORE_LINKS=[["/personal-injury.html","Personal Injury"],["/real-estate.html","Real Estate"],["/estate-planning.html","Wills, Estates & Trusts"],["/elder-law.html","Elder Law"]];
+const ddCore = CORE_LINKS.map(([u,t])=>`            <a href="${u}" class="dropdown-item" role="menuitem">${esc(t)}</a>`).join("\n");
 
 function header(active){return `  <header class="site-header">
     <div class="header-inner">
@@ -31,7 +32,7 @@ function header(active){return `  <header class="site-header">
         <a href="/" class="nav-link">Home</a>
         <div class="dropdown"><a href="#" class="nav-link active" aria-haspopup="true">Practice Areas</a>
           <div class="dropdown-menu" role="menu">
-${ddItems}
+${ddCore}
           </div></div>
         <div class="dropdown"><a href="#" class="nav-link" aria-haspopup="true">Free Tools</a>
           <div class="dropdown-menu" role="menu">
@@ -58,7 +59,8 @@ const FOOTER = `  <footer class="site-footer">
           <p class="footer-tagline">Built to last. Planned to pass on.</p>
         </div>
         <div class="footer-col"><h4>Practice Areas</h4>
-${DIVISIONS.slice(0,7).map(d=>`          <a href="/${d.slug}/">${esc(LABELS[d.id]||d.label)}</a>`).join("\n")}
+${CORE_LINKS.map(([u,t])=>`          <a href="${u}">${esc(t)}</a>`).join("\n")}
+          <a href="/florida-knowledge.html">Knowledge Center</a>
         </div>
         <div class="footer-col"><h4>Firm</h4>
           <a href="/about.html">About Arthur Simpson</a><a href="/insights.html">Insights</a>
@@ -77,11 +79,12 @@ function page(d){
   const label = LABELS[d.id]||d.label;
   const rv = REVIEWS[d.id];
   const isRec = rv && rv.kind === "recommender";
-  const toolUrl = isRec ? `/${d.slug}/document-finder.html` : `/${d.slug}/case-review.html`;
-  const toolLabel = isRec ? "Find Your Document →" : "Free Case Review →";
+  const edu = !canPublish(d);
+  const toolUrl = edu ? "/contact.html" : (isRec ? `/${d.slug}/document-finder.html` : `/${d.slug}/case-review.html`);
+  const toolLabel = edu ? "Ask a Question →" : (isRec ? "Find Your Document →" : "Free Case Review →");
   const a = assetsFor(d.id); const L = localFor(d.id);
   const services = d.services.map(s=>`          <div class="service-item"><div class="service-label">${esc(tc(s))}</div>
-            <p>Florida ${esc(tc(s).toLowerCase())} — attorney-led guidance as part of your ${esc(label.toLowerCase())} matter, handled with attention to your goals and the applicable Florida law.</p></div>`).join("\n");
+            <p>${edu?`Florida ${esc(tc(s).toLowerCase())} — general information on how this works under Florida law.`:`Florida ${esc(tc(s).toLowerCase())} — attorney-led guidance as part of your ${esc(label.toLowerCase())} matter, handled with attention to your goals and the applicable Florida law.`}</p></div>`).join("\n");
   const resources = a ? `    <section class="section section--white"><div class="container">
       <div class="section-intro"><span class="section-label">Tools &amp; Resources</span><h2>Get started online.</h2></div>
       <div class="hero-ctas">${(a.featured||[]).slice(0,4).map(f=>`<a href="${f.url}" class="btn btn-outline">${esc(f.label)}</a>`).join("")}</div>
@@ -109,16 +112,16 @@ ${header(d.slug)}
   <main>
     <div class="page-intro"><div class="container"><a href="/">Home</a><span>›</span><span>${esc(label)}</span></div></div>
     <section class="hero"><div class="container">
-      <span class="section-label">${esc(label)}</span>
-      <h1>${esc(label)} in Florida.</h1>
-      <p class="subhead">${FIRM.name} represents Florida clients in ${esc(label.toLowerCase())} — attorney-led, and coordinated with your broader plan for your property, your family, and your future.</p>
+      <span class="section-label">${edu?"Florida Legal Knowledge Center":esc(label)}</span>
+      <h1>${edu?`Florida ${esc(label)}: what to know.`:`${esc(label)} in Florida.`}</h1>
+      <p class="subhead">${edu?`General information about Florida ${esc(label.toLowerCase())}. ${FIRM.name} focuses on estate, real estate, elder, probate, and business law — for a ${esc(label.toLowerCase())} matter, we can help point you to a qualified Florida attorney.`:`${FIRM.name} represents Florida clients in ${esc(label.toLowerCase())} — attorney-led, and coordinated with your broader plan for your property, your family, and your future.`}</p>
       <div class="hero-ctas">
         <a href="${toolUrl}" class="btn btn-gold">${toolLabel}</a>
-        <a href="/book" target="_blank" rel="noopener" class="btn btn-outline-white">Schedule a Consultation</a>
+        <a href="${edu?'/#how-we-work':'/book'}"${edu?'':' target="_blank" rel="noopener"'} class="btn btn-outline-white">${edu?'Our Practice Areas':'Schedule a Consultation'}</a>
       </div>
     </div></section>
     <section class="section section--gray"><div class="container">
-      <div class="section-intro"><span class="section-label">Services</span><h2>What we handle in ${esc(label)}.</h2></div>
+      <div class="section-intro"><span class="section-label">${edu?'Topics':'Services'}</span><h2>${edu?`Key topics in Florida ${esc(label)}.`:`What we handle in ${esc(label)}.`}</h2></div>
       <div class="services-list">
 ${services}
       </div>
@@ -126,11 +129,11 @@ ${services}
 ${resources}
 ${local}
     <section class="section section--white"><div class="container"><div class="approach-content" style="text-align:center">
-      <span class="section-label">Get Started</span><h2>Let's talk about your situation.</h2>
-      <p>Tell us what's going on and we'll point you in the right direction — no cost, no obligation.</p>
+      <span class="section-label">${edu?'General Information':'Get Started'}</span><h2>${edu?`Have a Florida ${esc(label.toLowerCase())} question?`:"Let's talk about your situation."}</h2>
+      <p>${edu?`This is general information, not legal advice. For a ${esc(label.toLowerCase())} matter, we can help connect you with a qualified Florida attorney.`:"Tell us what's going on and we'll point you in the right direction — no cost, no obligation."}</p>
       <div class="hero-ctas" style="justify-content:center">
         <a href="${toolUrl}" class="btn btn-gold">${toolLabel}</a>
-        <a href="/book" target="_blank" rel="noopener" class="btn btn-outline">Schedule a Consultation</a>
+        <a href="${edu?'/':'/book'}"${edu?'':' target="_blank" rel="noopener"'} class="btn btn-outline">${edu?'Explore Our Services':'Schedule a Consultation'}</a>
       </div>
     </div></div></section>
   </main>
@@ -141,6 +144,7 @@ ${FOOTER}
 
 let n=0;
 for(const d of DIVISIONS){
+  if(canPublish(d)) continue; // core 3 use existing pages; only generate education hubs
   const dir=path.join(OUT,d.slug); fs.mkdirSync(dir,{recursive:true});
   fs.writeFileSync(path.join(dir,"index.html"), page(d)); n++;
 }

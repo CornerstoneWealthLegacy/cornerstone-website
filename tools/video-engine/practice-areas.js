@@ -13,7 +13,7 @@
 // no guarantees/superlatives, and discloses AI. See darcocean-faceless-* docs.
 
 module.exports.FIRM = {
-  name: "Truestead Law, PLLC",
+  name: "Truestead Law, LLC",
   attorney: "Arthur Simpson, Esq.",
   bar: "FL Bar #529265",
   city: "Ormond Beach, Florida",

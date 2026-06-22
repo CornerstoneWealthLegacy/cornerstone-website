@@ -1,0 +1,69 @@
+name: Daily article
+
+# Publishes one Florida-law educational article per day to truesteadlaw.com.
+# Hands-off: GitHub runs it on the schedule — no always-on Mac needed.
+# It researches via Claude's built-in web search, writes the article in Arthur
+# Simpson's voice, writes the HTML + updates articles-index.json + _redirects,
+# then commits to `main`. Netlify auto-builds from the push, so the commit IS the
+# deploy. The fb-autopost function then posts the fresh article to Facebook.
+#
+# SETUP (one time):
+#   GitHub repo -> Settings -> Secrets and variables -> Actions
+#     Secret: ANTHROPIC_API_KEY = sk-ant-...   (same key the content engine uses)
+#   Settings -> Actions -> General -> Workflow permissions: "Read and write"
+#     (or rely on the `permissions:` block below).
+#
+# Images: the Higgsfield hero image is a LOCAL-only feature (CLI). In CI the
+# article uses the firm logo as its OG image (the renderer's built-in fallback).
+# Run with workflow_dispatch + a topic to test a specific day on demand.
+
+on:
+  schedule:
+    - cron: "0 11 * * *"   # 11:00 UTC daily ≈ 6-7am Florida
+  workflow_dispatch:
+    inputs:
+      topic:
+        description: "Optional topic id override (e.g. elder-law, real-estate, probate)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Anthropic SDK
+        run: npm install @anthropic-ai/sdk
+
+      - name: Generate the article
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          ARGS="--no-deploy --no-image"
+          if [ -n "${{ github.event.inputs.topic }}" ]; then
+            ARGS="$ARGS --topic ${{ github.event.inputs.topic }}"
+          fi
+          echo "Running: node _internal/daily-article/daily-article.js $ARGS"
+          node "_internal/daily-article/daily-article.js" $ARGS
+
+      - name: Commit & push (triggers Netlify deploy)
+        run: |
+          git config user.name "truestead-bot"
+          git config user.email "bot@truesteadlaw.com"
+          # Only the article artifacts — never node_modules / package.json churn.
+          git add articles/ articles-index.json _redirects
+          if git diff --cached --quiet; then
+            echo "No new article to commit."
+          else
+            git commit -m "Daily article — $(date -u +%Y-%m-%d)"
+            git push
+          fi

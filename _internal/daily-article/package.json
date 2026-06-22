@@ -1,0 +1,14 @@
+{
+  "name": "truestead-daily-article-agent",
+  "version": "1.0.0",
+  "description": "Daily AI-powered educational article agent for truesteadlaw.com",
+  "type": "module",
+  "scripts": {
+    "run": "node daily-article.js",
+    "topic": "node daily-article.js --topic",
+    "test": "node daily-article.js --dry-run"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.105.0"
+  }
+}

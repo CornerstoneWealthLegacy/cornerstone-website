@@ -20,8 +20,9 @@
 [functions."abandoned-drip"]
   schedule = "0 */6 * * *"
 
-# Facebook auto-post — runs daily at 14:00 UTC (~9–10 AM ET) but only publishes
-# every POST_INTERVAL_DAYS (default 3), rotating through curated articles.
+# Facebook auto-post — runs daily at 14:00 UTC (~9–10 AM ET). Publishes every
+# POST_INTERVAL_DAYS (default 1 = daily): prefers the newest fresh daily article
+# from articles-index.json, else rotates the curated evergreen list.
 # Requires FB_PAGE_ID + FB_PAGE_ACCESS_TOKEN env vars to actually post.
 [functions."fb-autopost"]
   schedule = "0 14 * * *"
@@ -54,6 +55,68 @@
 [build.environment]
   SECRETS_SCAN_ENABLED = "false"
 
+# Let's Encrypt / ACME challenge MUST be served (never redirected) so Netlify can issue
+# SSL certs for newly-added vanity domains. This rule is FIRST so the force-redirects below
+# can't intercept the validation challenge. Returns 200 (serves whatever is at that path).
+[[redirects]]
+  from = "/.well-known/acme-challenge/*"
+  status = 200
+  force = false
+
+# Canonicalize ALL traffic to https://truesteadlaw.com (apex). The old Cornerstone domain
+# and the www variants 301 here so Google/AI consolidate authority on one domain.
+[[redirects]]
+  from = "https://cornerstonewealthlegacy.com/*"
+  to = "https://truesteadlaw.com/:splat"
+  status = 301
+  force = true
+[[redirects]]
+  from = "https://www.cornerstonewealthlegacy.com/*"
+  to = "https://truesteadlaw.com/:splat"
+  status = 301
+  force = true
+[[redirects]]
+  from = "https://www.truesteadlaw.com/*"
+  to = "https://truesteadlaw.com/:splat"
+  status = 301
+  force = true
+
+# Campaign vanity domains for the Florida Estate Kit → canonical page on truesteadlaw.com.
+# Fire once each domain + DNS + SSL are attached in Netlify.
+[[redirects]]
+  from = "https://floridaestatekit.com/*"
+  to = "https://truesteadlaw.com/florida-estate-kit?utm_source=floridaestatekit&utm_medium=vanity&utm_campaign=estate-kit"
+  status = 301
+  force = true
+[[redirects]]
+  from = "https://www.floridaestatekit.com/*"
+  to = "https://truesteadlaw.com/florida-estate-kit?utm_source=floridaestatekit&utm_medium=vanity&utm_campaign=estate-kit"
+  status = 301
+  force = true
+[[redirects]]
+  from = "https://buildmyfloridaestate.com/*"
+  to = "https://truesteadlaw.com/florida-estate-kit?utm_source=buildmyfloridaestate&utm_medium=vanity&utm_campaign=estate-kit"
+  status = 301
+  force = true
+[[redirects]]
+  from = "https://www.buildmyfloridaestate.com/*"
+  to = "https://truesteadlaw.com/florida-estate-kit?utm_source=buildmyfloridaestate&utm_medium=vanity&utm_campaign=estate-kit"
+  status = 301
+  force = true
+
+# Campaign vanity domain: 18andprotected.com → the Truestead landing page (keeps SEO/AI
+# authority consolidated on truesteadlaw.com). Fires once the domain + DNS are attached.
+[[redirects]]
+  from = "https://18andprotected.com/*"
+  to = "https://truesteadlaw.com/18-and-protected?utm_source=18andprotected&utm_medium=vanity&utm_campaign=18-and-protected"
+  status = 301
+  force = true
+[[redirects]]
+  from = "https://www.18andprotected.com/*"
+  to = "https://truesteadlaw.com/18-and-protected?utm_source=18andprotected&utm_medium=vanity&utm_campaign=18-and-protected"
+  status = 301
+  force = true
+
 # Block internal/working files from being served publicly (publish dir is ".")
 # Internal planning docs, build tooling, and generated sample documents.
 [[redirects]]
@@ -83,6 +146,13 @@
 
 [[redirects]]
   from = "/_internal/*"
+  to = "/404.html"
+  status = 404
+  force = true
+# Held-back ("reserve") practice areas — built but not published. Move files back out of
+# _reserve/ + re-add to sitemap/llms/divisions to launch International, Probate, Construction, Business.
+[[redirects]]
+  from = "/_reserve/*"
   to = "/404.html"
   status = 404
   force = true

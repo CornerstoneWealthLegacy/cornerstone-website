@@ -1540,6 +1540,17 @@ ${_printNote()}
     § 709.2202: &nbsp;Principal's signature / initials: <u>&nbsp;__________&nbsp;</u>.
     <em>(Effective only if signed in person, not via remote online notarization.)</em></li>
 
+    <li><strong>Medicaid &amp; Long-Term-Care Planning</strong> (F.S. § 709.2202(1)):
+    <em>[RESTRICTED — superpower]</em> My Agent IS authorized to engage in Medicaid and long-term-care
+    planning on my behalf, including to create and fund an <strong>irrevocable</strong> trust for me
+    (such as a Qualified Income Trust / Miller Trust or a Medicaid Asset Protection Trust), to make gifts
+    or asset transfers that may be exempt from transfer penalties, to execute a spousal refusal and
+    assignment of support, to enter a personal-services (caregiver) agreement, and to apply for Medicaid,
+    Veterans, and other public benefits — <strong>ONLY IF</strong> I separately sign or initial here, as
+    required by Florida Statutes § 709.2202: &nbsp;Principal's signature / initials:
+    <u>&nbsp;__________&nbsp;</u>.
+    <em>(Effective only if signed in person, not via remote online notarization.)</em></li>
+
     <li><strong>Digital Assets</strong> (F.S. § 740.002): To access, manage,
     and control my digital assets, including online accounts, cryptocurrency,
     and electronically stored information, to the extent authorized by applicable
@@ -3152,6 +3163,11 @@ window.generateDocPackage = function(d, benes, contingents, successors) {
   const docs = [];
   const cat = (d.docCategory || 'trust').toLowerCase();
 
+  // Elder-law families route to their own assembler (Medicaid routing on the intake data).
+  if (cat === 'elder_essentials' || cat === 'elder_medicaid') {
+    return _elderDocs(d);
+  }
+
   if (cat === 'trust' || cat === 'both') {
     docs.push({
       title:    'Revocable Living Trust',
@@ -3264,4 +3280,132 @@ window.generateDocPackage = function(d, benes, contingents, successors) {
 // ── Export for Node.js (tests / server-side rendering) ────────────────
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = { generateDocPackage: window.generateDocPackage };
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  ELDER-LAW DOCUMENTS (portal rendering) — data-driven, attorney-review drafts
+// ═══════════════════════════════════════════════════════════════════════
+function _elderShell(title, sub, g, body){
+  return `<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title} — ${g}</title>${_css()}</head>
+<body>${_printNote()}
+<div class="doc-wrap"><div class="doc-hdr"><div class="doc-firm">TRUESTEAD LAW</div><div class="doc-sub">${sub}</div></div>
+<div class="doc-title">${title}</div>${body}
+<p class="dp" style="margin-top:14px;font-size:.8rem;color:#888"><em>Prepared by Truestead Law, LLC · Arthur Simpson, Esq., FL Bar #529265. ATTORNEY-REVIEW DRAFT — not legal advice. Verify current Medicaid figures.</em></p>
+${_firmFooter()}</div></body></html>`;
+}
+function _elderWarn(t){return `<div style="background:#fef2f2;border:1px solid #fca5a5;border-radius:8px;padding:14px 18px;margin:18px 0;font-size:.82rem;color:#991b1b"><strong>ATTORNEY REVIEW REQUIRED:</strong> ${t}</div>`;}
+
+function _preNeedGuardian(d){
+  const g=_gn(d), yr=_year();
+  const gu=d.pngGuardian||'[PRE-NEED GUARDIAN]', rel=d.pngGuardianRel||'_______________', alt=d.pngAlt||'_______________';
+  const body=`<div class="art"><div class="art-t">ARTICLE I — DECLARANT</div><p class="dp">I, <strong>${g}</strong>, a competent adult, make this declaration under <strong>F.S. § 744.3045</strong> to name the guardian I want the court to appoint if I am later determined to be incapacitated.</p></div>
+<div class="art"><div class="art-t">ARTICLE II — PRE-NEED GUARDIAN</div><p class="dp">If a guardian is needed, I designate <strong>${gu}</strong> (${rel}) as guardian of my person and property. Alternate: <strong>${alt}</strong>.</p></div>
+<div class="art"><div class="art-t">ARTICLE III — EFFECT</div><p class="dp">Under F.S. § 744.3045, the person named here has priority of appointment over those listed in F.S. § 744.312 unless the court finds them unqualified. This declaration takes effect on a judicial determination of incapacity and shall be produced to the court.</p></div>
+<div class="sig-block"><div class="art-t">EXECUTION</div><p class="dp" style="font-style:italic">Sign before two adult witnesses; file with the clerk of court.</p><p class="dp">Signed this _____ day of _________________, ${yr}.</p>${_witnessLines(2)}</div>`;
+  return _elderShell('Declaration Naming Pre-Need Guardian','F.S. § 744.3045', g, body);
+}
+
+function _dispositionOfRemains(d){
+  const g=_gn(d), yr=_year(), county=d.gCounty||'Volusia';
+  const agent=d.dorAgent||'[DESIGNATED PERSON]', rel=d.dorAgentRel||'_______________', alt=d.dorAlt||'_______________';
+  const body=`<div class="art"><div class="art-t">ARTICLE I — DECLARANT &amp; PURPOSE</div><p class="dp">I, <strong>${g}</strong>, being of sound mind, make this notarized declaration to designate the person who shall control the disposition of my remains and all funeral, burial, and cremation arrangements.</p></div>
+<div class="art"><div class="art-t">ARTICLE II — DESIGNATED PERSON (F.S. § 497.005)</div><p class="dp">I designate <strong>${agent}</strong> (${rel}) to have sole authority to direct the disposition of my remains, to the exclusion of any person of equal or higher statutory priority. Alternate: <strong>${alt}</strong>.</p></div>
+<div class="art"><div class="art-t">ARTICLE III — INSTRUCTIONS</div><p class="dp">☐ Burial &nbsp; ☐ Cremation &nbsp; ☐ Entombment &nbsp; ☐ Anatomical gift &nbsp; ☐ Other: ____________. Cemetery/location: ____________. Service/observances: ____________. Pre-need contract (if any): ____________.</p></div>
+<div class="art"><div class="art-t">ARTICLE IV — AUTHORITY</div><p class="dp">The Designated Person may sign all authorizations, select the casket/urn/container, arrange the service, and make all decisions regarding disposition. This declaration controls over the statutory order of priority and relieves a relying funeral establishment from liability (F.S. § 497.005). It revokes any prior such declaration.</p></div>
+<div class="sig-block"><div class="art-t">EXECUTION</div><p class="dp" style="font-style:italic">Sign before two witnesses and a notary.</p><p class="dp">Signed this _____ day of _________________, ${yr}.</p>${_witnessLines(2)}${_notaryBlock(county,'Florida')}</div>`;
+  return _elderShell('Declaration — Control of Disposition of Remains','F.S. §§ 497.005, 732.804', g, body);
+}
+
+function _qit(d){
+  const g=d.qitBenName||_gn(d), yr=_year(), tr=d.qitTrustee||d.trustee||'[TRUSTEE — spouse, child, or POA agent]';
+  const body=_elderWarn('Required when gross monthly income exceeds the Florida cap ($2,982/mo in 2026). IRREVOCABLE; holds ONLY income; funded and disbursed every month in strict priority order; repays AHCA at death. Does not shelter assets. Verify the current cap and open the dedicated QIT bank account with counsel.')
++`<div class="art"><div class="art-t">ARTICLE I — CREATION &amp; PURPOSE</div><p class="dp"><strong>1.01.</strong> ${g} ("Grantor") establishes this Qualified Income Trust under 42 U.S.C. § 1396p(d)(4)(B) to qualify for Florida long-term-care Medicaid despite income above the program cap.</p><p class="dp"><strong>1.02 Income Only.</strong> This Trust holds ONLY the Grantor's income. No countable resources may be placed in it. <strong>1.03 Dedicated Account.</strong> The Trustee shall open a separate bank account titled in the Trust's name and deposit designated income each month eligibility is sought.</p></div>
+<div class="art"><div class="art-t">ARTICLE II — IRREVOCABILITY &amp; TRUSTEE</div><p class="dp">This Trust is <strong>IRREVOCABLE</strong>. ${tr} shall serve as Trustee. Successor: ${d.successor1||'[SUCCESSOR TRUSTEE]'}.</p></div>
+<div class="art"><div class="art-t">ARTICLE III — MONTHLY DISBURSEMENTS (STRICT PRIORITY)</div><p class="dp">Each month the Trustee shall disburse ONLY in this order: (1) Personal Needs Allowance ($160/mo in 2026); (2) health-insurance premiums; (3) Minimum Monthly Maintenance Needs Allowance to a community spouse, if any; (4) patient responsibility to the provider. No other disbursement is permitted.</p></div>
+<div class="art" style="background:#fffbeb;border:1px solid #f59e0b;border-radius:8px;padding:4px 16px"><div class="art-t">ARTICLE IV — MEDICAID PAYBACK AT DEATH</div><p class="dp">Upon the Grantor's death, funds remaining are paid to the Florida Agency for Health Care Administration (AHCA), up to total Medicaid benefits paid, before any other distribution. 42 U.S.C. § 1396p(d)(4)(B).</p></div>
+<div class="sig-block"><div class="art-t">EXECUTION</div><p class="dp">Grantor: ${g} &nbsp; Date: _______</p><p class="dp">Trustee: ${tr} &nbsp; Date: _______</p>${_notaryBlock(d.gCounty||'Volusia','Florida')}</div>`;
+  return _elderShell('Qualified Income Trust Agreement','Miller Trust — 42 U.S.C. § 1396p(d)(4)(B)', g, body);
+}
+
+function _mapt(d){
+  const g=_gn(d), yr=_year(), tr=d.trustee||'[ADULT CHILD / TRUSTEE — not the Grantor]';
+  const body=_elderWarn('5-YEAR LOOK-BACK: transfers to this Trust are subject to the 60-month look-back (42 U.S.C. § 1396p(c)) for nursing-home Medicaid. Begin planning 5+ years before need. Florida does not currently impose a community/HCBS look-back (verify with AHCA).')
++`<div class="art"><div class="art-t">ARTICLE I — ESTABLISHMENT &amp; PURPOSE</div><p class="dp"><strong>1.01.</strong> ${g} ("Grantor") creates this Irrevocable Medicaid Asset Protection Trust to protect assets from spend-down for long-term-care Medicaid, consistent with 42 U.S.C. § 1396p. <strong>1.02 Income-Only.</strong> The Grantor retains the right to all net income but NO right to principal — so principal is not a countable resource after the look-back, income is taxed to the Grantor (I.R.C. § 677), and assets receive a stepped-up basis at death (I.R.C. § 1014). <strong>1.03 Irrevocable.</strong> A revocable trust gives no Medicaid protection (42 U.S.C. § 1396p(d)(3)).</p></div>
+<div class="art"><div class="art-t">ARTICLE II — TRUSTEE</div><p class="dp">${tr} shall serve as Trustee; the Grantor CANNOT serve as sole trustee (F.S. § 736.0505). Successors: ${d.successor1||'[SUCCESSOR 1]'}, then ${d.successor2||'[SUCCESSOR 2]'}.</p></div>
+<div class="art"><div class="art-t">ARTICLE III — RETAINED INCOME; NO PRINCIPAL TO GRANTOR</div><p class="dp">The Trustee shall distribute all net income to the Grantor at least quarterly and shall make NO principal distributions to the Grantor (except as directed by the Trust Protector to maintain eligibility). The Grantor holds no withdrawal or Crummey powers.</p></div>
+<div class="art"><div class="art-t">ARTICLE IV — HOMESTEAD; REMAINDER; ESTATE RECOVERY</div><p class="dp">If the homestead is transferred here, file updated paperwork with the property appraiser to keep the exemption. On the Grantor's death the Trust terminates to: ${_sn(d)||'[remainder beneficiaries]'}. Assets are outside the probate estate and generally beyond Florida MERP (F.S. § 409.9101).</p></div>
+<div class="art"><div class="art-t">ARTICLE V — TRUST PROTECTOR</div><p class="dp">${d.protector||'[TRUST PROTECTOR — not Grantor or Trustee]'} may amend to maintain eligibility under changed law and remove/replace the Trustee for cause.</p></div>
+<div class="sig-block"><div class="art-t">EXECUTION</div><p class="dp">Grantor: ${g} &nbsp; Date: _______</p><p class="dp">Trustee: ${tr} &nbsp; Date: _______</p>${_notaryBlock(d.gCounty||'Volusia','Florida')}</div>`;
+  return _elderShell('Irrevocable Medicaid Asset Protection Trust','MAPT / Income-Only Trust', g, body);
+}
+
+function _caregiverAgreement(d){
+  const el=d.csClient||_gn(d), cg=d.csCaregiver||'[CAREGIVER]', rel=d.csCaregiverRel||'_______________', yr=_year();
+  const body=_elderWarn('Converts a gift (a transfer penalty) into compensation for services. Must be signed BEFORE services, pay a fair-market rate, describe services/frequency, require contemporaneous time logs, and the caregiver must report the income. A lump-sum prepayment must be based on the recipient\x27s actuarial life expectancy. Confirm FMV with counsel.')
++`<div class="art"><div class="art-t">I — PARTIES &amp; PURPOSE</div><p class="dp">${el} ("Recipient") engages ${cg} ("Caregiver", ${rel}) for fair-market personal-care services — not a gift.</p></div>
+<div class="art"><div class="art-t">II — SERVICES</div><p class="dp">${d.csServices||'Meal preparation; medication reminders; transportation; assistance with bathing, dressing, and mobility; light housekeeping; bill-paying and advocacy; and coordination of medical care, including if the Recipient enters a facility.'} Approximately ${d.csHours||'[__]'} hours/week.</p></div>
+<div class="art"><div class="art-t">III — COMPENSATION (FMV)</div><p class="dp">${d.csRate||'$[__]'} per hour, a fair-market rate for the area. Compensation is taxable income to the Caregiver (Form 1099/W-2 as applicable).</p></div>
+<div class="art"><div class="art-t">IV — RECORDS</div><p class="dp">The Caregiver shall keep contemporaneous time logs and retain them at least six (6) years to defend the contract in any Medicaid review.</p></div>
+<div class="art"><div class="art-t">V — TERM</div><p class="dp">Begins ${d.csStart||'_____________'} and continues for the Recipient's lifetime (including advocacy if the Recipient enters a facility), unless terminated by death or mutual agreement.</p></div>
+<div class="sig-block"><div class="art-t">EXECUTION</div><p class="dp" style="font-style:italic">Sign and date BEFORE services begin; begin time logs on day one.</p><p class="dp">Recipient: ${el} &nbsp; Date: _______</p><p class="dp">Caregiver: ${cg} &nbsp; Date: _______</p></div>`;
+  return _elderShell('Personal Services (Caregiver) Agreement','Florida Medicaid Planning', el, body);
+}
+
+function _thirdPartySNT(d){
+  const g=_gn(d), ben=d.tpsntBeneficiary||'[BENEFICIARY WITH A DISABILITY]', rel=d.tpsntBenRel||'_______________', tr=d.tpsntTrustee||d.trustee||'[TRUSTEE — not the beneficiary]', yr=_year();
+  const body=_elderWarn('Funded with a third party\x27s assets for a beneficiary on SSI/Medicaid — NO Medicaid payback (the remainder passes to family). Distributions must be supplemental (never cash to the beneficiary; avoid food/shelter that reduces SSI). Different from a first-party (d)(4)(A) SNT, which DOES require payback.')
++`<div class="art"><div class="art-t">I — PURPOSE</div><p class="dp">${g} ("Grantor") creates this irrevocable Third-Party Special Needs Trust to supplement, not supplant, the public benefits (SSI/Medicaid) of ${ben} ("Beneficiary", ${rel}). It holds no assets that ever belonged to the Beneficiary; accordingly there is no Medicaid payback.</p></div>
+<div class="art"><div class="art-t">II — SUPPLEMENTAL DISTRIBUTIONS</div><p class="dp">The Trustee has sole and absolute discretion to distribute solely for the Beneficiary's special/supplemental needs. The Beneficiary may not compel a distribution. No cash directly to the Beneficiary; avoid food/shelter distributions that would reduce benefits.</p></div>
+<div class="art"><div class="art-t">III — SPENDTHRIFT; TRUSTEE</div><p class="dp">The Beneficiary's interest is not assignable or reachable by creditors (F.S. § 736.0502). ${tr} shall serve; the Beneficiary shall not. Successor: ${d.successor1||'[SUCCESSOR TRUSTEE]'}.</p></div>
+<div class="art"><div class="art-t">IV — REMAINDER (NO PAYBACK)</div><p class="dp">On the Beneficiary's death the remainder passes to ${d.tpsntRemainder||'the Grantor\x27s other descendants'}. No Medicaid payback is required.</p></div>
+<div class="sig-block"><div class="art-t">EXECUTION</div><p class="dp">Grantor: ${g} &nbsp; Date: _______</p><p class="dp">Trustee: ${tr} &nbsp; Date: _______</p></div>`;
+  return _elderShell('Third-Party Special Needs Trust','F.S. Ch. 736 — supplemental needs, no payback', g, body);
+}
+
+function _medPromNote(d){
+  const lender=d.mpnLender||_gn(d), borrower=d.mpnBorrower||'[BORROWER — e.g., adult child]', yr=_year();
+  const body=_elderWarn('Crisis "gift-and-note" tool. To be a non-countable resource it MUST have a term not exceeding the Lender\x27s actuarial life expectancy, equal payments with no balloon, and be non-cancelable on the Lender\x27s death (42 U.S.C. § 1396p(c)(1)(I)). Get the actuarial term and gift/note integration exact with counsel.')
++`<div class="art"><div class="art-t">PROMISE TO PAY</div><p class="dp">FOR VALUE RECEIVED, <strong>${borrower}</strong> promises to pay <strong>${lender}</strong> the principal of ${d.mpnAmount||'$[____]'} with interest at ${d.mpnRate||'[__]'}% per annum, in equal monthly installments beginning ${d.mpnStart||'_____________'} for ${d.mpnTerm||'[__]'} months, a term not exceeding the Lender's actuarial life expectancy under current SSA tables.</p></div>
+<div class="art"><div class="art-t">DRA-COMPLIANCE TERMS</div><p class="dp">(a) Equal payments, no deferral, no balloon. (b) Non-cancelable; the balance does NOT forgive on the Lender's death and is payable to the Lender's estate. (c) Non-negotiable and non-assignable. These satisfy 42 U.S.C. § 1396p(c)(1)(I). Governed by Florida law.</p></div>
+<div class="sig-block"><div class="art-t">EXECUTION</div><p class="dp">Borrower: ${borrower} &nbsp; Date: _______</p></div>`;
+  return _elderShell('Promissory Note (Medicaid-Compliant)','42 U.S.C. § 1396p(c)(1)(I)', lender, body);
+}
+
+function _spousalRefusal(d){
+  const community=d.srCommunitySpouse||_sn(d)||'[COMMUNITY SPOUSE]', inst=d.srInstitutionalizedSpouse||_gn(d)||'[APPLICANT SPOUSE]', yr=_year();
+  const body=_elderWarn('Florida recognizes spousal refusal — the community spouse may decline to make resources available so eligibility is based on the applicant\x27s resources alone. The state may seek contribution (42 U.S.C. § 1396k), though Florida pursues this rarely. Analyze the exposure with counsel before filing.')
++`<div class="art"><div class="art-t">I — DECLARATION OF REFUSAL</div><p class="dp">I, <strong>${community}</strong>, community spouse of <strong>${inst}</strong>, refuse under 42 U.S.C. § 1396r-5 to make my income and resources available for my spouse's cost of care. My spouse's eligibility is to be determined on my spouse's own resources.</p></div>
+<div class="art"><div class="art-t">II — ASSIGNMENT OF SUPPORT RIGHTS</div><p class="dp">To the extent required, my spouse assigns to the State of Florida any right of support against me (42 U.S.C. § 1396k), without waiving any defense or admitting any obligation.</p></div>
+<div class="art"><div class="art-t">III — ACKNOWLEDGMENT</div><p class="dp">I understand the State may seek contribution and that counsel has explained the consequences. I make this declaration knowingly and voluntarily.</p></div>
+<div class="sig-block"><div class="art-t">EXECUTION</div><p class="dp">Community Spouse: ${community} &nbsp; Date: _______</p>${_notaryBlock(d.gCounty||'Volusia','Florida')}</div>`;
+  return _elderShell('Spousal Refusal &amp; Assignment of Support','42 U.S.C. §§ 1396r-5, 1396k', community, body);
+}
+
+// Routing: which elder docs apply, given the Medicaid intake on `d`.
+function _elderDocs(d){
+  const cat=(d.docCategory||'elder_essentials').toLowerCase();
+  const num=v=>parseFloat(String(v||'').replace(/[^0-9.]/g,''))||0;
+  const income=num(d.elderIncome), assets=num(d.elderAssets);
+  const overIncome=income>2982, overAssets=assets>2000;
+  const setting=(d.elderSetting||'').toLowerCase();
+  const crisis=d.elderTiming==='crisis'||setting==='nursing';
+  const married=d.elderMarried==='yes'||d.structure==='joint';
+  const out=[];
+  out.push({title:'Durable Power of Attorney (Elder-Law)', filename:'durable-poa.html', html:_poa(d)});
+  out.push({title:'Designation of Health Care Surrogate', filename:'health-care-surrogate.html', html:_hcs(d)});
+  out.push({title:'Living Will', filename:'living-will.html', html:_lw(d)});
+  out.push({title:'HIPAA Authorization', filename:'hipaa.html', html:_hipaa(d,[],[])});
+  out.push({title:'Declaration Naming Pre-Need Guardian', filename:'pre-need-guardian.html', html:_preNeedGuardian(d)});
+  out.push({title:'Disposition of Remains', filename:'disposition-of-remains.html', html:_dispositionOfRemains(d)});
+  if(cat==='elder_medicaid'){
+    out.push({title:'Personal Services / Caregiver Agreement', filename:'caregiver-agreement.html', html:_caregiverAgreement(d)});
+    if(overIncome) out.push({title:'Qualified Income Trust (Miller Trust)', filename:'qualified-income-trust.html', html:_qit(d)});
+    if(overAssets && !crisis) out.push({title:'Medicaid Asset Protection Trust', filename:'medicaid-asset-protection-trust.html', html:_mapt(d)});
+    if(crisis && overAssets) out.push({title:'Medicaid-Compliant Promissory Note', filename:'promissory-note.html', html:_medPromNote(d)});
+    if(married && setting && setting!=='planning') out.push({title:'Spousal Refusal & Assignment of Support', filename:'spousal-refusal.html', html:_spousalRefusal(d)});
+    if(d.elderDisabledBenef==='yes') out.push({title:'Third-Party Special Needs Trust', filename:'third-party-snt.html', html:_thirdPartySNT(d)});
+  }
+  out.push({title:'Filing & Execution Instructions', filename:'filing-instructions.html', html:_filingInstructions(d)});
+  return out;
 }

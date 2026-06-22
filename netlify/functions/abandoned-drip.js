@@ -76,7 +76,7 @@ function shell(title, bodyHtml, unsubUrl) {
 <tr><td style="background:#fff;padding:34px 36px;color:#333;font-size:16px;line-height:1.8">${bodyHtml}</td></tr>
 <tr><td style="background:#0f2744;border-radius:0 0 12px 12px;padding:20px 36px;text-align:center">
 <div style="font-size:11px;color:#8899aa;line-height:1.7;font-family:Arial,sans-serif">
-Truestead Law, PLLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265<br>
+Truestead Law, LLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265<br>
 P.O. Box 2574, Ormond Beach, FL 32175 &nbsp;·&nbsp; truesteadlaw.com<br><br>
 <em>Attorney advertising. This email is general information, not legal advice, and does not create an attorney-client relationship.</em><br>
 <a href="${unsubUrl}" style="color:#8899aa">Unsubscribe</a></div></td></tr>
@@ -133,7 +133,7 @@ async function send(key, to, step, name, id) {
       from: 'Arthur Simpson <arthur@truesteadlaw.com>',
       to: [to], subject: e.subject,
       html: shell(e.title, e.html(first), unsub),
-      text: e.text(first) + `\n\nTruestead Law, PLLC · Florida Bar #529265 · P.O. Box 2574, Ormond Beach, FL 32175 · Attorney advertising\nUnsubscribe: ${unsub}`,
+      text: e.text(first) + `\n\nTruestead Law, LLC · Florida Bar #529265 · P.O. Box 2574, Ormond Beach, FL 32175 · Attorney advertising\nUnsubscribe: ${unsub}`,
     }),
   });
   if (!res.ok) throw new Error(`Resend ${res.status}: ${await res.text()}`);

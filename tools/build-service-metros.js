@@ -110,6 +110,7 @@ ${jsonld}
         <div class="dropdown">
           <a href="#" class="nav-link" aria-haspopup="true">Practice Areas</a>
           <div class="dropdown-menu" role="menu">
+            <a href="personal-injury.html" class="dropdown-item" role="menuitem">Personal Injury</a>
             <a href="real-estate.html" class="dropdown-item" role="menuitem">Real Estate</a>
             <a href="estate-planning.html" class="dropdown-item" role="menuitem">Wills, Estates &amp; Trusts</a>
             <a href="elder-law.html" class="dropdown-item" role="menuitem">Elder Law</a>
@@ -151,7 +152,7 @@ ${jsonld}
       <div class="container">
         <div class="city-body">
 ${body}
-          <p class="city-disclaimer">Truestead Law, PLLC is licensed in the State of Florida and serves clients throughout the state. This page is attorney advertising and general information, not legal advice, and does not create an attorney-client relationship. Estate planning, probate, and elder law outcomes depend on your individual facts and the proper execution of documents under Florida law.</p>
+          <p class="city-disclaimer">Truestead Law, LLC is licensed in the State of Florida and serves clients throughout the state. This page is attorney advertising and general information, not legal advice, and does not create an attorney-client relationship. Estate planning, probate, and elder law outcomes depend on your individual facts and the proper execution of documents under Florida law.</p>
 
         </div>
       </div>
@@ -173,6 +174,7 @@ ${body}
         </div>
         <div class="footer-col">
           <h4>Practice Areas</h4>
+          <a href="personal-injury.html">Personal Injury</a>
           <a href="real-estate.html">Real Estate</a>
           <a href="estate-planning.html">Wills, Estates &amp; Trusts</a>
           <a href="elder-law.html">Elder Law</a>
@@ -189,9 +191,9 @@ ${body}
           <a href="/areas-we-serve">All Florida areas &rarr;</a>
         </div>
       </div>
-      <p class="footer-disclaimer">Truestead Law, PLLC is licensed in the State of Florida. The information on this website is for general informational purposes only and does not constitute legal advice. Visiting this site or contacting the firm does not create an attorney-client relationship. Past results do not guarantee future outcomes. The hiring of a lawyer is an important decision that should not be based solely upon advertisements. Before you decide, ask us to send you free written information about our qualifications and experience.</p>
+      <p class="footer-disclaimer">Truestead Law, LLC is licensed in the State of Florida. The information on this website is for general informational purposes only and does not constitute legal advice. Visiting this site or contacting the firm does not create an attorney-client relationship. Past results do not guarantee future outcomes. The hiring of a lawyer is an important decision that should not be based solely upon advertisements. Before you decide, ask us to send you free written information about our qualifications and experience.</p>
       <div class="footer-bottom">
-        <span>© 2026 Truestead Law, PLLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265</span>
+        <span>© 2026 Truestead Law, LLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265</span>
         <div class="footer-legal">
           <a href="privacy.html">Privacy</a>
           <a href="terms.html">Terms</a>
@@ -212,7 +214,7 @@ function legalServiceJson(serviceName, url, c) {
   return `      {
         "@type": "LegalService",
         "@id": "https://truesteadlaw.com/#firm",
-        "name": "Truestead Law, PLLC",
+        "name": "Truestead Law, LLC",
         "url": "${url}",
         "telephone": "+1-877-867-6077",
         "priceRange": "$$",
@@ -454,9 +456,62 @@ ${faqHtml(faqs)}
   }) };
 }
 
+// ---- SERVICE: Personal Injury ----------------------------------------------
+function personalInjury(m) {
+  const c = ctx(m);
+  const slug = `personal-injury-attorney-${slugify(m.metro)}`;
+  const url = `${SITE}/${slug}`;
+  const h1 = `Personal Injury Attorney in ${m.metro}, FL`;
+  const serviceName = `Personal injury attorney`;
+  const faqs = [
+    [`What does it cost to hire a ${m.metro} personal injury lawyer?`, `Nothing up front. Personal injury cases are handled on a contingency fee — there is no attorney's fee unless we obtain a recovery for you. If there is no recovery, you owe no attorney's fee. As in any case, clients may be responsible for costs, and all fee and cost terms are explained in writing before you sign.`],
+    [`How long do I have to file an injury claim in Florida?`, `Florida generally allows a limited time to bring a negligence claim — for many cases, two years from the date of the injury — but deadlines vary by the type of case and the facts, and some are shorter. Because missing a deadline can end a claim entirely, ${m.metro} accident victims should speak with a lawyer as soon as possible.`],
+    [`What kinds of ${m.metro} injury cases do you handle?`, `We help ${m.metro} and ${c.county} County clients with car, truck, motorcycle, and rideshare crashes, boating accidents, slip-and-fall and premises injuries, nursing-home neglect, and wrongful death. If your matter calls for litigation, we associate experienced Florida trial counsel as co-counsel and remain responsible for your case.`],
+    [`The insurance company already contacted me — what should I do?`, `Be careful. Adjusters are trained to settle ${m.metro} claims quickly and inexpensively, and a recorded statement can be used against you. You are not required to give one. Talk to us before you sign anything or give a statement — the consultation is free.`],
+    [`Can I handle my ${m.metro} injury case remotely?`, `Yes. We work with ${m.metro} clients by phone and video and can begin a free case review without an office visit, with in-person meetings available in the Daytona Beach area.`],
+  ];
+  const body = `
+          <p>If you were hurt in an accident in ${m.metro}, the insurance company began building its case immediately — you should have someone building yours. Truestead Law helps injured ${m.metro} and <a href="${countyHref(c.county)}">${c.county} County</a> residents pursue what they are owed, on a contingency fee, with no attorney's fee unless we recover for you.</p>
+
+          <h2>Injury Cases We Handle for ${m.metro} Clients</h2>
+          <ul>
+            <li>Car, truck, motorcycle, and rideshare (Uber/Lyft) accidents</li>
+            <li>Boating and watercraft accidents</li>
+            <li>Slip, trip, and fall and other premises injuries</li>
+            <li><a href="/elder-law.html">Nursing-home</a> neglect and abuse</li>
+            <li>Wrongful death</li>
+          </ul>
+
+          <h2>How It Works — and Who Handles Your Case</h2>
+          <p>You retain Truestead Law. For matters that go into litigation, we associate experienced Florida trial counsel as co-counsel and stay responsible for your case alongside them. You are always told in writing who is working on your matter, and associating co-counsel never increases your total fee. There is no attorney's fee unless we recover; if there is no recovery, you owe no attorney's fee (clients may be responsible for costs, explained in writing before you sign).</p>
+
+          <h2>After Your ${m.metro} Case Resolves</h2>
+          <p>Most injury firms hand you a check and say goodbye. Because Truestead is also a Florida estate, real estate, and elder law firm, we can help you protect what you recover — so a settlement isn't lost to taxes, probate, or a hasty decision, and we can handle the <a href="/real-estate.html">closing</a> if you put it into a home. <a href="/estate-planning.html">One relationship, for the whole of life.</a></p>
+
+          <div class="city-faq">
+            <h2>${m.metro} Personal Injury FAQs</h2>
+${faqHtml(faqs)}
+          </div>
+
+          <div class="city-cta">
+            <h2>Hurt in ${m.metro}? Get a free case review.</h2>
+            <p>Free, confidential, no obligation — and no fee unless we recover. The sooner you reach out, the more we can do.</p>
+            <a href="/personal-injury/case-review.html" class="btn btn-primary">Start My Free Case Review</a>
+          </div>
+`;
+  const jsonld = `  {\n    "@context": "https://schema.org",\n    "@graph": [\n${legalServiceJson(serviceName + ' in ' + m.metro, url, c)},\n${faqJson(faqs)}\n    ]\n  }`;
+  return { slug, html: shell({
+    title: `Personal Injury Attorney in ${m.metro}, FL | Accidents &amp; Injury Claims | Truestead Law`,
+    desc: `Personal injury attorney for ${m.metro}, Florida — car, truck, motorcycle, rideshare, boating, slip-and-fall &amp; nursing-home injury claims. Free case review, no fee unless we recover. Call (877) 867-6077.`,
+    url, jsonld, h1,
+    heroP: `Hurt in a ${m.metro} accident? Truestead Law helps injured Floridians pursue what they're owed — car, truck, motorcycle, rideshare, boating, slip-and-fall, and nursing-home injury claims. Free case review, and no attorney's fee unless we recover.`,
+    body,
+  }) };
+}
+
 // ---- main ------------------------------------------------------------------
 const dry = process.argv.includes('--dry');
-const builders = [probate, estate, elder, realestate];
+const builders = [personalInjury, probate, estate, elder, realestate];
 const slugs = [];
 let written = 0;
 for (const m of METROS) {

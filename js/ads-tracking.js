@@ -30,7 +30,7 @@
   // file and NOT main.js — so init here too. The shared window._fbqInit guard
   // means whichever script runs first wins; pages loading both never double-fire.
   // FB_PIXEL_ID MUST stay identical to the one in js/main.js.
-  var FB_PIXEL_ID = '1371957424980836';
+  var FB_PIXEL_ID = '2087253962178307';
   if (FB_PIXEL_ID && !window._fbqInit) {
     window._fbqInit = true;
     if (!window.fbq) {

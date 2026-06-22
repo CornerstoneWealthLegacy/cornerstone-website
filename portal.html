@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>My Documents — Truestead Law</title>
   <meta name="robots" content="noindex,nofollow">
-  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png?v=2">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png?v=2">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -440,6 +440,14 @@
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-333CR3Q4N6"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-333CR3Q4N6");</script>
+<!-- Meta Pixel (Truestead Law) -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+if(!window._fbqInit){window._fbqInit=true;fbq('init','2087253962178307');fbq('track','PageView');}
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2087253962178307&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel -->
+
 </head>
 <body>
 
@@ -545,6 +553,8 @@
 
 <!-- Document generation library -->
 <script src="/js/documents.js"></script>
+<script src="/js/re-addenda-lib.js"></script>
+<script src="/js/re-documents.js"></script>
 
 <script>
 'use strict';
@@ -802,7 +812,7 @@ function renderStatusBanner(d) {
     type  = 'review';
     icon  = 'ℹ️';
     title = 'Account active';
-    body  = 'Contact <strong>(877) 867-6077</strong> or <a href="mailto:info@truesteadlaw.com">info@truesteadlaw.com</a> if you have questions.';
+    body  = 'Contact <strong>(877) 867-6077</strong> or <a href="mailto:admin@truesteadlaw.com">admin@truesteadlaw.com</a> if you have questions.';
   }
 
   statusContainer.innerHTML = `
@@ -853,7 +863,13 @@ function renderPlanSummary(d) {
     will:       'Last Will & Testament Package',
     both:       'Comprehensive Trust + Will Package',
     land_trust: 'Florida Land Trust',
-    gun_trust:  'NFA Gun Trust'
+    gun_trust:  'NFA Gun Trust',
+    re_resi_lease: 'Florida Residential Lease',
+    re_comm_lease: 'Florida Commercial Lease',
+    re_sale:       'Commercial Purchase & Sale',
+    re_addenda:    'Real Estate Addenda',
+    elder_essentials: 'Elder-Law Essentials',
+    elder_medicaid:   'Elder Law & Medicaid Planning'
   };
   const cat = (d.docCategory || 'trust').toLowerCase();
 
@@ -873,6 +889,11 @@ function renderPlanSummary(d) {
   } else if (cat === 'gun_trust') {
     const gLast4 = (d.gLast || sd4.gLast || '').trim();
     row4 = { label: 'Trust Name', value: (d.trustName || sd4.trustName || (gLast4 ? `The ${gLast4} NFA Gun Trust` : '')) || PENDING };
+  } else if (cat.startsWith('re_')) {
+    const prop = (d.property || d.addr || sd4.property || sd4.addr || '').trim();
+    row4 = { label: 'Property', value: prop || PENDING };
+  } else if (cat.startsWith('elder')) {
+    row4 = { label: 'Plan', value: cat === 'elder_medicaid' ? 'Medicaid Planning (Attorney-Guided)' : 'Elder-Law Essentials' };
   } else {
     // trust or both — compute trust name from nameType + grantor name
     const tName = (d.trustName || sd4.trustName || '').trim() || portalTrustName(d);
@@ -910,7 +931,23 @@ const DOC_META = {
   'Trust Funding Guide':                     { icon: '📒', desc: 'Step-by-step guide to re-titling assets into your trust' },
   'Filing & Execution Instructions':         { icon: '🖊️', desc: 'How to sign each document correctly under Florida law' },
   'Florida Land Trust Agreement':            { icon: '🏠', desc: 'Holds real property with privacy and probate avoidance' },
-  'NFA Gun Trust':                           { icon: '🔒', desc: 'ATF 41F-compliant trust for NFA-regulated firearms' }
+  'NFA Gun Trust':                           { icon: '🔒', desc: 'ATF 41F-compliant trust for NFA-regulated firearms' },
+  'Residential Lease Agreement':             { icon: '🏠', desc: 'Florida residential lease (Ch. 83, Part II) with required disclosures' },
+  'Commercial Lease Agreement':              { icon: '🏢', desc: 'Florida commercial lease (Ch. 83, Part I) — gross, modified-gross, or NNN' },
+  'Letter of Intent':                        { icon: '📝', desc: 'Non-binding outline of the proposed purchase terms' },
+  'Commercial Purchase & Sale Agreement':    { icon: '🤝', desc: 'Binding contract — escrow, due diligence, title, closing' },
+  'Real Estate Addendum':                    { icon: '📎', desc: 'Addendum or disclosure attached to your contract' },
+  'Flood Disclosure':                        { icon: '🌊', desc: 'Separate flood disclosure required by § 83.512' },
+  "Seller's Property Disclosure":            { icon: '🔍', desc: 'Known material defects (Johnson v. Davis)' },
+  'Durable Power of Attorney (Elder-Law)':   { icon: '✍️', desc: 'Agent authority including Medicaid/long-term-care powers' },
+  'Declaration Naming Pre-Need Guardian':    { icon: '🛡️', desc: 'Names your guardian in advance (F.S. § 744.3045)' },
+  'Disposition of Remains':                  { icon: '🕊️', desc: 'Names who controls funeral/burial decisions' },
+  'Qualified Income Trust (Miller Trust)':   { icon: '💵', desc: 'Required when income exceeds the Medicaid cap' },
+  'Medicaid Asset Protection Trust':         { icon: '🏛️', desc: 'Irrevocable trust to protect assets (advance planning)' },
+  'Personal Services / Caregiver Agreement': { icon: '🤝', desc: 'Pays a family caregiver at fair-market value' },
+  'Medicaid-Compliant Promissory Note':      { icon: '📑', desc: 'Crisis "gift-and-note" planning tool' },
+  'Spousal Refusal & Assignment of Support': { icon: '💑', desc: 'Community-spouse refusal strategy' },
+  'Third-Party Special Needs Trust':         { icon: '♿', desc: 'Protects a disabled beneficiary\'s SSI/Medicaid' }
 };
 
 function renderDocuments(d) {
@@ -924,11 +961,16 @@ function renderDocuments(d) {
   const contingents= safeArray(d.contingents);
   const successors = safeArray(d.successors);
 
-  // Generate docs
+  // Generate docs — route real-estate categories to the RE generator
   let docs = [];
   if (isReady) {
     try {
-      docs = window.generateDocPackage(d, benes, contingents, successors);
+      const cat = (d.docCategory || '').toLowerCase();
+      if (cat.indexOf('re_') === 0 && typeof window.generateREPackage === 'function') {
+        docs = window.generateREPackage(d) || [];
+      } else {
+        docs = window.generateDocPackage(d, benes, contingents, successors);
+      }
     } catch (err) {
       console.error('Doc generation error:', err);
     }
@@ -1150,6 +1192,18 @@ function expectedDocNames(cat) {
       return ['Florida Land Trust Agreement'];
     case 'gun_trust':
       return ['NFA Gun Trust'];
+    case 're_resi_lease':
+      return ['Residential Lease Agreement','Flood Disclosure','Filing & Execution Instructions'];
+    case 're_comm_lease':
+      return ['Commercial Lease Agreement','Filing & Execution Instructions'];
+    case 're_sale':
+      return ['Letter of Intent','Commercial Purchase & Sale Agreement',"Seller's Property Disclosure",'Filing & Execution Instructions'];
+    case 're_addenda':
+      return ['Real Estate Addendum'];
+    case 'elder_essentials':
+      return ['Durable Power of Attorney (Elder-Law)','Designation of Health Care Surrogate','Living Will','HIPAA Authorization','Declaration Naming Pre-Need Guardian','Disposition of Remains'];
+    case 'elder_medicaid':
+      return ['Durable Power of Attorney (Elder-Law)','Designation of Health Care Surrogate','Living Will','HIPAA Authorization','Declaration Naming Pre-Need Guardian','Disposition of Remains','Personal Services / Caregiver Agreement','Qualified Income Trust (Miller Trust)','Medicaid Asset Protection Trust','Third-Party Special Needs Trust'];
     default:
       return ['Revocable Living Trust','Durable Power of Attorney',
               'Designation of Health Care Surrogate','Living Will'];
@@ -1168,7 +1222,7 @@ function renderNoOrder() {
         <div class="status-title">No order found</div>
         <div>We couldn't find an order linked to your email address. Please contact us at
         <strong>(877) 867-6077</strong> or
-        <a href="mailto:info@truesteadlaw.com">info@truesteadlaw.com</a>
+        <a href="mailto:admin@truesteadlaw.com">admin@truesteadlaw.com</a>
         and we'll look into it right away.</div>
       </div>
     </div>

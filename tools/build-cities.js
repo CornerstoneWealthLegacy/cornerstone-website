@@ -84,7 +84,7 @@ function buildCityPage(cityName, countyName) {
       {
         "@type": "LegalService",
         "@id": "https://truesteadlaw.com/#firm",
-        "name": "Truestead Law, PLLC",
+        "name": "Truestead Law, LLC",
         "url": "${url}",
         "telephone": "+1-877-867-6077",
         "priceRange": "$$",
@@ -265,7 +265,7 @@ function buildCityPage(cityName, countyName) {
             <a href="${CALENDLY}" target="_blank" rel="noopener" class="btn btn-primary">Schedule Your Free Consultation</a>
           </div>
 
-          <p class="city-disclaimer">Truestead Law, PLLC is licensed in the State of Florida and serves clients throughout the state. This page is attorney advertising and general information, not legal advice, and does not create an attorney-client relationship. Estate planning and probate outcomes depend on your individual facts and the proper execution of documents under Florida law.</p>
+          <p class="city-disclaimer">Truestead Law, LLC is licensed in the State of Florida and serves clients throughout the state. This page is attorney advertising and general information, not legal advice, and does not create an attorney-client relationship. Estate planning and probate outcomes depend on your individual facts and the proper execution of documents under Florida law.</p>
 
         </div>
       </div>
@@ -304,9 +304,9 @@ function buildCityPage(cityName, countyName) {
           <a href="/areas-we-serve">All areas &rarr;</a>
         </div>
       </div>
-      <p class="footer-disclaimer">Truestead Law, PLLC is licensed in the State of Florida. The information on this website is for general informational purposes only and does not constitute legal advice. Visiting this site or contacting the firm does not create an attorney-client relationship. Past results do not guarantee future outcomes. The hiring of a lawyer is an important decision that should not be based solely upon advertisements. Before you decide, ask us to send you free written information about our qualifications and experience.</p>
+      <p class="footer-disclaimer">Truestead Law, LLC is licensed in the State of Florida. The information on this website is for general informational purposes only and does not constitute legal advice. Visiting this site or contacting the firm does not create an attorney-client relationship. Past results do not guarantee future outcomes. The hiring of a lawyer is an important decision that should not be based solely upon advertisements. Before you decide, ask us to send you free written information about our qualifications and experience.</p>
       <div class="footer-bottom">
-        <span>© 2026 Truestead Law, PLLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265</span>
+        <span>© 2026 Truestead Law, LLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265</span>
         <div class="footer-legal">
           <a href="privacy.html">Privacy</a>
           <a href="terms.html">Terms</a>

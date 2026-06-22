@@ -78,6 +78,9 @@ exports.handler = async (event) => {
     docCount,
     documents,     // array of document names generated
     executionPath, // 'self' | 'ron'
+    docFamily,     // 'real_estate' for the RE product family
+    lang,          // optional ISO code ('es','pt','fr','ar','zh') — adds an in-language governing/disclaimer line
+    translations,  // optional [{lang,label,url}] — adds an "authorized translations (English governs)" link row
   } = body;
 
   if (!clientEmail) return { statusCode: 400, body: 'Missing clientEmail' };
@@ -90,6 +93,8 @@ exports.handler = async (event) => {
 
   const firstName  = ((clientName || '').split(' ')[0] || 'there').replace(/^./, c => c.toUpperCase());
   const planStr    = planLabel || 'Estate Plan';
+  const isRE       = docFamily === 'real_estate' || /lease|purchase|sale|addend|real estate/i.test(planStr);
+  const isElder    = docFamily === 'elder_law' || /elder|medicaid|miller trust|caregiver|guardian/i.test(planStr);
   const coupleNote = planType === 'couple' ? ' for you and your spouse' : '';
   const docList    = Array.isArray(documents) && documents.length
     ? documents.map(d => `<li style="margin-bottom:6px">${d}</li>`).join('')
@@ -115,7 +120,7 @@ exports.handler = async (event) => {
         <!-- Header -->
         <tr>
           <td style="background:#0f2744;border-radius:12px 12px 0 0;padding:32px 40px;text-align:center">
-            <div style="color:#c49a2a;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-family:Arial,sans-serif;margin-bottom:8px">Truestead Law, PLLC</div>
+            <div style="color:#c49a2a;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-family:Arial,sans-serif;margin-bottom:8px">Truestead Law, LLC</div>
             <div style="color:#ffffff;font-size:26px;font-weight:700;letter-spacing:.01em">Your Draft Documents Are Ready</div>
             <div style="height:2px;background:#c49a2a;width:60px;margin:16px auto 0"></div>
           </td>
@@ -139,7 +144,7 @@ exports.handler = async (event) => {
               <tr><td style="padding:24px 28px">
                 <div style="font-size:11px;color:#c49a2a;letter-spacing:.15em;text-transform:uppercase;font-family:Arial,sans-serif;margin-bottom:8px">Your Plan</div>
                 <div style="font-size:20px;font-weight:700;color:#0f2744;margin-bottom:4px">${planStr}</div>
-                <div style="font-size:14px;color:#666">${planType === 'couple' ? 'Joint Plan — You &amp; Your Spouse' : 'Individual Plan'} &nbsp;·&nbsp; ${docCount || '10+'} Documents Generated</div>
+                <div style="font-size:14px;color:#666">${isRE ? (planType === 'couple' ? 'Both Parties' : 'Florida Real Estate Document') : (planType === 'couple' ? 'Joint Plan — You &amp; Your Spouse' : 'Individual Plan')} &nbsp;·&nbsp; ${docCount || (Array.isArray(documents) ? documents.length : 0) || '—'} Document${(docCount || (Array.isArray(documents) ? documents.length : 0)) === 1 ? '' : 's'} Generated</div>
               </td></tr>
             </table>
 
@@ -183,7 +188,13 @@ exports.handler = async (event) => {
                     <div style="width:32px;height:32px;border-radius:50%;background:#0f2744;color:#c49a2a;text-align:center;line-height:32px;font-size:13px;font-weight:700;font-family:Arial,sans-serif">2</div>
                   </td>
                   <td style="padding-bottom:20px">
-                    ${isRon ? `
+                    ${isElder ? `
+                    <div style="font-size:15px;font-weight:700;color:#0f2744;margin-bottom:4px">Sign Each Document Correctly</div>
+                    <div style="font-size:14px;color:#555;line-height:1.6">Florida execution formalities vary by document: your Power of Attorney is signed before a notary with two witnesses; your Health Care Surrogate and Living Will need two witnesses (no notary); your Pre-Need Guardian is signed before two witnesses and filed with the clerk of court; any deed is notarized and recorded. Your Filing &amp; Execution Instructions walk you through each one.</div>
+                    ` : isRE ? `
+                    <div style="font-size:15px;font-weight:700;color:#0f2744;margin-bottom:4px">Review &amp; Execute</div>
+                    <div style="font-size:14px;color:#555;line-height:1.6">Review every term with the other party and complete any remaining blanks. When everyone agrees, each party signs and dates. Leases and most contracts take effect on signing; any deed is signed before a notary with the required witnesses and then recorded. Your Filing &amp; Execution Instructions explain exactly how to execute your document under Florida law.</div>
+                    ` : isRon ? `
                     <div style="font-size:15px;font-weight:700;color:#0f2744;margin-bottom:4px">🎥 Remote Online Notarization (RON)</div>
                     <div style="font-size:14px;color:#555;line-height:1.6">Your Truestead Estate Planning Advisor will contact you within 1 business day to schedule your secure video signing appointment. You'll sign all documents via video with witnesses and a notary present — from anywhere. Authorized under Florida F.S. §§ 117.201–117.209. The appointment typically takes 60–90 minutes.</div>
                     ` : `
@@ -197,8 +208,16 @@ exports.handler = async (event) => {
                     <div style="width:32px;height:32px;border-radius:50%;background:#0f2744;color:#c49a2a;text-align:center;line-height:32px;font-size:13px;font-weight:700;font-family:Arial,sans-serif">3</div>
                   </td>
                   <td>
+                    ${isElder ? `
+                    <div style="font-size:15px;font-weight:700;color:#0f2744;margin-bottom:4px">Put Your Plan to Work</div>
+                    <div style="font-size:14px;color:#555;line-height:1.6">Give signed copies of your Power of Attorney, Health Care Surrogate, and HIPAA to your agent, surrogate, physician, and key financial institutions so they are honored when needed. For Medicaid planning, Arthur coordinates the trust funding and the application — for a Qualified Income Trust, open the dedicated account and deposit the income each month; record any deed. Keep your originals in a safe place.</div>
+                    ` : isRE ? `
+                    <div style="font-size:15px;font-weight:700;color:#0f2744;margin-bottom:4px">Deliver &amp; Keep Records</div>
+                    <div style="font-size:14px;color:#555;line-height:1.6">Give a fully signed copy to the other party and keep one for your records. For residential leases, provide any required separate disclosures (such as the flood and radon notices) at or before signing. If your transaction involves a closing, your title or closing agent coordinates funds, title, and recording.</div>
+                    ` : `
                     <div style="font-size:15px;font-weight:700;color:#0f2744;margin-bottom:4px">Trust Funding</div>
                     <div style="font-size:14px;color:#555;line-height:1.6">After signing, your Trust Funding Guide walks you through transferring assets into your trust — re-titling real estate, updating beneficiary designations, and opening trust accounts. Arthur's team is available to assist at every step.</div>
+                    `}
                   </td>
                 </tr>
               </table>
@@ -207,8 +226,12 @@ exports.handler = async (event) => {
             <!-- Important notice -->
             <table width="100%" cellpadding="0" cellspacing="0" style="background:#fffbeb;border:1px solid #f59e0b;border-radius:8px;margin-bottom:32px">
               <tr><td style="padding:18px 22px">
-                <div style="font-size:13px;font-weight:700;color:#92400e;margin-bottom:6px">⚠ Important — Do Not Sign Without Proper Witnesses &amp; Notary</div>
-                <div style="font-size:13px;color:#92400e;line-height:1.6">${isRon
+                <div style="font-size:13px;font-weight:700;color:#92400e;margin-bottom:6px">⚠ Important — ${isRE || isElder ? 'Complete &amp; Sign Correctly' : 'Do Not Sign Without Proper Witnesses &amp; Notary'}</div>
+                <div style="font-size:13px;color:#92400e;line-height:1.6">${isElder
+                  ? 'Your documents are drafts until signed with the correct Florida formalities — your Power of Attorney before a notary with two witnesses; your Health Care Surrogate and Living Will with two witnesses; your Pre-Need Guardian filed with the clerk of court. Review your Filing &amp; Execution Instructions before signing, and remember that anything involving Medicaid eligibility is finalized with Arthur.'
+                  : isRE
+                  ? 'Your document is a draft until every blank is completed and all parties have signed (and, for any deed, signed before a notary with the required witnesses, then recorded). Review your Filing &amp; Execution Instructions before signing.'
+                  : isRon
                   ? 'Your documents are drafts until signed in your RON appointment. Do not sign any document before your scheduled video signing session — doing so could invalidate your documents under Florida law.'
                   : 'Your documents are drafts until signed with proper witnesses and a notary as required by Florida law. Review your Filing Instructions carefully before arranging your signing appointment.'
                 }</div>
@@ -250,12 +273,13 @@ exports.handler = async (event) => {
         <tr>
           <td style="background:#0f2744;border-radius:0 0 12px 12px;padding:24px 40px;text-align:center">
             <div style="font-size:11px;color:#8899aa;line-height:1.7;font-family:Arial,sans-serif">
-              Truestead Law, PLLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265<br>
+              Truestead Law, LLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265<br>
               P.O. Box 2574, Ormond Beach, FL 32175 &nbsp;·&nbsp; truesteadlaw.com<br><br>
               <em>This email confirms receipt of your completed questionnaire. The documents referenced are attorney-prepared drafts
               and do not constitute legal advice. An attorney-client relationship is established only upon execution of a written engagement agreement.
               This communication is confidential and intended solely for the named recipient.</em>
             </div>
+            ${_govLangBlock(lang, translations)}
           </td>
         </tr>
 
@@ -291,7 +315,7 @@ exports.handler = async (event) => {
     ``,
     `Questions? Email arthur@truesteadlaw.com`,
     ``,
-    `Truestead Law, PLLC`,
+    `Truestead Law, LLC`,
     `Arthur Simpson, Esq. | Florida Bar #529265`,
     `P.O. Box 2574, Ormond Beach, FL 32175`,
   ].join('\n');
@@ -346,3 +370,47 @@ exports.handler = async (event) => {
     return { statusCode: 500, body: 'Internal error' };
   }
 };
+
+// ════════════════════════════════════════════════════════════════════════════
+//  Multilingual governance block — English is the canonical/governing version.
+//  Localized governing + not-legal-advice lines. Translate-once, reuse-forever.
+//  ⚠ Spanish/Portuguese/French reviewed-quality; Arabic/Mandarin should get a
+//  native legal-translator sign-off before high-stakes use (per GCRID governance).
+// ════════════════════════════════════════════════════════════════════════════
+const LANG_DISCLAIMERS = {
+  es: { name:'Español', dir:'ltr',
+    governing:'El idioma rector de esta comunicación es el inglés; esta traducción autorizada se ofrece únicamente para mayor accesibilidad y, en caso de discrepancia, prevalece la versión en inglés.',
+    notAdvice:'Tiene fines exclusivamente informativos, no constituye asesoramiento legal y no crea una relación abogado-cliente.' },
+  pt: { name:'Português', dir:'ltr',
+    governing:'O idioma que rege esta comunicação é o inglês; esta tradução autorizada é fornecida apenas para fins de acessibilidade e, em caso de divergência, prevalece a versão em inglês.',
+    notAdvice:'Tem caráter meramente informativo, não constitui aconselhamento jurídico e não cria relação advogado-cliente.' },
+  fr: { name:'Français', dir:'ltr',
+    governing:"La langue officielle de la présente communication est l'anglais ; cette traduction autorisée est fournie uniquement à des fins d'accessibilité et, en cas de divergence, la version anglaise prévaut.",
+    notAdvice:"Elle est fournie à titre d'information générale uniquement, ne constitue pas un avis juridique et ne crée aucune relation avocat-client." },
+  ar: { name:'العربية', dir:'rtl',
+    governing:'اللغة الإنجليزية هي اللغة الحاكمة لهذه الرسالة، وقد قُدّمت هذه الترجمة المعتمدة لغرض تيسير الاطّلاع فقط، وفي حال وجود أي اختلاف تكون النسخة الإنجليزية هي المرجع.',
+    notAdvice:'وهي لأغراض المعلومات العامة فقط، ولا تُعدّ استشارة قانونية، ولا تنشئ علاقة بين محامٍ وموكّل.' },
+  zh: { name:'中文', dir:'ltr',
+    governing:'本通信以英文版本为准；本授权译文仅为便于理解而提供，如有任何歧义或不一致，均以英文版本为准。',
+    notAdvice:'本通信仅供一般参考，不构成法律意见，也不形成律师与委托人关系。' },
+};
+
+function _govLangBlock(lang, translations) {
+  const hasT = Array.isArray(translations) && translations.length > 0;
+  const single = lang && lang !== 'en' && LANG_DISCLAIMERS[lang];
+  if (!hasT && !single) return '';
+  let html = '<div style="margin-top:14px;padding-top:14px;border-top:1px solid #1e3a5c">';
+  if (hasT) {
+    const links = translations.map(t => {
+      const label = t.label || (LANG_DISCLAIMERS[t.lang] && LANG_DISCLAIMERS[t.lang].name) || t.lang;
+      return `<a href="${t.url}" style="color:#c49a2a;text-decoration:none">${label}</a>`;
+    }).join(' &nbsp;·&nbsp; ');
+    html += `<div style="font-size:11px;color:#8899aa;font-family:Arial,sans-serif">English is the governing language. Authorized translations are provided for accessibility: ${links}</div>`;
+  }
+  if (single) {
+    const d = LANG_DISCLAIMERS[lang];
+    html += `<div dir="${d.dir}" style="font-size:11px;color:#8899aa;line-height:1.7;font-family:Arial,sans-serif;margin-top:8px">${d.governing} ${d.notAdvice}</div>`;
+  }
+  html += '</div>';
+  return html;
+}
