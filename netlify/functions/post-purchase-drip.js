@@ -149,6 +149,8 @@ async function send(key, to, step, name, id) {
     method: 'POST', headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
       from: 'Arthur Simpson <arthur@truesteadlaw.com>',
+      reply_to: 'arthur@truesteadlaw.com',
+      headers: { 'List-Unsubscribe': `<${unsub}>`, 'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click' },
       to: [to], subject: e.subject,
       html: shell(e.title, e.html(first), unsub),
       text: e.text(first) + `\n\nTruestead Law, LLC · Florida Bar #529265 · P.O. Box 2574, Ormond Beach, FL 32175\nStop these reminders: ${unsub}`,

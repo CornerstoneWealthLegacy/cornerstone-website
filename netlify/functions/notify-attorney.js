@@ -1,7 +1,7 @@
 // Netlify serverless function — sends push notification to attorney when a client starts a plan
 // Uses ntfy.sh (free, no registration) — attorney subscribes to the topic in the ntfy app
 // Auth: Firebase ID token verified via Google's tokeninfo endpoint
-// Requires env vars: NTFY_TOPIC (default: cornerstone-atty-arthur)
+// Requires env vars: NTFY_TOPIC (default: truestead-alerts)
 // FIREBASE_WEB_API_KEY is the client-side project identifier — not a secret, safe in source.
 const FIREBASE_WEB_API_KEY = 'AIzaSyDu2Fs6akMU2wvfyTTvPXVahQIO2z8o3ek';
 
@@ -51,7 +51,7 @@ exports.handler = async (event) => {
 
   const { clientName, plan, planType, email } = body;
 
-  const topic    = process.env.NTFY_TOPIC || 'cornerstone-atty-arthur';
+  const topic    = process.env.NTFY_TOPIC || 'truestead-alerts';
   const nameStr  = clientName && clientName.trim() ? clientName.trim() : 'A new client';
   const typeStr  = planType === 'couple' ? 'Married Couple' : 'Individual';
   const emailStr = email ? ` — ${email}` : '';

@@ -1,10 +1,10 @@
 // Netlify Scheduled Function — nightly health check for truesteadlaw.com
 // Runs daily at 6 AM Eastern (11 AM UTC) via netlify.toml schedule config
 // Sends ntfy alert only if a check fails — silent on clean pass
-// Topic: NTFY_TOPIC env var (default: cornerstone-atty-arthur)
+// Topic: NTFY_TOPIC env var (default: truestead-alerts)
 
 exports.handler = async (event) => {
-  const TOPIC = process.env.NTFY_TOPIC || 'cornerstone-atty-arthur';
+  const TOPIC = process.env.NTFY_TOPIC || 'truestead-alerts';
   const SITE  = 'https://truesteadlaw.com';
 
   // ── 1. URL checks ─────────────────────────────────────────────────────────

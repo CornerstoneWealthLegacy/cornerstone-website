@@ -6,7 +6,7 @@
 // Env required:
 //   REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET  (free "script" app at reddit.com/prefs/apps)
 //   ANTHROPIC_API_KEY                        (already set — chat-assistant uses it)
-//   NTFY_TOPIC                               (already set — defaults to cornerstone-atty-arthur)
+//   NTFY_TOPIC                               (already set — defaults to truestead-alerts)
 //
 // Schedule: see netlify.toml [functions."reddit-monitor"] (twice daily).
 
@@ -98,7 +98,7 @@ draft a Reddit reply. STRICT RULES:
 }
 
 async function ntfy(title, body, clickUrl) {
-  const topic = process.env.NTFY_TOPIC || 'cornerstone-atty-arthur';
+  const topic = process.env.NTFY_TOPIC || 'truestead-alerts';
   await fetch(`https://ntfy.sh/${topic}`, {
     method: 'POST',
     headers: { 'Title': title, 'Click': clickUrl, 'Tags': 'speech_balloon,reddit', 'Priority': 'default' },

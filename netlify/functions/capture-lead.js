@@ -82,6 +82,8 @@ ${btn('https://truesteadlaw.com/florida-estate-kit', 'See Your Options →')}
     method: 'POST', headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
       from: 'Arthur Simpson <arthur@truesteadlaw.com>',
+      reply_to: 'arthur@truesteadlaw.com',
+      headers: { 'List-Unsubscribe': `<${unsub}>`, 'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click' },
       to: [email], subject: 'Your Florida Estate Plan Score (+ what to do next)',
       html: emailShell('Your Estate Plan Score', body, unsub), text,
     }),
@@ -104,6 +106,8 @@ ${btn('https://truesteadlaw.com/18-and-protected-checklist', 'Open the Signing C
     method: 'POST', headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
       from: 'Arthur Simpson <arthur@truesteadlaw.com>',
+      reply_to: 'arthur@truesteadlaw.com',
+      headers: { 'List-Unsubscribe': `<${unsub}>`, 'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click' },
       to: [email], subject: 'Your 18 & Protected documents — and the one step that makes them official',
       html: emailShell('18 & Protected', body, unsub), text,
     }),
@@ -143,6 +147,19 @@ exports.handler = async (event) => {
     referrer:    a('referrer'),
     landingPage: a('landing'),
   };
+
+  // 18 & Protected packet generated — push the firm an instant ntfy alert every time
+  // (placed before the dedup logic below, so a repeat email still notifies you).
+  if (source === 'student_packet') {
+    const NTFY_TOPIC = process.env.NTFY_TOPIC || 'truestead-alerts';
+    try {
+      await fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
+        method: 'POST',
+        headers: { Title: '18 & Protected packet generated', Priority: 'default', Tags: 'mortar_board,page_facing_up', 'Content-Type': 'text/plain' },
+        body: `${name || 'Someone'}${email ? ' — ' + email : ''}\nGenerated the free 18 & Protected documents.`,
+      });
+    } catch (e) { console.error('ntfy student_packet', e); }
+  }
 
   let sa; try { sa = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT); } catch { return { statusCode: 500, body: 'Not configured' }; }
   const pid = sa.project_id;

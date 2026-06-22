@@ -343,9 +343,17 @@ if(!window._fbqInit){window._fbqInit=true;fbq('init','2087253962178307');fbq('tr
       e.preventDefault();
       var data = new FormData(form);
       var body = new URLSearchParams(data).toString();
-      fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body })
-        .then(function () { afterSubmit(); })
-        .catch(function () { afterSubmit(); }); // still thank them; Netlify may have captured it
+      // 1) Netlify Forms record (dashboard + your form notifications)
+      fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body }).catch(function () {});
+      // 2) Always email the client a confirmation + push you an instant alert
+      //    (no dedup — works even for an existing estate contact)
+      fetch('/.netlify/functions/capture-pi-lead', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: data.get('name') || '', email: data.get('email') || '', phone: data.get('phone') || '',
+          summary: data.get('summary') || ''
+        })
+      }).then(afterSubmit).catch(afterSubmit);
     });
     function afterSubmit() {
       if (window.fbq) fbq('track', 'Lead');

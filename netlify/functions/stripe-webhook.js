@@ -5,7 +5,7 @@
 // Required Netlify environment variables:
 //   STRIPE_WEBHOOK_SECRET        — from Stripe Dashboard > Webhooks > signing secret
 //   FIREBASE_SERVICE_ACCOUNT     — JSON string of Firebase service account key
-//   NTFY_TOPIC                   — ntfy topic (default: cornerstone-atty-arthur)
+//   NTFY_TOPIC                   — ntfy topic (default: truestead-alerts)
 //
 // Register this webhook URL in Stripe Dashboard:
 //   https://truesteadlaw.com/.netlify/functions/stripe-webhook
@@ -329,7 +329,7 @@ exports.handler = async (event) => {
   }
 
   const WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET;
-  const TOPIC          = process.env.NTFY_TOPIC || 'cornerstone-atty-arthur';
+  const TOPIC          = process.env.NTFY_TOPIC || 'truestead-alerts';
 
   if (!WEBHOOK_SECRET) {
     console.error('STRIPE_WEBHOOK_SECRET not configured');
@@ -370,7 +370,7 @@ exports.handler = async (event) => {
       // ── Notify attorney of a new PAID client (reliable server-side ntfy push) ──
       // Fires for EVERY paid order, independent of the client-side/attorney-account logic.
       try {
-        const topic = process.env.NTFY_TOPIC || 'cornerstone-atty-arthur';
+        const topic = process.env.NTFY_TOPIC || 'truestead-alerts';
         const who   = session.customer_details?.name || email || 'A client';
         await fetch(`https://ntfy.sh/${topic}`, {
           method: 'POST',
