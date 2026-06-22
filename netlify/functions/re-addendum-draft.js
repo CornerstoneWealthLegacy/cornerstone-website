@@ -61,7 +61,11 @@ Return the JSON object only.`;
     const aiRes = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: { 'x-api-key': ANTHROPIC_KEY, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
-      body: JSON.stringify({ model: DRAFT_MODEL, max_tokens: 900, system: SYSTEM_PROMPT, messages: [{ role: 'user', content: userMessage }] }),
+      // A full multi-clause Florida addendum (definitions + 4–6 numbered provisions
+      // of enforceable legal language) runs well past 900 tokens. Too low a cap
+      // truncates the model mid-JSON, JSON.parse fails, and we fall back to echoing
+      // the user's own input. 4000 leaves comfortable headroom for a complete draft.
+      body: JSON.stringify({ model: DRAFT_MODEL, max_tokens: 4000, system: SYSTEM_PROMPT, messages: [{ role: 'user', content: userMessage }] }),
     });
     if (!aiRes.ok) {
       console.error('Anthropic error:', aiRes.status, await aiRes.text());
@@ -73,7 +77,17 @@ Return the JSON object only.`;
     txt = txt.replace(/^```(?:json)?/i, '').replace(/```$/, '').trim();
     let out;
     try { out = JSON.parse(txt); }
-    catch { return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title: facts.title, purpose: facts.purpose, provisions: facts.provisions, raw: txt }) }; }
+    catch {
+      // Salvage: extract the outermost JSON object if the model wrapped it in prose.
+      const s = txt.indexOf('{'), e = txt.lastIndexOf('}');
+      if (s !== -1 && e > s) { try { out = JSON.parse(txt.slice(s, e + 1)); } catch { /* fall through */ } }
+    }
+    // If still unparseable (e.g. genuinely truncated), surface a flag instead of
+    // silently echoing the user's own input back as if it were the drafted result.
+    if (!out || !Array.isArray(out.provisions)) {
+      return { statusCode: 200, headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: facts.title, purpose: facts.purpose, provisions: facts.provisions, raw: txt, incomplete: true }) };
+    }
     return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(out) };
   } catch (err) {
     console.error('Addendum drafter error:', err);
