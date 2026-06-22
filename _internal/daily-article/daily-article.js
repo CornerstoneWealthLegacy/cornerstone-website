@@ -227,6 +227,17 @@ function renderHTML(topic, a, slug, prettyDateStr, heroImage) {
   const cleanUrl = `https://truesteadlaw.com/articles/${slug}`;
   const cta = CTA[topic.cta] || CTA.consult;
 
+  // Byline/jobTitle matches the article's practice area (from topic.tag) so the
+  // author title under the headline reads "Florida Personal Injury Attorney" on
+  // a PI piece, "Florida Real Estate Attorney" on a real-estate piece, etc.
+  const BYLINE_BY_TAG = {
+    'Personal Injury': 'Florida Personal Injury Attorney',
+    'Real Estate': 'Florida Real Estate Attorney',
+    'Elder Law': 'Florida Elder Law Attorney',
+    'Estate Planning': 'Florida Estate Planning Attorney',
+  };
+  const bylineTitle = BYLINE_BY_TAG[topic.tag] || 'Florida Estate Planning Attorney';
+
   const sectionsHTML = (a.sections || [])
     .map(s => `\n  <h2>${esc(s.heading)}</h2>\n  ${s.body}`)
     .join('\n');
@@ -290,7 +301,7 @@ ${a.sources.map(s => `    <li>${s.url ? `<a href="${esc(s.url)}" target="_blank"
         "headline": "${jl(a.h1 || a.title)}",
         "description": "${jl(a.metaDescription)}",
         "image": "${ogImage}",
-        "author": { "@type": "Person", "name": "Arthur Simpson", "honorificSuffix": "Esq.", "jobTitle": "Florida Estate Planning Attorney", "url": "https://truesteadlaw.com/about", "memberOf": [{"@type":"Organization","name":"The Florida Bar"}], "sameAs": ["https://www.floridabar.org/directories/find-mbr/profile/?num=529265", "https://arthursimpson.com"], "worksFor": { "@type": "LegalService", "name": "Truestead Law, LLC" } },
+        "author": { "@type": "Person", "name": "Arthur Simpson", "honorificSuffix": "Esq.", "jobTitle": "${bylineTitle}", "url": "https://truesteadlaw.com/about", "memberOf": [{"@type":"Organization","name":"The Florida Bar"}], "sameAs": ["https://www.floridabar.org/directories/find-mbr/profile/?num=529265", "https://arthursimpson.com"], "worksFor": { "@type": "LegalService", "name": "Truestead Law, LLC" } },
         "publisher": { "@type": "Organization", "name": "Truestead Law", "url": "https://truesteadlaw.com", "logo": { "@type": "ImageObject", "url": "https://truesteadlaw.com/images/logo-icon.png" } },
         "datePublished": "${isoDate()}",
         "dateModified": "${isoDate()}",
@@ -317,6 +328,7 @@ ${faqNodes}
     .art-hero .subhead { font-size:1.05rem; color:rgba(255,255,255,.82); line-height:1.75; max-width:640px; }
     .quick-answer { margin-top:6px; }
     .quick-answer .qa-label { display:inline-block; font-size:.66rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#c49a2a; margin-bottom:6px; }
+    .art-hero .quick-answer .subhead { color:#2a2a2a; }
     .art-meta { margin-top:24px; font-size:.78rem; color:rgba(255,255,255,.55); display:flex; gap:18px; flex-wrap:wrap; }
     .art-body { max-width:780px; margin:0 auto; padding:52px 24px 72px; }
     .art-hero-img { width:100%; height:auto; border-radius:14px; margin:0 0 36px; display:block; box-shadow:0 10px 30px rgba(8,26,48,.18); }
@@ -405,7 +417,7 @@ if(!window._fbqInit){window._fbqInit=true;fbq('init','2087253962178307');fbq('tr
     <div class="quick-answer"><span class="qa-label">Quick Answer</span><p class="subhead">${esc(a.quickAnswer)}</p></div>
     <div class="art-meta">
       <span>By Arthur Simpson, Esq. · FL Bar #529265</span>
-      <span>Florida Estate Planning Attorney</span>
+      <span>${bylineTitle}</span>
       <span>${esc(prettyDateStr)}</span>
     </div>
   </div>
