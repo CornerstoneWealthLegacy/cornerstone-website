@@ -70,14 +70,14 @@ function shell(title, bodyHtml, unsubUrl) {
 <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f3f0;padding:28px 14px"><tr><td align="center">
 <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%">
 <tr><td style="background:#0f2744;border-radius:12px 12px 0 0;padding:26px 36px;text-align:center">
-<div style="color:#c49a2a;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-family:Arial,sans-serif">Cornerstone Wealth &amp; Legacy Law</div>
+<div style="color:#c49a2a;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-family:Arial,sans-serif">Truestead Law</div>
 <div style="color:#fff;font-size:22px;font-weight:700;margin-top:6px">${title}</div>
 <div style="height:2px;background:#c49a2a;width:54px;margin:14px auto 0"></div></td></tr>
 <tr><td style="background:#fff;padding:34px 36px;color:#333;font-size:16px;line-height:1.8">${bodyHtml}</td></tr>
 <tr><td style="background:#0f2744;border-radius:0 0 12px 12px;padding:20px 36px;text-align:center">
 <div style="font-size:11px;color:#8899aa;line-height:1.7;font-family:Arial,sans-serif">
-Cornerstone Wealth &amp; Legacy Law, PLLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265<br>
-P.O. Box 2574, Ormond Beach, FL 32175 &nbsp;·&nbsp; cornerstonewealthlegacy.com<br><br>
+Truestead Law, LLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265<br>
+P.O. Box 2574, Ormond Beach, FL 32175 &nbsp;·&nbsp; truesteadlaw.com<br><br>
 <em>Attorney advertising. This email is general information, not legal advice, and does not create an attorney-client relationship.</em><br>
 <a href="${unsubUrl}" style="color:#8899aa">Unsubscribe</a></div></td></tr>
 </table></td></tr></table></body></html>`;
@@ -85,7 +85,7 @@ P.O. Box 2574, Ormond Beach, FL 32175 &nbsp;·&nbsp; cornerstonewealthlegacy.com
 function btn(href, label) {
   return `<div style="text-align:center;margin:26px 0"><a href="${href}" style="background:#c49a2a;color:#0f2744;font-weight:700;font-family:Arial,sans-serif;text-decoration:none;padding:14px 30px;border-radius:8px;display:inline-block">${label}</a></div>`;
 }
-const RESUME = 'https://cornerstonewealthlegacy.com/start';
+const RESUME = 'https://truesteadlaw.com/start';
 const CAL = 'https://calendly.com/arthursimpson/free-20-minute-discovery-call';
 
 const EMAILS = {
@@ -126,14 +126,14 @@ ${btn(RESUME, 'Pick Up Where I Left Off →')}
 async function send(key, to, step, name, id) {
   const e = EMAILS[step];
   const first = ((name || '').split(' ')[0] || 'there').replace(/^./, c => c.toUpperCase());
-  const unsub = `https://cornerstonewealthlegacy.com/.netlify/functions/unsubscribe?c=abandoned_checkout&e=${encodeURIComponent(id)}`;
+  const unsub = `https://truesteadlaw.com/.netlify/functions/unsubscribe?c=abandoned_checkout&e=${encodeURIComponent(id)}`;
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST', headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      from: 'Arthur Simpson <arthur@cornerstonewealthlegacy.com>',
+      from: 'Arthur Simpson <arthur@truesteadlaw.com>',
       to: [to], subject: e.subject,
       html: shell(e.title, e.html(first), unsub),
-      text: e.text(first) + `\n\nCornerstone Wealth & Legacy Law, PLLC · Florida Bar #529265 · P.O. Box 2574, Ormond Beach, FL 32175 · Attorney advertising\nUnsubscribe: ${unsub}`,
+      text: e.text(first) + `\n\nTruestead Law, LLC · Florida Bar #529265 · P.O. Box 2574, Ormond Beach, FL 32175 · Attorney advertising\nUnsubscribe: ${unsub}`,
     }),
   });
   if (!res.ok) throw new Error(`Resend ${res.status}: ${await res.text()}`);

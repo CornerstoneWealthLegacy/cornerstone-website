@@ -15,7 +15,7 @@
  * ==========================================================================*/
 (function () {
   var CFG = {
-    GOOGLE_ADS_ID: 'AW-18216901802',  // Cornerstone Wealth & Legacy Law — Google Ads
+    GOOGLE_ADS_ID: 'AW-18216901802',  // Truestead Law — Google Ads
     ADS_LEAD_LABEL: 'BmGOCL3XxbkcEKq5v-5D',      // "Quiz Lead" conversion
     ADS_PURCHASE_LABEL: '93kDCIetxbkcEKq5v-5D'   // "Purchase" conversion
   };
@@ -30,7 +30,7 @@
   // file and NOT main.js — so init here too. The shared window._fbqInit guard
   // means whichever script runs first wins; pages loading both never double-fire.
   // FB_PIXEL_ID MUST stay identical to the one in js/main.js.
-  var FB_PIXEL_ID = '1371957424980836';
+  var FB_PIXEL_ID = '2087253962178307';
   if (FB_PIXEL_ID && !window._fbqInit) {
     window._fbqInit = true;
     if (!window.fbq) {

@@ -1,0 +1,71 @@
+{
+  "output_format": "mp4",
+  "frame_rate": 30,
+  "width": 1080,
+  "height": 1920,
+  "elements": [
+
+    { "type": "video", "name": "Clip-1", "track": 1, "time": 0,  "duration": 6, "source": "https://PLACEHOLDER/clip1.mp4", "fit": "cover", "animations": [ { "type": "fade", "duration": 0.3, "transition": true } ] },
+    { "type": "video", "name": "Clip-2", "track": 1, "time": 6,  "duration": 6, "source": "https://PLACEHOLDER/clip2.mp4", "fit": "cover", "animations": [ { "type": "fade", "duration": 0.3, "transition": true } ] },
+    { "type": "video", "name": "Clip-3", "track": 1, "time": 12, "duration": 6, "source": "https://PLACEHOLDER/clip3.mp4", "fit": "cover", "animations": [ { "type": "fade", "duration": 0.3, "transition": true } ] },
+    { "type": "video", "name": "Clip-4", "track": 1, "time": 18, "duration": 6, "source": "https://PLACEHOLDER/clip4.mp4", "fit": "cover", "animations": [ { "type": "fade", "duration": 0.3, "transition": true } ] },
+    { "type": "video", "name": "Clip-5", "track": 1, "time": 24, "duration": 6, "source": "https://PLACEHOLDER/clip5.mp4", "fit": "cover", "animations": [ { "type": "fade", "duration": 0.3, "transition": true } ] },
+
+    { "type": "audio", "name": "Voiceover", "track": 5, "time": 0, "source": "https://PLACEHOLDER/voiceover.mp3" },
+    { "type": "audio", "name": "Music", "track": 6, "time": 0, "duration": 30, "source": "https://PLACEHOLDER/music.mp3", "volume": "12%", "audio_fade_out": 1.5 },
+
+    { "type": "text", "name": "Caption-1", "track": 2, "time": 0.2,  "duration": 5.6, "text": "What the insurance company HOPES you don't know",
+      "x": "50%", "y": "76%", "width": "88%", "x_alignment": "50%", "y_alignment": "50%",
+      "font_family": "Montserrat", "font_weight": "800", "font_size_maximum": "8 vmin", "line_height": "112%",
+      "fill_color": "#ffffff", "background_color": "rgba(21,39,61,0.74)", "background_x_padding": "26%", "background_y_padding": "20%", "background_border_radius": "14%",
+      "animations": [ { "type": "fade", "duration": 0.25 } ] },
+
+    { "type": "text", "name": "Caption-2", "track": 2, "time": 6.2,  "duration": 5.6, "text": "1. The \"friendly\" adjuster works for THEM",
+      "x": "50%", "y": "76%", "width": "88%", "x_alignment": "50%", "y_alignment": "50%",
+      "font_family": "Montserrat", "font_weight": "800", "font_size_maximum": "8 vmin", "line_height": "112%",
+      "fill_color": "#ffffff", "background_color": "rgba(21,39,61,0.74)", "background_x_padding": "26%", "background_y_padding": "20%", "background_border_radius": "14%",
+      "animations": [ { "type": "fade", "duration": 0.25 } ] },
+
+    { "type": "text", "name": "Caption-3", "track": 2, "time": 12.2, "duration": 5.6, "text": "2. You can say NO to a recorded statement",
+      "x": "50%", "y": "76%", "width": "88%", "x_alignment": "50%", "y_alignment": "50%",
+      "font_family": "Montserrat", "font_weight": "800", "font_size_maximum": "8 vmin", "line_height": "112%",
+      "fill_color": "#ffffff", "background_color": "rgba(21,39,61,0.74)", "background_x_padding": "26%", "background_y_padding": "20%", "background_border_radius": "14%",
+      "animations": [ { "type": "fade", "duration": 0.25 } ] },
+
+    { "type": "text", "name": "Caption-4", "track": 2, "time": 18.2, "duration": 5.6, "text": "3. Florida has a deadline — evidence fades",
+      "x": "50%", "y": "76%", "width": "88%", "x_alignment": "50%", "y_alignment": "50%",
+      "font_family": "Montserrat", "font_weight": "800", "font_size_maximum": "8 vmin", "line_height": "112%",
+      "fill_color": "#ffffff", "background_color": "rgba(21,39,61,0.74)", "background_x_padding": "26%", "background_y_padding": "20%", "background_border_radius": "14%",
+      "animations": [ { "type": "fade", "duration": 0.25 } ] },
+
+    { "type": "image", "name": "Logo", "track": 3, "time": 0, "duration": 24, "source": "https://truesteadlaw.com/images/logo-icon.png",
+      "x": "50%", "y": "7%", "width": "16%", "fit": "contain", "opacity": "92%" },
+
+    { "type": "text", "name": "Disclaimer", "track": 3, "time": 0, "duration": 24,
+      "text": "Attorney advertising · Arthur Simpson, Esq., FL Bar #529265 · General information, not legal advice.",
+      "x": "50%", "y": "96.5%", "width": "92%", "x_alignment": "50%", "y_alignment": "50%",
+      "font_family": "Inter", "font_weight": "500", "font_size_maximum": "2.4 vmin",
+      "fill_color": "rgba(255,255,255,0.78)" },
+
+    { "type": "shape", "name": "EndCardBg", "track": 3, "time": 24, "duration": 6,
+      "width": "100%", "height": "100%", "x": "50%", "y": "50%",
+      "fill_color": "rgba(13,23,37,0.88)",
+      "animations": [ { "type": "fade", "duration": 0.35 } ] },
+
+    { "type": "image", "name": "EndCardLogo", "track": 4, "time": 24, "duration": 6, "source": "https://truesteadlaw.com/images/logo-full.png",
+      "x": "50%", "y": "38%", "width": "60%", "fit": "contain",
+      "animations": [ { "type": "fade", "duration": 0.35 } ] },
+
+    { "type": "text", "name": "EndCardSub", "track": 4, "time": 24.3, "duration": 5.7,
+      "text": "Free case review · No fee unless we recover",
+      "x": "50%", "y": "57%", "width": "84%", "x_alignment": "50%", "y_alignment": "50%",
+      "font_family": "Playfair Display", "font_weight": "600", "font_size_maximum": "5.2 vmin",
+      "fill_color": "#c49a2a", "animations": [ { "type": "fade", "duration": 0.35 } ] },
+
+    { "type": "text", "name": "EndCardCTA", "track": 4, "time": 24.3, "duration": 5.7,
+      "text": "truesteadlaw.com · (877) 867-6077",
+      "x": "50%", "y": "64%", "width": "84%", "x_alignment": "50%", "y_alignment": "50%",
+      "font_family": "Inter", "font_weight": "600", "font_size_maximum": "3.4 vmin",
+      "fill_color": "rgba(255,255,255,0.9)", "animations": [ { "type": "fade", "duration": 0.35 } ] }
+  ]
+}

@@ -97,9 +97,9 @@ ${jsonld}
   <header class="site-header">
     <div class="header-inner">
       <a href="index.html" class="logo">
-        <img src="images/logo-icon.png" alt="Cornerstone" class="logo-img-icon">
+        <img src="images/logo-icon.png" alt="Truestead" class="logo-img-icon">
         <div>
-          <span class="logo-name">Cornerstone Wealth<br>&amp; Legacy Law</span>
+          <span class="logo-name">Truestead Law<br>&amp; Legacy Law</span>
         </div>
       </a>
       <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false">
@@ -110,6 +110,7 @@ ${jsonld}
         <div class="dropdown">
           <a href="#" class="nav-link" aria-haspopup="true">Practice Areas</a>
           <div class="dropdown-menu" role="menu">
+            <a href="personal-injury.html" class="dropdown-item" role="menuitem">Personal Injury</a>
             <a href="real-estate.html" class="dropdown-item" role="menuitem">Real Estate</a>
             <a href="estate-planning.html" class="dropdown-item" role="menuitem">Wills, Estates &amp; Trusts</a>
             <a href="elder-law.html" class="dropdown-item" role="menuitem">Elder Law</a>
@@ -151,7 +152,7 @@ ${jsonld}
       <div class="container">
         <div class="city-body">
 ${body}
-          <p class="city-disclaimer">Cornerstone Wealth &amp; Legacy Law, PLLC is licensed in the State of Florida and serves clients throughout the state. This page is attorney advertising and general information, not legal advice, and does not create an attorney-client relationship. Estate planning, probate, and elder law outcomes depend on your individual facts and the proper execution of documents under Florida law.</p>
+          <p class="city-disclaimer">Truestead Law, LLC is licensed in the State of Florida and serves clients throughout the state. This page is attorney advertising and general information, not legal advice, and does not create an attorney-client relationship. Estate planning, probate, and elder law outcomes depend on your individual facts and the proper execution of documents under Florida law.</p>
 
         </div>
       </div>
@@ -163,7 +164,7 @@ ${body}
     <div class="footer-inner">
       <div class="footer-top">
         <div class="footer-brand">
-          <img src="images/logo-full.png" alt="Cornerstone Wealth &amp; Legacy Law" class="footer-logo-img">
+          <img src="images/logo-full.png" alt="Truestead Law" class="footer-logo-img">
           <div class="footer-contact">
             <p>Serving clients throughout Florida</p>
             <p><a href="tel:+18778676077" style="color:inherit;text-decoration:none">(877) 867-6077</a></p>
@@ -173,6 +174,7 @@ ${body}
         </div>
         <div class="footer-col">
           <h4>Practice Areas</h4>
+          <a href="personal-injury.html">Personal Injury</a>
           <a href="real-estate.html">Real Estate</a>
           <a href="estate-planning.html">Wills, Estates &amp; Trusts</a>
           <a href="elder-law.html">Elder Law</a>
@@ -189,9 +191,9 @@ ${body}
           <a href="/areas-we-serve">All Florida areas &rarr;</a>
         </div>
       </div>
-      <p class="footer-disclaimer">Cornerstone Wealth &amp; Legacy Law, PLLC is licensed in the State of Florida. The information on this website is for general informational purposes only and does not constitute legal advice. Visiting this site or contacting the firm does not create an attorney-client relationship. Past results do not guarantee future outcomes. The hiring of a lawyer is an important decision that should not be based solely upon advertisements. Before you decide, ask us to send you free written information about our qualifications and experience.</p>
+      <p class="footer-disclaimer">Truestead Law, LLC is licensed in the State of Florida. The information on this website is for general informational purposes only and does not constitute legal advice. Visiting this site or contacting the firm does not create an attorney-client relationship. Past results do not guarantee future outcomes. The hiring of a lawyer is an important decision that should not be based solely upon advertisements. Before you decide, ask us to send you free written information about our qualifications and experience.</p>
       <div class="footer-bottom">
-        <span>© 2026 Cornerstone Wealth &amp; Legacy Law, PLLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265</span>
+        <span>© 2026 Truestead Law, LLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265</span>
         <div class="footer-legal">
           <a href="privacy.html">Privacy</a>
           <a href="terms.html">Terms</a>
@@ -211,12 +213,12 @@ ${body}
 function legalServiceJson(serviceName, url, c) {
   return `      {
         "@type": "LegalService",
-        "@id": "https://cornerstonewealthlegacy.com/#firm",
-        "name": "Cornerstone Wealth & Legacy Law, PLLC",
+        "@id": "https://truesteadlaw.com/#firm",
+        "name": "Truestead Law, LLC",
         "url": "${url}",
         "telephone": "+1-877-867-6077",
         "priceRange": "$$",
-        "image": "https://cornerstonewealthlegacy.com/images/logo-full.png",
+        "image": "https://truesteadlaw.com/images/logo-full.png",
         "description": "${jsonEsc(serviceName)} serving ${jsonEsc(c.county)} County, Florida, by phone, video, and appointment.",
         "address": { "@type": "PostalAddress", "addressLocality": "Daytona Beach", "addressRegion": "FL", "addressCountry": "US" },
         "geo": { "@type": "GeoCoordinates", "latitude": ${c.lat}, "longitude": ${c.lng} },
@@ -252,11 +254,11 @@ function probate(m) {
     [`Where is probate filed for ${m.metro} residents?`, `Probate for ${m.metro} residents is filed with the Clerk of the Circuit Court for ${c.county} County, part of Florida's ${c.ordinal} Judicial Circuit, with the main courthouse in ${c.seat}. Florida probate is handled largely through electronic filing, so a personal representative usually does not need to appear in person.`],
     [`How long does probate take in ${m.metro}?`, `Most formal administrations for ${m.metro} estates take about six months to a year, driven by the creditor claim period: after the personal representative publishes a notice to creditors, creditors generally have until the later of three months from first publication or 30 days from service to file claims (Fla. Stat. §733.702), subject to a two-year absolute bar (§733.710). Summary administration, when available, can finish in a few weeks to a couple of months.`],
     [`What is summary administration, and does my ${m.metro} estate qualify?`, `Summary administration is Florida's streamlined probate, available when the probate estate — excluding exempt and homestead property — is worth $75,000 or less, or when the decedent has been deceased for more than two years (Fla. Stat. Chapter 735). Many ${m.metro} estates qualify, especially when most assets passed by trust, beneficiary designation, or joint title. Larger estates proceed as formal administration under Chapter 733.`],
-    [`Do I need a probate lawyer in ${m.metro}?`, `In Florida, formal administration generally requires a licensed attorney because the personal representative must be represented by counsel (with narrow exceptions). Cornerstone handles ${m.metro} probate remotely — preparing and e-filing the petition, notice to creditors, inventory, and final distribution with the ${c.ordinal} Judicial Circuit — so you rarely need to visit the ${c.seat} courthouse.`],
+    [`Do I need a probate lawyer in ${m.metro}?`, `In Florida, formal administration generally requires a licensed attorney because the personal representative must be represented by counsel (with narrow exceptions). Truestead handles ${m.metro} probate remotely — preparing and e-filing the petition, notice to creditors, inventory, and final distribution with the ${c.ordinal} Judicial Circuit — so you rarely need to visit the ${c.seat} courthouse.`],
     [`Does Florida have an estate or inheritance tax?`, `No. Florida has no state estate tax and no state inheritance tax, so most ${m.metro} estates owe no death tax at the state level. Only very large estates may owe federal estate tax above the federal exemption amount.`],
   ];
   const body = `
-          <p>When a ${m.metro} family loses a loved one, the estate often has to pass through probate — the court-supervised process of validating the will, paying creditors, and transferring assets. Cornerstone Wealth &amp; Legacy Law guides ${m.metro} personal representatives and families through <a href="${countyHref(c.county)}">${c.county} County</a> probate from start to finish, almost entirely by phone, video, and electronic filing.</p>
+          <p>When a ${m.metro} family loses a loved one, the estate often has to pass through probate — the court-supervised process of validating the will, paying creditors, and transferring assets. Truestead Law guides ${m.metro} personal representatives and families through <a href="${countyHref(c.county)}">${c.county} County</a> probate from start to finish, almost entirely by phone, video, and electronic filing.</p>
 
           <h2>Probate in ${m.metro} &amp; the ${c.ordinal} Judicial Circuit</h2>
           <p>${m.metro} probate is administered through the Clerk of the Circuit Court for ${c.county} County, part of Florida's <strong>${c.ordinal} Judicial Circuit</strong>, with the main courthouse in ${c.seat}. Because Florida courts use electronic filing, we can open and complete most ${m.metro} estates without you traveling to the courthouse — but the process still follows strict statutory deadlines under Florida Statutes Chapter 733, including the notice to creditors and the claim period under §733.702.</p>
@@ -286,7 +288,7 @@ ${faqHtml(faqs)}
 `;
   const jsonld = `  {\n    "@context": "https://schema.org",\n    "@graph": [\n${legalServiceJson(serviceName + ' in ' + m.metro, url, c)},\n${faqJson(faqs)}\n    ]\n  }`;
   return { slug, html: shell({
-    title: `Probate Attorney in ${m.metro}, FL | ${c.county} County Probate | Cornerstone Wealth &amp; Legacy Law`,
+    title: `Probate Attorney in ${m.metro}, FL | ${c.county} County Probate | Truestead Law`,
     desc: `Probate attorney for ${m.metro}, Florida. We handle ${c.county} County probate (${c.ordinal} Judicial Circuit) remotely — formal &amp; summary administration. Call (877) 867-6077.`,
     url, jsonld, h1,
     heroP: `Compassionate, efficient probate help for ${m.metro} families — ${c.county} County estate administration handled by phone, video, and e-filing, so you rarely set foot in the ${c.seat} courthouse.`,
@@ -309,7 +311,7 @@ function estate(m) {
     [`Does Florida have an estate or inheritance tax?`, `No. Florida has no state estate tax and no state inheritance tax. Only very large estates may owe federal estate tax above the federal exemption. Florida's homestead protection and the absence of a state death tax make careful titling and beneficiary planning especially valuable for ${m.metro} families.`],
   ];
   const body = `
-          <p>Cornerstone Wealth &amp; Legacy Law helps ${m.metro} individuals and families put the right plan in place — wills, revocable living trusts, powers of attorney, and health care directives — prepared under current Florida law and handled conveniently by phone, video, or appointment. Whether you are protecting a first home in <a href="${countyHref(c.county)}">${c.county} County</a> or a larger legacy, we build a plan that fits.</p>
+          <p>Truestead Law helps ${m.metro} individuals and families put the right plan in place — wills, revocable living trusts, powers of attorney, and health care directives — prepared under current Florida law and handled conveniently by phone, video, or appointment. Whether you are protecting a first home in <a href="${countyHref(c.county)}">${c.county} County</a> or a larger legacy, we build a plan that fits.</p>
 
           <h2>Wills, Trusts &amp; Powers of Attorney for ${m.metro} Families</h2>
           <p>A complete Florida estate plan usually rests on a few core documents working together:</p>
@@ -339,7 +341,7 @@ ${faqHtml(faqs)}
 `;
   const jsonld = `  {\n    "@context": "https://schema.org",\n    "@graph": [\n${legalServiceJson(serviceName + ' in ' + m.metro, url, c)},\n${faqJson(faqs)}\n    ]\n  }`;
   return { slug, html: shell({
-    title: `Estate Planning &amp; Trust Attorney in ${m.metro}, FL | Wills &amp; Trusts | Cornerstone Wealth &amp; Legacy Law`,
+    title: `Estate Planning &amp; Trust Attorney in ${m.metro}, FL | Wills &amp; Trusts | Truestead Law`,
     desc: `Estate planning attorney for ${m.metro}, Florida — wills, revocable living trusts, powers of attorney &amp; health care directives. By phone, video &amp; appointment. Call (877) 867-6077.`,
     url, jsonld, h1,
     heroP: `Wills, revocable living trusts, powers of attorney, and health care directives for ${m.metro} families — prepared under current Florida law and handled conveniently by phone, video, or appointment.`,
@@ -359,10 +361,10 @@ function elder(m) {
     [`Can I protect my home and savings from nursing home costs in ${m.metro}?`, `Often, yes — with planning. Florida's homestead protection shields your ${m.metro} residence in many situations, and tools such as properly structured transfers, personal-services agreements, and certain trusts can help preserve assets while pursuing Medicaid long-term-care eligibility. Because Medicaid uses a five-year look-back, the earlier you plan, the more options you have.`],
     [`What is the difference between Medicaid and Medicare for long-term care?`, `Medicare generally does not pay for long-term custodial nursing care; it covers limited short-term skilled care. Medicaid is the program that can cover ongoing long-term care for those who meet Florida's income and asset rules. Elder law planning focuses on bridging that gap for ${m.metro} families.`],
     [`Do I need a guardianship for a loved one in ${m.metro}?`, `Not always. If your ${m.metro} loved one signed a durable power of attorney and health care surrogate while competent, those documents often avoid the need for a court guardianship, which is filed in the ${c.county} County court within the ${c.ordinal} Judicial Circuit. We help families put these protections in place before a crisis and assist with guardianship when it becomes necessary.`],
-    [`Can elder law planning be done remotely from ${m.metro}?`, `Yes. Cornerstone serves ${m.metro} seniors and their adult children by phone and video, preparing documents remotely and coordinating signing under Florida's witness and notary rules, with in-person meetings available in the Daytona Beach area.`],
+    [`Can elder law planning be done remotely from ${m.metro}?`, `Yes. Truestead serves ${m.metro} seniors and their adult children by phone and video, preparing documents remotely and coordinating signing under Florida's witness and notary rules, with in-person meetings available in the Daytona Beach area.`],
   ];
   const body = `
-          <p>Cornerstone Wealth &amp; Legacy Law helps ${m.metro} seniors and their families navigate the legal side of aging — long-term care planning, Medicaid eligibility, incapacity documents, and asset protection — with practical, compassionate guidance under Florida law. We work throughout <a href="${countyHref(c.county)}">${c.county} County</a> by phone, video, and appointment.</p>
+          <p>Truestead Law helps ${m.metro} seniors and their families navigate the legal side of aging — long-term care planning, Medicaid eligibility, incapacity documents, and asset protection — with practical, compassionate guidance under Florida law. We work throughout <a href="${countyHref(c.county)}">${c.county} County</a> by phone, video, and appointment.</p>
 
           <h2>Long-Term Care &amp; Medicaid Planning in ${m.metro}</h2>
           <p>The cost of nursing home and assisted-living care can erode a lifetime of savings. For ${m.metro} families, elder law planning aims to protect the home and resources while pursuing Florida Medicaid long-term-care benefits where appropriate. Because Medicaid applies a five-year look-back to asset transfers, early planning preserves the most options — but even crisis planning can help once care is already needed.</p>
@@ -391,7 +393,7 @@ ${faqHtml(faqs)}
 `;
   const jsonld = `  {\n    "@context": "https://schema.org",\n    "@graph": [\n${legalServiceJson(serviceName + ' in ' + m.metro, url, c)},\n${faqJson(faqs)}\n    ]\n  }`;
   return { slug, html: shell({
-    title: `Elder Law &amp; Medicaid Attorney in ${m.metro}, FL | Long-Term Care Planning | Cornerstone Wealth &amp; Legacy Law`,
+    title: `Elder Law &amp; Medicaid Attorney in ${m.metro}, FL | Long-Term Care Planning | Truestead Law`,
     desc: `Elder law &amp; Medicaid planning attorney for ${m.metro}, Florida — long-term care, asset protection, powers of attorney &amp; guardianship. By phone, video &amp; appointment. Call (877) 867-6077.`,
     url, jsonld, h1,
     heroP: `Long-term care and Medicaid planning, incapacity documents, and asset protection for ${m.metro} seniors and their families — handled with care by phone, video, or appointment.`,
@@ -407,14 +409,14 @@ function realestate(m) {
   const h1 = `Real Estate Attorney in ${m.metro}, FL`;
   const serviceName = `Real estate attorney`;
   const faqs = [
-    [`What real estate services does Cornerstone offer in ${m.metro}?`, `For ${m.metro} owners and families we focus on deeds and property transfers, Florida homestead and title questions, and reviewing purchase or sale contracts and for-sale-by-owner documents. We do not currently provide closing, escrow, or settlement services — our role is the legal and planning side of your ${c.county} County property, handled by phone and video.`],
+    [`What real estate services does Truestead offer in ${m.metro}?`, `For ${m.metro} owners and families we focus on deeds and property transfers, Florida homestead and title questions, and reviewing purchase or sale contracts and for-sale-by-owner documents. We do not currently provide closing, escrow, or settlement services — our role is the legal and planning side of your ${c.county} County property, handled by phone and video.`],
     [`Can you prepare a deed for my ${m.metro} property?`, `Yes. We prepare and record warranty deeds, quitclaim deeds, and enhanced life estate ("Lady Bird") deeds for ${c.county} County property. The right deed depends on your goal — transferring to family, funding a trust, avoiding probate, or protecting Florida homestead under Art. X, §4 of the Florida Constitution. Documentary stamp tax and recording fees apply.`],
     [`Can you help clear title to a ${m.metro} property after a death?`, `Often, yes. When an owner passes away, title to ${c.county} County real estate usually has to be cleared before it can be sold or transferred — frequently through a petition to determine homestead status or a probate transfer. We help ${m.metro} families establish clean title and move the property to the right people.`],
     [`Can you review my ${m.metro} purchase or sale contract?`, `Yes. We review purchase and sale contracts and for-sale-by-owner paperwork for ${m.metro} buyers and sellers, explain your obligations and risks, and suggest changes before you sign. This is advisory and document work — we do not conduct the closing or hold escrow.`],
     [`How does real estate connect to my estate plan in ${m.metro}?`, `Your ${m.metro} home is usually your most valuable asset, so how it is titled drives whether it passes smoothly or lands in probate. We coordinate deeds, homestead, and beneficiary tools with your overall estate plan — for example, a Lady Bird deed or a funded revocable living trust can keep the property out of ${c.county} County probate entirely.`],
   ];
   const body = `
-          <p>Cornerstone Wealth &amp; Legacy Law helps ${m.metro} owners and families with the legal and planning side of real estate — deeds and property transfers, Florida homestead and title questions, and review of purchase, sale, and for-sale-by-owner documents — coordinated with your broader plan for the property. We serve <a href="${countyHref(c.county)}">${c.county} County</a> by phone, video, and secure e-signing. (We do not currently provide closing, escrow, or settlement services.)</p>
+          <p>Truestead Law helps ${m.metro} owners and families with the legal and planning side of real estate — deeds and property transfers, Florida homestead and title questions, and review of purchase, sale, and for-sale-by-owner documents — coordinated with your broader plan for the property. We serve <a href="${countyHref(c.county)}">${c.county} County</a> by phone, video, and secure e-signing. (We do not currently provide closing, escrow, or settlement services.)</p>
 
           <h2>Deeds &amp; Property Transfers in ${m.metro}</h2>
           <p>Moving a ${m.metro} property to family, into a trust, or out of a deceased owner's name takes the right deed prepared correctly. We draft and record warranty deeds, quitclaim deeds, and enhanced life estate ("Lady Bird") deeds for ${c.county} County property, choosing the form that fits your goal — transferring to loved ones, funding a revocable living trust, or keeping the home out of probate. Documentary stamp tax and recording fees apply, and we handle the recording with the ${c.county} County Clerk.</p>
@@ -446,7 +448,7 @@ ${faqHtml(faqs)}
 `;
   const jsonld = `  {\n    "@context": "https://schema.org",\n    "@graph": [\n${legalServiceJson(serviceName + ' in ' + m.metro, url, c)},\n${faqJson(faqs)}\n    ]\n  }`;
   return { slug, html: shell({
-    title: `Real Estate Attorney in ${m.metro}, FL | Deeds, Title &amp; Property Transfers | Cornerstone Wealth &amp; Legacy Law`,
+    title: `Real Estate Attorney in ${m.metro}, FL | Deeds, Title &amp; Property Transfers | Truestead Law`,
     desc: `Real estate attorney for ${m.metro}, Florida — deeds, property transfers, homestead &amp; title, and contract review. By phone, video &amp; appointment. Call (877) 867-6077.`,
     url, jsonld, h1,
     heroP: `Deeds, property transfers, homestead and title help, and contract review for ${m.metro} owners and families — coordinated with your estate plan and handled by phone, video, and secure e-signing.`,
@@ -454,9 +456,62 @@ ${faqHtml(faqs)}
   }) };
 }
 
+// ---- SERVICE: Personal Injury ----------------------------------------------
+function personalInjury(m) {
+  const c = ctx(m);
+  const slug = `personal-injury-attorney-${slugify(m.metro)}`;
+  const url = `${SITE}/${slug}`;
+  const h1 = `Personal Injury Attorney in ${m.metro}, FL`;
+  const serviceName = `Personal injury attorney`;
+  const faqs = [
+    [`What does it cost to hire a ${m.metro} personal injury lawyer?`, `Nothing up front. Personal injury cases are handled on a contingency fee — there is no attorney's fee unless we obtain a recovery for you. If there is no recovery, you owe no attorney's fee. As in any case, clients may be responsible for costs, and all fee and cost terms are explained in writing before you sign.`],
+    [`How long do I have to file an injury claim in Florida?`, `Florida generally allows a limited time to bring a negligence claim — for many cases, two years from the date of the injury — but deadlines vary by the type of case and the facts, and some are shorter. Because missing a deadline can end a claim entirely, ${m.metro} accident victims should speak with a lawyer as soon as possible.`],
+    [`What kinds of ${m.metro} injury cases do you handle?`, `We help ${m.metro} and ${c.county} County clients with car, truck, motorcycle, and rideshare crashes, boating accidents, slip-and-fall and premises injuries, nursing-home neglect, and wrongful death. If your matter calls for litigation, we associate experienced Florida trial counsel as co-counsel and remain responsible for your case.`],
+    [`The insurance company already contacted me — what should I do?`, `Be careful. Adjusters are trained to settle ${m.metro} claims quickly and inexpensively, and a recorded statement can be used against you. You are not required to give one. Talk to us before you sign anything or give a statement — the consultation is free.`],
+    [`Can I handle my ${m.metro} injury case remotely?`, `Yes. We work with ${m.metro} clients by phone and video and can begin a free case review without an office visit, with in-person meetings available in the Daytona Beach area.`],
+  ];
+  const body = `
+          <p>If you were hurt in an accident in ${m.metro}, the insurance company began building its case immediately — you should have someone building yours. Truestead Law helps injured ${m.metro} and <a href="${countyHref(c.county)}">${c.county} County</a> residents pursue what they are owed, on a contingency fee, with no attorney's fee unless we recover for you.</p>
+
+          <h2>Injury Cases We Handle for ${m.metro} Clients</h2>
+          <ul>
+            <li>Car, truck, motorcycle, and rideshare (Uber/Lyft) accidents</li>
+            <li>Boating and watercraft accidents</li>
+            <li>Slip, trip, and fall and other premises injuries</li>
+            <li><a href="/elder-law.html">Nursing-home</a> neglect and abuse</li>
+            <li>Wrongful death</li>
+          </ul>
+
+          <h2>How It Works — and Who Handles Your Case</h2>
+          <p>You retain Truestead Law. For matters that go into litigation, we associate experienced Florida trial counsel as co-counsel and stay responsible for your case alongside them. You are always told in writing who is working on your matter, and associating co-counsel never increases your total fee. There is no attorney's fee unless we recover; if there is no recovery, you owe no attorney's fee (clients may be responsible for costs, explained in writing before you sign).</p>
+
+          <h2>After Your ${m.metro} Case Resolves</h2>
+          <p>Most injury firms hand you a check and say goodbye. Because Truestead is also a Florida estate, real estate, and elder law firm, we can help you protect what you recover — so a settlement isn't lost to taxes, probate, or a hasty decision, and we can handle the <a href="/real-estate.html">closing</a> if you put it into a home. <a href="/estate-planning.html">One relationship, for the whole of life.</a></p>
+
+          <div class="city-faq">
+            <h2>${m.metro} Personal Injury FAQs</h2>
+${faqHtml(faqs)}
+          </div>
+
+          <div class="city-cta">
+            <h2>Hurt in ${m.metro}? Get a free case review.</h2>
+            <p>Free, confidential, no obligation — and no fee unless we recover. The sooner you reach out, the more we can do.</p>
+            <a href="/personal-injury/case-review.html" class="btn btn-primary">Start My Free Case Review</a>
+          </div>
+`;
+  const jsonld = `  {\n    "@context": "https://schema.org",\n    "@graph": [\n${legalServiceJson(serviceName + ' in ' + m.metro, url, c)},\n${faqJson(faqs)}\n    ]\n  }`;
+  return { slug, html: shell({
+    title: `Personal Injury Attorney in ${m.metro}, FL | Accidents &amp; Injury Claims | Truestead Law`,
+    desc: `Personal injury attorney for ${m.metro}, Florida — car, truck, motorcycle, rideshare, boating, slip-and-fall &amp; nursing-home injury claims. Free case review, no fee unless we recover. Call (877) 867-6077.`,
+    url, jsonld, h1,
+    heroP: `Hurt in a ${m.metro} accident? Truestead Law helps injured Floridians pursue what they're owed — car, truck, motorcycle, rideshare, boating, slip-and-fall, and nursing-home injury claims. Free case review, and no attorney's fee unless we recover.`,
+    body,
+  }) };
+}
+
 // ---- main ------------------------------------------------------------------
 const dry = process.argv.includes('--dry');
-const builders = [probate, estate, elder, realestate];
+const builders = [personalInjury, probate, estate, elder, realestate];
 const slugs = [];
 let written = 0;
 for (const m of METROS) {

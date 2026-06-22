@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  macOS LaunchAgent — runs the Truestead daily article agent every morning at 6:00 AM.
+
+  INSTALL:
+    cp "/Users/arthursimpson/claude 1/cornerstone-website/_internal/daily-article/com.truestead.daily-article.plist" ~/Library/LaunchAgents/
+    launchctl load ~/Library/LaunchAgents/com.truestead.daily-article.plist
+
+  STATUS:   launchctl list | grep truestead
+  UNINSTALL:
+    launchctl unload ~/Library/LaunchAgents/com.truestead.daily-article.plist
+    rm ~/Library/LaunchAgents/com.truestead.daily-article.plist
+  LOGS:     cat /tmp/truestead-article.log ; cat /tmp/truestead-article-error.log
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.truestead.daily-article</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/local/bin/node</string>
+    <string>/Users/arthursimpson/claude 1/cornerstone-website/_internal/daily-article/daily-article.js</string>
+  </array>
+
+  <!-- Every day at 6:00 AM -->
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key><integer>6</integer>
+    <key>Minute</key><integer>0</integer>
+  </dict>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>ANTHROPIC_API_KEY</key>
+    <string>REPLACE_WITH_YOUR_ANTHROPIC_KEY</string>
+    <key>PATH</key>
+    <string>/usr/local/bin:/usr/bin:/bin:/opt/homebrew/bin</string>
+  </dict>
+
+  <key>WorkingDirectory</key>
+  <string>/Users/arthursimpson/claude 1/cornerstone-website/_internal/daily-article</string>
+
+  <key>StandardOutPath</key>
+  <string>/tmp/truestead-article.log</string>
+  <key>StandardErrorPath</key>
+  <string>/tmp/truestead-article-error.log</string>
+
+  <key>RunAtLoad</key>
+  <false/>
+</dict>
+</plist>

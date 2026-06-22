@@ -25,8 +25,8 @@
       "embedUrl": "https://www.youtube-nocookie.com/embed/" + v.youtubeId,
       "publisher": {
         "@type": "Organization",
-        "name": "Cornerstone Wealth & Legacy Law",
-        "url": "https://cornerstonewealthlegacy.com"
+        "name": "Truestead Law",
+        "url": "https://truesteadlaw.com"
       }
     };
   }

@@ -82,9 +82,9 @@ ${jsonld}
   <header class="site-header">
     <div class="header-inner">
       <a href="index.html" class="logo">
-        <img src="images/logo-icon.png" alt="Cornerstone" class="logo-img-icon">
+        <img src="images/logo-icon.png" alt="Truestead" class="logo-img-icon">
         <div>
-          <span class="logo-name">Cornerstone Wealth<br>&amp; Legacy Law</span>
+          <span class="logo-name">Truestead Law<br>&amp; Legacy Law</span>
         </div>
       </a>
       <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false">
@@ -136,7 +136,7 @@ ${jsonld}
       <div class="container">
         <div class="city-body">
 ${body}
-          <p class="city-disclaimer">Cornerstone Wealth &amp; Legacy Law, PLLC is licensed in the State of Florida and serves clients throughout the state. This page is attorney advertising and general information, not legal advice, and does not create an attorney-client relationship. Estate planning and probate outcomes depend on your individual facts and the proper execution of documents under Florida law.</p>
+          <p class="city-disclaimer">Truestead Law, LLC is licensed in the State of Florida and serves clients throughout the state. This page is attorney advertising and general information, not legal advice, and does not create an attorney-client relationship. Estate planning and probate outcomes depend on your individual facts and the proper execution of documents under Florida law.</p>
 
         </div>
       </div>
@@ -148,7 +148,7 @@ ${body}
     <div class="footer-inner">
       <div class="footer-top">
         <div class="footer-brand">
-          <img src="images/logo-full.png" alt="Cornerstone Wealth &amp; Legacy Law" class="footer-logo-img">
+          <img src="images/logo-full.png" alt="Truestead Law" class="footer-logo-img">
           <div class="footer-contact">
             <p>Serving clients throughout Florida</p>
             <p><a href="tel:+18778676077" style="color:inherit;text-decoration:none">(877) 867-6077</a></p>
@@ -177,9 +177,9 @@ ${body}
           <a href="/areas-we-serve">All areas &rarr;</a>
         </div>
       </div>
-      <p class="footer-disclaimer">Cornerstone Wealth &amp; Legacy Law, PLLC is licensed in the State of Florida. The information on this website is for general informational purposes only and does not constitute legal advice. Visiting this site or contacting the firm does not create an attorney-client relationship. Past results do not guarantee future outcomes. The hiring of a lawyer is an important decision that should not be based solely upon advertisements. Before you decide, ask us to send you free written information about our qualifications and experience.</p>
+      <p class="footer-disclaimer">Truestead Law, LLC is licensed in the State of Florida. The information on this website is for general informational purposes only and does not constitute legal advice. Visiting this site or contacting the firm does not create an attorney-client relationship. Past results do not guarantee future outcomes. The hiring of a lawyer is an important decision that should not be based solely upon advertisements. Before you decide, ask us to send you free written information about our qualifications and experience.</p>
       <div class="footer-bottom">
-        <span>© 2026 Cornerstone Wealth &amp; Legacy Law, PLLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265</span>
+        <span>© 2026 Truestead Law, LLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265</span>
         <div class="footer-legal">
           <a href="privacy.html">Privacy</a>
           <a href="terms.html">Terms</a>
@@ -212,7 +212,7 @@ function buildCircuit(num) {
 
   const faqWhat = `Florida's ${ordinal} Judicial Circuit is the trial-court circuit that handles probate and estate administration for ${oxford(counties.map(n => n + ' County'))}. Each county files probate with its own Clerk of the Circuit Court, but all sit within the ${ordinal} Circuit. Florida estate planning law is uniform statewide.`;
   const faqProbate = `Probate is filed in the county where the decedent lived, with that county's Clerk of the Circuit Court. In the ${ordinal} Judicial Circuit that means ${oxford(counties.map(n => `${n} County (courthouse in ${COUNTIES[n].seat})`))}. Florida probate is largely electronic, so a personal representative usually does not need to appear in person.`;
-  const faqServe = `Yes. Cornerstone Wealth & Legacy Law serves every county in the ${ordinal} Judicial Circuit — ${oxford(counties.map(n => n + ' County'))} — by phone, video, and appointment, with in-person meetings available in the Daytona Beach area.`;
+  const faqServe = `Yes. Truestead Law serves every county in the ${ordinal} Judicial Circuit — ${oxford(counties.map(n => n + ' County'))} — by phone, video, and appointment, with in-person meetings available in the Daytona Beach area.`;
   const faqAvoid = `The most reliable way to avoid probate anywhere in the ${ordinal} Judicial Circuit is a properly funded revocable living trust, supported by beneficiary designations, payable-on-death accounts, and appropriate deeds. The trust must be funded by retitling assets into it to keep them out of the county probate court.`;
   const place = `the ${ordinal} Judicial Circuit`;
   const fTime = faqTime(place), fSummary = faqSummary(place), fIntestate = faqIntestate(place), fTax = faqTax(place);
@@ -222,12 +222,12 @@ function buildCircuit(num) {
     "@graph": [
       {
         "@type": "LegalService",
-        "@id": "https://cornerstonewealthlegacy.com/#firm",
-        "name": "Cornerstone Wealth & Legacy Law, PLLC",
+        "@id": "https://truesteadlaw.com/#firm",
+        "name": "Truestead Law, LLC",
         "url": "${url}",
         "telephone": "+1-877-867-6077",
         "priceRange": "$$",
-        "image": "https://cornerstonewealthlegacy.com/images/logo-full.png",
+        "image": "https://truesteadlaw.com/images/logo-full.png",
         "description": "Estate planning, elder law, and probate attorney serving every county in Florida's ${ordinal} Judicial Circuit, by phone, video, and appointment.",
         "address": { "@type": "PostalAddress", "addressLocality": "Daytona Beach", "addressRegion": "FL", "addressCountry": "US" },
         "geo": { "@type": "GeoCoordinates", "latitude": ${repGeo.lat}, "longitude": ${repGeo.lng} },
@@ -242,7 +242,7 @@ ${counties.map(n => `          { "@type": "AdministrativeArea", "name": "${jsonE
         "mainEntity": [
           { "@type": "Question", "name": "What counties are in Florida's ${ordinal} Judicial Circuit?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(faqWhat)}" } },
           { "@type": "Question", "name": "Where is probate filed in the ${ordinal} Judicial Circuit?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(faqProbate)}" } },
-          { "@type": "Question", "name": "Does Cornerstone serve the whole ${ordinal} Judicial Circuit?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(faqServe)}" } },
+          { "@type": "Question", "name": "Does Truestead serve the whole ${ordinal} Judicial Circuit?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(faqServe)}" } },
           { "@type": "Question", "name": "How do I avoid probate in the ${ordinal} Judicial Circuit?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(faqAvoid)}" } },
           { "@type": "Question", "name": "How long does probate take in the ${ordinal} Judicial Circuit?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(fTime)}" } },
           { "@type": "Question", "name": "What is summary administration, and does my estate qualify?", "acceptedAnswer": { "@type": "Answer", "text": "${jsonEsc(fSummary)}" } },
@@ -254,7 +254,7 @@ ${counties.map(n => `          { "@type": "AdministrativeArea", "name": "${jsonE
   }`;
 
   const body = `
-          <p>Florida's <strong>${ordinal} Judicial Circuit</strong> is the trial-court circuit responsible for probate and estate administration in ${oxford(counties.map(n => `<a href="${countyHref(n)}">${esc(n)} County</a>`))}. Cornerstone Wealth &amp; Legacy Law helps families across the entire circuit prepare wills, revocable living trusts, powers of attorney, and health care directives — and guides them through probate when a loved one passes. Estate planning law is the same statewide, but where your estate is administered is decided at the county level within this circuit.</p>
+          <p>Florida's <strong>${ordinal} Judicial Circuit</strong> is the trial-court circuit responsible for probate and estate administration in ${oxford(counties.map(n => `<a href="${countyHref(n)}">${esc(n)} County</a>`))}. Truestead Law helps families across the entire circuit prepare wills, revocable living trusts, powers of attorney, and health care directives — and guides them through probate when a loved one passes. Estate planning law is the same statewide, but where your estate is administered is decided at the county level within this circuit.</p>
 
           <h2>Counties in the ${ordinal} Judicial Circuit</h2>
           <p>Each county files probate with its own Clerk of the Circuit Court at the county courthouse. Explore the county you need:</p>
@@ -283,7 +283,7 @@ ${STATUTE_LIST}
             <p>${esc(faqWhat)}</p>
             <h3>Where is probate filed in the ${ordinal} Judicial Circuit?</h3>
             <p>${esc(faqProbate)}</p>
-            <h3>Does Cornerstone serve the whole ${ordinal} Judicial Circuit?</h3>
+            <h3>Does Truestead serve the whole ${ordinal} Judicial Circuit?</h3>
             <p>${esc(faqServe)}</p>
             <h3>How do I avoid probate in the ${ordinal} Judicial Circuit?</h3>
             <p>${esc(faqAvoid)}</p>
@@ -305,7 +305,7 @@ ${STATUTE_LIST}
 `;
 
   return { slug, html: shell({
-    title: `Florida ${ordinal} Judicial Circuit Estate Planning &amp; Probate Attorney | Cornerstone Wealth &amp; Legacy Law`,
+    title: `Florida ${ordinal} Judicial Circuit Estate Planning &amp; Probate Attorney | Truestead Law`,
     desc: `Estate planning &amp; probate attorney for Florida's ${ordinal} Judicial Circuit — ${esc(oxford(counties.map(n => n + ' County')))}. Wills, trusts, powers of attorney &amp; probate. By phone, video &amp; appointment. Call (877) 867-6077.`,
     url,
     jsonld,
@@ -321,10 +321,10 @@ function buildRegion(r) {
   const counties = r.counties;
   const circuitsInRegion = [...new Set(counties.map(n => CIRCUITS[COUNTY_CIRCUIT[n]].ordinal))];
 
-  const faqWhere = `${r.name} covers ${oxford(counties.map(n => n + ' County'))}. Cornerstone Wealth & Legacy Law serves every one of these counties by phone, video, and appointment, helping families with wills, trusts, powers of attorney, and probate under Florida law.`;
+  const faqWhere = `${r.name} covers ${oxford(counties.map(n => n + ' County'))}. Truestead Law serves every one of these counties by phone, video, and appointment, helping families with wills, trusts, powers of attorney, and probate under Florida law.`;
   const faqProbate = `Probate in ${r.name} is filed in the county where the person lived, with that county's Clerk of the Circuit Court. The region spans the ${oxford(circuitsInRegion.map(o => o))} Judicial ${circuitsInRegion.length === 1 ? 'Circuit' : 'Circuits'}. Florida probate is largely electronic, so a personal representative usually does not need to appear in person.`;
   const faqNeed = `Most adults in ${r.name} benefit from a will, a durable power of attorney, a health care surrogate designation, and a living will; homeowners and parents, and anyone who wants to avoid probate, should also consider a revocable living trust. The right plan depends on your assets and family under Florida law.`;
-  const faqRemote = `Yes. Cornerstone serves ${r.name} clients by phone and video — we prepare your documents remotely and guide you through signing under Florida's witnessing and notarization requirements, with in-person appointments available in the Daytona Beach area.`;
+  const faqRemote = `Yes. Truestead serves ${r.name} clients by phone and video — we prepare your documents remotely and guide you through signing under Florida's witnessing and notarization requirements, with in-person appointments available in the Daytona Beach area.`;
   const place = r.name;
   const fTime = faqTime(place), fSummary = faqSummary(place), fIntestate = faqIntestate(place), fTax = faqTax(place);
 
@@ -333,12 +333,12 @@ function buildRegion(r) {
     "@graph": [
       {
         "@type": "LegalService",
-        "@id": "https://cornerstonewealthlegacy.com/#firm",
-        "name": "Cornerstone Wealth & Legacy Law, PLLC",
+        "@id": "https://truesteadlaw.com/#firm",
+        "name": "Truestead Law, LLC",
         "url": "${url}",
         "telephone": "+1-877-867-6077",
         "priceRange": "$$",
-        "image": "https://cornerstonewealthlegacy.com/images/logo-full.png",
+        "image": "https://truesteadlaw.com/images/logo-full.png",
         "description": "Estate planning, elder law, and probate attorney serving ${jsonEsc(r.name)}, Florida, by phone, video, and appointment.",
         "address": { "@type": "PostalAddress", "addressLocality": "Daytona Beach", "addressRegion": "FL", "addressCountry": "US" },
         "geo": { "@type": "GeoCoordinates", "latitude": ${r.lat}, "longitude": ${r.lng} },
@@ -365,7 +365,7 @@ ${counties.map(n => `          { "@type": "AdministrativeArea", "name": "${jsonE
   }`;
 
   const body = `
-          <p>Cornerstone Wealth &amp; Legacy Law serves families throughout <strong>${esc(r.name)}</strong> — ${esc(r.alias)} — with wills, revocable living trusts, powers of attorney, health care directives, and probate guidance. The region spans ${oxford(counties.map(n => `<a href="${countyHref(n)}">${esc(n)} County</a>`))}. Florida estate planning law is the same statewide, but where your estate is administered is decided at the county level, so we connect every ${esc(r.name)} family to the right county process.</p>
+          <p>Truestead Law serves families throughout <strong>${esc(r.name)}</strong> — ${esc(r.alias)} — with wills, revocable living trusts, powers of attorney, health care directives, and probate guidance. The region spans ${oxford(counties.map(n => `<a href="${countyHref(n)}">${esc(n)} County</a>`))}. Florida estate planning law is the same statewide, but where your estate is administered is decided at the county level, so we connect every ${esc(r.name)} family to the right county process.</p>
 
           <h2>Counties We Serve in ${esc(r.name)}</h2>
           <p>Explore the county overview that fits you — each links to local cities and the courthouse that handles its probate:</p>
@@ -415,7 +415,7 @@ ${STATUTE_LIST}
 `;
 
   return { slug: r.slug, html: shell({
-    title: `${esc(r.name)} Estate Planning &amp; Probate Attorney | Cornerstone Wealth &amp; Legacy Law`,
+    title: `${esc(r.name)} Estate Planning &amp; Probate Attorney | Truestead Law`,
     desc: `Estate planning &amp; probate attorney serving ${esc(r.name)}, Florida — ${esc(oxford(counties.map(n => n + ' County')))}. Wills, trusts, powers of attorney &amp; probate. By phone, video &amp; appointment. Call (877) 867-6077.`,
     url,
     jsonld,

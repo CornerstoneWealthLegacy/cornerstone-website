@@ -80,5 +80,13 @@ sample-documents/
 # Generated QA review output (regenerate via tools/scenario-matrix.js)
 tools/_scenarios/
 
+# Generated video/audio working assets (~200MB of TTS + rendered clips; tools/* is
+# 404-blocked, never served — regenerable, must never bloat the repo)
+tools/video-scripts/
+
 # Higgsfield CLI skills (dev tooling, not site content)
 .agents/
+
+# Real estate document working drafts (attorney review WIP)
+re-drafts/
+.env.local

@@ -261,31 +261,72 @@ You are performing a PRE-DELIVERY quality review. Your job:
 
 You must return ONLY a valid JSON object — no markdown, no explanation outside the JSON, nothing before or after the JSON.`;
 
+// ── Real Estate reviewer — used when docType === 'real_estate' ──────────────────
+const RE_SYSTEM_PROMPT = `You are a senior Florida real estate attorney and licensed broker (35+ years) performing a PRE-DELIVERY quality review of AI-generated Florida real estate documents (leases, purchase & sale agreements, letters of intent, and addenda) before they reach the client. Today's date is injected so you can flag recent statutory changes.
+
+FLORIDA REAL ESTATE LAW — CORE KNOWLEDGE
+Residential tenancies (Ch. 83, Part II): § 83.49 security-deposit handling and the § 83.49(3)(a) disclosure; § 83.51/.52 maintenance; § 83.53 access; § 83.47 prohibited provisions; § 83.56 notices (3-day nonpayment, 7-day cure/terminate); § 83.575 automatic-renewal notice; § 83.595 and § 83.595(4) remedies and the required early-termination-fee addendum; § 83.512 flood disclosure (a SEPARATE document, for leases of one year or longer, effective Oct. 1, 2025); § 83.682 servicemember termination; radon § 404.056(5); lead paint pre-1978 (42 U.S.C. § 4852d).
+Commercial tenancies (Ch. 83, Part I): heavily negotiated; § 83.06 holdover double rent; § 83.20(2) commercial 3-day notice; § 83.08 landlord's lien; § 83.05 possession; sales tax on commercial rent § 212.031; construction liens § 713.10; radon § 404.056(5).
+Sales and conveyances (Ch. 689): seller's duty to disclose known latent defects (Johnson v. Davis, 480 So. 2d 625 (Fla. 1985)); radon § 404.056(5) on any building sale; condominium 3-day rescission § 718.503; HOA disclosure § 720.401; FIRPTA 26 U.S.C. § 1445; like-kind exchange IRC § 1031; doc stamps § 201.02; Florida has NO transfer-on-death deed; Lady Bird / enhanced life estate deeds are recognized.
+Brokerage (Ch. 475): transaction broker is the default presumption (§ 475.278); brokers may complete approved forms but custom drafting risks UPL — the law firm drafts, the agent facilitates.
+
+YOUR ROLE: identify every unfilled field, missing party, missing required disclosure, missing deadline, internal inconsistency, or legal risk before delivery. Cite the statute or doctrine. A score of 100 = complete, internally consistent, all required Florida disclosures present, no unfilled merge fields, ready for delivery. Deduct for every issue. Return ONLY a valid JSON object — no markdown, nothing before or after.`;
+
+// ── Elder-law / Medicaid reviewer — used when docType === 'elder_law' ──────────
+const ELDER_SYSTEM_PROMPT = `You are a senior Florida elder-law and Medicaid-planning attorney (35+ years, board-certified) performing a PRE-DELIVERY review of AI-generated Florida elder-law documents (Durable POA with Medicaid powers, Health Care Surrogate, Living Will, HIPAA, Pre-Need Guardian, Disposition of Remains, Qualified Income Trust, Medicaid Asset Protection Trust, Personal Services/Caregiver Agreement, Medicaid-compliant Promissory Note, Spousal Refusal, Third-Party Special Needs Trust). Today's date is injected so you can flag annual-figure changes.
+
+FLORIDA ELDER-LAW / MEDICAID KNOWLEDGE
+- Income cap (2026): $2,982/mo. Over the cap requires a Qualified Income Trust ("Miller Trust", 42 U.S.C. § 1396p(d)(4)(B)) — irrevocable, holds ONLY income, funded monthly, disbursed in strict priority order (PNA → health premiums → MMMNA → patient responsibility), and repays AHCA at death.
+- Asset limit $2,000 (single applicant); Community Spouse Resource Allowance up to $162,660; MMMNA $2,644–$4,067; Personal Needs Allowance $160 (2026 — verify).
+- 60-month look-back for institutional (nursing-home) Medicaid transfers (42 U.S.C. § 1396p(c)); Florida does NOT impose a community/HCBS look-back.
+- MAPT: irrevocable income-only trust for ADVANCE planning (5+ years before need); the grantor cannot be sole trustee or reach principal; § 677 grantor trust; § 1014 step-up at death; F.S. § 736.0505 (Florida bars self-settled spendthrift trusts).
+- Personal Services/Caregiver Agreement: must be fair-market value (compensation, not a gift), signed BEFORE services, with time logs; taxable income.
+- Medicaid-compliant promissory note: actuarial term not exceeding the lender's life expectancy, equal payments with no balloon, non-cancelable at death (42 U.S.C. § 1396p(c)(1)(I)).
+- Spousal refusal: 42 U.S.C. §§ 1396r-5, 1396k.
+- Third-Party SNT: supplemental-needs distributions, NO Medicaid payback (vs. a first-party (d)(4)(A) SNT, which DOES require payback).
+- The Durable POA must EXPRESSLY grant Medicaid superpowers (F.S. § 709.2201/.2202): create/fund irrevocable trusts (QIT/MAPT), non-exclusion gifts, change beneficiary designations.
+- Pre-Need Guardian: F.S. § 744.3045 (adult), § 744.3046 (minor). Execution: Surrogate/Living Will need 2 witnesses (no notary); POA needs 2 witnesses + notary.
+
+YOUR ROLE: catch unfilled fields, documents the intake implies but that are missing, missing required provisions, internal inconsistencies, and Medicaid-disqualification risks BEFORE delivery. Cite statutes. A score of 100 = complete, internally consistent, all needed documents present, ready for the attorney. Deduct for every issue. Return ONLY a valid JSON object — no markdown, nothing before or after.`;
+
+const ALLOWED_HOST = /(?:^|\.)(?:cornerstonewealthlegacy|truesteadlaw)\.com$|\.netlify\.app$|^localhost$|^127\.0\.0\.1$/;
+function fromAllowedOrigin(event) {
+  const ref = (event.headers && (event.headers.origin || event.headers.referer)) || '';
+  try { return ALLOWED_HOST.test(new URL(ref).hostname); } catch (e) { return false; }
+}
+
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
 
-  // Verify Firebase ID token
-  const authHeader = event.headers['authorization'] || event.headers['Authorization'] || '';
-  const idToken = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : null;
-  if (!idToken) return { statusCode: 401, body: 'Unauthorized' };
-
-  try {
-    const verifyRes = await fetch(
-      `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${FIREBASE_WEB_API_KEY}`,
-      { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ idToken }) }
-    );
-    if (!verifyRes.ok) return { statusCode: 401, body: 'Unauthorized' };
-    const verifyData = await verifyRes.json();
-    if (!verifyData.users?.[0]) return { statusCode: 401, body: 'Unauthorized' };
-  } catch {
-    return { statusCode: 401, body: 'Unauthorized' };
-  }
-
   let body;
   try { body = JSON.parse(event.body); }
   catch { return { statusCode: 400, body: 'Bad Request' }; }
+
+  const isRE = body.docType === 'real_estate' || (body.planData && body.planData.docFamily === 'real_estate');
+  const isElder = body.docType === 'elder_law' || (body.planData && body.planData.docFamily === 'elder_law');
+
+  // Auth: estate reviews require a Firebase ID token (logged-in portal/builder).
+  // The pre-auth RE builders are origin-gated, same posture as re-assistant.js / re-addendum-draft.js.
+  if (isRE) {
+    if (!fromAllowedOrigin(event)) return { statusCode: 403, body: 'Forbidden' };
+  } else {
+    const authHeader = event.headers['authorization'] || event.headers['Authorization'] || '';
+    const idToken = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : null;
+    if (!idToken) return { statusCode: 401, body: 'Unauthorized' };
+    try {
+      const verifyRes = await fetch(
+        `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${FIREBASE_WEB_API_KEY}`,
+        { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ idToken }) }
+      );
+      if (!verifyRes.ok) return { statusCode: 401, body: 'Unauthorized' };
+      const verifyData = await verifyRes.json();
+      if (!verifyData.users?.[0]) return { statusCode: 401, body: 'Unauthorized' };
+    } catch {
+      return { statusCode: 401, body: 'Unauthorized' };
+    }
+  }
 
   const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
   if (!ANTHROPIC_API_KEY) {
@@ -299,7 +340,10 @@ exports.handler = async (event) => {
   const { planData, documentSample } = body;
   if (!planData) return { statusCode: 400, body: 'planData required' };
 
-  const reviewPrompt = buildReviewPrompt(planData, documentSample);
+  const systemPrompt = isRE ? RE_SYSTEM_PROMPT : isElder ? ELDER_SYSTEM_PROMPT : SYSTEM_PROMPT;
+  const reviewPrompt = isRE ? buildREReviewPrompt(planData, documentSample)
+    : isElder ? buildElderReviewPrompt(planData, documentSample)
+    : buildReviewPrompt(planData, documentSample);
 
   try {
     const res = await fetch('https://api.anthropic.com/v1/messages', {
@@ -312,7 +356,7 @@ exports.handler = async (event) => {
       body: JSON.stringify({
         model: REVIEW_MODEL,
         max_tokens: 6000,
-        system: SYSTEM_PROMPT,
+        system: systemPrompt,
         messages: [{ role: 'user', content: reviewPrompt }],
       }),
     });
@@ -503,4 +547,120 @@ Severity guide:
 - "critical": plan cannot be delivered as-is; client harm, legal invalidity, or disqualification from government benefits likely
 - "warn": should be reviewed before delivery; may be intentional but needs attorney sign-off; statutes should be cited
 - "info": minor observation or best-practice note; no blocking action required`;
+}
+
+function buildREReviewPrompt(p, documentSample) {
+  const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  p = p || {};
+  const docs = Array.isArray(p.documents)
+    ? p.documents.map(d => (typeof d === 'string' ? d : (d.title || d.type))).filter(Boolean).join(', ')
+    : (p.docCategory || 'real estate document');
+  const parties = `${p.party1 || p.landlord || p.seller || 'NOT PROVIDED'} / ${p.party2 || p.tenant || p.buyer || 'NOT PROVIDED'}`;
+
+  return `Today's date: ${today}
+
+Perform a pre-delivery legal review of the following Florida real estate document package. Detect unfilled merge fields (bracketed [____], [to be completed], "NOT PROVIDED"), missing parties/price/dates, missing required Florida disclosures for the document type, missing signature blocks, and internal inconsistencies. Cite statutes.
+
+Return ONLY this JSON — no markdown, nothing outside the JSON:
+{
+  "overall": "READY_FOR_DELIVERY" | "NEEDS_ATTORNEY_ATTENTION" | "DO_NOT_DELIVER",
+  "score": <integer 0-100>,
+  "summary": "<2-3 sentence executive summary>",
+  "issues": [{ "severity": "critical" | "warn" | "info", "document": "<doc name>", "title": "<short title, max 10 words>", "detail": "<specific explanation citing statute>", "action": "<what must be fixed before delivery>" }],
+  "strengths": ["<strength>", "..."],
+  "nextSteps": ["<step>", "..."],
+  "recentLawFlags": ["<recent/pending law change relevant to this package>"]
+}
+
+═══════════════════════════════════════════════════
+PACKAGE DATA
+═══════════════════════════════════════════════════
+Documents: ${docs}
+Transaction type: ${p.txnType || p.docCategory || 'not specified'}
+Parties: ${parties}
+Property: ${p.property || p.address || 'NOT PROVIDED'}
+Price / Rent: ${p.price || p.rent || 'not specified'}
+Prepared for (represents): ${p.represents || 'not specified'}
+
+═══════════════════════════════════════════════════
+DOCUMENT TEXT (rendered)
+═══════════════════════════════════════════════════
+${documentSample ? documentSample.slice(0, 14000) : 'No document text provided — review data only.'}
+${documentSample && documentSample.length > 14000 ? '\n[truncated — full text exceeds sample window]' : ''}
+
+═══════════════════════════════════════════════════
+MANDATORY CHECKLIST
+═══════════════════════════════════════════════════
+1.  UNFILLED FIELDS — any [____], [to be completed], or blank party, price, or date?
+2.  PARTIES & SIGNATURES — landlord/tenant or buyer/seller fully named; a signature block present for each?
+3.  RESIDENTIAL LEASE (Ch. 83 Pt II) — § 83.49(3)(a) deposit disclosure present? radon § 404.056(5)? lead paint if pre-1978? flood disclosure as a SEPARATE document if term ≥ 1 year (§ 83.512)? early-termination fee uses the § 83.595(4) addendum if charged?
+4.  COMMERCIAL LEASE (Ch. 83 Pt I) — net structure (gross/MG/NNN) defined? proportionate share/CAM? radon § 404.056(5)? sales tax on rent § 212.031? default/remedies + landlord's lien § 83.08? brokerage clause?
+5.  SALE / PSA — earnest money & escrow, due-diligence period, title/survey objection, AS-IS, default & remedies, FIRPTA § 1445, radon § 404.056(5), brokerage? Seller's property disclosure (Johnson v. Davis) attached?
+6.  CONDO / HOA — § 718.503 condo 3-day rescission or § 720.401 HOA disclosure addressed if applicable?
+7.  ADDENDA — each references the base contract by name; precedence ("this Addendum controls"); effective date; signatures?
+8.  CONSISTENCY — names, dates, and amounts consistent across the package; deadlines coherent?
+9.  UPL / PREPARED-BY — every document shows "Prepared by Truestead Law, LLC" and the represented party; the agent is not the drafter?
+10. SCORE — deduct for each blank, missing disclosure, or inconsistency. 85+ ready for delivery; 70–84 attorney review; below 70 do not deliver.
+
+Severity guide:
+- "critical": cannot be delivered as-is (blank essential term, missing required disclosure, legal invalidity)
+- "warn": should be reviewed before delivery; attorney sign-off needed; cite statute
+- "info": minor observation or best-practice note; no blocking action required`;
+}
+
+function buildElderReviewPrompt(p, documentSample) {
+  const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  p = p || {};
+  const docs = Array.isArray(p.documents)
+    ? p.documents.map(d => (typeof d === 'string' ? d : (d.title || d.type))).filter(Boolean).join(', ')
+    : (p.docCategory || 'elder-law documents');
+  const num = v => parseFloat(String(v || '').replace(/[^0-9.]/g, '')) || 0;
+  const income = num(p.elderIncome), assets = num(p.elderAssets);
+
+  return `Today's date: ${today}
+
+Perform a pre-delivery review of the following Florida elder-law / Medicaid planning package. Detect unfilled merge fields (bracketed [____], "NOT PROVIDED"), documents the intake implies but that are missing, missing required provisions, internal inconsistencies, and Medicaid-disqualification risks. Cite statutes.
+
+Return ONLY this JSON — no markdown, nothing outside the JSON:
+{
+  "overall": "READY_FOR_DELIVERY" | "NEEDS_ATTORNEY_ATTENTION" | "DO_NOT_DELIVER",
+  "score": <integer 0-100>,
+  "summary": "<2-3 sentence executive summary>",
+  "issues": [{ "severity": "critical" | "warn" | "info", "document": "<doc name>", "title": "<short title>", "detail": "<explanation citing statute>", "action": "<what to fix>" }],
+  "strengths": ["..."],
+  "nextSteps": ["..."],
+  "recentLawFlags": ["..."]
+}
+
+INTAKE DATA
+Product: ${p.docCategory || 'elder'}
+Documents: ${docs}
+Marital / structure: ${p.structure === 'joint' ? 'Married (joint — two of each companion doc expected)' : 'Individual'}
+Applicant gross monthly income: ${income ? '$' + income : 'not provided'} (2026 cap: $2,982)
+Countable assets: ${assets ? '$' + assets : 'not provided'} (single limit: $2,000; CSRA $162,660)
+Care setting: ${p.elderSetting || 'not specified'}
+Timing: ${p.elderTiming || 'not specified'}
+Special-needs beneficiary: ${p.elderDisabledBenef || 'no'}
+Veteran: ${p.elderVeteran || 'no'}
+
+DOCUMENT TEXT (rendered)
+${documentSample ? documentSample.slice(0, 14000) : 'No document text provided — review intake only.'}
+${documentSample && documentSample.length > 14000 ? '\n[truncated]' : ''}
+
+MANDATORY CHECKLIST
+1.  UNFILLED FIELDS — any [____] or blank principal, agent, trustee, beneficiary, amount, or date?
+2.  POA SUPERPOWERS — does the Durable POA expressly grant the Medicaid power (create/fund irrevocable QIT & MAPT, non-exclusion gifts, change beneficiary designations) per F.S. 709.2201/.2202?
+3.  INCOME -> QIT — if income > $2,982/mo, is a Qualified Income Trust included, irrevocable, income-only, with strict-priority disbursements and AHCA payback (42 U.S.C. 1396p(d)(4)(B))?
+4.  ASSETS -> PLAN — if assets > $2,000: advance planning should include a MAPT (irrevocable, income-only, grantor NOT sole trustee, no principal access); crisis should use a caregiver agreement and/or Medicaid-compliant promissory note. Is the right tool present for the stated timing?
+5.  MARRIED — if joint: community-spouse protections (CSRA/MMMNA) addressed, Spousal Refusal where appropriate, and TWO of each companion document (one per spouse)?
+6.  SPECIAL NEEDS — if a disabled beneficiary: a Third-Party SNT (supplemental needs, NO payback — not first-party (d)(4)(A))?
+7.  CAREGIVER AGREEMENT — fair-market rate, signed before services, time-log requirement, taxable-income note?
+8.  PROMISSORY NOTE — actuarial term <= life expectancy, equal payments, non-cancelable at death (42 U.S.C. 1396p(c)(1)(I))?
+9.  EXECUTION — POA = 2 witnesses + notary; Surrogate/Living Will = 2 witnesses (no notary); Pre-Need Guardian = 2 witnesses + file with clerk; deeds notarized + recorded.
+10. CONSISTENCY & SCORE — names/agents/figures consistent; verify the 2026 figures are current. 85+ ready; 70-84 attorney review; below 70 do not deliver.
+
+Severity guide:
+- "critical": cannot be delivered (blank essential term, missing required document, Medicaid-disqualifying error)
+- "warn": attorney sign-off needed; cite statute
+- "info": best-practice note`;
 }
