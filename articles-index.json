@@ -1,1 +1,15 @@
-{ "articles": [] }
+{
+  "articles": [
+    {
+      "slug": "articles/elder-law-2026-06-22",
+      "file": "articles/elder-law-2026-06-22.html",
+      "title": "Florida Medicaid & the 5-Year Lookback: An Elder Law Guide",
+      "tag": "Elder Law",
+      "category": "Elder Law & Medicaid",
+      "blurb": "How Florida's Medicaid five-year lookback, asset limits, and spousal protections really work for long-term care — and how families can plan calmly.",
+      "image": null,
+      "date": "2026-06-22",
+      "prettyDate": "June 22, 2026"
+    }
+  ]
+}
