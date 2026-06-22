@@ -1,9 +1,12 @@
 // Truestead Law — daily article topic rotation + Florida-focused search packs.
-// Day 0 = Sunday ... Day 6 = Saturday  (matches JS Date.getDay()).
 //
 // Each topic produces ONE educational article in Arthur Simpson's voice, grounded
-// in fresh Tavily research. Topics map to Truestead's live practice areas:
-// Estate Planning · Wills & Trusts · Elder Law · Probate · Real Estate · FL Law Updates.
+// in fresh Claude web-search research. The rotation cycles through this whole list,
+// one topic per calendar day (see getTodaysTopic) — so each topic appears once every
+// TOPICS.length days. Order = array order. Add topics freely; the `day` field on the
+// originals is now just a label and is NOT used for selection.
+// Practice areas: Estate Planning · Wills & Trusts · Elder Law · Probate · Real Estate
+// · FL Law Updates · Personal Injury.
 
 export const TOPICS = [
 
@@ -153,6 +156,26 @@ export const TOPICS = [
       'Florida asset protection strategies 2026',
     ],
   },
+
+  {
+    id: 'personal-injury',
+    tag: 'Personal Injury',
+    eyebrow: 'Florida Personal Injury',
+    category: 'Personal Injury',
+    audience: 'Floridians injured in car accidents, slip-and-falls, and other incidents',
+    cta: 'consult',
+    imageScene:
+      'A reassuring, professional scene of a Florida attorney listening to a client across a bright office desk, calm and supportive',
+    description:
+      "A Florida personal-injury explainer: what to do after a car accident, Florida no-fault / PIP, the statute of limitations and comparative-negligence rules (Florida's 2023 tort reform, HB 837, changed key deadlines — rely on the research for the current rule), slip-and-fall / premises liability, dealing with insurers, or a recent Florida PI development. Lead with the most current, accurate rule the research supports.",
+    searchQueries: [
+      'Florida personal injury statute of limitations 2026 negligence HB 837',
+      'Florida comparative negligence modified 51 percent rule 2026',
+      'Florida no-fault PIP car accident insurance 2026',
+      'Florida car accident claim what to do 2026',
+      'Florida slip and fall premises liability law 2026',
+    ],
+  },
 ];
 
 export function getTodaysTopic(overrideId = null) {
@@ -164,8 +187,10 @@ export function getTodaysTopic(overrideId = null) {
         t.tag.toLowerCase() === overrideId.toLowerCase()
     );
     if (match) return match;
-    console.warn(`Topic "${overrideId}" not found, falling back to today's schedule.`);
+    console.warn(`Topic "${overrideId}" not found, falling back to today's rotation.`);
   }
-  const day = new Date().getDay();
-  return TOPICS.find(t => t.day === day) || TOPICS[0];
+  // Cycle through the whole list, one topic per calendar day (UTC). Works for any
+  // number of topics — each appears once every TOPICS.length days.
+  const epochDay = Math.floor(Date.now() / 86400000);
+  return TOPICS[((epochDay % TOPICS.length) + TOPICS.length) % TOPICS.length];
 }

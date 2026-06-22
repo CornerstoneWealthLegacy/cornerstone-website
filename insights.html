@@ -217,6 +217,7 @@ if(!window._fbqInit){window._fbqInit=true;fbq('init','2087253962178307');fbq('tr
           <button class="filter-btn">Real Estate</button>
           <button class="filter-btn">Estate Planning</button>
           <button class="filter-btn">Elder Law</button>
+          <button class="filter-btn">Personal Injury</button>
         </div>
 
         <div class="insights-grid">
@@ -724,24 +725,24 @@ if(!window._fbqInit){window._fbqInit=true;fbq('init','2087253962178307');fbq('tr
   <script src="js/main.js"></script>
   <script>
     // Filter the insight cards by category when a filter button is clicked.
+    // Re-queries cards on each click so the dynamically-injected "Latest from
+    // Truestead" cards (incl. Personal Injury) are filtered too.
     (function () {
       var btns = document.querySelectorAll('.filter-btn');
-      var cards = document.querySelectorAll('.insight-card');
-      // Map each card to its category tag once.
-      cards.forEach(function (card) {
+      function categoryOf(card) {
         var tagEl = card.querySelector('.tag');
         var tag = tagEl ? tagEl.textContent.trim() : '';
         // Group "Probate" under Estate Planning so it isn't orphaned.
         if (tag === 'Probate') tag = 'Estate Planning';
-        card.dataset.category = tag;
-      });
+        return tag;
+      }
       btns.forEach(function (btn) {
         btn.addEventListener('click', function () {
           btns.forEach(function (b) { b.classList.remove('active'); });
           btn.classList.add('active');
           var filter = btn.textContent.trim();
-          cards.forEach(function (card) {
-            var show = (filter === 'All') || (card.dataset.category === filter);
+          document.querySelectorAll('.insight-card').forEach(function (card) {
+            var show = (filter === 'All') || (categoryOf(card) === filter);
             card.style.display = show ? '' : 'none';
           });
         });
