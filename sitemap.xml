@@ -45,6 +45,12 @@
 
   <!-- Free tools -->
   <url>
+    <loc>https://truesteadlaw.com/personal-injury-case-evaluation</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-06-22</lastmod>
+  </url>
+  <url>
     <loc>https://truesteadlaw.com/faq</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -85,6 +91,54 @@
   </url>
 
   <!-- Articles -->
+  <url>
+    <loc>https://truesteadlaw.com/articles/florida-car-accident-what-to-do</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-06-22</lastmod>
+  </url>
+  <url>
+    <loc>https://truesteadlaw.com/articles/florida-personal-injury-statute-of-limitations</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-06-22</lastmod>
+  </url>
+  <url>
+    <loc>https://truesteadlaw.com/articles/florida-comparative-negligence</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-06-22</lastmod>
+  </url>
+  <url>
+    <loc>https://truesteadlaw.com/articles/florida-pip-no-fault-insurance</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-06-22</lastmod>
+  </url>
+  <url>
+    <loc>https://truesteadlaw.com/articles/florida-slip-and-fall</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-06-22</lastmod>
+  </url>
+  <url>
+    <loc>https://truesteadlaw.com/articles/florida-wrongful-death</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-06-22</lastmod>
+  </url>
+  <url>
+    <loc>https://truesteadlaw.com/articles/florida-dog-bite-law</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-06-22</lastmod>
+  </url>
+  <url>
+    <loc>https://truesteadlaw.com/articles/florida-injury-claim-value</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-06-22</lastmod>
+  </url>
   <url>
     <loc>https://truesteadlaw.com/articles/online-estate-planning-vs-attorney-florida</loc>
     <changefreq>monthly</changefreq>

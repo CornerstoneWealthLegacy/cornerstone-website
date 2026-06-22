@@ -347,6 +347,16 @@
   status = 200
 
 [[redirects]]
+  from = "/personal-injury-case-evaluation"
+  to = "/personal-injury-case-evaluation.html"
+  status = 200
+
+[[redirects]]
+  from = "/case-evaluation"
+  to = "/personal-injury-case-evaluation.html"
+  status = 301
+
+[[redirects]]
   from = "/snowbird"
   to = "/snowbird.html"
   status = 200
