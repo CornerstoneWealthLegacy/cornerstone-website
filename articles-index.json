@@ -1,6 +1,17 @@
 {
   "articles": [
     {
+      "slug": "articles/probate-2026-06-23",
+      "file": "articles/probate-2026-06-23.html",
+      "title": "Florida Probate Explained: Summary vs. Formal Administration",
+      "tag": "Estate Planning",
+      "category": "Probate & Estate Administration",
+      "blurb": "How Florida probate works: summary vs. formal administration, the personal representative's duties, timelines and costs, and smart ways to avoid probate.",
+      "image": null,
+      "date": "2026-06-23",
+      "prettyDate": "June 23, 2026"
+    },
+    {
       "slug": "articles/elder-law-2026-06-22",
       "file": "articles/elder-law-2026-06-22.html",
       "title": "Florida Medicaid & the 5-Year Lookback: An Elder Law Guide",
