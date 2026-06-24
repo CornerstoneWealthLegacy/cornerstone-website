@@ -1,0 +1,44 @@
+rules_version = '2';
+
+// Truestead client document vault.
+// Files live under  clients/{uid}/...  — a client can only ever read or write
+// inside their OWN uid folder; firm staff (the email allow-list) can reach all
+// client folders. Everything outside clients/ is denied.
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+    function isStaff() {
+      return isSignedIn() &&
+        request.auth.token.email in ['arthur@truesteadlaw.com', 'simp70@gmail.com'];
+    }
+    // Uploads must be a reasonable size and an allowed document/image type.
+    function validUpload() {
+      return request.resource.size < 25 * 1024 * 1024 &&  // 25 MB cap
+        request.resource.contentType.matches(
+          'application/pdf' +
+          '|image/(jpeg|png|heic|webp|tiff)' +
+          '|application/msword' +
+          '|application/vnd.openxmlformats-officedocument.*' +
+          '|text/plain'
+        );
+    }
+
+    // Each client's private document vault.
+    match /clients/{uid}/{allPaths=**} {
+      allow read:           if isOwner(uid) || isStaff();
+      allow create, update: if (isOwner(uid) || isStaff()) && validUpload();
+      allow delete:         if isOwner(uid) || isStaff();
+    }
+
+    // Deny everything else by default.
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

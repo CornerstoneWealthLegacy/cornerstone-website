@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Staff Dashboard — Truestead Law</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1e3050; --gold:#b8952a; --cream:#f7f3ea; --white:#fff;
+    --gray100:#eef0f3; --gray300:#cdd3db; --gray500:#7a828e; --gray900:#1f2733;
+    --green-bg:#e7f4ec; --orange-bg:#fdf0d8; --red-bg:#fbeaea;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Inter',sans-serif;color:var(--gray900);background:var(--cream);}
+  header.topbar{background:var(--navy);color:#fff;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;}
+  .brand{font-family:'EB Garamond',serif;font-size:20px;font-weight:600;}
+  .brand .acc{color:var(--gold);}
+  .topbar .who{font-size:13px;opacity:.85;}
+  .topbar button{background:none;border:1px solid rgba(255,255,255,.4);color:#fff;border-radius:7px;padding:6px 14px;font-family:inherit;font-size:13px;cursor:pointer;}
+
+  /* Auth */
+  .auth-wrap{max-width:380px;margin:80px auto;background:#fff;border-radius:14px;padding:36px;box-shadow:0 6px 30px rgba(0,0,0,.08);}
+  .auth-wrap h1{font-family:'EB Garamond',serif;color:var(--navy);font-size:24px;margin:0 0 6px;}
+  .auth-wrap p{color:var(--gray500);font-size:14px;margin:0 0 20px;}
+  label{display:block;font-size:13px;font-weight:600;margin:14px 0 6px;}
+  input,textarea,select{width:100%;font-family:inherit;font-size:14px;padding:11px 13px;border:1.5px solid var(--gray300);border-radius:9px;}
+  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--navy);}
+  .btn{background:var(--navy);color:#fff;border:none;border-radius:9px;padding:11px 18px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;}
+  .btn:hover{background:#253a61;}
+  .btn.gold{background:var(--gold);color:var(--navy);font-weight:700;}
+  .btn.ghost{background:#fff;border:1.5px solid var(--navy);color:var(--navy);}
+  .btn.sm{padding:7px 13px;font-size:13px;}
+  .err{color:#c0392b;font-size:13px;margin-top:10px;min-height:16px;}
+
+  /* Layout */
+  .layout{display:grid;grid-template-columns:300px 1fr;gap:0;height:calc(100vh - 56px);}
+  .sidebar{background:#fff;border-right:1.5px solid var(--gray100);overflow-y:auto;padding:16px;}
+  .sidebar .search{margin-bottom:12px;}
+  .sidebar .count{font-size:12px;color:var(--gray500);margin-bottom:10px;}
+  .client-item{padding:11px 12px;border-radius:9px;cursor:pointer;border:1.5px solid transparent;}
+  .client-item:hover{background:var(--cream);}
+  .client-item.active{background:var(--cream);border-color:var(--gray300);}
+  .client-item .nm{font-weight:600;font-size:14px;}
+  .client-item .em{font-size:12px;color:var(--gray500);}
+  .client-item .pr{font-size:11px;color:var(--navy);font-weight:600;text-transform:uppercase;letter-spacing:.03em;margin-top:2px;}
+
+  .main{overflow-y:auto;padding:28px 32px;}
+  .empty-main{color:var(--gray500);text-align:center;margin-top:120px;font-size:15px;}
+  .panel{background:#fff;border:1.5px solid var(--gray100);border-radius:12px;padding:22px 24px;margin-bottom:20px;}
+  .panel h2{font-family:'EB Garamond',serif;color:var(--navy);font-size:19px;margin:0 0 14px;}
+  .row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;}
+  .row > div{flex:1;min-width:140px;}
+  .muted{color:var(--gray500);font-size:13px;}
+  .pill{display:inline-block;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;}
+  .pill.signed{background:var(--green-bg);color:#1e7d4f;}
+  .pill.sent{background:var(--orange-bg);color:#9a6a00;}
+  .pill.none{background:var(--gray100);color:var(--gray500);}
+  .saved{color:#1e7d4f;font-size:13px;margin-left:10px;}
+
+  /* Messages */
+  .thread{max-height:340px;overflow-y:auto;border:1.5px solid var(--gray100);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:10px;margin-bottom:12px;}
+  .bub{max-width:78%;padding:10px 14px;border-radius:14px;font-size:14px;line-height:1.45;}
+  .bub .mt{font-size:11px;opacity:.7;margin-top:5px;}
+  .bub.firm{align-self:flex-end;background:var(--navy);color:#fff;border-bottom-right-radius:4px;}
+  .bub.client{align-self:flex-start;background:var(--cream);border-bottom-left-radius:4px;}
+  .compose{display:flex;gap:10px;align-items:flex-end;}
+  .compose textarea{resize:vertical;}
+  .filerow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border:1.5px solid var(--gray100);border-radius:9px;margin-bottom:8px;}
+  .hide{display:none;}
+</style>
+</head>
+<body>
+
+<!-- Auth gate -->
+<div id="auth-view">
+  <div class="auth-wrap">
+    <h1>Truestead Law — Staff</h1>
+    <p>Sign in with your firm email address.</p>
+    <label for="email">Email</label>
+    <input type="email" id="email" autocomplete="email" placeholder="you@truesteadlaw.com">
+    <label for="password">Password</label>
+    <input type="password" id="password" autocomplete="current-password" placeholder="••••••••">
+    <div style="margin-top:18px;"><button class="btn" id="signin" style="width:100%;">Sign In</button></div>
+    <div class="err" id="auth-err"></div>
+  </div>
+</div>
+
+<!-- Denied -->
+<div id="denied-view" class="hide">
+  <div class="auth-wrap">
+    <h1>Access restricted</h1>
+    <p>This dashboard is for Truestead Law staff only. The account <strong id="denied-email"></strong> is not authorized.</p>
+    <button class="btn ghost" onclick="auth.signOut()" style="width:100%;">Sign out</button>
+  </div>
+</div>
+
+<!-- Dashboard -->
+<div id="app-view" class="hide">
+  <header class="topbar">
+    <div class="brand"><span class="acc">⚖</span> Truestead Law <span style="opacity:.6;font-size:15px;">· Staff Dashboard</span></div>
+    <div style="display:flex;align-items:center;gap:14px;">
+      <span class="who" id="who"></span>
+      <button onclick="auth.signOut()">Sign out</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="search"><input type="text" id="client-search" placeholder="Search clients…"></div>
+      <div class="count" id="client-count"></div>
+      <div id="client-list"></div>
+    </aside>
+
+    <main class="main">
+      <div id="empty-main" class="empty-main">Select a client to manage their matter.</div>
+      <div id="client-detail" class="hide"></div>
+    </main>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+<script>
+'use strict';
+
+const firebaseConfig = {
+  apiKey:        "AIzaSyDu2Fs6akMU2wvfyTTvPXVahQIO2z8o3ek",
+  authDomain:    "cornerstone-wealth-and-legacy.firebaseapp.com",
+  projectId:     "cornerstone-wealth-and-legacy",
+  storageBucket: "cornerstone-wealth-and-legacy.firebasestorage.app",
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+const storage = firebase.storage();
+
+const STAFF_EMAILS = ['arthur@truesteadlaw.com', 'simp70@gmail.com'];
+const STAGE_SETS = {
+  PI:     ['Signed Up','Investigation','Treatment','Demand','Negotiation','Settlement'],
+  RE:     ['Engaged','Under Contract','Title & Review','Closing Prep','Closed'],
+  Estate: ['Questionnaire','Drafting','Attorney Review','Signing','Complete'],
+  Elder:  ['Consultation','Plan Design','Application','Approval','Ongoing'],
+};
+const PRACTICE_LABELS = { PI:'Personal Injury', RE:'Real Estate', Estate:'Estate Planning', Elder:'Elder Law' };
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+// ── Auth ──────────────────────────────────────────────────────────────
+$('signin').addEventListener('click', signIn);
+$('password').addEventListener('keydown', e => { if (e.key === 'Enter') signIn(); });
+async function signIn(){
+  const email = $('email').value.trim(), pw = $('password').value;
+  if(!email||!pw){ $('auth-err').textContent='Enter your email and password.'; return; }
+  $('auth-err').textContent='';
+  try { await auth.signInWithEmailAndPassword(email, pw); }
+  catch(err){ $('auth-err').textContent = 'Sign-in failed. Check your credentials.'; }
+}
+
+auth.onAuthStateChanged(user => {
+  if(!user){ show('auth'); return; }
+  if(!STAFF_EMAILS.includes((user.email||'').toLowerCase())){
+    $('denied-email').textContent = user.email || '';
+    show('denied'); return;
+  }
+  $('who').textContent = user.email;
+  show('app');
+  loadClients();
+});
+function show(v){
+  $('auth-view').classList.toggle('hide', v!=='auth');
+  $('denied-view').classList.toggle('hide', v!=='denied');
+  $('app-view').classList.toggle('hide', v!=='app');
+}
+
+// ── Client directory (union of sessions + matters + retainers) ─────────
+let CLIENTS = [];
+let selectedUid = null;
+
+async function loadClients(){
+  const map = {}; // uid -> {uid,name,email,practice}
+  const add = (uid, data={}) => {
+    if(!map[uid]) map[uid] = { uid, name:'', email:'', practice:'' };
+    const c = map[uid];
+    if(data.name && !c.name) c.name = data.name;
+    if(data.email && !c.email) c.email = data.email;
+    if(data.practice && !c.practice) c.practice = data.practice;
+  };
+  try {
+    const sess = await db.collection('sessions').get();
+    sess.forEach(d => {
+      const r = d.data() || {};
+      const st = (r.state && r.state.d) || {};
+      const name = [st.gFirst, st.gLast].filter(Boolean).join(' ') || r.clientName || r.displayName || '';
+      add(d.id, { name, email: r.email || st.email || '' });
+    });
+  } catch(e){ console.warn('sessions load:', e.message); }
+  try {
+    const m = await db.collection('matters').get();
+    m.forEach(d => add(d.id, { practice: (d.data()||{}).practice || '' }));
+  } catch(e){ console.warn('matters load:', e.message); }
+  try {
+    const r = await db.collection('retainers').get();
+    r.forEach(d => add(d.id, {}));
+  } catch(e){ console.warn('retainers load:', e.message); }
+
+  CLIENTS = Object.values(map).sort((a,b)=> (a.name||a.email||a.uid).localeCompare(b.name||b.email||b.uid));
+  renderClientList();
+}
+
+$('client-search').addEventListener('input', renderClientList);
+function renderClientList(){
+  const q = $('client-search').value.trim().toLowerCase();
+  const list = CLIENTS.filter(c => !q ||
+    (c.name||'').toLowerCase().includes(q) ||
+    (c.email||'').toLowerCase().includes(q) ||
+    c.uid.toLowerCase().includes(q));
+  $('client-count').textContent = `${list.length} client${list.length===1?'':'s'}`;
+  $('client-list').innerHTML = list.map(c => `
+    <div class="client-item ${c.uid===selectedUid?'active':''}" onclick="selectClient('${c.uid}')">
+      <div class="nm">${esc(c.name || '(no name on file)')}</div>
+      <div class="em">${esc(c.email || c.uid)}</div>
+      ${c.practice ? `<div class="pr">${esc(PRACTICE_LABELS[c.practice]||c.practice)}</div>` : ''}
+    </div>`).join('') || '<div class="muted">No clients found.</div>';
+}
+
+// ── Client detail ─────────────────────────────────────────────────────
+let msgUnsub = null;
+async function selectClient(uid){
+  selectedUid = uid;
+  renderClientList();
+  const c = CLIENTS.find(x=>x.uid===uid) || { uid };
+  $('empty-main').classList.add('hide');
+  const detail = $('client-detail');
+  detail.classList.remove('hide');
+  detail.innerHTML = `
+    <h1 style="font-family:'EB Garamond',serif;color:var(--navy);font-size:24px;margin:0 0 4px;">${esc(c.name||'Client')}</h1>
+    <p class="muted" style="margin:0 0 22px;">${esc(c.email||'')} · <span style="font-family:monospace;font-size:12px;">${esc(uid)}</span></p>
+
+    <div class="panel" id="p-status"></div>
+    <div class="panel" id="p-messages"></div>
+    <div class="panel" id="p-retainer"></div>
+    <div class="panel" id="p-files"></div>
+  `;
+  renderStatusEditor(uid, c);
+  renderMessages(uid);
+  renderRetainer(uid, c);
+  renderFiles(uid);
+}
+
+// Case status editor
+async function renderStatusEditor(uid, c){
+  let m = {};
+  try { const s = await db.collection('matters').doc(uid).get(); if(s.exists) m = s.data(); } catch(e){}
+  const practice = m.practice || c.practice || 'PI';
+  const stages = STAGE_SETS[practice] || STAGE_SETS.PI;
+  const idx = Math.min(Number(m.stageIndex)||0, stages.length-1);
+  $('p-status').innerHTML = `
+    <h2>Case Status</h2>
+    <div class="row">
+      <div>
+        <label>Practice area</label>
+        <select id="st-practice">${Object.keys(STAGE_SETS).map(p=>`<option value="${p}" ${p===practice?'selected':''}>${PRACTICE_LABELS[p]}</option>`).join('')}</select>
+      </div>
+      <div>
+        <label>Current stage</label>
+        <select id="st-stage">${stages.map((s,i)=>`<option value="${i}" ${i===idx?'selected':''}>${esc(s)}</option>`).join('')}</select>
+      </div>
+    </div>
+    <label style="margin-top:14px;">Note to client (optional)</label>
+    <textarea id="st-note" rows="2" placeholder="e.g. Medical records are in; demand package next.">${esc(m.note||'')}</textarea>
+    <div style="margin-top:14px;"><button class="btn" id="st-save">Save status</button><span class="saved hide" id="st-saved">✓ Saved</span></div>
+  `;
+  $('st-practice').addEventListener('change', () => {
+    const p = $('st-practice').value, ss = STAGE_SETS[p];
+    $('st-stage').innerHTML = ss.map((s,i)=>`<option value="${i}">${esc(s)}</option>`).join('');
+  });
+  $('st-save').addEventListener('click', async () => {
+    try {
+      await db.collection('matters').doc(uid).set({
+        practice: $('st-practice').value,
+        stageIndex: Number($('st-stage').value),
+        note: $('st-note').value.trim(),
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+      }, { merge:true });
+      flash('st-saved');
+      loadClients();
+    } catch(e){ alert('Save failed: '+e.message); }
+  });
+}
+
+// Messages (firm side)
+function renderMessages(uid){
+  $('p-messages').innerHTML = `
+    <h2>Messages</h2>
+    <div class="thread" id="adm-thread"><div class="muted">Loading…</div></div>
+    <div class="compose">
+      <textarea id="adm-msg" rows="2" placeholder="Reply to the client…"></textarea>
+      <button class="btn" id="adm-send">Send</button>
+    </div>`;
+  if(msgUnsub) msgUnsub();
+  msgUnsub = db.collection('attyMessages').doc(uid).collection('messages').orderBy('createdAt','asc')
+    .onSnapshot(snap => {
+      const t = $('adm-thread');
+      if(!t) return;
+      if(snap.empty){ t.innerHTML = '<div class="muted">No messages yet.</div>'; return; }
+      t.innerHTML = snap.docs.map(d=>{
+        const m=d.data(), firm=m.from==='firm';
+        const when = m.createdAt&&m.createdAt.toDate ? m.createdAt.toDate().toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}) : 'Sending…';
+        return `<div class="bub ${firm?'firm':'client'}">${esc(m.text)}<div class="mt">${firm?'Firm':'Client'} · ${when}</div></div>`;
+      }).join('');
+      t.scrollTop = t.scrollHeight;
+    });
+  $('adm-send').addEventListener('click', async () => {
+    const inp = $('adm-msg'), text = inp.value.trim();
+    if(!text) return; inp.value='';
+    try {
+      await db.collection('attyMessages').doc(uid).collection('messages').add({
+        from:'firm', text, senderEmail: auth.currentUser.email||'',
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+    } catch(e){ inp.value=text; alert('Send failed: '+e.message); }
+  });
+}
+
+// Retainer
+async function renderRetainer(uid, c){
+  let r = {};
+  try { const s = await db.collection('retainers').doc(uid).get(); if(s.exists) r=s.data(); } catch(e){}
+  const status = r.status || 'none';
+  const pill = status==='signed'?'signed':(status==='sent'?'sent':'none');
+  $('p-retainer').innerHTML = `
+    <h2>Retainer Agreement <span class="pill ${pill}" style="margin-left:8px;">${status==='none'?'Not sent':status}</span></h2>
+    <p class="muted">Send the engagement agreement for e-signature via DocuSign, or set the status manually.</p>
+    <div class="row" style="margin-top:8px;">
+      <button class="btn gold sm" id="rt-send">✍️ Send via DocuSign</button>
+      <button class="btn ghost sm" id="rt-signed">Mark as signed</button>
+      <button class="btn ghost sm" id="rt-clear">Clear</button>
+      <span class="saved hide" id="rt-saved">✓ Updated</span>
+    </div>
+    <div class="err" id="rt-err"></div>`;
+  $('rt-send').addEventListener('click', async () => {
+    const email = c.email || prompt('Client email for DocuSign:');
+    const name = c.name || prompt('Client full name:');
+    if(!email||!name){ return; }
+    $('rt-err').textContent='Sending envelope…';
+    try {
+      const token = await auth.currentUser.getIdToken();
+      const res = await fetch('/.netlify/functions/docusign-send-retainer', {
+        method:'POST', headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},
+        body: JSON.stringify({ uid, clientEmail:email, clientName:name }),
+      });
+      if(!res.ok){ $('rt-err').textContent = 'DocuSign not configured yet ('+res.status+'). Set DocuSign env vars in Netlify.'; return; }
+      $('rt-err').textContent=''; flash('rt-saved'); renderRetainer(uid,c);
+    } catch(e){ $('rt-err').textContent='Error: '+e.message; }
+  });
+  $('rt-signed').addEventListener('click', async () => {
+    try { await db.collection('retainers').doc(uid).set({status:'signed', signedAt: firebase.firestore.FieldValue.serverTimestamp()}, {merge:true}); flash('rt-saved'); renderRetainer(uid,c); }
+    catch(e){ alert('Failed: '+e.message); }
+  });
+  $('rt-clear').addEventListener('click', async () => {
+    try { await db.collection('retainers').doc(uid).set({status:'none'}, {merge:true}); flash('rt-saved'); renderRetainer(uid,c); }
+    catch(e){ alert('Failed: '+e.message); }
+  });
+}
+
+// Files (client's secure vault — staff can read all & upload to share)
+async function renderFiles(uid){
+  $('p-files').innerHTML = `
+    <h2>Client Files</h2>
+    <div id="adm-files"><div class="muted">Loading…</div></div>
+    <div style="margin-top:14px;">
+      <input type="file" id="adm-file-input" class="hide">
+      <button class="btn ghost sm" id="adm-upload">⬆ Share a file with this client</button>
+      <span class="saved hide" id="adm-file-saved">✓ Uploaded</span>
+    </div>`;
+  await listAdminFiles(uid);
+  $('adm-upload').addEventListener('click', () => $('adm-file-input').click());
+  $('adm-file-input').addEventListener('change', async () => {
+    const f = $('adm-file-input').files[0]; if(!f) return;
+    try {
+      const path = `clients/${uid}/uploads/${Date.now()}__${f.name.replace(/[^\w.\- ]+/g,'_')}`;
+      await storage.ref(path).put(f, { contentType: f.type||'application/octet-stream',
+        customMetadata:{ uploadedBy: auth.currentUser.email||'firm', originalName: f.name }});
+      $('adm-file-input').value=''; flash('adm-file-saved'); listAdminFiles(uid);
+    } catch(e){ alert('Upload failed (is Storage enabled?): '+e.message); }
+  });
+}
+async function listAdminFiles(uid){
+  const box = $('adm-files'); if(!box) return;
+  try {
+    const res = await storage.ref(`clients/${uid}/uploads`).listAll();
+    if(!res.items.length){ box.innerHTML='<div class="muted">No files.</div>'; return; }
+    const rows = await Promise.all(res.items.sort((a,b)=>a.name<b.name?1:-1).map(async it=>{
+      let url='#',meta={}; try{url=await it.getDownloadURL();}catch(e){} try{meta=await it.getMetadata();}catch(e){}
+      const nm=(meta.customMetadata&&meta.customMetadata.originalName)||it.name.replace(/^\d+__/,'');
+      const by=meta.customMetadata&&meta.customMetadata.uploadedBy;
+      return `<div class="filerow"><div><div style="font-weight:600;font-size:14px;">${esc(nm)}</div><div class="muted">${by?esc(by):''}</div></div>
+        <a class="btn ghost sm" href="${url}" target="_blank" rel="noopener">Download</a></div>`;
+    }));
+    box.innerHTML = rows.join('');
+  } catch(e){ box.innerHTML = '<div class="muted">Could not load files (Storage may not be enabled yet).</div>'; }
+}
+
+function flash(id){ const el=$(id); if(!el) return; el.classList.remove('hide'); setTimeout(()=>el.classList.add('hide'),2000); }
+</script>
+</body>
+</html>

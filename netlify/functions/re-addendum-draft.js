@@ -15,6 +15,7 @@ RULES:
 - Keep each provision to one focused idea; number them. Use defined terms ("Buyer", "Seller", "Contract", "Property").
 - Do NOT invent facts the user did not give — where a detail is missing, insert a bracketed blank like [AMOUNT] or [DEADLINE].
 - This is an attorney-review DRAFT; never imply it is final.
+- Draft the SUBSTANTIVE provisions only. The builder wraps your output in a deterministic incorporation preamble (contract type, date, parties, property) and signature blocks built from the exact form fields, so do NOT restate party names, the property, or the contract-incorporation recital inside the provisions.
 
 OUTPUT: Return ONLY valid JSON, no markdown, in exactly this shape:
 {"title":"Short Addendum Title","purpose":"One-sentence purpose statement.","provisions":["1. ...","2. ...","3. ..."]}

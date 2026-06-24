@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>My Documents — Truestead Law</title>
+  <title>Client Portal — Truestead Law</title>
   <meta name="robots" content="noindex,nofollow">
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png?v=2">
   <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png?v=2">
@@ -395,6 +395,124 @@
     }
     .attorney-box p { font-size: 14px; opacity: 0.85; margin-top: 4px; }
     .attorney-box strong { font-size: 16px; }
+
+    /* Secure file vault */
+    .vault-section { margin-top: 36px; }
+    .vault-head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; flex-wrap: wrap; margin-bottom: 8px;
+    }
+    .vault-section h2 {
+      font-family: 'EB Garamond', serif;
+      font-size: 22px; font-weight: 600; color: var(--navy);
+    }
+    .vault-sub { font-size: 13px; color: var(--gray500); margin-bottom: 16px; }
+    .vault-drop {
+      border: 2px dashed var(--gray300);
+      border-radius: 12px;
+      padding: 28px 20px;
+      text-align: center;
+      color: var(--gray500);
+      font-size: 14px;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      background: var(--white);
+    }
+    .vault-drop:hover, .vault-drop.dragover {
+      border-color: var(--navy); background: var(--cream); color: var(--navy);
+    }
+    .vault-drop strong { color: var(--navy); }
+    .vault-progress {
+      height: 6px; border-radius: 3px; background: var(--gray100);
+      overflow: hidden; margin-top: 14px; display: none;
+    }
+    .vault-progress.active { display: block; }
+    .vault-progress > div {
+      height: 100%; width: 0; background: var(--navy); transition: width 0.2s;
+    }
+    .vault-list { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+    .vault-empty { font-size: 14px; color: var(--gray500); padding: 8px 2px; }
+    .vault-by { font-size: 11px; color: var(--gray500); margin-top: 2px; }
+    .btn-doc.del { background: var(--red-bg, #fbeaea); color: #c0392b; }
+    .btn-doc.del:hover { filter: brightness(0.96); }
+
+    /* ── Tabs ─────────────────────────────────────────────────────── */
+    .portal-tabs {
+      display: flex; gap: 4px; flex-wrap: wrap;
+      border-bottom: 2px solid var(--gray100);
+      margin: 8px 0 28px;
+    }
+    .tab-btn {
+      background: none; border: none; font-family: inherit;
+      font-size: 15px; font-weight: 600; color: var(--gray500);
+      padding: 12px 18px; cursor: pointer; position: relative;
+      border-bottom: 3px solid transparent; margin-bottom: -2px;
+      transition: color 0.15s, border-color 0.15s; display: flex; align-items: center; gap: 8px;
+    }
+    .tab-btn:hover { color: var(--navy); }
+    .tab-btn.active { color: var(--navy); border-bottom-color: var(--gold, #b8952a); }
+    .tab-badge {
+      background: #c0392b; color: #fff; font-size: 11px; font-weight: 700;
+      border-radius: 10px; min-width: 18px; height: 18px; padding: 0 5px;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .tab-panel { display: none; animation: fadeIn 0.18s ease; }
+    .tab-panel.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+    /* ── Case status stepper ──────────────────────────────────────── */
+    .case-status-card {
+      background: var(--white); border: 1.5px solid var(--gray100);
+      border-radius: 12px; padding: 24px 28px; margin-bottom: 24px;
+    }
+    .cs-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 22px; flex-wrap: wrap; }
+    .cs-head h2 { font-family: 'EB Garamond', serif; font-size: 22px; font-weight: 600; color: var(--navy); }
+    .cs-practice {
+      font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--navy); background: var(--cream); border-radius: 20px; padding: 5px 14px;
+    }
+    .cs-stepper { display: flex; align-items: flex-start; gap: 0; overflow-x: auto; padding-bottom: 4px; }
+    .cs-step { display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 84px; position: relative; }
+    .cs-step:not(:last-child)::after {
+      content: ''; position: absolute; top: 13px; left: 50%; width: 100%; height: 3px;
+      background: var(--gray100); z-index: 0;
+    }
+    .cs-step.done:not(:last-child)::after { background: var(--gold, #b8952a); }
+    .cs-dot {
+      width: 28px; height: 28px; border-radius: 50%; background: var(--gray100);
+      color: var(--gray500); display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; z-index: 1; border: 2px solid var(--gray100);
+    }
+    .cs-step.done .cs-dot { background: var(--gold, #b8952a); color: #fff; border-color: var(--gold, #b8952a); }
+    .cs-step.current .cs-dot { background: var(--navy); color: #fff; border-color: var(--navy); }
+    .cs-label { font-size: 12px; color: var(--gray500); margin-top: 8px; text-align: center; line-height: 1.3; }
+    .cs-step.current .cs-label, .cs-step.done .cs-label { color: var(--gray900); font-weight: 600; }
+    .cs-note { margin-top: 18px; padding: 14px 16px; background: var(--cream); border-radius: 8px; font-size: 14px; color: var(--gray900); }
+    .cs-updated { margin-top: 12px; font-size: 12px; color: var(--gray500); }
+
+    /* ── Messages ─────────────────────────────────────────────────── */
+    .msg-thread {
+      flex: 1; min-height: 280px; max-height: 460px; overflow-y: auto;
+      border: 1.5px solid var(--gray100); border-radius: 12px;
+      padding: 18px; display: flex; flex-direction: column; gap: 12px; background: var(--white);
+    }
+    .msg-bubble { max-width: 78%; padding: 11px 15px; border-radius: 14px; font-size: 14px; line-height: 1.45; }
+    .msg-bubble .msg-meta { font-size: 11px; opacity: 0.7; margin-top: 5px; }
+    .msg-bubble.client { align-self: flex-end; background: var(--navy); color: #fff; border-bottom-right-radius: 4px; }
+    .msg-bubble.firm { align-self: flex-start; background: var(--cream); color: var(--gray900); border-bottom-left-radius: 4px; }
+    .msg-compose { display: flex; gap: 10px; margin-top: 14px; align-items: flex-end; }
+    .msg-compose textarea {
+      flex: 1; resize: vertical; font-family: inherit; font-size: 14px;
+      padding: 11px 14px; border: 1.5px solid var(--gray300); border-radius: 10px;
+    }
+    .msg-compose textarea:focus { outline: none; border-color: var(--navy); }
+
+    /* ── Retainer ─────────────────────────────────────────────────── */
+    .retainer-box { display: flex; align-items: center; gap: 16px; background: var(--white); border: 1.5px solid var(--gray100); border-radius: 12px; padding: 22px 24px; flex-wrap: wrap; }
+    .retainer-box .doc-icon { width: 48px; height: 48px; font-size: 22px; }
+    .retainer-status { font-size: 13px; font-weight: 700; padding: 4px 12px; border-radius: 20px; }
+    .retainer-status.signed { background: var(--green-bg, #e7f4ec); color: #1e7d4f; }
+    .retainer-status.sent { background: var(--orange-bg, #fdf0d8); color: #9a6a00; }
     .btn-call {
       background: var(--gold);
       color: var(--navy);
@@ -485,8 +603,8 @@ if(!window._fbqInit){window._fbqInit=true;fbq('init','2087253962178307');fbq('tr
 
   <!-- Auth -->
   <div id="auth-section" style="display:none;">
-    <h1>Access Your Documents</h1>
-    <p class="subtitle">Sign in with the email address you used when you placed your order.</p>
+    <h1>Truestead Law Client Portal</h1>
+    <p class="subtitle">Sign in with the email address Truestead Law has on file for you.</p>
     <div class="form-group">
       <label for="email-input">Email Address</label>
       <input type="email" id="email-input" placeholder="you@example.com" autocomplete="email">
@@ -498,8 +616,8 @@ if(!window._fbqInit){window._fbqInit=true;fbq('init','2087253962178307');fbq('tr
     <button class="btn-primary" id="sign-in-btn">Sign In</button>
     <p id="auth-error"></p>
     <p class="auth-help" style="margin-top:16px;">
-      First time? Check your confirmation email for a link to set your password.<br>
-      Need help? <a href="tel:+18778676077">(877) 867-6077</a>
+      Use the same email and password you created when you got started.<br>
+      Forgot your password? <a href="#" id="reset-pw-link">Reset it here</a> · Need help? <a href="tel:+18778676077">(877) 867-6077</a>
     </p>
   </div>
 
@@ -511,36 +629,105 @@ if(!window._fbqInit){window._fbqInit=true;fbq('init','2087253962178307');fbq('tr
       <p id="greeting-sub"></p>
     </div>
 
-    <div id="status-banner-container"></div>
+    <nav class="portal-tabs" id="portal-tabs">
+      <button class="tab-btn active" data-tab="overview">Overview</button>
+      <button class="tab-btn" data-tab="documents">My Documents</button>
+      <button class="tab-btn" data-tab="files">Secure Files</button>
+      <button class="tab-btn" data-tab="retainer">Retainer</button>
+      <button class="tab-btn" data-tab="messages">Messages<span class="tab-badge" id="msg-badge" style="display:none;">0</span></button>
+    </nav>
 
-    <div class="plan-card" id="plan-summary-card" style="display:none;">
-      <h2>Your Plan Summary</h2>
-      <div class="plan-meta" id="plan-meta-grid"></div>
-    </div>
+    <!-- ── Overview tab ─────────────────────────────────────────────── -->
+    <section class="tab-panel active" id="panel-overview">
 
-    <div class="docs-section">
-      <h2>Your Documents</h2>
-      <div class="doc-list" id="doc-list"></div>
-    </div>
+      <div id="status-banner-container"></div>
 
-    <div class="portal-actions" id="portal-actions" style="display:none;">
-      <button class="btn-primary" id="download-all-pdf-btn">⬇ Download All as PDF</button>
-      <button class="btn-secondary" id="print-all-btn">🖨 Print All Documents</button>
-    </div>
-
-    <div class="attorney-box">
-      <div style="flex:1;">
-        <strong>Ready to sign? Schedule your appointment.</strong>
-        <p>A Truestead Estate Planning Advisor will witness and notarize your documents. Choose how you'd like to sign — from anywhere via secure video, or in person at our Ormond Beach office.</p>
+      <div class="case-status-card" id="case-status-card" style="display:none;">
+        <div class="cs-head">
+          <h2>Case Status</h2>
+          <span class="cs-practice" id="cs-practice"></span>
+        </div>
+        <div class="cs-stepper" id="cs-stepper"></div>
+        <p class="cs-note" id="cs-note" style="display:none;"></p>
+        <p class="cs-updated" id="cs-updated"></p>
       </div>
-      <div style="display:flex;flex-direction:column;gap:10px;flex-shrink:0;">
-        <a class="btn-call"
-           href="/signing"
-           rel="noopener">
-          📅 Schedule Signing
-        </a>
+
+      <div class="plan-card" id="plan-summary-card" style="display:none;">
+        <h2>Your Plan Summary</h2>
+        <div class="plan-meta" id="plan-meta-grid"></div>
       </div>
-    </div>
+
+      <div class="attorney-box">
+        <div style="flex:1;">
+          <strong>Questions about your matter?</strong>
+          <p>Your Truestead Law team is here to help. Call us, or send a secure message from the Messages tab.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;flex-shrink:0;">
+          <a class="btn-call" href="tel:+18778676077" rel="noopener">📞 (877) 867-6077</a>
+          <a class="btn-call" id="signing-cta" href="/signing" rel="noopener" style="display:none;background:var(--white);">📅 Schedule Signing</a>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ── Documents tab ────────────────────────────────────────────── -->
+    <section class="tab-panel" id="panel-documents">
+      <div class="docs-section">
+        <h2>Your Documents</h2>
+        <p class="vault-sub">Documents Truestead Law has prepared for you.</p>
+        <div class="doc-list" id="doc-list"></div>
+      </div>
+
+      <div class="portal-actions" id="portal-actions" style="display:none;">
+        <button class="btn-primary" id="download-all-pdf-btn">⬇ Download All as PDF</button>
+        <button class="btn-secondary" id="print-all-btn">🖨 Print All Documents</button>
+      </div>
+    </section>
+
+    <!-- ── Secure Files tab ─────────────────────────────────────────── -->
+    <section class="tab-panel" id="panel-files">
+      <div class="vault-section" id="vault-section">
+        <div class="vault-head">
+          <h2>Your Secure Files</h2>
+        </div>
+        <p class="vault-sub">Upload documents for your attorney — IDs, deeds, prior wills, statements, accident photos, anything related to your matter. Only you and Truestead Law can see these files. (PDF, Word, images or text · 25&nbsp;MB max)</p>
+
+        <div class="vault-drop" id="vault-drop">
+          <strong>Click to choose a file</strong> or drag &amp; drop it here
+        </div>
+        <input type="file" id="vault-input" style="display:none;"
+               accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.heic,.webp,.tif,.tiff" multiple>
+        <div class="vault-progress" id="vault-progress"><div></div></div>
+
+        <div class="vault-list" id="vault-list"></div>
+      </div>
+    </section>
+
+    <!-- ── Retainer tab ─────────────────────────────────────────────── -->
+    <section class="tab-panel" id="panel-retainer">
+      <div class="docs-section">
+        <h2>Retainer Agreement</h2>
+        <p class="vault-sub">Your engagement agreement with Truestead Law. Review and sign securely.</p>
+        <div id="retainer-content">
+          <div class="vault-empty">Loading…</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Messages tab ─────────────────────────────────────────────── -->
+    <section class="tab-panel" id="panel-messages">
+      <div class="docs-section" style="display:flex;flex-direction:column;height:100%;">
+        <h2>Messages</h2>
+        <p class="vault-sub">A private, secure channel between you and your Truestead Law team.</p>
+        <div class="msg-thread" id="msg-thread">
+          <div class="vault-empty">Loading messages…</div>
+        </div>
+        <div class="msg-compose">
+          <textarea id="msg-input" rows="2" placeholder="Type a message to your attorney…"></textarea>
+          <button class="btn-primary" id="msg-send-btn">Send</button>
+        </div>
+      </div>
+    </section>
 
   </div>
 
@@ -550,6 +737,7 @@ if(!window._fbqInit){window._fbqInit=true;fbq('init','2087253962178307');fbq('tr
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
 
 <!-- Document generation library -->
 <script src="/js/documents.js"></script>
@@ -564,13 +752,14 @@ const firebaseConfig = {
   apiKey:            "AIzaSyDu2Fs6akMU2wvfyTTvPXVahQIO2z8o3ek",
   authDomain:        "cornerstone-wealth-and-legacy.firebaseapp.com",
   projectId:         "cornerstone-wealth-and-legacy",
-  storageBucket:     "cornerstone-wealth-and-legacy.appspot.com",
+  storageBucket:     "cornerstone-wealth-and-legacy.firebasestorage.app",
   messagingSenderId: "YOUR_SENDER_ID",
   appId:             "YOUR_APP_ID"
 };
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db   = firebase.firestore();
+const storage = firebase.storage();
 
 // ── DOM refs ─────────────────────────────────────────────────────────
 const loadingScreen   = document.getElementById('loading-screen');
@@ -651,6 +840,26 @@ function friendlyAuthError(code) {
   }
 }
 
+// ── Password reset ────────────────────────────────────────────────────
+const resetPwLink = document.getElementById('reset-pw-link');
+if (resetPwLink) {
+  resetPwLink.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const email = emailInput.value.trim();
+    if (!email) {
+      showAuthError('Enter your email address above, then click "Reset it here".');
+      return;
+    }
+    try {
+      await auth.sendPasswordResetEmail(email);
+      authError.style.display = 'none';
+      alert('Password reset link sent. Check your email (including spam) for a link to set a new password.');
+    } catch (err) {
+      showAuthError(friendlyAuthError(err.code));
+    }
+  });
+}
+
 // ── Sign out ──────────────────────────────────────────────────────────
 signOutBtn.addEventListener('click', () => auth.signOut());
 
@@ -677,6 +886,14 @@ async function showPortal(user) {
   const acctAvatar = document.getElementById('account-avatar');
   if (acctWrap) acctWrap.style.display = 'block';
   if (acctAvatar) acctAvatar.textContent = (user.displayName || user.email || 'U')[0].toUpperCase();
+
+  // Secure file vault — available to every signed-in client, regardless of
+  // whether they have an estate plan on file.
+  initTabs();
+  initFileVault(user);
+  loadCaseStatus(user);
+  initMessages(user);
+  loadRetainer(user);
 
   // Load client plan from Firestore
   // start.html saves to 'sessions' collection using user.uid as the document ID.
@@ -742,6 +959,324 @@ async function showPortal(user) {
   renderStatusBanner(planData);
   renderPlanSummary(planData);
   renderDocuments(planData);
+
+  // Estate-plan clients get the schedule-signing CTA.
+  const signingCta = document.getElementById('signing-cta');
+  if (signingCta) signingCta.style.display = 'inline-block';
+}
+
+// ── Secure file vault ───────────────────────────────────────────────────
+// Files are stored at  clients/{uid}/uploads/{timestamp}__{filename}  and are
+// readable only by the client and firm staff (see storage.rules).
+const STAFF_EMAILS = ['arthur@truesteadlaw.com', 'simp70@gmail.com'];
+let vaultInited = false;
+
+function initFileVault(user) {
+  const dropZone = document.getElementById('vault-drop');
+  const fileInput = document.getElementById('vault-input');
+  if (!dropZone || !fileInput) return;
+
+  if (!vaultInited) {
+    vaultInited = true;
+    dropZone.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files.length) uploadFiles(user, fileInput.files);
+      fileInput.value = '';
+    });
+    dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+    dropZone.addEventListener('drop', e => {
+      e.preventDefault();
+      dropZone.classList.remove('dragover');
+      if (e.dataTransfer.files.length) uploadFiles(user, e.dataTransfer.files);
+    });
+  }
+
+  loadVaultFiles(user);
+}
+
+const MAX_UPLOAD = 25 * 1024 * 1024;
+
+async function uploadFiles(user, fileList) {
+  const files = Array.from(fileList);
+  const tooBig = files.find(f => f.size > MAX_UPLOAD);
+  if (tooBig) {
+    alert(`"${tooBig.name}" is larger than the 25 MB limit. Please upload a smaller file.`);
+    return;
+  }
+
+  const bar = document.getElementById('vault-progress');
+  const barFill = bar.querySelector('div');
+  bar.classList.add('active');
+
+  for (const file of files) {
+    // Prefix with timestamp to avoid name collisions; keep original name readable.
+    const safeName = file.name.replace(/[^\w.\- ]+/g, '_');
+    const path = `clients/${user.uid}/uploads/${Date.now()}__${safeName}`;
+    const ref = storage.ref(path);
+    try {
+      await new Promise((resolve, reject) => {
+        const task = ref.put(file, {
+          contentType: file.type || 'application/octet-stream',
+          customMetadata: { uploadedBy: user.email || user.uid, originalName: file.name }
+        });
+        task.on('state_changed',
+          snap => { barFill.style.width = Math.round((snap.bytesTransferred / snap.totalBytes) * 100) + '%'; },
+          reject,
+          resolve
+        );
+      });
+    } catch (err) {
+      console.error('Upload failed:', err);
+      alert(`Upload of "${file.name}" failed. Please try again or call (877) 867-6077.`);
+    }
+    barFill.style.width = '0%';
+  }
+
+  bar.classList.remove('active');
+  loadVaultFiles(user);
+}
+
+async function loadVaultFiles(user) {
+  const list = document.getElementById('vault-list');
+  if (!list) return;
+  list.innerHTML = '<div class="vault-empty">Loading your files…</div>';
+  try {
+    const res = await storage.ref(`clients/${user.uid}/uploads`).listAll();
+    if (!res.items.length) {
+      list.innerHTML = '<div class="vault-empty">No files uploaded yet.</div>';
+      return;
+    }
+    // Newest first (filenames are timestamp-prefixed).
+    const items = res.items.sort((a, b) => (a.name < b.name ? 1 : -1));
+    const rows = await Promise.all(items.map(async (item) => {
+      let url = '#', meta = {};
+      try { url = await item.getDownloadURL(); } catch (e) {}
+      try { meta = await item.getMetadata(); } catch (e) {}
+      const display = (meta.customMetadata && meta.customMetadata.originalName) ||
+                      item.name.replace(/^\d+__/, '');
+      const by = meta.customMetadata && meta.customMetadata.uploadedBy;
+      const fromFirm = by && STAFF_EMAILS.includes(by);
+      const size = meta.size ? formatBytes(meta.size) : '';
+      return `
+        <div class="doc-item">
+          <div class="doc-item-left">
+            <div class="doc-icon">${fromFirm ? '📨' : '📄'}</div>
+            <div>
+              <div class="doc-name">${escapeHtml(display)}</div>
+              <div class="doc-desc">${size}${size && fromFirm ? ' · ' : ''}${fromFirm ? 'Shared by Truestead Law' : ''}</div>
+            </div>
+          </div>
+          <div class="doc-actions">
+            <a class="btn-doc view" href="${url}" target="_blank" rel="noopener">Download</a>
+            <button class="btn-doc del" onclick="deleteVaultFile('${item.fullPath.replace(/'/g, "\\'")}')">Remove</button>
+          </div>
+        </div>`;
+    }));
+    list.innerHTML = rows.join('');
+  } catch (err) {
+    console.error('Vault list error:', err);
+    list.innerHTML = '<div class="vault-empty">Could not load your files. Please refresh or call (877) 867-6077.</div>';
+  }
+}
+
+async function deleteVaultFile(fullPath) {
+  if (!confirm('Remove this file? This cannot be undone.')) return;
+  try {
+    await storage.ref(fullPath).delete();
+  } catch (err) {
+    console.error('Delete failed:', err);
+    alert('Could not remove that file. Please try again.');
+  }
+  if (auth.currentUser) loadVaultFiles(auth.currentUser);
+}
+
+function formatBytes(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(0) + ' KB';
+  return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+// ── Tabs ────────────────────────────────────────────────────────────────
+let tabsInited = false;
+function initTabs() {
+  if (tabsInited) return;
+  tabsInited = true;
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+  });
+}
+function switchTab(name) {
+  document.querySelectorAll('.tab-btn').forEach(b =>
+    b.classList.toggle('active', b.dataset.tab === name));
+  document.querySelectorAll('.tab-panel').forEach(p =>
+    p.classList.toggle('active', p.id === 'panel-' + name));
+  if (name === 'messages') markMessagesSeen();
+}
+
+// ── Case status ─────────────────────────────────────────────────────────
+// Staff sets a doc at  matters/{uid} = { practice, stageIndex, note, updatedAt }.
+const STAGE_SETS = {
+  PI:     ['Signed Up', 'Investigation', 'Treatment', 'Demand', 'Negotiation', 'Settlement'],
+  RE:     ['Engaged', 'Under Contract', 'Title & Review', 'Closing Prep', 'Closed'],
+  Estate: ['Questionnaire', 'Drafting', 'Attorney Review', 'Signing', 'Complete'],
+  Elder:  ['Consultation', 'Plan Design', 'Application', 'Approval', 'Ongoing'],
+};
+const PRACTICE_LABELS = { PI: 'Personal Injury', RE: 'Real Estate', Estate: 'Estate Planning', Elder: 'Elder Law' };
+
+async function loadCaseStatus(user) {
+  const card = document.getElementById('case-status-card');
+  if (!card) return;
+  let m = null;
+  try {
+    const snap = await db.collection('matters').doc(user.uid).get();
+    if (snap.exists) m = snap.data();
+  } catch (err) { console.error('Case status load error:', err); }
+  if (!m || !m.practice) { card.style.display = 'none'; return; }
+
+  const stages = STAGE_SETS[m.practice] || STAGE_SETS.Estate;
+  const idx = Math.max(0, Math.min(Number(m.stageIndex) || 0, stages.length - 1));
+  document.getElementById('cs-practice').textContent = PRACTICE_LABELS[m.practice] || m.practice;
+  document.getElementById('cs-stepper').innerHTML = stages.map((label, i) => {
+    const cls = i < idx ? 'done' : (i === idx ? 'current' : '');
+    const inner = i < idx ? '✓' : (i + 1);
+    return `<div class="cs-step ${cls}"><div class="cs-dot">${inner}</div><div class="cs-label">${escapeHtml(label)}</div></div>`;
+  }).join('');
+
+  const noteEl = document.getElementById('cs-note');
+  if (m.note) { noteEl.textContent = m.note; noteEl.style.display = 'block'; }
+  else { noteEl.style.display = 'none'; }
+
+  const upd = document.getElementById('cs-updated');
+  upd.textContent = m.updatedAt && m.updatedAt.toDate
+    ? 'Last updated ' + m.updatedAt.toDate().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+    : '';
+  card.style.display = 'block';
+}
+
+// ── Secure messaging ────────────────────────────────────────────────────
+// Thread at  attyMessages/{uid}/messages/{id} = { from:'client'|'firm', text, createdAt, senderEmail }
+let msgUnsub = null;
+let latestMsgTime = 0;
+
+function initMessages(user) {
+  const sendBtn = document.getElementById('msg-send-btn');
+  const input   = document.getElementById('msg-input');
+  if (sendBtn) sendBtn.addEventListener('click', () => sendMessage(user));
+  if (input) input.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); sendMessage(user); }
+  });
+
+  if (msgUnsub) msgUnsub();
+  const thread = document.getElementById('msg-thread');
+  msgUnsub = db.collection('attyMessages').doc(user.uid).collection('messages')
+    .orderBy('createdAt', 'asc')
+    .onSnapshot(snap => {
+      if (snap.empty) {
+        thread.innerHTML = '<div class="vault-empty">No messages yet. Send the first one below — your attorney will be notified.</div>';
+        return;
+      }
+      let firmCount = 0;
+      thread.innerHTML = snap.docs.map(doc => {
+        const m = doc.data();
+        const mine = m.from === 'client';
+        const when = m.createdAt && m.createdAt.toDate
+          ? m.createdAt.toDate().toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })
+          : 'Sending…';
+        if (!mine && m.createdAt && m.createdAt.toDate) {
+          const t = m.createdAt.toDate().getTime();
+          if (t > latestMsgTime) latestMsgTime = t;
+          if (t > lastSeenTime(user)) firmCount++;
+        }
+        return `<div class="msg-bubble ${mine ? 'client' : 'firm'}">${escapeHtml(m.text)}<div class="msg-meta">${mine ? 'You' : 'Truestead Law'} · ${when}</div></div>`;
+      }).join('');
+      thread.scrollTop = thread.scrollHeight;
+      updateMsgBadge(firmCount);
+    }, err => {
+      console.error('Messages listen error:', err);
+      thread.innerHTML = '<div class="vault-empty">Could not load messages. Please refresh.</div>';
+    });
+}
+
+async function sendMessage(user) {
+  const input = document.getElementById('msg-input');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  try {
+    await db.collection('attyMessages').doc(user.uid).collection('messages').add({
+      from: 'client',
+      text,
+      senderEmail: user.email || '',
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+  } catch (err) {
+    console.error('Send message error:', err);
+    input.value = text;
+    alert('Message could not be sent. Please try again.');
+  }
+}
+
+function lastSeenTime(user) {
+  return Number(localStorage.getItem('tl_msgseen_' + user.uid) || 0);
+}
+function markMessagesSeen() {
+  const u = auth.currentUser;
+  if (u && latestMsgTime) localStorage.setItem('tl_msgseen_' + u.uid, String(latestMsgTime));
+  updateMsgBadge(0);
+}
+function updateMsgBadge(count) {
+  const badge = document.getElementById('msg-badge');
+  if (!badge) return;
+  if (count > 0) { badge.textContent = count; badge.style.display = 'inline-flex'; }
+  else { badge.style.display = 'none'; }
+}
+
+// ── Retainer ────────────────────────────────────────────────────────────
+// Doc at  retainers/{uid} = { status:'sent'|'signed', signUrl, pdfUrl, signedAt, sentAt }
+// A DocuSign Connect webhook (netlify/functions/docusign-webhook.js) flips it to 'signed'.
+async function loadRetainer(user) {
+  const box = document.getElementById('retainer-content');
+  if (!box) return;
+  let r = null;
+  try {
+    const snap = await db.collection('retainers').doc(user.uid).get();
+    if (snap.exists) r = snap.data();
+  } catch (err) { console.error('Retainer load error:', err); }
+
+  if (!r || !r.status) {
+    box.innerHTML = '<div class="vault-empty">No retainer agreement yet. When your attorney prepares your engagement agreement, it will appear here for you to review and sign.</div>';
+    return;
+  }
+  if (r.status === 'signed') {
+    const when = r.signedAt && r.signedAt.toDate ? r.signedAt.toDate().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : '';
+    box.innerHTML = `
+      <div class="retainer-box">
+        <div class="doc-icon">📜</div>
+        <div style="flex:1;">
+          <div class="doc-name">Retainer Agreement — Truestead Law</div>
+          <div class="doc-desc">Signed${when ? ' on ' + when : ''}</div>
+        </div>
+        <span class="retainer-status signed">✓ Signed</span>
+        ${r.pdfUrl ? `<a class="btn-doc view" href="${r.pdfUrl}" target="_blank" rel="noopener">Download</a>` : ''}
+      </div>`;
+  } else {
+    box.innerHTML = `
+      <div class="retainer-box">
+        <div class="doc-icon">✍️</div>
+        <div style="flex:1;">
+          <div class="doc-name">Retainer Agreement — ready for your signature</div>
+          <div class="doc-desc">Please review and sign to formally begin your engagement.</div>
+        </div>
+        <span class="retainer-status sent">Action needed</span>
+        ${r.signUrl ? `<a class="btn-doc pdf" href="${r.signUrl}" target="_blank" rel="noopener">Review &amp; Sign</a>` : '<span class="doc-desc">Check your email from DocuSign for the secure signing link.</span>'}
+      </div>`;
+  }
 }
 
 function renderGreeting(d) {
