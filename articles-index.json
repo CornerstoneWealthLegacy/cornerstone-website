@@ -1,6 +1,17 @@
 {
   "articles": [
     {
+      "slug": "articles/real-estate-2026-06-24",
+      "file": "articles/real-estate-2026-06-24.html",
+      "title": "Florida Deeds Explained: Quitclaim, Warranty & Lady Bird",
+      "tag": "Real Estate",
+      "category": "Real Estate & Property",
+      "blurb": "A Florida attorney breaks down warranty, quitclaim, and lady bird deeds — what each protects and how they affect homestead and probate.",
+      "image": null,
+      "date": "2026-06-24",
+      "prettyDate": "June 24, 2026"
+    },
+    {
       "slug": "articles/probate-2026-06-23",
       "file": "articles/probate-2026-06-23.html",
       "title": "Florida Probate Explained: Summary vs. Formal Administration",
