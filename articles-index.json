@@ -1,6 +1,17 @@
 {
   "articles": [
     {
+      "slug": "articles/florida-law-update-2026-06-25",
+      "file": "articles/florida-law-update-2026-06-25.html",
+      "title": "Florida Estate & Property Law: Your 2026 Framework Guide",
+      "tag": "Estate Planning",
+      "category": "Florida Legal & Legislative",
+      "blurb": "Know the durable Florida framework—probate code, Trust Code, and homestead—behind every reported estate and property law change, and how to verify real updates.",
+      "image": null,
+      "date": "2026-06-25",
+      "prettyDate": "June 25, 2026"
+    },
+    {
       "slug": "articles/real-estate-2026-06-24",
       "file": "articles/real-estate-2026-06-24.html",
       "title": "Florida Deeds Explained: Quitclaim, Warranty & Lady Bird",
