@@ -65,7 +65,7 @@ Then write a tight research brief (400–700 words) capturing: the key facts a F
   console.log(`\n🔍  Researching "${topic.category}" via Claude web search...`);
   for (let i = 0; i < 6; i++) {
     const msg = await anthropic.messages.create({
-      model: 'claude-opus-4-8',
+      model: 'claude-sonnet-4-6',
       max_tokens: 4096,
       tools: [{ type: 'web_search_20260209', name: 'web_search', max_uses: 5 }],
       messages,
@@ -141,9 +141,9 @@ Return ONLY raw JSON (no markdown fences) with exactly these fields:
 
 Provide 3–6 sections and 4–6 faqs. Do not fabricate statute numbers, dollar amounts, or dates — if unsure, describe the rule in words.`;
 
-  console.log('\n✍️   Writing the article with Claude (Opus)...');
+  console.log('\n✍️   Writing the article with Claude (Sonnet)...');
   const msg = await anthropic.messages.create({
-    model: 'claude-opus-4-8',
+    model: 'claude-sonnet-4-6',
     max_tokens: 4096,
     system: ARTHUR_SYSTEM,
     messages: [{ role: 'user', content: prompt }],
