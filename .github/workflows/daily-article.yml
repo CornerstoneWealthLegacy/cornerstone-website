@@ -19,7 +19,11 @@ name: Daily article
 
 on:
   schedule:
-    - cron: "0 11 * * *"   # 11:00 UTC daily ≈ 6-7am Florida
+    # GitHub cron is UTC-only and DST-blind, so we fire at BOTH offsets and let
+    # the `gate` job below run the real work only when it's actually 06:00 in
+    # America/New_York. Net effect: exactly one publish at 6 AM Eastern, year-round.
+    - cron: "0 10 * * *"   # 06:00 ET during EDT (summer, UTC-4)
+    - cron: "0 11 * * *"   # 06:00 ET during EST (winter, UTC-5)
   workflow_dispatch:
     inputs:
       topic:
@@ -31,7 +35,32 @@ permissions:
   contents: write
 
 jobs:
+  # Only let the real job run when it's 06:00 in America/New_York (DST-aware),
+  # or whenever the workflow is triggered manually.
+  gate:
+    runs-on: ubuntu-latest
+    outputs:
+      proceed: ${{ steps.check.outputs.proceed }}
+    steps:
+      - id: check
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "Manual run — proceeding."
+            echo "proceed=true" >> "$GITHUB_OUTPUT"
+          else
+            H=$(TZ=America/New_York date +%H)
+            echo "Current Eastern hour: $H"
+            if [ "$H" = "06" ]; then
+              echo "proceed=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "Not 06 ET — skipping this scheduled run."
+              echo "proceed=false" >> "$GITHUB_OUTPUT"
+            fi
+          fi
+
   publish:
+    needs: gate
+    if: needs.gate.outputs.proceed == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
