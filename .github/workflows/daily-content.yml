@@ -10,9 +10,13 @@ name: Daily content engine
 #   Then enable Actions on the repo. Adjust the cron below for your timezone.
 
 on:
-  schedule:
-    - cron: "0 11 * * *"   # 11:00 UTC daily ≈ 6-7am Florida. Change as you like.
-  workflow_dispatch:        # also run on-demand from the Actions tab
+  # DAILY SCHEDULE DISABLED (2026-06-28) to stop ~216 Opus script generations/day
+  # that were driving the Anthropic bill. Run on-demand from the Actions tab when
+  # you actually need scripts. To re-enable daily generation, uncomment below —
+  # and consider switching MODEL in tools/video-engine/generate.js to Haiku/Sonnet first.
+  # schedule:
+  #   - cron: "0 11 * * *"   # 11:00 UTC daily ≈ 6-7am Florida
+  workflow_dispatch:        # run on-demand from the Actions tab
     inputs:
       per:
         description: "Scripts per area per format"
