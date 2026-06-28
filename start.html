@@ -679,6 +679,17 @@ body.payment-confirmed .doc-wrap{user-select:auto;-webkit-user-select:auto}
 .dre-cta:hover{background:#b8891f;transform:translateY(-1px)}
 .dre-sub-link{font-size:.8rem;color:var(--muted);cursor:pointer;background:none;border:none;font-family:inherit;font-weight:600}
 .dre-sub-link:hover{color:var(--navy)}
+/* DIY disclaimer + upsell inside docsReady overlay */
+.dre-diy-disclaimer{text-align:left;background:#fffbeb;border:1.5px solid #f59e0b;border-radius:12px;padding:18px 20px;margin:20px 0 16px;font-size:.8rem;line-height:1.65;color:#78350f}
+.dre-diy-disclaimer strong{color:#92400e;display:block;margin-bottom:6px;font-size:.82rem}
+.dre-diy-upsell{text-align:left;background:#f0f9ff;border:1.5px solid #0ea5e9;border-radius:12px;padding:18px 20px;margin-bottom:20px;font-size:.8rem;line-height:1.65;color:#0c4a6e}
+.dre-diy-upsell strong{color:#075985;display:block;margin-bottom:6px;font-size:.82rem}
+.dre-diy-upsell a,.dre-diy-upsell-btn{display:inline-block;margin-top:10px;background:#0f2744;color:#fff;padding:10px 20px;border-radius:9px;font-weight:800;font-size:.8rem;text-decoration:none;letter-spacing:.3px;transition:background .15s}
+.dre-diy-upsell-btn:hover{background:#1a3a5c}
+/* Persistent DIY notice bar above document tabs */
+.diy-doc-notice{background:#fffbeb;border:1px solid #f59e0b;border-radius:10px;padding:13px 18px;margin-bottom:16px;font-size:.78rem;line-height:1.6;color:#92400e;display:flex;align-items:flex-start;gap:12px}
+.diy-doc-notice-icon{font-size:1.1rem;flex-shrink:0;margin-top:1px}
+.diy-doc-notice a{color:#0f2744;font-weight:700;text-decoration:underline}
 
 /* ── Floating Chat Button ── */
 #chatBtn{position:fixed;bottom:28px;right:28px;z-index:900;width:60px;height:60px;border-radius:50%;background:var(--gold);color:#fff;border:none;cursor:pointer;font-size:1.5rem;box-shadow:0 4px 24px rgba(196,154,42,.5);transition:all .2s;display:flex;align-items:center;justify-content:center}
@@ -1838,6 +1849,20 @@ function _launchQuickStart(docCategory, mode){
     <div class="dre-sub" id="dreSubText">Your complete estate planning package has been prepared. Review each document using the tabs below. Your attorney will finalize and execute these instruments.</div>
     <div class="dre-count" id="dreCount">📄 <span id="dreDocNum">20+</span> documents generated</div>
     <div id="dreHealthScore" style="width:100%;margin-bottom:16px"></div>
+    <div id="dreDiyDisclaimer" style="display:none">
+      <div class="dre-diy-disclaimer">
+        <strong>⚖️ About These Documents</strong>
+        These are complete, professionally drafted documents prepared to current Florida statutory standards — not blank templates. Every provision reflects your specific answers.<br><br>
+        <strong>Important:</strong> These documents have <u>not been reviewed by an attorney</u> and do not constitute legal advice. Generating them does not create an attorney-client relationship with Truestead Law, LLC.<br><br>
+        No document is legally valid until properly executed under Florida law — wills require two witnesses and a notary; trusts require a notary. Do not sign without proper execution formalities.
+      </div>
+      <div class="dre-diy-upsell">
+        <strong>📋 Want an attorney to review your plan before you sign?</strong>
+        Arthur Simpson, Esq. offers a Document Review Session for Florida Estate Kit clients — he'll go through your documents section by section, confirm everything fits your situation, flag anything that should change, and clear you to sign with confidence.
+        <br>
+        <a class="dre-diy-upsell-btn" href="https://calendly.com/truesteadlaw/estate-plan-attorney-review" target="_blank" rel="noopener">Book Attorney Review Session →</a>
+      </div>
+    </div>
     <button class="dre-cta" onclick="closeDreOverlay()">View My Documents →</button>
     <button class="dre-sub-link" onclick="showPaymentScreen()">Proceed to Payment</button>
   </div>
@@ -10449,7 +10474,12 @@ ${docOut.innerHTML}
 function docActionBtns(){
   const isAtty=window.appMode==='attorney';
   const isPaid=_isSessionPaid();
-  return `<div class="doc-actions">
+  const diyNotice = !isAtty ? `<div class="diy-doc-notice">
+    <span class="diy-doc-notice-icon">⚖️</span>
+    <span><strong>These documents have not been reviewed by an attorney.</strong> They are complete, professionally drafted documents prepared to Florida legal standards — but no attorney-client relationship has been created and these do not constitute legal advice. No document is legally valid until properly executed with required witnesses and/or notarization under Florida law.
+    &nbsp;<a href="https://calendly.com/truesteadlaw/estate-plan-attorney-review" target="_blank" rel="noopener">Book an Attorney Review Session →</a></span>
+  </div>` : '';
+  return diyNotice+`<div class="doc-actions">
     <button class="btn-print" onclick="printCurrentDoc()">🖨 Print Current Doc</button>
     <button class="btn-print" onclick="window.print()" style="background:#1a3a5c">🖨 Print All</button>
     ${isPaid||isAtty?`<button class="btn-print" onclick="downloadDocuments()" style="background:#0369a1" title="Download all documents as an HTML file — open in browser to print to PDF">📥 Download</button>`:''}
@@ -12892,10 +12922,27 @@ function showDocsReady(docCount, label){
   const el=document.getElementById('docsReady');
   if(!el)return;
   document.getElementById('dreDocNum').textContent=docCount||'20+';
-  document.getElementById('dreSubText').textContent=
-    `Your complete ${label||'estate planning'} package has been prepared — `+
-    `${docCount||'20+'} documents, fully customized to your situation. `+
-    `Review each document using the tabs below. Your attorney will finalize and execute these instruments at your signing appointment.`;
+
+  const isDiyClient = window.appMode !== 'attorney';
+  const subEl = document.getElementById('dreSubText');
+  if(subEl){
+    if(isDiyClient){
+      subEl.textContent =
+        `Your ${label||'estate planning'} documents are ready — `+
+        `${docCount||'20+'} complete, professionally drafted documents customized to your answers. `+
+        `Review each document using the tabs below.`;
+    } else {
+      subEl.textContent =
+        `Your complete ${label||'estate planning'} package has been prepared — `+
+        `${docCount||'20+'} documents, fully customized to your situation. `+
+        `Review each document using the tabs below. Arthur will finalize and execute these instruments at the signing appointment.`;
+    }
+  }
+
+  // Show DIY disclaimer + attorney review upsell for client-mode users
+  const diyDisc = document.getElementById('dreDiyDisclaimer');
+  if(diyDisc) diyDisc.style.display = isDiyClient ? 'block' : 'none';
+
   // Inject health score
   const hsEl=document.getElementById('dreHealthScore');
   if(hsEl)hsEl.innerHTML=calcHealthScore();
