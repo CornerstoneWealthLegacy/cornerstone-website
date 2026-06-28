@@ -257,6 +257,18 @@ p.dp{margin-bottom:15px;text-align:justify;font-size:.95rem;color:#26303d}
 .btn-ai-review.loading .ai-spin{display:block}
 .btn-ai-review.loading .ai-icon{display:none}
 @keyframes spin{to{transform:rotate(360deg)}}
+/* Placeholder highlight + format-check banner */
+mark.ph-flag{background:#fef3c7;color:#92400e;border-radius:3px;padding:1px 5px;font-weight:700;border:1px solid #f59e0b;cursor:help;font-style:normal}
+.fmt-check-banner{margin:0 0 20px;padding:14px 18px;border-radius:10px;font-size:.83rem;line-height:1.55;font-family:Georgia,serif;border-left:4px solid #f59e0b;background:#fffbeb}
+.fmt-check-banner.ok{border-left-color:#059669;background:#f0fdf4}
+.fmt-check-banner.error{border-left-color:#dc2626;background:#fef2f2}
+.fmt-check-banner details{margin-top:8px}
+.fmt-check-banner summary{cursor:pointer;font-weight:700;color:#92400e;font-size:.8rem;letter-spacing:.5px;text-transform:uppercase}
+.fmt-check-banner.ok summary{color:#065f46}
+.fmt-check-banner.error summary{color:#991b1b}
+.fmt-check-banner ul{margin:8px 0 0 16px;padding:0;list-style:disc}
+.fmt-check-banner li{margin-bottom:5px}
+.fmt-check-spin{display:inline-block;width:12px;height:12px;border:2px solid rgba(0,0,0,.15);border-top-color:#92400e;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px}
 /* Review Drawer */
 .ai-review-overlay{display:none;position:fixed;inset:0;background:rgba(10,25,48,.45);z-index:9500;align-items:stretch;justify-content:flex-end}
 .ai-review-overlay.open{display:flex}
@@ -5123,6 +5135,85 @@ ${d.spouseNonCitizen==='nra'?`<p class="dp"><strong>QDOT — Non-Citizen Survivi
 }
 
 // ═══════════════════════════════════════════════════════════════════
+//  DOCUMENT POST-PROCESSOR  (Layer 1 — pure JS, zero latency, free)
+// ═══════════════════════════════════════════════════════════════════
+
+function toRoman(n){
+  const v=[1000,900,500,400,100,90,50,40,10,9,5,4,1];
+  const s=['M','CM','D','CD','C','XC','L','XL','X','IX','V','IV','I'];
+  let r=''; v.forEach((val,i)=>{ while(n>=val){r+=s[i];n-=val;} }); return r;
+}
+
+// Highlight [BRACKETED PLACEHOLDER] text nodes inside a container element.
+function _highlightPlaceholders(container){
+  if(!container) return;
+  const PH=/\[[A-Z][A-Z0-9 ,'.\-/()&]+\]/g;
+  const skip=new Set(['SCRIPT','STYLE','MARK']);
+  const walker=document.createTreeWalker(container,NodeFilter.SHOW_TEXT,{
+    acceptNode:n=>skip.has(n.parentNode.nodeName)?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT
+  });
+  const nodes=[]; let node;
+  while((node=walker.nextNode())){PH.lastIndex=0; if(PH.test(node.textContent)) nodes.push(node);}
+  nodes.forEach(n=>{
+    PH.lastIndex=0;
+    const txt=n.textContent; if(!PH.test(txt)) return;
+    PH.lastIndex=0;
+    const frag=document.createDocumentFragment();
+    let last=0,m;
+    while((m=PH.exec(txt))!==null){
+      if(m.index>last) frag.appendChild(document.createTextNode(txt.slice(last,m.index)));
+      const mk=document.createElement('mark');
+      mk.className='ph-flag';
+      mk.title='Unfilled placeholder — requires attorney review before delivery';
+      mk.textContent=m[0];
+      frag.appendChild(mk);
+      last=m.index+m[0].length;
+    }
+    if(last<txt.length) frag.appendChild(document.createTextNode(txt.slice(last)));
+    n.parentNode.replaceChild(frag,n);
+  });
+}
+
+// Main post-processor — call on any DOM element that contains assembled document HTML.
+function postProcessDoc(container){
+  if(!container) return;
+
+  // 1. Remove completely empty .art article blocks (conditional sections that rendered nothing)
+  container.querySelectorAll('.art').forEach(art=>{
+    if(!(art.innerText||'').trim()) art.remove();
+  });
+
+  // 2. Collapse consecutive empty .dp paragraphs to at most one
+  let prevWasEmpty=false;
+  Array.from(container.querySelectorAll('p.dp')).forEach(p=>{
+    const empty=!(p.innerText||p.textContent||'').replace(/ /g,'').trim();
+    if(empty && prevWasEmpty) p.remove();
+    else prevWasEmpty=empty;
+  });
+
+  // 3. Renumber ARTICLE headings sequentially within each .doc-wrap
+  //    (conditional provisions can leave gaps like I, II, IV when III was skipped)
+  container.querySelectorAll('.doc-wrap').forEach(wrap=>{
+    let n=0;
+    wrap.querySelectorAll('.art-t').forEach(t=>{
+      const txt=t.textContent||'';
+      const m=txt.match(/^ARTICLE\s+[IVXLCDM\d]+\s*([—–\-].*)$/i);
+      if(m){ n++; t.textContent=`ARTICLE ${toRoman(n)} ${m[1].trim()}`; }
+    });
+  });
+
+  // 4. Highlight any unfilled [BRACKETED PLACEHOLDER] merge fields
+  _highlightPlaceholders(container);
+
+  // 5. Print/page-break polish — keep each article's header with its body
+  container.querySelectorAll('.art').forEach(art=>{
+    if(!art.style.pageBreakInside) art.style.pageBreakInside='avoid';
+    const t=art.querySelector('.art-t');
+    if(t) t.style.pageBreakAfter='avoid';
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════════
 //  DOCUMENT GENERATION
 // ═══════════════════════════════════════════════════════════════════
 function generateTrust(){
@@ -5131,32 +5222,38 @@ function generateTrust(){
   // Delegate to specialized generators for advanced irrevocable trust types
   if(d.trustType==='grat'){
     $('docInner').innerHTML=generateGRAT();
+    postProcessDoc($('docInner'));
     $('docOut').className='show';
     $('qaCard').style.display='none';
     $('progCard').style.display='none';
     const _mp1=document.getElementById('mobileProgStrip');if(_mp1)_mp1.style.display='none';
     window.scrollTo({top:0,behavior:'smooth'});
     showDocsReady(1,'Grantor Retained Annuity Trust (GRAT)');
+    _autoFormatCheck($('docInner'),'GRAT');
     return;
   }
   if(d.trustType==='qprt'){
     $('docInner').innerHTML=generateQPRT();
+    postProcessDoc($('docInner'));
     $('docOut').className='show';
     $('qaCard').style.display='none';
     $('progCard').style.display='none';
     const _mp2=document.getElementById('mobileProgStrip');if(_mp2)_mp2.style.display='none';
     window.scrollTo({top:0,behavior:'smooth'});
     showDocsReady(1,'Qualified Personal Residence Trust (QPRT)');
+    _autoFormatCheck($('docInner'),'QPRT');
     return;
   }
   if(d.trustType==='idgt'){
     $('docInner').innerHTML=generateIDGT();
+    postProcessDoc($('docInner'));
     $('docOut').className='show';
     $('qaCard').style.display='none';
     $('progCard').style.display='none';
     const _mp3=document.getElementById('mobileProgStrip');if(_mp3)_mp3.style.display='none';
     window.scrollTo({top:0,behavior:'smooth'});
     showDocsReady(1,'Intentionally Defective Grantor Trust (IDGT)');
+    _autoFormatCheck($('docInner'),'IDGT');
     return;
   }
   const joint=d.structure==='joint',gn=gName(),sn=sName();
@@ -8122,6 +8219,7 @@ function showDocTab(name){
     // Only generate if still showing the placeholder
     if(target.dataset.generated !== '1' && TAB_GENERATORS[name]){
       target.innerHTML = TAB_GENERATORS[name]();
+      postProcessDoc(target);
       target.dataset.generated = '1';
     }
   }
@@ -10859,7 +10957,7 @@ function generate(){
     if(docInner2){
       docInner2.after(tabContainer);
       const tabMain=document.getElementById('tabMain');
-      if(tabMain) tabMain.appendChild(docInner2);
+      if(tabMain){ tabMain.appendChild(docInner2); postProcessDoc(tabMain); }
     } else {
       docOut.appendChild(tabContainer);
     }
@@ -14601,6 +14699,71 @@ function closeAIReview(){
   const overlay = document.getElementById('aiReviewOverlay');
   overlay.classList.remove('open');
   setTimeout(()=>{ overlay.style.display='none'; }, 320);
+}
+
+// ── Layer 2 auto format check — runs after premium trust generation ─────────
+// Shows an inline banner with placeholder highlights, numbering gaps, and name
+// consistency issues found by Claude Haiku (fast, ~3-5s). Does NOT replace the
+// full runAIReview() legal review — it complements it.
+async function _autoFormatCheck(container, trustType){
+  if(!container) return;
+
+  // Inject a "checking…" banner above the first .doc-wrap inside the container
+  const banner = document.createElement('div');
+  banner.className = 'fmt-check-banner';
+  banner.id = 'fmtCheckBanner';
+  banner.innerHTML = '<span class="fmt-check-spin"></span> Checking document quality…';
+  const firstWrap = container.querySelector('.doc-wrap');
+  if(firstWrap) firstWrap.before(banner);
+  else container.prepend(banner);
+
+  try {
+    // Get Firebase auth token (silent — if unavailable just remove banner)
+    let idToken = '';
+    try {
+      const u = (typeof firebase !== 'undefined') && firebase.auth && firebase.auth().currentUser;
+      if(u) idToken = await u.getIdToken();
+    } catch(e){ /* not authed — skip silently */ }
+
+    if(!idToken){ banner.remove(); return; }
+
+    const docText = (container.innerText || '').slice(0, 8000);
+    const res = await fetch('/.netlify/functions/auto-format-check', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${idToken}` },
+      body: JSON.stringify({ docText, trustType: trustType || 'trust' }),
+    });
+
+    if(!res.ok){ banner.remove(); return; }
+    const data = await res.json();
+    if(!data.ok){ banner.remove(); return; }
+
+    const { score = 100, issues = [], placeholderCount = 0 } = data;
+    const hasCritical = issues.some(i => i.severity === 'critical') || placeholderCount > 0;
+    const total = issues.length + (placeholderCount > 0 ? 1 : 0);
+
+    if(total === 0){
+      banner.className = 'fmt-check-banner ok';
+      banner.innerHTML = '✅ <strong>Document Quality Check Passed</strong> — No format issues or unfilled placeholders detected. Attorney review at consultation finalizes all legal provisions.';
+    } else {
+      banner.className = `fmt-check-banner${hasCritical ? ' error' : ''}`;
+      const phItem = placeholderCount
+        ? `<li>⚠ <strong>${placeholderCount} unfilled placeholder${placeholderCount > 1 ? 's' : ''}</strong> detected — highlighted in amber throughout the document</li>`
+        : '';
+      const items = issues.map(i =>
+        `<li><strong>${i.location || 'Document'}</strong>: ${i.message}</li>`
+      ).join('');
+      banner.innerHTML = `<strong>${hasCritical ? '🚨' : '⚠'} Format Check — ${total} item${total !== 1 ? 's' : ''} to review (score: ${score}/100)</strong>
+        <details open>
+          <summary>View items</summary>
+          <ul>${phItem}${items}</ul>
+          <p style="margin:8px 0 0;font-size:.79rem;color:#6b7280">Format check only — use <em>Run AI Legal Review</em> for a full 22-point legal review.</p>
+        </details>`;
+    }
+  } catch(e){
+    console.warn('[fmt-check]', e);
+    banner.remove();
+  }
 }
 
 function showAIReviewResults(review){
