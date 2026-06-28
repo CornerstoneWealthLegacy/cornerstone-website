@@ -15437,6 +15437,7 @@ async function handleAddStaff() {
     // ITS scroll — window.scrollTo won't move it, leaving the user down at the documents.
     try{ ov.scrollTop=0; ov.scrollTo(0,0); }catch(e){}
     window.scrollTo(0,0);
+    try{ launchConfetti(); }catch(e){}
   };
 
   // Self-contained document stylesheet — the .doc-* / .sig-* classes live only in
