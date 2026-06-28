@@ -2518,6 +2518,78 @@ const STEPS=[
      {v:'ilit',        t:'Irrevocable Life Insurance Trust (ILIT)',d:'Removes life insurance proceeds from your taxable estate; trustee holds policy outside your estate.',premium:true},
      {v:'special_needs',t:'Special Needs Trust (SNT)',           d:'For a beneficiary with a disability. Preserves government benefit eligibility (SSI, Medicaid). (F.S. § 736.0507)'},
      {v:'land_trust',  t:'Florida Land Trust',                   d:'Holds Florida real property with privacy of ownership. Common in Florida real estate. (F.S. § 689.071)'},
+     {v:'grat',        t:'Grantor Retained Annuity Trust (GRAT)', d:'Transfer appreciating assets to heirs gift-tax free — retain fixed annuity payments for a term of years; all growth above the §7520 hurdle rate escapes estate and gift tax. (IRC § 2702)',premium:true,badge:'IRREVOCABLE · HNW'},
+     {v:'qprt',        t:'Qualified Personal Residence Trust (QPRT)', d:'Transfer your home to heirs at a discounted gift tax value while retaining the right to live there rent-free for a term of years. (IRC § 2702(b))',premium:true,badge:'IRREVOCABLE · HNW'},
+     {v:'idgt',        t:'Intentionally Defective Grantor Trust (IDGT)', d:'Remove appreciating assets from your estate permanently — you pay the trust\'s income taxes as an ongoing tax-free gift. Typically paired with an installment sale to the trust at the AFR. (IRC §§ 671–677)',premium:true,badge:'IRREVOCABLE · HNW'},
+   ]
+  },
+
+  // 8a — GRAT-specific questions
+  {sec:'GRAT Setup', lbl:'GRAT Term',
+   type:'choice', field:'gratTerm', required:true,
+   cond: d => d.trustType === 'grat',
+   q:'How long is the GRAT annuity term?',
+   hint:'The term determines how long you receive annuity payments before the remainder passes to heirs gift-tax free. Shorter terms reduce mortality risk (if you die in-term, assets return to your estate). "Rolling" 2-year GRATs are the most common strategy — restart immediately after each term.',
+   opts:[
+     {v:'2',  t:'2-Year Term',  d:'Most aggressive rolling-GRAT strategy. Minimal mortality risk; restart each term with newly appreciated assets.'},
+     {v:'3',  t:'3-Year Term',  d:'Standard short-term GRAT. Low mortality risk; solid gift-tax transfer efficiency.'},
+     {v:'5',  t:'5-Year Term',  d:'Moderate term — larger gift tax discount, moderate mortality risk. Good for stable, high-growth assets.'},
+     {v:'10', t:'10-Year Term', d:'Maximum discount; substantial mortality risk. Best for younger grantors with strong health.'},
+   ]
+  },
+  {sec:'GRAT Setup', lbl:'GRAT Annuity',
+   type:'choice', field:'gratAnnuity', required:true,
+   cond: d => d.trustType === 'grat',
+   q:'Annuity payment structure',
+   hint:'A "zeroed-out" GRAT uses the §7520 rate to structure annuity payments so the present value of the retained interest equals the full transfer amount — meaning the taxable gift is zero. All investment return above the §7520 hurdle rate passes to heirs completely gift-tax free.',
+   opts:[
+     {v:'zeroed', t:'Zeroed-Out GRAT (Recommended)', d:'Present value of annuity = full asset value. Taxable gift = $0. All growth above the §7520 rate passes to heirs gift-tax free.'},
+     {v:'fixed',  t:'Fixed Percentage Annuity',      d:'Fixed annual payment as a stated % of initial FMV. Creates a small taxable gift but locks in a simple payment schedule.'},
+   ]
+  },
+
+  // 8b — QPRT-specific questions
+  {sec:'QPRT Setup', lbl:'Residence Term',
+   type:'choice', field:'qprtTerm', required:true,
+   cond: d => d.trustType === 'qprt',
+   q:'How long is the retained residence term?',
+   hint:'The term is how long you retain the right to live in the home rent-free. Longer terms = larger gift tax discount (remainder interest is further discounted). Mortality risk increases with length: if you die before the term ends, the property reverts to your estate.',
+   opts:[
+     {v:'5',  t:'5-Year Term',  d:'Conservative. Best for older grantors or those prioritizing mortality risk management.'},
+     {v:'7',  t:'7-Year Term',  d:'Strong discount. Most popular term for Florida primary residences with healthy grantors.'},
+     {v:'10', t:'10-Year Term', d:'Maximum discount. Ideal for younger grantors or vacation homes.'},
+     {v:'15', t:'15-Year Term', d:'Very high discount; requires careful actuarial analysis. Only for younger, healthy grantors.'},
+   ]
+  },
+  {sec:'QPRT Setup', lbl:'Property Address',
+   type:'text', field:'qprtPropertyDesc', required:false,
+   cond: d => d.trustType === 'qprt',
+   q:'Property address and description',
+   ph:'e.g., 1234 Ocean Drive, Ormond Beach, FL 32176 — Primary Residence',
+   hint:'Only a "qualified personal residence" is eligible — primary residence or one vacation home per person. Rental property, timeshares, and commercial property do NOT qualify. (Treas. Reg. § 25.2702-5(c))'
+  },
+
+  // 8c — IDGT-specific questions
+  {sec:'IDGT Setup', lbl:'Transfer Method',
+   type:'choice', field:'idgtStructure', required:true,
+   cond: d => d.trustType === 'idgt',
+   q:'How will assets be transferred to the IDGT?',
+   hint:'The most powerful IDGT strategy uses a seed gift (10% of sale price using gift/estate tax exemption) followed by an installment sale of the remaining assets at the IRS Applicable Federal Rate (AFR). No capital gains on the sale; all growth above AFR escapes the estate permanently.',
+   opts:[
+     {v:'giftnote', t:'Seed Gift + Installment Sale at AFR (Most Powerful)', d:'10% seed gift + promissory note at AFR. No capital gains on the intercompany sale. All appreciation above AFR escapes the estate. Requires appraisal.',premium:true},
+     {v:'gift_only',t:'Direct Gift to Trust',                               d:'Outright gift using available gift/estate tax exemption. Simpler; no note required. Less leverage than gift-and-note.'},
+     {v:'contribute',t:'Capital Contribution Only',                          d:'Asset contributed as founding contribution to trust — no note, no sale. Appropriate for new-money or new business interests.'},
+   ]
+  },
+  {sec:'IDGT Setup', lbl:'Grantor Trust Power',
+   type:'choice', field:'idgtDefect', required:true,
+   cond: d => d.trustType === 'idgt',
+   q:'Which grantor trust "defect" power should the IDGT contain?',
+   hint:'The "defect" is a specific IRC §671–677 power that makes you (the grantor) the income taxpayer for the trust — allowing you to pay the trust\'s taxes as a tax-free gift. The power must be carefully chosen to avoid estate inclusion under IRC §§ 2036–2038.',
+   opts:[
+     {v:'substitution',  t:'Power to Substitute Assets of Equivalent Value (IRC §675(4)) — Recommended', d:'You can swap your personal assets for trust assets of equal value. Most widely used. Does NOT trigger estate inclusion. Bonus: swap low-basis assets back in before death for a stepped-up basis. (Swap power — the gold standard)'},
+     {v:'administrative', t:'Non-Adverse Administrative Powers (IRC §675)',                             d:'Trust has certain administrative powers not subject to external restrictions. Creates grantor trust status without affecting estate inclusion analysis.'},
+     {v:'borrow',        t:'Power to Borrow Without Adequate Interest (IRC §675(2))',                  d:'Trust can make loans to grantor without adequate security or interest. Creates grantor trust status.'},
    ]
   },
 
@@ -3877,6 +3949,18 @@ const OPT_INFO={
     m:"A special-purpose trust under F.S. § 689.071 that holds title to real property. The trustee holds bare legal title; the beneficiary (you) holds all economic rights. The deed records the trustee's name only — your name and ownership interest are completely private. See the dedicated Land Trust questionnaire.",
     l:'F.S. § 689.071 — Florida Land Trust Act. The beneficial interest is personal property, not real property — important for homestead, creditor, and tax analysis. Art. X, § 4, Fla. Const. — homestead creditor protection preserved when beneficiary maintains homestead use.',
     e:"You own four investment properties and want each held privately with LLC beneficiaries. Each property goes into its own land trust. The recorded deeds show only 'XYZ Land Trust, John Jones, Trustee' — your name is never in any public record."},
+  trustType_grat:{t:'Grantor Retained Annuity Trust (GRAT)',
+    m:"A GRAT is an irrevocable trust where you transfer assets to the trust and receive fixed annuity payments back for a term of years. At the end of the term, whatever remains in the trust (all investment return above the IRS §7520 hurdle rate) passes to your heirs — completely free of gift and estate tax. A 'zeroed-out' GRAT requires zero taxable gift: if you survive the term, the transfer is complete. This is one of the most powerful estate freezing techniques available and remains fully effective under OBBBA with the §15M permanent exemption.",
+    l:"IRC § 2702 — special valuation rules for retained interests. Treas. Reg. § 25.2702-3 — qualified annuity interest requirements: (1) fixed dollar amount or fixed percentage of initial FMV; (2) paid at least annually; (3) no other distributions during the term; (4) term is fixed (no early termination). IRC § 7520 — monthly hurdle rate (typically 120% of mid-term AFR). Estate inclusion if grantor dies during the term: IRC § 2036(a). IRS Notice 2012-10 — anti-abuse rules. Reporting: IRS Form 709 in the year of contribution (even for a zeroed-out GRAT).",
+    e:"You transfer $5M of pre-IPO stock to a 2-year zeroed-out GRAT when the §7520 rate is 5.0%. The stock doubles to $10M during the 2-year term. You receive back annuity payments worth $5M (present value = $5M) — zero taxable gift. The remaining $5M of growth passes to your children's trust completely estate and gift-tax free. If the stock underperforms the §7520 rate, the trust returns nothing to heirs — but you still get your annuity back, so you lose nothing. The 'heads I win, tails I break even' structure."},
+  trustType_qprt:{t:'Qualified Personal Residence Trust (QPRT)',
+    m:"A QPRT transfers your primary or vacation home to heirs at a significantly discounted gift tax value — while you retain the right to live there rent-free for a fixed term of years. The gift tax value is discounted because your retained right to use the property for the term reduces the present value of the gift. When the term ends, the home transfers to heirs completely outside your taxable estate. The older the grantor and the longer the term, the larger the discount.",
+    l:"IRC § 2702(b) — QPRT is a 'qualified interest' exception to the special valuation rules. Treas. Reg. § 25.2702-5(c) — requirements: (1) must be a 'personal residence' (primary or one vacation home); (2) trust must prohibit sale of residence during term; (3) if sold, proceeds must be used to buy a replacement residence within 2 years; (4) if residence ceases to be a personal residence, trust converts to GRAT. Death during term: IRC § 2036(a) pulls property back into the estate. Actuarial tables (IRC § 7520) are used to calculate the taxable gift (the remainder interest's present value).",
+    e:"You own a $1M vacation home in Florida. You create a 10-year QPRT when you are age 60. Using current §7520 rates and IRS actuarial tables, the present value of your remainder interest (the 'gift') is approximately $400,000 — not $1M. You use only $400,000 of your $15M exemption. If the home appreciates to $2M by year 10, the entire $2M passes to your children with only $400K of exemption used. If you die in year 8, the home returns to your estate at the then-current value — you're no worse off than having done nothing."},
+  trustType_idgt:{t:'Intentionally Defective Grantor Trust (IDGT)',
+    m:"An IDGT is an irrevocable trust that is intentionally structured to be 'defective' for INCOME tax purposes (you pay the trust's income taxes) while being fully outside your estate for ESTATE tax purposes. The income tax payment is a tax-free gift — reducing your taxable estate without using your exemption. The classic strategy: sell appreciated assets to the IDGT at the AFR in exchange for a promissory note. No capital gains on the sale (grantor-to-grantor-trust transactions are ignored for income tax). All appreciation above the AFR stays in the trust, outside your estate, permanently.",
+    l:"IRC §§ 671–677 — grantor trust rules (income is taxed to grantor). IRC § 675(4) — substitution power (the classic 'defect'). IRC §§ 2036–2038 — estate inclusion avoided if grantor retains no prohibited interests or powers. Rev. Rul. 2004-64 — IRS confirms grantor's payment of trust income taxes is NOT a taxable gift. Rev. Rul. 85-13 — installment sale to grantor trust is ignored for income tax (no capital gains). AFR: see IRS Rev. Rul. monthly updates. Seed gift: typically 10% of sale price (to give the trust independent economic substance). Appraisal required for non-cash assets.",
+    e:"You have a $5M business interest with a $500K basis. Selling it outright would create $4.5M of capital gains. Instead: gift $500K to the IDGT as a seed gift (using $500K of your exemption), then sell the remaining $4.5M to the IDGT via a 9-year promissory note at the current AFR (say 4%). No capital gains on the sale. The trust makes $500K/year in note payments (all deductible from the trust's return but ignored for income tax because you're the grantor). Meanwhile, the business appreciates to $15M — that $10M of growth is now completely outside your estate, without ever using more exemption. You pay the income taxes on the trust's earnings ($600K/year in trust income) — reducing your estate by $600K/year as an additional tax-free gift."},
 
   // ── nameType ─────────────────────────────────────────────────────
   nameType_standard:{t:'[Your Name] Revocable Living Trust',
@@ -5043,7 +5127,39 @@ ${d.spouseNonCitizen==='nra'?`<p class="dp"><strong>QDOT — Non-Citizen Survivi
 // ═══════════════════════════════════════════════════════════════════
 function generateTrust(){
   saveInputs();
-  const d=S.d,joint=d.structure==='joint',gn=gName(),sn=sName();
+  const d=S.d;
+  // Delegate to specialized generators for advanced irrevocable trust types
+  if(d.trustType==='grat'){
+    $('docInner').innerHTML=generateGRAT();
+    $('docOut').className='show';
+    $('qaCard').style.display='none';
+    $('progCard').style.display='none';
+    const _mp1=document.getElementById('mobileProgStrip');if(_mp1)_mp1.style.display='none';
+    window.scrollTo({top:0,behavior:'smooth'});
+    showDocsReady(1,'Grantor Retained Annuity Trust (GRAT)');
+    return;
+  }
+  if(d.trustType==='qprt'){
+    $('docInner').innerHTML=generateQPRT();
+    $('docOut').className='show';
+    $('qaCard').style.display='none';
+    $('progCard').style.display='none';
+    const _mp2=document.getElementById('mobileProgStrip');if(_mp2)_mp2.style.display='none';
+    window.scrollTo({top:0,behavior:'smooth'});
+    showDocsReady(1,'Qualified Personal Residence Trust (QPRT)');
+    return;
+  }
+  if(d.trustType==='idgt'){
+    $('docInner').innerHTML=generateIDGT();
+    $('docOut').className='show';
+    $('qaCard').style.display='none';
+    $('progCard').style.display='none';
+    const _mp3=document.getElementById('mobileProgStrip');if(_mp3)_mp3.style.display='none';
+    window.scrollTo({top:0,behavior:'smooth'});
+    showDocsReady(1,'Intentionally Defective Grantor Trust (IDGT)');
+    return;
+  }
+  const joint=d.structure==='joint',gn=gName(),sn=sName();
   const tn=trustName(),yr=new Date().getFullYear();
   const provs=d.provisions||[], dt=docType();
   const adv=d.priorState&&d.priorState!=='other'?FL_ADVANTAGE[d.priorState]:null;
@@ -5881,6 +5997,337 @@ function _buildSingleWill(testator, spouse, d, yr){
 // ═══════════════════════════════════════════════════════════════════
 //  FLORIDA LAND TRUST GENERATOR — F.S. § 689.071
 // ═══════════════════════════════════════════════════════════════════
+// ── GRAT — Grantor Retained Annuity Trust ─────────────────────────────────
+function generateGRAT(){
+  const d=S.d, gn=gName(), yr=new Date().getFullYear();
+  const tn=trustName()||`${gn} Grantor Retained Annuity Trust ${yr}`;
+  const term=d.gratTerm||'[TERM]';
+  const annuityType=d.gratAnnuity==='zeroed'?'Zeroed-Out':'Fixed-Percentage';
+  const primB=S.beneficiaries.filter(b=>b.name);
+  const remBen=primB.length?primB.map(b=>`${b.name}${b.rel?` (${b.rel})`:''}`).join(', '):'[REMAINDER BENEFICIARY — specify in Schedule A]';
+  return `<div class="doc-wrap" id="gratDoc">
+<div class="doc-hdr">
+  <div class="doc-firm">TRUESTEAD LAW</div>
+  <div class="doc-sub">Arthur Simpson, Esq. &nbsp;·&nbsp; 1175 John Anderson Drive, Ormond Beach, FL 32176</div>
+</div>
+<div class="doc-title">${tn.toUpperCase()}</div>
+<div class="doc-meta">Grantor Retained Annuity Trust (GRAT) &nbsp;·&nbsp; ${annuityType} &nbsp;·&nbsp; ${term}-Year Term &nbsp;·&nbsp; IRC § 2702 / Treas. Reg. § 25.2702-3</div>
+
+<div class="art" style="background:#fff8e1;border:2px solid #f59e0b;border-radius:8px;padding:16px">
+  <strong>⚠️ ATTORNEY REVIEW REQUIRED — IRREVOCABLE TRUST.</strong> A GRAT is an irrevocable trust. Once funded, the Grantor cannot retrieve the assets (except as annuity payments). Key risks: (1) If the Grantor dies during the annuity term, assets are included in the Grantor's gross estate under IRC § 2036(a). (2) If trust assets underperform the §7520 rate, the remainder beneficiaries receive nothing — but the Grantor loses nothing (annuity payments return the full value). (3) An IRS Form 709 Gift Tax Return must be filed in the year of funding even if the taxable gift is zero. (4) A qualified appraisal is required for any non-publicly-traded assets contributed. This document is a personalized draft and must be reviewed and executed under attorney supervision.
+</div>
+
+<div class="art">
+  <div class="art-t">ARTICLE I — TRUST CREATION AND ANNUITY TERM</div>
+  <p class="dp"><strong>Section 1.01 — Creation.</strong> ${gn} (the "Grantor") hereby transfers the property described in Schedule A attached hereto (the "Trust Property") to ${d.trustee||'[TRUSTEE NAME]'} (the "Trustee"), to hold in trust upon the terms and conditions set forth herein as the <strong>${tn}</strong> (the "Trust"). This Trust is irrevocable upon execution and funding.</p>
+  <p class="dp"><strong>Section 1.02 — Annuity Term.</strong> The Trust shall continue for a fixed term of <strong>${term} year${Number(term)!==1?'s':''}</strong> (the "Annuity Term") commencing on the date of this Agreement (the "Commencement Date") and ending on the date that is ${term} year${Number(term)!==1?'s':''} thereafter (the "Termination Date"), unless earlier terminated by the Grantor's death during the Annuity Term as provided in Article IV.</p>
+  <p class="dp"><strong>Section 1.03 — Qualified Annuity Interest.</strong> The Grantor's retained interest is a "qualified annuity interest" within the meaning of IRC § 2702(b)(1) and Treas. Reg. § 25.2702-3(b). The Grantor retains no interest in this Trust other than the right to receive the annuity payments specified in Article II. No other distributions may be made to or for the benefit of the Grantor or any non-skip person related to the Grantor during the Annuity Term, except as provided herein. (Treas. Reg. § 25.2702-3(b)(1)(ii))</p>
+</div>
+
+<div class="art">
+  <div class="art-t">ARTICLE II — ANNUITY PAYMENTS (IRC § 2702; Treas. Reg. § 25.2702-3)</div>
+  <p class="dp"><strong>Section 2.01 — Annuity Amount.</strong> During the Annuity Term, the Trustee shall pay to the Grantor an annuity in the following amount:</p>
+  ${d.gratAnnuity==='zeroed'
+    ?`<p class="dp"><strong>Zeroed-Out GRAT Structure:</strong> The annuity amount shall be determined at funding by applying the applicable §7520 rate in effect for the month of transfer to achieve a present value of the retained annuity stream equal to <strong>100% of the fair market value of the Trust Property</strong> on the date of contribution, resulting in a taxable gift of zero (or the minimum amount required to avoid a gift under Treas. Reg. § 25.2702-3(b)(4)). The Trustee and the Grantor's tax counsel shall calculate the precise annuity amount at funding and attach it to this Agreement as Exhibit I. The annuity amount may increase by no more than 20% per year in subsequent years. (Treas. Reg. § 25.2702-3(b)(1)(ii)(B))</p>`
+    :`<p class="dp"><strong>Fixed-Percentage Annuity:</strong> The annuity amount shall equal <strong>[___]% of the initial fair market value</strong> of the Trust Property on the Commencement Date, as established by a qualified appraisal attached hereto as Exhibit I. The annuity percentage and dollar amount shall be inserted by the Grantor's tax counsel at the time of funding.</p>`}
+  <p class="dp"><strong>Section 2.02 — Payment Schedule.</strong> Annuity payments shall be made <strong>annually</strong> on or before the anniversary of the Commencement Date in each year of the Annuity Term. Payments shall be made in cash, in-kind (at fair market value), or partially in-kind, at the Trustee's election. (Treas. Reg. § 25.2702-3(b)(1)(i))</p>
+  <p class="dp"><strong>Section 2.03 — Proration for Short Years.</strong> If the Annuity Term ends on a date other than an anniversary of the Commencement Date, the annuity payment for the final year shall be prorated based on the number of days in the partial year divided by 365. (Treas. Reg. § 25.2702-3(b)(1)(iii))</p>
+  <p class="dp"><strong>Section 2.04 — §7520 Hurdle Rate.</strong> The applicable IRS §7520 rate for the month of transfer is: <strong>[___]%</strong> (to be inserted at execution by Grantor's tax counsel based on the monthly IRS Revenue Ruling in effect). All Trust Property growth above this rate during the Annuity Term passes to remainder beneficiaries gift-tax free and estate-tax free.</p>
+  <p class="dp"><strong>Section 2.05 — Prohibition on Additional Contributions.</strong> No additional contributions may be made to this Trust after the initial funding without invalidating its status as a qualified annuity trust. (Treas. Reg. § 25.2702-3(b)(5))</p>
+  <p class="dp"><strong>Section 2.06 — Non-Assignability.</strong> The Grantor's right to receive annuity payments is personal to the Grantor and may not be assigned, pledged, or otherwise transferred by the Grantor, voluntarily or involuntarily, except by operation of law.</p>
+</div>
+
+<div class="art">
+  <div class="art-t">ARTICLE III — REMAINDER BENEFICIARIES</div>
+  <p class="dp"><strong>Section 3.01 — Remainder Interest.</strong> Upon the Termination Date (assuming the Grantor survives the Annuity Term), the Trustee shall distribute the remaining Trust Property — the "Remainder" — to the following remainder beneficiaries (or their then-living descendants, per stirpes):</p>
+  <p class="dp"><strong>${remBen}</strong></p>
+  <p class="dp"><strong>Section 3.02 — No Intervening Distribution.</strong> No distributions of principal or income (other than required annuity payments) may be made from this Trust to any remainder beneficiary or any other person during the Annuity Term. The trust may accumulate income during the term.</p>
+  <p class="dp"><strong>Section 3.03 — Gift Tax Treatment of Remainder.</strong> The taxable gift to the remainder beneficiaries is the present value of the remainder interest, calculated using the §7520 rate under IRC § 7520 and the applicable IRS actuarial tables at the time of funding. ${d.gratAnnuity==='zeroed'?'For a zeroed-out GRAT, this amount is intended to be zero or nominal.':'This amount shall be calculated by Grantor\'s tax counsel and reported on IRS Form 709.'} The IRS Form 709 Gift Tax Return must be filed for the calendar year in which the Trust is funded, regardless of whether any taxable gift results.</p>
+</div>
+
+<div class="art">
+  <div class="art-t">ARTICLE IV — DEATH OF GRANTOR DURING ANNUITY TERM (IRC § 2036(a))</div>
+  <p class="dp"><strong>Section 4.01 — Estate Inclusion.</strong> If the Grantor dies before the Termination Date, a portion or all of the Trust Property shall be includable in the Grantor's gross estate under IRC § 2036(a)(1), as the Grantor retained the right to receive annuity payments (which are treated as the right to the income from the Trust Property). The includable amount shall be calculated by the estate's tax counsel pursuant to applicable Treasury Regulations and IRS guidance.</p>
+  <p class="dp"><strong>Section 4.02 — Annuity Payments to Estate.</strong> If the Grantor dies during the Annuity Term, unpaid accrued annuity payments shall be paid to the Grantor's estate. The Trustee shall not make any distribution of the Remainder until the estate administration is complete and all estate tax obligations have been determined.</p>
+  <p class="dp"><strong>Section 4.03 — Risk Acknowledgment.</strong> The Grantor acknowledges that estate inclusion upon death during the Annuity Term is a known risk of the GRAT structure, and that in such event the transfer produces the same result as if the GRAT had never been created — there is no worse-off outcome (other than transaction costs). The GRAT succeeds only if the Grantor survives the Annuity Term.</p>
+</div>
+
+<div class="art">
+  <div class="art-t">ARTICLE V — TRUSTEE POWERS AND ADMINISTRATION</div>
+  <p class="dp"><strong>Section 5.01 — Investment Powers.</strong> The Trustee shall hold, invest, and reinvest the Trust Property with the primary objective of achieving a total return that exceeds the §7520 hurdle rate, consistent with the Grantor's intent to pass appreciation to remainder beneficiaries. The Trustee shall invest in accordance with the Florida Uniform Prudent Investor Act (F.S. § 518.11) and may invest in any asset class, including publicly traded securities, private equity, business interests, and real property.</p>
+  <p class="dp"><strong>Section 5.02 — In-Kind Payments.</strong> The Trustee may satisfy annuity payment obligations with assets in-kind (rather than cash), provided that assets distributed in-kind are valued at their fair market value as of the payment date. Any in-kind payment shall be documented in writing and retained in Trust records.</p>
+  <p class="dp"><strong>Section 5.03 — No Power to Alter Annuity.</strong> The Trustee has no power to commute, prepay, or otherwise alter the annuity payment obligation during the Annuity Term. The annuity amount is fixed as set forth in Article II.</p>
+  <p class="dp"><strong>Section 5.04 — Prohibitions.</strong> During the Annuity Term, the Trustee may NOT: (a) make any distribution to any person other than the Grantor (except to the Grantor's estate if the Grantor dies); (b) accept additional contributions; (c) commute the annuity; or (d) invest in any obligation of the Grantor or any related party in a manner inconsistent with Treas. Reg. § 25.2702-3(b).</p>
+  <p class="dp"><strong>Section 5.05 — Trustee Compensation.</strong> The Trustee shall receive reasonable compensation as set forth in Schedule B, not to exceed rates customarily charged by professional trust companies in Florida. (F.S. § 736.0708)</p>
+</div>
+
+<div class="art">
+  <div class="art-t">ARTICLE VI — TAX PROVISIONS</div>
+  <p class="dp"><strong>Section 6.01 — Grantor Trust Status.</strong> This Trust is a GRANTOR TRUST for federal income tax purposes during the Annuity Term — all income, deductions, and credits of the Trust are reportable on the Grantor's personal income tax return (IRS Form 1040) using the Grantor's Social Security Number. No separate IRS Form 1041 (fiduciary income tax return) is required during the Annuity Term. (IRC § 671 et seq.) The Grantor's payment of income tax on Trust income is NOT a gift to the remainder beneficiaries. (Rev. Rul. 2004-64)</p>
+  <p class="dp"><strong>Section 6.02 — Gift Tax Reporting.</strong> The Grantor (or Grantor's tax counsel) shall timely file IRS Form 709 for the calendar year in which this Trust is funded, reporting the transfer and the value of the remainder interest (even if zero). A copy of the qualified appraisal (if applicable) shall be attached to Form 709.</p>
+  <p class="dp"><strong>Section 6.03 — GST Exemption.</strong> The Grantor does NOT elect to allocate GST exemption to this Trust at funding. Because the GRAT's remainder interest may be zero at funding, GST exemption allocation is generally deferred until the Trust terminates and the remainder passes to the beneficiaries — at which point the Trustee shall coordinate with tax counsel on whether an automatic allocation applies or a manual allocation under IRC § 2632(c) is appropriate.</p>
+  <p class="dp"><strong>Section 6.04 — Income Tax Basis.</strong> The Grantor's income tax basis in assets contributed to this Trust carries over (no step-up). If assets are returned to the Grantor's estate due to death during the term, a stepped-up basis under IRC § 1014 applies at death. Remainder beneficiaries who receive assets at termination take the Trust's then-current basis (a carryover basis from the Grantor's original contribution, adjusted for any Trust-level transactions).</p>
+</div>
+
+<div class="art">
+  <div class="art-t">ARTICLE VII — GOVERNING LAW AND MISCELLANEOUS</div>
+  <p class="dp"><strong>Section 7.01 — Governing Law.</strong> This Trust is governed by the laws of the State of Florida (Florida Trust Code, F.S. Ch. 736) and applicable federal tax law (IRC §§ 2702, 7520, 671–677, 2036). Venue for any dispute shall be ${d.gCounty||'_____'} County, Florida.</p>
+  <p class="dp"><strong>Section 7.02 — Irrevocability.</strong> This Trust is IRREVOCABLE upon execution and funding. The Grantor may not amend, revoke, or terminate this Trust, or reclaim contributed assets except as annuity payments.</p>
+  <p class="dp"><strong>Section 7.03 — Severability.</strong> If any provision is held invalid, the remaining provisions shall remain in full force. If any provision is determined to disqualify the retained annuity interest under Treas. Reg. § 25.2702-3, that provision shall be construed to comply with the minimum requirements for a qualified annuity interest.</p>
+  <p class="dp"><strong>Section 7.04 — Counterparts.</strong> This Agreement may be executed in counterparts, each of which shall be deemed an original.</p>
+</div>
+
+<div class="art">
+  <div class="art-t">SCHEDULE A — TRUST PROPERTY</div>
+  <p class="dp">The following property is transferred to this Trust as of the date of execution:</p>
+  <p class="dp">[DESCRIBE PROPERTY IN DETAIL — include FMV, asset type, and attach qualified appraisal for non-publicly-traded assets]</p>
+  <p class="dp">Fair Market Value at Transfer: $__________________</p>
+  <p class="dp">Basis of Transferred Property: $__________________</p>
+  <p class="dp">Date of Qualified Appraisal (if applicable): __________________</p>
+</div>
+
+<div class="art">
+  <div class="art-t">EXHIBIT I — ANNUITY CALCULATION WORKSHEET (To Be Completed at Funding)</div>
+  <p class="dp">§7520 Rate in Effect for Month of Transfer: <strong>______%</strong></p>
+  <p class="dp">Fair Market Value of Trust Property at Transfer: <strong>$______________</strong></p>
+  <p class="dp">Annuity Term (Years): <strong>${term}</strong></p>
+  <p class="dp">IRS Annuity Factor (from applicable Table B): <strong>______________</strong></p>
+  <p class="dp">Annual Annuity Payment Required for Zeroed-Out GRAT: <strong>$______________</strong></p>
+  <p class="dp">Present Value of Retained Annuity Stream: <strong>$______________</strong></p>
+  <p class="dp">Taxable Gift (FMV − PV of Annuity): <strong>$______________</strong></p>
+  <p class="dp"><em>This worksheet must be completed by a CPA or estate planning attorney at the time of funding and attached to IRS Form 709.</em></p>
+</div>
+
+<div class="sig-block">
+  <div class="art-t">EXECUTION</div>
+  <p class="dp" style="font-style:italic">This Grantor Retained Annuity Trust Agreement is executed by the Grantor and accepted by the Trustee as of the date below. Florida law requires two witnesses and notarization. (F.S. § 736.0403(2)(b))</p>
+  <div class="sig-row"><div class="sig-line"></div><p class="dp">Grantor: ${gn} &nbsp;&nbsp; Date: ___________</p></div>
+  <div class="sig-row"><div class="sig-line"></div><p class="dp">Trustee: ${d.trustee||'[TRUSTEE]'} &nbsp;&nbsp; Date: ___________</p></div>
+  <div class="sig-row"><div class="sig-line"></div><p class="dp">Witness 1: _________________________ &nbsp;&nbsp; Date: ___________</p></div>
+  <div class="sig-row"><div class="sig-line"></div><p class="dp">Witness 2: _________________________ &nbsp;&nbsp; Date: ___________</p></div>
+  <p class="dp" style="margin-top:20px"><strong>State of Florida, County of ${d.gCounty||'_______________'}</strong></p>
+  <p class="dp">Sworn to and subscribed before me this _____ day of _____________, ${yr}.</p>
+  <div class="sig-row"><div class="sig-line"></div><p class="dp">Notary Public — State of Florida</p></div>
+  <p class="dp"><em>Prepared by: Arthur Simpson, Esq., Truestead Law. DRAFT for attorney review and financial professional coordination. Not valid until reviewed, finalized, and executed under attorney supervision. Annuity calculation must be completed by a CPA or tax advisor before execution.</em></p>
+</div>
+</div>`;
+}
+
+// ── QPRT — Qualified Personal Residence Trust ─────────────────────────────
+function generateQPRT(){
+  const d=S.d, gn=gName(), yr=new Date().getFullYear();
+  const tn=trustName()||`${gn} Qualified Personal Residence Trust ${yr}`;
+  const term=d.qprtTerm||'[TERM]';
+  const propDesc=d.qprtPropertyDesc||'[PROPERTY ADDRESS — See Schedule A]';
+  const primB=S.beneficiaries.filter(b=>b.name);
+  const remBen=primB.length?primB.map(b=>`${b.name}${b.rel?` (${b.rel})`:''}`).join(', '):'[REMAINDER BENEFICIARY — specify in Schedule A]';
+  return `<div class="doc-wrap" id="qprtDoc">
+<div class="doc-hdr">
+  <div class="doc-firm">TRUESTEAD LAW</div>
+  <div class="doc-sub">Arthur Simpson, Esq. &nbsp;·&nbsp; 1175 John Anderson Drive, Ormond Beach, FL 32176</div>
+</div>
+<div class="doc-title">${tn.toUpperCase()}</div>
+<div class="doc-meta">Qualified Personal Residence Trust (QPRT) &nbsp;·&nbsp; ${term}-Year Retained Term &nbsp;·&nbsp; IRC § 2702(b) / Treas. Reg. § 25.2702-5(c)</div>
+
+<div class="art" style="background:#fff8e1;border:2px solid #f59e0b;border-radius:8px;padding:16px">
+  <strong>⚠️ ATTORNEY REVIEW REQUIRED — IRREVOCABLE TRUST.</strong> A QPRT is an irrevocable trust. Critical risks: (1) If the Grantor dies during the retained term, the property is included in the Grantor's gross estate at its then-current fair market value (IRC § 2036(a)). (2) After the term, the Grantor must pay fair market rent to continue living in the residence — failure to pay rent creates an IRC § 2036 problem. (3) Remainder beneficiaries inherit the Grantor's original (carryover) basis — no step-up at end of term. (4) The property cannot be sold without reinvesting in a new qualifying residence within 2 years. (5) Florida homestead rights must be analyzed. Requires gift tax return (Form 709) and actuarial calculation. Must be reviewed and executed under attorney supervision.
+</div>
+
+<div class="art">
+  <div class="art-t">ARTICLE I — TRUST CREATION AND QUALIFIED RESIDENCE</div>
+  <p class="dp"><strong>Section 1.01 — Creation.</strong> ${gn} (the "Grantor") hereby transfers and conveys to ${d.trustee||'[TRUSTEE NAME]'} (the "Trustee") the personal residence described in Schedule A (the "Residence") to hold in trust as the <strong>${tn}</strong> upon the terms set forth herein. This Trust is IRREVOCABLE upon execution and recording of the deed conveying the Residence to the Trustee.</p>
+  <p class="dp"><strong>Section 1.02 — Qualified Personal Residence.</strong> The Residence transferred to this Trust is a "personal residence" within the meaning of IRC § 2702(b)(1) and Treas. Reg. § 25.2702-5(b)(2) — specifically, it is the Grantor's [<em>primary residence / vacation home</em>] (circle one). Only one vacation home may be held in a QPRT at any time per person. (Treas. Reg. § 25.2702-5(c)(1)(i))</p>
+  <p class="dp"><strong>Residence:</strong> ${propDesc}</p>
+  <p class="dp"><strong>Legal Description:</strong> [INSERT FULL LEGAL DESCRIPTION FROM DEED]</p>
+  <p class="dp"><strong>Parcel ID / Property Appraiser Number:</strong> ______________________</p>
+  <p class="dp"><strong>Approximate Fair Market Value at Transfer:</strong> $______________ (per qualified appraisal dated _________, attached as Exhibit I)</p>
+  <p class="dp"><strong>Grantor's Income Tax Basis:</strong> $______________</p>
+</div>
+
+<div class="art">
+  <div class="art-t">ARTICLE II — RETAINED TERM INTEREST (GRANTOR'S RIGHT TO USE RESIDENCE)</div>
+  <p class="dp"><strong>Section 2.01 — Retained Term.</strong> During the period beginning on the date of this Agreement and ending on the date that is <strong>${term} year${Number(term)!==1?'s':''}</strong> thereafter (the "Retained Term" — ending on the "Term Expiration Date"), the Grantor retains the exclusive right to use and occupy the Residence as a personal residence, rent-free, for the Grantor's own personal use. This constitutes the Grantor's "retained term interest" under IRC § 2702(b)(1).</p>
+  <p class="dp"><strong>Section 2.02 — Grantor's Obligations During Term.</strong> During the Retained Term, the Grantor shall: (a) pay all real estate taxes, insurance, maintenance, repairs, and ordinary expenses of the Residence as if the Grantor were the owner; (b) maintain the Residence in good condition; (c) maintain adequate homeowner's insurance naming the Trust as an additional insured; and (d) not rent, sublease, or permit others to occupy the Residence without the Trustee's written consent.</p>
+  <p class="dp"><strong>Section 2.03 — Trust Income During Term.</strong> The Trust shall have no income during the Retained Term (the Grantor pays all expenses directly). In the event the Trust receives any amounts during the Retained Term (e.g., proceeds from a casualty), such amounts shall be held by the Trustee and used to repair or replace the Residence or to purchase a replacement qualifying residence within the replacement period specified in Treas. Reg. § 25.2702-5(c)(7)(ii).</p>
+</div>
+
+<div class="art">
+  <div class="art-t">ARTICLE III — SALE OF RESIDENCE DURING TERM (Treas. Reg. § 25.2702-5(c)(7))</div>
+  <p class="dp"><strong>Section 3.01 — Sale Restriction.</strong> The Trustee shall not sell, transfer, or otherwise dispose of the Residence during the Retained Term without the Grantor's consent, and then only if the proceeds are used to acquire a replacement personal residence within two (2) years of the sale. (Treas. Reg. § 25.2702-5(c)(7)(ii)(A))</p>
+  <p class="dp"><strong>Section 3.02 — Reinvestment of Proceeds.</strong> If the Residence is sold and the Trustee acquires a replacement personal residence, the replacement residence shall be held on the same terms as the original Residence for the remainder of the Retained Term. The Trustee shall notify the Grantor and Grantor's tax counsel promptly of any sale and reinvestment.</p>
+  <p class="dp"><strong>Section 3.03 — Conversion to GRAT.</strong> If sale proceeds are not reinvested in a replacement personal residence within two (2) years, the Trust shall automatically convert to a Grantor Retained Annuity Trust (GRAT) as to the unconverted proceeds, with annuity terms that replicate the original QPRT's retained term interest under Treas. Reg. § 25.2702-5(c)(8). The Trustee shall consult tax counsel immediately upon any such conversion.</p>
+</div>
+
+<div class="art">
+  <div class="art-t">ARTICLE IV — DEATH OF GRANTOR DURING RETAINED TERM (IRC § 2036(a))</div>
+  <p class="dp"><strong>Section 4.01 — Estate Inclusion.</strong> If the Grantor dies before the Term Expiration Date, the fair market value of the Residence as of the Grantor's date of death shall be includable in the Grantor's gross estate under IRC § 2036(a)(1) (retained right to use or occupy the property during lifetime). In this event, the property shall be distributed as part of the Grantor's estate, and the Trust shall terminate.</p>
+  <p class="dp"><strong>Section 4.02 — Stepped-Up Basis.</strong> If the Residence is included in the Grantor's gross estate due to death during the Retained Term, the remainder beneficiaries shall receive a stepped-up income tax basis equal to the property's fair market value at the Grantor's date of death (IRC § 1014). This stepped-up basis is a secondary benefit of dying during the term.</p>
+  <p class="dp"><strong>Section 4.03 — Distribution on Death During Term.</strong> Upon the Grantor's death during the Retained Term, after estate tax obligations are satisfied, the Trustee shall distribute the Residence (or its proceeds) to the remainder beneficiaries named in Article V, subject to any applicable estate administration requirements.</p>
+</div>
+
+<div class="art">
+  <div class="art-t">ARTICLE V — REMAINDER BENEFICIARIES AND TERM EXPIRATION</div>
+  <p class="dp"><strong>Section 5.01 — Remainder.</strong> Upon the Term Expiration Date, if the Grantor is then living, all right, title, and interest in the Residence shall pass outright and free of trust to the following remainder beneficiaries (or their then-living descendants per stirpes):</p>
+  <p class="dp"><strong>${remBen}</strong></p>
+  <p class="dp"><strong>Section 5.02 — No Step-Up in Basis.</strong> The remainder beneficiaries who receive the Residence at the Term Expiration Date take a CARRYOVER income tax basis — the Grantor's original basis (adjusted for any Trust-level capital improvements). There is NO stepped-up basis at the end of the QPRT term. This is a material income tax risk if the property has significant unrealized appreciation. Beneficiaries should consult a CPA before selling the property.</p>
+  <p class="dp"><strong>Section 5.03 — Gift Tax at Funding.</strong> The taxable gift made upon creating this Trust is the present value of the remainder interest — calculated using the Grantor's age, the §7520 rate in effect, and the term length, per the IRS actuarial tables (Table S / Table B). This amount is: <strong>$______________ </strong>(to be calculated by Grantor's tax counsel and reported on IRS Form 709). This amount uses <strong>$______________</strong> of the Grantor's federal gift/estate tax exemption (currently $15M per person in 2026 under OBBBA).</p>
+</div>
+
+<div class="art">
+  <div class="art-t">ARTICLE VI — POST-TERM OCCUPANCY: LEASE-BACK ARRANGEMENT</div>
+  <p class="dp"><strong>Section 6.01 — Required Lease After Term.</strong> If the Grantor wishes to continue occupying the Residence after the Term Expiration Date, the Grantor MUST pay fair market rent to the remainder beneficiaries (or the trust holding the property for them). Rent-free occupancy after the term would constitute a retained interest under IRC § 2036(a) and cause the property to be includable in the Grantor's estate, defeating the purpose of the QPRT.</p>
+  <p class="dp"><strong>Section 6.02 — Fair Market Rent Requirement.</strong> The rent must be established at arm's-length fair market value, documented in a written lease agreement, and paid consistently. Remainder beneficiaries (or their Trustee) must enforce rent collection — a pattern of non-collection could be treated as an implied retained interest by the IRS.</p>
+  <p class="dp"><strong>Section 6.03 — Tax Benefits of Post-Term Lease.</strong> Post-term rent payments have a secondary benefit: each rent payment transfers wealth from the Grantor to the remainder beneficiaries WITHOUT gift tax or use of the Grantor's exemption. This is an ongoing estate reduction benefit. The Trustee (or beneficiary-owners) shall report rental income on their tax returns.</p>
+</div>
+
+<div class="art">
+  <div class="art-t">ARTICLE VII — FLORIDA HOMESTEAD AND TAX PROVISIONS</div>
+  <p class="dp"><strong>Section 7.01 — Homestead Exemption.</strong> If the Residence is the Grantor's primary homestead, the transfer to this Trust does not disqualify the property from the Florida homestead tax exemption, because the Grantor retains a beneficial interest (the right to use the property) during the Retained Term. (Art. VII, § 6, Fla. Const.; F.S. § 196.041(2)(a)) The Grantor shall file annual homestead exemption renewals with the county property appraiser. After the term, the remainder beneficiaries must establish their own homestead exemption if applicable.</p>
+  <p class="dp"><strong>Section 7.02 — Save Our Homes / Portability.</strong> The transfer to this Trust preserves the Save Our Homes assessment limitation during the Retained Term. After the term, Save Our Homes protection may be lost if the property transfers out of the Grantor's qualifying homestead. Consult the county property appraiser's office regarding portability (F.S. § 193.155).</p>
+  <p class="dp"><strong>Section 7.03 — Grantor Trust Status.</strong> This Trust is a GRANTOR TRUST for federal income tax purposes during the Retained Term. All income and deductions are reported on the Grantor's personal tax return using the Grantor's Social Security Number. No separate Form 1041 is required during the Retained Term.</p>
+  <p class="dp"><strong>Section 7.04 — Governing Law.</strong> This Trust is governed by the laws of the State of Florida (F.S. Ch. 736) and federal tax law (IRC § 2702; Treas. Reg. § 25.2702-5). Venue for any dispute shall be ${d.gCounty||'_____'} County, Florida.</p>
+</div>
+
+<div class="sig-block">
+  <div class="art-t">EXECUTION</div>
+  <p class="dp" style="font-style:italic">IMPORTANT: A new deed conveying the Residence to the Trustee must be executed and RECORDED in the county real property records simultaneously with or immediately after this Agreement. The QPRT has no legal effect until the deed is properly recorded. Grantor and Trustee signatures must be witnessed and notarized. (F.S. §§ 736.0403, 689.01)</p>
+  <div class="sig-row"><div class="sig-line"></div><p class="dp">Grantor: ${gn} &nbsp;&nbsp; Date: ___________</p></div>
+  <div class="sig-row"><div class="sig-line"></div><p class="dp">Trustee: ${d.trustee||'[TRUSTEE]'} &nbsp;&nbsp; Date: ___________</p></div>
+  <div class="sig-row"><div class="sig-line"></div><p class="dp">Witness 1: _________________________ &nbsp;&nbsp; Date: ___________</p></div>
+  <div class="sig-row"><div class="sig-line"></div><p class="dp">Witness 2: _________________________ &nbsp;&nbsp; Date: ___________</p></div>
+  <p class="dp" style="margin-top:20px"><strong>State of Florida, County of ${d.gCounty||'_______________'}</strong></p>
+  <p class="dp">Sworn to and subscribed before me this _____ day of _____________, ${yr}.</p>
+  <div class="sig-row"><div class="sig-line"></div><p class="dp">Notary Public — State of Florida</p></div>
+  <p class="dp"><em>Prepared by: Arthur Simpson, Esq., Truestead Law. DRAFT for attorney review. A qualified appraisal and actuarial calculation of the gift tax value must be completed before execution. The deed must be drafted and recorded separately. Not valid until reviewed, executed, and recorded under attorney supervision.</em></p>
+</div>
+</div>`;
+}
+
+// ── IDGT — Intentionally Defective Grantor Trust ──────────────────────────
+function generateIDGT(){
+  const d=S.d, gn=gName(), yr=new Date().getFullYear();
+  const tn=trustName()||`${gn} Irrevocable Grantor Trust ${yr}`;
+  const defectPower = d.idgtDefect==='substitution'
+    ? 'Power to Substitute Assets of Equivalent Value (IRC § 675(4)(C))'
+    : d.idgtDefect==='borrow'
+    ? 'Power to Borrow Without Adequate Interest or Security (IRC § 675(2))'
+    : 'Non-Adverse Administrative Powers (IRC § 675)';
+  const structure = d.idgtStructure==='giftnote'
+    ? 'Seed Gift + Installment Sale at AFR'
+    : d.idgtStructure==='gift_only'
+    ? 'Direct Gift'
+    : 'Capital Contribution';
+  const primB=S.beneficiaries.filter(b=>b.name);
+  const benTxt=primB.length?primB.map(b=>`${b.name}${b.rel?` (${b.rel})`:''}`).join(', '):'[BENEFICIARIES — specify in Schedule A]';
+  return `<div class="doc-wrap" id="idgtDoc">
+<div class="doc-hdr">
+  <div class="doc-firm">TRUESTEAD LAW</div>
+  <div class="doc-sub">Arthur Simpson, Esq. &nbsp;·&nbsp; 1175 John Anderson Drive, Ormond Beach, FL 32176</div>
+</div>
+<div class="doc-title">${tn.toUpperCase()}</div>
+<div class="doc-meta">Intentionally Defective Grantor Trust (IDGT) &nbsp;·&nbsp; ${structure} &nbsp;·&nbsp; IRC §§ 671–677 / Rev. Rul. 2004-64 / Rev. Rul. 85-13</div>
+
+<div class="art" style="background:#fff8e1;border:2px solid #f59e0b;border-radius:8px;padding:16px">
+  <strong>⚠️ ATTORNEY REVIEW REQUIRED — IRREVOCABLE TRUST.</strong> An IDGT is an irrevocable trust that is intentionally structured to be a grantor trust for income tax purposes while being outside the Grantor's estate for estate tax purposes. Critical requirements: (1) Seed gift must be sufficient to give the trust independent economic substance (typically 10% of installment sale price). (2) Installment sale must be at arm's length at the current AFR — proper documentation is essential. (3) Any retained powers must not trigger estate inclusion under IRC §§ 2036–2038. (4) A qualified appraisal is required for the transferred assets. (5) The Grantor's CPA must be closely involved — the Grantor pays ALL income taxes on trust earnings. This is a high-powered planning technique requiring CPA, attorney, and appraiser coordination. This document is a personalized draft and must be reviewed and executed under attorney supervision.
+</div>
+
+<div class="art">
+  <div class="art-t">ARTICLE I — TRUST CREATION AND IRREVOCABILITY</div>
+  <p class="dp"><strong>Section 1.01 — Creation.</strong> ${gn} (the "Grantor") hereby creates the <strong>${tn}</strong> (the "Trust") by transferring to ${d.trustee||'[INDEPENDENT TRUSTEE NAME]'} (the "Trustee") the property described in Schedule A (the "Initial Trust Estate"). This Trust is IRREVOCABLE from the date of execution. The Grantor may not revoke, amend, or terminate this Trust, reclaim any portion of the Trust Estate (except through the exercise of the power described in Article II), or otherwise control Trust assets except as expressly provided herein.</p>
+  <p class="dp"><strong>Section 1.02 — Independent Trustee Requirement.</strong> The Trustee of this Trust must be an INDEPENDENT TRUSTEE — that is, a person or entity who: (a) is not the Grantor; (b) is not a person who is subordinate to the Grantor within the meaning of IRC § 672(c); and (c) has no obligation to follow the direction of the Grantor in exercising any power. If the named Trustee ceases to satisfy the independence requirement, a successor Independent Trustee shall be appointed pursuant to Article VIII before any further Trust action is taken.</p>
+  <p class="dp"><strong>Section 1.03 — Transfer Method: ${structure}.</strong>
+  ${d.idgtStructure==='giftnote'
+    ?`The initial Trust Estate consists of: (a) a SEED GIFT from the Grantor of $______________ (the "Seed Gift"), which constitutes a completed taxable gift to the Trust using the Grantor's available gift/estate tax exemption under IRC § 2505; and (b) thereafter, an INSTALLMENT SALE by the Grantor to the Trust of the assets described in Schedule B, in exchange for a promissory note at the Applicable Federal Rate (AFR) in effect for the month of sale under IRC § 1274 (the "Note"). The Seed Gift must equal at least 10% of the total consideration (Seed Gift + Note face amount) to give the Trust sufficient economic substance. The installment sale is disregarded for federal income tax purposes under Rev. Rul. 85-13 because the Trust is a grantor trust — NO capital gains recognized on the sale.`
+    :d.idgtStructure==='gift_only'
+    ?`The initial Trust Estate consists of assets gifted outright by the Grantor using the Grantor's available lifetime gift/estate tax exemption under IRC § 2505. The transferred assets are described in Schedule A and valued at $______________ (fair market value) per the qualified appraisal attached as Exhibit I.`
+    :`The initial Trust Estate consists of assets contributed by the Grantor as a founding capital contribution. The contributed assets are described in Schedule A. A qualified appraisal of the contributed assets, attached as Exhibit I, establishes the fair market value at $______________.`}
+  </p>
+</div>
+
+<div class="art">
+  <div class="art-t">ARTICLE II — GRANTOR TRUST STATUS: INTENTIONAL DEFECT (IRC §§ 671–677)</div>
+  <p class="dp"><strong>Section 2.01 — Intent.</strong> This Trust is intentionally structured to be treated as a GRANTOR TRUST for federal INCOME tax purposes — meaning the Grantor (not the Trust) is the taxpayer for all Trust income, deductions, and credits. This treatment is achieved through the "defect" power described in Section 2.02. At the same time, this Trust is structured to be OUTSIDE the Grantor's estate for federal ESTATE tax purposes — the defect power is carefully chosen to avoid any power or interest that would cause estate inclusion under IRC §§ 2036, 2037, 2038, or 2041.</p>
+  <p class="dp"><strong>Section 2.02 — Grantor Trust Defect Power: ${defectPower}.</strong>
+  ${d.idgtDefect==='substitution'||!d.idgtDefect
+    ?`The Grantor retains the power, exercisable in a NON-FIDUCIARY capacity WITHOUT THE APPROVAL OR CONSENT OF ANY PERSON IN A FIDUCIARY CAPACITY, to reacquire the Trust corpus by substituting other property of EQUIVALENT VALUE. (IRC § 675(4)(C)) The Grantor may exercise this power at any time by delivering written notice to the Trustee specifying the Trust property to be substituted and the replacement property of equivalent value, which must be established by a contemporaneous independent appraisal. This power: (a) causes grantor trust status under IRC § 671; (b) does NOT cause estate inclusion under IRC § 2036, 2037, or 2038 because the Grantor's power is limited to exchanges of equivalent value (no net benefit to the Grantor); and (c) is NOT a general power of appointment under IRC § 2041. Additionally, this power allows the Grantor to "swap" low-basis assets INTO the Trust before death, so the Trust (and ultimately the beneficiaries) receive a stepped-up basis under IRC § 1014 — a critical post-mortem planning opportunity.`
+    :d.idgtDefect==='borrow'
+    ?`The Trust instrument authorizes the Trustee to lend Trust assets to the Grantor without adequate interest or security. (IRC § 675(2)) If the Trustee exercises this authority and the Grantor borrows from the Trust without adequate interest or security, grantor trust status arises. This power should be exercised carefully and in consultation with tax counsel to ensure proper documentation.`
+    :`The Trust contains certain non-adverse administrative powers that are not subject to a reasonably definite external standard, causing the Trust to be treated as a grantor trust under IRC § 675(1). The Trustee shall administer the Trust consistently with the requirements of IRC § 675.`}
+  </p>
+  <p class="dp"><strong>Section 2.03 — Income Tax Effect.</strong> As a result of grantor trust status, ALL income, deductions, losses, and credits of the Trust shall be reported on the GRANTOR'S PERSONAL FEDERAL INCOME TAX RETURN (IRS Form 1040) using the Grantor's Social Security Number. The Trust itself is a "disregarded entity" for income tax purposes — it files NO separate Form 1041. The Grantor's payment of income taxes on Trust earnings is NOT a taxable gift to the Trust beneficiaries. (Rev. Rul. 2004-64) This income tax payment is, in effect, an annual tax-free transfer of wealth from the Grantor to the Trust.</p>
+  <p class="dp"><strong>Section 2.04 — Installment Sale Tax Treatment.</strong> If assets were sold to this Trust via an installment note under Schedule B, such sale is DISREGARDED for federal income tax purposes because buyer and seller are the same taxpayer (grantor and grantor trust). (Rev. Rul. 85-13) No capital gain is recognized on the sale. The Trust's basis in the purchased assets carries over from the Grantor's basis.</p>
+</div>
+
+${d.idgtStructure==='giftnote'?`<div class="art">
+  <div class="art-t">ARTICLE III — INSTALLMENT SALE PROMISSORY NOTE TERMS</div>
+  <p class="dp"><strong>Section 3.01 — Promissory Note.</strong> In consideration of the assets transferred to the Trust under Schedule B, the Trust (acting through the Trustee) has delivered to the Grantor a PROMISSORY NOTE (the "Note") in the original principal amount of $______________ (the "Note Amount"), bearing interest at the Applicable Federal Rate (AFR) for <strong>[short-term / mid-term / long-term]</strong> obligations (determined under IRC § 1274(d) for the month of the sale), which is <strong>______% per annum</strong>.</p>
+  <p class="dp"><strong>Section 3.02 — Note Terms.</strong> The Note provides for: (a) interest accruing at the AFR specified above; (b) equal annual payments of principal and interest over a term of <strong>[___ years]</strong>, with the first payment due one year from the date of sale; (c) a balloon payment of all outstanding principal and accrued interest on the final maturity date if the Note is structured as interest-only; (d) no prepayment penalty. The Note is attached hereto as Exhibit II.</p>
+  <p class="dp"><strong>Section 3.03 — Collateral.</strong> The Note is secured by a pledge of the purchased assets held in the Trust (or such other collateral as agreed between the Grantor and Trustee), documented in a Security Agreement attached as Exhibit III.</p>
+  <p class="dp"><strong>Section 3.04 — Income Tax Treatment of Note Payments.</strong> Note payments (principal and interest) received by the Grantor from the Trust are DISREGARDED for federal income tax purposes during any period the Trust is a grantor trust — the interest and principal payments do not constitute taxable income to the Grantor nor deductible expenses to the Trust. (Rev. Rul. 85-13) If the Trust ever loses grantor trust status (e.g., upon the Grantor's death), note payments thereafter will be taxable as received.</p>
+  <p class="dp"><strong>Section 3.05 — Post-Death.</strong> Upon the Grantor's death, the Note becomes an obligation of the Trust payable to the Grantor's estate. The outstanding Note balance is an asset of the Grantor's estate for estate tax purposes. Tax counsel should evaluate whether to forgive the Note (a taxable bequest) or require payment. The Note should NOT be designed to be automatically forgiven at death — this would cause estate inclusion of the Trust assets. (IRC § 2036)</p>
+</div>`:''}
+
+<div class="art">
+  <div class="art-t">ARTICLE ${d.idgtStructure==='giftnote'?'IV':'III'} — ESTATE TAX NON-INCLUSION ANALYSIS (IRC §§ 2036–2038)</div>
+  <p class="dp"><strong>Section ${d.idgtStructure==='giftnote'?'4.01':'3.01'} — No Retained Interest Under §2036.</strong> The Grantor does NOT retain: (a) the right to possess, enjoy, or receive income from the Trust Property; (b) the right to designate who shall possess or enjoy the Trust Property or its income; or (c) any other interest that would cause inclusion under IRC § 2036. The Grantor's power to substitute assets of equivalent value does not constitute a retained interest because it cannot shift economic benefit to the Grantor beyond equivalent value. (<em>Jordahl Est. v. Commissioner</em>, 65 T.C. 92 (1975))</p>
+  <p class="dp"><strong>Section ${d.idgtStructure==='giftnote'?'4.02':'3.02'} — No Power to Revest Under §2038.</strong> The Grantor retains no power to alter, amend, revoke, or terminate this Trust. The Trustee (not the Grantor) has all powers to administer the Trust. The substitution power is exercisable only in a non-fiduciary capacity and only for equivalent-value exchanges — it is not a power to revest the Trust Property in the Grantor for no consideration.</p>
+  <p class="dp"><strong>Section ${d.idgtStructure==='giftnote'?'4.03':'3.03'} — No Power Over Beneficial Enjoyment Under §2036(a)(2).</strong> The Grantor has no power (alone or in conjunction with any person) to designate who shall possess or enjoy the Trust Property or income, without the approval of an Adverse Party. The Independent Trustee alone controls distributions.</p>
+</div>
+
+<div class="art">
+  <div class="art-t">ARTICLE ${d.idgtStructure==='giftnote'?'V':'IV'} — BENEFICIARIES AND DISTRIBUTIONS</div>
+  <p class="dp"><strong>Section ${d.idgtStructure==='giftnote'?'5.01':'4.01'} — Beneficiaries.</strong> The beneficiaries of this Trust are: <strong>${benTxt}</strong>. The Trustee may distribute income and/or principal to any one or more beneficiaries, in such amounts and at such times as the Independent Trustee determines in the Trustee's sole and absolute discretion, for the beneficiaries' health, education, maintenance, and support.</p>
+  <p class="dp"><strong>Section ${d.idgtStructure==='giftnote'?'5.02':'4.02'} — No Distributions to Grantor.</strong> The Grantor is NOT a beneficiary of this Trust and may NOT receive any distributions from this Trust during the Grantor's lifetime (except through the arm's-length installment sale note payments described in Article III, if applicable). Any distribution to the Grantor would cause estate inclusion under IRC § 2036(a).</p>
+  <p class="dp"><strong>Section ${d.idgtStructure==='giftnote'?'5.03':'4.03'} — Spendthrift Protection.</strong> The interest of each beneficiary is subject to a spendthrift restriction: no beneficiary may alienate, encumber, or assign any interest, and no creditor of any beneficiary may attach, garnish, or otherwise reach any interest before actual distribution. (F.S. § 736.0502)</p>
+</div>
+
+<div class="art">
+  <div class="art-t">ARTICLE ${d.idgtStructure==='giftnote'?'VI':'V'} — TRUSTEE POWERS AND ADMINISTRATION</div>
+  <p class="dp"><strong>Full Statutory Powers.</strong> The Independent Trustee shall have all powers enumerated under F.S. § 736.0815, including without limitation: the power to invest in any asset class; to manage, sell, lease, or mortgage real property; to operate a business; to borrow money; to make tax elections; and to employ professionals. The Trustee shall act with undivided loyalty to the beneficiaries (not the Grantor) and shall not take direction from the Grantor in the exercise of fiduciary powers. Trustee compensation: reasonable rates per F.S. § 736.0708.</p>
+  <p class="dp"><strong>Grantor Trust Toggle.</strong> If at any time the Trustee determines (in consultation with tax counsel) that continued grantor trust status is no longer beneficial (e.g., because the Grantor's income tax burden exceeds the benefit), the Trustee may release or modify the defect power in Article II to the extent permitted by law and consistent with the prohibition on estate inclusion, subject to receipt of a tax opinion from qualified counsel. This "toggle" is available to optimize the trust's tax position over time.</p>
+  <p class="dp"><strong>Basis Swap Cooperation.</strong> The Grantor (through the substitution power in Article II, if applicable) may swap high-basis assets into the Trust in exchange for low-basis assets immediately before the Grantor's death, so that the low-basis assets in the Grantor's estate receive a stepped-up basis at death (IRC § 1014) while the Trust retains high-basis assets. This post-mortem income tax planning opportunity must be coordinated with the estate's tax counsel.</p>
+</div>
+
+<div class="art">
+  <div class="art-t">ARTICLE ${d.idgtStructure==='giftnote'?'VII':'VI'} — TERMINATION AND GOVERNING LAW</div>
+  <p class="dp"><strong>Termination.</strong> This Trust shall continue until the earlier of: (a) the distribution of all Trust assets to the beneficiaries upon the death of the last-living beneficiary; (b) the expiration of Florida's rule against perpetuities (F.S. § 689.225); or (c) a court order terminating the Trust for good cause under F.S. § 736.0414.</p>
+  <p class="dp"><strong>Governing Law.</strong> This Trust is governed by the laws of the State of Florida (F.S. Ch. 736) and federal tax law (IRC §§ 671–677, 2036–2038). Venue: ${d.gCounty||'_____'} County, Florida.</p>
+  <p class="dp"><strong>No Grantor Trustee.</strong> The Grantor shall NEVER serve as Trustee of this Trust. If the Grantor is named as Trustee, that appointment is VOID and a successor Independent Trustee shall immediately assume administration.</p>
+</div>
+
+<div class="art">
+  <div class="art-t">SCHEDULE A — TRUST PROPERTY (INITIAL GIFT / CONTRIBUTION)</div>
+  <p class="dp">Asset Description: [DESCRIBE IN DETAIL — e.g., "100 shares of [Company] common stock, CUSIP ________"]</p>
+  <p class="dp">Fair Market Value at Transfer: $______________  &nbsp;|&nbsp; Basis: $______________</p>
+  <p class="dp">Date of Qualified Appraisal (attach as Exhibit I): ______________</p>
+  ${d.idgtStructure==='giftnote'?`<p class="dp"><em>Note: For the seed-gift-and-note structure, this Schedule covers only the seed gift amount. Schedule B covers the installment sale assets separately.</em></p>`:''}
+</div>
+
+${d.idgtStructure==='giftnote'?`<div class="art">
+  <div class="art-t">SCHEDULE B — INSTALLMENT SALE ASSETS (SEPARATE FROM SEED GIFT)</div>
+  <p class="dp">Assets sold to the Trust at arm's length via the Promissory Note (Exhibit II):</p>
+  <p class="dp">Asset Description: [DESCRIBE IN DETAIL]</p>
+  <p class="dp">Fair Market Value at Sale: $______________  &nbsp;|&nbsp; Grantor's Basis: $______________</p>
+  <p class="dp">Note Amount: $______________  &nbsp;|&nbsp; AFR Rate: ______%  &nbsp;|&nbsp; Note Term: ______ years</p>
+  <p class="dp">Date of Qualified Appraisal (attach): ______________</p>
+  <p class="dp"><em>Reminder: The sale is disregarded for income tax under Rev. Rul. 85-13. No capital gains recognized at sale. Basis carries over to the Trust.</em></p>
+</div>`:''}
+
+<div class="sig-block">
+  <div class="art-t">EXECUTION</div>
+  <p class="dp" style="font-style:italic">This Trust requires the Grantor, Independent Trustee, and two witnesses, plus notarization. (F.S. § 736.0403(2)(b)) The Grantor should NOT sign this document until the CPA has reviewed the grantor trust income tax implications and the appraiser has established fair market value of transferred assets.</p>
+  <div class="sig-row"><div class="sig-line"></div><p class="dp">Grantor: ${gn} &nbsp;&nbsp; Date: ___________</p></div>
+  <div class="sig-row"><div class="sig-line"></div><p class="dp">Independent Trustee: ${d.trustee||'[INDEPENDENT TRUSTEE — cannot be the Grantor]'} &nbsp;&nbsp; Date: ___________</p></div>
+  <div class="sig-row"><div class="sig-line"></div><p class="dp">Witness 1: _________________________ &nbsp;&nbsp; Date: ___________</p></div>
+  <div class="sig-row"><div class="sig-line"></div><p class="dp">Witness 2: _________________________ &nbsp;&nbsp; Date: ___________</p></div>
+  <p class="dp" style="margin-top:20px"><strong>State of Florida, County of ${d.gCounty||'_______________'}</strong></p>
+  <p class="dp">Sworn to and subscribed before me this _____ day of _____________, ${yr}.</p>
+  <div class="sig-row"><div class="sig-line"></div><p class="dp">Notary Public — State of Florida</p></div>
+  <p class="dp"><em>Prepared by: Arthur Simpson, Esq., Truestead Law. DRAFT for attorney review — requires CPA coordination on income tax reporting, appraiser valuation, and AFR determination. Not valid until reviewed, executed, and funded under attorney supervision.</em></p>
+</div>
+</div>`;
+}
+
 function generateLandTrust() {
   const d = S.d;
   const trustName   = d.ltTrustName   || '[TRUST NAME]';
@@ -7644,6 +8091,10 @@ const TAB_GENERATORS = {
   // Amendment / Update documents
   tamend:  ()=>generateTrustAmendment(),
   smcodicil:()=>generateSmartCodicil(),
+  // Advanced irrevocable trust types
+  grat:    ()=>generateGRAT(),
+  qprt:    ()=>generateQPRT(),
+  idgt:    ()=>generateIDGT(),
 };
 
 function showDocTab(name){
@@ -7656,7 +8107,8 @@ function showDocTab(name){
     snt:'tabSnt',mapt:'tabMapt',ilit:'tabIlit',crt:'tabCrt',flp:'tabFlp',
     filing:'tabFiling',manual:'tabManual',fund:'tabFund',
     lbd:'tabLbd',tcert:'tabTcert',not:'tabNot',gun:'tabGun',
-    tamend:'tabTamend',smcodicil:'tabSmcodicil'
+    tamend:'tabTamend',smcodicil:'tabSmcodicil',
+    grat:'tabGrat',qprt:'tabQprt',idgt:'tabIdgt'
   };
   // Hide all panels
   Object.values(tabs).forEach(id=>{
