@@ -531,6 +531,11 @@
   status = 200
 
 [[redirects]]
+  from = "/18-and-protected"
+  to = "/18-and-protected.html"
+  status = 200
+
+[[redirects]]
   from = "/links"
   to = "/links.html"
   status = 200
