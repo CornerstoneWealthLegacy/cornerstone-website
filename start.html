@@ -12943,9 +12943,12 @@ function showDocsReady(docCount, label){
   const diyDisc = document.getElementById('dreDiyDisclaimer');
   if(diyDisc) diyDisc.style.display = isDiyClient ? 'block' : 'none';
 
-  // Inject health score
+  // Health score — attorney mode only (clients see a score < 100 and panic)
   const hsEl=document.getElementById('dreHealthScore');
-  if(hsEl)hsEl.innerHTML=calcHealthScore();
+  if(hsEl){
+    if(!isDiyClient) hsEl.innerHTML=calcHealthScore();
+    else hsEl.style.display='none';
+  }
   el.classList.add('open');
   launchConfetti();
   // Apply document protection after overlay closes (slight delay for render)
