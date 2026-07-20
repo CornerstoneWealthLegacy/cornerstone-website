@@ -176,6 +176,48 @@ export const TOPICS = [
       'Florida slip and fall premises liability law 2026',
     ],
   },
+
+  {
+    day: 8,
+    id: 'asset-protection',
+    tag: 'Asset Protection',
+    eyebrow: 'Florida Asset Protection',
+    category: 'Asset Protection',
+    audience: 'Florida business owners, professionals, landlords, and families protecting assets from creditors and lawsuits',
+    cta: 'consult',
+    imageScene:
+      'A secure, elegant Florida estate behind gates at golden hour — a sense of something valuable, solid, and well-protected',
+    description:
+      'A Florida asset-protection explainer: constitutional homestead protection, tenancy by the entireties, LLC and charging-order strategy, exempt assets (annuities, life insurance, retirement, head-of-household wages), and the fraudulent-transfer timing rules that govern them — framed around a timely question or recent development. Emphasize that protection must be in place before a claim arises.',
+    searchQueries: [
+      'Florida asset protection homestead Article X Section 4 2026',
+      'Florida tenancy by the entireties creditor protection 2026',
+      'Florida LLC charging order protection single-member 2026',
+      'Florida fraudulent transfer act Chapter 726 2026',
+      'protect assets from lawsuit judgment Florida 2026',
+    ],
+  },
+
+  {
+    day: 9,
+    id: 'international-cross-border',
+    tag: 'International & Cross-Border',
+    eyebrow: 'International & Cross-Border',
+    category: 'International & Cross-Border',
+    audience: 'Foreign buyers, overseas families, and international investors in Florida real estate',
+    cta: 'consult',
+    imageScene:
+      'A world map or globe with warm light converging on Florida, suggesting global capital flowing into Florida real estate',
+    description:
+      'A cross-border Florida explainer: foreign buyers and SB 264 (Fla. Stat. §§ 692.201–692.205), FIRPTA withholding, U.S. estate tax on foreign-owned property (the $60,000 exemption for non-resident aliens), EB-5 investor immigration through real estate, ancillary probate, and cross-border estate planning — framed around a timely development or capital corridor. Lead with the most current, accurate rule the research supports.',
+    searchQueries: [
+      'foreign buyers Florida real estate trends 2026',
+      'FIRPTA withholding rate rules 2026',
+      'Florida SB 264 foreign ownership law 2026',
+      'EB-5 investor visa real estate minimum investment 2026',
+      'US estate tax foreign owner Florida property 2026',
+    ],
+  },
 ];
 
 export function getTodaysTopic(overrideId = null) {
