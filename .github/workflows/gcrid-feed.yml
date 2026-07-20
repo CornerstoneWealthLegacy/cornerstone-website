@@ -26,6 +26,9 @@ jobs:
       - name: Refresh GCRID headlines
         run: node tools/gcrid-feed.cjs
 
+      - name: Refresh home page article cards (freshest per practice)
+        run: node tools/home-articles.cjs
+
       - name: Commit if changed
         run: |
           if [ -n "$(git status --porcelain)" ]; then
