@@ -57,6 +57,14 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
+# OpenAI search crawler (powers ChatGPT search results & citations)
+User-agent: OAI-SearchBot
+Allow: /
+
+# Anthropic (Claude) web fetch for citations
+User-agent: Claude-Web
+Allow: /
+
 # ── Block training-only scrapers (won't cite you, just harvest content) ───────
 
 # Common Crawl (used for AI training datasets, not search/citation)
