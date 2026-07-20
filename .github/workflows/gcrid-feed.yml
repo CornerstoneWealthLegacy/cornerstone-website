@@ -1,0 +1,40 @@
+name: GCRID feed refresh
+
+# Pulls the latest GCRID Intelligence headlines (gcrid.org/rss.xml) into the
+# "Latest from GCRID" blocks on the international, real-estate, and home pages.
+# Headlines + links only (no full text) — no cross-domain duplicate content.
+# Commits any change, which triggers the normal Netlify deploy.
+
+on:
+  schedule:
+    - cron: "30 9 * * *"   # 09:30 UTC daily — GCRID publishes ~08:00 UTC
+  workflow_dispatch: {}     # run on-demand from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Refresh GCRID headlines
+        run: node tools/gcrid-feed.cjs
+
+      - name: Commit if changed
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "gcrid-feed-bot"
+            git config user.email "bot@truesteadlaw.com"
+            git add international-law.html real-estate.html index.html tools/gcrid-latest.json
+            git commit -m "Refresh GCRID Intelligence headlines"
+            git push
+            echo "Pushed updated GCRID headlines."
+          else
+            echo "No change in GCRID headlines today."
+          fi
