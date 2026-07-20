@@ -5673,4 +5673,25 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <!-- Probate, Asset Protection, EB-5 (added) -->
+  <url>
+    <loc>https://truesteadlaw.com/probate-administration</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://truesteadlaw.com/asset-protection</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://truesteadlaw.com/articles/florida-summary-administration</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://truesteadlaw.com/articles/eb5-florida-real-estate-green-card</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
