@@ -11,6 +11,16 @@
 // Deps (see package.json): @sparticuz/chromium + puppeteer-core. The two should
 // remain version-matched; run `npm install` before deploy.
 
+// Netlify runs functions on AWS Lambda with Node 24 (AWS_EXECUTION_ENV =
+// "AWS_Lambda_nodejs24.x"). @sparticuz/chromium's runtime detection is older: its
+// Amazon-Linux-2 check only excludes "20.x"/"22.x", so Node 24 is misdetected as AL2
+// and it points LD_LIBRARY_PATH at /tmp/al2/lib — which does NOT contain libnspr4.so.
+// Forcing AWS_LAMBDA_JS_RUNTIME to a 20.x value makes it ALSO extract the AL2023 pack
+// (which HAS libnspr4.so) to /tmp/al2023/lib; we then add that dir to the linker path
+// just before launch (below). Without this, Chromium dies with
+// "libnspr4.so: cannot open shared object file".
+process.env.AWS_LAMBDA_JS_RUNTIME = 'nodejs20.x';
+
 const chromium = require('@sparticuz/chromium');
 const puppeteer = require('puppeteer-core');
 
@@ -51,10 +61,18 @@ exports.handler = async (event) => {
 
   let browser;
   try {
+    // Extract the Chromium binary + shared-library packs. Because we forced the
+    // AL2023 runtime hint above, this also unpacks /tmp/al2023/lib (which contains
+    // libnspr4.so, libnss3.so, …). Netlify's Node-24 runtime was misdetected as AL2,
+    // leaving LD_LIBRARY_PATH pointed at /tmp/al2/lib (no libnspr4), so prepend the
+    // AL2023 lib dir here — right before launch — so the linker finds the real libs.
+    const executablePath = await chromium.executablePath();
+    process.env.LD_LIBRARY_PATH = '/tmp/al2023/lib:' + (process.env.LD_LIBRARY_PATH || '');
+
     browser = await puppeteer.launch({
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath(),
+      executablePath,
       headless: chromium.headless,
       protocolTimeout: 20000, // don't let a stuck DevTools call hang the whole function
     });

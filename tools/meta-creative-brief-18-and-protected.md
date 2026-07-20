@@ -31,7 +31,7 @@ Notes: realistic, non-stocky faces; no hospital/medical-distress depiction (Meta
 ================================================================
 ## PART B — HOOK VIDEO (15–20s, vertical 9:16 + 1:1 cutdown)
 ================================================================
-VO: Arthur clone (ElevenLabs voice KUnOAsSsvCN9RxRMOVvl, eleven_multilingual_v2, stability .45 sim .8 style .25) OR on-screen Arthur. Burned-in captions (every word, per verbatim-caps.js). Soft hopeful underscore, low volume.
+VO: Arthur clone (ElevenLabs voice KX4C7fijsQAPRp0oxCq0, eleven_multilingual_v2, stability .45 sim .8 style .25) OR on-screen Arthur. Burned-in captions (every word, per verbatim-caps.js). Soft hopeful underscore, low volume.
 
 ### Script (target ~45–50 words ≈ 18s)
 1. (0–3s) HOOK: "The day your child turns 18, the law treats them like a stranger to you."

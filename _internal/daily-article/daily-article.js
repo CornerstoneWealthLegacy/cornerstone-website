@@ -65,9 +65,11 @@ Then write a tight research brief (400–700 words) capturing: the key facts a F
   console.log(`\n🔍  Researching "${topic.category}" via Claude web search...`);
   for (let i = 0; i < 6; i++) {
     const msg = await anthropic.messages.create({
-      model: 'claude-sonnet-4-6',
+      // Haiku for research: it only gathers/summarizes search results. Basic
+      // web_search_20250305 tool (the _20260209 variant isn't supported on Haiku).
+      model: 'claude-haiku-4-5',
       max_tokens: 4096,
-      tools: [{ type: 'web_search_20260209', name: 'web_search', max_uses: 5 }],
+      tools: [{ type: 'web_search_20250305', name: 'web_search', max_uses: 3 }],
       messages,
     });
     brief = msg.content.filter(b => b.type === 'text').map(b => b.text).join('\n').trim();
@@ -143,8 +145,11 @@ Provide 3–6 sections and 4–6 faqs. Do not fabricate statute numbers, dollar 
 
   console.log('\n✍️   Writing the article with Claude (Sonnet)...');
   const msg = await anthropic.messages.create({
-    model: 'claude-sonnet-4-6',
-    max_tokens: 4096,
+    // Sonnet 5: better writer than 4.6, and cheaper ($2/$10 intro vs $3/$15 through Aug 2026)
+    model: 'claude-sonnet-5',
+    max_tokens: 10000,
+    // thinking off: the article JSON needs the full output budget (4096 truncated mid-JSON)
+    thinking: { type: 'disabled' },
     system: ARTHUR_SYSTEM,
     messages: [{ role: 'user', content: prompt }],
   });
@@ -543,7 +548,7 @@ async function main() {
   } else {
     console.log('\n🚀  Deploying to truesteadlaw.com (netlify deploy --prod)...');
     try {
-      const result = execSync('netlify deploy --prod', { cwd: SITE_ROOT, encoding: 'utf-8', timeout: 240000 });
+      const result = execSync('netlify deploy --prod', { cwd: SITE_ROOT, encoding: 'utf-8', timeout: 600000 });
       const m = result.match(/(?:Website|Production) URL:\s*(.+)/);
       console.log(`✅  Live: ${m ? m[1].trim() : 'https://truesteadlaw.com/articles/' + slug}`);
     } catch (e) {

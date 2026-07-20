@@ -188,7 +188,9 @@ exports.handler = async (event) => {
       unsubscribed: false, purchased: false, lastSentAt: now,
     }, token);
 
-    if (RESEND_KEY) { try { if (source === 'student_packet') await sendStudentWelcome(RESEND_KEY, email, name, id); else await sendWelcome(RESEND_KEY, email, name, score, id); } catch (e) { console.error('welcome', e); } }
+    // student_packet: PDF + instructions email is sent by email-packet.js (client-triggered,
+    // includes the actual PDF attachment). Skip the welcome here to avoid a duplicate email.
+    if (RESEND_KEY && source !== 'student_packet') { try { await sendWelcome(RESEND_KEY, email, name, score, id); } catch (e) { console.error('welcome', e); } }
     return { statusCode: 200, body: JSON.stringify({ ok: true }) };
   } catch (err) {
     console.error('capture-lead error:', err);

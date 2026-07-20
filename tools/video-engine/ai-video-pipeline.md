@@ -29,7 +29,7 @@ Article  →  VO script (90–150s)  →  segment for verbatim captions  →  El
 - Use `tools/video-scripts/verbatim-caps.js` to chunk + emit `capN.txt` + `cap_times.txt` + `ec_start.txt`.
 
 ### 3. ElevenLabs VO (house voice)
-- Voice: **Arthur Simpson** clone `KUnOAsSsvCN9RxRMOVvl` (or Sarah `EXAVITQu4vr4xnSDxMaL` for a neutral narrator).
+- Voice: **Arthur Simpson** clone `KX4C7fijsQAPRp0oxCq0` (or Sarah `EXAVITQu4vr4xnSDxMaL` for a neutral narrator).
 - Model `eleven_multilingual_v2`; stability **0.45**, similarity **0.8**, style **0.25**.
 - `speed` param is ignored by v2 → control pace in ffmpeg with `atempo` (house default 1.08).
 

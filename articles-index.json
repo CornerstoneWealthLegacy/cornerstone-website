@@ -1,6 +1,116 @@
 {
   "articles": [
     {
+      "slug": "articles/special-situations-2026-07-20",
+      "file": "articles/special-situations-2026-07-20.html",
+      "title": "Florida Estate Planning for Blended Families & Snowbirds",
+      "tag": "Estate Planning",
+      "category": "Asset Protection & Special Situations",
+      "blurb": "Blended families, snowbirds, and business owners each face Florida-specific estate planning traps that a generic will doesn't solve.",
+      "image": "images/og/special-situations-2026-07-20.jpg",
+      "date": "2026-07-20",
+      "prettyDate": "July 19, 2026"
+    },
+    {
+      "slug": "articles/real-estate-2026-07-18",
+      "file": "articles/real-estate-2026-07-18.html",
+      "title": "Florida Homestead Amendment 2026: What Homeowners Should Know",
+      "tag": "Real Estate",
+      "category": "Real Estate & Property",
+      "blurb": "A pending 2026 ballot measure could expand Florida's homestead exemption — here's what's law today and what homeowners should actually watch for.",
+      "image": "images/og/real-estate-2026-07-18.jpg",
+      "date": "2026-07-18",
+      "prettyDate": "July 17, 2026"
+    },
+    {
+      "slug": "articles/probate-2026-07-17",
+      "file": "articles/probate-2026-07-17.html",
+      "title": "Florida's New $150,000 Summary Probate Threshold",
+      "tag": "Estate Planning",
+      "category": "Probate & Estate Administration",
+      "blurb": "Florida just doubled its summary probate threshold to $150,000 — here's what qualifies, what it costs, and what still requires formal administration.",
+      "image": "images/og/probate-2026-07-17.jpg",
+      "date": "2026-07-17",
+      "prettyDate": "July 17, 2026"
+    },
+    {
+      "slug": "articles/elder-law-2026-07-16",
+      "file": "articles/elder-law-2026-07-16.html",
+      "title": "Florida Medicaid Long-Term Care Planning: 2026 Guide",
+      "tag": "Elder Law",
+      "category": "Elder Law & Medicaid",
+      "blurb": "A Florida elder law attorney explains 2026 Medicaid nursing home limits, the five-year lookback, and legitimate ways to protect family assets.",
+      "image": "images/og/elder-law-2026-07-16.jpg",
+      "date": "2026-07-16",
+      "prettyDate": "July 15, 2026"
+    },
+    {
+      "slug": "articles/wills-trusts-2026-07-15",
+      "file": "articles/wills-trusts-2026-07-15.html",
+      "title": "Florida Wills vs. Trusts: What Actually Avoids Probate",
+      "tag": "Estate Planning",
+      "category": "Wills & Trusts",
+      "blurb": "A Florida attorney breaks down wills vs. trusts, trust funding, pour-over wills, and the 2026 summary probate threshold change.",
+      "image": "images/og/wills-trusts-2026-07-15.jpg",
+      "date": "2026-07-15",
+      "prettyDate": "July 14, 2026"
+    },
+    {
+      "slug": "articles/estate-foundations-2026-07-14",
+      "file": "articles/estate-foundations-2026-07-14.html",
+      "title": "Florida Estate Planning Basics: 2026 Guide for Families",
+      "tag": "Estate Planning",
+      "category": "Estate Planning Foundations",
+      "blurb": "A plain-language guide to Florida wills, trusts, powers of attorney, and healthcare surrogates — updated for 2026's probate law changes.",
+      "image": null,
+      "date": "2026-07-14",
+      "prettyDate": "July 13, 2026"
+    },
+    {
+      "slug": "articles/personal-injury-2026-07-13",
+      "file": "articles/personal-injury-2026-07-13.html",
+      "title": "Florida Personal Injury Law: Deadlines & Rules for 2026",
+      "tag": "Personal Injury",
+      "category": "Personal Injury",
+      "blurb": "What Florida's 2-year deadline and 51% fault rule mean for your car accident, slip-and-fall, or injury claim.",
+      "image": "images/og/personal-injury-2026-07-13.jpg",
+      "date": "2026-07-13",
+      "prettyDate": "July 13, 2026"
+    },
+    {
+      "slug": "articles/probate-2026-07-09",
+      "file": "articles/probate-2026-07-09.html",
+      "title": "Florida Probate in 2026: New $150K Threshold & What Families Need to Know",
+      "tag": "Estate Planning",
+      "category": "Probate & Estate Administration",
+      "blurb": "Florida doubled its summary administration threshold to $150,000 on July 1, 2026 — here's what that means for your family and estate.",
+      "image": "images/og/probate-2026-07-09.jpg",
+      "date": "2026-07-09",
+      "prettyDate": "July 9, 2026"
+    },
+    {
+      "slug": "articles/wills-trusts-2026-07-07",
+      "file": "articles/wills-trusts-2026-07-07.html",
+      "title": "Will vs. Revocable Trust in Florida: Which Plan Is Right for You?",
+      "tag": "Estate Planning",
+      "category": "Wills & Trusts",
+      "blurb": "Florida attorney Arthur Simpson explains the real differences between a will and a revocable trust — and why trust funding is the step most families miss.",
+      "image": "images/og/wills-trusts-2026-07-07.jpg",
+      "date": "2026-07-07",
+      "prettyDate": "July 7, 2026"
+    },
+    {
+      "slug": "articles/estate-foundations-2026-07-06",
+      "file": "articles/estate-foundations-2026-07-06.html",
+      "title": "Florida Estate Planning Basics: Wills, Trusts & More | Truestead Law",
+      "tag": "Estate Planning",
+      "category": "Estate Planning Foundations",
+      "blurb": "Wills, trusts, powers of attorney, and healthcare surrogates — a plain-language guide to Florida estate-planning foundations every family should understand.",
+      "image": "images/og/estate-foundations-2026-07-06.jpg",
+      "date": "2026-07-06",
+      "prettyDate": "July 6, 2026"
+    },
+    {
       "slug": "articles/special-situations-2026-06-26",
       "file": "articles/special-situations-2026-06-26.html",
       "title": "Florida Asset Protection for Blended Families & Snowbirds",

@@ -10461,6 +10461,20 @@ ${docOut.innerHTML}
 </body>
 </html>`;
 
+  const ua = navigator.userAgent || '';
+  const isIOS = /iP(hone|ad|od)/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const isSafariDesktop = /^((?!chrome|crios|fxios|android).)*safari/i.test(ua) && !isIOS;
+  if (isIOS || isSafariDesktop) {
+    // iOS ignores <a download> entirely; desktop Safari loses the blob on Back.
+    // Write HTML directly to a new tab — synchronous, so window.open isn't blocked.
+    const win = window.open('', '_blank');
+    if (win) {
+      win.document.write(html);
+      win.document.close();
+      showToast('📥 Opened in new tab — tap Share → Print to save as PDF.');
+      return;
+    }
+  }
   const blob = new Blob([html], {type:'text/html;charset=utf-8'});
   const url  = URL.createObjectURL(blob);
   const a    = document.createElement('a');
@@ -14072,6 +14086,17 @@ function proceedToPayment() {
   try {
     if (window.gtag) gtag('event', 'begin_checkout', { currency: 'USD', value: currentPrice });
     if (window.fbq) fbq('track', 'InitiateCheckout', { currency: 'USD', value: currentPrice });
+    if (window.fbq) fbq('track', 'Lead', { currency: 'USD', value: currentPrice, content_name: plan.label });
+  } catch (e) {}
+
+  // Instant ntfy alert — the firm's earliest signal that a real prospect reached
+  // checkout, since notify-attorney.js only fires AFTER Stripe payment succeeds.
+  try {
+    fetch('/.netlify/functions/notify-checkout-intent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ clientName: name, planLabel: plan.label, price: currentPrice, email: payEmail }),
+    }).catch(() => {});
   } catch (e) {}
 
   // Open Stripe in a NEW TAB so this tab keeps documents in memory.
@@ -15417,6 +15442,7 @@ async function handleAddStaff() {
     ov.firstChild.innerHTML='<div style="text-align:center;margin-bottom:20px"><div style="font-size:2.4rem">✅</div>'
       +'<h1 style="font-family:&quot;Playfair Display&quot;,serif;color:#15273D;font-size:1.7rem;margin:6px 0">Your packet is ready, '+v('spkFirst')+'.</h1>'
       +'<p style="color:#555;max-width:520px;margin:0 auto 14px">Download your four documents as a PDF, then follow the <strong>signing checklist</strong> — it walks you through witnesses and the notary step by step.</p>'
+      +'<div style="background:#f0f7ff;border:1px solid #bfdbfe;border-radius:9px;padding:11px 16px;max-width:480px;margin:0 auto 14px;font-size:.88rem;color:#1e40af;text-align:left">📧 <strong>We also emailed the PDF to '+v('spkAgentEmail')+'.</strong> If you don\'t see it in a minute or two, check your <strong>Promotions</strong> or <strong>Spam</strong> tab — email clients sometimes sort it there.</div>'
       +'<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:8px 0 4px">'
       +'<button onclick="downloadStudentPdf(this)" style="background:#15273D;color:#fff;font-weight:700;border:none;border-radius:9px;padding:13px 22px;cursor:pointer">⬇ Download PDF</button>'
       +'<a href="/18-and-protected-checklist" target="_blank" rel="noopener" style="background:#c49a2a;color:#15273D;font-weight:800;border-radius:9px;padding:13px 22px;text-decoration:none">📋 Signing Checklist &amp; Instructions</a>'
@@ -15437,7 +15463,25 @@ async function handleAddStaff() {
     // ITS scroll — window.scrollTo won't move it, leaving the user down at the documents.
     try{ ov.scrollTop=0; ov.scrollTo(0,0); }catch(e){}
     window.scrollTo(0,0);
-    try{ launchConfetti(); }catch(e){}
+    // Boost confetti canvas above the overlay (z-index:99999) then reset after animation
+    try{
+      const cc=document.getElementById('confettiCanvas');
+      if(cc){ cc.style.zIndex='100001'; launchConfetti(); setTimeout(()=>{ cc.style.zIndex='986'; },5000); }
+    }catch(e){}
+    // Fire-and-forget: generate PDF in background and email it to the parent
+    (async()=>{
+      try{
+        const emailTo=v('spkAgentEmail'); if(!emailTo) return;
+        const docsEl=document.getElementById('spkDocs'); if(!docsEl) return;
+        const pdfHtml='<!doctype html><html><head>'+STUDENT_DOC_HEAD+'</head><body>'+_studentCover()+docsEl.innerHTML+'</body></html>';
+        const pdfRes=await fetch('/.netlify/functions/generate-pdf',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({html:pdfHtml,filename:'18-and-Protected-Documents'})});
+        if(!pdfRes.ok) return;
+        const blob=await pdfRes.blob();
+        const b64=await new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result.split(',')[1]); r.onerror=rej; r.readAsDataURL(blob); });
+        const recipientName=agentFull||((v('spkAgentFirst')+' '+v('spkAgentLast')).trim());
+        await fetch('/.netlify/functions/email-packet',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:emailTo,name:recipientName,pdfBase64:b64})});
+      }catch(e){ /* best-effort — user can still download manually */ }
+    })();
   };
 
   // Self-contained document stylesheet — the .doc-* / .sig-* classes live only in
@@ -15511,29 +15555,34 @@ strong{color:#15273D}
     const ua=navigator.userAgent||'';
     const isIOS=/iP(hone|ad|od)/.test(ua) || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
     const isSafari=/^((?!chrome|crios|fxios|android).)*safari/i.test(ua);
+    // Pre-open a blank tab NOW while the user gesture is still active.
+    // On iOS/Safari, window.open called after an await is blocked as a popup.
+    // This lets us redirect the pre-opened tab to the blob URL after the async fetch
+    // without navigating the current page away (which would destroy the overlay).
+    const preWin = (isIOS || isSafari) ? window.open('', '_blank') : null;
     try{
       const r=await fetch('/.netlify/functions/generate-pdf',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({html, filename:'18-and-Protected-Documents'})});
       if(!r.ok) throw new Error('pdf '+r.status);
       const blob=await r.blob();
       const url=URL.createObjectURL(blob);
       const fname='18-and-Protected-Documents.pdf';
-      // iOS Safari ignores <a download> and throws "WebKitBlobResource error 1" on blob downloads.
-      // Best path on phones: the native share sheet (Save to Files / Mail / AirDrop).
-      try{
-        const file = window.File ? new File([blob], fname, {type:'application/pdf'}) : null;
-        if(file && navigator.canShare && navigator.canShare({files:[file]})){
-          await navigator.share({files:[file], title:'18 & Protected Documents'});
-          setTimeout(()=>URL.revokeObjectURL(url),60000); return;
-        }
-      }catch(shareErr){ /* user cancelled or activation lost — fall through to a viewer */ }
-      if(isIOS || isSafari){
-        // Navigate to the PDF: Safari renders it inline and offers Share → Save to Files.
-        window.location.href=url;
-        setTimeout(()=>URL.revokeObjectURL(url),60000); return;
+      // iOS: try native share sheet first (Save to Files / AirDrop / Mail).
+      if(isIOS){
+        try{
+          const file=new File([blob],fname,{type:'application/pdf'});
+          if(navigator.canShare && navigator.canShare({files:[file]})){
+            if(preWin) preWin.close();
+            await navigator.share({files:[file],title:'18 & Protected Documents'});
+            setTimeout(()=>URL.revokeObjectURL(url),60000); return;
+          }
+        }catch(shareErr){ /* cancelled or not supported — fall through to pre-opened tab */ }
       }
+      // iOS/Safari: redirect the pre-opened tab to the PDF (overlay stays intact on this page).
+      if(preWin){ preWin.location.href=url; setTimeout(()=>URL.revokeObjectURL(url),60000); return; }
+      // Chrome and other browsers: standard anchor download.
       const a=document.createElement('a'); a.href=url; a.download=fname; document.body.appendChild(a); a.click(); a.remove();
       setTimeout(()=>URL.revokeObjectURL(url),5000);
-    }catch(e){ printStudentPacket(); }
+    }catch(e){ if(preWin) preWin.close(); printStudentPacket(); }
     finally{ if(btn){ btn.textContent=label; btn.disabled=false; } }
   };
 

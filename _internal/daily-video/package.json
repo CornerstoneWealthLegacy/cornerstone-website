@@ -1,0 +1,14 @@
+{
+  "name": "truestead-daily-video-agent",
+  "version": "1.0.0",
+  "description": "Daily video pipeline: article → script → ElevenLabs → Higgsfield → FFmpeg → Postiz",
+  "type": "module",
+  "scripts": {
+    "run": "node daily-video.js",
+    "dry-run": "node daily-video.js --dry-run",
+    "no-post": "node daily-video.js --no-post"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.105.0"
+  }
+}
