@@ -29,9 +29,9 @@ const ROOT = path.dirname(__dirname);
 const OUT = path.join(ROOT, "_internal", "daily-article", "gsc-targets.json");
 
 const PROPERTY = process.env.GSC_PROPERTY || "sc-domain:truesteadlaw.com";
-const MIN_IMPRESSIONS = Number(process.env.GSC_MIN_IMPRESSIONS || 20);
+const MIN_IMPRESSIONS = Number(process.env.GSC_MIN_IMPRESSIONS || 8);
 const POS_MIN = 4.5;   // already on/near page 1–2...
-const POS_MAX = 20.5;  // ...but not yet top-4 — the "striking distance" band
+const POS_MAX = 25;    // ...but not yet top-4 — the "striking distance" band
 const KEEP = Number(process.env.GSC_KEEP || 40);
 
 // query keyword -> practice-area tag (matches daily-article byline/section tags)
@@ -78,6 +78,12 @@ async function main() {
   });
   if (!res.ok) noCreds(`Search Console API error ${res.status}: ${(await res.text()).slice(0, 200)}`);
   const rows = (await res.json()).rows || [];
+
+  // Diagnostic: what does the property actually contain right now?
+  console.log(`[gsc] connected OK. GSC returned ${rows.length} total queries for the last 90 days.`);
+  const byImp = rows.map(r => ({ q: r.keys[0], imp: r.impressions, pos: +r.position.toFixed(1) })).sort((a, b) => b.imp - a.imp);
+  console.log(`[gsc] top queries by impressions (any position, for reference):`);
+  byImp.slice(0, 12).forEach(r => console.log(`   · "${r.q}"  imp=${r.imp} pos=${r.pos}${/truestead|arthur simpson/i.test(r.q) ? "  (brand)" : ""}`));
 
   const prev = fs.existsSync(OUT) ? JSON.parse(fs.readFileSync(OUT, "utf8")) : [];
   const usedQueries = new Set(prev.filter(t => t.used).map(t => t.query));
