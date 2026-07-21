@@ -1,6 +1,17 @@
 {
   "articles": [
     {
+      "slug": "articles/florida-law-update-2026-07-21",
+      "file": "articles/florida-law-update-2026-07-21.html",
+      "title": "Florida Probate Reform 2026: New Summary Administration Limits",
+      "tag": "Probate",
+      "category": "Florida Legal & Legislative",
+      "blurb": "Florida doubled its summary probate threshold to $150,000 and added new tools against stonewalling banks, effective July 1, 2026.",
+      "image": "images/og/florida-law-update-2026-07-21.jpg",
+      "date": "2026-07-21",
+      "prettyDate": "July 20, 2026"
+    },
+    {
       "slug": "articles/special-situations-2026-07-20",
       "file": "articles/special-situations-2026-07-20.html",
       "title": "Florida Estate Planning for Blended Families & Snowbirds",
