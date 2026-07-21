@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "query": "free legal forms for 18-year olds",
+    "impressions": 9,
+    "clicks": 1,
+    "position": 11.1,
+    "tag": "Estate Planning",
+    "score": 4,
+    "used": false
+  },
+  {
+    "query": "living trusts ruskin",
+    "impressions": 9,
+    "clicks": 0,
+    "position": 11.7,
+    "tag": "Estate Planning",
+    "score": 4,
+    "used": false
+  }
+]
