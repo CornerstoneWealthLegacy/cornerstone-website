@@ -8,6 +8,62 @@
 // Practice areas: Estate Planning · Wills & Trusts · Elder Law · Probate · Real Estate
 // · FL Law Updates · Personal Injury.
 
+import { readFileSync, writeFileSync, existsSync } from 'fs';
+import { fileURLToPath } from 'url';
+
+// ── Google Search Console bridge ─────────────────────────────────────────────
+// gsc-fetch-keywords.cjs writes striking-distance queries (already ranking ~5–20)
+// to gsc-targets.json. getTodaysTopic() targets the top unused query FIRST, so the
+// daily article chases real Google data before falling back to the rotation below.
+const GSC_FILE = fileURLToPath(new URL('./gsc-targets.json', import.meta.url));
+
+const TAG_META = {
+  'Real Estate':                 { eyebrow: 'Florida Real Estate Law', cta: 'consult',    imageScene: 'a Florida home and neatly organized property documents in warm natural light' },
+  'Personal Injury':             { eyebrow: 'Florida Personal Injury',  cta: 'consult',    imageScene: 'a reassuring Florida attorney listening to a client across a bright office desk' },
+  'Estate Planning':             { eyebrow: 'Florida Estate Planning',  cta: 'estate-kit', imageScene: 'a multi-generational Florida family reviewing documents at a sunlit kitchen table' },
+  'Asset Protection':            { eyebrow: 'Florida Asset Protection', cta: 'consult',    imageScene: 'a secure, elegant Florida home behind gates at golden hour' },
+  'Elder Law':                   { eyebrow: 'Florida Elder Law',        cta: 'consult',    imageScene: 'a caring scene of an adult child and elderly parent reviewing paperwork together' },
+  'Probate':                     { eyebrow: 'Florida Probate',          cta: 'consult',    imageScene: 'an elegant Florida home interior with heirloom documents in soft window light' },
+  'International & Cross-Border': { eyebrow: 'International & Cross-Border', cta: 'consult', imageScene: 'a world map with warm light converging on Florida real estate' },
+};
+
+function gscSlug(s) {
+  return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 45).replace(/-+$/g, '');
+}
+
+function buildGscTopic(t) {
+  const m = TAG_META[t.tag] || TAG_META['Estate Planning'];
+  const q = t.query;
+  return {
+    id: 'focus-' + gscSlug(q),
+    tag: t.tag,
+    eyebrow: m.eyebrow,
+    category: q.replace(/\b\w/g, c => c.toUpperCase()),
+    audience: `Floridians who searched Google for "${q}"`,
+    cta: m.cta,
+    imageScene: m.imageScene,
+    description: `Write the definitive, genuinely useful Florida-law article that deserves to rank #1 for the Google search "${q}". Truestead already appears for this exact query in Google Search Console at about position ${t.position} with ${t.impressions} recent impressions — this piece should become the single best answer on the internet for it. Lead with a direct, clear answer to what the searcher wants, then the details, statute-cited where relevant. Naturally use the phrasing "${q}" in the title, opening, and a heading.`,
+    searchQueries: [q, `${q} Florida 2026`, `${q} explained`, `Florida ${q} law 2026`],
+  };
+}
+
+function nextGscTopic() {
+  try {
+    if (!existsSync(GSC_FILE)) return null;
+    const list = JSON.parse(readFileSync(GSC_FILE, 'utf8'));
+    const idx = list.findIndex(t => t && !t.used && t.query);
+    if (idx < 0) return null;
+    list[idx].used = true;
+    list[idx].targetedOn = new Date().toISOString().slice(0, 10);
+    writeFileSync(GSC_FILE, JSON.stringify(list, null, 2) + '\n');
+    console.log(`🎯  GSC target: "${list[idx].query}" (pos ~${list[idx].position}, ${list[idx].impressions} impressions)`);
+    return buildGscTopic(list[idx]);
+  } catch (e) {
+    console.warn(`  ⚠️  GSC target read failed (${e.message}); using rotation.`);
+    return null;
+  }
+}
+
 export const TOPICS = [
 
   {
@@ -231,7 +287,10 @@ export function getTodaysTopic(overrideId = null) {
     if (match) return match;
     console.warn(`Topic "${overrideId}" not found, falling back to today's rotation.`);
   }
-  // Cycle through the whole list, one topic per calendar day (UTC). Works for any
+  // Google Search Console first: if a striking-distance query is queued, target it.
+  const gsc = nextGscTopic();
+  if (gsc) return gsc;
+  // Otherwise cycle through the whole list, one topic per calendar day (UTC). Works for any
   // number of topics — each appears once every TOPICS.length days.
   const epochDay = Math.floor(Date.now() / 86400000);
   return TOPICS[((epochDay % TOPICS.length) + TOPICS.length) % TOPICS.length];

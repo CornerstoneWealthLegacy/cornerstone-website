@@ -1,0 +1,45 @@
+name: GSC keyword targets
+
+# Weekly: pull striking-distance queries from Google Search Console and refresh
+# the daily-article target queue (_internal/daily-article/gsc-targets.json).
+# The daily-article engine then writes articles targeting real Google demand.
+# Safe no-op until the GSC_SA_KEY secret is added (see tools/GSC-SETUP.md).
+
+on:
+  schedule:
+    - cron: "0 8 * * 1"    # Mondays 08:00 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependency
+        run: npm install google-auth-library
+
+      - name: Fetch GSC striking-distance keywords
+        env:
+          GSC_SA_KEY: ${{ secrets.GSC_SA_KEY }}
+          GSC_PROPERTY: ${{ vars.GSC_PROPERTY }}   # e.g. sc-domain:truesteadlaw.com
+        run: node tools/gsc-fetch-keywords.cjs
+
+      - name: Commit refreshed targets
+        run: |
+          if [ -n "$(git status --porcelain _internal/daily-article/gsc-targets.json)" ]; then
+            git config user.name "gsc-keywords-bot"
+            git config user.email "bot@truesteadlaw.com"
+            git add _internal/daily-article/gsc-targets.json
+            git commit -m "Refresh GSC striking-distance keyword targets"
+            git push
+            echo "Updated GSC targets."
+          else
+            echo "No change in GSC targets."
+          fi
