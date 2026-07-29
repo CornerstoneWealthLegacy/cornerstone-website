@@ -1,6 +1,28 @@
 {
   "articles": [
     {
+      "slug": "articles/focus-living-trusts-ruskin-2026-07-23",
+      "file": "articles/focus-living-trusts-ruskin-2026-07-23.html",
+      "title": "Living Trusts in Ruskin, FL: A Complete Guide",
+      "tag": "Estate Planning",
+      "category": "Living Trusts Ruskin",
+      "blurb": "How Florida revocable living trusts work for Ruskin-area homeowners and families, and when one makes more sense than a will alone.",
+      "image": "images/og/focus-living-trusts-ruskin-2026-07-23.jpg",
+      "date": "2026-07-23",
+      "prettyDate": "July 22, 2026"
+    },
+    {
+      "slug": "articles/focus-free-legal-forms-for-18-year-olds-2026-07-22",
+      "file": "articles/focus-free-legal-forms-for-18-year-olds-2026-07-22.html",
+      "title": "Free Legal Forms for 18-Year-Olds in Florida: What to Know",
+      "tag": "Estate Planning",
+      "category": "Free Legal Forms For 18-Year Olds",
+      "blurb": "What 'free legal forms for 18-year-olds' really covers in Florida — and why proper signing matters as much as the form itself.",
+      "image": null,
+      "date": "2026-07-22",
+      "prettyDate": "July 21, 2026"
+    },
+    {
       "slug": "articles/florida-law-update-2026-07-21",
       "file": "articles/florida-law-update-2026-07-21.html",
       "title": "Florida Probate Reform 2026: New Summary Administration Limits",

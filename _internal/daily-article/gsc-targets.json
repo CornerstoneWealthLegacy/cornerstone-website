@@ -6,7 +6,8 @@
     "position": 11.1,
     "tag": "Estate Planning",
     "score": 4,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-07-22"
   },
   {
     "query": "living trusts ruskin",
@@ -15,6 +16,7 @@
     "position": 11.7,
     "tag": "Estate Planning",
     "score": 4,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-07-23"
   }
 ]
