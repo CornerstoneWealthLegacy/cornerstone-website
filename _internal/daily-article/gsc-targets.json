@@ -1,22 +1,40 @@
 [
   {
-    "query": "free legal forms for 18-year olds",
-    "impressions": 9,
-    "clicks": 1,
-    "position": 11.1,
+    "query": "living trusts ruskin",
+    "impressions": 20,
+    "clicks": 0,
+    "position": 7.7,
     "tag": "Estate Planning",
-    "score": 4,
+    "score": 13,
     "used": true,
     "targetedOn": "2026-07-22"
   },
   {
-    "query": "living trusts ruskin",
-    "impressions": 9,
-    "clicks": 0,
-    "position": 11.7,
+    "query": "free legal forms for 18-year olds",
+    "impressions": 17,
+    "clicks": 2,
+    "position": 9.4,
     "tag": "Estate Planning",
-    "score": 4,
+    "score": 9,
     "used": true,
     "targetedOn": "2026-07-23"
+  },
+  {
+    "query": "living trust preparation ruskin",
+    "impressions": 14,
+    "clicks": 0,
+    "position": 8.8,
+    "tag": "Estate Planning",
+    "score": 8,
+    "used": false
+  },
+  {
+    "query": "free legal forms for 18-year olds pdf",
+    "impressions": 10,
+    "clicks": 1,
+    "position": 8.3,
+    "tag": "Estate Planning",
+    "score": 6,
+    "used": false
   }
 ]
