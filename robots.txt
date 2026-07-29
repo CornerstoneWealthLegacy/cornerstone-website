@@ -4,66 +4,83 @@
 # ── Allow all standard search engines ────────────────────────────────────────
 User-agent: Googlebot
 Allow: /
+Disallow: /.netlify/
 
 User-agent: Bingbot
 Allow: /
+Disallow: /.netlify/
 
 User-agent: Slurp
 Allow: /
+Disallow: /.netlify/
 
 User-agent: DuckDuckBot
 Allow: /
+Disallow: /.netlify/
 
 # ── Allow AI search & citation bots (these cite your content) ────────────────
 
 # Google AI Overviews + Gemini
 User-agent: Google-Extended
 Allow: /
+Disallow: /.netlify/
 
 # ChatGPT search (OpenAI)
 User-agent: GPTBot
 Allow: /
+Disallow: /.netlify/
 
 User-agent: ChatGPT-User
 Allow: /
+Disallow: /.netlify/
 
 # Perplexity
 User-agent: PerplexityBot
 Allow: /
+Disallow: /.netlify/
 
 # Claude / Anthropic
 User-agent: ClaudeBot
 Allow: /
+Disallow: /.netlify/
 
 User-agent: anthropic-ai
 Allow: /
+Disallow: /.netlify/
 
 # Microsoft Copilot (via Bingbot above)
 User-agent: msnbot
 Allow: /
+Disallow: /.netlify/
 
 # Cohere
 User-agent: cohere-ai
 Allow: /
+Disallow: /.netlify/
 
 # Meta AI
 User-agent: FacebookBot
 Allow: /
+Disallow: /.netlify/
 
 # Apple
 User-agent: Applebot
 Allow: /
+Disallow: /.netlify/
 
 User-agent: Applebot-Extended
 Allow: /
+Disallow: /.netlify/
 
 # OpenAI search crawler (powers ChatGPT search results & citations)
 User-agent: OAI-SearchBot
 Allow: /
+Disallow: /.netlify/
 
 # Anthropic (Claude) web fetch for citations
 User-agent: Claude-Web
 Allow: /
+Disallow: /.netlify/
 
 # ── Block training-only scrapers (won't cite you, just harvest content) ───────
 
@@ -74,6 +91,10 @@ Disallow: /
 # Amazonbot (training, not citation)
 User-agent: Amazonbot
 Disallow: /
+
+# ── All other crawlers: keep function endpoints out of the index ─────────────
+User-agent: *
+Disallow: /.netlify/
 
 # ── Sitemap ───────────────────────────────────────────────────────────────────
 Sitemap: https://truesteadlaw.com/sitemap.xml
