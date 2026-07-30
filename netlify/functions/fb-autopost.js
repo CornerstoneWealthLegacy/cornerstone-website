@@ -11,8 +11,12 @@
 //     card (the branded preview image we added) automatically.
 //
 // REQUIRED ENV (set in Netlify → Site configuration → Environment variables)
-//   FB_PAGE_ID             your Facebook Page ID (NOT secret)
-//   FB_PAGE_ACCESS_TOKEN   Page access token with pages_manage_posts (SECRET)
+//   FB_PAGE_IDS            comma-separated Page IDs to post to (NOT secret).
+//                          Default: Truestead Law + Arthur Simpson-Attorney & Realtor.
+//                          (Legacy FB_PAGE_ID single-page var still honored.)
+//   FB_PAGE_ACCESS_TOKEN   access token with pages_manage_posts on ALL listed
+//                          pages — a user/system-user token covers every page
+//                          you admin; a single-page token only covers its page. (SECRET)
 // OPTIONAL ENV
 //   POST_INTERVAL_DAYS     how many days between posts (default "1" = every day)
 //   FB_AUTOPOST_TEST_KEY   set a random string to allow a manual test post:
@@ -27,8 +31,11 @@ const SITE = 'https://truesteadlaw.com';
 const ARTICLES = require('./fb-autopost-articles.json');
 
 exports.handler = async (event) => {
-  // Truestead Facebook Page ID (public, not secret). Override via FB_PAGE_ID env if needed.
-  const PAGE_ID = process.env.FB_PAGE_ID || '1124648047400873';
+  // Pages to post to (public IDs, not secret): Truestead Law + Arthur
+  // Simpson-Attorney & Realtor (facebook.com/yourrealtorattorney).
+  // Override via FB_PAGE_IDS (comma-separated) or legacy FB_PAGE_ID.
+  const PAGE_IDS = (process.env.FB_PAGE_IDS || process.env.FB_PAGE_ID || '1124648047400873,100903048891184')
+    .split(',').map((s) => s.trim()).filter(Boolean);
   const TOKEN = process.env.FB_PAGE_ACCESS_TOKEN;
   if (!TOKEN) {
     return { statusCode: 200, body: 'fb-autopost not configured (set FB_PAGE_ACCESS_TOKEN).' };
@@ -72,32 +79,40 @@ exports.handler = async (event) => {
   }
   const link = `${SITE}/${a.slug}`;
 
-  // Facebook wants a PAGE access token to publish to a page feed. The token in env
-  // may be a system-user/user token, so exchange it for the page-specific token
-  // first. If that fails, fall back to using the provided token directly.
-  let pageToken = TOKEN;
-  try {
-    const tr = await fetch(`https://graph.facebook.com/v19.0/${encodeURIComponent(PAGE_ID)}?fields=access_token&access_token=${encodeURIComponent(TOKEN)}`);
-    const td = await tr.json().catch(() => ({}));
-    if (tr.ok && td.access_token) pageToken = td.access_token;
-    else console.warn('fb-autopost: page-token exchange returned no token', JSON.stringify(td));
-  } catch (e) { console.warn('fb-autopost: page-token exchange failed', e.message); }
+  // Post to each page. Facebook wants a PAGE access token to publish to a page
+  // feed. The token in env may be a system-user/user token, so exchange it for
+  // each page's own token first; if the exchange fails, fall back to the
+  // provided token directly. One page failing must not block the others.
+  const results = [];
+  for (const pageId of PAGE_IDS) {
+    let pageToken = TOKEN;
+    try {
+      const tr = await fetch(`https://graph.facebook.com/v19.0/${encodeURIComponent(pageId)}?fields=access_token&access_token=${encodeURIComponent(TOKEN)}`);
+      const td = await tr.json().catch(() => ({}));
+      if (tr.ok && td.access_token) pageToken = td.access_token;
+      else console.warn(`fb-autopost: page-token exchange returned no token for ${pageId}`, JSON.stringify(td));
+    } catch (e) { console.warn(`fb-autopost: page-token exchange failed for ${pageId}`, e.message); }
 
-  try {
-    const res = await fetch(`https://graph.facebook.com/v19.0/${encodeURIComponent(PAGE_ID)}/feed`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: a.msg, link, access_token: pageToken }),
-    });
-    const data = await res.json().catch(() => ({}));
-    if (!res.ok) {
-      console.error('fb-autopost error', res.status, JSON.stringify(data));
-      return { statusCode: 502, body: 'Facebook API error: ' + JSON.stringify(data) };
+    try {
+      const res = await fetch(`https://graph.facebook.com/v19.0/${encodeURIComponent(pageId)}/feed`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: a.msg, link, access_token: pageToken }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        console.error(`fb-autopost error for page ${pageId}`, res.status, JSON.stringify(data));
+        results.push(`${pageId}: FAILED ${JSON.stringify(data.error && data.error.message || data)}`);
+      } else {
+        console.log('fb-autopost posted', a.slug, '→', pageId, data.id || '(no id)');
+        results.push(`${pageId}: posted ${data.id || 'n/a'}`);
+      }
+    } catch (e) {
+      console.error(`fb-autopost exception for page ${pageId}`, e);
+      results.push(`${pageId}: EXCEPTION ${e.message}`);
     }
-    console.log('fb-autopost posted', a.slug, '→', data.id || '(no id)');
-    return { statusCode: 200, body: `Posted ${a.slug} (post id ${data.id || 'n/a'})` };
-  } catch (e) {
-    console.error('fb-autopost exception', e);
-    return { statusCode: 500, body: 'Exception: ' + e.message };
   }
+
+  const anyPosted = results.some((r) => r.includes('posted'));
+  return { statusCode: anyPosted ? 200 : 502, body: `Article ${a.slug} → ${results.join(' | ')}` };
 };
