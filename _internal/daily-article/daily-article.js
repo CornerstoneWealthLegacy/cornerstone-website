@@ -37,6 +37,18 @@ function requireKeys() {
   if (!ANTHROPIC_KEY) { console.error('❌  ANTHROPIC_API_KEY not set'); process.exit(1); }
 }
 
+// ─── PHONE NOTIFICATION (ntfy.sh — same topic as the lead-capture alerts) ───
+const NTFY_TOPIC = process.env.NTFY_TOPIC || 'truestead-alerts-TZr7Hai1';
+async function notify(title, body, tags = 'newspaper') {
+  try {
+    await fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
+      method: 'POST',
+      headers: { Title: title, Priority: 'default', Tags: tags, 'Content-Type': 'text/plain' },
+      body,
+    });
+  } catch (e) { console.error('ntfy notify failed (non-fatal):', e.message); }
+}
+
 // ─── CLI ──────────────────────────────────────────────────────────────────────
 const argv = process.argv.slice(2);
 const isDryRun = argv.includes('--dry-run') || argv.includes('--no-deploy');
@@ -571,15 +583,19 @@ async function main() {
   if (isDryRun) {
     console.log(`\n⏭️   Skipped deploy. Preview locally:`);
     console.log(`     open "${join(ARTICLES_DIR, filename)}"`);
+    await notify('Truestead article ready to review', `"${article.title}"\nDry run — not deployed. Review: ${join(ARTICLES_DIR, filename)}`, 'mag');
   } else {
     console.log('\n🚀  Deploying to truesteadlaw.com (netlify deploy --prod)...');
     try {
       const result = execSync('netlify deploy --prod', { cwd: SITE_ROOT, encoding: 'utf-8', timeout: 600000 });
       const m = result.match(/(?:Website|Production) URL:\s*(.+)/);
-      console.log(`✅  Live: ${m ? m[1].trim() : 'https://truesteadlaw.com/articles/' + slug}`);
+      const liveUrl = m ? m[1].trim() : 'https://truesteadlaw.com/articles/' + slug;
+      console.log(`✅  Live: ${liveUrl}`);
+      await notify('Truestead article published', `"${article.title}"\n${liveUrl}`, 'newspaper,white_check_mark');
     } catch (e) {
       console.error('❌  Deploy failed:', e.message);
       console.log('💡  The article + index were saved. Deploy manually:  cd cornerstone-website && netlify deploy --prod');
+      await notify('⚠️ Truestead deploy failed', `"${article.title}" was written but NOT deployed.\n${e.message.substring(0, 150)}`, 'warning');
     }
   }
 
@@ -592,5 +608,9 @@ async function main() {
 export { renderHTML, ensureCleanUrlRedirect, getTodaysTopic, generateHeroImage };
 
 if (process.argv[1] && process.argv[1].replace(/\\/g, '/').endsWith('daily-article.js')) {
-  main().catch(e => { console.error('\n❌ Fatal:', e); process.exit(1); });
+  main().catch(async e => {
+    console.error('\n❌ Fatal:', e);
+    await notify('❌ Truestead daily article failed', String(e.message || e).substring(0, 150), 'x');
+    process.exit(1);
+  });
 }
