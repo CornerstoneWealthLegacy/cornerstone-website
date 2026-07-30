@@ -1,41 +1,48 @@
 [
   {
-    "query": "living trusts ruskin",
-    "impressions": 20,
-    "clicks": 0,
-    "position": 7.7,
+    "query": "florida",
+    "impressions": 10,
+    "clicks": 1,
+    "position": 5.8,
     "tag": "Estate Planning",
-    "score": 13,
+    "score": 7,
+    "used": false
+  },
+  {
+    "query": "florida probate attorney fee calculator",
+    "impressions": 8,
+    "clicks": 0,
+    "position": 18.1,
+    "tag": "Probate",
+    "score": 1,
+    "used": false
+  },
+  {
+    "query": "moving to florida estate planning",
+    "impressions": 8,
+    "clicks": 0,
+    "position": 22.4,
+    "tag": "Estate Planning",
+    "score": -1,
+    "used": false
+  },
+  {
+    "query": "living trusts ruskin",
     "used": true,
     "targetedOn": "2026-07-22"
   },
   {
     "query": "free legal forms for 18-year olds",
-    "impressions": 17,
-    "clicks": 2,
-    "position": 9.4,
-    "tag": "Estate Planning",
-    "score": 9,
     "used": true,
     "targetedOn": "2026-07-23"
   },
   {
     "query": "living trust preparation ruskin",
-    "impressions": 14,
-    "clicks": 0,
-    "position": 8.8,
-    "tag": "Estate Planning",
-    "score": 8,
     "used": true,
     "targetedOn": "2026-07-29"
   },
   {
     "query": "free legal forms for 18-year olds pdf",
-    "impressions": 10,
-    "clicks": 1,
-    "position": 8.3,
-    "tag": "Estate Planning",
-    "score": 6,
     "used": true,
     "targetedOn": "2026-07-29"
   }
