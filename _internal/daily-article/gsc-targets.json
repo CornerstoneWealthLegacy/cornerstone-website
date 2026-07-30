@@ -26,7 +26,8 @@
     "position": 8.8,
     "tag": "Estate Planning",
     "score": 8,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-07-29"
   },
   {
     "query": "free legal forms for 18-year olds pdf",
@@ -35,6 +36,7 @@
     "position": 8.3,
     "tag": "Estate Planning",
     "score": 6,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-07-29"
   }
 ]
