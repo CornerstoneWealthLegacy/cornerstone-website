@@ -19,11 +19,14 @@ name: Daily article
 
 on:
   schedule:
-    # GitHub cron is UTC-only and DST-blind, so we fire at BOTH offsets and let
-    # the `gate` job below run the real work only when it's actually 06:00 in
-    # America/New_York. Net effect: exactly one publish at 6 AM Eastern, year-round.
-    - cron: "0 10 * * *"   # 06:00 ET during EDT (summer, UTC-4)
-    - cron: "0 11 * * *"   # 06:00 ET during EST (winter, UTC-5)
+    # GitHub delays scheduled triggers unpredictably (observed 15 min-3.5 hr late),
+    # so gating on an exact ET hour caused this to skip silently for a week straight.
+    # Instead we fire twice (covering both DST offsets) and let the `gate` job below
+    # proceed as soon as today's UTC date has no article yet — same idempotency
+    # check the local launchd fallback (run-if-needed.sh) already uses. Net effect:
+    # exactly one publish per day, whichever run gets there first.
+    - cron: "0 10 * * *"   # ~06:00 ET during EDT (summer, UTC-4)
+    - cron: "0 11 * * *"   # ~06:00 ET during EST (winter, UTC-5)
   workflow_dispatch:
     inputs:
       topic:
@@ -34,27 +37,32 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: truestead-daily-article
+  cancel-in-progress: false
+
 jobs:
-  # Only let the real job run when it's 06:00 in America/New_York (DST-aware),
-  # or whenever the workflow is triggered manually.
+  # Only let the real job run once per UTC day, or whenever triggered manually.
   gate:
     runs-on: ubuntu-latest
     outputs:
       proceed: ${{ steps.check.outputs.proceed }}
     steps:
+      - uses: actions/checkout@v5
+
       - id: check
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "Manual run — proceeding."
             echo "proceed=true" >> "$GITHUB_OUTPUT"
           else
-            H=$(TZ=America/New_York date +%H)
-            echo "Current Eastern hour: $H"
-            if [ "$H" = "06" ]; then
-              echo "proceed=true" >> "$GITHUB_OUTPUT"
-            else
-              echo "Not 06 ET — skipping this scheduled run."
+            TODAY_UTC=$(date -u +%Y-%m-%d)
+            if grep -q "\"date\": \"$TODAY_UTC\"" articles-index.json; then
+              echo "Already published today ($TODAY_UTC) — skipping."
               echo "proceed=false" >> "$GITHUB_OUTPUT"
+            else
+              echo "No article for $TODAY_UTC yet — proceeding."
+              echo "proceed=true" >> "$GITHUB_OUTPUT"
             fi
           fi
 
