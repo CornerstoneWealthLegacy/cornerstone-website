@@ -196,11 +196,37 @@ function generateHeroImage(topic, article, slug) {
     if (!url) { console.warn('  ⚠️  No image URL in Higgsfield output. Skipping image.'); return null; }
     const dest = join(IMAGES_OG_DIR, `${slug}.jpg`);
     execSync(`curl -fsSL ${sh(url)} -o ${sh(dest)}`, { timeout: 60000 });
+    compressOgImage(dest);
     console.log(`  ✓ Saved images/og/${slug}.jpg`);
     return `images/og/${slug}.jpg`;
   } catch (e) {
     console.warn('  ⚠️  Image generation failed:', (e.message || '').slice(0, 200));
     return null;
+  }
+}
+
+// Higgsfield returns ~2688×1520 (~5MB). Standardize to the 1200×630 OG size at
+// web quality (~100–250KB) — faster page loads and faster Facebook/Twitter
+// scraping. ffmpeg preferred (center-crop); sips fallback (ships with macOS).
+// Non-fatal: on any failure the original full-size image is kept.
+function compressOgImage(dest) {
+  const tmp = `${dest}.tmp.jpg`;
+  try {
+    execSync(
+      `ffmpeg -loglevel error -y -i ${sh(dest)} -vf "scale=1200:630:force_original_aspect_ratio=increase,crop=1200:630" -q:v 4 ${sh(tmp)} && mv ${sh(tmp)} ${sh(dest)}`,
+      { timeout: 60000, stdio: 'pipe', env: { ...process.env, PATH: `${process.env.PATH}:${process.env.HOME}/.local/bin:/opt/homebrew/bin` } }
+    );
+    console.log('  ✓ Compressed OG image to 1200×630 (ffmpeg)');
+    return;
+  } catch { try { execSync(`rm -f ${sh(tmp)}`); } catch {} }
+  try {
+    execSync(
+      `sips --resampleWidth 1200 ${sh(dest)} && sips --cropToHeightWidth 630 1200 ${sh(dest)} && sips -s format jpeg -s formatOptions 75 ${sh(dest)}`,
+      { timeout: 60000, stdio: 'pipe' }
+    );
+    console.log('  ✓ Compressed OG image to 1200×630 (sips)');
+  } catch (e) {
+    console.warn('  ⚠️  OG image compression failed (keeping original):', (e.message || '').slice(0, 120));
   }
 }
 
