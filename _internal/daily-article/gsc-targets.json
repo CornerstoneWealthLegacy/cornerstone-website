@@ -6,7 +6,8 @@
     "position": 5.8,
     "tag": "Estate Planning",
     "score": 7,
-    "used": false
+    "used": true,
+    "skipped": "too generic - one-word brand-adjacent query, not an article topic"
   },
   {
     "query": "florida probate attorney fee calculator",
