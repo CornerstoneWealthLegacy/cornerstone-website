@@ -1,15 +1,5 @@
 [
   {
-    "query": "florida",
-    "impressions": 10,
-    "clicks": 1,
-    "position": 5.8,
-    "tag": "Estate Planning",
-    "score": 7,
-    "used": true,
-    "skipped": "too generic - one-word brand-adjacent query, not an article topic"
-  },
-  {
     "query": "florida probate attorney fee calculator",
     "impressions": 8,
     "clicks": 0,
@@ -20,12 +10,17 @@
   },
   {
     "query": "moving to florida estate planning",
-    "impressions": 8,
+    "impressions": 9,
     "clicks": 0,
-    "position": 22.4,
+    "position": 21.1,
     "tag": "Estate Planning",
-    "score": -1,
+    "score": 0,
     "used": false
+  },
+  {
+    "query": "florida",
+    "used": true,
+    "targetedOn": null
   },
   {
     "query": "living trusts ruskin",
