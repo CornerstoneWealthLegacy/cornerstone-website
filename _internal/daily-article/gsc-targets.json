@@ -8,7 +8,7 @@
     "score": 1,
     "used": true,
     "targetedOn": "2026-07-31",
-    "note": "covered 7/31; runs 8/1-8/4 re-picked it (used flag was not committed by CI) \u2014 4 duplicates to consolidate"
+    "note": "covered 7/31; runs 8/1-8/4 re-picked it (used flag was not committed by CI) — 4 duplicates to consolidate"
   },
   {
     "query": "moving to florida estate planning",
@@ -17,7 +17,8 @@
     "position": 21.1,
     "tag": "Estate Planning",
     "score": 0,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-08-05"
   },
   {
     "query": "florida",
