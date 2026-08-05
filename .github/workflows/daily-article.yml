@@ -97,7 +97,10 @@ jobs:
           git config user.name "truestead-bot"
           git config user.email "bot@truesteadlaw.com"
           # Only the article artifacts — never node_modules / package.json churn.
-          git add articles/ articles-index.json _redirects
+          # gsc-targets.json MUST be included: the topic picker marks the chosen
+          # query used:true, and if that never lands back on main, every run
+          # re-picks the same top-unused query (5 duplicate articles, 7/31–8/4).
+          git add articles/ articles-index.json _redirects _internal/daily-article/gsc-targets.json
           if git diff --cached --quiet; then
             echo "No new article to commit."
           else
