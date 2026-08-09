@@ -1,6 +1,17 @@
 {
   "articles": [
     {
+      "slug": "articles/real-estate-2026-08-09",
+      "file": "articles/real-estate-2026-08-09.html",
+      "title": "Florida Homestead & Property Law: What's New in 2026",
+      "tag": "Real Estate",
+      "category": "Real Estate & Property",
+      "blurb": "What Florida's pending homestead amendment, new FinCEN rules, and 2026 condo disclosure laws mean for homeowners, buyers, and sellers.",
+      "image": null,
+      "date": "2026-08-09",
+      "prettyDate": "August 9, 2026"
+    },
+    {
       "slug": "articles/probate-2026-08-08",
       "file": "articles/probate-2026-08-08.html",
       "title": "Florida Summary Probate: New $150,000 Threshold in 2026",
