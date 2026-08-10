@@ -27,6 +27,13 @@
 [functions."fb-autopost"]
   schedule = "0 14 * * *"
 
+# City-page fan-out — posts the day's real-estate article to all 27 city
+# Facebook Pages (Daytona/Jacksonville/Orlando/etc. Homes For Sale/Rent) with
+# city-localized openers. Runs an hour after fb-autopost so brand pages lead.
+# Uses the same FB_PAGE_ACCESS_TOKEN. See fb-city-autopost.js for env options.
+[functions."fb-city-autopost"]
+  schedule = "0 15 * * *"
+
 # Reddit monitor — scans target subreddits twice daily (13:00 + 23:00 UTC ≈ 9 AM & 7 PM ET)
 # for new Florida estate/real-estate/elder-law threads, drafts a compliant general-info
 # answer with Claude, and pushes one ntfy per thread. Never posts — you review & post.
