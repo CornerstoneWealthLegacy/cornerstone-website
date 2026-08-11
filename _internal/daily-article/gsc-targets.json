@@ -16,7 +16,8 @@
     "position": 10.8,
     "tag": "Estate Planning",
     "score": 4,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-08-11"
   },
   {
     "query": "estate planning homosassa",
