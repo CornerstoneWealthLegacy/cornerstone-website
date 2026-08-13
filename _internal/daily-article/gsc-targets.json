@@ -36,7 +36,8 @@
     "position": 12.1,
     "tag": "Estate Planning",
     "score": 3,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-08-13"
   },
   {
     "query": "medicaid lawyer",
