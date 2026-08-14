@@ -20,16 +20,19 @@
 [functions."abandoned-drip"]
   schedule = "0 */6 * * *"
 
-# Facebook auto-post — runs daily at 14:00 UTC (~9–10 AM ET). Publishes every
-# POST_INTERVAL_DAYS (default 1 = daily): prefers the newest fresh daily article
-# from articles-index.json, else rotates the curated evergreen list.
+# Facebook auto-post — runs daily at 09:00 UTC (5 AM EDT / 4 AM EST) so posts
+# are live for early risers. Publishes every POST_INTERVAL_DAYS (default 1 =
+# daily): prefers the newest fresh daily article from articles-index.json, else
+# rotates the curated evergreen list.
 # Requires FB_PAGE_ID + FB_PAGE_ACCESS_TOKEN env vars to actually post.
 [functions."fb-autopost"]
-  schedule = "0 14 * * *"
+  schedule = "0 9 * * *"
 
-# City-page fan-out — posts the day's real-estate article to all 27 city
-# Facebook Pages (Daytona/Jacksonville/Orlando/etc. Homes For Sale/Rent) with
-# city-localized openers. Runs an hour after fb-autopost so brand pages lead.
+# City-page fan-out — posts the day's arthursimpson.com real-estate insight to
+# the city/seller Facebook Pages with city-localized openers. Runs at 15:00 UTC
+# (11 AM EDT / 10 AM EST), after the arthursimpson.com daily-article agent's
+# morning publish window (launchd, hourly retry from first wake) so the fresh
+# insight is normally live before the fan-out fires.
 # Uses the same FB_PAGE_ACCESS_TOKEN. See fb-city-autopost.js for env options.
 [functions."fb-city-autopost"]
   schedule = "0 15 * * *"

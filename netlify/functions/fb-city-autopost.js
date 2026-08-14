@@ -1,23 +1,28 @@
-// fb-city-autopost — scheduled function that fans the daily Truestead article
-// out to all the city real-estate Facebook Pages (Daytona Beach Homes For Sale,
-// Jacksonville Homes For Rent, etc.) with a city-localized opener.
+// fb-city-autopost — scheduled function that fans the daily arthursimpson.com
+// real-estate insight out to the city/seller Facebook Pages (Daytona Beach
+// Homes For Sale, Sell My Home Fast Orlando, etc.) with a city-localized opener.
 //
-// Sister of fb-autopost.js (which posts to the two brand pages). Kept separate
-// so the brand pages and the 27 city pages can run different content rules,
-// schedules, and branding without touching each other.
+// Sister of fb-autopost.js (which posts Truestead articles to the two brand
+// pages). Kept separate so the brand pages and the city pages can run different
+// content rules, schedules, and branding without touching each other.
 //
 // HOW IT WORKS
-//   • Netlify runs this daily (see schedule in netlify.toml), an hour after
-//     fb-autopost so the brand pages post first.
-//   • Article selection prefers real-estate-relevant categories — a PI article
-//     ("motorcycle accident claims") would look off-brand on "Tampa Homes For
-//     Sale". Order: (1) fresh article in today's window IF its category is
-//     RE-relevant, (2) newest RE-relevant article regardless of date, rotating
-//     through the last several so pages don't repeat the same link on quiet days.
-//   • Each page gets a different opener (rotated by page + day) so 27 pages
+//   • Netlify runs this daily (see schedule in netlify.toml) at 15:00 UTC —
+//     after the arthursimpson.com daily-article agent's morning publish window,
+//     so the fresh insight is normally already live.
+//   • Content source is arthursimpson.com/insights-index.json. Every insight is
+//     real-estate by construction (buyer/seller/market/investor topics), so no
+//     category filter is needed — law-firm content can never reach these pages.
+//   • Selection: today's fresh insight if one is live; otherwise rotate through
+//     recent insights EXCLUDING the newest (it was yesterday's post). On
+//     no-fresh days the list hasn't changed, so the advancing rotation index
+//     always lands on a different article — the same link can't post two days
+//     running.
+//   • Each page gets a different opener (rotated by page + day) so the pages
 //     aren't publishing byte-identical posts — varied captions read naturally
 //     and avoid tripping Facebook's duplicate-content dampening.
-//   • Link posts, so Facebook renders the article's Open Graph card.
+//   • Link posts, so Facebook renders the article's Open Graph card (the
+//     insight pages carry real og:image photos, not a logo).
 //
 // REQUIRED ENV (same token as fb-autopost — a user/system-user token with
 // pages_manage_posts covers every page the account admins)
@@ -31,11 +36,8 @@
 //   POST_INTERVAL_DAYS     days between posts (default "1" = daily)
 //   FB_AUTOPOST_TEST_KEY   allows manual trigger via fb-city-autopost-now
 
-const SITE = 'https://truesteadlaw.com';
+const SITE = 'https://arthursimpson.com';
 const PAGES = require('./fb-city-pages.json');
-
-// Categories that belong on a real-estate city page.
-const RE_CATEGORIES = /real.?estate|property|homestead|title|closing|hoa|condo|landlord|tenant|estate.?plan/i;
 
 // Opener templates. {city} is replaced per page. Rotated by (dayNumber + page
 // index) so neighboring pages get different openers on the same day.
@@ -46,6 +48,14 @@ const OPENERS_SALE = [
   'What {city} homeowners should know this week:',
   '{city} real estate, explained by an attorney who closes deals:',
   'Thinking about {city} property? Start here:',
+];
+const OPENERS_SELLER = [
+  'Thinking of selling in {city}? Read this before you list:',
+  'Selling your {city} home? Know what closing really costs:',
+  '{city} home sellers: read this before the sign goes up:',
+  'Before you sell in {city}, advice from an attorney who closes deals:',
+  'Selling in {city} this year? Start with the facts:',
+  'What {city} sellers should know this week:',
 ];
 const OPENERS_RENT = [
   'Renting in {city}? Know where you stand:',
@@ -62,58 +72,66 @@ exports.handler = async (event) => {
     return { statusCode: 200, body: 'fb-city-autopost not configured (set FB_PAGE_ACCESS_TOKEN).' };
   }
 
+  // FREC advertising rules: brokerage name on real-estate ads. No em-dashes in
+  // published copy (house writing rule).
   const BRAND_LINE = process.env.FB_CITY_BRAND_LINE
-    || 'Arthur Simpson — Attorney & Realtor | truesteadlaw.com';
-
-  // Optional rollout subset.
-  const only = (process.env.FB_CITY_PAGE_IDS || '').split(',').map((s) => s.trim()).filter(Boolean);
-  const pages = only.length ? PAGES.filter((p) => only.includes(p.page_id)) : PAGES;
+    || 'Arthur Simpson, Attorney & Realtor | Realty Pros | arthursimpson.com';
 
   const interval = Math.max(1, parseInt(process.env.POST_INTERVAL_DAYS || '1', 10));
   const dayNumber = Math.floor(Date.now() / 86400000);
 
   const qs = event.queryStringParameters || {};
   const isTest = qs.force && process.env.FB_AUTOPOST_TEST_KEY && qs.force === process.env.FB_AUTOPOST_TEST_KEY;
+
+  // Optional rollout subset: FB_CITY_PAGE_IDS env, or (test runs only) a
+  // ?pages=id,id override so a clamped test needs no env change + redeploy.
+  const clamp = (isTest && qs.pages) || process.env.FB_CITY_PAGE_IDS || '';
+  const only = clamp.split(',').map((s) => s.trim()).filter(Boolean);
+  const pages = only.length ? PAGES.filter((p) => only.includes(p.page_id)) : PAGES;
   if (!isTest && dayNumber % interval !== 0) {
     return { statusCode: 200, body: `Not a posting day (every ${interval} days).` };
   }
 
-  // Pick the article: fresh + RE-relevant first, else rotate recent RE articles.
+  // Pick the insight: today's fresh one if live, else rotate recent ones
+  // excluding the newest (that was yesterday's post). Because the list only
+  // gains entries on days when the fresh path fires, the rotation index can
+  // never re-select yesterday's article — no repeats.
   let a = null;
   try {
-    const r = await fetch(`${SITE}/articles-index.json`, { headers: { 'cache-control': 'no-cache' } });
+    const r = await fetch(`${SITE}/insights-index.json`, { headers: { 'cache-control': 'no-cache' } });
     if (r.ok) {
       const data = await r.json().catch(() => ({}));
       const epochDay = (s) => Math.floor(Date.parse(`${s}T00:00:00Z`) / 86400000);
-      const all = (data.articles || []).filter((x) => x && x.slug && x.date && !Number.isNaN(epochDay(x.date)));
-      const isRE = (x) => RE_CATEGORIES.test(`${x.category || ''} ${x.tag || ''}`);
+      const all = (data.articles || [])
+        .filter((x) => x && x.slug && x.url && x.date && !Number.isNaN(epochDay(x.date)))
+        .sort((x, y) => epochDay(y.date) - epochDay(x.date));
 
       const windowStart = dayNumber - interval + 1;
-      const fresh = all
-        .filter((x) => { const d = epochDay(x.date); return d >= windowStart && d <= dayNumber; })
-        .filter(isRE)
-        .sort((x, y) => epochDay(y.date) - epochDay(x.date));
+      const fresh = all.filter((x) => { const d = epochDay(x.date); return d >= windowStart && d <= dayNumber; });
 
       if (fresh.length) {
         a = fresh[0];
       } else {
-        const re = all.filter(isRE).sort((x, y) => epochDay(y.date) - epochDay(x.date)).slice(0, 14);
-        if (re.length) a = re[Math.floor(dayNumber / interval) % re.length];
+        const pool = all.slice(1, 22); // skip [0]: newest = yesterday's post
+        if (pool.length) a = pool[Math.floor(dayNumber / interval) % pool.length];
+        else if (all.length) a = all[0];
       }
     }
   } catch (e) { console.warn('fb-city-autopost: index fetch failed', e.message); }
 
   if (!a) {
-    return { statusCode: 200, body: 'No real-estate article available — nothing to post.' };
+    return { statusCode: 200, body: 'No insight article available — nothing to post.' };
   }
-  const link = `${SITE}/${a.slug}${a.slug.endsWith('.html') ? '' : '.html'}`;
-  const blurb = a.blurb || a.title;
+  const link = `${SITE}${a.url.startsWith('/') ? '' : '/'}${a.url}`;
+  const blurb = a.metaDescription || a.headline;
 
   // Post to every city page, in small parallel batches (each page needs a
   // token-exchange call + a publish call; serial would risk the function
   // timeout at 27 pages).
   const postOne = async (p, idx) => {
-    const openers = p.type === 'sale' ? OPENERS_SALE : OPENERS_RENT;
+    const openers = p.type === 'sale' ? OPENERS_SALE
+      : p.type === 'seller' ? OPENERS_SELLER
+      : OPENERS_RENT;
     const opener = openers[(dayNumber + idx) % openers.length].replaceAll('{city}', p.city);
     const message = `${opener}\n\n${blurb}\n\n${BRAND_LINE}`;
 

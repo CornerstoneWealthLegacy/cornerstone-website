@@ -1,29 +1,42 @@
 [
-  { "page_id": "1081780551846250", "city": "Daytona Beach",   "type": "sale" },
-  { "page_id": "420827334783595",  "city": "Cocoa Beach",     "type": "sale" },
-  { "page_id": "925619570821122",  "city": "Pensacola",       "type": "sale" },
-  { "page_id": "1668799623363913", "city": "Daytona Beach",   "type": "rent" },
-  { "page_id": "1683018895288028", "city": "Jacksonville",    "type": "rent" },
-  { "page_id": "1664333397177471", "city": "Orlando",         "type": "rent" },
-  { "page_id": "947081692026083",  "city": "Tampa",           "type": "rent" },
-  { "page_id": "921904027892429",  "city": "Miami",           "type": "rent" },
-  { "page_id": "925224244238377",  "city": "Fort Lauderdale", "type": "rent" },
-  { "page_id": "979889095417837",  "city": "Naples",          "type": "rent" },
-  { "page_id": "203585296645953",  "city": "Fort Myers",      "type": "rent" },
-  { "page_id": "801414806670533",  "city": "Cape Coral",      "type": "rent" },
-  { "page_id": "481793078659910",  "city": "Sarasota",        "type": "rent" },
-  { "page_id": "933604966727568",  "city": "Bradenton",       "type": "rent" },
-  { "page_id": "877563728965514",  "city": "Clearwater",      "type": "rent" },
-  { "page_id": "939667679442943",  "city": "Largo",           "type": "rent" },
-  { "page_id": "1087130664639734", "city": "Venice",          "type": "rent" },
-  { "page_id": "976352309077402",  "city": "Port St. Lucie",  "type": "rent" },
-  { "page_id": "1500698243592943", "city": "Vero Beach",      "type": "rent" },
-  { "page_id": "1675951719340014", "city": "Melbourne",       "type": "rent" },
-  { "page_id": "1488121964828836", "city": "Titusville",      "type": "rent" },
-  { "page_id": "1534610256860218", "city": "Cocoa Beach",     "type": "rent" },
-  { "page_id": "1484465291861355", "city": "St. Augustine",   "type": "rent" },
-  { "page_id": "1512445749083624", "city": "Gainesville",     "type": "rent" },
-  { "page_id": "544741729024807",  "city": "Tallahassee",     "type": "rent" },
-  { "page_id": "1693168467563539", "city": "Panama City",     "type": "rent" },
-  { "page_id": "1496103547386400", "city": "Pensacola",       "type": "rent" }
+  {
+    "page_id": "1081780551846250",
+    "city": "Daytona Beach",
+    "type": "sale"
+  },
+  {
+    "page_id": "420827334783595",
+    "city": "Cocoa Beach",
+    "type": "sale"
+  },
+  {
+    "page_id": "925619570821122",
+    "city": "Pensacola",
+    "type": "sale"
+  },
+  {
+    "page_id": "182337468774720",
+    "city": "Orlando",
+    "type": "seller"
+  },
+  {
+    "page_id": "186110355063311",
+    "city": "Daytona Beach",
+    "type": "seller"
+  },
+  {
+    "page_id": "1162661517095453",
+    "city": "Ormond Beach",
+    "type": "seller"
+  },
+  {
+    "page_id": "1682821061938380",
+    "city": "Palm Coast",
+    "type": "seller"
+  },
+  {
+    "page_id": "921875867893871",
+    "city": "Titusville",
+    "type": "seller"
+  }
 ]

@@ -266,6 +266,26 @@ const CTA = {
 };
 
 // ─── RENDERER ─────────────────────────────────────────────────────────────────
+// Per-topic photo fallbacks from existing images/og assets — used when the
+// Higgsfield hero can't be generated (CI has no CLI auth). A real photo on the
+// social card beats the firm logo on every share surface.
+const FALLBACK_HEROES = [
+  [/medicaid|elder|nursing|look.?back/i, 'florida-medicaid-planning-lookback.jpg'],
+  [/probat|personal.?representative|733|intestat/i, 'florida-probate-process-timeline.jpg'],
+  [/real.?estate|deed|homestead|property|closing|title|land/i, 'real-estate-2026-07-18.jpg'],
+  [/injur|accident|tort|negligen/i, 'personal-injury-2026-07-13.jpg'],
+  [/asset.?protection|creditor|entiret|charging.?order/i, 'florida-asset-protection.jpg'],
+  [/trust/i, 'florida-revocable-living-trust.jpg'],
+  [/will/i, 'florida-will-requirements.jpg'],
+  [/law.?update|legislat|statute|bill\b/i, 'florida-law-update-2026-07-21.jpg'],
+  [/international|foreign|cross.?border|snowbird|moving/i, 'moving-to-florida-estate-planning-checklist.jpg'],
+];
+function fallbackHeroFor(topic, a) {
+  const hay = `${topic.id || ''} ${topic.category || ''} ${(a && a.title) || ''}`;
+  for (const [re, img] of FALLBACK_HEROES) if (re.test(hay)) return `images/og/${img}`;
+  return 'images/og/florida-estate-planning-checklist.jpg';
+}
+
 function renderHTML(topic, a, slug, prettyDateStr, heroImage) {
   const cleanUrl = `https://truesteadlaw.com/articles/${slug}`;
   const cta = CTA[topic.cta] || CTA.consult;
@@ -305,9 +325,7 @@ ${a.sources.map(s => `    <li>${s.url ? `<a href="${esc(s.url)}" target="_blank"
     .map(f => `        { "@type": "Question", "name": "${jl(stripTags(f.q))}", "acceptedAnswer": { "@type": "Answer", "text": "${jl(stripTags(f.a))}" } }`)
     .join(',\n');
 
-  const ogImage = heroImage
-    ? `https://truesteadlaw.com/${heroImage}`
-    : 'https://truesteadlaw.com/images/logo-full.png';
+  const ogImage = `https://truesteadlaw.com/${heroImage || fallbackHeroFor(topic, a)}`;
 
   const heroImgTag = heroImage
     ? `\n  <img class="art-hero-img" src="../${heroImage}" alt="${esc(a.h1 || a.title)}" width="1200" height="675" loading="eager">\n`
@@ -572,7 +590,7 @@ async function main() {
     tag: article.tag || topic.tag,
     category: article.category || topic.category,
     blurb: article.cardBlurb || article.metaDescription,
-    image: heroImage || null,
+    image: heroImage || fallbackHeroFor(topic, article),
     date: isoDate(),
     prettyDate: prettyDate(),
   });

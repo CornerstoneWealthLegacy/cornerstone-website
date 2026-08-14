@@ -52,21 +52,28 @@ exports.handler = async (event) => {
     return { statusCode: 200, body: `Not a posting day (every ${interval} days).` };
   }
 
-  // Prefer a FRESH daily article (from the live articles-index.json the daily
-  // article agent publishes) whose date falls in the current posting window;
-  // otherwise fall back to the evergreen rotation below. This keeps new AI-written
-  // articles posting promptly — with their generated OG image — without server
-  // state and without double-posting (each posting day picks one window's newest).
+  // Prefer a FRESH daily article (from the live articles-index.json), else fall
+  // back to the evergreen rotation below.
+  //
+  // The fresh window is YESTERDAY, not today: this runs 09:00 UTC but the daily
+  // article publishes ~10-11 UTC (GitHub Actions), so today's article is never
+  // live yet. Each run posts the previous day's article — its first and only
+  // share — at the 5 AM ET early-riser slot. Stateless, no double-posting.
+  // FRESH_SINCE skips articles from before this scheme launched (they were
+  // already posted by the old 14:00 UTC schedule).
+  const FRESH_SINCE = '2026-08-15';
   let a = null;
   try {
     const r = await fetch(`${SITE}/articles-index.json`, { headers: { 'cache-control': 'no-cache' } });
     if (r.ok) {
       const data = await r.json().catch(() => ({}));
       const epochDay = (s) => Math.floor(Date.parse(`${s}T00:00:00Z`) / 86400000);
-      const windowStart = dayNumber - interval + 1; // inclusive
+      const windowEnd = dayNumber - 1;                // yesterday, inclusive
+      const windowStart = dayNumber - interval;       // interval days ending yesterday
       const fresh = (data.articles || [])
         .filter((x) => x && x.date && x.slug && !Number.isNaN(epochDay(x.date)))
-        .filter((x) => { const d = epochDay(x.date); return d >= windowStart && d <= dayNumber; })
+        .filter((x) => x.date >= FRESH_SINCE)
+        .filter((x) => { const d = epochDay(x.date); return d >= windowStart && d <= windowEnd; })
         .sort((x, y) => epochDay(y.date) - epochDay(x.date));
       if (fresh.length) a = { slug: fresh[0].slug, msg: fresh[0].blurb || fresh[0].title };
     }

@@ -41,20 +41,29 @@ if [ "$COUNT" -lt 28 ]; then
   echo "   grant and SELECT ALL PAGES in the dialog. Continuing anyway..."
 fi
 
-echo "→ Storing in Netlify + redeploying (takes ~8-10 min)..."
-netlify env:set FB_PAGE_ACCESS_TOKEN "$LONG" >/dev/null
-netlify deploy --prod >/dev/null 2>&1
+echo "→ Sanity-checking the token can actually post-manage pages..."
+PERMS=$(curl -s "https://graph.facebook.com/v19.0/me/permissions?access_token=${LONG}" | python3 -c "import sys,json; print(','.join(p['permission'] for p in json.load(sys.stdin).get('data',[]) if p['status']=='granted'))")
+echo "   granted: ${PERMS}"
+echo "$PERMS" | grep -q "pages_manage_posts" || { echo "✗ Token lacks pages_manage_posts — regenerate in Graph Explorer with all three pages_ permissions."; exit 1; }
+
+echo "→ Storing in Netlify (watch for errors here)..."
+# --force skips the interactive overwrite prompt that silently broke the first run;
+# stdout suppressed so the token value is never echoed to the terminal or logs.
+netlify env:set FB_PAGE_ACCESS_TOKEN "$LONG" --force >/dev/null || { echo "✗ env:set FAILED"; exit 1; }
+echo "   stored (value not shown)."
+echo "→ Redeploying (takes ~8-10 min)..."
+netlify deploy --prod 2>&1 | tail -3
 
 echo "→ Live test: posting today's article to Daytona Beach Homes For Sale only..."
 KEY=$(netlify env:get FB_AUTOPOST_TEST_KEY 2>/dev/null | tail -1)
 RESULT=$(curl -s "https://truesteadlaw.com/.netlify/functions/fb-city-autopost-now?key=${KEY}")
 echo "$RESULT"
 
-if echo "$RESULT" | grep -q "posted"; then
+if echo "$RESULT" | grep -q ": posted"; then  # "0/1 posted" must not count as success
   echo "✓ Test post succeeded. Opening rollout to ALL city pages..."
-  netlify env:unset FB_CITY_PAGE_IDS >/dev/null 2>&1 || true
-  netlify deploy --prod >/dev/null 2>&1
-  echo "✓ DONE — all 27 city pages will post daily at 15:00 UTC (~11 AM ET)."
+  netlify env:unset FB_CITY_PAGE_IDS --force || echo "⚠️  unset failed — rollout still limited; run: netlify env:unset FB_CITY_PAGE_IDS --force"
+  netlify deploy --prod 2>&1 | tail -2
+  echo "✓ DONE — full roster (fb-city-pages.json) posts daily at 10:00 UTC (6 AM EDT / 5 AM EST)."
 else
   echo "✗ Test failed — see error above. Rollout stays limited to Daytona (fix + rerun)."
 fi
