@@ -1,22 +1,61 @@
 [
   {
-    "query": "florida probate attorney fee calculator",
+    "query": "free legal forms for 18-year-olds",
+    "impressions": 11,
+    "clicks": 0,
+    "position": 6.3,
+    "tag": "Estate Planning",
+    "score": 8,
+    "used": true,
+    "targetedOn": "2026-08-10"
+  },
+  {
+    "query": "forms for 18 year olds to sign",
+    "impressions": 8,
+    "clicks": 1,
+    "position": 10.8,
+    "tag": "Estate Planning",
+    "score": 4,
+    "used": true,
+    "targetedOn": "2026-08-11"
+  },
+  {
+    "query": "estate planning homosassa",
     "impressions": 8,
     "clicks": 0,
-    "position": 18.1,
-    "tag": "Probate",
-    "score": 1,
+    "position": 11.3,
+    "tag": "Estate Planning",
+    "score": 4,
     "used": true,
-    "targetedOn": "2026-07-31",
-    "note": "covered 7/31; runs 8/1-8/4 re-picked it (used flag was not committed by CI) — 4 duplicates to consolidate"
+    "targetedOn": "2026-08-12"
+  },
+  {
+    "query": "733.602",
+    "impressions": 8,
+    "clicks": 0,
+    "position": 12.1,
+    "tag": "Estate Planning",
+    "score": 3,
+    "used": true,
+    "targetedOn": "2026-08-13"
+  },
+  {
+    "query": "medicaid lawyer",
+    "impressions": 8,
+    "clicks": 0,
+    "position": 24.8,
+    "tag": "Elder Law",
+    "score": -1,
+    "used": true,
+    "targetedOn": "2026-08-14"
+  },
+  {
+    "query": "florida probate attorney fee calculator",
+    "used": true,
+    "targetedOn": "2026-07-31"
   },
   {
     "query": "moving to florida estate planning",
-    "impressions": 9,
-    "clicks": 0,
-    "position": 21.1,
-    "tag": "Estate Planning",
-    "score": 0,
     "used": true,
     "targetedOn": "2026-08-05"
   },

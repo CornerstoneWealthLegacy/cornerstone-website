@@ -1,13 +1,46 @@
 {
   "articles": [
     {
+      "slug": "articles/focus-medicaid-lawyer-2026-08-14",
+      "file": "articles/focus-medicaid-lawyer-2026-08-14.html",
+      "title": "Medicaid Lawyer in Florida: What They Do & When You Need One",
+      "tag": "Elder Law",
+      "category": "Medicaid Lawyer",
+      "blurb": "What a Florida Medicaid lawyer does, current 2026 eligibility limits, the five-year look-back, and how families protect the home from estate recovery.",
+      "image": "images/og/florida-medicaid-planning-lookback.jpg",
+      "date": "2026-08-14",
+      "prettyDate": "August 14, 2026"
+    },
+    {
+      "slug": "articles/focus-733-602-2026-08-13",
+      "file": "articles/focus-733-602-2026-08-13.html",
+      "title": "Florida Statute 733.602 Explained: Personal Representative Duties",
+      "tag": "Estate Planning",
+      "category": "733.602",
+      "blurb": "A Florida probate attorney breaks down what Statute 733.602 requires of a personal representative \u2014 and what protection it offers them.",
+      "image": "images/og/florida-probate-process-timeline.jpg",
+      "date": "2026-08-13",
+      "prettyDate": "August 13, 2026"
+    },
+    {
+      "slug": "articles/focus-estate-planning-homosassa-2026-08-12",
+      "file": "articles/focus-estate-planning-homosassa-2026-08-12.html",
+      "title": "Estate Planning in Homosassa, FL: 2026 Guide",
+      "tag": "Estate Planning",
+      "category": "Estate Planning Homosassa",
+      "blurb": "What Homosassa and Citrus County residents need to know about wills, trusts, homestead, and Florida's 2026 probate law changes.",
+      "image": "images/og/florida-estate-planning-checklist.jpg",
+      "date": "2026-08-12",
+      "prettyDate": "August 12, 2026"
+    },
+    {
       "slug": "articles/personal-injury-2026-08-12",
       "file": "articles/personal-injury-2026-08-12.html",
       "title": "Florida Personal Injury Law in 2026: What to Know",
       "tag": "Personal Injury",
       "category": "Personal Injury",
-      "blurb": "Florida's PI deadline is now 2 years and the 51% fault rule can bar recovery entirely — here's what injured Floridians need to know in 2026.",
-      "image": null,
+      "blurb": "Florida's PI deadline is now 2 years and the 51% fault rule can bar recovery entirely \u2014 here's what injured Floridians need to know in 2026.",
+      "image": "images/og/personal-injury-2026-07-13.jpg",
       "date": "2026-08-12",
       "prettyDate": "August 12, 2026"
     },
@@ -17,8 +50,8 @@
       "title": "Blended Families & Snowbirds: FL Estate Planning Guide",
       "tag": "Estate Planning",
       "category": "Asset Protection & Special Situations",
-      "blurb": "Why blended families and part-time Florida residents need more than a simple will — and what actually protects them under Florida law.",
-      "image": null,
+      "blurb": "Why blended families and part-time Florida residents need more than a simple will \u2014 and what actually protects them under Florida law.",
+      "image": "images/og/florida-asset-protection.jpg",
       "date": "2026-08-12",
       "prettyDate": "August 12, 2026"
     },
@@ -28,10 +61,32 @@
       "title": "Florida Probate Law Changes 2026: What Families Should Know",
       "tag": "Estate Planning",
       "category": "Florida Legal & Legislative",
-      "blurb": "Florida's 2026 probate reforms raised key dollar thresholds and gave personal representatives new power against uncooperative banks — here's what changed.",
-      "image": null,
+      "blurb": "Florida's 2026 probate reforms raised key dollar thresholds and gave personal representatives new power against uncooperative banks \u2014 here's what changed.",
+      "image": "images/og/florida-law-update-2026-07-21.jpg",
       "date": "2026-08-12",
       "prettyDate": "August 12, 2026"
+    },
+    {
+      "slug": "articles/focus-forms-for-18-year-olds-to-sign-2026-08-11",
+      "file": "articles/focus-forms-for-18-year-olds-to-sign-2026-08-11.html",
+      "title": "Forms for 18 Year Olds to Sign in Florida: A Parent's Guide",
+      "tag": "Estate Planning",
+      "category": "Forms For 18 Year Olds To Sign",
+      "blurb": "The four essential forms for 18 year olds to sign in Florida \u2014 and why parents lose legal authority the moment a child turns 18.",
+      "image": "images/og/florida-will-requirements.jpg",
+      "date": "2026-08-11",
+      "prettyDate": "August 11, 2026"
+    },
+    {
+      "slug": "articles/focus-free-legal-forms-for-18-year-olds-2026-08-10",
+      "file": "articles/focus-free-legal-forms-for-18-year-olds-2026-08-10.html",
+      "title": "Free Legal Forms for 18-Year-Olds in Florida: What to Know",
+      "tag": "Estate Planning",
+      "category": "Free Legal Forms For 18-Year-Olds",
+      "blurb": "What every newly-18 Floridian (and their parents) should know about free legal forms, healthcare authority, and Florida's strict signing rules.",
+      "image": "images/og/florida-will-requirements.jpg",
+      "date": "2026-08-10",
+      "prettyDate": "August 10, 2026"
     },
     {
       "slug": "articles/real-estate-2026-08-09",
@@ -40,7 +95,7 @@
       "tag": "Real Estate",
       "category": "Real Estate & Property",
       "blurb": "What Florida's pending homestead amendment, new FinCEN rules, and 2026 condo disclosure laws mean for homeowners, buyers, and sellers.",
-      "image": null,
+      "image": "images/og/real-estate-2026-07-18.jpg",
       "date": "2026-08-09",
       "prettyDate": "August 9, 2026"
     },
@@ -50,8 +105,8 @@
       "title": "Florida Summary Probate: New $150,000 Threshold in 2026",
       "tag": "Estate Planning",
       "category": "Probate & Estate Administration",
-      "blurb": "Florida's summary probate threshold jumped to $150,000 in 2026 — here's what it means for costs, timelines, and personal representatives.",
-      "image": null,
+      "blurb": "Florida's summary probate threshold jumped to $150,000 in 2026 \u2014 here's what it means for costs, timelines, and personal representatives.",
+      "image": "images/og/florida-probate-process-timeline.jpg",
       "date": "2026-08-08",
       "prettyDate": "August 8, 2026"
     },
@@ -62,7 +117,7 @@
       "tag": "Estate Planning",
       "category": "Wills & Trusts",
       "blurb": "What Florida families need to know about trust funding, pour-over wills, and a 2026 change raising the summary probate threshold to $150,000.",
-      "image": null,
+      "image": "images/og/florida-revocable-living-trust.jpg",
       "date": "2026-08-06",
       "prettyDate": "August 6, 2026"
     },
@@ -73,7 +128,7 @@
       "tag": "Estate Planning",
       "category": "Moving To Florida Estate Planning",
       "blurb": "What every new Florida resident should know about homestead, spousal rights, and 2026 probate changes before relying on an out-of-state estate plan.",
-      "image": null,
+      "image": "images/og/moving-to-florida-estate-planning-checklist.jpg",
       "date": "2026-08-05",
       "prettyDate": "August 5, 2026"
     },
@@ -83,8 +138,8 @@
       "title": "Florida Probate Attorney Fee Calculator (2026 Guide)",
       "tag": "Probate",
       "category": "Florida Probate Attorney Fee Calculator",
-      "blurb": "How Florida's statutory probate fee schedule works under F.S. § 733.6171 — and why most estates pay less than a calculator suggests.",
-      "image": null,
+      "blurb": "How Florida's statutory probate fee schedule works under F.S. \u00a7 733.6171 \u2014 and why most estates pay less than a calculator suggests.",
+      "image": "images/og/florida-probate-process-timeline.jpg",
       "date": "2026-08-04",
       "prettyDate": "August 4, 2026"
     },
@@ -105,8 +160,8 @@
       "title": "Free Legal Forms for 18-Year-Olds in Florida: What to Know",
       "tag": "Estate Planning",
       "category": "Free Legal Forms For 18-Year Olds",
-      "blurb": "What 'free legal forms for 18-year-olds' really covers in Florida — and why proper signing matters as much as the form itself.",
-      "image": null,
+      "blurb": "What 'free legal forms for 18-year-olds' really covers in Florida \u2014 and why proper signing matters as much as the form itself.",
+      "image": "images/og/florida-will-requirements.jpg",
       "date": "2026-07-22",
       "prettyDate": "July 21, 2026"
     },
@@ -138,7 +193,7 @@
       "title": "Florida Homestead Amendment 2026: What Homeowners Should Know",
       "tag": "Real Estate",
       "category": "Real Estate & Property",
-      "blurb": "A pending 2026 ballot measure could expand Florida's homestead exemption — here's what's law today and what homeowners should actually watch for.",
+      "blurb": "A pending 2026 ballot measure could expand Florida's homestead exemption \u2014 here's what's law today and what homeowners should actually watch for.",
       "image": "images/og/real-estate-2026-07-18.jpg",
       "date": "2026-07-18",
       "prettyDate": "July 17, 2026"
@@ -149,7 +204,7 @@
       "title": "Florida's New $150,000 Summary Probate Threshold",
       "tag": "Estate Planning",
       "category": "Probate & Estate Administration",
-      "blurb": "Florida just doubled its summary probate threshold to $150,000 — here's what qualifies, what it costs, and what still requires formal administration.",
+      "blurb": "Florida just doubled its summary probate threshold to $150,000 \u2014 here's what qualifies, what it costs, and what still requires formal administration.",
       "image": "images/og/probate-2026-07-17.jpg",
       "date": "2026-07-17",
       "prettyDate": "July 17, 2026"
@@ -182,8 +237,8 @@
       "title": "Florida Estate Planning Basics: 2026 Guide for Families",
       "tag": "Estate Planning",
       "category": "Estate Planning Foundations",
-      "blurb": "A plain-language guide to Florida wills, trusts, powers of attorney, and healthcare surrogates — updated for 2026's probate law changes.",
-      "image": null,
+      "blurb": "A plain-language guide to Florida wills, trusts, powers of attorney, and healthcare surrogates \u2014 updated for 2026's probate law changes.",
+      "image": "images/og/florida-estate-planning-checklist.jpg",
       "date": "2026-07-14",
       "prettyDate": "July 13, 2026"
     },
@@ -204,7 +259,7 @@
       "title": "Florida Probate in 2026: New $150K Threshold & What Families Need to Know",
       "tag": "Estate Planning",
       "category": "Probate & Estate Administration",
-      "blurb": "Florida doubled its summary administration threshold to $150,000 on July 1, 2026 — here's what that means for your family and estate.",
+      "blurb": "Florida doubled its summary administration threshold to $150,000 on July 1, 2026 \u2014 here's what that means for your family and estate.",
       "image": "images/og/probate-2026-07-09.jpg",
       "date": "2026-07-09",
       "prettyDate": "July 9, 2026"
@@ -215,7 +270,7 @@
       "title": "Will vs. Revocable Trust in Florida: Which Plan Is Right for You?",
       "tag": "Estate Planning",
       "category": "Wills & Trusts",
-      "blurb": "Florida attorney Arthur Simpson explains the real differences between a will and a revocable trust — and why trust funding is the step most families miss.",
+      "blurb": "Florida attorney Arthur Simpson explains the real differences between a will and a revocable trust \u2014 and why trust funding is the step most families miss.",
       "image": "images/og/wills-trusts-2026-07-07.jpg",
       "date": "2026-07-07",
       "prettyDate": "July 7, 2026"
@@ -226,7 +281,7 @@
       "title": "Florida Estate Planning Basics: Wills, Trusts & More | Truestead Law",
       "tag": "Estate Planning",
       "category": "Estate Planning Foundations",
-      "blurb": "Wills, trusts, powers of attorney, and healthcare surrogates — a plain-language guide to Florida estate-planning foundations every family should understand.",
+      "blurb": "Wills, trusts, powers of attorney, and healthcare surrogates \u2014 a plain-language guide to Florida estate-planning foundations every family should understand.",
       "image": "images/og/estate-foundations-2026-07-06.jpg",
       "date": "2026-07-06",
       "prettyDate": "July 6, 2026"
@@ -237,8 +292,8 @@
       "title": "Florida Asset Protection for Blended Families & Snowbirds",
       "tag": "Estate Planning",
       "category": "Asset Protection & Special Situations",
-      "blurb": "Florida's homestead, entireties, and trust protections work differently for snowbirds, blended families, business owners, and special-needs families—here's how.",
-      "image": null,
+      "blurb": "Florida's homestead, entireties, and trust protections work differently for snowbirds, blended families, business owners, and special-needs families\u2014here's how.",
+      "image": "images/og/florida-asset-protection.jpg",
       "date": "2026-06-26",
       "prettyDate": "June 26, 2026"
     },
@@ -248,8 +303,8 @@
       "title": "Florida Estate & Property Law: Your 2026 Framework Guide",
       "tag": "Estate Planning",
       "category": "Florida Legal & Legislative",
-      "blurb": "Know the durable Florida framework—probate code, Trust Code, and homestead—behind every reported estate and property law change, and how to verify real updates.",
-      "image": null,
+      "blurb": "Know the durable Florida framework\u2014probate code, Trust Code, and homestead\u2014behind every reported estate and property law change, and how to verify real updates.",
+      "image": "images/og/florida-law-update-2026-07-21.jpg",
       "date": "2026-06-25",
       "prettyDate": "June 25, 2026"
     },
@@ -259,8 +314,8 @@
       "title": "Florida Deeds Explained: Quitclaim, Warranty & Lady Bird",
       "tag": "Real Estate",
       "category": "Real Estate & Property",
-      "blurb": "A Florida attorney breaks down warranty, quitclaim, and lady bird deeds — what each protects and how they affect homestead and probate.",
-      "image": null,
+      "blurb": "A Florida attorney breaks down warranty, quitclaim, and lady bird deeds \u2014 what each protects and how they affect homestead and probate.",
+      "image": "images/og/real-estate-2026-07-18.jpg",
       "date": "2026-06-24",
       "prettyDate": "June 24, 2026"
     },
@@ -271,7 +326,7 @@
       "tag": "Estate Planning",
       "category": "Probate & Estate Administration",
       "blurb": "How Florida probate works: summary vs. formal administration, the personal representative's duties, timelines and costs, and smart ways to avoid probate.",
-      "image": null,
+      "image": "images/og/florida-probate-process-timeline.jpg",
       "date": "2026-06-23",
       "prettyDate": "June 23, 2026"
     },
@@ -281,8 +336,8 @@
       "title": "Florida Medicaid & the 5-Year Lookback: An Elder Law Guide",
       "tag": "Elder Law",
       "category": "Elder Law & Medicaid",
-      "blurb": "How Florida's Medicaid five-year lookback, asset limits, and spousal protections really work for long-term care — and how families can plan calmly.",
-      "image": null,
+      "blurb": "How Florida's Medicaid five-year lookback, asset limits, and spousal protections really work for long-term care \u2014 and how families can plan calmly.",
+      "image": "images/og/florida-medicaid-planning-lookback.jpg",
       "date": "2026-06-22",
       "prettyDate": "June 22, 2026"
     }
