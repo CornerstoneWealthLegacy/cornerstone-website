@@ -46,7 +46,8 @@
     "position": 24.8,
     "tag": "Elder Law",
     "score": -1,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-08-14"
   },
   {
     "query": "florida probate attorney fee calculator",
