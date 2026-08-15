@@ -2,7 +2,8 @@
   {
     "page_id": "1081780551846250",
     "city": "Daytona Beach",
-    "type": "sale"
+    "type": "sale",
+    "site_url": "/daytona-beach-real-estate"
   },
   {
     "page_id": "420827334783595",
@@ -17,26 +18,31 @@
   {
     "page_id": "182337468774720",
     "city": "Orlando",
-    "type": "seller"
+    "type": "seller",
+    "site_url": "/sell-my-house-orlando"
   },
   {
     "page_id": "186110355063311",
     "city": "Daytona Beach",
-    "type": "seller"
+    "type": "seller",
+    "site_url": "/sell-my-house-daytona-beach"
   },
   {
     "page_id": "1162661517095453",
     "city": "Ormond Beach",
-    "type": "seller"
+    "type": "seller",
+    "site_url": "/sell-my-house-ormond-beach"
   },
   {
     "page_id": "1682821061938380",
     "city": "Palm Coast",
-    "type": "seller"
+    "type": "seller",
+    "site_url": "/sell-my-house-palm-coast"
   },
   {
     "page_id": "921875867893871",
     "city": "Titusville",
-    "type": "seller"
+    "type": "seller",
+    "site_url": "/sell-my-house-titusville"
   }
 ]

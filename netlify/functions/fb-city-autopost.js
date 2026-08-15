@@ -133,7 +133,10 @@ exports.handler = async (event) => {
       : p.type === 'seller' ? OPENERS_SELLER
       : OPENERS_RENT;
     const opener = openers[(dayNumber + idx) % openers.length].replaceAll('{city}', p.city);
-    const message = `${opener}\n\n${blurb}\n\n${BRAND_LINE}`;
+    // Deep-link each page's caption to its matching city page on the site
+    // (site_url in fb-city-pages.json) — FB↔site cross-linking, eval P2.
+    const cityLink = p.site_url ? `\nMore ${p.city} guides: https://arthursimpson.com${p.site_url}` : '';
+    const message = `${opener}\n\n${blurb}\n\n${BRAND_LINE}${cityLink}`;
 
     let pageToken = TOKEN;
     try {
