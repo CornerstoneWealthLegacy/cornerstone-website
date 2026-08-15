@@ -48,7 +48,7 @@ exports.handler = async (event) => {
 <div style="text-align:center;margin:26px 0">
   <a href="${checklistUrl}" style="background:#c49a2a;color:#0f2744;font-weight:700;font-family:Arial,sans-serif;text-decoration:none;padding:14px 30px;border-radius:8px;display:inline-block">Open the Signing Checklist →</a>
 </div>
-<p>Want us to handle notarization? We can do it <strong>in person</strong> at our Ormond Beach office or by <strong>remote online notary (RON)</strong> — fully online by video. Just reply or call <strong>(877) 867-6077</strong>.</p>
+<p>Want us to handle notarization? We can do it <strong>in person</strong> at our Ormond Beach office or by <strong>remote online notary (RON)</strong> — fully online by video. Just reply or call <strong>(888) 388-8445</strong>.</p>
 <p style="font-size:14px;color:#666">P.S. — You just protected your young adult. Is <em>your</em> own plan done? Most parents who do this realize it isn't. <a href="https://truesteadlaw.com/estate-planning.html" style="color:#0f2744">See how we protect parents too →</a></p>
 </td></tr>
 <tr><td style="background:#0f2744;border-radius:0 0 12px 12px;padding:20px 36px;text-align:center">
@@ -59,7 +59,7 @@ P.O. Box 2574, Ormond Beach, FL 32175 &nbsp;·&nbsp; truesteadlaw.com<br><br>
 </div></td></tr>
 </table></td></tr></table></body></html>`;
 
-  const textBody = `Hi ${first},\n\nYour 18 & Protected packet is attached (PDF) — four Florida documents:\n\n• Durable Power of Attorney (Fla. Stat. § 709.2105)\n• Health Care Surrogate Designation (Fla. Stat. § 765.202)\n• HIPAA Authorization (45 CFR § 164.508)\n• FERPA Waiver (20 U.S.C. § 1232g)\n\nOne step left — get it signed and notarized. The Power of Attorney must be signed before two witnesses AND a notary to be valid in Florida.\n\nSigning checklist: ${checklistUrl}\n\nWant us to notarize it? In person or by remote online notary (RON). Reply or call (877) 867-6077.\n\nTruestead Law, LLC · Arthur Simpson, Esq. · FL Bar #529265 · Attorney advertising.`;
+  const textBody = `Hi ${first},\n\nYour 18 & Protected packet is attached (PDF) — four Florida documents:\n\n• Durable Power of Attorney (Fla. Stat. § 709.2105)\n• Health Care Surrogate Designation (Fla. Stat. § 765.202)\n• HIPAA Authorization (45 CFR § 164.508)\n• FERPA Waiver (20 U.S.C. § 1232g)\n\nOne step left — get it signed and notarized. The Power of Attorney must be signed before two witnesses AND a notary to be valid in Florida.\n\nSigning checklist: ${checklistUrl}\n\nWant us to notarize it? In person or by remote online notary (RON). Reply or call (888) 388-8445.\n\nTruestead Law, LLC · Arthur Simpson, Esq. · FL Bar #529265 · Attorney advertising.`;
 
   try {
     const res = await fetch('https://api.resend.com/emails', {

@@ -101,8 +101,8 @@ async function sendClientConfirmation(key, email, firstName) {
 <tr><td style="background:#fff;padding:34px 36px;color:#333;font-size:16px;line-height:1.8">
 <p>Hi ${first},</p>
 <p>Thank you for reaching out to Truestead Law. Your request came through, and a member of our team will follow up within one business day to set up a time to talk.</p>
-<p>If your matter is time-sensitive, you're welcome to call us directly at <a href="tel:+18778676077" style="color:#0f2744"><strong>(877) 867-6077</strong></a>.</p>
-<div style="text-align:center;margin:26px 0"><a href="tel:+18778676077" style="background:#c49a2a;color:#0f2744;font-weight:700;font-family:Arial,sans-serif;text-decoration:none;padding:14px 30px;border-radius:8px;display:inline-block">Call (877) 867-6077</a></div>
+<p>If your matter is time-sensitive, you're welcome to call us directly at <a href="tel:+18883888445" style="color:#0f2744"><strong>(888) 388-8445</strong></a>.</p>
+<div style="text-align:center;margin:26px 0"><a href="tel:+18883888445" style="background:#c49a2a;color:#0f2744;font-weight:700;font-family:Arial,sans-serif;text-decoration:none;padding:14px 30px;border-radius:8px;display:inline-block">Call (888) 388-8445</a></div>
 <p style="font-size:14px;color:#666">You can simply reply to this email if you'd like to add anything before we speak.</p>
 </td></tr>
 <tr><td style="background:#0f2744;border-radius:0 0 12px 12px;padding:20px 36px;text-align:center">
@@ -111,7 +111,7 @@ Truestead Law, LLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Ba
 P.O. Box 2574, Ormond Beach, FL 32175 &nbsp;·&nbsp; truesteadlaw.com<br><br>
 <em>Attorney advertising. This email is general information, not legal advice, and does not create an attorney-client relationship. No representation is made that the quality of the legal services to be performed is greater than the quality of legal services performed by other lawyers.</em></div></td></tr>
 </table></td></tr></table></body></html>`;
-  const text = `Hi ${first},\n\nThank you for reaching out to Truestead Law. A member of our team will follow up within one business day to set up a time to talk.\n\nIf your matter is time-sensitive, call us directly at (877) 867-6077.\n\nYou can reply to this email with anything you'd like to add.\n\nTruestead Law, LLC · Arthur Simpson, Esq. · Florida Bar #529265 · P.O. Box 2574, Ormond Beach, FL 32175\nAttorney advertising. This email is general information, not legal advice, and does not create an attorney-client relationship.`;
+  const text = `Hi ${first},\n\nThank you for reaching out to Truestead Law. A member of our team will follow up within one business day to set up a time to talk.\n\nIf your matter is time-sensitive, call us directly at (888) 388-8445.\n\nYou can reply to this email with anything you'd like to add.\n\nTruestead Law, LLC · Arthur Simpson, Esq. · Florida Bar #529265 · P.O. Box 2574, Ormond Beach, FL 32175\nAttorney advertising. This email is general information, not legal advice, and does not create an attorney-client relationship.`;
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },

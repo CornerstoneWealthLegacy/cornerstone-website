@@ -89,8 +89,8 @@ async function sendClientConfirmation(key, email, name) {
 <tr><td style="background:#fff;padding:34px 36px;color:#333;font-size:16px;line-height:1.8">
 <p>Hi ${first},</p>
 <p>Thank you for completing our Florida Personal Injury Case Evaluation. Your answers came through, and a member of our team will review them and reach out to talk through your options.</p>
-<p><strong>If your matter is time-sensitive, please call us now at <a href="tel:+18778676077" style="color:#0f2744">(877) 867-6077</a>.</strong> Florida injury deadlines are strict, and the sooner we talk, the more we can do to protect your rights.</p>
-<div style="text-align:center;margin:26px 0"><a href="tel:+18778676077" style="background:#c49a2a;color:#0f2744;font-weight:700;font-family:Arial,sans-serif;text-decoration:none;padding:14px 30px;border-radius:8px;display:inline-block">Call (877) 867-6077</a></div>
+<p><strong>If your matter is time-sensitive, please call us now at <a href="tel:+18883888445" style="color:#0f2744">(888) 388-8445</a>.</strong> Florida injury deadlines are strict, and the sooner we talk, the more we can do to protect your rights.</p>
+<div style="text-align:center;margin:26px 0"><a href="tel:+18883888445" style="background:#c49a2a;color:#0f2744;font-weight:700;font-family:Arial,sans-serif;text-decoration:none;padding:14px 30px;border-radius:8px;display:inline-block">Call (888) 388-8445</a></div>
 <p style="font-size:14px;color:#666">You can simply reply to this email if you have questions or want to add anything to your evaluation.</p>
 </td></tr>
 <tr><td style="background:#0f2744;border-radius:0 0 12px 12px;padding:20px 36px;text-align:center">
@@ -99,7 +99,7 @@ Truestead Law, LLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Ba
 P.O. Box 2574, Ormond Beach, FL 32175 &nbsp;·&nbsp; truesteadlaw.com<br><br>
 <em>Attorney advertising. This email is general information, not legal advice, and does not create an attorney-client relationship. No representation is made that the quality of the legal services to be performed is greater than the quality of legal services performed by other lawyers.</em></div></td></tr>
 </table></td></tr></table></body></html>`;
-  const text = `Hi ${first},\n\nThank you for completing our Florida Personal Injury Case Evaluation. A member of our team will review your answers and reach out to talk through your options.\n\nIf your matter is time-sensitive, please call us now at (877) 867-6077 — Florida injury deadlines are strict.\n\nYou can reply to this email with any questions.\n\nTruestead Law, LLC · Arthur Simpson, Esq. · Florida Bar #529265 · P.O. Box 2574, Ormond Beach, FL 32175\nAttorney advertising. This email is general information, not legal advice, and does not create an attorney-client relationship.`;
+  const text = `Hi ${first},\n\nThank you for completing our Florida Personal Injury Case Evaluation. A member of our team will review your answers and reach out to talk through your options.\n\nIf your matter is time-sensitive, please call us now at (888) 388-8445 — Florida injury deadlines are strict.\n\nYou can reply to this email with any questions.\n\nTruestead Law, LLC · Arthur Simpson, Esq. · Florida Bar #529265 · P.O. Box 2574, Ormond Beach, FL 32175\nAttorney advertising. This email is general information, not legal advice, and does not create an attorney-client relationship.`;
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },

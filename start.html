@@ -14524,7 +14524,7 @@ async function _confirmAndUnlock(sessionId){
       // Infra not ready (key unset) or transient error → fall back to unlock (real cs_ id present, no lockout)
       if (j && (j.error === 'not_configured' || j.error === 'exception')) { _unlockDocuments(); return; }
       // Definitive negative (unpaid / bad / not-found session) → do NOT unlock
-      showToast('We couldn’t confirm this payment yet. If you completed checkout, your documents and a copy will be emailed shortly — or call (877) 867-6077.');
+      showToast('We couldn’t confirm this payment yet. If you completed checkout, your documents and a copy will be emailed shortly — or call (888) 388-8445.');
       return;
     } catch (e) { _unlockDocuments(); return; } // network error → fallback, no lockout
   }
@@ -15435,7 +15435,7 @@ async function handleAddStaff() {
       amendNewSurrogate:agentFull,amendSurrogateRel:v('spkAgentRel'),amendSuccSurrogate:altFull });
     let docs='';
     try{ docs=[generatePOA(),generateHealthcareSurrogate(),generateHIPAA(),generateFERPA()].map(h=>'<div style="page-break-after:always;margin-bottom:40px">'+h+'</div>').join(''); }
-    catch(e){ alert('Sorry — something went wrong generating the documents. Please try again or contact us at (877) 867-6077.'); return; }
+    catch(e){ alert('Sorry — something went wrong generating the documents. Please try again or contact us at (888) 388-8445.'); return; }
     try{ var _u=new URLSearchParams(location.search); fetch('/.netlify/functions/capture-lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:v('spkAgentEmail'),name:agentFull||(v('spkFirst')+' '+v('spkLast')),source:'student_packet',landing:'18-and-protected',utm_source:_u.get('utm_source')||'',utm_medium:_u.get('utm_medium')||'',utm_campaign:_u.get('utm_campaign')||'',utm_content:_u.get('utm_content')||'',referrer:document.referrer||''})}); }catch(e){}
     try{ if(window.gtag) gtag('event','student_packet_complete'); if(window.fbq) fbq('track','Lead',{content_name:'18 & Protected'}); }catch(e){}
     const ov=document.getElementById('spkOverlay');

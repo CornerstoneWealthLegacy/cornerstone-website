@@ -617,7 +617,7 @@ if(!window._fbqInit){window._fbqInit=true;fbq('init','2087253962178307');fbq('tr
     <p id="auth-error"></p>
     <p class="auth-help" style="margin-top:16px;">
       Use the same email and password you created when you got started.<br>
-      Forgot your password? <a href="#" id="reset-pw-link">Reset it here</a> · Need help? <a href="tel:+18778676077">(877) 867-6077</a>
+      Forgot your password? <a href="#" id="reset-pw-link">Reset it here</a> · Need help? <a href="tel:+18883888445">(888) 388-8445</a>
     </p>
   </div>
 
@@ -663,7 +663,7 @@ if(!window._fbqInit){window._fbqInit=true;fbq('init','2087253962178307');fbq('tr
           <p>Your Truestead Law team is here to help. Call us, or send a secure message from the Messages tab.</p>
         </div>
         <div style="display:flex;flex-direction:column;gap:10px;flex-shrink:0;">
-          <a class="btn-call" href="tel:+18778676077" rel="noopener">📞 (877) 867-6077</a>
+          <a class="btn-call" href="tel:+18883888445" rel="noopener">📞 (888) 388-8445</a>
           <a class="btn-call" id="signing-cta" href="/signing" rel="noopener" style="display:none;background:var(--white);">📅 Schedule Signing</a>
         </div>
       </div>
@@ -836,7 +836,7 @@ function friendlyAuthError(code) {
     case 'auth/invalid-email':
       return 'Please enter a valid email address.';
     default:
-      return 'Sign-in failed. Please contact (877) 867-6077 for help.';
+      return 'Sign-in failed. Please contact (888) 388-8445 for help.';
   }
 }
 
@@ -1028,7 +1028,7 @@ async function uploadFiles(user, fileList) {
       });
     } catch (err) {
       console.error('Upload failed:', err);
-      alert(`Upload of "${file.name}" failed. Please try again or call (877) 867-6077.`);
+      alert(`Upload of "${file.name}" failed. Please try again or call (888) 388-8445.`);
     }
     barFill.style.width = '0%';
   }
@@ -1076,7 +1076,7 @@ async function loadVaultFiles(user) {
     list.innerHTML = rows.join('');
   } catch (err) {
     console.error('Vault list error:', err);
-    list.innerHTML = '<div class="vault-empty">Could not load your files. Please refresh or call (877) 867-6077.</div>';
+    list.innerHTML = '<div class="vault-empty">Could not load your files. Please refresh or call (888) 388-8445.</div>';
   }
 }
 
@@ -1319,7 +1319,7 @@ function renderStatusBanner(d) {
     type  = 'pending';
     icon  = '💳';
     title = 'Payment required';
-    body  = 'Please complete payment to unlock your documents. Contact <strong>(877) 867-6077</strong> if you need assistance.';
+    body  = 'Please complete payment to unlock your documents. Contact <strong>(888) 388-8445</strong> if you need assistance.';
   } else if (s === 'payment_complete') {
     type  = 'pending';
     icon  = '⏳';
@@ -1347,7 +1347,7 @@ function renderStatusBanner(d) {
     type  = 'review';
     icon  = 'ℹ️';
     title = 'Account active';
-    body  = 'Contact <strong>(877) 867-6077</strong> or <a href="mailto:admin@truesteadlaw.com">admin@truesteadlaw.com</a> if you have questions.';
+    body  = 'Contact <strong>(888) 388-8445</strong> or <a href="mailto:admin@truesteadlaw.com">admin@truesteadlaw.com</a> if you have questions.';
   }
 
   statusContainer.innerHTML = `
@@ -1756,7 +1756,7 @@ function renderNoOrder() {
       <div>
         <div class="status-title">No order found</div>
         <div>We couldn't find an order linked to your email address. Please contact us at
-        <strong>(877) 867-6077</strong> or
+        <strong>(888) 388-8445</strong> or
         <a href="mailto:admin@truesteadlaw.com">admin@truesteadlaw.com</a>
         and we'll look into it right away.</div>
       </div>
