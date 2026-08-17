@@ -6,7 +6,8 @@
     "position": 17.3,
     "tag": "Estate Planning",
     "score": 2,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-08-17"
   },
   {
     "query": "free legal forms for 18-year-olds",
