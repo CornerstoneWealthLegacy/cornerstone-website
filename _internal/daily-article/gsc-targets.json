@@ -1,51 +1,35 @@
 [
   {
-    "query": "free legal forms for 18-year-olds",
-    "impressions": 11,
+    "query": "estate planning preparation ruskin",
+    "impressions": 9,
     "clicks": 0,
-    "position": 6.3,
+    "position": 17.3,
     "tag": "Estate Planning",
-    "score": 8,
+    "score": 2,
+    "used": false
+  },
+  {
+    "query": "free legal forms for 18-year-olds",
     "used": true,
     "targetedOn": "2026-08-10"
   },
   {
     "query": "forms for 18 year olds to sign",
-    "impressions": 8,
-    "clicks": 1,
-    "position": 10.8,
-    "tag": "Estate Planning",
-    "score": 4,
     "used": true,
     "targetedOn": "2026-08-11"
   },
   {
     "query": "estate planning homosassa",
-    "impressions": 8,
-    "clicks": 0,
-    "position": 11.3,
-    "tag": "Estate Planning",
-    "score": 4,
     "used": true,
     "targetedOn": "2026-08-12"
   },
   {
     "query": "733.602",
-    "impressions": 8,
-    "clicks": 0,
-    "position": 12.1,
-    "tag": "Estate Planning",
-    "score": 3,
     "used": true,
     "targetedOn": "2026-08-13"
   },
   {
     "query": "medicaid lawyer",
-    "impressions": 8,
-    "clicks": 0,
-    "position": 24.8,
-    "tag": "Elder Law",
-    "score": -1,
     "used": true,
     "targetedOn": "2026-08-14"
   },
