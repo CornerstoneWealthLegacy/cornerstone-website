@@ -1,6 +1,17 @@
 {
   "articles": [
     {
+      "slug": "articles/probate-2026-08-18",
+      "file": "articles/probate-2026-08-18.html",
+      "title": "Florida Probate 2026: New $150,000 Summary Rule",
+      "tag": "Estate Planning",
+      "category": "Probate & Estate Administration",
+      "blurb": "Florida's summary probate limit jumped to $150,000 in 2026 — here's what that change means for estates, costs, and personal representatives.",
+      "image": "images/og/florida-probate-process-timeline.jpg",
+      "date": "2026-08-18",
+      "prettyDate": "August 18, 2026"
+    },
+    {
       "slug": "articles/focus-estate-planning-preparation-ruskin-2026-08-17",
       "file": "articles/focus-estate-planning-preparation-ruskin-2026-08-17.html",
       "title": "Estate Planning Preparation Ruskin, FL: A 2026 Guide",
