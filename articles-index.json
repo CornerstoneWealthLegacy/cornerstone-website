@@ -1,6 +1,17 @@
 {
   "articles": [
     {
+      "slug": "articles/real-estate-2026-08-19",
+      "file": "articles/real-estate-2026-08-19.html",
+      "title": "Florida Homestead Exemption Ballot Measure: What to Know",
+      "tag": "Real Estate",
+      "category": "Real Estate & Property",
+      "blurb": "Florida voters decide this November on a major homestead exemption expansion — here's what's proposed, what's current law, and what it means for your deed and estate plan.",
+      "image": "images/og/real-estate-2026-07-18.jpg",
+      "date": "2026-08-19",
+      "prettyDate": "August 19, 2026"
+    },
+    {
       "slug": "articles/probate-2026-08-18",
       "file": "articles/probate-2026-08-18.html",
       "title": "Florida Probate 2026: New $150,000 Summary Rule",
