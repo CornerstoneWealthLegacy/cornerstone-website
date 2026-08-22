@@ -1,6 +1,17 @@
 {
   "articles": [
     {
+      "slug": "articles/personal-injury-2026-08-22",
+      "file": "articles/personal-injury-2026-08-22.html",
+      "title": "Florida Personal Injury Law: What Changed & What Hasn't",
+      "tag": "Personal Injury",
+      "category": "Personal Injury",
+      "blurb": "What Florida's 2023 tort reform means today: the two-year deadline, the 51% fault bar, and why PIP is still very much the law.",
+      "image": "images/og/personal-injury-2026-07-13.jpg",
+      "date": "2026-08-22",
+      "prettyDate": "August 22, 2026"
+    },
+    {
       "slug": "articles/special-situations-2026-08-21",
       "file": "articles/special-situations-2026-08-21.html",
       "title": "Blended Families & Snowbirds: FL Estate Planning Gaps",
