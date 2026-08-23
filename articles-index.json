@@ -1,6 +1,17 @@
 {
   "articles": [
     {
+      "slug": "articles/asset-protection-2026-08-23",
+      "file": "articles/asset-protection-2026-08-23.html",
+      "title": "Florida Asset Protection: Homestead, LLCs & Trusts",
+      "tag": "Asset Protection",
+      "category": "Asset Protection",
+      "blurb": "How Florida homestead law, tenancy by the entireties, and LLC charging orders protect assets — and why the timing of your planning matters most.",
+      "image": "images/og/real-estate-2026-07-18.jpg",
+      "date": "2026-08-23",
+      "prettyDate": "August 23, 2026"
+    },
+    {
       "slug": "articles/personal-injury-2026-08-22",
       "file": "articles/personal-injury-2026-08-22.html",
       "title": "Florida Personal Injury Law: What Changed & What Hasn't",
