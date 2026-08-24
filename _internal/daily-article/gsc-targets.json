@@ -6,7 +6,8 @@
     "position": 9.5,
     "tag": "Personal Injury",
     "score": 6,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-08-24"
   },
   {
     "query": "transfer property without probate spring hill",
