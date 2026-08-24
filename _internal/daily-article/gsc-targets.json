@@ -1,11 +1,42 @@
 [
   {
-    "query": "estate planning preparation ruskin",
+    "query": "ormond beach accident lawyer",
+    "impressions": 11,
+    "clicks": 0,
+    "position": 9.5,
+    "tag": "Personal Injury",
+    "score": 6,
+    "used": false
+  },
+  {
+    "query": "transfer property without probate spring hill",
     "impressions": 9,
     "clicks": 0,
-    "position": 17.3,
+    "position": 9.8,
+    "tag": "Probate",
+    "score": 5,
+    "used": false
+  },
+  {
+    "query": "young adult legal forms",
+    "impressions": 8,
+    "clicks": 0,
+    "position": 10.6,
     "tag": "Estate Planning",
-    "score": 2,
+    "score": 4,
+    "used": false
+  },
+  {
+    "query": "elder law",
+    "impressions": 8,
+    "clicks": 0,
+    "position": 24.6,
+    "tag": "Elder Law",
+    "score": -1,
+    "used": false
+  },
+  {
+    "query": "estate planning preparation ruskin",
     "used": true,
     "targetedOn": "2026-08-17"
   },
