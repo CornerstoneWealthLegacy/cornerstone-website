@@ -16,7 +16,8 @@
     "position": 9.8,
     "tag": "Probate",
     "score": 5,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-08-25"
   },
   {
     "query": "young adult legal forms",
