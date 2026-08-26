@@ -15674,5 +15674,75 @@ strong{color:#15273D}
     </div>
   </div>
 </div>
+<!-- ── Ava Voice Guide — step narration + ElevenLabs conversational widget ── -->
+<style>
+#avaGuide{position:fixed;left:18px;bottom:18px;z-index:1900;display:flex;align-items:center;gap:10px;background:#0f2744;color:#fff;border-radius:999px;padding:8px 16px 8px 8px;box-shadow:0 8px 28px rgba(8,14,28,.35);font-family:Inter,system-ui,sans-serif;max-width:320px}
+#avaGuide .ava-face{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#c49a2a,#e0bc55);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;color:#0f2744;flex:none;position:relative;overflow:hidden}
+#avaGuide .ava-face img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+#avaGuide.ava-speaking .ava-face::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:2px solid #e0bc55;animation:avaPulse 1.2s ease-out infinite}
+@keyframes avaPulse{from{opacity:.9;transform:scale(.92)}to{opacity:0;transform:scale(1.25)}}
+#avaGuide .ava-meta{line-height:1.25;min-width:0}
+#avaGuide .ava-name{font-weight:800;font-size:.8rem}
+#avaGuide .ava-sub{font-size:.62rem;opacity:.7;white-space:nowrap}
+#avaGuide button{border:0;background:rgba(255,255,255,.14);color:#fff;border-radius:999px;font-size:.66rem;font-weight:700;padding:5px 10px;cursor:pointer;flex:none}
+#avaGuide button:hover{background:rgba(255,255,255,.26)}
+#avaGuide button.on{background:#c49a2a;color:#0f2744}
+@media (max-width:640px){#avaGuide{left:10px;bottom:10px;padding:6px 10px 6px 6px}#avaGuide .ava-sub{display:none}}
+elevenlabs-convai{position:fixed;left:18px;bottom:76px;z-index:1899}
+</style>
+<div id="avaGuide" role="region" aria-label="Ava, AI voice guide">
+  <div class="ava-face" id="avaFace">A</div>
+  <div class="ava-meta">
+    <div class="ava-name">Ava · AI Guide</div>
+    <div class="ava-sub">AI assistant — not legal advice</div>
+  </div>
+  <button id="avaToggle" title="Ava reads a short intro for each step">&#128264; Guide me</button>
+  <button id="avaReplay" title="Replay this step" style="display:none">&#8634;</button>
+</div>
+<elevenlabs-convai agent-id="agent_9601m0z9n4s0edct6ejnv886wftg"></elevenlabs-convai>
+<script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+<script>
+(function(){
+  // sec label -> audio slug (fallback clip covers anything unlisted)
+  var AVA_MAP={'Document':'document','Situation':'situation','Prior State':'prior-state','Profile':'profile','Grantor':'grantor','Your Info':'your-info','Structure':'structure','Co-Grantor':'co-grantor','Trust Type':'trust-type','Trust Name':'trust-name','Trustees':'trustees','Trustee':'trustees','Beneficiaries':'beneficiaries','Beneficiary':'beneficiaries','Distribution':'distribution','FL Provisions':'fl-provisions','Powers':'powers','Children':'children','Guardian':'guardian','Executor':'executor','Bequests':'bequests','Residuary':'residuary','Special Needs':'special-needs','SNT Details':'special-needs','Pets':'pets','Pet Details':'pets','Business':'business','Business Details':'business','Charitable':'charitable','Charitable Details':'charitable','Insurance':'insurance','Insurance Details':'insurance','Firearms':'firearms','NFA Items':'firearms','Veteran':'veteran','International':'international','Retirement':'retirement','Crypto':'crypto','Collectibles':'collectibles','Elder Care':'elder-care','Elder Law':'elder-care','Blended Family':'blended-family','POA Agent':'poa-agent','New Agent':'poa-agent','HC Surrogate':'hc-surrogate','Review':'review'};
+  var avaOn=localStorage.getItem('ava_guide_on')==='1';
+  var avaAudio=null,lastSlug=null;
+  var elGuide=document.getElementById('avaGuide'),elToggle=document.getElementById('avaToggle'),elReplay=document.getElementById('avaReplay');
+  function paint(){elToggle.classList.toggle('on',avaOn);elToggle.innerHTML=avaOn?'&#128266; Guiding':'&#128264; Guide me';elReplay.style.display=avaOn?'':'none';}
+  function stopAudio(){if(avaAudio){avaAudio.pause();avaAudio=null;}elGuide.classList.remove('ava-speaking');}
+  function play(slug){
+    stopAudio();
+    avaAudio=new Audio('/audio/guide/'+slug+'.mp3');
+    elGuide.classList.add('ava-speaking');
+    avaAudio.onended=avaAudio.onerror=function(){elGuide.classList.remove('ava-speaking');};
+    avaAudio.play().catch(function(){elGuide.classList.remove('ava-speaking');});
+  }
+  function slugForCurrentStep(){
+    try{
+      var st=(typeof STEPS!=='undefined'&&typeof S!=='undefined'&&S&&STEPS[S.step])?STEPS[S.step]:null;
+      if(st&&st.sec)return AVA_MAP[st.sec]||'fallback';
+    }catch(e){}
+    return null;
+  }
+  function onStep(){
+    if(!avaOn)return;
+    var slug=slugForCurrentStep();
+    if(!slug||slug===lastSlug)return;
+    lastSlug=slug;play(slug);
+  }
+  elToggle.addEventListener('click',function(){
+    avaOn=!avaOn;localStorage.setItem('ava_guide_on',avaOn?'1':'0');paint();
+    if(avaOn){lastSlug=null;var s=slugForCurrentStep();if(s){lastSlug=s;play(s);}else{play('welcome');}}
+    else stopAudio();
+  });
+  elReplay.addEventListener('click',function(){var s=slugForCurrentStep()||'welcome';play(s);});
+  // Hook step changes by wrapping render(); poll as a safety net for flows that bypass it
+  try{
+    if(typeof render==='function'){var _r=render;render=function(){_r.apply(this,arguments);setTimeout(onStep,300);};}
+  }catch(e){}
+  setInterval(onStep,2500);
+  paint();
+})();
+</script>
 </body>
 </html>

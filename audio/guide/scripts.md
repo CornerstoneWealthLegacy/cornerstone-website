@@ -1,0 +1,42 @@
+# Ava Guide — step intro scripts (voice: cgSgspJ2msm6clMCkdW9)
+
+Each clip ≤ 2 short sentences. Guidance only — never "you should choose X."
+
+- **welcome** — Hi, I'm Ava, your guide here at Truestead. I'll walk you through each step, and if anything's unclear, just open the chat and ask me — let's build your plan.
+- **document** — First, pick which documents you're here to create. Each card explains what's included, and you can always talk to the attorney before deciding.
+- **situation** — Tell us whether this is a brand-new plan or an update to something you already have. That's all this step does.
+- **prior-state** — If you moved to Florida from another state, choose it here. Your documents will flag anything from that state worth cleaning up, and show what Florida saves you.
+- **profile** — This one just sizes your estate so the right provisions are included. A close estimate is fine — nothing here locks you in.
+- **grantor** — Enter your name exactly as it appears on your government ID, since that's how it prints on every document. Take your time — accuracy here matters most.
+- **your-info** — Enter your name exactly as it appears on your government ID, since that's how it prints on every document. Take your time — accuracy here matters most.
+- **structure** — This asks whether the trust is for you alone or joint with your spouse. The cards explain when each makes sense, and I'm in the chat if you want it in plain English.
+- **co-grantor** — Now the same details for your spouse, exactly as on their ID. Both of you will be co-grantors of the joint trust.
+- **trust-type** — Choose the type of trust that fits your plan. Most families use the standard revocable option shown first.
+- **trust-name** — Your trust needs a formal name for deeds and accounts. Most people keep the standard format, but any of the styles here works.
+- **trustees** — You'll stay in control as trustee. This step names who steps in if you ever can't serve — pick people you trust who are reasonably organized.
+- **beneficiaries** — Now the important one: who inherits. List each person and their share, and don't worry — you can change this anytime before signing.
+- **distribution** — This sets how and when beneficiaries receive their inheritance — all at once, in stages, or held in trust. The cards spell out each option.
+- **fl-provisions** — These are Florida-specific protections for your documents. The pre-selected ones are standard for most Florida families.
+- **powers** — This lists what your trustee is allowed to do — the defaults are the standard Florida powers. Skim them, and ask me about any that look unfamiliar.
+- **children** — Tell us about your children or descendants, including from prior relationships. This drives guardianship and how your estate flows.
+- **guardian** — If you have minor children, this names who would raise them. Name at least one backup, too.
+- **executor** — Florida calls this your Personal Representative — the person who settles your estate. They must be a Florida resident or a blood relative, and backups are strongly encouraged.
+- **bequests** — Want a specific item or amount to go to a specific person? Add it here — everything else passes under the next step.
+- **residuary** — This is the catch-all clause covering everything not specifically gifted — for most estates, that's nearly everything. Choose who receives it.
+- **special-needs** — If any beneficiary has a disability or receives government benefits, flag it here so their inheritance doesn't cost them their benefits.
+- **pets** — Florida lets you provide for pets through your plan. If that's you, add them here — otherwise just continue on.
+- **business** — If you own a business or LLC, note it here so your documents handle succession properly.
+- **charitable** — Want to leave something to a charity or church? Add it here, or continue if not.
+- **insurance** — Life insurance passes by beneficiary designation, so this step makes sure it coordinates with your plan instead of fighting it.
+- **firearms** — Firearms have special transfer rules, especially NFA items. Answer here so they pass legally and safely.
+- **veteran** — Veterans may have benefits that affect planning. One quick answer and you're through.
+- **international** — If you have property or heirs outside the U.S., flag it here — cross-border details matter and the attorney reviews these closely.
+- **retirement** — IRAs and 401(k)s follow their own beneficiary rules, and getting them wrong is expensive. This step keeps them coordinated with everything else.
+- **crypto** — Digital assets are easy to lose track of in an estate. Note what exists — never enter passwords or keys here.
+- **collectibles** — Valuable collections deserve a plan of their own. Note anything significant here.
+- **elder-care** — A few questions about long-term care planning. If Medicaid may be in your family's future, this is worth a moment.
+- **blended-family** — Blended families need careful drafting so everyone you intend to provide for is protected. Answer honestly — this is what the attorney reads most carefully.
+- **poa-agent** — Your Power of Attorney names who can act for you financially if you can't. Choose someone careful, and name a backup.
+- **hc-surrogate** — This names who speaks for your medical care if you can't speak for yourself. Pick someone who knows your wishes and can be reached quickly.
+- **review** — You made it — this is the full picture of your plan. Read it top to bottom, tap Back to fix anything, and when it looks right, generate your documents.
+- **fallback** — This section's explained in the note on screen. Read it through, and if anything's unclear, I'm right here in the chat.
