@@ -167,8 +167,51 @@ Provide 3–6 sections and 4–6 faqs. Do not fabricate statute numbers, dollar 
   });
 
   const raw = msg.content.filter(b => b.type === 'text').map(b => b.text).join('').trim();
-  const cleaned = raw.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '').trim();
-  return JSON.parse(cleaned);
+  return parseModelJSON(raw);
+}
+
+// Ported from the GCRID agent (8/16) after this agent died on 8/17 with
+// "Expected ',' or '}' after property value" — the model leaves raw newlines and
+// unescaped double quotes inside JSON string values. Three tiers: plain parse,
+// control-char repair, then unescaped-quote repair.
+function parseModelJSON(raw) {
+  let s = raw.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '').trim();
+  // Isolate the outermost {...} in case of stray prose before/after.
+  const first = s.indexOf('{'), last = s.lastIndexOf('}');
+  if (first > 0 || (last !== -1 && last < s.length - 1)) s = s.slice(first, last + 1);
+  try { return JSON.parse(s); } catch {}
+  // Repair pass: while INSIDE a string value, escape raw control chars.
+  let out = '', inStr = false, esc = false;
+  for (const ch of s) {
+    if (esc) { out += ch; esc = false; continue; }
+    if (ch === '\\') { out += ch; esc = true; continue; }
+    if (ch === '"') { inStr = !inStr; out += ch; continue; }
+    if (inStr) {
+      if (ch === '\n') { out += '\\n'; continue; }
+      if (ch === '\r') { out += '\\r'; continue; }
+      if (ch === '\t') { out += '\\t'; continue; }
+      if (ch.charCodeAt(0) < 0x20) continue; // drop other control chars
+    }
+    out += ch;
+  }
+  try { return JSON.parse(out); } catch {}
+  // Final pass: a quote inside a string only truly closes it if the next
+  // non-space char is structural (, } ] :) — any other quote is content.
+  let out2 = '', inStr2 = false, esc2 = false;
+  for (let i = 0; i < out.length; i++) {
+    const ch = out[i];
+    if (esc2) { out2 += ch; esc2 = false; continue; }
+    if (ch === '\\') { out2 += ch; esc2 = true; continue; }
+    if (ch === '"') {
+      if (!inStr2) { inStr2 = true; out2 += ch; continue; }
+      const next = out.slice(i + 1).match(/^\s*(.)/);
+      if (!next || [',', '}', ']', ':'].includes(next[1])) { inStr2 = false; out2 += ch; }
+      else { out2 += '\\"'; }
+      continue;
+    }
+    out2 += ch;
+  }
+  return JSON.parse(out2); // if this still throws, the caller retries next hour
 }
 
 // ─── HIGGSFIELD HERO IMAGE (optional, non-fatal) ───────────────────────────────
