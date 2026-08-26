@@ -35,7 +35,7 @@ exports.handler = async (event) => {
   let callerEmail = '';
   try {
     const vr = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${FIREBASE_WEB_API_KEY}`, {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      method: 'POST', headers: { 'Content-Type': 'application/json', 'Referer': 'https://truesteadlaw.com/' },
       body: JSON.stringify({ idToken }),
     });
     const vd = await vr.json();

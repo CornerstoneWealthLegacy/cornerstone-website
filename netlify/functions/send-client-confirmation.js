@@ -58,7 +58,7 @@ exports.handler = async (event) => {
   try {
     const verifyRes = await fetch(
       `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${FIREBASE_WEB_API_KEY}`,
-      { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ idToken }) }
+      { method: 'POST', headers: { 'Content-Type': 'application/json', 'Referer': 'https://truesteadlaw.com/' }, body: JSON.stringify({ idToken }) }
     );
     if (!verifyRes.ok) return { statusCode: 401, body: 'Unauthorized' };
     const verifyData = await verifyRes.json();

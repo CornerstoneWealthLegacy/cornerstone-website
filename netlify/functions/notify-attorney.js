@@ -24,7 +24,7 @@ exports.handler = async (event) => {
     const verifyUrl = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${FIREBASE_WEB_API_KEY}`;
     const verifyRes = await fetch(verifyUrl, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'Referer': 'https://truesteadlaw.com/' },
       body: JSON.stringify({ idToken }),
     });
 
