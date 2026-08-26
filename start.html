@@ -15747,6 +15747,29 @@ elevenlabs-convai{position:fixed;left:18px;bottom:76px;z-index:1899}
   }catch(e){}
   setInterval(onStep,2500);
   paint();
+  // Relabel the ElevenLabs widget (dashboard copy isn't attribute-configurable in
+  // the current widget build; its shadow root is open, so rewrite the text nodes)
+  var AVA_LABELS=[['Start a call','Ask Ava'],['Need help?','Questions? Ask Ava'],['End call','Done']];
+  function relabel(){
+    var el=document.querySelector('elevenlabs-convai');
+    if(!el||!el.shadowRoot)return;
+    var walker=document.createTreeWalker(el.shadowRoot,NodeFilter.SHOW_TEXT),n;
+    while(n=walker.nextNode()){
+      for(var i=0;i<AVA_LABELS.length;i++){
+        if(n.textContent.indexOf(AVA_LABELS[i][0])!==-1)n.textContent=n.textContent.split(AVA_LABELS[i][0]).join(AVA_LABELS[i][1]);
+      }
+    }
+  }
+  var relabelTimer=setInterval(relabel,800);
+  setTimeout(function(){
+    var el=document.querySelector('elevenlabs-convai');
+    if(el&&el.shadowRoot){
+      clearInterval(relabelTimer);
+      relabel();
+      new MutationObserver(relabel).observe(el.shadowRoot,{childList:true,subtree:true,characterData:true});
+      setInterval(relabel,5000); // belt and suspenders for shadow re-creation
+    }
+  },4000);
 })();
 </script>
 </body>
