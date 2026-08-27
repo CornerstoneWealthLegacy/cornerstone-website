@@ -41,9 +41,12 @@ function requireKeys() {
 const NTFY_TOPIC = process.env.NTFY_TOPIC || 'truestead-alerts-TZr7Hai1';
 async function notify(title, body, tags = 'newspaper') {
   try {
+    // HTTP headers must be ISO-8859-1: an emoji in the title makes fetch throw
+    // and the alert silently never sends (bit us on deploy-failure alerts 8/26).
+    const safeTitle = title.replace(/[^\x20-\x7E]/g, '').replace(/\s+/g, ' ').trim() || 'Truestead alert';
     await fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
       method: 'POST',
-      headers: { Title: title, Priority: 'default', Tags: tags, 'Content-Type': 'text/plain' },
+      headers: { Title: safeTitle, Priority: 'default', Tags: tags, 'Content-Type': 'text/plain' },
       body,
     });
   } catch (e) { console.error('ntfy notify failed (non-fatal):', e.message); }
@@ -642,9 +645,16 @@ async function main() {
 
   // 6. Deploy
   if (isDryRun) {
-    console.log(`\n⏭️   Skipped deploy. Preview locally:`);
-    console.log(`     open "${join(ARTICLES_DIR, filename)}"`);
-    await notify('Truestead article ready to review', `"${article.title}"\nDry run — not deployed. Review: ${join(ARTICLES_DIR, filename)}`, 'mag');
+    if (process.env.GITHUB_ACTIONS) {
+      // CI runs with --no-deploy because the workflow's commit+push triggers the
+      // Netlify build — the article IS going live, so say so.
+      console.log('\n⏭️   Deploy handled by CI: the commit+push triggers the Netlify build.');
+      await notify('Truestead article published', `"${article.title}"\nPublished via GitHub Actions — Netlify takes it live within a few minutes.\nhttps://truesteadlaw.com/articles/${slug}`, 'newspaper,white_check_mark');
+    } else {
+      console.log(`\n⏭️   Skipped deploy. Preview locally:`);
+      console.log(`     open "${join(ARTICLES_DIR, filename)}"`);
+      await notify('Truestead article ready to review', `"${article.title}"\nDry run — not deployed. Review: ${join(ARTICLES_DIR, filename)}`, 'mag');
+    }
   } else {
     console.log('\n🚀  Deploying to truesteadlaw.com (netlify deploy --prod)...');
     try {
@@ -656,7 +666,7 @@ async function main() {
     } catch (e) {
       console.error('❌  Deploy failed:', e.message);
       console.log('💡  The article + index were saved. Deploy manually:  cd cornerstone-website && netlify deploy --prod');
-      await notify('⚠️ Truestead deploy failed', `"${article.title}" was written but NOT deployed.\n${e.message.substring(0, 150)}`, 'warning');
+      await notify('Truestead deploy failed', `"${article.title}" was written but NOT deployed.\n${e.message.substring(0, 150)}`, 'warning');
     }
   }
 
