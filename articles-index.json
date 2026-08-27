@@ -1,6 +1,17 @@
 {
   "articles": [
     {
+      "slug": "articles/focus-elder-law-2026-08-27",
+      "file": "articles/focus-elder-law-2026-08-27.html",
+      "title": "Florida Elder Law: What It Covers & How It Protects You",
+      "tag": "Elder Law",
+      "category": "Elder Law",
+      "blurb": "A plain-English guide to what elder law covers in Florida — Medicaid planning, guardianship, nursing home rights, and elder abuse protections.",
+      "image": "images/og/florida-medicaid-planning-lookback.jpg",
+      "date": "2026-08-27",
+      "prettyDate": "August 27, 2026"
+    },
+    {
       "slug": "articles/focus-young-adult-legal-forms-2026-08-26",
       "file": "articles/focus-young-adult-legal-forms-2026-08-26.html",
       "title": "Young Adult Legal Forms in Florida: A Complete Guide",

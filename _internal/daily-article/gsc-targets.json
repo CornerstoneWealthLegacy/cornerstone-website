@@ -36,7 +36,8 @@
     "position": 24.6,
     "tag": "Elder Law",
     "score": -1,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-08-27"
   },
   {
     "query": "estate planning preparation ruskin",
