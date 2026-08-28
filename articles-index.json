@@ -1,6 +1,17 @@
 {
   "articles": [
     {
+      "slug": "articles/probate-2026-08-28",
+      "file": "articles/probate-2026-08-28.html",
+      "title": "Florida Probate in 2026: New $150,000 Summary Limit",
+      "tag": "Estate Planning",
+      "category": "Probate & Estate Administration",
+      "blurb": "Florida raised its summary probate limit to $150,000 in 2026 — here's how probate now works, what it costs, and how to avoid it.",
+      "image": "images/og/florida-probate-process-timeline.jpg",
+      "date": "2026-08-28",
+      "prettyDate": "August 28, 2026"
+    },
+    {
       "slug": "articles/focus-elder-law-2026-08-27",
       "file": "articles/focus-elder-law-2026-08-27.html",
       "title": "Florida Elder Law: What It Covers & How It Protects You",
