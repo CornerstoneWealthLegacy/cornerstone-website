@@ -57,6 +57,19 @@ CITIES = [
  ("key-west","Key West","Monroe",24.56,-81.78,"US-1 / the Overseas Highway and scooter and moped traffic"),
 ]
 
+# --- Full-matrix expansion (2026-08-27): append every city from the master ---
+# --- county dataset (tools/city-matrix.json, from build-counties.js).       ---
+# --- Hand-built major-city pages are protected and never regenerated.       ---
+import json as _json
+PROTECTED = {'boca-raton','clearwater','daytona-beach','fort-lauderdale','fort-myers','gainesville','jacksonville','lakeland','melbourne','miami','naples','ocala','orlando','pensacola','port-st-lucie','sarasota','st-petersburg','tallahassee','tampa','west-palm-beach'}
+_have = {r[0] for r in CITIES} | PROTECTED
+for _r in _json.load(open(os.path.join(ROOT, "tools", "city-matrix.json"))):
+    if _r["slug"] in _have:
+        continue
+    _have.add(_r["slug"])
+    CITIES.append((_r["slug"], _r["city"], _r["county"], _r["lat"], _r["lng"], _r["roads"]))
+
+
 INTRO = [
  "If you were hurt in an accident in {city}, the insurance company began building its case immediately — you should have someone building yours. Truestead Law helps injured {city} and {county} County residents pursue what they are owed, on a contingency fee, with no attorney's fee unless we recover for you.",
  "A serious injury in {city} changes everything at once — the medical bills, the missed work, and an insurance adjuster already working to pay you as little as possible. Truestead Law stands with injured {county} County families and pursues the full recovery they're owed, on a contingency fee with no attorney's fee unless we win.",
@@ -104,7 +117,7 @@ def build(i, slug, city, county, lat, lng, hazard):
     faq_html = "\n            ".join(f"<h3>{esc(q)}</h3>\n            <p>{esc(a)}</p>" for q,a in faqs)
 
     title = f"Personal Injury Attorney in {city}, FL | Accidents &amp; Injury Claims | Truestead Law"
-    desc_meta = f"Personal injury attorney for {city}, Florida — car, truck, motorcycle, rideshare, boating, slip-and-fall &amp; nursing-home injury claims. Free case review, no fee unless we recover. Call (877) 867-6077."
+    desc_meta = f"Personal injury attorney for {city}, Florida — car, truck, motorcycle, rideshare, boating, slip-and-fall &amp; nursing-home injury claims. Free case review, no fee unless we recover. Call (888) 388-8445."
 
     repl = {"%%TITLE%%":title,"%%DESC_META%%":desc_meta,"%%SLUG%%":slug,"%%CITY%%":esc(city),
             "%%COUNTY%%":esc(county),"%%LAT%%":str(lat),"%%LNG%%":str(lng),

@@ -41,6 +41,21 @@ CIRCUIT = {
  "Miami-Dade":"Eleventh","Broward":"Seventeenth","Bay":"Fourteenth","Okaloosa":"First","Monroe":"Sixteenth",
 }
 
+# --- Full-matrix expansion (2026-08-27): append every city from the master ---
+# --- county dataset; extend the circuit map to all 67 counties.            ---
+import json as _json
+PROTECTED = {'boca-raton','clearwater','daytona-beach','fort-lauderdale','fort-myers','gainesville','jacksonville','lakeland','melbourne','miami','naples','ocala','orlando','pensacola','port-st-lucie','sarasota','st-petersburg','tallahassee','tampa','west-palm-beach'}
+_matrix = _json.load(open(os.path.join(ROOT, "tools", "city-matrix.json")))
+for _r in _matrix:
+    CIRCUIT.setdefault(_r["county"], _r["circuit"])
+_have = {r[0] for r in CITIES} | PROTECTED
+for _r in _matrix:
+    if _r["slug"] in _have:
+        continue
+    _have.add(_r["slug"])
+    CITIES.append((_r["slug"], _r["city"], _r["county"], _r["lat"], _r["lng"]))
+
+
 INTRO = [
  "Truestead Law helps {city} seniors and their families navigate the legal side of aging — long-term care planning, Medicaid eligibility, incapacity documents, and asset protection — with practical, compassionate guidance under Florida law. We work throughout {county} County by phone, video, and appointment.",
  "Getting older in {city} raises legal and financial questions no family should face alone: how to pay for care without losing the house, who can act if you can't, and how to qualify for Medicaid without giving everything away. Truestead Law guides {county} County seniors and their adult children through all of it — by phone, video, and appointment.",
@@ -81,7 +96,7 @@ def build(i, slug, city, county, lat, lng):
     faq_html = "\n            ".join(f"<h3>{esc(q)}</h3>\n            <p>{esc(a)}</p>" for q,a in faqs)
 
     title = f"Elder Law &amp; Medicaid Attorney in {city}, FL | Long-Term Care Planning | Truestead Law"
-    desc_meta = f"Elder law &amp; Medicaid attorney for {city}, Florida — long-term care planning, asset protection, powers of attorney &amp; guardianship. By phone, video &amp; appointment. Call (877) 867-6077."
+    desc_meta = f"Elder law &amp; Medicaid attorney for {city}, Florida — long-term care planning, asset protection, powers of attorney &amp; guardianship. By phone, video &amp; appointment. Call (888) 388-8445."
 
     repl = {"%%TITLE%%":title,"%%DESC_META%%":desc_meta,"%%SLUG%%":slug,"%%CITY%%":esc(city),
             "%%COUNTY%%":esc(county),"%%CIRCUIT%%":circuit,"%%LAT%%":str(lat),"%%LNG%%":str(lng),

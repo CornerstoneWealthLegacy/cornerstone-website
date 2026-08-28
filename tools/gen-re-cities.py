@@ -58,6 +58,18 @@ CITIES = [
     ("key-west","Key West","Monroe",24.56,-81.78,"historic Old Town and island properties"),
 ]
 
+# --- Full-matrix expansion (2026-08-27): append every city from the master ---
+# --- county dataset (tools/city-matrix.json). Hand-built pages protected.  ---
+import json as _json
+PROTECTED = {'boca-raton','clearwater','daytona-beach','fort-lauderdale','fort-myers','gainesville','jacksonville','lakeland','melbourne','miami','naples','ocala','orlando','pensacola','port-st-lucie','sarasota','st-petersburg','tallahassee','tampa','west-palm-beach'}
+_have = {r[0] for r in CITIES} | PROTECTED
+for _r in _json.load(open(os.path.join(ROOT, "tools", "city-matrix.json"))):
+    if _r["slug"] in _have:
+        continue
+    _have.add(_r["slug"])
+    CITIES.append((_r["slug"], _r["city"], _r["county"], _r["lat"], _r["lng"], _r["market"]))
+
+
 # Rotating template variants keyed by index -> reduces cross-page similarity
 INTRO = [
  "Truestead Law helps {city} owners and families with the legal and planning side of real estate — deeds and property transfers, Florida homestead and title questions, and review of purchase, sale, and for-sale-by-owner documents — coordinated with your broader plan for the property. We serve {county} County by phone, video, and secure e-signing. (We do not currently provide closing, escrow, or settlement services.)",
@@ -120,7 +132,7 @@ def build(i, slug, city, county, lat, lng, desc):
     faq_html = "\n            ".join(f"<h3>{esc(q)}</h3>\n            <p>{esc(a)}</p>" for q,a in faqs)
 
     title = f"Real Estate Attorney in {city}, FL | Deeds, Title &amp; Property Transfers | Truestead Law"
-    desc_meta = f"Real estate attorney for {city}, Florida — deeds, property transfers, homestead &amp; title, and contract review. By phone, video &amp; appointment. Call (877) 867-6077."
+    desc_meta = f"Real estate attorney for {city}, Florida — deeds, property transfers, homestead &amp; title, and contract review. By phone, video &amp; appointment. Call (888) 388-8445."
 
     repl = {
         "%%TITLE%%": title, "%%DESC_META%%": desc_meta, "%%SLUG%%": slug,

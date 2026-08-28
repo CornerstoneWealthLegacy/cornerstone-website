@@ -25,11 +25,25 @@ KINDS = [
 ]
 
 MARKER = "<!-- cross-practice -->"
-count=0; skipped=0; nocta=0
+count=0; skipped=0; nocta=0; refreshed=0
 for f in glob.glob("*-estate-planning.html"):
     t = open(f, encoding="utf-8").read()
     if MARKER in t:
-        skipped += 1; continue
+        # Refresh mode: a block already exists — rebuild its <li> items so links
+        # upgrade from practice pillars to city pages created after injection.
+        m2 = re.search(r'<h1>(.+?)\s+Estate Planning', t)
+        city2 = m2.group(1).strip() if m2 else f.replace('-estate-planning.html','').replace('-',' ').title()
+        slug2 = f[:-len('-estate-planning.html')]
+        newlis = "\n            ".join(practice_link(slug2, city2, k) for k in KINDS)
+        pat = re.compile(re.escape(MARKER) + r'(.*?<ul>\n)(.*?)(\n\s*</ul>)', re.S)
+        mm = pat.search(t)
+        if mm and mm.group(2).strip() != newlis.strip():
+            t = t[:mm.start(2)] + "            " + newlis + t[mm.end(2):]
+            open(f, "w", encoding="utf-8").write(t)
+            refreshed += 1
+        else:
+            skipped += 1
+        continue
     m = re.search(r'<h1>(.+?)\s+Estate Planning', t)
     city = m.group(1).strip() if m else f.replace('-estate-planning.html','').replace('-',' ').title()
     slug = f[:-len('-estate-planning.html')]
@@ -53,4 +67,4 @@ for f in glob.glob("*-estate-planning.html"):
     open(f,"w",encoding="utf-8").write(t)
     count += 1
 
-print(f"Injected cross-practice block into {count} estate pages | already had: {skipped} | no anchor: {nocta}")
+print(f"Injected cross-practice block into {count} estate pages | refreshed existing: {refreshed} | unchanged: {skipped} | no anchor: {nocta}")
