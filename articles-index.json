@@ -1,6 +1,17 @@
 {
   "articles": [
     {
+      "slug": "articles/real-estate-2026-08-29",
+      "file": "articles/real-estate-2026-08-29.html",
+      "title": "Florida Homestead Exemption 2026: What's Changing",
+      "tag": "Real Estate",
+      "category": "Real Estate & Property",
+      "blurb": "A November 2026 ballot measure could reshape Florida's homestead exemption — here's what's already law and what's still pending a vote.",
+      "image": "images/og/real-estate-2026-07-18.jpg",
+      "date": "2026-08-29",
+      "prettyDate": "August 29, 2026"
+    },
+    {
       "slug": "articles/probate-2026-08-28",
       "file": "articles/probate-2026-08-28.html",
       "title": "Florida Probate in 2026: New $150,000 Summary Limit",
