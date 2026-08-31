@@ -6,7 +6,8 @@
     "position": 11.9,
     "tag": "Estate Planning",
     "score": 8,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-08-31"
   },
   {
     "query": "living trust preparation nokomis",

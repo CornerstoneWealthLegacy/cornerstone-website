@@ -1,6 +1,17 @@
 {
   "articles": [
     {
+      "slug": "articles/focus-living-trusts-nokomis-2026-08-31",
+      "file": "articles/focus-living-trusts-nokomis-2026-08-31.html",
+      "title": "Living Trusts in Nokomis, FL: A Complete Guide",
+      "tag": "Estate Planning",
+      "category": "Living Trusts Nokomis",
+      "blurb": "How living trusts work for Nokomis, Florida homeowners under the Florida Trust Code, from probate avoidance to homestead protection.",
+      "image": "images/og/florida-revocable-living-trust.jpg",
+      "date": "2026-08-31",
+      "prettyDate": "August 31, 2026"
+    },
+    {
       "slug": "articles/florida-law-update-2026-08-30",
       "file": "articles/florida-law-update-2026-08-30.html",
       "title": "Florida Probate Law Changes 2026: New Thresholds & Rules",
