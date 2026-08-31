@@ -21,8 +21,11 @@
 //   • Each page gets a different opener (rotated by page + day) so the pages
 //     aren't publishing byte-identical posts — varied captions read naturally
 //     and avoid tripping Facebook's duplicate-content dampening.
-//   • Link posts, so Facebook renders the article's Open Graph card (the
-//     insight pages carry real og:image photos, not a logo).
+//   • NATIVE PHOTO POSTS (since 8/31/2026): the article's hero photo is posted
+//     natively with the caption, and the article link goes in the FIRST
+//     COMMENT — link posts are Facebook's worst-reach format. If commenting is
+//     blocked (needs pages_manage_engagement), the caption is updated to carry
+//     the link instead. Articles with no image fall back to the old link post.
 //
 // REQUIRED ENV (same token as fb-autopost — a user/system-user token with
 // pages_manage_posts covers every page the account admins)
@@ -136,7 +139,8 @@ exports.handler = async (event) => {
     // Deep-link each page's caption to its matching city page on the site
     // (site_url in fb-city-pages.json) — FB↔site cross-linking, eval P2.
     const cityLink = p.site_url ? `\nMore ${p.city} guides: https://arthursimpson.com${p.site_url}` : '';
-    const message = `${opener}\n\n${blurb}\n\n${BRAND_LINE}${cityLink}`;
+    const baseMsg = `${opener}\n\n${blurb}`;
+    const message = `${baseMsg}\n\nFull guide in the comments.\n\n${BRAND_LINE}${cityLink}`;
 
     let pageToken = TOKEN;
     try {
@@ -146,18 +150,54 @@ exports.handler = async (event) => {
       else console.warn(`fb-city-autopost: no page token for ${p.page_id} (${p.city} ${p.type})`, JSON.stringify(td));
     } catch (e) { console.warn(`fb-city-autopost: token exchange failed for ${p.page_id}`, e.message); }
 
+    const img = a.image ? `${SITE}${a.image.startsWith('/') ? '' : '/'}${a.image}` : null;
     try {
-      const res = await fetch(`https://graph.facebook.com/v19.0/${encodeURIComponent(p.page_id)}/feed`, {
+      if (!img) {
+        // No hero image on this article: old-style link post
+        const res = await fetch(`https://graph.facebook.com/v19.0/${encodeURIComponent(p.page_id)}/feed`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: `${baseMsg}\n\n${BRAND_LINE}${cityLink}`, link, access_token: pageToken }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          console.error(`fb-city-autopost error ${p.city} ${p.type} (${p.page_id})`, res.status, JSON.stringify(data));
+          return `${p.city}/${p.type}: FAILED ${(data.error && data.error.message) || res.status}`;
+        }
+        return `${p.city}/${p.type}: posted(link) ${data.id || 'n/a'}`;
+      }
+
+      // Native photo post
+      const res = await fetch(`https://graph.facebook.com/v19.0/${encodeURIComponent(p.page_id)}/photos`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message, link, access_token: pageToken }),
+        body: JSON.stringify({ url: img, message, access_token: pageToken }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
         console.error(`fb-city-autopost error ${p.city} ${p.type} (${p.page_id})`, res.status, JSON.stringify(data));
         return `${p.city}/${p.type}: FAILED ${(data.error && data.error.message) || res.status}`;
       }
-      return `${p.city}/${p.type}: posted ${data.id || 'n/a'}`;
+      const postId = data.post_id || data.id;
+
+      // Article link as the first comment; if commenting is blocked, rewrite
+      // the caption to carry the link instead (never leave a post link-less).
+      const cr = await fetch(`https://graph.facebook.com/v19.0/${encodeURIComponent(postId)}/comments`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: `Full guide: ${link}`, access_token: pageToken }),
+      });
+      if (!cr.ok) {
+        const cd = await cr.json().catch(() => ({}));
+        console.warn(`fb-city-autopost: comment failed ${p.page_id} (${(cd.error && cd.error.message) || cr.status}) — putting link in caption`);
+        await fetch(`https://graph.facebook.com/v19.0/${encodeURIComponent(postId)}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: `${baseMsg}\n\nFull guide: ${link}\n\n${BRAND_LINE}${cityLink}`, access_token: pageToken }),
+        }).catch(() => {});
+        return `${p.city}/${p.type}: posted(photo, link-in-caption) ${postId}`;
+      }
+      return `${p.city}/${p.type}: posted(photo+comment) ${postId}`;
     } catch (e) {
       console.error(`fb-city-autopost exception ${p.page_id}`, e);
       return `${p.city}/${p.type}: EXCEPTION ${e.message}`;

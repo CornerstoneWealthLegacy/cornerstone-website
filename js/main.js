@@ -213,3 +213,70 @@ document.querySelectorAll('.nav-link, .dropdown-item').forEach(link => {
     }
   }, true);
 })();
+
+/* ── Consult conversion layer (2026-08-31) ─────────────────────────────────
+ * Sticky consult bar on article + city pages, plus Meta-pixel conversion
+ * events for call/book clicks site-wide. Self-contained; no page-CSS deps. */
+(function () {
+  // Pixel conversion events on any page: calls → Contact, booking → Schedule
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a');
+    if (!a || !window.fbq) return;
+    var href = a.getAttribute('href') || '';
+    if (href.indexOf('tel:') === 0) {
+      fbq('track', 'Contact');
+    } else if (/(^|\/)book(\.html)?$/.test(href) || href.indexOf('calendly.com') > -1) {
+      fbq('track', 'Schedule');
+    }
+  }, true);
+
+  // Sticky bar: only on articles and city pages, never on booking/portal pages
+  var isTarget = document.querySelector('.art-body, .city-hero, .city-body');
+  if (!isTarget) return;
+  if (/\/(book|contact|start|portal|checkout)(\.html)?$/.test(location.pathname)) return;
+  if (sessionStorage.getItem('tsBarDismissed')) return;
+
+  var css = document.createElement('style');
+  css.textContent =
+    '#ts-consult-bar{position:fixed;left:0;right:0;bottom:0;z-index:9999;background:linear-gradient(135deg,#0f2744,#1a3a5c);box-shadow:0 -4px 18px rgba(0,0,0,.25);padding:10px 14px;display:none;font-family:Inter,system-ui,sans-serif}' +
+    '#ts-consult-bar.ts-show{display:block}' +
+    '#ts-consult-bar .ts-inner{position:relative;max-width:780px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}' +
+    '#ts-consult-bar .ts-label{color:#fff;font-weight:700;font-size:.9rem}' +
+    '#ts-consult-bar a{text-decoration:none;font-weight:800;font-size:.88rem;padding:10px 18px;border-radius:8px;white-space:nowrap}' +
+    '#ts-consult-bar .ts-call{color:#fff;border:1.5px solid rgba(255,255,255,.45)}' +
+    '#ts-consult-bar .ts-book{background:#c49a2a;color:#fff}' +
+    '#ts-consult-bar .ts-close{position:absolute;right:-6px;top:-4px;background:none;border:none;color:rgba(255,255,255,.6);font-size:18px;cursor:pointer;padding:2px 6px}' +
+    'body.ts-bar-on{padding-bottom:64px}' +
+    '@media(max-width:600px){#ts-consult-bar .ts-label{display:none}#ts-consult-bar a{flex:1;text-align:center}#ts-consult-bar .ts-inner{padding-right:20px}}';
+  document.head.appendChild(css);
+
+  var bar = document.createElement('div');
+  bar.id = 'ts-consult-bar';
+  bar.innerHTML =
+    '<div class="ts-inner">' +
+    '<span class="ts-label">Free consultation with a Florida attorney</span>' +
+    '<a class="ts-call" href="tel:+18883888445">Call (888) 388-8445</a>' +
+    '<a class="ts-book" href="/book">Book Free Consult</a>' +
+    '<button class="ts-close" aria-label="Dismiss">&times;</button>' +
+    '</div>';
+  document.body.appendChild(bar);
+
+  bar.querySelector('.ts-close').addEventListener('click', function () {
+    bar.remove();
+    document.body.classList.remove('ts-bar-on');
+    sessionStorage.setItem('tsBarDismissed', '1');
+  });
+
+  var shown = false;
+  function maybeShow() {
+    if (shown) return;
+    if (window.scrollY > 300) {
+      shown = true;
+      bar.classList.add('ts-show');
+      document.body.classList.add('ts-bar-on');
+      window.removeEventListener('scroll', maybeShow);
+    }
+  }
+  window.addEventListener('scroll', maybeShow, { passive: true });
+  maybeShow();
+})();

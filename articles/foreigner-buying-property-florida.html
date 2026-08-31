@@ -88,6 +88,13 @@
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-333CR3Q4N6"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-333CR3Q4N6");</script>
+<!-- Meta Pixel (Truestead Law) -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+if(!window._fbqInit){window._fbqInit=true;fbq('init','2087253962178307');fbq('track','PageView');}
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2087253962178307&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel -->
 </head>
 <body>
 
@@ -145,7 +152,14 @@
   <h2>Yes — Foreign Nationals Can Own Florida Real Estate</h2>
   <p>There is no U.S. citizenship or residency requirement to purchase most real estate in Florida. A foreign national can buy a home, condominium, or investment property in their own name or through a company or trust, whether or not they have ever set foot in the United States. Owning property is not the same as immigration status: <strong>buying a home gives you no visa, no green card, and no right to live in the U.S.</strong> — and conversely, you need no immigration status to buy.</p>
 
-  <h2>How Foreign Buyers Actually Purchase in Florida</h2>
+  
+  <div id="ts-consult-mid" style="background:#faf6ec;border-left:4px solid #c49a2a;border-radius:0 10px 10px 0;padding:22px 26px;margin:36px 0;">
+    <p style="margin:0 0 14px;font-weight:700;color:#0f2744;font-size:1.02rem;">Have this exact situation? Talk it through with a Florida attorney &mdash; the 20-minute consultation is free.</p>
+    <a href="/book" style="display:inline-block;background:#c49a2a;color:#fff;padding:11px 22px;border-radius:8px;font-weight:800;text-decoration:none;font-size:.9rem;margin-right:10px;">Book Free Consult</a>
+    <a href="tel:+18883888445" style="display:inline-block;color:#0f2744;padding:11px 10px;font-weight:700;text-decoration:none;font-size:.9rem;">or call (888) 388-8445</a>
+  </div>
+
+<h2>How Foreign Buyers Actually Purchase in Florida</h2>
   <ul>
     <li><strong>Cash or foreign-national financing.</strong> Many foreign buyers pay cash; others use "foreign national mortgage" programs from U.S. lenders, which typically require larger down payments (often 30–40%) and additional documentation.</li>
     <li><strong>A U.S. tax ID (ITIN).</strong> You don't need one to close, but you will need an ITIN for tax reporting — and especially when you later sell (FIRPTA) or rent the property. It's wise to obtain it early.</li>
@@ -243,6 +257,19 @@
           <a href="../asset-protection.html">Asset Protection</a>.</p>
     <p style="margin-bottom:0;"><strong>Related guides:</strong> <a href="firpta-florida-real-estate.html">FIRPTA Withholding</a> · <a href="florida-cross-border-estate-planning.html">Cross-Border Estate Planning</a> · <a href="florida-ancillary-probate-nonresident.html">Ancillary Probate</a> · <a href="foreign-investor-florida-llc.html">Holding Structures</a>.</p>
   </div>
+
+  <div id="ts-consult-end" style="background:#fff;border:2px solid #e8e0cd;border-radius:16px;padding:32px 28px;margin:48px 0 8px;text-align:center;">
+    <h3 style="font-family:'Playfair Display',serif;color:#0f2744;font-size:1.4rem;margin:0 0 8px;">Talk to a Florida Attorney &mdash; Free 20-Minute Consultation</h3>
+    <p style="color:#4a5568;margin:0 0 18px;">Pick a time below. No obligation, no pressure &mdash; just answers.</p>
+    <div class="calendly-inline-widget" data-url="https://calendly.com/arthursimpson/free-20-minute-discovery-call?hide_gdpr_banner=1" style="position:relative;min-width:300px;height:660px;"></div>
+    <p style="margin:12px 0 0;font-size:.9rem;"><a href="tel:+18883888445" style="color:#0f2744;font-weight:700;">Prefer the phone? (888) 388-8445</a></p>
+  </div>
+  <script>
+  (function(){var w=document.querySelector('#ts-consult-end .calendly-inline-widget');if(!w)return;
+  function load(){if(window._tsCalLoaded)return;window._tsCalLoaded=true;var s=document.createElement('script');s.src='https://assets.calendly.com/assets/external/widget.js';s.async=true;document.head.appendChild(s);}
+  if('IntersectionObserver' in window){var o=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){load();o.disconnect();}});},{rootMargin:'600px'});o.observe(w);}else{load();}})();
+  </script>
+
 </article>
 
 <footer class="site-footer">

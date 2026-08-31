@@ -347,9 +347,45 @@ function renderHTML(topic, a, slug, prettyDateStr, heroImage) {
   };
   const bylineTitle = BYLINE_BY_TAG[topic.tag] || 'Florida Estate Planning Attorney';
 
-  const sectionsHTML = (a.sections || [])
-    .map(s => `\n  <h2>${esc(s.heading)}</h2>\n  ${s.body}`)
-    .join('\n');
+  // Consult conversion layer (2026-08-31) — same three blocks batch-inserted
+  // across the existing articles: mid-article consult box after the first
+  // section, 18 & Protected strip on estate-family topics, and an inline
+  // Calendly consult box at the end of the article.
+  const MID_BOX = `
+  <div id="ts-consult-mid" style="background:#faf6ec;border-left:4px solid #c49a2a;border-radius:0 10px 10px 0;padding:22px 26px;margin:36px 0;">
+    <p style="margin:0 0 14px;font-weight:700;color:#0f2744;font-size:1.02rem;">Have this exact situation? Talk it through with a Florida attorney &mdash; the 20-minute consultation is free.</p>
+    <a href="/book" style="display:inline-block;background:#c49a2a;color:#fff;padding:11px 22px;border-radius:8px;font-weight:800;text-decoration:none;font-size:.9rem;margin-right:10px;">Book Free Consult</a>
+    <a href="tel:+18883888445" style="display:inline-block;color:#0f2744;padding:11px 10px;font-weight:700;text-decoration:none;font-size:.9rem;">or call (888) 388-8445</a>
+  </div>`;
+
+  const catHay = `${a.category || topic.category || ''} ${topic.tag || ''}`;
+  const isEstateFamily = /will|trust|probate|estate|elder|medicaid|asset|18|young/i.test(catHay)
+    && !/injury|real estate|international|cross.?border|legislat/i.test(catHay);
+  const packetHTML = isEstateFamily ? `
+  <div id="ts-packet" style="background:linear-gradient(135deg,#0f2744,#1a3a5c);border-radius:12px;padding:22px 26px;margin:36px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+    <p style="color:#fff;margin:0;font-weight:600;max-width:480px;">Have a child turning 18? Get the free <strong>18 &amp; Protected</strong> packet &mdash; the legal documents every Florida 18-year-old needs.</p>
+    <a href="/18-and-protected.html" style="display:inline-block;background:#c49a2a;color:#fff;padding:12px 24px;border-radius:8px;font-weight:800;text-decoration:none;font-size:.9rem;white-space:nowrap;">Get the Free Packet</a>
+  </div>
+` : '';
+
+  const endConsultHTML = `
+  <div id="ts-consult-end" style="background:#fff;border:2px solid #e8e0cd;border-radius:16px;padding:32px 28px;margin:48px 0 8px;text-align:center;">
+    <h3 style="font-family:'Playfair Display',serif;color:#0f2744;font-size:1.4rem;margin:0 0 8px;">Talk to a Florida Attorney &mdash; Free 20-Minute Consultation</h3>
+    <p style="color:#4a5568;margin:0 0 18px;">Pick a time below. No obligation, no pressure &mdash; just answers.</p>
+    <div class="calendly-inline-widget" data-url="https://calendly.com/arthursimpson/free-20-minute-discovery-call?hide_gdpr_banner=1" style="position:relative;min-width:300px;height:660px;"></div>
+    <p style="margin:12px 0 0;font-size:.9rem;"><a href="tel:+18883888445" style="color:#0f2744;font-weight:700;">Prefer the phone? (888) 388-8445</a></p>
+  </div>
+  <script>
+  (function(){var w=document.querySelector('#ts-consult-end .calendly-inline-widget');if(!w)return;
+  function load(){if(window._tsCalLoaded)return;window._tsCalLoaded=true;var s=document.createElement('script');s.src='https://assets.calendly.com/assets/external/widget.js';s.async=true;document.head.appendChild(s);}
+  if('IntersectionObserver' in window){var o=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){load();o.disconnect();}});},{rootMargin:'600px'});o.observe(w);}else{load();}})();
+  </script>
+`;
+
+  const sectionBlocks = (a.sections || [])
+    .map(s => `\n  <h2>${esc(s.heading)}</h2>\n  ${s.body}`);
+  if (sectionBlocks.length >= 2) sectionBlocks.splice(1, 0, MID_BOX);
+  const sectionsHTML = sectionBlocks.join('\n');
 
   const faqsHTML = (a.faqs || [])
     .map(f => `
@@ -543,7 +579,7 @@ ${faqsHTML}
     <p>${esc(a.takeaway)}</p>
   </div>
 ${sourcesHTML}
-
+${packetHTML}
   <div class="cta-box">
     <h3>${cta.h}</h3>
     <p>${cta.p}</p>
@@ -551,7 +587,7 @@ ${sourcesHTML}
   </div>
 
   <p style="font-size:.8rem;color:#9ca3af;margin-top:32px;line-height:1.6"><em>This article is for general informational purposes only and does not constitute legal advice, nor does reading it create an attorney-client relationship. Florida estate, elder, probate, and real estate law are fact-specific and change over time. Consult a licensed Florida attorney about your individual circumstances. Arthur Simpson, Esq. is licensed to practice law in the State of Florida. Attorney advertising.</em></p>
-
+${endConsultHTML}
 </article>
 
 <footer class="site-footer">
