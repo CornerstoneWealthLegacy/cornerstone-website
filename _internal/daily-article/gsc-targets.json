@@ -16,7 +16,8 @@
     "position": 11.9,
     "tag": "Estate Planning",
     "score": 4,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-09-01"
   },
   {
     "query": "what can you do at 18 in florida",
