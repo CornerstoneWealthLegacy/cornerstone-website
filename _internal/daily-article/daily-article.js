@@ -599,6 +599,7 @@ ${endConsultHTML}
 </footer>
 
 <script src="../js/main.js"></script>
+<script src="/widget/truestead-widget.js" defer></script>
 </body>
 </html>`;
 }
