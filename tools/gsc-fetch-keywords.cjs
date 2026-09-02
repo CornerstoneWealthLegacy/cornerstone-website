@@ -50,6 +50,15 @@ function tagFor(q) {
 }
 const isBrand = q => /truestead|arthur simpson/i.test(q);
 
+// Arthur's standing rule (9/2/2026): only target Florida queries where he can
+// practice law. Drop UK/Commonwealth legal terms outright, and drop queries
+// that name another US state unless they also mention Florida (cross-border
+// "NY resident, FL property" queries stay).
+const UK_TERMS = /\b(solicitors?|barristers?|conveyanc\w*|chancery)\b/i;
+const OTHER_STATES = /\b(alabama|alaska|arizona|arkansas|california|colorado|connecticut|delaware|georgia|hawaii|idaho|illinois|indiana|iowa|kansas|kentucky|louisiana|maine|maryland|massachusetts|michigan|minnesota|mississippi|missouri|montana|nebraska|nevada|new\s+hampshire|new\s+jersey|new\s+mexico|new\s+york|north\s+carolina|north\s+dakota|ohio|oklahoma|oregon|pennsylvania|rhode\s+island|south\s+carolina|south\s+dakota|tennessee|texas|utah|vermont|virginia|washington|west\s+virginia|wisconsin|wyoming)\b/i;
+const isOutOfPractice = q =>
+  UK_TERMS.test(q) || (OTHER_STATES.test(q) && !/\b(florida|fl)\b/i.test(q));
+
 function noCreds(msg) {
   console.log(`[gsc] ${msg} — leaving gsc-targets.json untouched; daily engine uses normal rotation.`);
   process.exit(0);
@@ -86,20 +95,24 @@ async function main() {
   byImp.slice(0, 12).forEach(r => console.log(`   · "${r.q}"  imp=${r.imp} pos=${r.pos}${/truestead|arthur simpson/i.test(r.q) ? "  (brand)" : ""}`));
 
   const prev = fs.existsSync(OUT) ? JSON.parse(fs.readFileSync(OUT, "utf8")) : [];
-  const usedQueries = new Set(prev.filter(t => t.used).map(t => t.query));
+  const doneQueries = new Set(prev.filter(t => t.used || t.skipped).map(t => t.query));
 
   const targets = rows
     .map(r => ({ query: r.keys[0], impressions: r.impressions, clicks: r.clicks, position: +r.position.toFixed(1) }))
     .filter(t => t.impressions >= MIN_IMPRESSIONS && t.position >= POS_MIN && t.position <= POS_MAX && !isBrand(t.query))
-    .filter(t => !usedQueries.has(t.query))
+    .filter(t => !isOutOfPractice(t.query))
+    .filter(t => !doneQueries.has(t.query))
     // opportunity = impressions weighted toward queries closest to page 1
     .map(t => ({ ...t, tag: tagFor(t.query), score: Math.round(t.impressions * (21 - t.position) / 21) }))
     .sort((a, b) => b.score - a.score)
     .slice(0, KEEP)
     .map(t => ({ ...t, used: false }));
 
-  // preserve already-used history so we don't re-target the same query
-  const history = prev.filter(t => t.used).map(t => ({ query: t.query, used: true, targetedOn: t.targetedOn || null }));
+  // preserve used AND skipped history so we don't re-target (or re-queue) them
+  const history = prev.filter(t => t.used || t.skipped).map(t => ({
+    query: t.query, used: !!t.used, targetedOn: t.targetedOn || null,
+    ...(t.skipped ? { skipped: true, skippedReason: t.skippedReason || null } : {}),
+  }));
   fs.writeFileSync(OUT, JSON.stringify([...targets, ...history], null, 2) + "\n");
   console.log(`[gsc] wrote ${targets.length} striking-distance targets (impressions ≥ ${MIN_IMPRESSIONS}, position ${POS_MIN}–${POS_MAX}).`);
   targets.slice(0, 8).forEach(t => console.log(`   • "${t.query}"  imp=${t.impressions} pos=${t.position} [${t.tag}]`));
