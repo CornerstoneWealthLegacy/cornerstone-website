@@ -44,7 +44,9 @@
     "position": 15.3,
     "tag": "Estate Planning",
     "score": 3,
-    "used": false
+    "used": false,
+    "skipped": true,
+    "skippedReason": "pruned by Arthur 9/2/2026: \"solicitor\" is a UK-term query, not a Florida practice fit"
   },
   {
     "query": "indian river county probate attorney",
