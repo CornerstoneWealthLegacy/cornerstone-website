@@ -47,12 +47,43 @@ function buildGscTopic(t) {
   };
 }
 
+// Near-duplicate query check: GSC often surfaces several phrasings of the same
+// search ("living trusts nokomis" / "living trust preparation nokomis"), and
+// writing an article for each produces near-identical pieces on consecutive
+// days (posted to Facebook back-to-back, and cannibalizing each other in
+// Google). Compare singularized word sets; Jaccard ≥ 0.6 = same intent.
+function queryWords(q) {
+  return new Set(q.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/)
+    .filter(Boolean).map(w => w.replace(/s$/, '')));
+}
+function isNearDuplicateQuery(a, b) {
+  const wa = queryWords(a), wb = queryWords(b);
+  if (!wa.size || !wb.size) return false;
+  let inter = 0;
+  for (const w of wa) if (wb.has(w)) inter++;
+  return inter / (wa.size + wb.size - inter) >= 0.6;
+}
+
 function nextGscTopic() {
   try {
     if (!existsSync(GSC_FILE)) return null;
     const list = JSON.parse(readFileSync(GSC_FILE, 'utf8'));
-    const idx = list.findIndex(t => t && !t.used && t.query);
-    if (idx < 0) return null;
+    const done = list.filter(t => t && (t.used || t.skipped) && t.query).map(t => t.query);
+    let idx = -1;
+    for (let i = 0; i < list.length; i++) {
+      const t = list[i];
+      if (!t || t.used || t.skipped || !t.query) continue;
+      const dup = done.find(q => isNearDuplicateQuery(q, t.query));
+      if (dup) {
+        t.skipped = true;
+        t.skippedReason = `near-duplicate of "${dup}"`;
+        console.log(`  ↷  GSC target "${t.query}" skipped: near-duplicate of "${dup}"`);
+        continue;
+      }
+      idx = i;
+      break;
+    }
+    if (idx < 0) { writeFileSync(GSC_FILE, JSON.stringify(list, null, 2) + '\n'); return null; }
     list[idx].used = true;
     list[idx].targetedOn = new Date().toISOString().slice(0, 10);
     writeFileSync(GSC_FILE, JSON.stringify(list, null, 2) + '\n');

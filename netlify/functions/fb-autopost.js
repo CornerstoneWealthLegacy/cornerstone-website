@@ -100,6 +100,26 @@ exports.handler = async (event) => {
       else console.warn(`fb-autopost: page-token exchange returned no token for ${pageId}`, JSON.stringify(td));
     } catch (e) { console.warn(`fb-autopost: page-token exchange failed for ${pageId}`, e.message); }
 
+    // Idempotency guard: scheduled functions are invoked async, and a timeout
+    // or crash AFTER a successful post makes the platform re-run the whole
+    // function (9/2/2026: both pages got the same article at 5:00 + 5:01 AM).
+    // Skip the page if this link is already in its recent posts.
+    try {
+      const fr = await fetch(`https://graph.facebook.com/v19.0/${encodeURIComponent(pageId)}/feed?fields=attachments{unshimmed_url}&limit=10&access_token=${encodeURIComponent(pageToken)}`);
+      const fd = await fr.json().catch(() => ({}));
+      if (fr.ok) {
+        const already = (fd.data || []).some((p) =>
+          ((p.attachments || {}).data || []).some((at) => (at.unshimmed_url || '').startsWith(link)));
+        if (already) {
+          console.log(`fb-autopost: ${a.slug} already on page ${pageId} — skipping (duplicate guard)`);
+          results.push(`${pageId}: skipped (already posted)`);
+          continue;
+        }
+      } else {
+        console.warn(`fb-autopost: dedupe feed read failed for ${pageId} (posting anyway)`, JSON.stringify(fd));
+      }
+    } catch (e) { console.warn(`fb-autopost: dedupe feed read failed for ${pageId} (posting anyway)`, e.message); }
+
     try {
       const res = await fetch(`https://graph.facebook.com/v19.0/${encodeURIComponent(pageId)}/feed`, {
         method: 'POST',
@@ -120,6 +140,7 @@ exports.handler = async (event) => {
     }
   }
 
-  const anyPosted = results.some((r) => r.includes('posted'));
-  return { statusCode: anyPosted ? 200 : 502, body: `Article ${a.slug} → ${results.join(' | ')}` };
+  // Always 200: a non-2xx from an async (scheduled) invocation triggers a
+  // platform retry that would re-run the posts. Failures are in the logs.
+  return { statusCode: 200, body: `Article ${a.slug} → ${results.join(' | ')}` };
 };
