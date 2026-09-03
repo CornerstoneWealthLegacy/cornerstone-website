@@ -53,15 +53,16 @@
     + '#ts-bubble video{width:100%;height:100%;object-fit:cover;display:block}'
     + '#ts-bubble-cap{position:absolute;left:0;right:0;bottom:0;background:rgba(15,39,68,.88);color:#fff;font-size:12px;font-weight:700;text-align:center;padding:7px 6px}'
     + '#ts-bubble-x{position:absolute;top:4px;right:4px;width:22px;height:22px;border-radius:50%;background:rgba(15,39,68,.75);color:#fff;font-size:13px;line-height:22px;text-align:center;cursor:pointer}'
-    + '#ts-panel{display:none;width:340px;max-width:calc(100vw - 36px);background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 12px 44px rgba(15,39,68,.5);border:1px solid #d8d8d8}'
-    + '#ts-video-wrap{position:relative;background:#0f2744;height:265px}'
+    + '#ts-panel{display:none;width:340px;max-width:calc(100vw - 36px);max-height:calc(100vh - 36px);max-height:calc(100dvh - 36px);flex-direction:column;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 12px 44px rgba(15,39,68,.5);border:1px solid #d8d8d8}'
+    + '#ts-video-wrap{position:relative;background:#0f2744;height:265px;flex:0 0 auto}'
     + '#ts-video-wrap video{width:100%;height:100%;object-fit:cover;object-position:50% 22%;display:block}'
-    + '#ts-capbox{background:#0f2744;color:#fff;font-size:12.5px;line-height:1.55;padding:8px 12px;max-height:78px;overflow-y:auto;border-top:1px solid rgba(255,255,255,.12)}'
-    + '#ts-capbox .ts-w{opacity:.45;transition:opacity .12s}'
-    + '#ts-capbox .ts-w.on{opacity:1}'
+    + '#ts-capbox{background:#0f2744;color:#fff;font-size:12.5px;line-height:1.55;padding:8px 12px;max-height:78px;overflow-y:auto;border-top:1px solid rgba(255,255,255,.12);flex:0 0 auto}'
+    + '#ts-capbox .ts-w{opacity:.92}'
+    + '#ts-capbox .ts-w.on{opacity:1;font-weight:700}'
+    + '#ts-capbox:empty{max-height:0;padding:0;border-top:0}'
     + '#ts-panel-x{position:absolute;top:8px;right:8px;width:26px;height:26px;border-radius:50%;background:rgba(15,39,68,.75);color:#fff;font-size:15px;line-height:26px;text-align:center;cursor:pointer;z-index:2}'
     + '#ts-replay{position:absolute;top:8px;left:8px;background:rgba(15,39,68,.75);color:#fff;font-size:11px;padding:4px 9px;border-radius:12px;cursor:pointer;z-index:2}'
-    + '#ts-body{padding:12px 14px 8px}'
+    + '#ts-body{padding:12px 14px 8px;overflow-y:auto;flex:1 1 auto;min-height:0}'
     + '.ts-chips{display:flex;flex-wrap:wrap;gap:8px}'
     + '.ts-chip{background:#0f2744;color:#fff;border:none;font-size:13px;font-weight:700;padding:9px 14px;border-radius:20px;cursor:pointer}'
     + '.ts-chip:hover{background:#c49a2a;color:#0f2744}'
@@ -72,14 +73,15 @@
     + 'textarea.ts-qwelcome{height:46px}'
     + '.ts-send{width:100%;background:#c49a2a;color:#0f2744;font-weight:700;font-size:15px;border:none;border-radius:10px;padding:11px;cursor:pointer;margin-top:2px}'
     + '.ts-send:disabled{opacity:.55;cursor:default}'
-    + '#ts-foot{font-size:9.5px;color:#777;line-height:1.5;padding:8px 14px 10px;border-top:1px solid #eee}'
+    + '#ts-foot{font-size:9.5px;color:#777;line-height:1.5;padding:8px 14px 10px;border-top:1px solid #eee;flex:0 0 auto}'
     + '#ts-thanks{font-size:14px;color:#0f2744;font-weight:700;text-align:center;padding:8px 0}'
-    + '@media (max-width:480px){#ts-widget{right:10px;bottom:10px}#ts-bubble{width:120px;height:176px}#ts-panel{width:calc(100vw - 20px)}#ts-video-wrap{height:215px}#ts-capbox{max-height:66px}}';
+    + '@media (max-width:480px){#ts-widget{right:10px;bottom:10px}#ts-bubble{width:120px;height:176px}#ts-panel{width:calc(100vw - 20px);max-height:calc(100vh - 20px);max-height:calc(100dvh - 20px)}#ts-video-wrap{height:215px}#ts-capbox{max-height:66px}}@media (max-height:720px){#ts-video-wrap{height:200px}}@media (max-height:600px){#ts-video-wrap{height:150px}#ts-capbox{max-height:58px}}';
 
   var state = { branch: null, situation: '', open: false };
   var els = {};
   var capSpans = [];
   var capTimes = [];
+  var capShown = 0;
 
   function h(tag, attrs, html) {
     var e = document.createElement(tag);
@@ -132,18 +134,17 @@
     bvid.play().catch(function () {});
   }
 
-  // Render the caption as word spans; timeupdate lights them up in sync.
+  // Live captions: words appear in the strip AS they are spoken (video-style).
+  // The strip stays collapsed (see #ts-capbox:empty) until the first word lands.
   function renderCaption(id) {
     var c = CLIPS[id];
     var words = WORDS[id];
     els.capbox.innerHTML = '';
-    capSpans = []; capTimes = [];
+    capSpans = []; capTimes = []; capShown = 0;
     if (words && words.length) {
       words.forEach(function (w) {
-        var s = h('span', { 'class': 'ts-w' }, w[0]);
-        els.capbox.appendChild(s);
-        els.capbox.appendChild(document.createTextNode(' '));
-        capSpans.push(s); capTimes.push(w[1]);
+        capSpans.push(h('span', { 'class': 'ts-w' }, w[0] + ' '));
+        capTimes.push(w[1]);
       });
     } else {
       els.capbox.textContent = c.cap;
@@ -154,19 +155,17 @@
   function syncCaptions() {
     if (!capSpans.length) return;
     var t = els.pvid.currentTime;
-    var current = -1;
-    for (var i = 0; i < capSpans.length; i++) {
-      var on = capTimes[i] <= t + 0.05;
-      capSpans[i].className = on ? 'ts-w on' : 'ts-w';
-      if (on) current = i;
+    var want = 0;
+    while (want < capTimes.length && capTimes[want] <= t + 0.05) want++;
+    if (want < capShown) {
+      els.capbox.innerHTML = '';
+      for (var i = 0; i < want; i++) els.capbox.appendChild(capSpans[i]);
+      capShown = want;
+    } else {
+      while (capShown < want) { els.capbox.appendChild(capSpans[capShown]); capShown++; }
     }
-    if (current >= 0) {
-      var s = capSpans[current];
-      var boxTop = els.capbox.scrollTop, boxH = els.capbox.clientHeight;
-      if (s.offsetTop + s.offsetHeight > boxTop + boxH || s.offsetTop < boxTop) {
-        els.capbox.scrollTop = Math.max(0, s.offsetTop - boxH + s.offsetHeight + 4);
-      }
-    }
+    for (var j = 0; j < capShown; j++) capSpans[j].className = (j === capShown - 1) ? 'ts-w on' : 'ts-w';
+    els.capbox.scrollTop = els.capbox.scrollHeight;
   }
 
   function playClip(id) {
@@ -178,7 +177,7 @@
   function openPanel() {
     state.open = true;
     els.bubble.style.display = 'none';
-    els.panel.style.display = 'block';
+    els.panel.style.display = 'flex';
     showWelcome();
   }
 
