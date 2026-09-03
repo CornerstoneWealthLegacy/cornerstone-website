@@ -156,7 +156,8 @@ Return ONLY raw JSON (no markdown fences) with exactly these fields:
   "cardBlurb": "1-sentence description for the Insights listing card (under 160 chars)"
 }
 
-Provide 3–6 sections and 4–6 faqs. Do not fabricate statute numbers, dollar amounts, or dates — if unsure, describe the rule in words.`;
+Provide 3–6 sections and 4–6 faqs. Do not fabricate statute numbers, dollar amounts, or dates — if unsure, describe the rule in words.
+Style rule: never use em-dashes anywhere in the reader-facing copy (title, meta, sections, faqs, takeaway). Use commas, periods, colons, or parentheses instead.`;
 
   console.log('\n✍️   Writing the article with Claude (Sonnet)...');
   const msg = await anthropic.messages.create({
