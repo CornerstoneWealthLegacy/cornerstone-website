@@ -36,7 +36,9 @@
     "position": 14.3,
     "tag": "Personal Injury",
     "score": 3,
-    "used": false
+    "used": false,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"ormond beach accident lawyer\""
   },
   {
     "query": "solicitor graceville",
@@ -56,7 +58,8 @@
     "position": 22.7,
     "tag": "Probate",
     "score": -1,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-09-03"
   },
   {
     "query": "probate lawyer sebastian",
