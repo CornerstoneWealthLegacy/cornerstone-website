@@ -68,7 +68,8 @@
     "position": 24.7,
     "tag": "Probate",
     "score": -2,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-09-04"
   },
   {
     "query": "ormond beach accident lawyer",
