@@ -1,6 +1,17 @@
 {
   "articles": [
     {
+      "slug": "articles/wills-trusts-2026-09-05",
+      "file": "articles/wills-trusts-2026-09-05.html",
+      "title": "Florida Living Trust vs. Will: Why Funding Matters Most",
+      "tag": "Estate Planning",
+      "category": "Wills & Trusts",
+      "blurb": "Why a Florida trust that isn't funded still leaves your family in probate, and how pour-over wills fill the gap.",
+      "image": "images/og/florida-revocable-living-trust.jpg",
+      "date": "2026-09-05",
+      "prettyDate": "September 5, 2026"
+    },
+    {
       "slug": "articles/focus-probate-lawyer-sebastian-2026-09-04",
       "file": "articles/focus-probate-lawyer-sebastian-2026-09-04.html",
       "title": "Probate Lawyer Sebastian, FL: What Families Need to Know",
