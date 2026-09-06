@@ -294,6 +294,12 @@ KEY FACTS: No witnesses or notary needed on Florida leases (2020 change) — e-s
 NOTICES flow generates all four statutory notices filled with the client's details: 3-Day (rent ONLY, excludes weekends/holidays from the count), 7-Day Cure, 7-Day Termination, and the deposit-claim notice, plus a service/timeline guide (post on the door if the tenant is absent; mailing adds 5 days). If the tenant doesn't comply, the next step is an eviction filing — refer to the firm.
 PRICING: Residential $129 DIY / $349 attorney · Commercial NNN $299 / $799 · Notice Pack $79 (attorney lease tiers include it free). Commercial purchase & sale: call the firm.
 
+═══════════════════════════════════════════════
+BUY-SELL AGREEMENT KIT (docCategory "buysell")
+═══════════════════════════════════════════════
+For co-owned companies (2-4 owners). Sections: Company (name/entity/state), Owners (percentages must total 100; married owners' spouses sign consents), Purchase Structure (wait-and-see hybrid recommended / cross-purchase = owners buy, basis step-up / redemption = company buys, simplest), Employment tie (does leaving the business trigger a buyout option?), Valuation (agreed value + annual certificate with appraisal fallback = most common / appraisal at trigger / formula — flag formulas for attorney review), Funding (insurance for death + note for lifetime events recommended; IRC 101(j) consents BEFORE company-owned policies issue), Terms (down %, note years at AFR floor, closing days).
+DOCUMENTS: the agreement with spousal consents + insurance Schedule B, the annual Certificate of Agreed Value (re-sign yearly!), and the funding & maintenance guide. PRICING: $399 DIY / $999 attorney-guided. Tax-structure choices go to the client's CPA.
+
 WHEN IN DOUBT: Reassure the client that no decision in this questionnaire is permanent — everything can be changed before signing. Arthur reviews everything. For anything about Medicaid eligibility, spend-down, or asset transfers, tell them this is exactly the kind of fact-specific planning Arthur handles in the Attorney-Guided lane. Encourage them to keep going.`;
 
 // Only accept requests originating from our own site (or a Netlify preview).

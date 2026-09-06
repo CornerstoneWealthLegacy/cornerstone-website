@@ -1560,6 +1560,7 @@ const _PLAN_LABELS = {
   deed_warranty:    'Florida Warranty Deed',
   deed_trust:       'Deed into Trust',
   deed_llc:         'Deed into LLC',
+  buysell:          'Florida Buy-Sell Agreement',
 };
 
 // Returns the Calendly base URL with the selected plan pre-filled as answer to question 1
@@ -1995,7 +1996,7 @@ function _launchQuickStart(docCategory, mode){
     // Will flows skip the trust Structure step — give singles an explicit default
     if(flowCat === 'will' && !S.d.structure) S.d.structure = 'individual';
     // Business/RE flows have no couple/spouse concept — always individual structure
-    const isBizFlow = ['llc','deed','lease','notices'].includes(flowCat);
+    const isBizFlow = ['llc','deed','lease','notices','buysell'].includes(flowCat);
     if(isBizFlow) S.d.structure = 'individual';
     // Deed entry keys carry the deed type (deed_ladybird → deedType 'ladybird')
     if(flowCat === 'deed' && docCategory.indexOf('deed_') === 0) S.d.deedType = docCategory.slice(5);
@@ -2285,6 +2286,10 @@ const PAYMENT_LINKS = {
   deed_llc_diy:           'https://buy.stripe.com/7sYaEX4nH4j53bWdxac7u0L', // $149  Deed into LLC — DIY
   deed_llc:               'https://buy.stripe.com/14AaEXbQ94j5cMw78Mc7u0M', // $349  Deed into LLC — Attorney
 
+  // ── Buy-Sell Agreement Kit ──
+  buysell_diy:            'https://buy.stripe.com/3cIdR98DX8zl3bWeBec7u0T', // $399  Buy-Sell — DIY
+  buysell:                'https://buy.stripe.com/8x29AT5rL4j59Ak2Swc7u0U', // $999  Buy-Sell — Attorney-Guided
+
   // ── Elder Law ──
   elder_essentials_diy:        '', // $299 (was $449)    Elder-Law Essentials — DIY (single)
   elder_essentials_diy_couple: '', // $649    Elder-Law Essentials — DIY (couple)
@@ -2351,6 +2356,9 @@ const PRICING = {
   deed_warranty: { label:'Florida Warranty Deed',                     price: 399 }, // attorney-only
   deed_trust:    { label:'Deed into Trust (Trust Funding)',           price: 349, diyPrice: 149 },
   deed_llc:      { label:'Deed into LLC',                             price: 349, diyPrice: 149 },
+
+  // ── Buy-Sell Agreement Kit (priced 9/2026, Arthur-approved) ──
+  buysell:       { label:'Florida Buy-Sell Agreement',                price: 999, diyPrice: 399 },
 };
 const NY_PREMIUM = 1.0; // No NY premium — same rate for all clients
 
@@ -3027,6 +3035,106 @@ const STEPS=[
      {f:'lcNNN',   lbl:'Estimated Monthly NNN Charges ($)', ph:'450 (taxes, insurance, CAM — reconciled annually)'},
      {f:'lcRenew', lbl:'Renewal Option(s)', ph:'One 5-year option at market rate, 180 days’ notice', wide:true},
      {f:'lcBuild', lbl:'Condition / Buildout', ph:'As-is / Landlord delivers vanilla shell / $20 per sq ft TI allowance', wide:true},
+   ]
+  },
+
+  // ══════════════════════════════════════════════════════════════════
+  // BUY-SELL AGREEMENT KIT (docCategory === 'buysell')
+  // Entered via /start?specialty=buysell (sold from /business-law, /llc-kit, /kits).
+  // ══════════════════════════════════════════════════════════════════
+
+  {sec:'BuySell Company', lbl:'The Company',
+   type:'form', cond: d=>d.docCategory==='buysell',
+   q:'Tell us about the company',
+   hint:'A buy-sell agreement is the contract among co-owners that decides what happens to an owner\'s share on death, disability, divorce, or exit — before it happens, while everyone is still friendly. It works for LLCs and corporations.',
+   fields:[
+     {f:'bsCompany', lbl:'Company Legal Name *', ph:'Sunrise Coastal Properties LLC', req:true, wide:true},
+     {f:'bsEntity',  lbl:'Entity Type *', ph:'LLC (or Corporation)', req:true},
+     {f:'bsState',   lbl:'State of Formation *', ph:'Florida', req:true},
+     {f:'bsBizDesc', lbl:'What the Business Does', ph:'Residential rental property management', wide:true},
+   ]
+  },
+
+  {sec:'BuySell Owners', lbl:'Owners',
+   type:'form', cond: d=>d.docCategory==='buysell',
+   q:'Who owns the company?',
+   hint:'You are Owner 1. List every owner and their percentage — the percentages must total exactly 100. All owners (and, for married owners, their spouses by consent) will sign.',
+   fields:[
+     {f:'gFirst',  lbl:'Your First Name *', ph:'John', req:true},
+     {f:'gLast',   lbl:'Your Last Name *',  ph:'Smith', req:true},
+     {f:'bsO1Pct', lbl:'Your Ownership % *', ph:'50', req:true},
+     {f:'bsO1Married', lbl:'Are You Married? (yes/no) *', ph:'yes', req:true},
+     {f:'bsO2Name', lbl:'Owner 2 — Full Legal Name *', ph:'Maria Partner', req:true, wide:true},
+     {f:'bsO2Pct',  lbl:'Owner 2 — % *', ph:'50', req:true},
+     {f:'bsO3Name', lbl:'Owner 3 — Full Legal Name (if any)', ph:'', wide:true},
+     {f:'bsO3Pct',  lbl:'Owner 3 — %', ph:''},
+     {f:'bsO4Name', lbl:'Owner 4 — Full Legal Name (if any)', ph:'', wide:true},
+     {f:'bsO4Pct',  lbl:'Owner 4 — %', ph:''},
+   ]
+  },
+
+  {sec:'BuySell Structure', lbl:'Purchase Structure',
+   type:'choice', field:'bsStructure', required:true, cond: d=>d.docCategory==='buysell',
+   q:'When a buyout triggers, who does the buying?',
+   hint:'This drives who owns the insurance policies and the tax treatment of the buyout. If you\'re unsure, "wait and see" keeps both doors open — decide at the time, with your CPA, based on the tax picture then.',
+   opts:[
+     {v:'hybrid', t:'Wait and See (Hybrid)', badge:'RECOMMENDED', premium:true,
+      d:'The company gets the first option to buy, the remaining owners get the second, and the company must buy whatever is left. Maximum flexibility to pick the tax-smart route when the trigger actually happens.'},
+     {v:'cross', t:'Cross-Purchase — Owners Buy Each Other Out',
+      d:'Surviving/remaining owners personally buy the departing owner\'s share. Buyers get a stepped-up basis; cleanest with 2-3 owners (policy count grows fast beyond that).'},
+     {v:'redemption', t:'Entity Redemption — The Company Buys',
+      d:'The company itself buys back the interest. Simplest to administer (one set of policies) but no basis step-up for the remaining owners.'},
+   ]
+  },
+
+  {sec:'BuySell Employment', lbl:'Employment Tie',
+   type:'choice', field:'bsEmployment', required:true, cond: d=>d.docCategory==='buysell',
+   q:'Is ownership tied to working in the business?',
+   hint:'In many small companies, owners are also the workforce. If someone quits or is terminated, should they be able to keep their ownership from the outside?',
+   opts:[
+     {v:'yes', t:'Yes — Leaving the Business Triggers a Buyout', d:'Termination of employment (or ceasing active involvement) gives the company/owners the option to purchase the departing owner\'s interest.'},
+     {v:'no',  t:'No — Owners May Be Passive', d:'Investors can hold their interest without working in the business; only the core triggers (death, disability, divorce, bankruptcy, voluntary transfer) apply.'},
+   ]
+  },
+
+  {sec:'BuySell Valuation', lbl:'Valuation',
+   type:'choice', field:'bsValuation', required:true, cond: d=>d.docCategory==='buysell',
+   q:'How will the buyout price be set?',
+   hint:'Valuation disputes are where buy-sells go to die. The agreed-value method — owners sign a one-page Certificate of Agreed Value every year, with appraisal as the fallback if the certificate is stale — is the classic small-company answer, and your kit includes the certificate.',
+   opts:[
+     {v:'agreed',    t:'Agreed Value + Appraisal Fallback', badge:'MOST COMMON',
+      d:'Owners set the company value annually by signed certificate. If the certificate is more than ~18 months old at a trigger, a neutral appraisal controls instead.'},
+     {v:'appraisal', t:'Appraisal at the Time of the Trigger',
+      d:'A neutral business appraiser values the company when a buyout triggers. Most accurate, slowest, and costs a few thousand dollars per event.'},
+     {v:'formula',   t:'Formula (Multiple of Earnings / Book Value)',
+      d:'A fixed formula in the agreement. Predictable, but formulas drift from reality — best paired with attorney review and a CPA\'s input.'},
+   ],
+   customFor:['agreed'],
+   custom:{id:'bsInitialValue',lbl:'Initial Agreed Company Value ($ — your starting certificate)',ph:'750,000'}
+  },
+
+  {sec:'BuySell Funding', lbl:'Funding',
+   type:'choice', field:'bsFunding', required:true, cond: d=>d.docCategory==='buysell',
+   q:'Where does the buyout money come from?',
+   hint:'A buy-sell without funding is a promise the survivors can\'t keep. Life insurance turns the biggest trigger — death — into a funded closing; a promissory note handles lifetime exits without draining the company.',
+   opts:[
+     {v:'combo',     t:'Insurance for Death + Note for Lifetime Events', badge:'RECOMMENDED', premium:true,
+      d:'Life insurance funds a death buyout in cash; lifetime triggers (exit, divorce, disability) are paid over time on a promissory note. The standard, sane structure.'},
+     {v:'insurance', t:'Life Insurance Only',
+      d:'Policies fund death buyouts; lifetime events are handled ad hoc. Include disability buyout insurance if disability matters to you.'},
+     {v:'note',      t:'Promissory Note Only (No Insurance)',
+      d:'Every buyout is paid in installments from company cash flow. No premiums — but a death buyout becomes a multi-year debt to a grieving family.'},
+   ]
+  },
+
+  {sec:'BuySell Terms', lbl:'Payment Terms',
+   type:'form', cond: d=>d.docCategory==='buysell',
+   q:'Note terms and closing mechanics',
+   hint:'These govern any buyout not fully covered by insurance proceeds. The interest rate floor is the IRS Applicable Federal Rate at the time of the note (your CPA confirms the current AFR).',
+   fields:[
+     {f:'bsNoteYears', lbl:'Promissory Note Term (years)', ph:'5'},
+     {f:'bsDownPct',   lbl:'Down Payment at Closing (%)', ph:'20'},
+     {f:'bsCloseDays', lbl:'Days to Close After a Trigger', ph:'90'},
    ]
   },
 
@@ -4093,6 +4201,13 @@ function activeSteps(){
       return s.sec==='Review'&&s.cond&&s.cond(S.d);
     });
   }
+  // Buy-Sell Agreement flow — 'BuySell *' steps + Review.
+  if(S.d.docCategory==='buysell'){
+    return STEPS.filter(s=>{
+      if(s.sec&&s.sec.indexOf('BuySell')===0) return !s.cond||s.cond(S.d);
+      return s.sec==='Review'&&s.cond&&s.cond(S.d);
+    });
+  }
   // Landlord Notice Pack flow — 'Notice *' steps + Review.
   if(S.d.docCategory==='notices'){
     return STEPS.filter(s=>{
@@ -4118,7 +4233,7 @@ function activeSteps(){
 }
 function curStep(){
   // Business/RE flows use the activeSteps() whitelist (raw cond-filtering would leak estate steps in)
-  if(['llc','deed','lease','notices'].includes(S.d.docCategory)) return activeSteps()[S.step]||null;
+  if(['llc','deed','lease','notices','buysell'].includes(S.d.docCategory)) return activeSteps()[S.step]||null;
   let i=0;for(let s of STEPS){if(s.cond&&!s.cond(S.d))continue;if(i===S.step)return s;i++;}return null;}
 function isHNW(){return ['vhnw','uhnw'].includes(S.d.wealthProfile);}
 function docType(){
@@ -5473,6 +5588,7 @@ function renderReview(){
   if(S.d.docCategory==='deed') return renderDeedReview();
   if(S.d.docCategory==='lease') return renderLeaseReview();
   if(S.d.docCategory==='notices') return renderNoticesReview();
+  if(S.d.docCategory==='buysell') return renderBuySellReview();
   const d=S.d,joint=d.structure==='joint',gn=gName(),sn=sName(),tn=trustName();
   const iT=d.initTrustee==='both'?`${gn} & ${sn}`:d.initTrustee==='grantor'?gn:'Professional/Corporate Trustee';
   const provs=(d.provisions||[]).map(p=>{const f=STEPS[12].opts.find(o=>o.v===p);return f?f.t:p;});
@@ -5562,6 +5678,7 @@ function renderNav(step){
     :S.d.docCategory==='deed'?'Generate My Deed Package →'
     :S.d.docCategory==='lease'?'Generate My Lease Package →'
     :S.d.docCategory==='notices'?'Generate My Notice Pack →'
+    :S.d.docCategory==='buysell'?'Generate My Buy-Sell Agreement →'
     :'Generate My Trust Package →';
   return `<div class="nav">
     ${S.step>0?`<button class="btn btn-back" onclick="goBack()">← Back</button>`:'<div></div>'}
@@ -5607,6 +5724,10 @@ function validate(){
   if(step.field==='deedType'&&S.d.deedType==='warranty'&&window.appMode==='self'){
     showInlineError('Warranty deeds are attorney-prepared only ($399, recording included). Please call (888) 388-8445 or choose the Warranty Deed option at truesteadlaw.com/deeds — or pick a different deed type to continue self-guided.');
     return false;
+  }
+  if(step.sec==='BuySell Owners'){
+    const total=[S.d.bsO1Pct,S.d.bsO2Pct,S.d.bsO3Pct,S.d.bsO4Pct].reduce((s,p)=>s+(parseFloat(p)||0),0);
+    if(Math.abs(total-100)>0.01){showInlineError(`Ownership percentages total ${total}% — they must equal exactly 100%.`);return false;}
   }
   if(step.sec==='LLC Members'){
     const total=[S.d.llcM1Pct,S.d.llcM2Pct,S.d.llcM3Pct,S.d.llcM4Pct].reduce((s,p)=>s+(parseFloat(p)||0),0);
@@ -8905,6 +9026,209 @@ function generateSmartCodicil(){
 
 // Map of tab name → generator function (lazy — only runs when tab is first opened)
 // ═══════════════════════════════════════════════════════════════════
+//  BUY-SELL AGREEMENT KIT
+// ═══════════════════════════════════════════════════════════════════
+
+function bsData(){
+  const d=S.d;
+  const owners=[
+    {name:gName()||'[OWNER 1]', pct:parseFloat(d.bsO1Pct)||0, married:String(d.bsO1Married||'').toLowerCase().indexOf('y')===0},
+    {name:d.bsO2Name, pct:parseFloat(d.bsO2Pct)||0, married:null},
+    {name:d.bsO3Name, pct:parseFloat(d.bsO3Pct)||0, married:null},
+    {name:d.bsO4Name, pct:parseFloat(d.bsO4Pct)||0, married:null},
+  ].filter(o=>o.name&&String(o.name).trim());
+  const structure=d.bsStructure||'hybrid';
+  const STRUCT={hybrid:'"wait and see" hybrid (company option, then owners, then mandatory company purchase)',
+    cross:'cross-purchase (the remaining Owners purchase personally)',
+    redemption:'entity redemption (the Company purchases)'};
+  const val=d.bsValuation||'agreed';
+  const funding=d.bsFunding||'combo';
+  return { d, company:d.bsCompany||'[COMPANY NAME]', entity:d.bsEntity||'LLC', state:d.bsState||'Florida',
+    biz:(d.bsBizDesc||'').trim(), owners, pctTotal:owners.reduce((s,o)=>s+o.pct,0),
+    structure, structText:STRUCT[structure], employment:d.bsEmployment==='yes',
+    val, initVal:(d.bsInitialValue||'').replace(/[^0-9.,]/g,''), funding,
+    noteYears:d.bsNoteYears||'5', downPct:d.bsDownPct||'20', closeDays:d.bsCloseDays||'90',
+    isLLC:String(d.bsEntity||'llc').toLowerCase().indexOf('llc')!==-1 };
+}
+
+function renderBuySellReview(){
+  const B=bsData();
+  const warn=Math.abs(B.pctTotal-100)>0.01?`<div style="background:#fef2f2;border:1.5px solid #fca5a5;color:#b91c1c;border-radius:10px;padding:12px 16px;font-size:.84rem;font-weight:700;margin-bottom:18px">⚠️ Ownership totals ${B.pctTotal}% — must equal 100%. Go back to the Owners step.</div>`:'';
+  const soloWarn=B.owners.length<2?`<div style="background:#fef3c7;border:1.5px solid #f59e0b;border-radius:10px;padding:12px 16px;font-size:.84rem;color:#92400e;margin-bottom:18px">A buy-sell agreement needs at least two owners — go back and add your co-owner(s).</div>`:'';
+  return `
+  <div style="background:linear-gradient(135deg,#0f2744,#1a3a5c);border-radius:14px;padding:22px 24px;margin-bottom:22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+    <div>
+      <div style="font-size:.65rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Ready to Generate</div>
+      <div style="font-size:1.1rem;font-weight:900;color:#fff">Buy-Sell Agreement — ${B.company}</div>
+      <div style="font-size:.8rem;color:rgba(255,255,255,.6);margin-top:3px">The contract that keeps a co-owner's death, divorce, or exit from becoming the company's crisis.</div>
+    </div>
+    <div style="background:rgba(196,154,42,.15);border:1px solid rgba(196,154,42,.4);border-radius:10px;padding:10px 18px;text-align:center;flex-shrink:0">
+      <div style="font-size:.65rem;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1px">Package Includes</div>
+      <div style="font-size:1.4rem;font-weight:900;color:#fff">3</div>
+      <div style="font-size:.7rem;color:rgba(255,255,255,.55)">documents</div>
+    </div>
+  </div>
+  ${warn}${soloWarn}
+  <div class="rev-sec"><h3>Company &amp; Owners</h3>
+    <div class="rev-grid">
+      <div class="ri"><div class="rl">Company</div><div class="rv">${B.company} (${B.entity}, ${B.state})</div></div>
+      ${B.owners.map((o,i)=>`<div class="ri"><div class="rl">Owner ${i+1}${i===0?' (You'+(o.married?', married':'')+')':''}</div><div class="rv">${o.name} — ${o.pct}%</div></div>`).join('')}
+    </div>
+  </div>
+  <div class="rev-sec"><h3>Deal Terms</h3>
+    <div class="rev-grid">
+      <div class="ri full"><div class="rl">Purchase Structure</div><div class="rv">${B.structText}</div></div>
+      <div class="ri"><div class="rl">Employment Tie</div><div class="rv">${B.employment?'Yes — leaving the business triggers a buyout option':'No — passive ownership permitted'}</div></div>
+      <div class="ri"><div class="rl">Valuation</div><div class="rv">${B.val==='agreed'?('Agreed value'+(B.initVal?' (initial $'+B.initVal+')':'')+' + appraisal fallback'):B.val==='appraisal'?'Appraisal at trigger':'Formula'}</div></div>
+      <div class="ri"><div class="rl">Funding</div><div class="rv">${B.funding==='combo'?'Insurance (death) + note (lifetime)':B.funding==='insurance'?'Life insurance':'Promissory note only'}</div></div>
+      <div class="ri"><div class="rl">Note Terms</div><div class="rv">${B.downPct}% down, ${B.noteYears}-yr note (AFR floor), close in ${B.closeDays} days</div></div>
+    </div>
+  </div>`;
+}
+
+function generateBuySellAgreement(){
+  const B=bsData(), yr=new Date().getFullYear();
+  const iu=B.isLLC?'membership interest':'shares';
+  const IU=B.isLLC?'Membership Interest':'Shares';
+  return `<div class="doc-wrap">
+    <div class="doc-hdr"><div class="doc-firm">TRUESTEAD LAW</div><div class="doc-sub">Florida Business Succession | Buy-Sell Agreement</div></div>
+    <div class="doc-title">BUY-SELL AGREEMENT<br><span style="font-size:.85rem;font-weight:400">among the Owners of</span><br>${B.company}</div>
+
+    <div class="art"><div class="art-t">Recitals</div>
+      <p class="dp">This Buy-Sell Agreement (this "Agreement") is made among <strong>${B.company}</strong>, a ${B.state} ${B.entity} (the "Company")${B.biz?`, engaged in ${B.biz},`:''} and its owners listed on <strong>Schedule A</strong> (each an "Owner"). The Owners together hold 100% of the Company's ${iu}s. The parties intend that ownership remain with the active ownership group, that every transfer of an interest occur only as this Agreement provides, and that a fair, funded, and orderly purchase occur upon the events described below.</p>
+    </div>
+
+    <div class="art"><div class="art-t">Article 1 — Restrictions on Transfer</div>
+      <p class="dp">1.1 No Owner may sell, assign, pledge, encumber, gift, or otherwise transfer any ${iu}, voluntarily or involuntarily, except as expressly permitted by this Agreement. Any attempted transfer in violation is void, and the Company shall not recognize the transferee for any purpose.</p>
+      <p class="dp">1.2 <strong>Permitted Estate-Planning Transfers.</strong> An Owner may transfer ${iu}s to that Owner's revocable living trust, provided the Owner retains voting control and the trust (and trustee) agree in writing to be bound by this Agreement as if the Owner held the interest directly.</p>
+      <p class="dp">1.3 <strong>Right of First Refusal — Voluntary Transfers.</strong> An Owner wishing to transfer to a third party shall first deliver the third party's bona fide written offer to the Company and the other Owners. The Company has 30 days to elect to purchase all of the offered interest on the same terms (or, at its election, at the Article 5 value if lower); the other Owners, pro rata, have the next 30 days. Only if both options lapse may the Owner complete the transfer to the named third party, on the disclosed terms, within 60 days, with the transferee taking subject to this Agreement.</p>
+    </div>
+
+    <div class="art"><div class="art-t">Article 2 — Purchase Events</div>
+      <p class="dp">Each of the following is a "Purchase Event" as to an Owner (the "Departing Owner"):</p>
+      <p class="dp">(a) <strong>Death</strong> — a mandatory purchase of the Departing Owner's entire interest;<br>
+      (b) <strong>Permanent Disability</strong> — inability, by reason of physical or mental condition, to perform the Owner's regular duties for the Company for 12 consecutive months (or such earlier determination under any disability buyout policy);<br>
+      (c) <strong>Divorce</strong> — entry of any decree or agreement that would vest any ${iu} (or rights therein) in an Owner's spouse or former spouse, as to the interest so affected;<br>
+      (d) <strong>Bankruptcy or Creditor Process</strong> — an Owner's bankruptcy filing, assignment for creditors, or any charging order, levy, or similar process against the interest;<br>
+      ${B.employment?`(e) <strong>Termination of Active Involvement</strong> — the Owner's ceasing to be actively employed by or engaged in the business of the Company for any reason;<br>`:''}
+      (${B.employment?'f':'e'}) <strong>Deadlock</strong> — a governance deadlock persisting 60 days after written notice, which the Owners shall first submit to mediation; if unresolved 30 days after mediation, any Owner may trigger the purchase provisions as to the other(s), with the invoking Owner's interest valued under Article 5.</p>
+      <p class="dp">Upon a Purchase Event other than death, the purchase is at the option of the purchasers described in Article 3, exercisable by written notice within 60 days of knowledge of the event. Upon death, the purchase and sale are mandatory on all parties, and the deceased Owner's estate or trust shall sell.</p>
+    </div>
+
+    <div class="art"><div class="art-t">Article 3 — Who Purchases</div>
+      ${B.structure==='cross'?`<p class="dp">3.1 <strong>Cross-Purchase.</strong> Upon a Purchase Event, the remaining Owners shall purchase the Departing Owner's interest pro rata to their existing percentages (or in such other proportions as they unanimously agree).</p>`
+      :B.structure==='redemption'?`<p class="dp">3.1 <strong>Entity Redemption.</strong> Upon a Purchase Event, the Company shall purchase the Departing Owner's entire interest, subject to any solvency limitations of applicable law; the Owners shall cause the Company to take all action necessary to complete the purchase.</p>`
+      :`<p class="dp">3.1 <strong>Wait-and-See (Hybrid).</strong> Upon a Purchase Event: first, the Company has the option, for 45 days, to purchase all or part of the Departing Owner's interest; second, the remaining Owners have the option, for the next 30 days, to purchase the balance pro rata; third, the Company shall purchase any interest not so purchased. The parties intend to preserve maximum flexibility to structure the purchase tax-efficiently at the time of the event, in consultation with the Company's tax adviser.</p>`}
+      <p class="dp">3.2 In a divorce Purchase Event, the option runs against the spouse's or former spouse's interest, and the affected Owner has the first option to purchase it back before the Company and other Owners. In a creditor Purchase Event, the purchase price is applied first to discharge the process against the interest.</p>
+    </div>
+
+    <div class="art"><div class="art-t">Article 4 — Spousal Consent</div>
+      <p class="dp">Each married Owner shall cause their spouse to execute the Spousal Consent attached to this Agreement, acknowledging its terms, consenting to its restrictions (including as they affect any marital or community-property interest), and agreeing that any interest the spouse may acquire is subject to purchase as this Agreement provides. Failure to obtain a consent does not invalidate this Agreement as among its signers.</p>
+    </div>
+
+    <div class="art"><div class="art-t">Article 5 — Purchase Price (Valuation)</div>
+      ${B.val==='agreed'?`<p class="dp">5.1 The purchase price for an interest equals its pro rata share of the Company value stated in the most recent <strong>Certificate of Agreed Value</strong> signed by all Owners (the form attached to this Agreement)${B.initVal?`, the initial such value being <strong>$${B.initVal}</strong>`:''}. The Owners shall review and re-execute the Certificate at least annually.</p>
+      <p class="dp">5.2 If the most recent Certificate is dated more than 18 months before the Purchase Event, the price shall instead be determined by a qualified independent business appraiser selected jointly (or, absent agreement within 15 days, by two appraisers' average, one selected by each side), applying fair market value as a going concern, without minority or marketability discounts as between the parties.</p>`
+      :B.val==='appraisal'?`<p class="dp">5.1 The purchase price for an interest equals its pro rata share of the Company's fair market value as a going concern, determined as of the Purchase Event by a qualified independent business appraiser selected jointly by the purchaser(s) and seller (or, absent agreement within 15 days, by the average of two appraisals, one commissioned by each side). No minority or marketability discounts apply as between the parties. Appraisal costs are shared equally.</p>`
+      :`<p class="dp">5.1 The purchase price for an interest equals its pro rata share of the Company value computed under the following formula, applied to the most recently completed fiscal year: <strong>[FORMULA — e.g., 4× average EBITDA of the trailing three years, plus cash, minus funded debt — CONFIRM WITH YOUR CPA AND ATTORNEY]</strong>. If the formula cannot be applied, the appraisal method of this Article controls.</p>
+      <p class="dp" style="background:#fef3c7;border:1.5px solid #f59e0b;border-radius:10px;padding:12px;font-size:.83rem;color:#92400e">Formula clauses drift from reality as businesses change — attorney review of this Article is strongly recommended before signing.</p>`}
+      <p class="dp">5.3 In a death purchase funded by insurance, the price is the greater of the Article 5 value or the total insurance proceeds received by the purchaser(s) on the Departing Owner's life with respect to this Agreement.</p>
+    </div>
+
+    <div class="art"><div class="art-t">Article 6 — Funding &amp; Payment</div>
+      ${B.funding!=='note'?`<p class="dp">6.1 <strong>Insurance.</strong> ${B.structure==='cross'?'Each Owner shall own and maintain life insurance on each other Owner':'The Company shall own and maintain life insurance on each Owner'} in amounts reasonably matched to Article 5 values, listed on <strong>Schedule B</strong>. Proceeds received on a death Purchase Event shall be applied to the purchase price at closing. The parties acknowledge the notice-and-consent requirements for employer-owned life insurance under IRC § 101(j) and shall complete the required consents before policy issuance.</p>`:''}
+      <p class="dp">6.${B.funding!=='note'?'2':'1'} <strong>Payment.</strong> The purchase price, less insurance proceeds applied, is payable <strong>${B.downPct}%</strong> at closing with the balance by promissory note over <strong>${B.noteYears} years</strong>, level payments, interest at not less than the Applicable Federal Rate for the note's term, secured by a pledge of the purchased interest, with full prepayment permitted. Closing occurs within <strong>${B.closeDays} days</strong> of the Purchase Event (or price determination, if later).</p>
+      <p class="dp">6.${B.funding!=='note'?'3':'2'} At closing, the seller delivers the interest free of liens with customary transfer instruments; the purchaser(s) deliver the payment and note; and the Departing Owner resigns all Company positions. The parties shall cooperate on all tax elections and filings reasonably requested, each at its own adviser's direction.</p>
+    </div>
+
+    <div class="art"><div class="art-t">Article 7 — General</div>
+      <p class="dp">7.1 This Agreement controls over any conflicting provision of the Company's ${B.isLLC?'operating agreement':'bylaws'} as to transfers and buyouts, and the parties shall amend Company records to note it. 7.2 It binds heirs, estates, trustees, and permitted transferees. 7.3 Amendment requires a writing signed by the Company and all Owners. 7.4 ${B.state} law governs; venue lies in the county of the Company's principal office; the prevailing party in any dispute recovers reasonable attorney's fees. 7.5 This Agreement may be signed in counterparts, including electronically, and terminates upon the Company's dissolution, a unanimous written termination, or one Owner coming to hold all interests.</p>
+    </div>
+
+    <div class="art"><div class="art-t">Schedule A — Owners</div>
+      <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:.86rem">
+        <tr style="background:#f8fafc"><th style="padding:8px 12px;border:1px solid var(--border);text-align:left">Owner</th><th style="padding:8px 12px;border:1px solid var(--border)">${IU} %</th></tr>
+        ${B.owners.map(o=>`<tr><td style="padding:8px 12px;border:1px solid var(--border)">${o.name}</td><td style="padding:8px 12px;border:1px solid var(--border);text-align:center;font-weight:800">${o.pct}%</td></tr>`).join('')}
+      </table></div>
+    </div>
+    ${B.funding!=='note'?`<div class="art"><div class="art-t">Schedule B — Insurance Policies</div>
+      <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:.86rem">
+        <tr style="background:#f8fafc"><th style="padding:8px 12px;border:1px solid var(--border);text-align:left">Insured</th><th style="padding:8px 12px;border:1px solid var(--border);text-align:left">Owner/Beneficiary of Policy</th><th style="padding:8px 12px;border:1px solid var(--border)">Carrier / Policy No.</th><th style="padding:8px 12px;border:1px solid var(--border)">Face Amount</th></tr>
+        ${B.owners.map(o=>`<tr><td style="padding:8px 12px;border:1px solid var(--border)">${o.name}</td><td style="padding:14px 12px;border:1px solid var(--border)"></td><td style="padding:14px 12px;border:1px solid var(--border)"></td><td style="padding:14px 12px;border:1px solid var(--border)"></td></tr>`).join('')}
+      </table></div>
+      <p class="dp" style="font-size:.78rem;color:var(--muted);margin-top:8px">Complete when policies issue; update whenever coverage changes.</p>
+    </div>`:''}
+
+    <div class="art"><div class="art-t">Signatures</div>
+      <p class="dp">Signed as of the dates below. No notarization is required; each party should keep a fully signed copy with the Company's records.</p>
+      <div style="margin-top:26px;max-width:680px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px">
+          <div><div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;min-height:36px"></div><div style="font-size:.78rem"><strong>${B.company}</strong> — By: ______________________, its authorized ${B.isLLC?'Member/Manager':'Officer'}</div></div>
+          <div><div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;min-height:36px"></div><div style="font-size:.78rem">Date</div></div>
+        </div>
+        ${B.owners.map(o=>`
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:22px">
+          <div><div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;min-height:36px"></div><div style="font-size:.78rem"><strong>${o.name}</strong>, Owner</div></div>
+          <div><div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;min-height:36px"></div><div style="font-size:.78rem">Date</div></div>
+        </div>`).join('')}
+      </div>
+    </div>
+
+    <div class="art"><div class="art-t">Spousal Consent (one per married Owner)</div>
+      <p class="dp">I am the spouse of the Owner signing below. I have read the Buy-Sell Agreement of ${B.company}. I consent to its terms, agree that any interest I hold or acquire in the Company (including any marital interest) is subject to its restrictions and purchase provisions, and agree to execute any documents reasonably required to complete a purchase under it.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:680px;margin-top:20px">
+        <div><div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;min-height:36px"></div><div style="font-size:.78rem">Spouse Signature · Printed Name: ____________________ · Spouse of: ____________________</div></div>
+        <div><div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;min-height:36px"></div><div style="font-size:.78rem">Date</div></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function generateBuySellValueCert(){
+  const B=bsData(), yr=new Date().getFullYear();
+  return `<div class="doc-wrap companion-doc">
+    <div class="doc-hdr"><div class="doc-firm">TRUESTEAD LAW</div><div class="doc-sub">Buy-Sell Agreement — Annual Exhibit</div></div>
+    <div class="doc-title">CERTIFICATE OF AGREED VALUE<br><span style="font-size:.85rem;font-weight:400">${B.company}</span></div>
+    <div class="art">
+      <p class="dp">Pursuant to Article 5 of the Buy-Sell Agreement among the undersigned Owners of <strong>${B.company}</strong>, the Owners hereby agree that the total value of the Company for all purposes of that Agreement is:</p>
+      <p class="dp" style="text-align:center;font-size:1.3rem;font-weight:900;border:2px solid var(--navy);border-radius:12px;padding:18px">$ ______________________${B.initVal?`<span style="display:block;font-size:.72rem;font-weight:400;color:var(--muted);margin-top:6px">(initial agreed value at signing: $${B.initVal})</span>`:''}</p>
+      <p class="dp">This Certificate supersedes all prior Certificates and remains effective until replaced or until it is more than 18 months old, after which the Agreement's appraisal fallback controls. Sign a fresh Certificate every year — the same month you file the Company's annual report is an easy habit.</p>
+      ${B.owners.map(o=>`
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:680px;margin-top:22px">
+        <div><div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;min-height:34px"></div><div style="font-size:.78rem"><strong>${o.name}</strong>, Owner</div></div>
+        <div><div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;min-height:34px"></div><div style="font-size:.78rem">Date</div></div>
+      </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function generateBuySellGuide(){
+  const B=bsData();
+  return `<div class="doc-wrap companion-doc">
+    <div class="doc-hdr"><div class="doc-firm">TRUESTEAD LAW</div><div class="doc-sub">Buy-Sell Agreement — Funding &amp; Maintenance Guide</div></div>
+    <div class="doc-title">MAKE IT REAL: FUNDING &amp; UPKEEP</div>
+    <div class="art"><div class="art-t">Signing</div>
+      <p class="dp">Every Owner signs, the Company signs, and <strong>every married Owner's spouse signs a Spousal Consent</strong> — that consent is what keeps a divorce court from handing an interest to an ex-spouse free of the agreement. No notary needed. File the signed original with the Company's records${B.isLLC?' next to the operating agreement':''}, and note the agreement in the Company records.</p>
+    </div>
+    ${B.funding!=='note'?`<div class="art"><div class="art-t">Fund It (the step most owners skip)</div>
+      <p class="dp">1. Take Schedule B to a life insurance agent — term coverage matched to each owner's share of the Article 5 value is usually inexpensive.<br>
+      2. <strong>Ownership matters:</strong> ${B.structure==='cross'?'in your cross-purchase structure, each Owner owns and is beneficiary of the policies on the other Owners':B.structure==='redemption'?'in your redemption structure, the Company owns and is beneficiary of a policy on each Owner':'in your wait-and-see structure, company-owned policies are typical, with proceeds available to fund whichever path is chosen'} — get this right before issuance, moving policies later has tax consequences.<br>
+      3. <strong>IRC § 101(j) consents</strong> for any company-owned policy: signed BEFORE the policy issues, or the death benefit can become taxable. Your agent has the form; insist on it.<br>
+      4. Enter every policy on Schedule B and keep premiums current — a lapsed policy quietly unfunds the whole plan.</p>
+    </div>`:''}
+    <div class="art"><div class="art-t">The Annual Ritual</div>
+      <p class="dp">Once a year — calendar it with the annual report — the Owners sign a fresh <strong>Certificate of Agreed Value</strong> (the exhibit in this package). Ten minutes, one number, and it is the difference between a smooth funded closing and a two-appraiser fight during a funeral. If the business has changed hands-off owners, married owners, or values materially, that's also the moment to have the agreement reviewed.</p>
+    </div>
+    <div class="art"><div class="art-t">Coordinate the Rest of the Plan</div>
+      <p class="dp">• <strong>Operating agreement:</strong> its transfer article should point to this Agreement (ours do — if the Company runs on an older agreement, have it conformed).<br>
+      • <strong>Estate plans:</strong> each Owner's will or trust should anticipate the buyout — the family gets the money, the partners get the company. Our <a href="/florida-estate-kit">Florida Estate Kit</a> handles the personal side.<br>
+      • <strong>CPA:</strong> the purchase structure (${B.structure==='cross'?'cross-purchase':B.structure==='redemption'?'redemption':'wait-and-see'}) has tax consequences at buyout time — loop your CPA in now and at any Purchase Event.</p>
+      <p class="dp" style="background:#fef3c7;border:1.5px solid #f59e0b;border-radius:10px;padding:14px;font-size:.83rem;color:#92400e"><strong>Attorney review recommended</strong> for formula valuations, owners with unequal bargaining power, S-corporation share restrictions, or professional practices with licensure-transfer rules. The attorney-guided tier includes it.</p>
+    </div>
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════════
 //  LEASE SHOP — Florida leases (Ch. 83) + Landlord Notice Pack
 // ═══════════════════════════════════════════════════════════════════
 
@@ -9967,6 +10291,9 @@ const TAB_GENERATORS = {
   leaseguide: ()=>generateLeaseGuide(),
   noticepack: ()=>generateNoticePack(),
   noticeguide:()=>generateNoticeGuide(),
+  bsagree:    ()=>generateBuySellAgreement(),
+  bsguide:    ()=>generateBuySellGuide(),
+  bscert:     ()=>generateBuySellValueCert(),
   // Amendment / Update documents
   tamend:  ()=>generateTrustAmendment(),
   smcodicil:()=>generateSmartCodicil(),
@@ -9990,6 +10317,7 @@ function showDocTab(name){
     llccert:'tabLlccert',llcein:'tabLlcein',llcfile:'tabLlcfile',llcra:'tabLlcra',
     deedwelcome:'tabDeedwelcome',deeddoc:'tabDeeddoc',deedrec:'tabDeedrec',
     leasedoc:'tabLeasedoc',leaseguide:'tabLeaseguide',noticepack:'tabNoticepack',noticeguide:'tabNoticeguide',
+    bsagree:'tabBsagree',bsguide:'tabBsguide',bscert:'tabBscert',
     tamend:'tabTamend',smcodicil:'tabSmcodicil',
     grat:'tabGrat',qprt:'tabQprt',idgt:'tabIdgt'
   };
@@ -12136,7 +12464,7 @@ function downloadDocuments(){
     .map(t => `<li>${t}</li>`).join('');
   const _displayName = (typeof gName === 'function' && gName()) ? gName()
     : ((S.d.gFirst ? `${S.d.gFirst} ${S.d.gLast || ''}`.trim() : 'Client'));
-  const _PLAN = { trust:'Revocable Living Trust', will:'Last Will & Testament', both:'Complete Estate Plan', land_trust:'Florida Land Trust', gun_trust:'NFA Gun Trust', llc:'Florida LLC Kit', deed:'Florida Deed Package', lease:'Florida Lease', notices:'Landlord Notice Pack' };
+  const _PLAN = { trust:'Revocable Living Trust', will:'Last Will & Testament', both:'Complete Estate Plan', land_trust:'Florida Land Trust', gun_trust:'NFA Gun Trust', llc:'Florida LLC Kit', deed:'Florida Deed Package', lease:'Florida Lease', notices:'Landlord Notice Pack', buysell:'Florida Buy-Sell Agreement' };
   const _planTitle = _PLAN[S.d.docCategory] || 'Estate Plan';
   const _niceDate = new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
   const cover = `<div class="cover-page">
@@ -12353,7 +12681,7 @@ async function generateWithReview(){
 
   const isLLCFlow = S.d.docCategory==='llc';
   const isDeedFlow = S.d.docCategory==='deed';
-  const isLeaseFlow = S.d.docCategory==='lease'||S.d.docCategory==='notices';
+  const isLeaseFlow = S.d.docCategory==='lease'||S.d.docCategory==='notices'||S.d.docCategory==='buysell';
   const docLabel = S.d.docCategory==='will'    ? 'Will Package'
                  : S.d.docCategory==='both'    ? 'Estate Plan'
                  : S.d.docCategory==='gun_trust'? 'NFA Gun Trust'
@@ -12362,6 +12690,7 @@ async function generateWithReview(){
                  : isDeedFlow                   ? 'Deed Package'
                  : S.d.docCategory==='lease'    ? (S.d.leaseType==='commercial'?'Commercial Lease':'Residential Lease')
                  : S.d.docCategory==='notices'  ? 'Landlord Notice Pack'
+                 : S.d.docCategory==='buysell'  ? 'Buy-Sell Agreement'
                  :                               'Trust Package';
 
   const checkSteps = isLeaseFlow ? [
@@ -12822,6 +13151,28 @@ function generate(){
       ${docActionBtns()}`;
     showDocsReady(inclNotices?4:2, isComm?'Florida Commercial Lease':'Florida Residential Lease');
     showDocTab('leasedoc');
+    out.classList.add('show');
+    window.scrollTo({top:0,behavior:'smooth'});
+    return;
+  }
+
+  if(dc==='buysell'){
+    const out=$('docOut');
+    out.innerHTML=`
+      <div class="doc-tabs-wrap">
+        <div class="doc-tabs-label">Documents — scroll to see all →</div>
+        <div class="doc-tabs" id="docTabs">
+          <button class="doc-tab active" onclick="showDocTab('bsagree')">🤝 Buy-Sell Agreement</button>
+          <button class="doc-tab" onclick="showDocTab('bscert')">📄 Certificate of Agreed Value</button>
+          <button class="doc-tab" onclick="showDocTab('bsguide')">📘 Funding &amp; Maintenance Guide</button>
+        </div>
+      </div>
+      ${lazyPanel('tabBsagree',true)}
+      ${lazyPanel('tabBscert',false)}
+      ${lazyPanel('tabBsguide',false)}
+      ${docActionBtns()}`;
+    showDocsReady(3,'Florida Buy-Sell Agreement');
+    showDocTab('bsagree');
     out.classList.add('show');
     window.scrollTo({top:0,behavior:'smooth'});
     return;
@@ -13491,6 +13842,7 @@ async function _notifyAttorney(planKey, planType) {
       deed: 'Deed Package',
       lease: 'Florida Lease',
       notices: 'Landlord Notice Pack',
+      buysell: 'Buy-Sell Agreement',
       amend_trust: 'Trust Amendment',
       amend_will: 'Will Amendment',
       amend_poa: 'POA Amendment',
@@ -13716,7 +14068,7 @@ function _applyPresetPlan() {
     S.d.docCategory = flowCat;
     if (plan === 'legacy' || plan === 'legacy_plus') S.d.wantsAdvancedTrust = true;
     if (type === 'couple' && !S.d.structure) S.d.structure = 'joint';
-    const _isBizP = ['llc','deed','lease','notices'].includes(flowCat);
+    const _isBizP = ['llc','deed','lease','notices','buysell'].includes(flowCat);
     if (_isBizP) S.d.structure = 'individual';
     if (flowCat === 'deed' && plan.indexOf('deed_') === 0) S.d.deedType = plan.slice(5);
     if (flowCat === 'lease') S.d.leaseType = (plan === 're_comm_lease') ? 'commercial' : 'resi';
@@ -14918,6 +15270,7 @@ async function _sendClientConfirmation(planLabel, docCount){
       llc:       ['Articles of Organization','Operating Agreement','Organizational & Banking Resolutions','Membership Certificates','EIN Guide','Sunbiz Filing Guide'],
       deed:      ['Florida Deed','Recording Guide & Doc-Stamp Worksheet','Clerk Transmittal Letter'],
       lease:     ['Florida Lease Agreement','Signing & Deposit Guide'],
+      buysell:   ['Buy-Sell Agreement','Certificate of Agreed Value','Funding & Maintenance Guide'],
       notices:   ['Landlord Notice Pack (4 notices)','Service & Timeline Guide'],
     };
     const dc=d.docCategory||'trust';
@@ -15065,7 +15418,7 @@ function openMatterDash(){
   document.getElementById('mdMatters').innerHTML=matters.length?matters.map(m=>{
     const d=m.d||{};
     const name=[(d.gFirst||''),(d.gLast||'')].filter(Boolean).join(' ')||'Unnamed Matter';
-    const type=d.docCategory==='will'?'Will Package':d.docCategory==='both'?'Complete Estate Plan':d.docCategory==='land_trust'?'Land Trust':d.docCategory==='gun_trust'?'NFA Gun Trust':d.docCategory==='llc'?'Florida LLC Kit':d.docCategory==='deed'?'Deed Package':d.docCategory==='lease'?'Florida Lease':d.docCategory==='notices'?'Notice Pack':'Revocable Living Trust';
+    const type=d.docCategory==='will'?'Will Package':d.docCategory==='both'?'Complete Estate Plan':d.docCategory==='land_trust'?'Land Trust':d.docCategory==='gun_trust'?'NFA Gun Trust':d.docCategory==='llc'?'Florida LLC Kit':d.docCategory==='deed'?'Deed Package':d.docCategory==='lease'?'Florida Lease':d.docCategory==='notices'?'Notice Pack':d.docCategory==='buysell'?'Buy-Sell Agreement':'Revocable Living Trust';
     const profile=d.wealthProfile==='uhnw'?'Ultra HNW':d.wealthProfile==='vhnw'?'Very HNW':d.wealthProfile==='hnw'?'High NW':'Standard';
     const date=m.savedAt?new Date(m.savedAt).toLocaleDateString():'—';
     const mJson=JSON.stringify(m).replace(/"/g,'&quot;');
@@ -15693,6 +16046,10 @@ window.addEventListener('DOMContentLoaded', () => {
   if(['re_resi_lease','re_comm_lease','re_notices'].includes(_spec)){
     setTimeout(() => quickStart(_spec), 400);
   }
+  // Buy-Sell Agreement Kit — ?specialty=buysell
+  if(_spec === 'buysell'){
+    setTimeout(() => quickStart('buysell'), 400);
+  }
 })();
 
 // If quickStart() fired before S was defined, apply the stored intent now
@@ -15701,7 +16058,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const doc = window._quickStartDoc;
   delete window._quickStartDoc;
   S.d.docCategory = doc;
-  const _isBiz = ['llc','deed','lease','notices'].includes(doc);
+  const _isBiz = ['llc','deed','lease','notices','buysell'].includes(doc);
   S.step = _isBiz ? 0 : 1;
   if(_isBiz) S.d.structure = 'individual';
   if(doc === 'deed' && window._quickStartKey && window._quickStartKey.indexOf('deed_') === 0){
@@ -15819,6 +16176,7 @@ function showPaymentScreen() {
   // ── Lease Shop pricing ──
   if (dc === 'lease')   window._pricingKey = (S.d.leaseType === 'commercial') ? 're_comm_lease' : 're_resi_lease';
   if (dc === 'notices') window._pricingKey = 're_notices';
+  if (dc === 'buysell') window._pricingKey = 'buysell';
 
   // Use pricing key (tier) if set, fall back to docCategory
   const pricingKey = window._pricingKey || dc;
@@ -15939,7 +16297,7 @@ function showPaymentScreen() {
   // LLC / lease / notices — these docs have no witness/notary ceremony: hide the
   // execution path selector and its ack gate, and enable the pay button directly.
   // (Florida leases no longer require witnesses — F.S. § 689.01 as amended 2020.)
-  if (dc === 'llc' || dc === 'lease' || dc === 'notices') {
+  if (dc === 'llc' || dc === 'lease' || dc === 'notices' || dc === 'buysell') {
     if (_epSection) _epSection.style.display = 'none';
     window.executionPath = 'self';
     if (_epPayBtn) _epPayBtn.disabled = false;
