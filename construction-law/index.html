@@ -37,6 +37,12 @@
     .cn-clock div{flex:1;min-width:150px;background:#fff;border:1px solid #e6e2d8;border-radius:10px;padding:16px;text-align:center}
     .cn-clock .big{font-family:'Playfair Display',serif;font-size:1.8rem;color:#15273D;font-weight:700}
     .cn-clock .lbl{font-size:.8rem;color:#6a6a6a;margin-top:4px}
+
+    .hero--vid{position:relative;overflow:hidden;isolation:isolate}
+    .hero--vid .hero-bgvid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;filter:saturate(.9) brightness(.75)}
+    .hero--vid::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(165deg,rgba(13,23,37,.86) 0%,rgba(21,39,61,.68) 45%,rgba(13,23,37,.9) 100%)}
+    .hero--vid .container{position:relative}
+    @media (prefers-reduced-motion: reduce){.hero--vid .hero-bgvid{display:none}}
   </style>
   <script type="application/ld+json">
   {
@@ -128,7 +134,8 @@
 
     <div class="page-intro"><div class="container"><a href="/">Home</a><span>›</span><span>Construction Law</span></div></div>
 
-    <section class="hero cn-hero">
+    <section class="hero hero--vid cn-hero">
+      <video class="hero-bgvid" autoplay muted loop playsinline preload="metadata" aria-hidden="true"><source src="/videos/hero-construction.mp4" type="video/mp4"></video>
       <div class="container">
         <span class="section-label">Construction Law</span>
         <h1>Florida construction problems run on a clock. Let's beat it.</h1>
