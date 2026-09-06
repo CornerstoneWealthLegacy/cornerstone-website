@@ -22,7 +22,7 @@ module.exports.DIVISIONS = [
   svc("probate","Probate & Trust Administration","probate-administration","probate",false,
     "experience — Arthur Simpson, Esq., Florida probate, trust administration & estate matters (in-house)",
     ["formal-probate","summary-administration","trust-administration","personal-representative-services","creditor-claims","estate-disputes"]),
-  svc("business","Business & Succession Law","business-law","business-formation",false,
+  svc("business","Business & Succession Law","business-law","business-formation",true,
     "experience — Arthur Simpson, Esq.; Florida entity formation, operating/shareholder agreements, contracts, buy-sell & succession (in-house, coordinated with client's CPA)",
     ["business-formation","operating-agreements","contracts-review","buy-sell-agreements","business-succession","commercial-leases"]),
 
@@ -46,7 +46,7 @@ module.exports.DIVISIONS = [
     "in-house Florida real estate & estate experience (Arthur Simpson, Esq., FL attorney + licensed real estate broker) + member, International Law Section of The Florida Bar; cross-border tax matters coordinated with co-counsel/of-counsel and the client's tax advisor",
     ["international-real-estate","foreign-buyer-closings","firpta-compliance","sb264-foreign-ownership-compliance",
      "cross-border-estate-planning","ancillary-international-probate","foreign-investor-holding-structures"]),
-  svc("construction-law","Construction Law","construction-law","construction-law",false,
+  svc("construction-law","Construction Law","construction-law","construction-law",true,
     "experience — Arthur Simpson, Esq. (FL attorney + licensed real estate broker); Florida construction-lien (Ch. 713), contract & defect matters, in-house with co-counsel for trial",
     ["construction-liens","notice-to-owner","contractor-disputes","construction-defect-claims","construction-contracts","lien-defense-release"]),
   svc("healthcare-law","Healthcare & Medical Law","healthcare-law","medical-malpractice",false,null,
