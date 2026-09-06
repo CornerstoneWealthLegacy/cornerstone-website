@@ -190,7 +190,9 @@ exports.handler = async (event) => {
 
     // student_packet: PDF + instructions email is sent by email-packet.js (client-triggered,
     // includes the actual PDF attachment). Skip the welcome here to avoid a duplicate email.
-    if (RESEND_KEY && source !== 'student_packet') { try { await sendWelcome(RESEND_KEY, email, name, score, id); } catch (e) { console.error('welcome', e); } }
+    // plan_quiz: the lead is actively mid-flow on /start (quiz → signup) — no immediate email;
+    // the nurture drip's step 1 reaches them in 2 days only if they stall.
+    if (RESEND_KEY && source !== 'student_packet' && source !== 'plan_quiz') { try { await sendWelcome(RESEND_KEY, email, name, score, id); } catch (e) { console.error('welcome', e); } }
     return { statusCode: 200, body: JSON.stringify({ ok: true }) };
   } catch (err) {
     console.error('capture-lead error:', err);

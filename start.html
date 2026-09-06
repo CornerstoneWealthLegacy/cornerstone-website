@@ -449,6 +449,31 @@ body.payment-confirmed .doc-wrap{user-select:auto;-webkit-user-select:auto}
 .wlc-dt-legacy:hover{border-color:rgba(168,85,247,.8);box-shadow:0 16px 40px rgba(0,0,0,.3),0 0 0 1px rgba(168,85,247,.3)}
 .wlc-dt-badge{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--gold);color:#fff;font-size:.6rem;font-weight:900;padding:3px 12px;border-radius:0 0 8px 8px;letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
 .wlc-dt-badge-legacy{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;font-size:.6rem;font-weight:900;padding:3px 12px;border-radius:0 0 8px 8px;letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
+/* Plan-picker quiz */
+.pqz-bar{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin:0 auto clamp(14px,2vh,22px);align-self:center}
+.pqz-bar-text{font-size:.82rem;color:rgba(255,255,255,.75);font-weight:600}
+.pqz-bar-btn{background:var(--gold);color:#fff;border:none;border-radius:24px;padding:9px 22px;font-family:inherit;font-size:.8rem;font-weight:800;letter-spacing:.3px;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.25);transition:transform .15s}
+.pqz-bar-btn:hover{transform:translateY(-1px)}
+#planQuizModal{position:fixed;inset:0;background:rgba(10,20,35,.78);z-index:9500;display:flex;align-items:center;justify-content:center;padding:18px}
+.pqz-panel{background:#fff;border-radius:16px;max-width:480px;width:100%;padding:34px 32px 28px;position:relative;box-shadow:0 24px 60px rgba(0,0,0,.4);max-height:90vh;overflow-y:auto}
+.pqz-close{position:absolute;top:10px;right:14px;background:none;border:none;font-size:1.5rem;color:#999;cursor:pointer;line-height:1}
+.pqz-progress{font-size:.68rem;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.pqz-question{font-size:1.15rem;font-weight:800;color:var(--navy);line-height:1.35;margin-bottom:18px}
+.pqz-opts{display:flex;flex-direction:column;gap:10px}
+.pqz-opt{text-align:left;background:#f6f4ef;border:2px solid #e5e0d5;border-radius:10px;padding:13px 16px;font-family:inherit;font-size:.9rem;font-weight:600;color:var(--navy);cursor:pointer;transition:border-color .15s,background .15s}
+.pqz-opt:hover{border-color:var(--gold);background:#fdf9ef}
+.pqz-back{background:none;border:none;color:#999;font-family:inherit;font-size:.78rem;font-weight:700;cursor:pointer;margin-top:14px;padding:0}
+.pqz-rec-name{font-size:1.35rem;font-weight:900;color:var(--navy);margin-bottom:6px}
+.pqz-rec-price{font-size:1.5rem;font-weight:900;color:var(--gold);margin-bottom:12px}
+.pqz-rec-price s{opacity:.45;font-size:.7em;font-weight:500;margin-right:.25em;color:var(--navy)}
+.pqz-price-sub{font-size:.7em;font-weight:600;color:#888}
+.pqz-rec-why{font-size:.88rem;color:#4a5260;line-height:1.6;margin-bottom:18px}
+.pqz-capture{display:flex;flex-direction:column;gap:9px}
+.pqz-capture input{border:2px solid #e5e0d5;border-radius:9px;padding:11px 14px;font-family:inherit;font-size:.9rem}
+.pqz-capture input:focus{outline:none;border-color:var(--gold)}
+.pqz-go{background:var(--gold);color:#fff;border:none;border-radius:9px;padding:13px;font-family:inherit;font-size:.92rem;font-weight:800;cursor:pointer;letter-spacing:.2px}
+.pqz-fine{font-size:.68rem;color:#999;text-align:center}
+.pqz-skip{background:none;border:none;color:#a0a6b0;font-family:inherit;font-size:.74rem;font-weight:600;cursor:pointer;text-decoration:underline;padding:2px}
 /* Couple toggle */
 .wlc-couple-toggle{display:flex;background:rgba(255,255,255,.12);border-radius:30px;padding:3px;gap:0;margin:0 auto clamp(14px,2vh,22px);align-self:center;width:fit-content}
 .wlc-couple-btn{padding:7px 24px;border-radius:26px;border:none;font-family:inherit;font-size:.78rem;font-weight:800;cursor:pointer;background:transparent;color:rgba(255,255,255,.65);transition:all .18s;letter-spacing:.3px}
@@ -1325,6 +1350,12 @@ if(!window._fbqInit){window._fbqInit=true;fbq('init','2087253962178307');fbq('tr
         <button class="wlc-couple-btn" id="btnCouple" onclick="setPlanType('couple')">Married Couple</button>
       </div>
 
+      <!-- Plan-picker quiz entry -->
+      <div class="pqz-bar">
+        <span class="pqz-bar-text">Not sure which plan you need?</span>
+        <button class="pqz-bar-btn" onclick="openPlanQuiz()">Take the 60-second quiz &rarr;</button>
+      </div>
+
       <!-- Document type cards -->
       <div class="wlc-doctype">
         <!-- Essentials -->
@@ -1335,7 +1366,7 @@ if(!window._fbqInit){window._fbqInit=true;fbq('init','2087253962178307');fbq('tr
           <div class="wlc-dt-footer">
             <div class="wlc-dt-law">F.S. Ch. 709 &amp; 732</div>
             <div>
-              <div class="wlc-dt-price" id="priceEssentials">$399</div>
+              <div class="wlc-dt-price" id="priceEssentials"><s style="opacity:.55;font-size:.72em;font-weight:400;margin-right:.3em">$399</s>$199</div>
               <div class="wlc-dt-price-sub" id="attyPriceEssentials">or $950 with Attorney</div>
             </div>
           </div>
@@ -1349,7 +1380,7 @@ if(!window._fbqInit){window._fbqInit=true;fbq('init','2087253962178307');fbq('tr
           <div class="wlc-dt-footer">
             <div class="wlc-dt-law">F.S. Ch. 732 &amp; 736</div>
             <div>
-              <div class="wlc-dt-price wlc-dt-price-gold" id="priceComplete">$699</div>
+              <div class="wlc-dt-price wlc-dt-price-gold" id="priceComplete"><s style="opacity:.55;font-size:.72em;font-weight:400;margin-right:.3em">$699</s>$349</div>
               <div class="wlc-dt-price-sub" id="attyPriceComplete">or $2,950 with Attorney</div>
             </div>
           </div>
@@ -1711,9 +1742,14 @@ function _updateCardPrices() {
 
     if (diyEl) {
       if (plan.diyPrice !== undefined) {
-        // Has a DIY tier — show DIY price as primary
+        // Has a DIY tier — show DIY price as primary (with strike-through anchor when cut)
         const diyAmt = (isCouple && plan.diyCouple) ? plan.diyCouple : plan.diyPrice;
-        diyEl.textContent = fmt(diyAmt);
+        const wasAmt = (isCouple && plan.diyWasCouple) ? plan.diyWasCouple : plan.diyWas;
+        if (wasAmt && wasAmt > diyAmt) {
+          diyEl.innerHTML = '<s style="opacity:.55;font-size:.72em;font-weight:400;margin-right:.3em">' + fmt(wasAmt) + '</s>' + fmt(diyAmt);
+        } else {
+          diyEl.textContent = fmt(diyAmt);
+        }
       } else {
         // Attorney-only (Legacy) — show attorney price
         const attyAmt = (isCouple && plan.couplePrice) ? plan.couplePrice : plan.price;
@@ -1726,6 +1762,126 @@ function _updateCardPrices() {
       attyEl.textContent = 'or ' + fmt(attyAmt) + ' with Attorney';
     }
   });
+}
+
+// ── Plan-picker quiz (5 questions, pre-auth, captures the lead at minute one) ──
+const _PQZ_QUESTIONS = [
+  { q: 'Who is this plan for?', opts: [
+    { label: 'Just me', v: 'individual' },
+    { label: 'Me and my spouse', v: 'couple' }] },
+  { q: 'Do you have minor children or other dependents?', opts: [
+    { label: 'Yes', v: 'yes' },
+    { label: 'No', v: 'no' }] },
+  { q: 'Do you own a home or other real estate in Florida?', opts: [
+    { label: 'Yes', v: 'yes' },
+    { label: 'No', v: 'no' }] },
+  { q: 'Which best describes your situation?', opts: [
+    { label: 'Keeping it simple', v: 'simple' },
+    { label: 'Assets over $100k, a business, or rental property', v: 'substantial' }] },
+  { q: 'How would you like to build it?', opts: [
+    { label: 'Do it myself — guided, with attorney chat if I need it', v: 'self' },
+    { label: 'Have the attorney lead my session', v: 'attorney' }] },
+];
+let _pqzAnswers = [];
+let _pqzStep = 0;
+
+function openPlanQuiz(){
+  _pqzAnswers = []; _pqzStep = 0;
+  const existing = document.getElementById('planQuizModal');
+  if (existing) existing.remove();
+  const modal = document.createElement('div');
+  modal.id = 'planQuizModal';
+  modal.innerHTML = '<div class="pqz-panel"><button class="pqz-close" onclick="document.getElementById(\'planQuizModal\').remove()">&#215;</button><div id="pqzBody"></div></div>';
+  document.body.appendChild(modal);
+  _pqzRenderQuestion();
+}
+
+function _pqzRenderQuestion(){
+  const body = document.getElementById('pqzBody');
+  if (!body) return;
+  const step = _PQZ_QUESTIONS[_pqzStep];
+  body.innerHTML =
+    '<div class="pqz-progress">Question ' + (_pqzStep + 1) + ' of ' + _PQZ_QUESTIONS.length + '</div>' +
+    '<div class="pqz-question">' + step.q + '</div>' +
+    '<div class="pqz-opts">' + step.opts.map((o, i) =>
+      '<button class="pqz-opt" onclick="_pqzAnswer(' + i + ')">' + o.label + '</button>').join('') + '</div>' +
+    (_pqzStep > 0 ? '<button class="pqz-back" onclick="_pqzBack()">&larr; Back</button>' : '');
+}
+
+function _pqzAnswer(i){
+  _pqzAnswers[_pqzStep] = _PQZ_QUESTIONS[_pqzStep].opts[i].v;
+  if (_pqzStep < _PQZ_QUESTIONS.length - 1) { _pqzStep++; _pqzRenderQuestion(); }
+  else _pqzRecommend();
+}
+function _pqzBack(){ if (_pqzStep > 0) { _pqzStep--; _pqzRenderQuestion(); } }
+
+function _pqzRecommend(){
+  const [who, kids, realEstate, assets, mode] = _pqzAnswers;
+  setPlanType(who === 'couple' ? 'couple' : 'individual');
+
+  // Real estate or substantial assets → trust-based Complete Plan (probate avoidance).
+  // Otherwise dependents → Essentials (POA/healthcare matter most); simple → Will Package.
+  let rec, why;
+  if (realEstate === 'yes' || assets === 'substantial') {
+    rec = 'both';
+    why = realEstate === 'yes'
+      ? 'You own Florida real estate — a trust-based plan keeps your home out of probate court entirely and transfers it privately.'
+      : 'With significant assets, a trust-based plan avoids probate, stays private, and gives you control over how everything transfers.';
+  } else if (kids === 'yes') {
+    rec = 'essentials';
+    why = 'With dependents, the essentials matter most: a will that names guardians, plus the powers of attorney and healthcare documents that protect your family if anything happens.';
+  } else {
+    rec = 'will';
+    why = 'Your situation calls for the foundation: a Florida will with powers of attorney and healthcare directives — everything needed, nothing you don\'t.';
+  }
+  window._pqzResult = { rec: rec, mode: mode };
+
+  const plan = PRICING[rec];
+  const isCouple = window.planType === 'couple';
+  const price = isCouple && plan.diyCouple ? plan.diyCouple : plan.diyPrice;
+  const was = isCouple && plan.diyWasCouple ? plan.diyWasCouple : plan.diyWas;
+  const attyPrice = isCouple && plan.couplePrice ? plan.couplePrice : plan.price;
+  const priceHtml = mode === 'attorney'
+    ? '$' + attyPrice.toLocaleString() + ' <span class="pqz-price-sub">attorney-guided</span>'
+    : (was ? '<s>$' + was.toLocaleString() + '</s> ' : '') + '$' + price.toLocaleString();
+
+  const body = document.getElementById('pqzBody');
+  body.innerHTML =
+    '<div class="pqz-progress">Your recommendation</div>' +
+    '<div class="pqz-rec-name">' + (plan.label.split(' (')[0]) + '</div>' +
+    '<div class="pqz-rec-price">' + priceHtml + '</div>' +
+    '<div class="pqz-rec-why">' + why + '</div>' +
+    '<div class="pqz-capture">' +
+      '<input type="text" id="pqzName" placeholder="First name" autocomplete="given-name">' +
+      '<input type="email" id="pqzEmail" placeholder="Email" autocomplete="email">' +
+      '<button class="pqz-go" onclick="_pqzLaunch(true)">Save my plan &amp; start &rarr;</button>' +
+      '<div class="pqz-fine">Your recommendation and progress are saved. No spam, unsubscribe anytime.</div>' +
+      '<button class="pqz-skip" onclick="_pqzLaunch(false)">Skip and start without saving</button>' +
+    '</div>';
+}
+
+function _pqzLaunch(save){
+  const r = window._pqzResult; if (!r) return;
+  if (save) {
+    const email = (document.getElementById('pqzEmail') || {}).value || '';
+    const name = (document.getElementById('pqzName') || {}).value || '';
+    if (!email || !email.includes('@')) {
+      const el = document.getElementById('pqzEmail');
+      if (el) { el.style.borderColor = '#c0392b'; el.focus(); }
+      return;
+    }
+    try {
+      const u = new URLSearchParams(location.search);
+      fetch('/.netlify/functions/capture-lead', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.trim(), name: name.trim(), source: 'plan_quiz', grade: r.rec + '_' + (window.planType || 'individual') + '_' + r.mode,
+          utm_source: u.get('utm_source') || '', utm_medium: u.get('utm_medium') || '', utm_campaign: u.get('utm_campaign') || '',
+          utm_content: u.get('utm_content') || '', referrer: document.referrer || '', landing: 'start_plan_quiz' }) }).catch(function(){});
+    } catch (e) {}
+    if (window.trackLead) try { window.trackLead(); } catch (e) {}
+  }
+  const modal = document.getElementById('planQuizModal');
+  if (modal) modal.remove();
+  _choosePlanMode(r.rec, r.mode);
 }
 
 // Called when user clicks a document type card on the home screen
@@ -1757,8 +1913,11 @@ function _showPlanModeModal(docCategory){
   const isCouple  = window.planType === 'couple';
   const plan      = (typeof PRICING !== 'undefined') ? PRICING[docCategory] : null;
   const diyPrice  = plan ? (isCouple && plan.diyCouple ? plan.diyCouple : plan.diyPrice) : null;
+  const diyWas    = plan ? (isCouple && plan.diyWasCouple ? plan.diyWasCouple : plan.diyWas) : null;
   const attyPrice = plan ? (isCouple && plan.couplePrice ? plan.couplePrice : plan.price) : null;
-  const diyLabel  = diyPrice ? '$' + diyPrice.toLocaleString() : 'From $399';
+  const diyLabel  = diyPrice
+    ? ((diyWas && diyWas > diyPrice ? '<s style="opacity:.55;font-size:.78em;font-weight:400">$' + diyWas.toLocaleString() + '</s> ' : '') + '$' + diyPrice.toLocaleString())
+    : 'From $199';
   const attyLabel = attyPrice ? '$' + attyPrice.toLocaleString() : 'From $950';
 
   const modal = document.createElement('div');
@@ -2036,14 +2195,14 @@ const PAYMENT_LINKS = {
   // ════════════════════════════════════════════════════════════════════════
 
   // ── DIY self-guided (public self-serve checkout) ──
-  essentials_diy:         'https://buy.stripe.com/00w00jf2laHt9Akbp2c7u00', // $399
-  essentials_diy_couple:  'https://buy.stripe.com/28E00j5rL5n99Akct6c7u01', // $599
-  will_diy:               'https://buy.stripe.com/14AaEX8DXcPB27SfFic7u02', // $249
-  will_diy_couple:        'https://buy.stripe.com/aFa4gzbQ94j5h2M50Ec7u03', // $399
-  trust_diy:              'https://buy.stripe.com/4gMcN59I1aHt9Ak3WAc7u04', // $699
-  trust_diy_couple:       'https://buy.stripe.com/9B6aEX6vP4j5h2M2Swc7u05', // $999
-  both_diy:               'https://buy.stripe.com/5kQcN5bQ97vhcMw1Osc7u06', // $699
-  both_diy_couple:        'https://buy.stripe.com/dRm28r4nH6rd4g0fFic7u07', // $999
+  essentials_diy:         'https://buy.stripe.com/00w5kD8DX3f15k41Osc7u0t', // $199 (was $399, cut 9/2026)
+  essentials_diy_couple:  'https://buy.stripe.com/8x2bJ13jDg1N27S8cQc7u0u', // $299 (was $599)
+  will_diy:               'https://buy.stripe.com/3cI6oHg6p7vhaEo50Ec7u0r', // $129 (was $249)
+  will_diy_couple:        'https://buy.stripe.com/14A9AT2fz02P13O0Koc7u0s', // $199 (was $399)
+  trust_diy:              'https://buy.stripe.com/eVq8wP8DX2aX7sc9gUc7u0v', // $299 (was $699)
+  trust_diy_couple:       'https://buy.stripe.com/00w3cv4nH02PbIs0Koc7u0w', // $429 (was $999)
+  both_diy:               'https://buy.stripe.com/eVqeVdg6paHt7sc50Ec7u0x', // $349 (was $699)
+  both_diy_couple:        'https://buy.stripe.com/3cI9AT3jD5n9cMwct6c7u0y', // $479 (was $999)
   land_trust_diy:         'https://buy.stripe.com/fZu8wPbQ9aHt4g064Ic7u08', // $499  (no couple variant)
   gun_trust:              'https://buy.stripe.com/9B65kDg6p3f14g0akYc7u09', // $349  (self-serve, single price)
 
@@ -2102,13 +2261,15 @@ const PAYMENT_LINKS = {
 // diyPrice / diyCouple  = DIY self-guided rate (client completes alone)
 // Legacy plans are attorney-guided only — no DIY tier offered
 const PRICING = {
-  essentials: { label:'Essentials Plan (Will + POA + Healthcare + Living Will)', price: 950,  couplePrice: 1450, diyPrice: 399, diyCouple: 599  },
-  // ^ Essentials: 2 wills + 2 POAs + 2 HC + 2 LW = double the docs → couple $1,450 attorney / $599 DIY
-  will:       { label:'Last Will & Testament',                                   price: 850,  couplePrice: 1300, diyPrice: 249, diyCouple: 399  },
-  trust:      { label:'Revocable Living Trust',                                  price: 2200, couplePrice: 2950, diyPrice: 699, diyCouple: 999  },
+  // DIY prices cut 9/2026 (volume campaign) — diyWas/diyWasCouple show the strike-through
+  // anchor. Advertised fees must be honored 90+ days (FL Bar Rule 4-7.14).
+  essentials: { label:'Essentials Plan (Will + POA + Healthcare + Living Will)', price: 950,  couplePrice: 1450, diyPrice: 199, diyCouple: 299, diyWas: 399, diyWasCouple: 599 },
+  // ^ Essentials: 2 wills + 2 POAs + 2 HC + 2 LW = double the docs → couple $1,450 attorney
+  will:       { label:'Last Will & Testament',                                   price: 850,  couplePrice: 1300, diyPrice: 129, diyCouple: 199, diyWas: 249, diyWasCouple: 399 },
+  trust:      { label:'Revocable Living Trust',                                  price: 2200, couplePrice: 2950, diyPrice: 299, diyCouple: 429, diyWas: 699, diyWasCouple: 999 },
   // ^ Trust alone: one joint trust (modest premium) + 2 pour-over wills
-  both:       { label:'Complete Estate Plan (Trust + Will + POA + Healthcare)',  price: 2950, couplePrice: 3750, diyPrice: 699, diyCouple: 999  },
-  // ^ Complete: one joint trust + 2 wills + 2 POAs + 2 HC + 2 LW → $3,750 attorney / $999 DIY couple
+  both:       { label:'Complete Estate Plan (Trust + Will + POA + Healthcare)',  price: 2950, couplePrice: 3750, diyPrice: 349, diyCouple: 479, diyWas: 699, diyWasCouple: 999 },
+  // ^ Complete: one joint trust + 2 wills + 2 POAs + 2 HC + 2 LW → $3,750 attorney
   legacy:     { label:'Legacy Plan (Complete + ILIT or FLP)',                    price: 4500, couplePrice: 5500 }, // attorney-guided only
   legacy_plus:{ label:'Legacy Plus (Complete + ILIT + FLP)',                     price: 6500, couplePrice: 8000 }, // attorney-guided only
   land_trust: { label:'Florida Land Trust (§ 689.071)',                          price: 950,  diyPrice: 499  },
@@ -2127,7 +2288,7 @@ const PRICING = {
 
   // ── Elder Law ──
   // Essentials offers DIY + Attorney-Guided; Medicaid Planning is attorney-guided ONLY (see isAttyOnly).
-  elder_essentials:{ label:'Elder-Law Essentials (POA w/ Medicaid powers, Surrogate, Living Will, HIPAA, Pre-Need Guardian, Disposition)', price: 950, couplePrice: 1450, diyPrice: 449, diyCouple: 649 },
+  elder_essentials:{ label:'Elder-Law Essentials (POA w/ Medicaid powers, Surrogate, Living Will, HIPAA, Pre-Need Guardian, Disposition)', price: 950, couplePrice: 1450, diyPrice: 299, diyCouple: 449, diyWas: 449, diyWasCouple: 649 },
   elder_medicaid:  { label:'Medicaid Planning (QIT, MAPT, Caregiver, Promissory Note, Spousal Refusal, SNT)',                                price: 2500, couplePrice: 3500 },
 };
 const NY_PREMIUM = 1.0; // No NY premium — same rate for all clients
