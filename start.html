@@ -1548,6 +1548,7 @@ const _PLAN_LABELS = {
   amend_hc:    'Amend or Update an Existing Plan',
   re_resi_lease: 'Florida Residential Lease',
   re_comm_lease: 'Florida Commercial Lease',
+  re_notices:    'Florida Landlord Notice Pack',
   re_sale:       'Commercial Purchase & Sale',
   re_addenda:    'Real Estate Addenda',
   elder_essentials: 'Elder-Law Essentials',
@@ -1901,6 +1902,11 @@ function quickStart(docCategory){
     _launchQuickStart(docCategory, 'self');
     return;
   }
+  // Single-price self-serve products — no DIY/attorney choice modal
+  if(docCategory === 're_notices'){
+    _launchQuickStart(docCategory, 'self');
+    return;
+  }
   if(isAttyOnly){
     window._pricingKey = docCategory;
     startApp('attorney');
@@ -1971,6 +1977,7 @@ function _launchQuickStart(docCategory, mode){
     legacy_plus: 'both',
     llc_foreign: 'llc',
     deed_quitclaim:'deed', deed_ladybird:'deed', deed_warranty:'deed', deed_trust:'deed', deed_llc:'deed',
+    re_resi_lease:'lease', re_comm_lease:'lease', re_notices:'notices',
     amend_trust: 'amend_trust',
     amend_will:  'amend_will',
     amend_poa:   'amend_poa',
@@ -1987,13 +1994,16 @@ function _launchQuickStart(docCategory, mode){
     if(window.planType === 'couple' && !S.d.structure) S.d.structure = 'joint';
     // Will flows skip the trust Structure step — give singles an explicit default
     if(flowCat === 'will' && !S.d.structure) S.d.structure = 'individual';
-    // LLC + deed flows have no couple/spouse concept — always individual structure
-    if(flowCat === 'llc' || flowCat === 'deed') S.d.structure = 'individual';
+    // Business/RE flows have no couple/spouse concept — always individual structure
+    const isBizFlow = ['llc','deed','lease','notices'].includes(flowCat);
+    if(isBizFlow) S.d.structure = 'individual';
     // Deed entry keys carry the deed type (deed_ladybird → deedType 'ladybird')
     if(flowCat === 'deed' && docCategory.indexOf('deed_') === 0) S.d.deedType = docCategory.slice(5);
-    // LLC/deed whitelists already exclude the docCategory step, so their
+    // Lease entry keys carry the lease type
+    if(flowCat === 'lease') S.d.leaseType = (docCategory === 're_comm_lease') ? 'commercial' : 'resi';
+    // Business/RE whitelists already exclude the docCategory step, so their
     // first real step is index 0; estate flows start at 1 to skip that step.
-    S.step = (flowCat === 'llc' || flowCat === 'deed') ? 0 : 1;
+    S.step = isBizFlow ? 0 : 1;
     if(typeof render === 'function') render();
     if(typeof renderSidebar === 'function') renderSidebar();
     if(typeof autoSave === 'function') autoSave();
@@ -2248,14 +2258,15 @@ const PAYMENT_LINKS = {
   //  paste the LIVE Payment Link URLs here. Empty = not yet purchasable.
   //  Redirect each to: https://truesteadlaw.com/start.html?payment=success&session_id={CHECKOUT_SESSION_ID}
   // ════════════════════════════════════════════════════════════════════════
-  // ── Real Estate ──
-  re_resi_lease_diy:      '', // $129    Residential Lease — DIY
-  re_resi_lease:          '', // $349    Residential Lease — Attorney-Guided
-  re_comm_lease_diy:      '', // $299    Commercial Lease — DIY
-  re_comm_lease:          '', // $799    Commercial Lease — Attorney-Guided
-  re_sale_diy:            '', // $499    Commercial Purchase & Sale — DIY
-  re_sale:                '', // $1,200  Commercial Purchase & Sale — Attorney-Guided
-  re_addenda:             '', // $79     Real Estate Addenda (flat add-on)
+  // ── Real Estate / Lease Shop (lease + notices links created 9/6/2026) ──
+  re_resi_lease_diy:      'https://buy.stripe.com/14A00j07r2aXh2MakYc7u0N', // $129    Residential Lease — DIY
+  re_resi_lease:          'https://buy.stripe.com/00weVdcUd3f15k4eBec7u0O', // $349    Residential Lease — Attorney-Guided (incl. Notice Pack)
+  re_comm_lease_diy:      'https://buy.stripe.com/14A28rdYhbLxcMwbp2c7u0P', // $299    Commercial Lease — DIY
+  re_comm_lease:          'https://buy.stripe.com/7sY14n7zT8zlh2M50Ec7u0Q', // $799    Commercial Lease — Attorney-Guided (incl. Notice Pack)
+  re_notices:             'https://buy.stripe.com/fZu8wP5rL9DpfYI64Ic7u0R', // $79     Florida Landlord Notice Pack (self-serve, single price)
+  re_sale_diy:            '', // $499    Commercial Purchase & Sale — DIY (stage 2 — not yet wired)
+  re_sale:                '', // $1,200  Commercial Purchase & Sale — Attorney-Guided (stage 2)
+  re_addenda:             '', // $79     Real Estate Addenda (stage 2)
 
   // ── Business Formation (links created 9/6/2026 on TRUESTEAD LAW acct) ──
   llc_diy:                'https://buy.stripe.com/bJe6oH6vP4j5cMw64Ic7u0z', // $149    Florida LLC Kit — DIY
@@ -2318,6 +2329,7 @@ const PRICING = {
   re_comm_lease:{ label:'Florida Commercial Lease (NNN)',             price: 799,  diyPrice: 299 },
   re_sale:      { label:'Commercial Purchase & Sale (LOI + PSA)',     price: 1200, diyPrice: 499 },
   re_addenda:   { label:'Real Estate Addenda',                        price: 79  }, // flat add-on, single price
+  re_notices:   { label:'Florida Landlord Notice Pack',               price: 79  }, // self-serve; included free with attorney lease tiers
 
   // ── Elder Law ──
   // Essentials offers DIY + Attorney-Guided; Medicaid Planning is attorney-guided ONLY (see isAttyOnly).
@@ -2916,6 +2928,140 @@ const STEPS=[
    ],
    customFor:['sale'],
    custom:{id:'deedSaleAmount',lbl:'Sale Price ($)',ph:'250,000'}
+  },
+
+  // ══════════════════════════════════════════════════════════════════
+  // LEASE SHOP — Florida residential (Ch. 83, Part II) & commercial (Part I)
+  // leases (docCategory === 'lease') + Landlord Notice Pack (=== 'notices').
+  // Entered via /leases landing → quickStart('re_resi_lease' | 're_comm_lease' | 're_notices').
+  // ══════════════════════════════════════════════════════════════════
+
+  // LS1 — Lease type (preselected by entry link)
+  {sec:'Lease Type', lbl:'Lease Type',
+   type:'choice', field:'leaseType', required:true, cond: d=>d.docCategory==='lease',
+   q:'What kind of lease do you need?',
+   hint:'Residential leases live under Part II of Chapter 83, Florida Statutes, with strong tenant protections and strict deposit rules. Commercial leases live under Part I — far more freedom of contract, which is exactly why the drafting matters more.',
+   opts:[
+     {v:'resi',       t:'Residential Lease', d:'House, condo, apartment, or duplex rented as a dwelling. Includes Florida\'s required disclosures and the deposit rules landlords get sued over.'},
+     {v:'commercial', t:'Commercial Lease (NNN)', premium:true, d:'Office, retail, warehouse, or restaurant space on triple-net terms — base rent plus taxes, insurance, and CAM. Drafted landlord-side with the protections that matter at default time.'},
+   ]
+  },
+
+  // LS2 — Property
+  {sec:'Lease Property', lbl:'Property',
+   type:'form', cond: d=>d.docCategory==='lease',
+   q:'Tell us about the property',
+   fields:[
+     {f:'lpAddr',  lbl:'Property Street Address (incl. unit/suite) *', ph:'123 Main St, Unit 4, Ormond Beach, FL 32176', req:true, wide:true},
+     {f:'lpCounty',lbl:'Florida County *', ph:'Volusia', type:'select', opts:'COUNTIES', req:true},
+     {f:'lpDesc',  lbl:'Property Type *', ph:'Single-family house / 2BR condo / 1,200 sq ft retail suite', req:true, wide:true},
+     {f:'lpSqft',  lbl:'Approx. Square Feet (commercial)', ph:'1,200', cond: d=>d.leaseType==='commercial'},
+   ]
+  },
+
+  // LS3 — Landlord
+  {sec:'Lease Landlord', lbl:'Landlord',
+   type:'form', cond: d=>d.docCategory==='lease',
+   q:'Who is the landlord?',
+   hint:'If the property is owned by an LLC or trust, the ENTITY is the landlord and you sign on its behalf — one of the main reasons to hold rentals in an entity in the first place. Don\'t have one yet? See the Florida LLC Kit at truesteadlaw.com/llc-kit.',
+   fields:[
+     {f:'gFirst', lbl:'Your First Name *',  ph:'John',  req:true},
+     {f:'gLast',  lbl:'Your Last Name *',   ph:'Smith', req:true},
+     {f:'llEntity', lbl:'Landlord Entity (if the owner is an LLC, trust, or company)', ph:'Sunrise Coastal Properties LLC', wide:true},
+     {f:'llAddr', lbl:'Landlord Address for Notices *', ph:'123 Main St, Ormond Beach, FL 32176', req:true, wide:true},
+     {f:'llPhone',lbl:'Landlord Phone / Email', ph:'(386) 555-0100 · rents@example.com', wide:true},
+   ]
+  },
+
+  // LS4 — Tenant
+  {sec:'Lease Tenant', lbl:'Tenant',
+   type:'form', cond: d=>d.docCategory==='lease',
+   q:'Who is the tenant?',
+   hint:'Every adult who will live in the unit should be a named tenant, jointly and severally liable. For a commercial tenant that is a company, name the entity exactly as registered — and decide whether you want a personal guaranty from its owner.',
+   fields:[
+     {f:'ltTenant1', lbl:'Tenant 1 — Full Legal Name (or entity) *', ph:'Jane B. Renter / Coastal Coffee LLC', req:true, wide:true},
+     {f:'ltTenant2', lbl:'Tenant 2 — Full Legal Name (if any)', ph:'', wide:true},
+     {f:'ltTenant3', lbl:'Tenant 3 — Full Legal Name (if any)', ph:'', wide:true},
+     {f:'ltGuarantor', lbl:'Personal Guarantor — Full Name (commercial; strongly recommended for entity tenants)', ph:'Maria Owner', wide:true, cond: d=>d.leaseType==='commercial'},
+   ]
+  },
+
+  // LS5 — Terms
+  {sec:'Lease Terms', lbl:'Terms & Money',
+   type:'form', cond: d=>d.docCategory==='lease',
+   q:'Term, rent, and deposits',
+   hint:'Florida strictly regulates residential security deposits (F.S. § 83.49): where they\'re held must be disclosed, and after move-out you have 15 days to return — or 30 days to send a certified-mail claim notice — or you forfeit the right to keep any of it.',
+   fields:[
+     {f:'lsStart',  lbl:'Lease Start Date *', ph:'October 1, 2026', req:true},
+     {f:'lsEnd',    lbl:'Lease End Date *',   ph:'September 30, 2027', req:true},
+     {f:'lsRent',   lbl:'Monthly Rent ($) *', ph:'2,200', req:true},
+     {f:'lsDueDay', lbl:'Rent Due Day', ph:'1st'},
+     {f:'lsDeposit',lbl:'Security Deposit ($) *', ph:'2,200', req:true},
+     {f:'lsLast',   lbl:'Last Month\'s Rent Collected ($, if any)', ph:''},
+     {f:'lsLate',   lbl:'Late Fee ($ or %)', ph:'$75 after a 3-day grace period'},
+   ]
+  },
+
+  // LS6a — Residential specifics
+  {sec:'Lease Resi Details', lbl:'House Rules',
+   type:'form', cond: d=>d.docCategory==='lease'&&d.leaseType!=='commercial',
+   q:'Residential details',
+   hint:'These populate the lease\'s pet, occupancy, and utility provisions. Federal law also requires a lead-based-paint disclosure for housing built before 1978.',
+   fields:[
+     {f:'lrPets',    lbl:'Pets', ph:'"No pets" — or "One dog under 40 lbs, $300 non-refundable pet fee"', wide:true},
+     {f:'lrUtils',   lbl:'Utilities the TENANT pays', ph:'Electric, water/sewer, internet', wide:true},
+     {f:'lrMaxOcc',  lbl:'Maximum Occupants', ph:'4'},
+     {f:'lrFurnished',lbl:'Furnished?', ph:'No / Yes — see inventory'},
+     {f:'lrPre1978', lbl:'Was the building built BEFORE 1978? *', ph:'No', req:true},
+   ]
+  },
+
+  // LS6b — Commercial specifics
+  {sec:'Lease Comm Details', lbl:'NNN Terms',
+   type:'form', cond: d=>d.docCategory==='lease'&&d.leaseType==='commercial',
+   q:'Commercial terms',
+   hint:'Triple-net means the tenant pays its share of real estate taxes, building insurance, and common-area maintenance on top of base rent. The permitted-use clause controls what the tenant may do in the space — draft it narrow.',
+   fields:[
+     {f:'lcUse',   lbl:'Permitted Use *', ph:'Operation of a coffee shop and café, and no other use', req:true, wide:true},
+     {f:'lcEscal', lbl:'Annual Base Rent Increase (%)', ph:'3'},
+     {f:'lcNNN',   lbl:'Estimated Monthly NNN Charges ($)', ph:'450 (taxes, insurance, CAM — reconciled annually)'},
+     {f:'lcRenew', lbl:'Renewal Option(s)', ph:'One 5-year option at market rate, 180 days’ notice', wide:true},
+     {f:'lcBuild', lbl:'Condition / Buildout', ph:'As-is / Landlord delivers vanilla shell / $20 per sq ft TI allowance', wide:true},
+   ]
+  },
+
+  // ══════════════════════════════════════════════════════════════════
+  // LANDLORD NOTICE PACK (docCategory === 'notices') — F.S. § 83.56 / § 83.49
+  // ══════════════════════════════════════════════════════════════════
+
+  {sec:'Notice Parties', lbl:'Parties & Property',
+   type:'form', cond: d=>d.docCategory==='notices',
+   q:'Who and where?',
+   hint:'These fill every notice in the pack. Use names exactly as they appear on the lease.',
+   fields:[
+     {f:'gFirst', lbl:'Your First Name *', ph:'John', req:true},
+     {f:'gLast',  lbl:'Your Last Name *',  ph:'Smith', req:true},
+     {f:'nlEntity', lbl:'Landlord Entity (if the lease names a company)', ph:'Sunrise Coastal Properties LLC', wide:true},
+     {f:'nlAddr', lbl:'Landlord/Agent Address for Payment & Replies *', ph:'123 Main St, Ormond Beach, FL 32176', req:true, wide:true},
+     {f:'ntTenants', lbl:'Tenant Name(s) — as on the lease *', ph:'Jane B. Renter and Robert Renter', req:true, wide:true},
+     {f:'npAddr', lbl:'Rental Property Address (incl. unit) *', ph:'456 Beach Ave, Unit 2, Daytona Beach, FL 32118', req:true, wide:true},
+     {f:'npCounty', lbl:'Florida County *', ph:'Volusia', type:'select', opts:'COUNTIES', req:true},
+   ]
+  },
+
+  {sec:'Notice Amounts', lbl:'Amounts & Issues',
+   type:'form', cond: d=>d.docCategory==='notices',
+   q:'What\'s owed, and what went wrong?',
+   hint:'Fill only what applies — the pack generates all four notices with your details, and you serve the one the situation calls for. The 3-day notice may demand RENT ONLY (no late fees or other charges), or it\'s defective and the eviction can be thrown out.',
+   fields:[
+     {f:'naRent',   lbl:'Past-Due RENT for the 3-Day Notice ($ — rent only!)', ph:'2,200'},
+     {f:'naPeriod', lbl:'Rent Period(s) Owed', ph:'September 2026'},
+     {f:'naViol',   lbl:'Lease Violation (for the 7-day notices)', ph:'Unauthorized dog on the premises; damage to lanai screen', wide:true},
+     {f:'naDeposit',lbl:'Security Deposit Held ($ — for the deposit claim letter)', ph:'2,200'},
+     {f:'naClaim',  lbl:'Amount You Intend to Claim From the Deposit ($)', ph:'850'},
+     {f:'naReason', lbl:'Reason for the Deposit Claim', ph:'Carpet replacement beyond normal wear; unpaid September water bill', wide:true},
+     {f:'naFwd',    lbl:'Tenant\'s Forwarding Address (if known)', ph:'', wide:true},
+   ]
   },
 
   // ── Elder Law / Medicaid intake (only for the elder document family) ──
@@ -3940,6 +4086,20 @@ function activeSteps(){
       return s.sec==='Review'&&s.cond&&s.cond(S.d);
     });
   }
+  // Lease Shop flow — 'Lease *' steps + Review.
+  if(S.d.docCategory==='lease'){
+    return STEPS.filter(s=>{
+      if(s.sec&&s.sec.indexOf('Lease')===0) return !s.cond||s.cond(S.d);
+      return s.sec==='Review'&&s.cond&&s.cond(S.d);
+    });
+  }
+  // Landlord Notice Pack flow — 'Notice *' steps + Review.
+  if(S.d.docCategory==='notices'){
+    return STEPS.filter(s=>{
+      if(s.sec&&s.sec.indexOf('Notice')===0) return !s.cond||s.cond(S.d);
+      return s.sec==='Review'&&s.cond&&s.cond(S.d);
+    });
+  }
   const isElder = String(S.d.docCategory||'').indexOf('elder')===0;
   if(isElder){
     // Elder flow reuses only the relevant sections (skips trust/will/beneficiary steps).
@@ -3957,8 +4117,8 @@ function activeSteps(){
   return STEPS.filter(s=>!s.cond||s.cond(S.d));
 }
 function curStep(){
-  // LLC/deed flows use the activeSteps() whitelist (raw cond-filtering would leak estate steps in)
-  if(S.d.docCategory==='llc'||S.d.docCategory==='deed') return activeSteps()[S.step]||null;
+  // Business/RE flows use the activeSteps() whitelist (raw cond-filtering would leak estate steps in)
+  if(['llc','deed','lease','notices'].includes(S.d.docCategory)) return activeSteps()[S.step]||null;
   let i=0;for(let s of STEPS){if(s.cond&&!s.cond(S.d))continue;if(i===S.step)return s;i++;}return null;}
 function isHNW(){return ['vhnw','uhnw'].includes(S.d.wealthProfile);}
 function docType(){
@@ -5310,6 +5470,8 @@ function renderEstateDiagram(){
 function renderReview(){
   if(S.d.docCategory==='llc') return renderLLCReview();
   if(S.d.docCategory==='deed') return renderDeedReview();
+  if(S.d.docCategory==='lease') return renderLeaseReview();
+  if(S.d.docCategory==='notices') return renderNoticesReview();
   const d=S.d,joint=d.structure==='joint',gn=gName(),sn=sName(),tn=trustName();
   const iT=d.initTrustee==='both'?`${gn} & ${sn}`:d.initTrustee==='grantor'?gn:'Professional/Corporate Trustee';
   const provs=(d.provisions||[]).map(p=>{const f=STEPS[12].opts.find(o=>o.v===p);return f?f.t:p;});
@@ -5397,6 +5559,8 @@ function renderNav(step){
     :S.d.docCategory==='gun_trust'?'Generate My NFA Gun Trust →'
     :S.d.docCategory==='llc'?'Generate My LLC Kit →'
     :S.d.docCategory==='deed'?'Generate My Deed Package →'
+    :S.d.docCategory==='lease'?'Generate My Lease Package →'
+    :S.d.docCategory==='notices'?'Generate My Notice Pack →'
     :'Generate My Trust Package →';
   return `<div class="nav">
     ${S.step>0?`<button class="btn btn-back" onclick="goBack()">← Back</button>`:'<div></div>'}
@@ -8740,6 +8904,306 @@ function generateSmartCodicil(){
 
 // Map of tab name → generator function (lazy — only runs when tab is first opened)
 // ═══════════════════════════════════════════════════════════════════
+//  LEASE SHOP — Florida leases (Ch. 83) + Landlord Notice Pack
+// ═══════════════════════════════════════════════════════════════════
+
+function leaseData(){
+  const d=S.d;
+  const isComm=d.leaseType==='commercial';
+  const landlord=(d.llEntity&&d.llEntity.trim())||gName()||'[LANDLORD]';
+  const signer=gName()||'[SIGNER]';
+  const tenants=[d.ltTenant1,d.ltTenant2,d.ltTenant3].filter(t=>t&&t.trim());
+  const tenantStr=tenants.length?tenants.join(', '):'[TENANT]';
+  const rent=String(d.lsRent||'[RENT]').replace(/[^0-9.,]/g,'')||'[RENT]';
+  return { d, isComm, landlord, signer, isEntity:!!(d.llEntity&&d.llEntity.trim()),
+    tenants, tenantStr, guarantor:(d.ltGuarantor||'').trim(),
+    prop:d.lpAddr||'[PROPERTY ADDRESS]', county:d.lpCounty||'[COUNTY]', propDesc:d.lpDesc||'',
+    start:d.lsStart||'[START DATE]', end:d.lsEnd||'[END DATE]', rent,
+    dueDay:d.lsDueDay||'1st', deposit:d.lsDeposit||'[DEPOSIT]', lastMo:(d.lsLast||'').trim(),
+    late:d.lsLate||'', llAddr:d.llAddr||'[LANDLORD ADDRESS]', llPhone:d.llPhone||'',
+    pets:(d.lrPets||'').trim(), utils:(d.lrUtils||'').trim(), maxOcc:d.lrMaxOcc||'',
+    furnished:(d.lrFurnished||'').trim(), pre1978:String(d.lrPre1978||'').toLowerCase().indexOf('y')===0,
+    use:d.lcUse||'[PERMITTED USE]', escal:d.lcEscal||'', nnn:d.lcNNN||'', renew:(d.lcRenew||'').trim(), build:(d.lcBuild||'').trim() };
+}
+function noticeData(){
+  const d=S.d;
+  return { d, landlord:(d.nlEntity&&d.nlEntity.trim())||gName()||'[LANDLORD]', signer:gName()||'[LANDLORD/AGENT]',
+    llAddr:d.nlAddr||'[LANDLORD ADDRESS]', tenants:d.ntTenants||'[TENANT NAME(S)]',
+    prop:d.npAddr||'[RENTAL ADDRESS]', county:d.npCounty||'[COUNTY]',
+    rentOwed:(d.naRent||'').trim(), period:(d.naPeriod||'').trim(), viol:(d.naViol||'').trim(),
+    depHeld:(d.naDeposit||'').trim(), claim:(d.naClaim||'').trim(), reason:(d.naReason||'').trim(), fwd:(d.naFwd||'').trim() };
+}
+function leaseDocCount(){ return window.appMode==='attorney'||window.appMode!=='self'?3:(3); }
+
+function renderLeaseReview(){
+  const L=leaseData();
+  const inclNotices=window.appMode!=='self';
+  return `
+  <div style="background:linear-gradient(135deg,#0f2744,#1a3a5c);border-radius:14px;padding:22px 24px;margin-bottom:22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+    <div>
+      <div style="font-size:.65rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Ready to Generate</div>
+      <div style="font-size:1.1rem;font-weight:900;color:#fff">Florida ${L.isComm?'Commercial (NNN)':'Residential'} Lease — ${L.prop}</div>
+      <div style="font-size:.8rem;color:rgba(255,255,255,.6);margin-top:3px">Review the terms below — this is what the lease will say.</div>
+    </div>
+    <div style="background:rgba(196,154,42,.15);border:1px solid rgba(196,154,42,.4);border-radius:10px;padding:10px 18px;text-align:center;flex-shrink:0">
+      <div style="font-size:.65rem;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1px">Package Includes</div>
+      <div style="font-size:1.4rem;font-weight:900;color:#fff">${inclNotices?4:3}</div>
+      <div style="font-size:.7rem;color:rgba(255,255,255,.55)">documents</div>
+    </div>
+  </div>
+  <div class="rev-sec"><h3>Parties &amp; Property</h3>
+    <div class="rev-grid">
+      <div class="ri"><div class="rl">Landlord</div><div class="rv">${L.landlord}${L.isEntity?` (signed by ${L.signer})`:''}</div></div>
+      <div class="ri"><div class="rl">Tenant${L.tenants.length>1?'s':''}</div><div class="rv">${L.tenantStr}</div></div>
+      ${L.guarantor?`<div class="ri"><div class="rl">Guarantor</div><div class="rv">${L.guarantor}</div></div>`:''}
+      <div class="ri full"><div class="rl">Premises</div><div class="rv">${L.prop}${L.propDesc?` — ${L.propDesc}`:''}</div></div>
+    </div>
+  </div>
+  <div class="rev-sec"><h3>Terms</h3>
+    <div class="rev-grid">
+      <div class="ri"><div class="rl">Term</div><div class="rv">${L.start} → ${L.end}</div></div>
+      <div class="ri"><div class="rl">Rent</div><div class="rv">$${L.rent}/mo, due the ${L.dueDay}${L.late?` · Late: ${L.late}`:''}</div></div>
+      <div class="ri"><div class="rl">Security Deposit</div><div class="rv">$${L.deposit}${L.lastMo?` + last month $${L.lastMo}`:''}</div></div>
+      ${L.isComm
+        ?`<div class="ri"><div class="rl">Structure</div><div class="rv">Triple-net${L.nnn?` · est. NNN $${L.nnn}/mo`:''}${L.escal?` · +${L.escal}%/yr`:''}</div></div>
+          <div class="ri full"><div class="rl">Permitted Use</div><div class="rv">${L.use}</div></div>
+          ${L.renew?`<div class="ri full"><div class="rl">Renewal</div><div class="rv">${L.renew}</div></div>`:''}`
+        :`<div class="ri"><div class="rl">Pets</div><div class="rv">${L.pets||'Not specified — lease will say no pets without written consent'}</div></div>
+          <div class="ri"><div class="rl">Built Before 1978</div><div class="rv">${L.pre1978?'Yes — federal lead-paint disclosure included':'No'}</div></div>`}
+    </div>
+  </div>
+  ${inclNotices?`<div style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:10px;padding:12px 16px;font-size:.84rem;color:#166534">✓ Attorney tier includes the Florida Landlord Notice Pack (3-day, 7-day, and deposit-claim notices) at no charge.</div>`:''}`;
+}
+
+function renderNoticesReview(){
+  const N=noticeData();
+  return `
+  <div style="background:linear-gradient(135deg,#0f2744,#1a3a5c);border-radius:14px;padding:22px 24px;margin-bottom:22px">
+    <div style="font-size:.65rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Ready to Generate</div>
+    <div style="font-size:1.1rem;font-weight:900;color:#fff">Landlord Notice Pack — ${N.prop}</div>
+    <div style="font-size:.8rem;color:rgba(255,255,255,.6);margin-top:3px">All four Florida notices, filled with your details, plus the service &amp; timeline guide.</div>
+  </div>
+  <div class="rev-sec"><h3>Parties</h3>
+    <div class="rev-grid">
+      <div class="ri"><div class="rl">Landlord</div><div class="rv">${N.landlord}</div></div>
+      <div class="ri"><div class="rl">Tenant(s)</div><div class="rv">${N.tenants}</div></div>
+      <div class="ri full"><div class="rl">Property</div><div class="rv">${N.prop} — ${N.county} County</div></div>
+    </div>
+  </div>
+  <div class="rev-sec"><h3>Details Provided</h3>
+    <div class="rev-grid">
+      <div class="ri"><div class="rl">Rent Owed (3-day)</div><div class="rv">${N.rentOwed?'$'+N.rentOwed+(N.period?' — '+N.period:''):'— (blank in the form)'}</div></div>
+      <div class="ri full"><div class="rl">Violation (7-day)</div><div class="rv">${N.viol||'— (blank in the form)'}</div></div>
+      <div class="ri"><div class="rl">Deposit Claim</div><div class="rv">${N.claim?'$'+N.claim+' of $'+(N.depHeld||'—'):'— (blank in the form)'}</div></div>
+    </div>
+  </div>`;
+}
+
+// ── Lease document ─────────────────────────────────────────────────
+function generateLeaseDoc(){
+  const L=leaseData(), yr=new Date().getFullYear();
+  const radon=`<p class="dp" style="border:1.5px solid var(--border);border-radius:10px;padding:14px;background:#f8fafc;font-size:.85rem"><strong>RADON GAS (F.S. § 404.056(5)):</strong> Radon is a naturally occurring radioactive gas that, when it has accumulated in a building in sufficient quantities, may present health risks to persons who are exposed to it over time. Levels of radon that exceed federal and state guidelines have been found in buildings in Florida. Additional information regarding radon and radon testing may be obtained from your county health department.</p>`;
+  const sigs=`
+    <div class="art"><div class="art-t">Signatures</div>
+      <p class="dp">Signed as of the dates below. ${L.isComm?'':'No witnesses or notarization are required for a Florida lease.'} Each party should keep a fully signed copy.</p>
+      <div style="margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:680px">
+        <div><div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;min-height:36px"></div><div style="font-size:.78rem"><strong>LANDLORD:</strong> ${L.landlord}${L.isEntity?`<br>By: ${L.signer}, its authorized representative`:''}</div></div>
+        <div><div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;min-height:36px"></div><div style="font-size:.78rem">Date</div></div>
+      </div>
+      ${L.tenants.map(t=>`
+      <div style="margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:680px">
+        <div><div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;min-height:36px"></div><div style="font-size:.78rem"><strong>TENANT:</strong> ${t}</div></div>
+        <div><div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;min-height:36px"></div><div style="font-size:.78rem">Date</div></div>
+      </div>`).join('')||''}
+      ${L.guarantor?`
+      <div style="margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:680px">
+        <div><div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;min-height:36px"></div><div style="font-size:.78rem"><strong>GUARANTOR:</strong> ${L.guarantor} (personally, as to the Guaranty article)</div></div>
+        <div><div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;min-height:36px"></div><div style="font-size:.78rem">Date</div></div>
+      </div>`:''}
+    </div>`;
+
+  if(!L.isComm){
+    return `<div class="doc-wrap">
+    <div class="doc-hdr"><div class="doc-firm">TRUESTEAD LAW</div><div class="doc-sub">Florida Residential Lease | F.S. Chapter 83, Part II</div></div>
+    <div class="doc-title">RESIDENTIAL LEASE AGREEMENT</div>
+    <div class="art"><div class="art-t">1 — Parties &amp; Premises</div>
+      <p class="dp">This Residential Lease Agreement (this "Lease") is made between <strong>${L.landlord}</strong> ("Landlord")${L.isEntity?`, acting through ${L.signer},`:''} and <strong>${L.tenantStr}</strong> (jointly and severally, "Tenant"), for the dwelling at <strong>${L.prop}</strong>, ${L.county} County, Florida${L.propDesc?` (${L.propDesc})`:''} (the "Premises"). Landlord's address for notices: ${L.llAddr}${L.llPhone?` · ${L.llPhone}`:''}.</p>
+    </div>
+    <div class="art"><div class="art-t">2 — Term &amp; Rent</div>
+      <p class="dp">2.1 The term begins <strong>${L.start}</strong> and ends <strong>${L.end}</strong>. Holding over without a new agreement creates a month-to-month tenancy on these terms, terminable as provided by F.S. § 83.57 (currently 30 days' notice for month-to-month).</p>
+      <p class="dp">2.2 Rent is <strong>$${L.rent} per month</strong>, due in advance on the <strong>${L.dueDay}</strong> of each month, without demand or setoff, payable to Landlord at the notice address or by the electronic method Landlord designates. ${L.late?`Late charge: ${L.late}.`:''} Returned payments incur the statutory service charge.</p>
+      ${L.lastMo?`<p class="dp">2.3 Tenant has deposited <strong>$${L.lastMo}</strong> as last month's rent, held as required by F.S. § 83.49 and applied to the final month of the term.</p>`:''}
+    </div>
+    <div class="art"><div class="art-t">3 — Security Deposit (F.S. § 83.49)</div>
+      <p class="dp">3.1 Tenant has paid a security deposit of <strong>$${L.deposit}</strong>. Landlord will hold the deposit in a separate Florida account (or post a surety bond as the statute permits) and will notify Tenant in writing, within 30 days of receipt, of the manner in which it is held, as required by F.S. § 83.49(2)–(3).</p>
+      <p class="dp">3.2 Within 15 days after Tenant vacates, Landlord will return the deposit, or within 30 days give written notice by certified mail to Tenant's last known address of Landlord's intention to impose a claim on it. Failure to give the notice forfeits the right to impose a claim.</p>
+      <p class="dp" style="border:1.5px solid var(--border);border-radius:10px;padding:14px;background:#f8fafc;font-size:.83rem"><strong>STATUTORY DISCLOSURE — F.S. § 83.49(2)(d):</strong> YOUR LEASE REQUIRES PAYMENT OF CERTAIN DEPOSITS. THE LANDLORD MAY TRANSFER ADVANCE RENTS TO THE LANDLORD'S ACCOUNT AS THEY ARE DUE AND WITHOUT NOTICE. WHEN YOU MOVE OUT, YOU MUST GIVE THE LANDLORD YOUR NEW ADDRESS SO THAT THE LANDLORD CAN SEND YOU NOTICES REGARDING YOUR DEPOSIT. THE LANDLORD MUST MAIL YOU NOTICE, WITHIN 30 DAYS AFTER YOU MOVE OUT, OF THE LANDLORD'S INTENT TO IMPOSE A CLAIM AGAINST THE DEPOSIT. IF YOU DO NOT REPLY TO THE LANDLORD STATING YOUR OBJECTION TO THE CLAIM WITHIN 15 DAYS AFTER RECEIPT OF THE LANDLORD'S NOTICE, THE LANDLORD WILL COLLECT THE CLAIM AND MUST MAIL YOU THE REMAINING DEPOSIT, IF ANY. IF THE LANDLORD FAILS TO TIMELY MAIL YOU NOTICE, THE LANDLORD MUST RETURN THE DEPOSIT BUT MAY LATER FILE A LAWSUIT AGAINST YOU FOR DAMAGES. IF YOU FAIL TO TIMELY OBJECT TO A CLAIM, THE LANDLORD MAY COLLECT FROM THE DEPOSIT, BUT YOU MAY LATER FILE A LAWSUIT CLAIMING A REFUND. YOU SHOULD ATTEMPT TO INFORMALLY RESOLVE ANY DISPUTE BEFORE FILING A LAWSUIT. GENERALLY, THE PARTY IN WHOSE FAVOR A JUDGMENT IS RENDERED WILL BE AWARDED COSTS AND ATTORNEY FEES PAYABLE BY THE LOSING PARTY. THIS DISCLOSURE IS BASIC. PLEASE REFER TO PART II OF CHAPTER 83, FLORIDA STATUTES, TO DETERMINE YOUR LEGAL RIGHTS AND OBLIGATIONS.</p>
+    </div>
+    <div class="art"><div class="art-t">4 — Occupancy, Use &amp; Pets</div>
+      <p class="dp">4.1 The Premises shall be occupied only as a private residence by Tenant${L.maxOcc?` and no more than <strong>${L.maxOcc}</strong> occupants total`:''}. No business use, subletting, or assignment without Landlord's prior written consent.</p>
+      <p class="dp">4.2 <strong>Pets:</strong> ${L.pets||'No pets are permitted on the Premises without Landlord\'s prior written consent.'}</p>
+      ${L.furnished?`<p class="dp">4.3 The Premises are furnished: ${L.furnished}. Tenant is responsible for the furnishings per the attached inventory.</p>`:''}
+    </div>
+    <div class="art"><div class="art-t">5 — Utilities, Maintenance &amp; Access</div>
+      <p class="dp">5.1 Tenant pays: <strong>${L.utils||'all utilities and services for the Premises'}</strong>. Landlord pays those not assigned to Tenant.</p>
+      <p class="dp">5.2 Landlord will comply with F.S. § 83.51 (building codes; roof, windows, screens, plumbing in reasonable working condition). Tenant will comply with F.S. § 83.52 (keep the dwelling clean and sanitary, operate systems reasonably, no damage or nuisance) and will promptly report needed repairs in writing.</p>
+      <p class="dp">5.3 Landlord may enter as provided by F.S. § 83.53 — with Tenant's consent, in emergencies, or upon reasonable notice for repair (the statute currently defines reasonable notice for repair as at least 24 hours, entry between 7:30 a.m. and 8:00 p.m.).</p>
+    </div>
+    <div class="art"><div class="art-t">6 — Default, Remedies &amp; Statutory Rights</div>
+      <p class="dp">6.1 Nonpayment of rent and other defaults are governed by F.S. § 83.56, including the 3-day notice for nonpayment and 7-day notices for other violations. Tenant's defenses and Landlord's obligations are as provided in Part II of Chapter 83, which controls over any conflicting term.</p>
+      <p class="dp">6.2 <strong>Attorney's fees:</strong> in any action arising under this Lease, the prevailing party is entitled to reasonable attorney's fees and costs as provided by F.S. § 83.48.</p>
+      <p class="dp">6.3 <strong>Servicemembers:</strong> Tenant may have early-termination rights under F.S. § 83.682 upon qualifying military orders.</p>
+    </div>
+    <div class="art"><div class="art-t">7 — Disclosures</div>
+      ${radon}
+      ${L.pre1978?`<p class="dp" style="border:1.5px solid #f59e0b;border-radius:10px;padding:14px;background:#fffbeb;font-size:.85rem"><strong>LEAD-BASED PAINT (pre-1978 housing — federal law):</strong> Housing built before 1978 may contain lead-based paint. Lead from paint, paint chips, and dust can pose health hazards if not managed properly, particularly to young children and pregnant women. Before signing, Landlord must disclose any known lead-based paint or hazards and provide the EPA pamphlet "Protect Your Family From Lead in Your Home." The signed federal disclosure form is attached to and made part of this Lease.</p>`:''}
+      <p class="dp" style="font-size:.85rem;color:var(--muted)">Where applicable: F.S. § 83.50 (Landlord's disclosure of owner/agent name and address is satisfied by Section 1 of this Lease).</p>
+    </div>
+    ${sigs}
+  </div>`;
+  }
+
+  // Commercial NNN lease
+  return `<div class="doc-wrap">
+    <div class="doc-hdr"><div class="doc-firm">TRUESTEAD LAW</div><div class="doc-sub">Florida Commercial Lease (Triple-Net) | F.S. Chapter 83, Part I</div></div>
+    <div class="doc-title">COMMERCIAL LEASE AGREEMENT (NNN)</div>
+    <div class="art"><div class="art-t">1 — Parties, Premises &amp; Term</div>
+      <p class="dp">1.1 This Commercial Lease (this "Lease") is made between <strong>${L.landlord}</strong> ("Landlord")${L.isEntity?`, acting through ${L.signer},`:''} and <strong>${L.tenantStr}</strong> ("Tenant"), for the premises at <strong>${L.prop}</strong>, ${L.county} County, Florida${L.propDesc?` — ${L.propDesc}`:''}${L.d.lpSqft?` (approximately ${L.d.lpSqft} sq ft)`:''} (the "Premises").</p>
+      <p class="dp">1.2 <strong>Term:</strong> ${L.start} through ${L.end}.${L.renew?` <strong>Renewal:</strong> ${L.renew}, exercisable only by written notice and only if Tenant is not in default.`:''}</p>
+      <p class="dp">1.3 <strong>Condition:</strong> ${L.build||'Tenant accepts the Premises AS-IS, having inspected them, and all improvements are Tenant\'s responsibility subject to Article 5.'}</p>
+    </div>
+    <div class="art"><div class="art-t">2 — Rent (Triple-Net)</div>
+      <p class="dp">2.1 <strong>Base Rent:</strong> $${L.rent} per month, due the ${L.dueDay} of each month, without demand, deduction, or setoff.${L.escal?` Base Rent increases <strong>${L.escal}%</strong> on each anniversary of the commencement date.`:''} ${L.late?`Late charge: ${L.late}.`:''}</p>
+      <p class="dp">2.2 <strong>Additional Rent (NNN):</strong> Tenant also pays Tenant's proportionate share of (a) real estate taxes and assessments, (b) Landlord's building insurance, and (c) common-area maintenance and operating costs${L.nnn?` — currently estimated at <strong>$${L.nnn} per month</strong>, payable monthly and reconciled annually against actuals`:', payable as billed and reconciled annually'}. All such charges are "rent" for enforcement purposes.</p>
+      <p class="dp">2.3 <strong>Security Deposit:</strong> $${L.deposit}, held as security for performance (Part I of Chapter 83 imposes no residential-style deposit procedures; the deposit may be commingled and applied to any default).</p>
+    </div>
+    <div class="art"><div class="art-t">3 — Use, Operations &amp; Compliance</div>
+      <p class="dp">3.1 <strong>Permitted Use:</strong> ${L.use}. No other use without Landlord's prior written consent. Tenant shall obtain all licenses and permits, comply with all laws (including ADA as applicable to Tenant's use and alterations), and shall not commit waste or nuisance.</p>
+      <p class="dp">3.2 Tenant maintains the interior, non-structural elements, its trade fixtures, storefront glass, and its HVAC service contract; Landlord maintains the roof, foundation, and structural exterior. Tenant shall carry commercial general liability insurance of at least $1,000,000 per occurrence naming Landlord as additional insured, plus property coverage on Tenant's contents, and provide certificates before occupancy.</p>
+      <p class="dp">3.3 No assignment or subletting without Landlord's prior written consent. No mechanic's lien arising through Tenant may attach to Landlord's interest; Tenant shall discharge any such lien within 10 days (F.S. § 713.10 notice provisions apply, and Landlord may record the corresponding notice).</p>
+    </div>
+    <div class="art"><div class="art-t">4 — Default &amp; Remedies</div>
+      <p class="dp">4.1 Defaults include: rent unpaid 3 days after notice; violation of any other covenant uncured 15 days after notice; abandonment; insolvency events. On default Landlord may terminate, retake possession per Part I of Chapter 83, relet for Tenant's account, and recover all amounts due, with acceleration of the present value of remaining rent to the extent permitted by law.</p>
+      <p class="dp">4.2 Landlord retains the statutory landlord's lien for rent (F.S. § 83.08) on Tenant's property on the Premises. The prevailing party in any dispute recovers reasonable attorney's fees and costs.</p>
+      <p class="dp">4.3 <strong>Subordination &amp; Estoppel:</strong> this Lease is subordinate to present and future mortgages; Tenant will execute commercially reasonable subordination and estoppel certificates within 10 days of request.</p>
+    </div>
+    ${L.guarantor?`<div class="art"><div class="art-t">5 — Personal Guaranty</div>
+      <p class="dp">In consideration of Landlord entering this Lease with Tenant, <strong>${L.guarantor}</strong> ("Guarantor") absolutely, unconditionally, and irrevocably guarantees Tenant's full payment and performance of every obligation under this Lease, including amounts accruing after default and enforcement costs. This is a guaranty of payment, not collection; Landlord need not first pursue Tenant. The guaranty survives assignment, amendment, and renewal of the Lease.</p>
+    </div>`:''}
+    <div class="art"><div class="art-t">${L.guarantor?'6':'5'} — General</div>
+      ${radon}
+      <p class="dp">Notices in writing to the addresses in Section 1 (Landlord: ${L.llAddr}). Florida law governs; venue in ${L.county} County. This Lease is the entire agreement and may be amended only in a writing signed by both parties. Time is of the essence.</p>
+    </div>
+    ${sigs}
+  </div>`;
+}
+
+// ── Lease signing & deposit guide ──────────────────────────────────
+function generateLeaseGuide(){
+  const L=leaseData();
+  return `<div class="doc-wrap companion-doc">
+    <div class="doc-hdr"><div class="doc-firm">TRUESTEAD LAW</div><div class="doc-sub">Lease Guide | F.S. Chapter 83</div></div>
+    <div class="doc-title">SIGNING &amp; ${L.isComm?'OPERATIONS':'DEPOSIT'} GUIDE</div>
+    <div class="art"><div class="art-t">Signing — Simpler Than You Think</div>
+      <p class="dp">Florida leases need only the parties' signatures — <strong>no witnesses and no notary</strong> (the old witness requirement for long leases was eliminated by the 2020 amendment to F.S. § 689.01). Electronic signatures are valid. Every adult tenant signs${L.guarantor?'; the guarantor signs the guaranty personally':''}; each side keeps a complete signed copy.</p>
+    </div>
+    ${L.isComm?`
+    <div class="art"><div class="art-t">Before the Keys</div>
+      <p class="dp">☐ Certificates of insurance in hand (GL $1M naming you as additional insured)<br>☐ First month's Base Rent + NNN estimate + deposit collected and cleared<br>☐ Tenant's entity verified active on Sunbiz${L.guarantor?'<br>☐ Guaranty signed by the guarantor personally (not "as manager")':''}<br>☐ Delivery-of-premises condition documented with photos</p>
+    </div>
+    <div class="art"><div class="art-t">Operating the Lease</div>
+      <p class="dp">Bill NNN monthly, reconcile annually with a statement. Enforce in writing from day one — a landlord who accepts chronic late payment without reservation can waive the right to insist on punctuality. Keep the insurance certificates current, and calendar the renewal-notice window${L.renew?` (${L.renew})`:''} — missed option deadlines are where commercial value quietly leaks.</p>
+    </div>`:`
+    <div class="art"><div class="art-t">The Deposit Rules That Actually Get Landlords Sued (F.S. § 83.49)</div>
+      <p class="dp">☐ <strong>Within 30 days of receiving the deposit:</strong> written notice to the tenant of how it's held (separate account — interest-bearing or not — or bond) and the address of the holder. The lease's Section 3 disclosure covers the basics; the account details are yours to send.<br>
+      ☐ <strong>Within 15 days after move-out:</strong> return the deposit, OR<br>
+      ☐ <strong>Within 30 days after move-out:</strong> send the certified-mail claim notice (the Notice Pack includes the statutory form). <strong>Miss the 30-day window and you forfeit the claim</strong> — you must return the full deposit and sue separately for damages if you want them.</p>
+    </div>
+    <div class="art"><div class="art-t">Move-In Discipline</div>
+      <p class="dp">☐ Walk-through with a dated photo/video record and a signed condition checklist<br>☐ Collect first month + deposit${L.lastMo?' + last month':''} in cleared funds before keys<br>☐ Send the § 83.49 deposit-holding notice within 30 days<br>☐ Calendar the lease end date and the 15/30-day deposit deadlines now, not later</p>
+    </div>
+    <div class="art"><div class="art-t">When Things Go Wrong</div>
+      <p class="dp">Nonpayment and violations run on the statutory notices in F.S. § 83.56 — served correctly, with the right counts and the right contents, or the eviction gets dismissed and you start over. ${window.appMode!=='self'?'Your attorney-tier package includes the full Notice Pack tab.':'The $79 Landlord Notice Pack at truesteadlaw.com/leases generates all four notices filled with your details.'} <strong>Never remove doors, cut utilities, or change locks to force a tenant out</strong> — self-help eviction is illegal in Florida (F.S. § 83.67) and carries statutory damages.</p>
+    </div>`}
+    <div class="art"><div class="art-t">The Landlord Stack</div>
+      <p class="dp" style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:10px;padding:14px;font-size:.85rem;color:#166534">Own the rental in your own name? Consider the full structure: <strong>Florida LLC Kit</strong> (truesteadlaw.com/llc-kit) to hold it, <strong>Deed into LLC</strong> (truesteadlaw.com/deeds) to move it, this lease to run it — one firm, flat fees, built to work together.</p>
+    </div>
+  </div>`;
+}
+
+// ── Landlord Notice Pack ───────────────────────────────────────────
+function generateNoticePack(){
+  const N=noticeData(), yr=new Date().getFullYear();
+  const head=(t)=>`<div style="text-align:center;margin:26px 0 14px"><div class="doc-title" style="font-size:1.05rem">${t}</div></div>`;
+  const svc=`<div style="margin-top:22px;border-top:1.5px dashed var(--border);padding-top:14px;font-size:.8rem;color:var(--muted)"><strong>CERTIFICATE OF SERVICE:</strong> This notice was delivered on ____________, ${yr} by: ☐ hand delivery to the tenant &nbsp; ☐ posting at the premises (tenant absent) &nbsp; ☐ mail (add 5 days). Served by: _________________________</div>`;
+  const sig=`<div style="margin-top:22px;max-width:340px"><div style="border-bottom:1px solid #000;min-height:34px"></div><div style="font-size:.78rem">${N.landlord}${N.landlord!==N.signer?`<br>By: ${N.signer}, Landlord/Agent`:', Landlord'}<br>${N.llAddr}</div></div>`;
+  return `<div class="doc-wrap">
+    <div class="doc-hdr"><div class="doc-firm">TRUESTEAD LAW</div><div class="doc-sub">Florida Landlord Notice Pack | F.S. §§ 83.56, 83.49</div></div>
+    <div class="doc-title">LANDLORD NOTICE PACK</div>
+    <p class="dp" style="text-align:center;color:var(--muted);font-size:.82rem">Four statutory notices, filled from your answers. Serve only the one the situation calls for — the Service &amp; Timeline Guide explains which, how, and when.</p>
+
+    <div class="art" style="border:2px solid #0f2744;border-radius:14px;padding:26px">
+      ${head('NOTICE 1 — THREE-DAY NOTICE TO PAY RENT OR DELIVER POSSESSION<br><span style="font-size:.72rem;font-weight:400">F.S. § 83.56(3) — nonpayment of rent</span>')}
+      <p class="dp">TO: <strong>${N.tenants}</strong><br>ADDRESS: ${N.prop}, ${N.county} County, Florida</p>
+      <p class="dp">You are hereby notified that you are indebted to me in the sum of <strong>$${N.rentOwed||'__________'}</strong> for the rent and use of the premises ${N.prop}, ${N.county} County, Florida, now occupied by you${N.period?`, for the rental period(s) of <strong>${N.period}</strong>`:''}, and that I demand payment of the rent or possession of the premises within <strong>3 days</strong> (excluding Saturday, Sunday, and legal holidays) from the date of delivery of this notice, to-wit: on or before the ____ day of ____________, ${yr}.</p>
+      <p class="dp" style="font-size:.8rem;color:#b91c1c"><strong>Drafting rule:</strong> this notice may demand RENT ONLY — no late fees, no utilities, no other charges — or it is defective.</p>
+      ${sig}${svc}
+    </div>
+
+    <div class="art" style="border:2px solid #0f2744;border-radius:14px;padding:26px">
+      ${head('NOTICE 2 — SEVEN-DAY NOTICE TO CURE<br><span style="font-size:.72rem;font-weight:400">F.S. § 83.56(2)(b) — curable lease violation</span>')}
+      <p class="dp">TO: <strong>${N.tenants}</strong> · ${N.prop}</p>
+      <p class="dp">You are hereby notified that you have violated your rental agreement as follows: <strong>${N.viol||'________________________________________________'}</strong>. Demand is hereby made that you remedy the noncompliance within <strong>7 days</strong> of receipt of this notice or your lease shall be deemed terminated and you shall vacate the premises upon such termination. If this same conduct or conduct of a similar nature is repeated within 12 months, your tenancy is subject to termination without further warning and without your being given an opportunity to cure the noncompliance.</p>
+      ${sig}${svc}
+    </div>
+
+    <div class="art" style="border:2px solid #0f2744;border-radius:14px;padding:26px">
+      ${head('NOTICE 3 — SEVEN-DAY NOTICE OF TERMINATION<br><span style="font-size:.72rem;font-weight:400">F.S. § 83.56(2)(a) — non-curable violation / repeat violation</span>')}
+      <p class="dp">TO: <strong>${N.tenants}</strong> · ${N.prop}</p>
+      <p class="dp">You are advised that your lease is terminated effective immediately. You shall have <strong>7 days</strong> from the delivery of this letter to vacate the premises. This action is taken because: <strong>${N.viol||'________________________________________________'}</strong> — conduct constituting ${'​'}destruction, damage, or misuse of the premises, a continuing unreasonable disturbance, or repetition of conduct for which a notice to cure was previously served within the preceding 12 months.</p>
+      <p class="dp" style="font-size:.8rem;color:#b91c1c"><strong>Use with care:</strong> this notice fits only the statute's non-curable categories. When in doubt, serve the 7-day cure notice instead — or call us.</p>
+      ${sig}${svc}
+    </div>
+
+    <div class="art" style="border:2px solid #0f2744;border-radius:14px;padding:26px">
+      ${head('NOTICE 4 — NOTICE OF INTENTION TO IMPOSE CLAIM ON SECURITY DEPOSIT<br><span style="font-size:.72rem;font-weight:400">F.S. § 83.49(3)(a) — send by CERTIFIED MAIL within 30 days of move-out</span>')}
+      <p class="dp">TO: <strong>${N.tenants}</strong>${N.fwd?`<br>LAST KNOWN / FORWARDING ADDRESS: ${N.fwd}`:'<br>LAST KNOWN ADDRESS: ________________________________'}</p>
+      <p class="dp">This is a notice of my intention to impose a claim for damages in the amount of <strong>$${N.claim||'__________'}</strong> upon your security deposit of $${N.depHeld||'__________'}, due to <strong>${N.reason||'________________________________________________'}</strong>. It is sent to you as required by § 83.49(3), Florida Statutes. You are hereby notified that you must object in writing to this deduction from your security deposit within 15 days from the time you receive this notice or I will be authorized to deduct my claim from your security deposit. Your objection must be sent to: <strong>${N.llAddr}</strong>.</p>
+      ${sig}
+      <div style="margin-top:14px;font-size:.8rem;color:var(--muted)">Send by <strong>certified mail</strong>; keep the receipt and a copy of this notice.</div>
+    </div>
+  </div>`;
+}
+
+// ── Notice service & timeline guide ────────────────────────────────
+function generateNoticeGuide(){
+  const N=noticeData();
+  return `<div class="doc-wrap companion-doc">
+    <div class="doc-hdr"><div class="doc-firm">TRUESTEAD LAW</div><div class="doc-sub">Service &amp; Timeline Guide | F.S. Chapter 83</div></div>
+    <div class="doc-title">HOW TO SERVE, COUNT, AND NOT BLOW IT</div>
+    <div class="art"><div class="art-t">Which Notice When</div>
+      <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:.85rem">
+        <tr style="background:#f8fafc"><th style="padding:8px 12px;border:1px solid var(--border);text-align:left">Situation</th><th style="padding:8px 12px;border:1px solid var(--border);text-align:left">Notice</th><th style="padding:8px 12px;border:1px solid var(--border);text-align:left">Clock</th></tr>
+        <tr><td style="padding:8px 12px;border:1px solid var(--border)">Rent not paid</td><td style="padding:8px 12px;border:1px solid var(--border)"><strong>3-Day</strong> (Notice 1)</td><td style="padding:8px 12px;border:1px solid var(--border)">3 business days — EXCLUDE Sat, Sun &amp; legal holidays, and exclude the day of service</td></tr>
+        <tr><td style="padding:8px 12px;border:1px solid var(--border)">Fixable violation (pet, parking, damage they can repair)</td><td style="padding:8px 12px;border:1px solid var(--border)"><strong>7-Day Cure</strong> (Notice 2)</td><td style="padding:8px 12px;border:1px solid var(--border)">7 calendar days to fix</td></tr>
+        <tr><td style="padding:8px 12px;border:1px solid var(--border)">Destruction, serious/repeat violations</td><td style="padding:8px 12px;border:1px solid var(--border)"><strong>7-Day Termination</strong> (Notice 3)</td><td style="padding:8px 12px;border:1px solid var(--border)">7 calendar days to vacate</td></tr>
+        <tr><td style="padding:8px 12px;border:1px solid var(--border)">Keeping part of a former tenant's deposit</td><td style="padding:8px 12px;border:1px solid var(--border)"><strong>Deposit Claim</strong> (Notice 4)</td><td style="padding:8px 12px;border:1px solid var(--border)">Certified mail within 30 days of move-out; tenant has 15 days to object</td></tr>
+      </table></div>
+    </div>
+    <div class="art"><div class="art-t">Serving Notices 1–3</div>
+      <p class="dp">Deliver to the tenant at the premises; if the tenant is absent, <strong>posting a copy conspicuously on the premises</strong> (the front door) is valid service under § 83.56(4). Mailing alone adds 5 days to every count — post or hand-deliver when time matters. Complete the certificate of service on the notice, photograph the posted notice on the door with a timestamp, and keep copies of everything.</p>
+    </div>
+    <div class="art"><div class="art-t">After the Clock Runs</div>
+      <p class="dp">If the tenant neither pays/cures nor vacates, the next step is an <strong>eviction action in ${N.county} County court</strong> — the notice you served (and its exact wording and counting) is Exhibit A. Defective notices are the #1 reason evictions get dismissed. At that point, bring us in: Truestead Law can review your notice before filing or handle the eviction — (888) 388-8445.</p>
+      <p class="dp" style="background:#fef2f2;border:1.5px solid #fca5a5;border-radius:10px;padding:14px;color:#b91c1c;font-size:.85rem"><strong>Never self-help.</strong> Changing locks, shutting off utilities, or removing doors/belongings is prohibited (F.S. § 83.67) and exposes you to 3 months' rent or actual damages per violation, plus fees. The notice-and-court path is the only path.</p>
+    </div>
+    <div class="art"><div class="art-t">Deposit Claim Mechanics (Notice 4)</div>
+      <p class="dp">1. Move-out documented with photos against your move-in record. 2. Itemize the claim honestly — normal wear and tear is NOT chargeable. 3. Certified mail to the tenant's last known or forwarding address within <strong>30 days</strong>. 4. No objection within 15 days of receipt → deduct and refund any remainder promptly. 5. Objection received → try to resolve; the loser of a deposit lawsuit typically pays the winner's attorney's fees, which disciplines both sides.</p>
+    </div>
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════════
 //  DEED SHOP — helpers, review screen, and document generators
 //  (F.S. § 689.01 execution; § 201.02 documentary stamps)
 // ═══════════════════════════════════════════════════════════════════
@@ -9497,6 +9961,11 @@ const TAB_GENERATORS = {
   deedwelcome:()=>generateDeedWelcome(),
   deeddoc:    ()=>generateDeedInstrument(),
   deedrec:    ()=>generateDeedRecordingGuide(),
+  // Lease Shop
+  leasedoc:   ()=>generateLeaseDoc(),
+  leaseguide: ()=>generateLeaseGuide(),
+  noticepack: ()=>generateNoticePack(),
+  noticeguide:()=>generateNoticeGuide(),
   // Amendment / Update documents
   tamend:  ()=>generateTrustAmendment(),
   smcodicil:()=>generateSmartCodicil(),
@@ -9519,6 +9988,7 @@ function showDocTab(name){
     llcwelcome:'tabLlcwelcome',llcart:'tabLlcart',llcoa:'tabLlcoa',llcres:'tabLlcres',
     llccert:'tabLlccert',llcein:'tabLlcein',llcfile:'tabLlcfile',llcra:'tabLlcra',
     deedwelcome:'tabDeedwelcome',deeddoc:'tabDeeddoc',deedrec:'tabDeedrec',
+    leasedoc:'tabLeasedoc',leaseguide:'tabLeaseguide',noticepack:'tabNoticepack',noticeguide:'tabNoticeguide',
     tamend:'tabTamend',smcodicil:'tabSmcodicil',
     grat:'tabGrat',qprt:'tabQprt',idgt:'tabIdgt'
   };
@@ -11665,7 +12135,7 @@ function downloadDocuments(){
     .map(t => `<li>${t}</li>`).join('');
   const _displayName = (typeof gName === 'function' && gName()) ? gName()
     : ((S.d.gFirst ? `${S.d.gFirst} ${S.d.gLast || ''}`.trim() : 'Client'));
-  const _PLAN = { trust:'Revocable Living Trust', will:'Last Will & Testament', both:'Complete Estate Plan', land_trust:'Florida Land Trust', gun_trust:'NFA Gun Trust', llc:'Florida LLC Kit', deed:'Florida Deed Package' };
+  const _PLAN = { trust:'Revocable Living Trust', will:'Last Will & Testament', both:'Complete Estate Plan', land_trust:'Florida Land Trust', gun_trust:'NFA Gun Trust', llc:'Florida LLC Kit', deed:'Florida Deed Package', lease:'Florida Lease', notices:'Landlord Notice Pack' };
   const _planTitle = _PLAN[S.d.docCategory] || 'Estate Plan';
   const _niceDate = new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
   const cover = `<div class="cover-page">
@@ -11882,15 +12352,24 @@ async function generateWithReview(){
 
   const isLLCFlow = S.d.docCategory==='llc';
   const isDeedFlow = S.d.docCategory==='deed';
+  const isLeaseFlow = S.d.docCategory==='lease'||S.d.docCategory==='notices';
   const docLabel = S.d.docCategory==='will'    ? 'Will Package'
                  : S.d.docCategory==='both'    ? 'Estate Plan'
                  : S.d.docCategory==='gun_trust'? 'NFA Gun Trust'
                  : S.d.docCategory==='land_trust'?'Land Trust'
                  : isLLCFlow                    ? 'Florida LLC Kit'
                  : isDeedFlow                   ? 'Deed Package'
+                 : S.d.docCategory==='lease'    ? (S.d.leaseType==='commercial'?'Commercial Lease':'Residential Lease')
+                 : S.d.docCategory==='notices'  ? 'Landlord Notice Pack'
                  :                               'Trust Package';
 
-  const checkSteps = isDeedFlow ? [
+  const checkSteps = isLeaseFlow ? [
+    'Checking Chapter 83 requirements',
+    'Verifying deposit & disclosure rules',
+    'Assembling your documents',
+    'Building your guides',
+    'Generating your package',
+  ] : isDeedFlow ? [
     'Checking execution requirements (F.S. § 689.01)',
     'Verifying homestead & spousal joinder rules',
     'Computing documentary stamp treatment',
@@ -11966,7 +12445,7 @@ async function generateWithReview(){
   // estate-shaped; the LLC flow validates deterministically in the wizard)
   let review = null;
   try {
-    if(isLLCFlow || isDeedFlow) throw {skip:true};
+    if(isLLCFlow || isDeedFlow || isLeaseFlow) throw {skip:true};
     // Get auth token
     let idToken = '';
     try {
@@ -12319,6 +12798,51 @@ function generate(){
     window.scrollTo({top:0,behavior:'smooth'});
     const trustTabCount=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,hasSNT?1:0,hasEldr?1:0,hasIlit?1:0,hasCrt?1:0,hasBiz?1:0,1,1,1,1,1,1].filter(Boolean).length;
     showDocsReady(trustTabCount, dc==='both'?'Complete Estate Plan (Will + Trust)':'Revocable Living Trust');
+    return;
+  }
+
+  if(dc==='lease'){
+    const out=$('docOut');
+    const isComm=S.d.leaseType==='commercial';
+    const inclNotices=window.appMode!=='self';
+    out.innerHTML=`
+      <div class="doc-tabs-wrap">
+        <div class="doc-tabs-label">Documents — scroll to see all →</div>
+        <div class="doc-tabs" id="docTabs">
+          <button class="doc-tab active" onclick="showDocTab('leasedoc')">📄 ${isComm?'Commercial Lease':'Residential Lease'}</button>
+          <button class="doc-tab" onclick="showDocTab('leaseguide')">📘 Signing &amp; ${isComm?'Operations':'Deposit'} Guide</button>
+          ${inclNotices?`<button class="doc-tab" onclick="showDocTab('noticepack')">📮 Notice Pack (included)</button>
+          <button class="doc-tab" onclick="showDocTab('noticeguide')">⏱️ Notice Service Guide</button>`:''}
+        </div>
+      </div>
+      ${lazyPanel('tabLeasedoc',true)}
+      ${lazyPanel('tabLeaseguide',false)}
+      ${inclNotices?lazyPanel('tabNoticepack',false)+lazyPanel('tabNoticeguide',false):''}
+      ${docActionBtns()}`;
+    showDocsReady(inclNotices?4:2, isComm?'Florida Commercial Lease':'Florida Residential Lease');
+    showDocTab('leasedoc');
+    out.classList.add('show');
+    window.scrollTo({top:0,behavior:'smooth'});
+    return;
+  }
+
+  if(dc==='notices'){
+    const out=$('docOut');
+    out.innerHTML=`
+      <div class="doc-tabs-wrap">
+        <div class="doc-tabs-label">Documents — scroll to see all →</div>
+        <div class="doc-tabs" id="docTabs">
+          <button class="doc-tab active" onclick="showDocTab('noticepack')">📮 Landlord Notice Pack</button>
+          <button class="doc-tab" onclick="showDocTab('noticeguide')">⏱️ Service &amp; Timeline Guide</button>
+        </div>
+      </div>
+      ${lazyPanel('tabNoticepack',true)}
+      ${lazyPanel('tabNoticeguide',false)}
+      ${docActionBtns()}`;
+    showDocsReady(2,'Landlord Notice Pack');
+    showDocTab('noticepack');
+    out.classList.add('show');
+    window.scrollTo({top:0,behavior:'smooth'});
     return;
   }
 
@@ -12964,6 +13488,8 @@ async function _notifyAttorney(planKey, planType) {
       gun_trust: 'NFA Gun Trust',
       llc: 'Florida LLC Kit',
       deed: 'Deed Package',
+      lease: 'Florida Lease',
+      notices: 'Landlord Notice Pack',
       amend_trust: 'Trust Amendment',
       amend_will: 'Will Amendment',
       amend_poa: 'POA Amendment',
@@ -13167,16 +13693,19 @@ function _applyPresetPlan() {
 
   // Set plan and advance to step 1
   const flowMap = { essentials:'will', legacy:'both', legacy_plus:'both', llc_foreign:'llc',
-    deed_quitclaim:'deed', deed_ladybird:'deed', deed_warranty:'deed', deed_trust:'deed', deed_llc:'deed' };
+    deed_quitclaim:'deed', deed_ladybird:'deed', deed_warranty:'deed', deed_trust:'deed', deed_llc:'deed',
+    re_resi_lease:'lease', re_comm_lease:'lease', re_notices:'notices' };
   const flowCat = flowMap[plan] || plan;
   window._pricingKey = plan;
   if (typeof S !== 'undefined') {
     S.d.docCategory = flowCat;
     if (plan === 'legacy' || plan === 'legacy_plus') S.d.wantsAdvancedTrust = true;
     if (type === 'couple' && !S.d.structure) S.d.structure = 'joint';
-    if (flowCat === 'llc' || flowCat === 'deed') S.d.structure = 'individual';
+    const _isBizP = ['llc','deed','lease','notices'].includes(flowCat);
+    if (_isBizP) S.d.structure = 'individual';
     if (flowCat === 'deed' && plan.indexOf('deed_') === 0) S.d.deedType = plan.slice(5);
-    S.step = (flowCat === 'llc' || flowCat === 'deed') ? 0 : 1;
+    if (flowCat === 'lease') S.d.leaseType = (plan === 're_comm_lease') ? 'commercial' : 'resi';
+    S.step = _isBizP ? 0 : 1;
     if (typeof render === 'function') render();
     if (typeof renderSidebar === 'function') renderSidebar();
   } else {
@@ -14373,6 +14902,8 @@ async function _sendClientConfirmation(planLabel, docCount){
       gun_trust: ['NFA Gun Trust Agreement','ATF Certification','Responsible Person Listing'],
       llc:       ['Articles of Organization','Operating Agreement','Organizational & Banking Resolutions','Membership Certificates','EIN Guide','Sunbiz Filing Guide'],
       deed:      ['Florida Deed','Recording Guide & Doc-Stamp Worksheet','Clerk Transmittal Letter'],
+      lease:     ['Florida Lease Agreement','Signing & Deposit Guide'],
+      notices:   ['Landlord Notice Pack (4 notices)','Service & Timeline Guide'],
     };
     const dc=d.docCategory||'trust';
     let docs=docMap[dc]||docMap.trust;
@@ -14519,7 +15050,7 @@ function openMatterDash(){
   document.getElementById('mdMatters').innerHTML=matters.length?matters.map(m=>{
     const d=m.d||{};
     const name=[(d.gFirst||''),(d.gLast||'')].filter(Boolean).join(' ')||'Unnamed Matter';
-    const type=d.docCategory==='will'?'Will Package':d.docCategory==='both'?'Complete Estate Plan':d.docCategory==='land_trust'?'Land Trust':d.docCategory==='gun_trust'?'NFA Gun Trust':d.docCategory==='llc'?'Florida LLC Kit':d.docCategory==='deed'?'Deed Package':'Revocable Living Trust';
+    const type=d.docCategory==='will'?'Will Package':d.docCategory==='both'?'Complete Estate Plan':d.docCategory==='land_trust'?'Land Trust':d.docCategory==='gun_trust'?'NFA Gun Trust':d.docCategory==='llc'?'Florida LLC Kit':d.docCategory==='deed'?'Deed Package':d.docCategory==='lease'?'Florida Lease':d.docCategory==='notices'?'Notice Pack':'Revocable Living Trust';
     const profile=d.wealthProfile==='uhnw'?'Ultra HNW':d.wealthProfile==='vhnw'?'Very HNW':d.wealthProfile==='hnw'?'High NW':'Standard';
     const date=m.savedAt?new Date(m.savedAt).toLocaleDateString():'—';
     const mJson=JSON.stringify(m).replace(/"/g,'&quot;');
@@ -15143,6 +15674,10 @@ window.addEventListener('DOMContentLoaded', () => {
   if(_spec.indexOf('deed_') === 0 && typeof PRICING !== 'undefined' && PRICING[_spec]){
     setTimeout(() => quickStart(_spec), 400);
   }
+  // Lease Shop landing (/leases) — ?specialty=re_resi_lease|re_comm_lease|re_notices
+  if(['re_resi_lease','re_comm_lease','re_notices'].includes(_spec)){
+    setTimeout(() => quickStart(_spec), 400);
+  }
 })();
 
 // If quickStart() fired before S was defined, apply the stored intent now
@@ -15151,11 +15686,13 @@ window.addEventListener('DOMContentLoaded', () => {
   const doc = window._quickStartDoc;
   delete window._quickStartDoc;
   S.d.docCategory = doc;
-  S.step = (doc === 'llc' || doc === 'deed') ? 0 : 1;
-  if(doc === 'llc' || doc === 'deed') S.d.structure = 'individual';
+  const _isBiz = ['llc','deed','lease','notices'].includes(doc);
+  S.step = _isBiz ? 0 : 1;
+  if(_isBiz) S.d.structure = 'individual';
   if(doc === 'deed' && window._quickStartKey && window._quickStartKey.indexOf('deed_') === 0){
     S.d.deedType = window._quickStartKey.slice(5);
   }
+  if(doc === 'lease') S.d.leaseType = (window._quickStartKey === 're_comm_lease') ? 'commercial' : 'resi';
   if(typeof render === 'function') render();
   if(typeof renderSidebar === 'function') renderSidebar();
   if(typeof autoSave === 'function') autoSave();
@@ -15264,6 +15801,9 @@ function showPaymentScreen() {
   if (dc === 'deed') {
     window._pricingKey = 'deed_' + (S.d.deedType || 'quitclaim');
   }
+  // ── Lease Shop pricing ──
+  if (dc === 'lease')   window._pricingKey = (S.d.leaseType === 'commercial') ? 're_comm_lease' : 're_resi_lease';
+  if (dc === 'notices') window._pricingKey = 're_notices';
 
   // Use pricing key (tier) if set, fall back to docCategory
   const pricingKey = window._pricingKey || dc;
@@ -15381,13 +15921,14 @@ function showPaymentScreen() {
   const _epSection = document.getElementById('execPathSection');
   if (_epSection) _epSection.style.display = window.appMode === 'attorney' ? 'none' : 'block';
 
-  // LLC kit — formation docs have no witness/notary ceremony: hide the execution
-  // path selector and its ack gate, and enable the pay button directly.
-  if (dc === 'llc') {
+  // LLC / lease / notices — these docs have no witness/notary ceremony: hide the
+  // execution path selector and its ack gate, and enable the pay button directly.
+  // (Florida leases no longer require witnesses — F.S. § 689.01 as amended 2020.)
+  if (dc === 'llc' || dc === 'lease' || dc === 'notices') {
     if (_epSection) _epSection.style.display = 'none';
     window.executionPath = 'self';
     if (_epPayBtn) _epPayBtn.disabled = false;
-    if (isDiy && _paySub) _paySub.textContent = 'Your Florida LLC formation package is ready. Complete your purchase below to unlock and download every document, including your click-by-click Sunbiz filing guide. This is a self-guided (DIY) plan — optional attorney review is available on request.';
+    if (isDiy && _paySub && dc === 'llc') _paySub.textContent = 'Your Florida LLC formation package is ready. Complete your purchase below to unlock and download every document, including your click-by-click Sunbiz filing guide. This is a self-guided (DIY) plan — optional attorney review is available on request.';
   }
 
   document.getElementById('paymentScreen').classList.add('open');

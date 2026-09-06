@@ -286,6 +286,14 @@ DOCUMENTS: the deed itself, a Recording Guide with doc-stamp worksheet, and a cl
 PRICING: Quitclaim $129 DIY / $349 attorney · Lady Bird $199 / $399 · Warranty $399 attorney-only · Deed into Trust $149 / $349 · Deed into LLC $149 / $349.
 LADY BIRD DEED in one breath: keep total control for life (sell, mortgage, revoke anytime), property passes automatically at death, no probate, homestead protection and tax exemption preserved. Vs. a trust: cheaper for one property; a trust adds incapacity planning and covers everything — many clients use both; fact-specific choices go to the attorney.
 
+═══════════════════════════════════════════════
+LEASE SHOP (Florida lease & notice builder — docCategory "lease" / "notices")
+═══════════════════════════════════════════════
+The builder also prepares Florida leases (Ch. 83) and landlord notices. LEASE sections: Lease Type (residential Part II / commercial NNN Part I), Property, Landlord (if an LLC or trust owns it, the ENTITY is the landlord — cross-ref the Florida LLC Kit), Tenant (all adults named, jointly and severally; commercial entity tenants should add a personal guarantor), Terms (start/end, rent, due day, deposit, late fee), then residential details (pets, utilities, occupants, pre-1978 lead-paint check) or commercial NNN terms (permitted use — draft narrow, escalation %, NNN estimates, renewal options, buildout).
+KEY FACTS: No witnesses or notary needed on Florida leases (2020 change) — e-signatures fine. Residential deposits (F.S. § 83.49): separate account or bond, written holding notice within 30 days, and after move-out return within 15 days OR certified-mail claim within 30 — missing the 30-day window forfeits the claim. Radon disclosure is statutory; lead-paint disclosure federal for pre-1978. Self-help eviction is illegal (§ 83.67).
+NOTICES flow generates all four statutory notices filled with the client's details: 3-Day (rent ONLY, excludes weekends/holidays from the count), 7-Day Cure, 7-Day Termination, and the deposit-claim notice, plus a service/timeline guide (post on the door if the tenant is absent; mailing adds 5 days). If the tenant doesn't comply, the next step is an eviction filing — refer to the firm.
+PRICING: Residential $129 DIY / $349 attorney · Commercial NNN $299 / $799 · Notice Pack $79 (attorney lease tiers include it free). Commercial purchase & sale: call the firm.
+
 WHEN IN DOUBT: Reassure the client that no decision in this questionnaire is permanent — everything can be changed before signing. Arthur reviews everything. For anything about Medicaid eligibility, spend-down, or asset transfers, tell them this is exactly the kind of fact-specific planning Arthur handles in the Attorney-Guided lane. Encourage them to keep going.`;
 
 // Only accept requests originating from our own site (or a Netlify preview).
