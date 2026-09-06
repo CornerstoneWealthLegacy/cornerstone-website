@@ -4160,6 +4160,7 @@ function renderProgress(){
           <div class="cb-plan">Truestead Law${window.appMode === 'attorney' ? ' · Attorney-Guided' : ''}</div>
         </div>
         <div style="display:flex;align-items:center;gap:10px">
+          ${window._isMember?'<div class="cb-type" style="background:#c49a2a;color:#0f2744;font-weight:800">★ Docs Member</div>':''}
           <div class="cb-type">${typeLabel}</div>
           <button onclick="signOut()" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.6);padding:5px 12px;border-radius:8px;font-size:.68rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s" onmouseover="this.style.background='rgba(255,255,255,.2)';this.style.color='#fff'" onmouseout="this.style.background='rgba(255,255,255,.1)';this.style.color='rgba(255,255,255,.6)'">Sign Out</button>
         </div>`;
@@ -13678,6 +13679,20 @@ async function loadUserProgress(user) {
   if (signInBar) signInBar.style.display = 'none';
   if (userBar)   userBar.style.display   = 'flex';
   if (greeting)  greeting.textContent    = 'Hi, ' + (user.displayName || user.email.split('@')[0]);
+
+  // ── Docs Membership lookup (subscriptions/{normalized email}, webhook-written) ──
+  try {
+    if (user.email && db) {
+      const subId = user.email.toLowerCase().replace(/[^a-z0-9]/g, '_').slice(0, 400);
+      db.collection('subscriptions').doc(subId).get().then(snap => {
+        const s = snap.exists ? snap.data() : null;
+        window._isMember = !!(s && s.docs_membership && s.docs_membership_status !== 'cancelled');
+        if (window._isMember && typeof renderProgress === 'function' && typeof S !== 'undefined') {
+          try { renderProgress(); } catch (e) {}
+        }
+      }).catch(() => {}); // rules deny non-owners; missing doc is the normal case
+    }
+  } catch (e) {}
 }
 
 // Apply URL-preset plan and couple type — called after app launches

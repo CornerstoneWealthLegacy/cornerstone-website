@@ -367,6 +367,64 @@ exports.handler = async (event) => {
 
       console.log('Payment completed:', { uid, planTier, email, amount });
 
+      // ── SUBSCRIPTIONS (Docs Membership / Registered Agent / Compliance Bundle) ──
+      // Sold via Payment Links on /kits and /llc-kit with NO wizard session behind them,
+      // so they must be handled BEFORE the session-mapping logic below (which would
+      // otherwise throw "Cannot map payment to a session"). Distinguished by price.
+      if (session.mode === 'subscription') {
+        const SUB_TYPES = { 4900: 'docs_membership', 9900: 'registered_agent', 19900: 'compliance_bundle' };
+        const SUB_NAMES = { docs_membership: 'Docs Membership ($49/yr)', registered_agent: 'Registered Agent ($99/yr)', compliance_bundle: 'Compliance Bundle ($199/yr)' };
+        const subType = SUB_TYPES[amountRaw] || 'subscription';
+        const subName = SUB_NAMES[subType] || `Subscription ($${amount})`;
+        const who = session.customer_details?.name || email || 'A customer';
+
+        try {
+          const topic = process.env.NTFY_TOPIC || 'truestead-alerts';
+          await fetch(`https://ntfy.sh/${topic}`, {
+            method: 'POST',
+            headers: { 'Title': 'New Subscriber', 'Tags': 'star,repeat', 'Priority': 'high' },
+            body: `${who} subscribed: ${subName}.${email ? ' (' + email + ')' : ''}`,
+          });
+        } catch (e) { console.error('subscriber ntfy failed:', e.message); }
+
+        await sendMetaCAPIPurchase({
+          email, name: session.customer_details?.name || '', value: amount,
+          currency: (session.currency || 'usd').toUpperCase(), eventId: session.id,
+          eventSourceUrl: 'https://truesteadlaw.com/kits',
+        });
+
+        const svcRaw = process.env.FIREBASE_SERVICE_ACCOUNT;
+        if (svcRaw && email) {
+          try {
+            const svc = JSON.parse(svcRaw);
+            const tok = await getFirestoreToken(svc);
+            const subDocId = email.toLowerCase().replace(/[^a-z0-9]/g, '_').slice(0, 400);
+            await firestoreUpdateDoc(svc.project_id, 'subscriptions', subDocId, {
+              email: email.toLowerCase(),
+              name: session.customer_details?.name || '',
+              [subType]: true,
+              [subType + '_status']: 'active',
+              [subType + '_since']: new Date().toISOString(),
+              stripeCustomerId: String(session.customer || ''),
+              lastStripeSessionId: session.id,
+              updatedAt: Date.now(),
+            }, tok);
+            console.log('Subscription recorded:', subType, 'for', subDocId);
+          } catch (e) {
+            console.error('subscription Firestore write failed:', e.message);
+            try {
+              await fetch(`https://ntfy.sh/${process.env.NTFY_TOPIC || 'truestead-alerts'}`, {
+                method: 'POST', headers: { 'Title': 'Subscriber needs manual record', 'Tags': 'warning' },
+                body: `${subName} for ${email} paid but Firestore write failed — record manually.`,
+              });
+            } catch (_) {}
+          }
+        } else if (!email) {
+          console.warn('Subscription checkout with no email — cannot record entitlement');
+        }
+        return { statusCode: 200, body: JSON.stringify({ received: true, subscription: subType }) };
+      }
+
       // ── Notify attorney of a new PAID client (reliable server-side ntfy push) ──
       // Fires for EVERY paid order, independent of the client-side/attorney-account logic.
       try {
@@ -558,6 +616,50 @@ exports.handler = async (event) => {
         }).catch(() => {});
       }
 
+    }
+
+    // ── customer.subscription.deleted — mark the entitlement cancelled ────
+    // (Enable this event in the Stripe webhook config alongside the others.)
+    if (stripeEvent.type === 'customer.subscription.deleted') {
+      const sub = stripeEvent.data.object;
+      const custId = String(sub.customer || '');
+      const cents = sub.items?.data?.[0]?.price?.unit_amount || 0;
+      const SUB_TYPES = { 4900: 'docs_membership', 9900: 'registered_agent', 19900: 'compliance_bundle' };
+      const subType = SUB_TYPES[cents] || 'subscription';
+      const svcRaw = process.env.FIREBASE_SERVICE_ACCOUNT;
+      if (svcRaw && custId) {
+        try {
+          const svc = JSON.parse(svcRaw);
+          const tok = await getFirestoreToken(svc);
+          const url = `https://firestore.googleapis.com/v1/projects/${svc.project_id}/databases/(default)/documents:runQuery`;
+          const res = await fetch(url, {
+            method: 'POST', headers: { 'Authorization': `Bearer ${tok}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ structuredQuery: { from: [{ collectionId: 'subscriptions' }],
+              where: { fieldFilter: { field: { fieldPath: 'stripeCustomerId' }, op: 'EQUAL', value: { stringValue: custId } } }, limit: 1 } }),
+          });
+          const rows = res.ok ? await res.json() : [];
+          const doc = rows[0]?.document;
+          if (doc) {
+            const docId = doc.name.split('/').pop();
+            await firestoreUpdateDoc(svc.project_id, 'subscriptions', docId, {
+              [subType]: false,
+              [subType + '_status']: 'cancelled',
+              [subType + '_cancelledAt']: new Date().toISOString(),
+              updatedAt: Date.now(),
+            }, tok);
+            console.log('Subscription cancelled:', subType, 'for', docId);
+            try {
+              await fetch(`https://ntfy.sh/${process.env.NTFY_TOPIC || 'truestead-alerts'}`, {
+                method: 'POST', headers: { 'Title': 'Subscription cancelled', 'Tags': 'wave' },
+                body: `${subType.replace(/_/g, ' ')} cancelled (${docId.replace(/_/g, '.')})`,
+              });
+            } catch (_) {}
+          } else {
+            console.warn('subscription.deleted: no Firestore record for customer', custId);
+          }
+        } catch (e) { console.error('subscription.deleted handling failed:', e.message); }
+      }
+      return { statusCode: 200, body: JSON.stringify({ received: true }) };
     }
 
     // ── payment_intent.payment_failed ─────────────────────────────────────

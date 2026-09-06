@@ -67,6 +67,17 @@ service cloud.firestore {
         isStaff()
       );
     }
+    // Subscription entitlements (Docs Membership / Registered Agent / Compliance) —
+    // written ONLY by the Stripe webhook (Admin SDK bypasses rules). Keyed by
+    // normalized email; the signed-in owner and staff may read, nobody client-side writes.
+    match /subscriptions/{emailKey} {
+      allow read: if request.auth != null && (
+        isStaff() ||
+        (request.auth.token.email != null &&
+         request.auth.token.email.lower() == resource.data.email)
+      );
+      allow write: if false;
+    }
     // Staff list — attorney writes, staff reads their own record
     match /staff/{emailKey} {
       allow read: if request.auth != null;
