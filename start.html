@@ -1552,6 +1552,8 @@ const _PLAN_LABELS = {
   re_addenda:    'Real Estate Addenda',
   elder_essentials: 'Elder-Law Essentials',
   elder_medicaid:   'Medicaid Planning (Attorney-Guided)',
+  llc:              'Florida LLC Kit',
+  llc_foreign:      'Florida LLC — Foreign Owner Package',
 };
 
 // Returns the Calendly base URL with the selected plan pre-filled as answer to question 1
@@ -1888,7 +1890,7 @@ function _pqzLaunch(save){
 function quickStart(docCategory){
   // Amendment flows and legacy go directly — no mode choice needed
   const isAmend = docCategory.startsWith('amend_');
-  const isAttyOnly = ['legacy','legacy_plus','elder_medicaid'].includes(docCategory); // Medicaid eligibility docs are attorney-guided only
+  const isAttyOnly = ['legacy','legacy_plus','elder_medicaid','llc_foreign'].includes(docCategory); // Medicaid + foreign-owner LLC are attorney-guided only
 
   if(isAmend){
     _launchQuickStart(docCategory, 'self');
@@ -1962,6 +1964,7 @@ function _launchQuickStart(docCategory, mode){
     essentials:  'will',
     legacy:      'both',
     legacy_plus: 'both',
+    llc_foreign: 'llc',
     amend_trust: 'amend_trust',
     amend_will:  'amend_will',
     amend_poa:   'amend_poa',
@@ -1978,7 +1981,11 @@ function _launchQuickStart(docCategory, mode){
     if(window.planType === 'couple' && !S.d.structure) S.d.structure = 'joint';
     // Will flows skip the trust Structure step — give singles an explicit default
     if(flowCat === 'will' && !S.d.structure) S.d.structure = 'individual';
-    S.step = 1;
+    // LLC flow has no couple/spouse concept — always individual structure
+    if(flowCat === 'llc') S.d.structure = 'individual';
+    // LLC's activeSteps() whitelist already excludes the docCategory step, so its
+    // first real step is index 0; estate flows start at 1 to skip that step.
+    S.step = (flowCat === 'llc') ? 0 : 1;
     if(typeof render === 'function') render();
     if(typeof renderSidebar === 'function') renderSidebar();
     if(typeof autoSave === 'function') autoSave();
@@ -2241,6 +2248,12 @@ const PAYMENT_LINKS = {
   re_sale:                '', // $1,200  Commercial Purchase & Sale — Attorney-Guided
   re_addenda:             '', // $79     Real Estate Addenda (flat add-on)
 
+  // ── Business Formation (links created 9/6/2026 on TRUESTEAD LAW acct) ──
+  llc_diy:                'https://buy.stripe.com/bJe6oH6vP4j5cMw64Ic7u0z', // $149    Florida LLC Kit — DIY
+  llc:                    'https://buy.stripe.com/fZu14naM57vhcMw1Osc7u0A', // $499    Florida LLC Kit — Attorney-Formed
+  llc_foreign:            'https://buy.stripe.com/3cI8wP8DXaHtaEo9gUc7u0B', // $1,200  Florida LLC — Foreign Owner Package (attorney-guided only)
+  // RA $99/yr sub: https://buy.stripe.com/00w6oHbQ9dTFh2M9gUc7u0C · Compliance $199/yr sub: https://buy.stripe.com/fZu3cv8DXaHth2M78Mc7u0D (sold on /llc-kit)
+
   // ── Elder Law ──
   elder_essentials_diy:        '', // $299 (was $449)    Elder-Law Essentials — DIY (single)
   elder_essentials_diy_couple: '', // $649    Elder-Law Essentials — DIY (couple)
@@ -2290,6 +2303,12 @@ const PRICING = {
   // Essentials offers DIY + Attorney-Guided; Medicaid Planning is attorney-guided ONLY (see isAttyOnly).
   elder_essentials:{ label:'Elder-Law Essentials (POA w/ Medicaid powers, Surrogate, Living Will, HIPAA, Pre-Need Guardian, Disposition)', price: 950, couplePrice: 1450, diyPrice: 299, diyCouple: 449, diyWas: 449, diyWasCouple: 649 },
   elder_medicaid:  { label:'Medicaid Planning (QIT, MAPT, Caregiver, Promissory Note, Spousal Refusal, SNT)',                                price: 2500, couplePrice: 3500 },
+
+  // ── Business Formation (priced 9/2026 — see Florida LLC Kit vault note) ──
+  // RA ($99/yr) and Compliance Bundle ($199/yr) are Stripe SUBSCRIPTION links sold on
+  // the llc-kit.html landing page, not through this one-time checkout.
+  llc:        { label:'Florida LLC Kit',                      price: 499,  diyPrice: 149 },
+  llc_foreign:{ label:'Florida LLC — Foreign Owner Package',  price: 1200 }, // attorney-guided only
 };
 const NY_PREMIUM = 1.0; // No NY premium — same rate for all clients
 
@@ -2544,6 +2563,167 @@ const STEPS=[
      {v:'no',  t:'No — Property is Free and Clear', d:'No outstanding mortgage or lien.'},
      {v:'yes', t:'Yes — There is an Existing Mortgage', d:'We will include Garn-St. Germain Act protective language and lender notification guidance.'},
    ]
+  },
+
+  // ══════════════════════════════════════════════════════════════════
+  // FLORIDA LLC KIT — business formation flow (docCategory === 'llc').
+  // Entered only via /llc-kit landing → quickStart('llc'); not listed on step 0.
+  // activeSteps() whitelists these 'LLC *' sections + the shared Review step.
+  // ══════════════════════════════════════════════════════════════════
+
+  // L1 — Company name
+  {sec:'LLC Name', lbl:'Company Name',
+   type:'form', cond: d=>d.docCategory==='llc',
+   q:'What will your LLC be called?',
+   hint:'Florida requires the name to contain "Limited Liability Company," "LLC," or "L.L.C." and to be distinguishable from every entity already on record. (F.S. § 605.0112) Check availability now at <a href="https://search.sunbiz.org/Inquiry/CorporationSearch/ByName" target="_blank" rel="noopener">Sunbiz Name Search</a> — and give us a backup in case your first choice is taken by filing time.',
+   fields:[
+     {f:'llcName',    lbl:'LLC Name — exactly as it should be filed *', ph:'Sunrise Coastal Properties LLC', req:true, wide:true},
+     {f:'llcAltName', lbl:'Backup Name (if the first is unavailable)',  ph:'Sunrise Coastal Holdings LLC', wide:true},
+   ]
+  },
+
+  // L2 — Addresses
+  {sec:'LLC Addresses', lbl:'Business Address',
+   type:'form', cond: d=>d.docCategory==='llc',
+   q:'Where is the company located?',
+   hint:'The principal office must be a street address (no P.O. Box) and becomes part of the public record. It can be your home address. The mailing address may be a P.O. Box — leave it blank if it is the same as the principal office.',
+   fields:[
+     {f:'llcPrincipalAddr', lbl:'Principal Office — Street Address *', ph:'123 Main St', req:true, wide:true},
+     {f:'llcPrincipalCity', lbl:'City *',            ph:'Ormond Beach', req:true},
+     {f:'llcPrincipalState',lbl:'State *',           ph:'FL', req:true},
+     {f:'llcPrincipalZip',  lbl:'ZIP *',             ph:'32176', req:true},
+     {f:'llcMailAddr',      lbl:'Mailing Address (only if different — P.O. Box OK)', ph:'', wide:true},
+   ]
+  },
+
+  // L3 — Registered agent choice
+  {sec:'LLC Agent', lbl:'Registered Agent',
+   type:'choice', field:'llcRAChoice', required:true, cond: d=>d.docCategory==='llc',
+   q:'Who will serve as your Registered Agent?',
+   hint:'Every Florida LLC must continuously maintain a Registered Agent — a person or company at a Florida street address, available during business hours to receive lawsuits and official state mail. The agent\'s name and address are public record. (F.S. § 605.0113)',
+   opts:[
+     {v:'truestead', t:'Truestead Law — $99/year', premium:true, badge:'RECOMMENDED',
+      d:'A law firm as your Registered Agent: lawsuits and state notices are received by attorneys and forwarded to you the same business day, your home address stays off this public field, and you never miss a service of process. Billed separately as a $99/yr subscription after checkout.'},
+     {v:'self', t:'I\'ll Serve as My Own Registered Agent',
+      d:'Free, but your name and street address become public record, and you must be available at that address during all business hours year-round. A missed lawsuit can become a default judgment.'},
+     {v:'other', t:'Another Person or Company',
+      d:'A co-owner, or a commercial registered-agent service you already use. You\'ll enter their name and Florida street address next.'},
+   ]
+  },
+
+  // L3b — RA details (self / other)
+  {sec:'LLC Agent Info', lbl:'Agent Details',
+   type:'form', cond: d=>d.docCategory==='llc'&&(d.llcRAChoice==='self'||d.llcRAChoice==='other'),
+   q:'Registered Agent name and Florida street address',
+   hint:'Must be a Florida STREET address (no P.O. Box). If you are serving as your own agent, enter your name and the address where you can reliably be reached during business hours. The agent signs the filing to accept the designation.',
+   fields:[
+     {f:'llcRAName', lbl:'Registered Agent — Full Name or Company *', ph:'Jane A. Smith', req:true, wide:true},
+     {f:'llcRAAddr', lbl:'Florida Street Address *', ph:'123 Main St, Ormond Beach, FL 32176', req:true, wide:true},
+   ]
+  },
+
+  // L4 — Organizer / your info (LLC-specific version of the Grantor step — same
+  // field ids so the client banner, autosave, and admin views all work unchanged)
+  {sec:'LLC Organizer', lbl:'Your Information',
+   type:'form', cond: d=>d.docCategory==='llc',
+   q:'Your legal information',
+   hint:'You are the organizer (and Member 1) of the company. Enter your name exactly as it appears on your government-issued ID — this is how it will appear in the operating agreement and company records.',
+   fields:[
+     {f:'gFirst', lbl:'First Name *',  ph:'John',  req:true},
+     {f:'gMiddle',lbl:'Middle Name/Initial', ph:'A.'},
+     {f:'gLast',  lbl:'Last Name *',   ph:'Smith', req:true},
+     {f:'gAddr',  lbl:'Your Street Address *', ph:'123 Main St', req:true, wide:true},
+     {f:'gCity',  lbl:'City *',        ph:'Ormond Beach', req:true},
+     {f:'gState', lbl:'State *',       ph:'FL', req:true},
+     {f:'gZip',   lbl:'ZIP *',         ph:'32176', req:true},
+     {f:'gPhone', lbl:'Phone (for company records)', ph:'(386) 555-0100'},
+   ]
+  },
+
+  // L5 — Members
+  {sec:'LLC Members', lbl:'Owners',
+   type:'form', cond: d=>d.docCategory==='llc',
+   q:'Who owns the company?',
+   hint:'You are Member 1. If you are the only owner, set your percentage to 100 and leave the rest blank — you\'ll get a single-member operating agreement. If there are co-owners, list each one; percentages must total exactly 100. Up to 4 members supported here — for more, call us.',
+   fields:[
+     {f:'llcM1Pct',  lbl:'Your Ownership % *', ph:'100', req:true},
+     {f:'llcM2Name', lbl:'Member 2 — Full Legal Name (if any)', ph:'', wide:true},
+     {f:'llcM2Addr', lbl:'Member 2 — Address', ph:''},
+     {f:'llcM2Pct',  lbl:'Member 2 — %', ph:''},
+     {f:'llcM3Name', lbl:'Member 3 — Full Legal Name (if any)', ph:'', wide:true},
+     {f:'llcM3Pct',  lbl:'Member 3 — %', ph:''},
+     {f:'llcM4Name', lbl:'Member 4 — Full Legal Name (if any)', ph:'', wide:true},
+     {f:'llcM4Pct',  lbl:'Member 4 — %', ph:''},
+   ]
+  },
+
+  // L6 — Management structure
+  {sec:'LLC Management', lbl:'Management',
+   type:'choice', field:'llcManagement', required:true, cond: d=>d.docCategory==='llc',
+   q:'How will the company be managed?',
+   hint:'Member-managed means the owners run the company directly — the right answer for almost every small business. Manager-managed separates ownership from control: named managers act for the company and passive members do not. (F.S. § 605.0407)',
+   opts:[
+     {v:'member',  t:'Member-Managed', badge:'MOST COMMON',
+      d:'All members share authority to act for the company. Simplest structure — banks, title companies, and vendors deal with any member.'},
+     {v:'manager', t:'Manager-Managed', premium:true,
+      d:'One or more designated managers (who may also be members) control the company; other members are passive investors. Used for investor deals, family gifting, and anonymity structures.'},
+   ]
+  },
+
+  // L6b — Manager details
+  {sec:'LLC Manager Info', lbl:'Managers',
+   type:'form', cond: d=>d.docCategory==='llc'&&d.llcManagement==='manager',
+   q:'Who are the managers?',
+   hint:'Managers listed in the Articles become public record on Sunbiz. A manager does not have to be a member or a Florida resident.',
+   fields:[
+     {f:'llcMgr1Name', lbl:'Manager 1 — Full Name *', ph:'John A. Smith', req:true, wide:true},
+     {f:'llcMgr1Addr', lbl:'Manager 1 — Address *',   ph:'123 Main St, Ormond Beach, FL 32176', req:true, wide:true},
+     {f:'llcMgr2Name', lbl:'Manager 2 — Full Name (if any)', ph:'', wide:true},
+     {f:'llcMgr2Addr', lbl:'Manager 2 — Address', ph:'', wide:true},
+   ]
+  },
+
+  // L7 — Business purpose
+  {sec:'LLC Purpose', lbl:'Purpose',
+   type:'choice', field:'llcPurpose', required:true, cond: d=>d.docCategory==='llc',
+   q:'What will the company do?',
+   hint:'Florida lets a standard LLC state "any lawful business" — the flexible default that never needs amending. Rental real estate gets tailored operating-agreement provisions. Licensed professions (law, medicine, CPA, architecture, etc.) must form a PLLC with special naming and ownership rules.',
+   opts:[
+     {v:'general',      t:'General Business — Any Lawful Purpose', badge:'RECOMMENDED',
+      d:'Consulting, e-commerce, trades, services, holding company — the standard flexible purpose clause. You can run any lawful business under it.'},
+     {v:'realestate',   t:'Rental / Investment Real Estate',
+      d:'The LLC will hold rental or investment property. We add property-specific provisions (capital calls, distributions of rents, sale authority) and pair cleanly with a Florida Land Trust.'},
+     {v:'professional', t:'Licensed Profession (PLLC)', premium:true,
+      d:'For state-licensed professions. PLLCs have restricted purposes, member-licensure requirements, and "PLLC" naming. We flag this for attorney review — strongly consider the Attorney-Formed tier.'},
+   ],
+   customFor:['realestate','professional'],
+   custom:{id:'llcPurposeDesc',lbl:'Briefly describe the business (appears in company records)',ph:'e.g., Residential rental property ownership and management'}
+  },
+
+  // L8 — Tax classification primer
+  {sec:'LLC Tax', lbl:'Tax Setup',
+   type:'choice', field:'llcTax', required:true, cond: d=>d.docCategory==='llc',
+   q:'How should the LLC be taxed?',
+   hint:'By default the IRS ignores a single-member LLC (profits go on your personal return) and taxes a multi-member LLC as a partnership — no separate corporate tax, no double taxation. An S-corp election can reduce self-employment tax for profitable operating businesses, but adds payroll and filing costs. We prepare the entity documents either way; election deadlines and suitability are for your CPA.',
+   opts:[
+     {v:'default', t:'Default Classification', badge:'MOST COMMON',
+      d:'Single-member: disregarded entity (Schedule C/E). Multi-member: partnership (Form 1065). Simplest, no extra filings — you can still elect S-corp later.'},
+     {v:'scorp',   t:'I\'m Considering an S-Corp Election',
+      d:'We\'ll include a Form 2553 primer in your package and flag it in your records. Talk to your CPA before electing — it requires payroll and is not right for passive real estate.'},
+   ]
+  },
+
+  // L9 — Effective date
+  {sec:'LLC Effective', lbl:'Start Date',
+   type:'choice', field:'llcEffective', required:true, cond: d=>d.docCategory==='llc',
+   q:'When should the LLC come into existence?',
+   hint:'Most companies start on the date of filing. Florida allows an effective date up to 5 business days before or 90 days after the filing date — a January 1 effective date late in the year avoids an extra annual report cycle. (F.S. § 605.0207)',
+   opts:[
+     {v:'filing',   t:'On the Date of Filing', badge:'MOST COMMON', d:'The company exists as soon as the state accepts the filing.'},
+     {v:'specific', t:'A Specific Date', d:'Choose a date within the window Florida allows (5 business days before to 90 days after filing).'},
+   ],
+   customFor:['specific'],
+   custom:{id:'llcEffDate',lbl:'Desired effective date',ph:'e.g., January 1, 2027'}
   },
 
   // ── Elder Law / Medicaid intake (only for the elder document family) ──
@@ -3554,6 +3734,13 @@ function trustName(){
   }
 }
 function activeSteps(){
+  // LLC formation flow — only the 'LLC *' business steps plus the shared Review.
+  if(S.d.docCategory==='llc'){
+    return STEPS.filter(s=>{
+      if(s.sec&&s.sec.indexOf('LLC')===0) return !s.cond||s.cond(S.d);
+      return s.sec==='Review'&&s.cond&&s.cond(S.d); // main-flow Review (cond excludes amend)
+    });
+  }
   const isElder = String(S.d.docCategory||'').indexOf('elder')===0;
   if(isElder){
     // Elder flow reuses only the relevant sections (skips trust/will/beneficiary steps).
@@ -3570,7 +3757,10 @@ function activeSteps(){
   }
   return STEPS.filter(s=>!s.cond||s.cond(S.d));
 }
-function curStep(){let i=0;for(let s of STEPS){if(s.cond&&!s.cond(S.d))continue;if(i===S.step)return s;i++;}return null;}
+function curStep(){
+  // LLC flow uses the activeSteps() whitelist (raw cond-filtering would leak estate steps in)
+  if(S.d.docCategory==='llc') return activeSteps()[S.step]||null;
+  let i=0;for(let s of STEPS){if(s.cond&&!s.cond(S.d))continue;if(i===S.step)return s;i++;}return null;}
 function isHNW(){return ['vhnw','uhnw'].includes(S.d.wealthProfile);}
 function docType(){
   if(S.d.situation==='existing')return 'restatement';
@@ -4610,7 +4800,7 @@ function renderChoice(step){
   });
   html+=`</div>`;
   if(step.custom){
-    const show=cur==='custom';
+    const show=cur==='custom'||(step.customFor||[]).includes(cur);
     const type=step.custom.type||'text';
     const val=S.d[step.custom.id]||'';
     html+=`<div id="customWrap" style="margin-top:16px;display:${show?'block':'none'}">
@@ -4664,8 +4854,10 @@ function pick(field,val,el){
     if(oc.includes(`'${field}'`))o.classList.remove('sel');
   });
   el.classList.add('sel'); S.d[field]=val;
+  const step0=curStep();
+  const customOn=val==='custom'||(step0&&step0.custom&&(step0.customFor||[]).includes(val));
   const w=document.getElementById('customWrap');
-  if(w)w.style.display=val==='custom'?'block':'none';
+  if(w)w.style.display=customOn?'block':'none';
   // Persist selection immediately so attorney live-session mirror stays current
   if(typeof autoSave === 'function') autoSave();
   // Auto-advance on any single-select choice step (no custom input triggered)
@@ -4917,6 +5109,7 @@ function renderEstateDiagram(){
 
 // ── Review ─────────────────────────────────────────────────────────
 function renderReview(){
+  if(S.d.docCategory==='llc') return renderLLCReview();
   const d=S.d,joint=d.structure==='joint',gn=gName(),sn=sName(),tn=trustName();
   const iT=d.initTrustee==='both'?`${gn} & ${sn}`:d.initTrustee==='grantor'?gn:'Professional/Corporate Trustee';
   const provs=(d.provisions||[]).map(p=>{const f=STEPS[12].opts.find(o=>o.v===p);return f?f.t:p;});
@@ -5002,6 +5195,7 @@ function renderNav(step){
     :S.d.docCategory==='both'?'Generate My Complete Estate Plan →'
     :S.d.docCategory==='land_trust'?'Generate My Land Trust →'
     :S.d.docCategory==='gun_trust'?'Generate My NFA Gun Trust →'
+    :S.d.docCategory==='llc'?'Generate My LLC Kit →'
     :'Generate My Trust Package →';
   return `<div class="nav">
     ${S.step>0?`<button class="btn btn-back" onclick="goBack()">← Back</button>`:'<div></div>'}
@@ -5043,6 +5237,10 @@ function validate(){
         return false;
       }
     }
+  }
+  if(step.sec==='LLC Members'){
+    const total=[S.d.llcM1Pct,S.d.llcM2Pct,S.d.llcM3Pct,S.d.llcM4Pct].reduce((s,p)=>s+(parseFloat(p)||0),0);
+    if(Math.abs(total-100)>0.01){showInlineError(`Ownership percentages total ${total}% — they must equal exactly 100%.`);return false;}
   }
   if(step.type==='trustees'&&!S.successors.some(t=>t.name)){showInlineError('Please name at least one Successor Trustee.');return false;}
   if(step.type==='beneficiaries'){
@@ -8336,6 +8534,451 @@ function generateSmartCodicil(){
 // ═══════════════════════════════════════════════════════════════════
 
 // Map of tab name → generator function (lazy — only runs when tab is first opened)
+// ═══════════════════════════════════════════════════════════════════
+//  FLORIDA LLC KIT — helpers, review screen, and document generators
+//  (F.S. Chapter 605 — Florida Revised Limited Liability Company Act)
+// ═══════════════════════════════════════════════════════════════════
+
+// Truestead's registered-agent address of record (the firm's public office address).
+const TRUESTEAD_RA = { name:'Truestead Law, LLC', addr:'1175 John Anderson Dr, Ormond Beach, FL 32176' };
+
+// Normalized view of the LLC wizard answers — every generator reads from this.
+function llcData(){
+  const d=S.d;
+  const members=[
+    {name:gName()||'[MEMBER 1 NAME]', addr:[d.gAddr,d.gCity,(d.gState||'FL'),d.gZip].filter(Boolean).join(', ')||'[MEMBER 1 ADDRESS]', pct:parseFloat(d.llcM1Pct)||100},
+    {name:d.llcM2Name, addr:d.llcM2Addr||'', pct:parseFloat(d.llcM2Pct)||0},
+    {name:d.llcM3Name, addr:'', pct:parseFloat(d.llcM3Pct)||0},
+    {name:d.llcM4Name, addr:'', pct:parseFloat(d.llcM4Pct)||0},
+  ].filter(m=>m.name&&String(m.name).trim());
+  const isSingle=members.length<=1;
+  const isMgr=d.llcManagement==='manager';
+  const managers=[
+    {name:d.llcMgr1Name, addr:d.llcMgr1Addr||''},
+    {name:d.llcMgr2Name, addr:d.llcMgr2Addr||''},
+  ].filter(m=>m.name&&String(m.name).trim());
+  const raTruestead=d.llcRAChoice==='truestead';
+  const ra=raTruestead?TRUESTEAD_RA:{name:d.llcRAName||'[REGISTERED AGENT NAME]', addr:d.llcRAAddr||'[REGISTERED AGENT FLORIDA STREET ADDRESS]'};
+  const principal=[d.llcPrincipalAddr,d.llcPrincipalCity,(d.llcPrincipalState||'FL'),d.llcPrincipalZip].filter(Boolean).join(', ')||'[PRINCIPAL OFFICE ADDRESS]';
+  const purposeText=d.llcPurpose==='professional'
+    ? (d.llcPurposeDesc?`The practice of the licensed profession of ${d.llcPurposeDesc}, and all activities incident thereto permitted by law.`:'[LICENSED PROFESSIONAL PURPOSE — REQUIRED FOR A PLLC]')
+    : d.llcPurpose==='realestate'
+    ? `The acquisition, ownership, leasing, management, improvement, and disposition of real property${d.llcPurposeDesc?` (${d.llcPurposeDesc})`:''}, and any other lawful business permitted under Florida law.`
+    : 'Any and all lawful business for which a limited liability company may be organized under the laws of the State of Florida.';
+  const effective=d.llcEffective==='specific'&&d.llcEffDate?d.llcEffDate:'the date of filing';
+  const pctTotal=members.reduce((s,m)=>s+(m.pct||0),0);
+  return { d, name:d.llcName||'[LLC NAME]', altName:d.llcAltName||'', members, isSingle, isMgr, managers,
+           ra, raTruestead, principal, mailAddr:d.llcMailAddr||'', purposeText, effective, pctTotal,
+           isPLLC:d.llcPurpose==='professional', isRE:d.llcPurpose==='realestate', scorp:d.llcTax==='scorp' };
+}
+
+// LLC doc-count helper (RA designation tab only appears when Truestead is the agent)
+function llcDocCount(){ return S.d.llcRAChoice==='truestead'?8:7; }
+
+// ── LLC Review screen ──────────────────────────────────────────────
+function renderLLCReview(){
+  const L=llcData(), d=L.d;
+  const raLabel=L.raTruestead?`${TRUESTEAD_RA.name} — $99/yr subscription (set up after checkout)`:`${L.ra.name}`;
+  const pctWarn=Math.abs(L.pctTotal-100)>0.01
+    ? `<div style="background:#fef2f2;border:1.5px solid #fca5a5;color:#b91c1c;border-radius:10px;padding:12px 16px;font-size:.84rem;font-weight:700;margin-bottom:18px">⚠️ Ownership percentages total ${L.pctTotal}% — they must equal exactly 100%. Click Back to the Owners step to fix this.</div>`:'';
+  return `
+  <div style="background:linear-gradient(135deg,#0f2744,#1a3a5c);border-radius:14px;padding:22px 24px;margin-bottom:22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+    <div>
+      <div style="font-size:.65rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Ready to Generate</div>
+      <div style="font-size:1.1rem;font-weight:900;color:#fff">Florida LLC Kit — ${L.name}</div>
+      <div style="font-size:.8rem;color:rgba(255,255,255,.6);margin-top:3px">Review your answers below, then click the button to build your full formation package.</div>
+    </div>
+    <div style="background:rgba(196,154,42,.15);border:1px solid rgba(196,154,42,.4);border-radius:10px;padding:10px 18px;text-align:center;flex-shrink:0">
+      <div style="font-size:.65rem;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1px">Package Includes</div>
+      <div style="font-size:1.4rem;font-weight:900;color:#fff">${llcDocCount()}</div>
+      <div style="font-size:.7rem;color:rgba(255,255,255,.55)">documents</div>
+    </div>
+  </div>
+  ${pctWarn}
+  <div class="rev-sec"><h3>Company</h3>
+    <div class="rev-grid">
+      <div class="ri"><div class="rl">LLC Name</div><div class="rv">${L.name}</div></div>
+      ${L.altName?`<div class="ri"><div class="rl">Backup Name</div><div class="rv">${L.altName}</div></div>`:''}
+      <div class="ri full"><div class="rl">Principal Office</div><div class="rv">${L.principal}</div></div>
+      ${L.mailAddr?`<div class="ri full"><div class="rl">Mailing Address</div><div class="rv">${L.mailAddr}</div></div>`:''}
+      <div class="ri"><div class="rl">Effective Date</div><div class="rv">${L.effective==='the date of filing'?'On filing':L.effective}</div></div>
+      <div class="ri"><div class="rl">Purpose</div><div class="rv">${d.llcPurpose==='professional'?'Licensed Profession (PLLC)':d.llcPurpose==='realestate'?'Rental / Investment Real Estate':'General — Any Lawful Business'}</div></div>
+    </div>
+  </div>
+  <div class="rev-sec"><h3>Registered Agent</h3>
+    <div class="rev-grid">
+      <div class="ri full"><div class="rl">Agent</div><div class="rv">${raLabel}</div></div>
+      <div class="ri full"><div class="rl">Agent Address</div><div class="rv">${L.ra.addr}</div></div>
+    </div>
+  </div>
+  <div class="rev-sec"><h3>Ownership — ${L.isSingle?'Single-Member':'Multi-Member ('+L.members.length+' members)'}</h3>
+    <div class="rev-grid">
+      ${L.members.map((m,i)=>`<div class="ri"><div class="rl">Member ${i+1}${i===0?' (You)':''}</div><div class="rv">${m.name} — ${m.pct}%</div></div>`).join('')}
+    </div>
+  </div>
+  <div class="rev-sec"><h3>Management &amp; Tax</h3>
+    <div class="rev-grid">
+      <div class="ri"><div class="rl">Management</div><div class="rv">${L.isMgr?'Manager-Managed':'Member-Managed'}</div></div>
+      ${L.isMgr?L.managers.map((m,i)=>`<div class="ri"><div class="rl">Manager ${i+1}</div><div class="rv">${m.name}</div></div>`).join(''):''}
+      <div class="ri"><div class="rl">Tax Classification</div><div class="rv">${L.scorp?'Default now — S-corp election under consideration (CPA)':'Default (disregarded / partnership)'}</div></div>
+    </div>
+  </div>
+  ${L.isPLLC?`<div style="background:#fef3c7;border:1.5px solid #f59e0b;border-radius:10px;padding:14px 18px;font-size:.84rem;color:#92400e;margin-top:6px"><strong>PLLC flagged for attorney review.</strong> Professional LLCs have licensure, naming, and ownership restrictions that vary by profession. Your documents are prepared, and we recommend the attorney review before filing.</div>`:''}`;
+}
+
+// ── Doc 1: Welcome / cover letter ──────────────────────────────────
+function generateLLCWelcome(){
+  const L=llcData(), gn=gName();
+  return `<div class="doc-wrap companion-doc">
+    <div class="doc-hdr"><div class="doc-firm">TRUESTEAD LAW</div><div class="doc-sub">Florida Business Formation | F.S. Chapter 605</div></div>
+    <div class="doc-title" style="font-size:1.2rem">WELCOME — YOUR FLORIDA LLC KIT</div>
+    <div class="art" style="background:linear-gradient(135deg,#0f2744,#1a3a5c);color:#fff;border-radius:14px;padding:28px 32px;margin-bottom:24px">
+      <div style="display:flex;align-items:flex-start;gap:20px">
+        <div style="width:64px;height:64px;border-radius:50%;background:#c49a2a;display:flex;align-items:center;justify-content:center;font-size:1.6rem;font-weight:900;color:#fff;flex-shrink:0;border:3px solid rgba(255,255,255,.25)">AS</div>
+        <div>
+          <p style="font-size:.95rem;line-height:1.7;color:rgba(255,255,255,.9);margin-bottom:12px">Dear ${gn||'Valued Client'},</p>
+          <p style="font-size:.88rem;line-height:1.7;color:rgba(255,255,255,.8)">Welcome to Truestead Law. This package contains everything needed to form and properly organize <strong>${L.name}</strong> under the Florida Revised Limited Liability Company Act. It is not a fill-in-the-blank form set — every document was assembled from your answers, drafted by a Florida attorney's office to current Chapter 605 standards.</p>
+          <p style="font-size:.88rem;line-height:1.7;color:rgba(255,255,255,.8)">Most online formation services file a one-page document with the state and stop there. The filing is the easy part. What actually protects you — the operating agreement, the organizational resolutions, the records the bank and the courts will ask for — is the part they charge extra for or skip. It is all here.</p>
+          <p style="font-size:.78rem;font-weight:900;color:#c49a2a;letter-spacing:1px;text-transform:uppercase;margin-top:16px">Arthur Simpson, Esq. &nbsp;·&nbsp; Truestead Law &nbsp;·&nbsp; Florida Bar #529265</p>
+        </div>
+      </div>
+    </div>
+    <div class="art">
+      <div class="art-t">Your Formation Roadmap</div>
+      <p class="dp" style="background:#f8fafc;border-left:4px solid #c49a2a;padding:14px 18px;border-radius:0 10px 10px 0;margin-bottom:12px"><strong>Step 1 — File with the State (today)</strong><br>Follow the Sunbiz Filing Guide in this package to e-file your Articles of Organization. State cost: $125 ($100 filing + $25 registered agent designation). You'll receive your state document number by email.</p>
+      <p class="dp" style="background:#f8fafc;border-left:4px solid #0f2744;padding:14px 18px;border-radius:0 10px 10px 0;margin-bottom:12px"><strong>Step 2 — Get Your EIN (same day, free)</strong><br>Once the state accepts the filing, get your federal tax ID using the EIN Guide. Ten minutes, free, directly from the IRS. Never pay a third party for an EIN.</p>
+      <p class="dp" style="background:#f8fafc;border-left:4px solid #0f2744;padding:14px 18px;border-radius:0 10px 10px 0;margin-bottom:12px"><strong>Step 3 — Sign Your Internal Documents</strong><br>All members sign the Operating Agreement and Organizational Resolutions. No notary or witnesses required — but signed copies belong in your company records book.</p>
+      <p class="dp" style="background:#f8fafc;border-left:4px solid #0f2744;padding:14px 18px;border-radius:0 10px 10px 0;margin-bottom:12px"><strong>Step 4 — Open the Company Bank Account</strong><br>Take the filed Articles, your EIN letter, the Operating Agreement, and the Banking Resolution to the bank. Never mix personal and company funds — commingling is the #1 way owners lose their liability protection.</p>
+      <p class="dp" style="background:#f8fafc;border-left:4px solid #059669;padding:14px 18px;border-radius:0 10px 10px 0;margin-bottom:12px"><strong>Step 5 — Stay in Good Standing</strong><br>File the Florida annual report every year between January 1 and May 1 ($138.75; a $400 late fee applies after May 1). Our Compliance Bundle handles this for you — details in the Filing Guide.</p>
+    </div>
+    <div class="art">
+      <div class="art-t">Documents in This Package</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        ${[
+          ['Articles of Organization','F.S. § 605.0201'],
+          ['Operating Agreement'+(L.isSingle?' (Single-Member)':' (Multi-Member)'),'F.S. § 605.0105'],
+          ['Organizational Resolutions &amp; Banking Resolution','Company records'],
+          ['Membership Certificates &amp; Transfer Ledger','Company records'],
+          ['EIN (Federal Tax ID) Guide','IRS Form SS-4'],
+          ['Sunbiz Filing Guide &amp; Compliance Calendar','dos.fl.gov'],
+          ...(L.raTruestead?[['Registered Agent Designation &amp; Service Agreement','F.S. § 605.0113']]:[]),
+        ].map(([doc,auth])=>`<div style="background:#f8fafc;border:1.5px solid #dde3ec;border-radius:10px;padding:12px 14px"><div style="font-weight:800;font-size:.85rem;color:#0f2744;margin-bottom:3px">${doc}</div><div style="font-size:.7rem;color:#64748b">${auth}</div></div>`).join('')}
+      </div>
+    </div>
+    <div class="art">
+      <div class="art-t">Contact Us</div>
+      <p class="dp"><strong>Truestead Law</strong><br>1175 John Anderson Dr, Ormond Beach, FL 32176<br><strong>Phone:</strong> (888) 388-8445 &nbsp;&nbsp; <strong>Email:</strong> admin@truesteadlaw.com</p>
+      <p class="dp" style="background:#fef3c7;border:1.5px solid #f59e0b;border-radius:10px;padding:14px;font-size:.83rem;color:#92400e"><strong>Important:</strong> These are personalized drafts prepared from your answers. The company does not exist until the state accepts your Articles of Organization, and the internal documents take effect when signed. Attorney review of any document is available on request${L.isPLLC?' — and is strongly recommended for your professional LLC':''}.</p>
+    </div>
+  </div>`;
+}
+
+// ── Doc 2: Articles of Organization ────────────────────────────────
+function generateLLCArticles(){
+  const L=llcData(), yr=new Date().getFullYear();
+  return `<div class="doc-wrap">
+    <div class="doc-hdr"><div class="doc-firm">TRUESTEAD LAW</div><div class="doc-sub">Florida Business Formation | F.S. Chapter 605</div></div>
+    <div class="doc-title">ARTICLES OF ORGANIZATION<br><span style="font-size:.85rem;font-weight:400">of</span><br>${L.name}</div>
+    <p class="dp" style="text-align:center;color:var(--muted);font-size:.82rem">A Florida Limited Liability Company — filed pursuant to F.S. § 605.0201<br>These Articles mirror the Sunbiz e-filing fields exactly — see the Filing Guide for the click-by-click walkthrough.</p>
+
+    <div class="art"><div class="art-t">Article I — Name</div>
+      <p class="dp">The name of the limited liability company is <strong>${L.name}</strong>.${L.altName?` If that name is unavailable at filing, the organizer designates <strong>${L.altName}</strong> as the alternative name.`:''}</p>
+    </div>
+    <div class="art"><div class="art-t">Article II — Principal Office and Mailing Address</div>
+      <p class="dp">The street address of the principal office of the company is: <strong>${L.principal}</strong>.</p>
+      <p class="dp">The mailing address of the company is: <strong>${L.mailAddr||'Same as the principal office'}</strong>.</p>
+    </div>
+    <div class="art"><div class="art-t">Article III — Registered Agent</div>
+      <p class="dp">The name and Florida street address of the registered agent of the company are:</p>
+      <p class="dp" style="border:1.5px solid var(--border);border-radius:10px;padding:16px;background:#f8fafc"><strong>${L.ra.name}</strong><br>${L.ra.addr}</p>
+      <p class="dp"><strong>Registered Agent's Acceptance (F.S. § 605.0113):</strong> Having been named as registered agent to accept service of process for the above-named limited liability company at the place designated in these Articles, the undersigned accepts the appointment as registered agent and agrees to act in this capacity, and is familiar with and accepts the obligations of the position as provided in Chapter 605, Florida Statutes.</p>
+      <div style="margin-top:24px;max-width:340px">
+        <div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;min-height:36px"></div>
+        <div style="font-size:.78rem">Registered Agent Signature ${L.raTruestead?'(Truestead Law — signed on filing)':''}</div>
+      </div>
+    </div>
+    <div class="art"><div class="art-t">Article IV — Purpose</div>
+      <p class="dp">${L.purposeText}</p>
+      ${L.isPLLC?`<p class="dp" style="background:#fef3c7;border:1.5px solid #f59e0b;border-radius:10px;padding:14px;font-size:.83rem;color:#92400e"><strong>Professional LLC:</strong> a PLLC's stated purpose must be limited to the single professional service its members are licensed to render, and the name must contain "PLLC" or "Professional Limited Liability Company." Confirm with attorney review before filing.</p>`:''}
+    </div>
+    <div class="art"><div class="art-t">Article V — Management</div>
+      ${L.isMgr
+        ? `<p class="dp">The company is <strong>manager-managed</strong>. The name and address of each manager are:</p>
+           ${L.managers.map(m=>`<p class="dp" style="border:1.5px solid var(--border);border-radius:10px;padding:12px 16px;background:#f8fafc"><strong>MGR — ${m.name}</strong><br>${m.addr}</p>`).join('')}`
+        : `<p class="dp">The company is <strong>member-managed</strong>. Management of the company is vested in its member${L.isSingle?'':'s'} pursuant to F.S. § 605.0407.</p>
+           ${L.members.map(m=>`<p class="dp" style="border:1.5px solid var(--border);border-radius:10px;padding:12px 16px;background:#f8fafc"><strong>AMBR — ${m.name}</strong><br>${m.addr||''}</p>`).join('')}`}
+    </div>
+    <div class="art"><div class="art-t">Article VI — Effective Date</div>
+      <p class="dp">These Articles of Organization are effective ${L.effective==='the date of filing'?'upon filing with the Florida Department of State':`as of <strong>${L.effective}</strong> (which must fall within 5 business days before, or 90 days after, the date of filing — F.S. § 605.0207)`}.</p>
+    </div>
+    <div class="art"><div class="art-t">Signature of Authorized Representative</div>
+      <p class="dp">IN WITNESS WHEREOF, the undersigned authorized representative has executed these Articles of Organization this _____ day of _____________, ${yr}. In the Sunbiz e-filing, typing your name in the signature block constitutes your signature under F.S. § 605.0203.</p>
+      <div style="margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:640px">
+        <div><div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;min-height:36px"></div><div style="font-size:.78rem">Signature — ${gName()||'[ORGANIZER]'}, Authorized Representative</div></div>
+        <div><div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;min-height:36px"></div><div style="font-size:.78rem">Date</div></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ── Doc 3: Operating Agreement ─────────────────────────────────────
+function generateLLCOperatingAgreement(){
+  const L=llcData(), yr=new Date().getFullYear();
+  const memberList=L.members.map(m=>`<tr><td style="padding:8px 12px;border:1px solid var(--border)"><strong>${m.name}</strong><br><span style="font-size:.78rem;color:var(--muted)">${m.addr||''}</span></td><td style="padding:8px 12px;border:1px solid var(--border);text-align:center">$__________</td><td style="padding:8px 12px;border:1px solid var(--border);text-align:center;font-weight:800">${m.pct}%</td></tr>`).join('');
+  const mgmtTitle=L.isMgr?'the Manager':'the Member'+(L.isSingle?'':'s');
+  return `<div class="doc-wrap">
+    <div class="doc-hdr"><div class="doc-firm">TRUESTEAD LAW</div><div class="doc-sub">Florida Business Formation | F.S. Chapter 605</div></div>
+    <div class="doc-title">OPERATING AGREEMENT<br><span style="font-size:.85rem;font-weight:400">of</span><br>${L.name}</div>
+    <p class="dp" style="text-align:center;color:var(--muted);font-size:.82rem">A ${L.isSingle?'Single-Member':'Multi-Member'}, ${L.isMgr?'Manager-Managed':'Member-Managed'} Florida Limited Liability Company</p>
+
+    <div class="art"><div class="art-t">Article 1 — Formation</div>
+      <p class="dp">1.1 <strong>Formation.</strong> ${L.name} (the "Company") was formed as a Florida limited liability company by the filing of Articles of Organization with the Florida Department of State pursuant to the Florida Revised Limited Liability Company Act, Chapter 605, Florida Statutes (the "Act"). This Operating Agreement (this "Agreement") is made effective as of the date of the last signature below by and among the Company and ${L.isSingle?'its sole member':'its members'} identified on Schedule A (each a "Member").</p>
+      <p class="dp">1.2 <strong>Governing Effect.</strong> Pursuant to F.S. § 605.0105, this Agreement governs relations ${L.isMgr?'among the Members, the Company, and the Manager':L.isSingle?'between the Member and the Company':'among the Members and the Company'}, and prevails over any default provision of the Act that this Agreement is permitted to modify. To the extent this Agreement does not otherwise provide, the Act governs.</p>
+      <p class="dp">1.3 <strong>Name; Principal Office.</strong> The business of the Company shall be conducted under the name ${L.name} or such fictitious names as ${mgmtTitle} may register. The principal office is ${L.principal}, and may be relocated by ${mgmtTitle}.</p>
+      <p class="dp">1.4 <strong>Purpose.</strong> ${L.purposeText}</p>
+      <p class="dp">1.5 <strong>Term.</strong> The Company's existence is perpetual unless dissolved in accordance with this Agreement and the Act.</p>
+    </div>
+
+    <div class="art"><div class="art-t">Article 2 — Members, Contributions &amp; Interests</div>
+      <p class="dp">2.1 <strong>Members; Percentage Interests.</strong> The Members, their initial capital contributions, and their percentage interests ("Percentage Interests") are set forth on <strong>Schedule A</strong>. Percentage Interests determine each Member's share of profits, losses, and distributions except as otherwise provided in this Agreement.</p>
+      <p class="dp">2.2 <strong>Capital Contributions.</strong> No Member is required to make additional capital contributions without that Member's written consent. No Member is entitled to interest on, or the return of, any capital contribution except as provided in this Agreement.</p>
+      <p class="dp">2.3 <strong>Limited Liability.</strong> Pursuant to F.S. § 605.0304, no Member or ${L.isMgr?'Manager':'manager'} is personally liable for a debt, obligation, or liability of the Company solely by reason of being or acting as a Member or manager. Members shall observe Company formalities: maintain separate accounts, sign in the Company's name, and never commingle Company and personal funds.</p>
+      ${L.isSingle?`<p class="dp">2.4 <strong>Single-Member Acknowledgment.</strong> The sole Member acknowledges that under F.S. § 605.0503(4) the charging-order protection applicable to multi-member companies is NOT the exclusive remedy of a judgment creditor of the sole Member. Adding a bona fide co-member, or holding the membership interest through an appropriate trust or entity structure, may enhance protection — consult counsel.</p>`
+      :`<p class="dp">2.4 <strong>Charging Order Protection.</strong> Pursuant to F.S. § 605.0503, a charging order is the sole and exclusive remedy by which a judgment creditor of a Member may satisfy a judgment from the Member's interest in the Company; the creditor acquires no management, voting, or information rights.</p>`}
+    </div>
+
+    <div class="art"><div class="art-t">Article 3 — Management</div>
+      ${L.isMgr
+      ? `<p class="dp">3.1 <strong>Manager-Managed.</strong> The Company is manager-managed within the meaning of F.S. § 605.0407(3). Full and exclusive authority to manage and conduct the Company's business is vested in the Manager(s) named below (each a "Manager"): ${L.managers.map(m=>`<strong>${m.name}</strong>`).join(' and ')}.</p>
+         <p class="dp">3.2 <strong>Authority of Manager.</strong> Any Manager acting alone may bind the Company in the ordinary course of business, including opening and operating bank accounts, executing contracts and leases, and hiring employees and contractors. The following require the written consent of Members holding a majority of Percentage Interests: (a) sale or encumbrance of all or substantially all Company assets; (b) merger or conversion; (c) admission of a new Member; (d) any act outside the ordinary course of the Company's business; (e) amendment of this Agreement; and (f) dissolution.</p>
+         <p class="dp">3.3 <strong>No Authority of Non-Manager Members.</strong> A Member acting solely in the capacity of Member is not an agent of the Company and has no authority to bind it. (F.S. § 605.0301)</p>
+         <p class="dp">3.4 <strong>Removal; Vacancy.</strong> A Manager may be removed, and a vacancy filled, by Members holding a majority of Percentage Interests.</p>`
+      : `<p class="dp">3.1 <strong>Member-Managed.</strong> The Company is member-managed within the meaning of F.S. § 605.0407(2). Management is vested in the Member${L.isSingle?', who has':'s, who have'} full and exclusive authority to manage and conduct the Company's business.</p>
+         ${L.isSingle
+           ? `<p class="dp">3.2 <strong>Authority.</strong> The sole Member may take any lawful action on behalf of the Company without a meeting, vote, or additional consent, including opening and operating bank accounts, executing contracts, deeds, and leases, borrowing, and hiring.</p>`
+           : `<p class="dp">3.2 <strong>Ordinary Course.</strong> Each Member may bind the Company in the ordinary course of its business. Matters in the ordinary course are decided by Members holding a majority of Percentage Interests.</p>
+              <p class="dp">3.3 <strong>Major Decisions.</strong> The following require the written consent of ALL Members: (a) sale or encumbrance of all or substantially all Company assets; (b) merger or conversion; (c) admission of a new Member; (d) additional capital calls; (e) amendment of this Agreement; and (f) dissolution.</p>`}`}
+      ${L.isRE?`<p class="dp"><strong>Real Estate Provisions.</strong> Any purchase, sale, mortgage, or lease of real property for a term exceeding one year requires ${L.isSingle?'the written authorization of the Member':(L.isMgr?'the signature of a Manager':'the written consent of Members holding a majority of Percentage Interests')}, evidenced by a resolution suitable for delivery to a title company or lender. Net rental income after reserves shall be distributed as provided in Article 4.</p>`:''}
+    </div>
+
+    <div class="art"><div class="art-t">Article 4 — Distributions &amp; Tax</div>
+      <p class="dp">4.1 <strong>Distributions.</strong> Distributions shall be made to the Members in proportion to their Percentage Interests at such times and amounts as ${mgmtTitle} determine${L.isSingle||L.isMgr?'s':''}, subject to the solvency limitations of F.S. § 605.0405. No distribution may be made if, after giving it effect, the Company could not pay its debts as they become due.</p>
+      <p class="dp">4.2 <strong>Tax Classification.</strong> The Company shall be taxed as a ${L.isSingle?'disregarded entity':'partnership'} under its default federal classification unless the Member${L.isSingle?'':'s'} elect${L.isSingle?'s':''} otherwise. ${L.scorp?'The Members are evaluating an S-corporation election (IRS Form 2553); any such election shall be made only upon the advice of the Company\'s tax adviser and within the IRS deadline (generally 2 months and 15 days after the start of the tax year in which it is to take effect).':'Any change of classification requires the consent required for an amendment of this Agreement.'}</p>
+      <p class="dp">4.3 <strong>Tax Distributions.</strong> To the extent the Company has available cash, ${mgmtTitle} may cause the Company to distribute amounts sufficient for Members to pay income taxes attributable to Company allocations.</p>
+    </div>
+
+    <div class="art"><div class="art-t">Article 5 — Transfers of Interests</div>
+      <p class="dp">5.1 <strong>Restriction.</strong> No Member may sell, assign, pledge, or otherwise transfer any membership interest, in whole or in part, without ${L.isSingle?'executing a written assignment (and, if the transferee is to become a Member, amending this Agreement)':'the prior written consent of all other Members'}. A transferee who is not admitted as a Member acquires only the transferor's right to distributions (F.S. § 605.0502) and no management or information rights.</p>
+      ${L.isSingle?'':`<p class="dp">5.2 <strong>Right of First Refusal.</strong> Before any permitted transfer to a third party, the transferring Member shall first offer the interest in writing to the Company, then to the remaining Members pro rata, on the same terms, each such offer remaining open for 30 days.</p>
+      <p class="dp">5.3 <strong>Death or Divorce of a Member.</strong> On the death of a Member, the Member's estate or designated successor holds only the economic interest unless admitted as a Member by consent of the remaining Members. In any dissolution-of-marriage proceeding, a Member's spouse acquires no management rights, and the Member shall use best efforts to retain the full interest in any marital distribution.</p>`}
+    </div>
+
+    <div class="art"><div class="art-t">Article 6 — Records, Dissolution &amp; General Provisions</div>
+      <p class="dp">6.1 <strong>Books and Records.</strong> The Company shall keep at its principal office the records required by F.S. § 605.0410, including these formation documents, this Agreement and amendments, tax returns for the past three years, and financial statements. ${L.isSingle?'The Member has':'Each Member has'} the inspection rights provided by the Act.</p>
+      <p class="dp">6.2 <strong>Banking.</strong> All Company funds shall be deposited in accounts in the Company's name. Authorized signers are designated in the Banking Resolution adopted with this Agreement.</p>
+      <p class="dp">6.3 <strong>Indemnification.</strong> The Company shall indemnify ${L.isMgr?'the Manager and each Member':L.isSingle?'the Member':'each Member'} to the fullest extent permitted by F.S. § 605.0408 for liabilities incurred in the good-faith conduct of Company business, excluding liabilities arising from willful misconduct or knowing violation of law.</p>
+      <p class="dp">6.4 <strong>Dissolution.</strong> The Company dissolves only upon ${L.isSingle?'the written election of the Member':'the written consent of all Members'} or as required by F.S. § 605.0701. Upon dissolution, the Company shall wind up, discharge liabilities, and distribute remaining assets to the Members in proportion to Percentage Interests.</p>
+      <p class="dp">6.5 <strong>Amendment; Governing Law; Severability.</strong> This Agreement may be amended only in a writing signed by ${L.isSingle?'the Member':'all Members'}. It is governed by Florida law, venue in the county of the Company's principal office. If any provision is unenforceable, the remainder continues in effect.</p>
+      <p class="dp">6.6 <strong>Entire Agreement.</strong> This Agreement is the entire agreement of the parties respecting the Company and supersedes all prior discussions.</p>
+    </div>
+
+    <div class="art"><div class="art-t">Schedule A — Members, Contributions &amp; Percentage Interests</div>
+      <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:.86rem">
+        <tr style="background:#f8fafc"><th style="padding:8px 12px;border:1px solid var(--border);text-align:left">Member &amp; Address</th><th style="padding:8px 12px;border:1px solid var(--border)">Initial Contribution</th><th style="padding:8px 12px;border:1px solid var(--border)">Percentage Interest</th></tr>
+        ${memberList}
+        <tr><td style="padding:8px 12px;border:1px solid var(--border);text-align:right;font-weight:800">TOTAL</td><td style="padding:8px 12px;border:1px solid var(--border)"></td><td style="padding:8px 12px;border:1px solid var(--border);text-align:center;font-weight:900">${L.pctTotal}%</td></tr>
+      </table></div>
+      <p class="dp" style="font-size:.78rem;color:var(--muted);margin-top:10px">Enter each Member's initial contribution (cash, property, or services) before signing. Contributions may be nominal but should be real and documented.</p>
+    </div>
+
+    <div class="art"><div class="art-t">Signatures</div>
+      <p class="dp">IN WITNESS WHEREOF, the undersigned ${L.isSingle?'sole Member has':'Members have'} executed this Operating Agreement as of the date${L.isSingle?'':'s'} written below. No notarization is required, though it may be added for evidentiary weight.</p>
+      ${L.members.map(m=>`
+      <div style="margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:640px">
+        <div><div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;min-height:36px"></div><div style="font-size:.78rem"><strong>${m.name}</strong>, Member</div></div>
+        <div><div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;min-height:36px"></div><div style="font-size:.78rem">Date</div></div>
+      </div>`).join('')}
+      ${L.isMgr?L.managers.filter(mg=>!L.members.some(m=>m.name===mg.name)).map(mg=>`
+      <div style="margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:640px">
+        <div><div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;min-height:36px"></div><div style="font-size:.78rem"><strong>${mg.name}</strong>, Manager (joining as to Articles 3 and 6)</div></div>
+        <div><div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;min-height:36px"></div><div style="font-size:.78rem">Date</div></div>
+      </div>`).join(''):''}
+    </div>
+  </div>`;
+}
+
+// ── Doc 4: Organizational + Banking Resolutions ────────────────────
+function generateLLCResolutions(){
+  const L=llcData(), yr=new Date().getFullYear();
+  const actor=L.isMgr?'Manager':'Member';
+  const signers=L.isMgr?L.managers:L.members;
+  return `<div class="doc-wrap">
+    <div class="doc-hdr"><div class="doc-firm">TRUESTEAD LAW</div><div class="doc-sub">Florida Business Formation | Company Records</div></div>
+    <div class="doc-title">ORGANIZATIONAL RESOLUTIONS<br><span style="font-size:.85rem;font-weight:400">of</span><br>${L.name}</div>
+    <p class="dp" style="text-align:center;color:var(--muted);font-size:.82rem">Written Consent in Lieu of Organizational Meeting</p>
+    <div class="art">
+      <p class="dp">The undersigned, being ${L.isSingle?'the sole Member':L.isMgr?'the Manager(s)':'all of the Members'} of <strong>${L.name}</strong>, a Florida limited liability company (the "Company"), hereby adopt the following resolutions by written consent, effective as of the date of the last signature below:</p>
+      <p class="dp"><strong>1. Ratification of Formation.</strong> RESOLVED, that the filing of the Company's Articles of Organization with the Florida Department of State, and all actions of the organizer in connection with formation, are ratified, confirmed, and approved; and that any filing fees advanced by the organizer shall be reimbursed by the Company.</p>
+      <p class="dp"><strong>2. Adoption of Operating Agreement.</strong> RESOLVED, that the Operating Agreement presented with this consent is adopted as the operating agreement of the Company.</p>
+      <p class="dp"><strong>3. Federal Tax ID.</strong> RESOLVED, that the ${actor}s are authorized to obtain a federal Employer Identification Number for the Company and to make all ordinary federal, state, and local tax registrations and filings${L.scorp?', and to evaluate with the Company\'s tax adviser an election under IRC § 1362 (Form 2553) to be taxed as an S corporation':''}.</p>
+      <p class="dp"><strong>4. Registered Agent.</strong> RESOLVED, that the designation of <strong>${L.ra.name}</strong>, ${L.ra.addr}, as registered agent of the Company is ratified and approved${L.raTruestead?', and the Company is authorized to enter into the Registered Agent Service Agreement with Truestead Law, LLC at the annual fee stated therein':''}.</p>
+      <p class="dp"><strong>5. Membership Certificates.</strong> RESOLVED, that the Company shall issue the membership certificates presented with this consent and record all issuances and transfers in the Company's transfer ledger.</p>
+      <p class="dp"><strong>6. Fictitious Names, Licenses, Insurance.</strong> RESOLVED, that the ${actor}s are authorized to register any fictitious names, obtain all business licenses and local tax receipts, and procure such insurance as they deem prudent for the Company's business.</p>
+      <p class="dp"><strong>7. General Authority.</strong> RESOLVED, that the ${actor}s are authorized to take all further actions and execute all documents necessary or advisable to carry out the foregoing resolutions.</p>
+    </div>
+    <div class="art"><div class="art-t">Banking Resolution</div>
+      <p class="dp"><strong>8. Bank Accounts.</strong> RESOLVED, that the ${actor}s are authorized to open one or more deposit accounts in the name of the Company at a financial institution of their choosing; that the institution is authorized to honor all instruments signed by any Authorized Signer below; and that the institution may rely on this resolution until it receives written notice of revocation.</p>
+      <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:.86rem;margin-top:8px">
+        <tr style="background:#f8fafc"><th style="padding:8px 12px;border:1px solid var(--border);text-align:left">Authorized Signer</th><th style="padding:8px 12px;border:1px solid var(--border);text-align:left">Title</th><th style="padding:8px 12px;border:1px solid var(--border);text-align:left">Specimen Signature</th></tr>
+        ${signers.map(s=>`<tr><td style="padding:8px 12px;border:1px solid var(--border)">${s.name}</td><td style="padding:8px 12px;border:1px solid var(--border)">${actor}</td><td style="padding:18px 12px;border:1px solid var(--border)"></td></tr>`).join('')}
+      </table></div>
+      <p class="dp" style="font-size:.78rem;color:var(--muted);margin-top:10px">Banks typically ask for: the filed Articles (with state document number), the IRS EIN confirmation letter (CP 575), this resolution, the Operating Agreement, and government ID for each signer.</p>
+    </div>
+    <div class="art"><div class="art-t">Signatures</div>
+      ${signers.map(s=>`
+      <div style="margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:640px">
+        <div><div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;min-height:36px"></div><div style="font-size:.78rem"><strong>${s.name}</strong>, ${actor}</div></div>
+        <div><div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;min-height:36px"></div><div style="font-size:.78rem">Date</div></div>
+      </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+// ── Doc 5: Membership Certificates + Transfer Ledger ───────────────
+function generateLLCCerts(){
+  const L=llcData(), yr=new Date().getFullYear();
+  return `<div class="doc-wrap">
+    <div class="doc-hdr"><div class="doc-firm">TRUESTEAD LAW</div><div class="doc-sub">Florida Business Formation | Company Records</div></div>
+    <div class="doc-title">MEMBERSHIP CERTIFICATES &amp; TRANSFER LEDGER<br><span style="font-size:.85rem;font-weight:400">${L.name}</span></div>
+    <p class="dp" style="text-align:center;color:var(--muted);font-size:.82rem">Membership interests in an LLC are uncertificated by default — these optional certificates formalize ownership for banks, lenders, and estate planning (e.g., assignment of the interest to a revocable living trust).</p>
+    ${L.members.map((m,i)=>`
+    <div class="art" style="border:2.5px solid #0f2744;border-radius:14px;padding:28px;position:relative">
+      <div style="text-align:center">
+        <div style="font-size:.62rem;font-weight:900;letter-spacing:3px;text-transform:uppercase;color:#c49a2a">Certificate No. ${i+1}</div>
+        <div class="doc-title" style="font-size:1.05rem;margin:8px 0 2px">${L.name}</div>
+        <div style="font-size:.72rem;color:var(--muted)">A Florida Limited Liability Company</div>
+      </div>
+      <p class="dp" style="margin-top:18px;text-align:center">This certifies that <strong>${m.name}</strong> is the holder of a <strong>${m.pct}%</strong> membership interest in the Company, subject in all respects to the Company's Articles of Organization, its Operating Agreement (including the transfer restrictions in Article 5 thereof), and Chapter 605, Florida Statutes.</p>
+      <div style="margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:40px">
+        <div><div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;min-height:32px"></div><div style="font-size:.75rem">${L.isMgr?'Manager':'Authorized Member'}</div></div>
+        <div><div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;min-height:32px"></div><div style="font-size:.75rem">Date</div></div>
+      </div>
+    </div>`).join('')}
+    <div class="art"><div class="art-t">Transfer Ledger</div>
+      <p class="dp">Record every issuance and transfer of a membership interest here. This ledger, kept with the Company's records, is the authoritative register of ownership.</p>
+      <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:.82rem">
+        <tr style="background:#f8fafc"><th style="padding:8px;border:1px solid var(--border)">Cert. No.</th><th style="padding:8px;border:1px solid var(--border)">Holder</th><th style="padding:8px;border:1px solid var(--border)">%</th><th style="padding:8px;border:1px solid var(--border)">Date Issued</th><th style="padding:8px;border:1px solid var(--border)">Transferred To / Date</th></tr>
+        ${L.members.map((m,i)=>`<tr><td style="padding:8px;border:1px solid var(--border);text-align:center">${i+1}</td><td style="padding:8px;border:1px solid var(--border)">${m.name}</td><td style="padding:8px;border:1px solid var(--border);text-align:center">${m.pct}%</td><td style="padding:8px;border:1px solid var(--border)"></td><td style="padding:8px;border:1px solid var(--border)"></td></tr>`).join('')}
+        ${'<tr>'+('<td style="padding:14px 8px;border:1px solid var(--border)"></td>'.repeat(5))+'</tr>'}
+      </table></div>
+    </div>
+  </div>`;
+}
+
+// ── Doc 6: EIN Guide ───────────────────────────────────────────────
+function generateLLCEINGuide(){
+  const L=llcData();
+  return `<div class="doc-wrap companion-doc">
+    <div class="doc-hdr"><div class="doc-firm">TRUESTEAD LAW</div><div class="doc-sub">Florida Business Formation | IRS Form SS-4</div></div>
+    <div class="doc-title">EIN GUIDE — YOUR FEDERAL TAX ID<br><span style="font-size:.85rem;font-weight:400">${L.name}</span></div>
+    <div class="art">
+      <div class="art-t">What and Why</div>
+      <p class="dp">An Employer Identification Number (EIN) is the company's federal tax ID — required to open a bank account, hire anyone, and file returns. It is <strong>free, directly from the IRS, in about 10 minutes</strong>. Never pay a third-party site for one.</p>
+      <p class="dp" style="background:#fef3c7;border:1.5px solid #f59e0b;border-radius:10px;padding:14px;font-size:.83rem;color:#92400e"><strong>Order matters:</strong> get the EIN only AFTER the state accepts your Articles of Organization, so the IRS record matches the company's legal name and date exactly.</p>
+    </div>
+    <div class="art">
+      <div class="art-t">Online Application — Answer Key</div>
+      <p class="dp">Go to <strong>irs.gov</strong> → search "apply for an EIN online" (the IRS EIN Assistant; available weekdays, roughly business hours ET). Use these answers:</p>
+      <div style="display:grid;grid-template-columns:1fr;gap:8px">
+        ${[
+          ['Legal name of entity', L.name],
+          ['Entity type','Limited Liability Company (LLC)'],
+          ['Number of members', String(L.members.length||1)],
+          ['State where located','Florida'],
+          ['Reason for applying','Started a new business'],
+          ['Responsible party', (L.members[0]?L.members[0].name:'[MEMBER 1]')+' — must be an individual with an SSN or ITIN who controls the entity'],
+          ['Principal address', L.principal],
+          ['Closing month of accounting year','December (calendar year — standard)'],
+        ].map(([k,v])=>`<div style="background:#f8fafc;border:1.5px solid #dde3ec;border-radius:10px;padding:10px 14px"><span style="font-weight:800;font-size:.8rem;color:#0f2744">${k}:</span> <span style="font-size:.84rem">${v}</span></div>`).join('')}
+      </div>
+      <p class="dp" style="margin-top:12px">At the end, choose "receive letter online" and <strong>save the CP 575 confirmation PDF immediately</strong> — the bank will ask for it and the IRS does not reissue it online.</p>
+    </div>
+    <div class="art">
+      <div class="art-t">No SSN? (Foreign Owners)</div>
+      <p class="dp">The online assistant requires the responsible party to have an SSN or ITIN. A foreign owner without one CAN still get an EIN — by completing Form SS-4 and applying by phone (IRS international line) or fax, writing "Foreign" on line 7b. It works, but the process is slow and easy to get wrong, and it interacts with ITIN, tax-treaty, and FIRPTA questions. That is exactly what our <strong>Foreign Owner Package</strong> handles end-to-end — call (888) 388-8445.</p>
+    </div>
+    <div class="art">
+      <div class="art-t">After You Have the EIN</div>
+      <p class="dp">• Open the company bank account (bring: filed Articles, CP 575, Operating Agreement, Banking Resolution, ID).<br>• ${L.scorp?'Discuss the S-corp election (Form 2553) with your CPA promptly — the deadline is generally 2 months and 15 days after the start of the tax year in which it is to take effect.':'No further federal filing is due at formation under the default classification — profits flow to the members\' returns.'}<br>• Florida has no state personal income tax; ${L.isSingle?'a single-member LLC normally has no separate Florida income-tax filing':'the company files a federal Form 1065 partnership return each year'}. Confirm sales-tax and local licensing needs for your specific business with your CPA.</p>
+    </div>
+  </div>`;
+}
+
+// ── Doc 7: Sunbiz Filing Guide + Compliance Calendar ───────────────
+function generateLLCFilingGuide(){
+  const L=llcData(), yr=new Date().getFullYear();
+  return `<div class="doc-wrap companion-doc">
+    <div class="doc-hdr"><div class="doc-firm">TRUESTEAD LAW</div><div class="doc-sub">Florida Business Formation | dos.fl.gov / Sunbiz</div></div>
+    <div class="doc-title">SUNBIZ FILING GUIDE<br><span style="font-size:.85rem;font-weight:400">${L.name}</span></div>
+    <div class="art">
+      <div class="art-t">Before You File — 2-Minute Checklist</div>
+      <p class="dp">☐ Name checked at <strong>search.sunbiz.org</strong> — no existing entity with a confusingly similar name<br>☐ Name ends in "LLC," "L.L.C.," or "Limited Liability Company"${L.isPLLC?' (professional: "PLLC")':''}<br>☐ Registered agent confirmed and willing to sign: <strong>${L.ra.name}</strong>${L.raTruestead?' (complete your $99/yr RA subscription first so we accept the designation when it arrives)':''}<br>☐ Card ready for the state fee: <strong>$125.00</strong> ($100 filing + $25 registered agent designation)</p>
+    </div>
+    <div class="art">
+      <div class="art-t">E-Filing Walkthrough (about 10 minutes)</div>
+      ${[
+        ['1 — Open the state e-filing portal','Go to <strong>efile.sunbiz.org</strong> and choose "Florida Limited Liability Company" (Articles of Organization). You do NOT need an account.'],
+        ['2 — Enter the company name', `Type it exactly as in Article I of your Articles: <strong>${L.name}</strong>`],
+        ['3 — Principal office & mailing address', `Copy from Article II: ${L.principal}${L.mailAddr?` · Mailing: ${L.mailAddr}`:' (mailing = same)'}`],
+        ['4 — Registered agent', `Name: <strong>${L.ra.name}</strong> · Address: ${L.ra.addr}. The agent's signature block is TYPED — ${L.raTruestead?'type "Truestead Law, LLC" only after your RA subscription is active; if the portal requires a live signature we complete acceptance on our side the same day':'the agent types their own name to accept the designation (F.S. § 605.0113)'}.`],
+        ['5 — Management', L.isMgr?`Add each manager with title <strong>MGR</strong>: ${L.managers.map(m=>m.name).join('; ')}`:`Add each member with title <strong>AMBR</strong> (authorized member): ${L.members.map(m=>m.name).join('; ')}`],
+        ['6 — Effective date', L.effective==='the date of filing'?'Leave blank — the company exists on filing.':`Enter <strong>${L.effective}</strong> (must be within 5 business days before or 90 days after filing).`],
+        ['7 — Signature', `Type your name as authorized representative: <strong>${gName()||'[YOUR NAME]'}</strong>. Typing it constitutes signing under Florida law.`],
+        ['8 — Optional extras', 'Certificate of Status ($5) — some banks ask for it; Certified Copy ($30) — rarely needed. Both can be ordered later.'],
+        ['9 — Pay & save everything', 'Pay the $125 by card. Save the confirmation page and, when it arrives by email, the acknowledgment with your <strong>state document number</strong> (format L'+yr+'000xxxxxx). E-filings typically process in a few business days.'],
+      ].map(([t,b])=>`<p class="dp" style="background:#f8fafc;border-left:4px solid #0f2744;padding:14px 18px;border-radius:0 10px 10px 0;margin-bottom:12px"><strong>${t}</strong><br>${b}</p>`).join('')}
+    </div>
+    <div class="art">
+      <div class="art-t">Compliance Calendar — Staying in Good Standing</div>
+      <p class="dp"><strong>Florida Annual Report.</strong> Due every year between <strong>January 1 and May 1</strong>, filed at sunbiz.org — $138.75, with a mandatory <strong>$400 late fee</strong> after May 1 and administrative dissolution if ignored. Your FIRST report is due the calendar year after formation.</p>
+      <p class="dp"><strong>Registered agent, continuously.</strong> An LLC whose agent resigns or disappears can be served through the Secretary of State without ever knowing it was sued.</p>
+      <p class="dp"><strong>Federal ownership reporting (Corporate Transparency Act).</strong> As of FinCEN's 2025 interim rule, domestic U.S. companies are exempt from beneficial-ownership (BOI) reporting; foreign entities registering in the U.S. still report. These rules have changed repeatedly — verify at fincen.gov, or let us track it for you.</p>
+      <p class="dp" style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:10px;padding:16px;font-size:.85rem;color:#166534"><strong>Never miss any of it — Compliance Bundle, $199/yr.</strong> Truestead serves as your registered agent, prepares and files your annual report each spring (you pay only the state's $138.75), monitors reporting-law changes, and reminds you before every deadline. Sign up from your purchase confirmation or at truesteadlaw.com/llc-kit.</p>
+    </div>
+  </div>`;
+}
+
+// ── Doc 8: Registered Agent Designation & Service Agreement ────────
+function generateLLCRAAgreement(){
+  const L=llcData(), yr=new Date().getFullYear();
+  return `<div class="doc-wrap">
+    <div class="doc-hdr"><div class="doc-firm">TRUESTEAD LAW</div><div class="doc-sub">Registered Agent Services | F.S. §§ 605.0113–605.0116</div></div>
+    <div class="doc-title">REGISTERED AGENT DESIGNATION<br>&amp; SERVICE AGREEMENT<br><span style="font-size:.85rem;font-weight:400">${L.name}</span></div>
+    <div class="art"><div class="art-t">1 — Designation and Acceptance</div>
+      <p class="dp"><strong>${L.name}</strong> (the "Company") designates <strong>Truestead Law, LLC</strong>, ${TRUESTEAD_RA.addr} (the "Agent"), as its registered agent in Florida, and the Agent accepts the designation and agrees to act in that capacity in accordance with Chapter 605, Florida Statutes.</p>
+    </div>
+    <div class="art"><div class="art-t">2 — Services</div>
+      <p class="dp">The Agent shall: (a) maintain the registered office at the address above during normal business hours; (b) accept service of process, notices, and official state correspondence directed to the Company; (c) forward each item received to the Company by email the same business day, with the original available by mail or pickup; and (d) appear on the public record in place of the Company's members at this field of the filing.</p>
+    </div>
+    <div class="art"><div class="art-t">3 — Fee and Term</div>
+      <p class="dp">The service fee is <strong>$99 per year</strong>, billed as an annual subscription in advance. The initial term begins when the subscription is first paid and the designation is filed, and renews annually until cancelled. If the subscription lapses and remains unpaid 30 days after notice, the Agent may resign as provided by F.S. § 605.0115, after which the Company must promptly designate a successor agent to avoid administrative dissolution.</p>
+    </div>
+    <div class="art"><div class="art-t">4 — No Attorney-Client Relationship</div>
+      <p class="dp" style="background:#fef3c7;border:1.5px solid #f59e0b;border-radius:10px;padding:16px">Registered agent service is an administrative service. <strong>It does not, by itself, create an attorney-client relationship</strong> between the Company (or its members) and Truestead Law, and does not include legal advice, monitoring of deadlines other than as separately subscribed, or any response to the documents received. If the Company is served with process, the Agent will forward it promptly — engaging counsel to respond is the Company's responsibility, and Truestead Law would be glad to discuss representation at that time under a separate engagement.</p>
+    </div>
+    <div class="art"><div class="art-t">5 — Signatures</div>
+      <div style="margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:640px">
+        <div><div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;min-height:36px"></div><div style="font-size:.78rem"><strong>${L.members[0]?L.members[0].name:'[MEMBER]'}</strong>, on behalf of ${L.name}</div></div>
+        <div><div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;min-height:36px"></div><div style="font-size:.78rem">Date</div></div>
+      </div>
+      <div style="margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:640px">
+        <div><div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;min-height:36px"></div><div style="font-size:.78rem"><strong>Truestead Law, LLC</strong>, Registered Agent — By: Arthur Simpson, Esq.</div></div>
+        <div><div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;min-height:36px"></div><div style="font-size:.78rem">Date</div></div>
+      </div>
+    </div>
+  </div>`;
+}
+
 const TAB_GENERATORS = {
   welcome: ()=>generateWelcomePackage(),
   // Trust companion docs
@@ -8376,6 +9019,15 @@ const TAB_GENERATORS = {
   not:     ()=>generateNoticeOfTrust(),
   // NFA Gun Trust
   gun:     ()=>generateGunTrust(),
+  // Florida LLC Kit
+  llcwelcome: ()=>generateLLCWelcome(),
+  llcart:     ()=>generateLLCArticles(),
+  llcoa:      ()=>generateLLCOperatingAgreement(),
+  llcres:     ()=>generateLLCResolutions(),
+  llccert:    ()=>generateLLCCerts(),
+  llcein:     ()=>generateLLCEINGuide(),
+  llcfile:    ()=>generateLLCFilingGuide(),
+  llcra:      ()=>generateLLCRAAgreement(),
   // Amendment / Update documents
   tamend:  ()=>generateTrustAmendment(),
   smcodicil:()=>generateSmartCodicil(),
@@ -8395,6 +9047,8 @@ function showDocTab(name){
     snt:'tabSnt',mapt:'tabMapt',ilit:'tabIlit',crt:'tabCrt',flp:'tabFlp',
     filing:'tabFiling',manual:'tabManual',fund:'tabFund',
     lbd:'tabLbd',tcert:'tabTcert',not:'tabNot',gun:'tabGun',
+    llcwelcome:'tabLlcwelcome',llcart:'tabLlcart',llcoa:'tabLlcoa',llcres:'tabLlcres',
+    llccert:'tabLlccert',llcein:'tabLlcein',llcfile:'tabLlcfile',llcra:'tabLlcra',
     tamend:'tabTamend',smcodicil:'tabSmcodicil',
     grat:'tabGrat',qprt:'tabQprt',idgt:'tabIdgt'
   };
@@ -10541,7 +11195,7 @@ function downloadDocuments(){
     .map(t => `<li>${t}</li>`).join('');
   const _displayName = (typeof gName === 'function' && gName()) ? gName()
     : ((S.d.gFirst ? `${S.d.gFirst} ${S.d.gLast || ''}`.trim() : 'Client'));
-  const _PLAN = { trust:'Revocable Living Trust', will:'Last Will & Testament', both:'Complete Estate Plan', land_trust:'Florida Land Trust', gun_trust:'NFA Gun Trust' };
+  const _PLAN = { trust:'Revocable Living Trust', will:'Last Will & Testament', both:'Complete Estate Plan', land_trust:'Florida Land Trust', gun_trust:'NFA Gun Trust', llc:'Florida LLC Kit' };
   const _planTitle = _PLAN[S.d.docCategory] || 'Estate Plan';
   const _niceDate = new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
   const cover = `<div class="cover-page">
@@ -10756,13 +11410,21 @@ async function generateWithReview(){
   wrap.id = 'specReviewWrap';
   wrap.className = 'wrap';
 
+  const isLLCFlow = S.d.docCategory==='llc';
   const docLabel = S.d.docCategory==='will'    ? 'Will Package'
                  : S.d.docCategory==='both'    ? 'Estate Plan'
                  : S.d.docCategory==='gun_trust'? 'NFA Gun Trust'
                  : S.d.docCategory==='land_trust'?'Land Trust'
+                 : isLLCFlow                    ? 'Florida LLC Kit'
                  :                               'Trust Package';
 
-  const checkSteps = [
+  const checkSteps = isLLCFlow ? [
+    'Checking name format against F.S. § 605.0112',
+    'Verifying registered agent requirements',
+    'Assembling your operating agreement',
+    'Building your Sunbiz filing map',
+    'Generating your formation package',
+  ] : [
     'Reviewing your beneficiary designations',
     'Checking Florida Trust Code compliance',
     'Verifying your incapacity planning',
@@ -10822,9 +11484,11 @@ async function generateWithReview(){
   const intervals = [800, 1800, 3000, 5000];
   intervals.forEach((ms,i) => setTimeout(()=>advanceStep(), ms));
 
-  // Run AI review
+  // Run AI review (estate flows only — the review-documents function is
+  // estate-shaped; the LLC flow validates deterministically in the wizard)
   let review = null;
   try {
+    if(isLLCFlow) throw {skip:true};
     // Get auth token
     let idToken = '';
     try {
@@ -10877,7 +11541,7 @@ async function generateWithReview(){
         if(data.ok && data.review) review = data.review;
       }
     }
-  } catch(e){ console.warn('Specialist review error:', e); }
+  } catch(e){ if(!e || !e.skip) console.warn('Specialist review error:', e); }
 
   // Complete remaining step animations
   while(stepIdx < checkSteps.length) advanceStep();
@@ -11177,6 +11841,39 @@ function generate(){
     window.scrollTo({top:0,behavior:'smooth'});
     const trustTabCount=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,hasSNT?1:0,hasEldr?1:0,hasIlit?1:0,hasCrt?1:0,hasBiz?1:0,1,1,1,1,1,1].filter(Boolean).length;
     showDocsReady(trustTabCount, dc==='both'?'Complete Estate Plan (Will + Trust)':'Revocable Living Trust');
+    return;
+  }
+
+  if(dc==='llc'){
+    const out=$('docOut');
+    const hasRA=S.d.llcRAChoice==='truestead';
+    out.innerHTML=`
+      <div class="doc-tabs-wrap">
+        <div class="doc-tabs-label">Documents — scroll to see all →</div>
+        <div class="doc-tabs" id="docTabs">
+          <button class="doc-tab active" onclick="showDocTab('llcwelcome')">🏠 Welcome</button>
+          <button class="doc-tab" onclick="showDocTab('llcart')">📄 Articles of Organization</button>
+          <button class="doc-tab" onclick="showDocTab('llcoa')">🤝 Operating Agreement</button>
+          <button class="doc-tab" onclick="showDocTab('llcres')">✅ Resolutions &amp; Banking</button>
+          <button class="doc-tab" onclick="showDocTab('llccert')">📜 Membership Certificates</button>
+          <button class="doc-tab" onclick="showDocTab('llcein')">🇺🇸 EIN Guide</button>
+          <button class="doc-tab" onclick="showDocTab('llcfile')">🏛️ Sunbiz Filing Guide</button>
+          ${hasRA?`<button class="doc-tab" onclick="showDocTab('llcra')">⚖️ Registered Agent</button>`:''}
+        </div>
+      </div>
+      ${lazyPanel('tabLlcwelcome',true)}
+      ${lazyPanel('tabLlcart',false)}
+      ${lazyPanel('tabLlcoa',false)}
+      ${lazyPanel('tabLlcres',false)}
+      ${lazyPanel('tabLlccert',false)}
+      ${lazyPanel('tabLlcein',false)}
+      ${lazyPanel('tabLlcfile',false)}
+      ${hasRA?lazyPanel('tabLlcra',false):''}
+      ${docActionBtns()}`;
+    showDocsReady(llcDocCount(),'Florida LLC Kit');
+    showDocTab('llcwelcome');
+    out.classList.add('show');
+    window.scrollTo({top:0,behavior:'smooth'});
     return;
   }
 
@@ -11764,6 +12461,7 @@ async function _notifyAttorney(planKey, planType) {
       trust: 'Revocable Living Trust',
       land_trust: 'Florida Land Trust',
       gun_trust: 'NFA Gun Trust',
+      llc: 'Florida LLC Kit',
       amend_trust: 'Trust Amendment',
       amend_will: 'Will Amendment',
       amend_poa: 'POA Amendment',
@@ -12058,6 +12756,7 @@ async function showAttorneyDashboard() {
               <option value="legacy">Legacy Plan (High Net Worth)</option>
               <option value="land_trust">Florida Land Trust</option>
               <option value="gun_trust">NFA Gun Trust</option>
+              <option value="llc">Florida LLC Kit</option>
             </select>
           </div>
           <div class="atty-link-field">
@@ -13162,6 +13861,7 @@ async function _sendClientConfirmation(planLabel, docCount){
       trust:     ['Revocable Living Trust Agreement','Pour-Over Will','Florida Durable Power of Attorney','Designation of Healthcare Surrogate','Living Will & Advance Directive','HIPAA Authorization','Trust Funding Guide','Certificate of Trust'],
       land_trust:['Florida Land Trust Agreement','Certificate of Trust','Deed to Trustee'],
       gun_trust: ['NFA Gun Trust Agreement','ATF Certification','Responsible Person Listing'],
+      llc:       ['Articles of Organization','Operating Agreement','Organizational & Banking Resolutions','Membership Certificates','EIN Guide','Sunbiz Filing Guide'],
     };
     const dc=d.docCategory||'trust';
     let docs=docMap[dc]||docMap.trust;
@@ -13308,7 +14008,7 @@ function openMatterDash(){
   document.getElementById('mdMatters').innerHTML=matters.length?matters.map(m=>{
     const d=m.d||{};
     const name=[(d.gFirst||''),(d.gLast||'')].filter(Boolean).join(' ')||'Unnamed Matter';
-    const type=d.docCategory==='will'?'Will Package':d.docCategory==='both'?'Complete Estate Plan':d.docCategory==='land_trust'?'Land Trust':d.docCategory==='gun_trust'?'NFA Gun Trust':'Revocable Living Trust';
+    const type=d.docCategory==='will'?'Will Package':d.docCategory==='both'?'Complete Estate Plan':d.docCategory==='land_trust'?'Land Trust':d.docCategory==='gun_trust'?'NFA Gun Trust':d.docCategory==='llc'?'Florida LLC Kit':'Revocable Living Trust';
     const profile=d.wealthProfile==='uhnw'?'Ultra HNW':d.wealthProfile==='vhnw'?'Very HNW':d.wealthProfile==='hnw'?'High NW':'Standard';
     const date=m.savedAt?new Date(m.savedAt).toLocaleDateString():'—';
     const mJson=JSON.stringify(m).replace(/"/g,'&quot;');
@@ -13920,6 +14620,13 @@ window.addEventListener('DOMContentLoaded', () => {
     // Auto-launch the gun trust flow directly
     setTimeout(() => quickStart('gun_trust'), 400);
   }
+  // LLC Kit landing (/llc-kit) — auto-launch the business formation flow
+  if(params.get('specialty') === 'llc'){
+    setTimeout(() => quickStart('llc'), 400);
+  }
+  if(params.get('specialty') === 'llc_foreign'){
+    setTimeout(() => quickStart('llc_foreign'), 400);
+  }
 })();
 
 // If quickStart() fired before S was defined, apply the stored intent now
@@ -13928,7 +14635,8 @@ window.addEventListener('DOMContentLoaded', () => {
   const doc = window._quickStartDoc;
   delete window._quickStartDoc;
   S.d.docCategory = doc;
-  S.step = 1;
+  S.step = (doc === 'llc') ? 0 : 1;
+  if(doc === 'llc') S.d.structure = 'individual';
   if(typeof render === 'function') render();
   if(typeof renderSidebar === 'function') renderSidebar();
   if(typeof autoSave === 'function') autoSave();
@@ -14149,6 +14857,15 @@ function showPaymentScreen() {
   const _epSection = document.getElementById('execPathSection');
   if (_epSection) _epSection.style.display = window.appMode === 'attorney' ? 'none' : 'block';
 
+  // LLC kit — formation docs have no witness/notary ceremony: hide the execution
+  // path selector and its ack gate, and enable the pay button directly.
+  if (dc === 'llc') {
+    if (_epSection) _epSection.style.display = 'none';
+    window.executionPath = 'self';
+    if (_epPayBtn) _epPayBtn.disabled = false;
+    if (isDiy && _paySub) _paySub.textContent = 'Your Florida LLC formation package is ready. Complete your purchase below to unlock and download every document, including your click-by-click Sunbiz filing guide. This is a self-guided (DIY) plan — optional attorney review is available on request.';
+  }
+
   document.getElementById('paymentScreen').classList.add('open');
 }
 
@@ -14176,7 +14893,8 @@ function closePaymentScreen() {
 
 function proceedToPayment() {
   // ── Execution path gate — self-execute requires acknowledgment ──
-  if ((window.executionPath || 'self') === 'self' && window.appMode !== 'attorney') {
+  // (LLC formation docs have no witness/notary ceremony — no acknowledgment needed)
+  if (S.d.docCategory !== 'llc' && (window.executionPath || 'self') === 'self' && window.appMode !== 'attorney') {
     const ackCb = document.getElementById('execAckCheck');
     if (ackCb && !ackCb.checked) {
       showToast('Please check the acknowledgment box before proceeding.');
@@ -15933,6 +16651,8 @@ elevenlabs-convai{position:fixed;left:18px;bottom:76px;z-index:1899}
   },4000);
 })();
 </script>
-<script src="/widget/truestead-widget.js" defer></script>
+<!-- AI-Arthur greeter widget intentionally NOT loaded here (removed 9/6/2026): Ava owns
+     the /start experience (guide chip + voice widget + in-wizard chat); four overlapping
+     help surfaces was too many. The widget stays on index/landing pages. -->
 </body>
 </html>
