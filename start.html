@@ -1554,6 +1554,11 @@ const _PLAN_LABELS = {
   elder_medicaid:   'Medicaid Planning (Attorney-Guided)',
   llc:              'Florida LLC Kit',
   llc_foreign:      'Florida LLC — Foreign Owner Package',
+  deed_quitclaim:   'Florida Quitclaim Deed',
+  deed_ladybird:    'Florida Lady Bird Deed',
+  deed_warranty:    'Florida Warranty Deed',
+  deed_trust:       'Deed into Trust',
+  deed_llc:         'Deed into LLC',
 };
 
 // Returns the Calendly base URL with the selected plan pre-filled as answer to question 1
@@ -1890,7 +1895,7 @@ function _pqzLaunch(save){
 function quickStart(docCategory){
   // Amendment flows and legacy go directly — no mode choice needed
   const isAmend = docCategory.startsWith('amend_');
-  const isAttyOnly = ['legacy','legacy_plus','elder_medicaid','llc_foreign'].includes(docCategory); // Medicaid + foreign-owner LLC are attorney-guided only
+  const isAttyOnly = ['legacy','legacy_plus','elder_medicaid','llc_foreign','deed_warranty'].includes(docCategory); // Medicaid, foreign-owner LLC, and warranty deeds are attorney-guided only
 
   if(isAmend){
     _launchQuickStart(docCategory, 'self');
@@ -1965,6 +1970,7 @@ function _launchQuickStart(docCategory, mode){
     legacy:      'both',
     legacy_plus: 'both',
     llc_foreign: 'llc',
+    deed_quitclaim:'deed', deed_ladybird:'deed', deed_warranty:'deed', deed_trust:'deed', deed_llc:'deed',
     amend_trust: 'amend_trust',
     amend_will:  'amend_will',
     amend_poa:   'amend_poa',
@@ -1981,16 +1987,19 @@ function _launchQuickStart(docCategory, mode){
     if(window.planType === 'couple' && !S.d.structure) S.d.structure = 'joint';
     // Will flows skip the trust Structure step — give singles an explicit default
     if(flowCat === 'will' && !S.d.structure) S.d.structure = 'individual';
-    // LLC flow has no couple/spouse concept — always individual structure
-    if(flowCat === 'llc') S.d.structure = 'individual';
-    // LLC's activeSteps() whitelist already excludes the docCategory step, so its
+    // LLC + deed flows have no couple/spouse concept — always individual structure
+    if(flowCat === 'llc' || flowCat === 'deed') S.d.structure = 'individual';
+    // Deed entry keys carry the deed type (deed_ladybird → deedType 'ladybird')
+    if(flowCat === 'deed' && docCategory.indexOf('deed_') === 0) S.d.deedType = docCategory.slice(5);
+    // LLC/deed whitelists already exclude the docCategory step, so their
     // first real step is index 0; estate flows start at 1 to skip that step.
-    S.step = (flowCat === 'llc') ? 0 : 1;
+    S.step = (flowCat === 'llc' || flowCat === 'deed') ? 0 : 1;
     if(typeof render === 'function') render();
     if(typeof renderSidebar === 'function') renderSidebar();
     if(typeof autoSave === 'function') autoSave();
   } else {
     window._quickStartDoc = flowCat;
+    window._quickStartKey = docCategory; // preserves deed type (deed_ladybird etc.)
   }
 }
 </script>
@@ -2254,6 +2263,17 @@ const PAYMENT_LINKS = {
   llc_foreign:            'https://buy.stripe.com/3cI8wP8DXaHtaEo9gUc7u0B', // $1,200  Florida LLC — Foreign Owner Package (attorney-guided only)
   // RA $99/yr sub: https://buy.stripe.com/00w6oHbQ9dTFh2M9gUc7u0C · Compliance $199/yr sub: https://buy.stripe.com/fZu3cv8DXaHth2M78Mc7u0D (sold on /llc-kit)
 
+  // ── Deed Shop (links created 9/6/2026 on TRUESTEAD LAW acct) ──
+  deed_quitclaim_diy:     'https://buy.stripe.com/eVq7sL8DX4j5dQAgJmc7u0E', // $129  Quitclaim — DIY
+  deed_quitclaim:         'https://buy.stripe.com/cNi00j7zT16TaEo0Koc7u0F', // $349  Quitclaim — Attorney (prep + mail recording)
+  deed_ladybird_diy:      'https://buy.stripe.com/fZu5kDg6pg1Nh2MfFic7u0G', // $199  Lady Bird — DIY
+  deed_ladybird:          'https://buy.stripe.com/eVq7sLdYhg1N8wg8cQc7u0H', // $399  Lady Bird — Attorney
+  deed_warranty:          'https://buy.stripe.com/dRmaEX7zT3f1dQA8cQc7u0I', // $399  Warranty — Attorney-only
+  deed_trust_diy:         'https://buy.stripe.com/14AfZh07rcPB4g0bp2c7u0J', // $149  Deed into Trust — DIY
+  deed_trust:             'https://buy.stripe.com/9B63cv1bv3f1aEobp2c7u0K', // $349  Deed into Trust — Attorney
+  deed_llc_diy:           'https://buy.stripe.com/7sYaEX4nH4j53bWdxac7u0L', // $149  Deed into LLC — DIY
+  deed_llc:               'https://buy.stripe.com/14AaEXbQ94j5cMw78Mc7u0M', // $349  Deed into LLC — Attorney
+
   // ── Elder Law ──
   elder_essentials_diy:        '', // $299 (was $449)    Elder-Law Essentials — DIY (single)
   elder_essentials_diy_couple: '', // $649    Elder-Law Essentials — DIY (couple)
@@ -2309,6 +2329,16 @@ const PRICING = {
   // the llc-kit.html landing page, not through this one-time checkout.
   llc:        { label:'Florida LLC Kit',                      price: 499,  diyPrice: 149 },
   llc_foreign:{ label:'Florida LLC — Foreign Owner Package',  price: 1200 }, // attorney-guided only
+
+  // ── Deed Shop (priced 9/2026 — see Florida Deed Shop vault note) ──
+  // Attorney tiers include preparation + recording BY MAIL with the county clerk;
+  // county recording fees + documentary stamps are passed through at cost.
+  // Warranty deed is ATTORNEY-ONLY (title covenants without a title exam = claims bait).
+  deed_quitclaim:{ label:'Florida Quitclaim Deed',                    price: 349, diyPrice: 129 },
+  deed_ladybird: { label:'Florida Lady Bird Deed (Enhanced Life Estate)', price: 399, diyPrice: 199 },
+  deed_warranty: { label:'Florida Warranty Deed',                     price: 399 }, // attorney-only
+  deed_trust:    { label:'Deed into Trust (Trust Funding)',           price: 349, diyPrice: 149 },
+  deed_llc:      { label:'Deed into LLC',                             price: 349, diyPrice: 149 },
 };
 const NY_PREMIUM = 1.0; // No NY premium — same rate for all clients
 
@@ -2724,6 +2754,168 @@ const STEPS=[
    ],
    customFor:['specific'],
    custom:{id:'llcEffDate',lbl:'Desired effective date',ph:'e.g., January 1, 2027'}
+  },
+
+  // ══════════════════════════════════════════════════════════════════
+  // DEED SHOP — Florida deed preparation flow (docCategory === 'deed').
+  // Entered via /deeds landing → quickStart('deed_<type>'); whitelisted in activeSteps().
+  // ══════════════════════════════════════════════════════════════════
+
+  // DS1 — Deed type (usually preselected by the entry link)
+  {sec:'Deed Type', lbl:'Deed Type',
+   type:'choice', field:'deedType', required:true, cond: d=>d.docCategory==='deed',
+   q:'What kind of deed do you need?',
+   hint:'Not sure? A quitclaim moves whatever interest the grantor has (family transfers, divorce, cleanup). A Lady Bird deed passes property at death without probate while you keep full lifetime control. Warranty deeds carry title guarantees and are attorney-prepared only.',
+   opts:[
+     {v:'quitclaim', t:'Quitclaim Deed', d:'Transfers whatever interest the current owner holds, with no title warranties. The workhorse for family transfers, divorces, and title cleanup.'},
+     {v:'ladybird',  t:'Lady Bird Deed (Enhanced Life Estate)', badge:'FLORIDA SPECIAL', premium:true,
+      d:'Keep complete control for life — sell, mortgage, or change your mind anytime — and the property passes automatically to your named beneficiaries at death. No probate. Preserves homestead. (F.S. § 689.075 practice)'},
+     {v:'warranty',  t:'Warranty Deed — Attorney-Prepared', badge:'ATTORNEY-ONLY',
+      d:'Full title covenants: the grantor guarantees good title. Because those guarantees create real liability, we prepare warranty deeds only with attorney involvement — $399 flat, recording included.'},
+     {v:'trust',     t:'Deed into Your Trust (Trust Funding)', d:'Moves real estate into your revocable living trust so it actually avoids probate. The step most trust owners never finish.'},
+     {v:'llc',       t:'Deed into Your LLC', d:'Moves rental or investment property into your LLC for liability protection. Pairs with the Florida LLC Kit.'},
+   ]
+  },
+
+  // DS2 — Property
+  {sec:'Deed Property', lbl:'Property',
+   type:'form', cond: d=>d.docCategory==='deed',
+   q:'Tell us about the property',
+   hint:'The legal description must match the prior deed or county records EXACTLY — copy it word for word from your existing deed (not the tax bill). The parcel ID is on your property tax bill or the county property appraiser\'s site.',
+   fields:[
+     {f:'dpAddr',   lbl:'Property Street Address *', ph:'123 Main St, Ormond Beach, FL 32176', req:true, wide:true},
+     {f:'dpCounty', lbl:'Florida County *', ph:'Volusia', type:'select', opts:'COUNTIES', req:true},
+     {f:'dpLegal',  lbl:'Legal Description (from the current deed) *', ph:'Lot 5, Block 12, PALM GROVE SUBDIVISION, according to the plat thereof recorded in Plat Book 42, Page 18, Volusia County, Florida', type:'textarea', req:true},
+     {f:'dpParcel', lbl:'Parcel / Folio ID', ph:'01-1234-567-8900'},
+   ]
+  },
+
+  // DS3 — Current owner (grantor) — reuses gFirst/gLast so banner/save/admin work
+  {sec:'Deed Grantor', lbl:'Current Owner',
+   type:'form', cond: d=>d.docCategory==='deed',
+   q:'Who currently owns the property?',
+   hint:'Enter the owner name(s) EXACTLY as they appear on the current deed — including middle initials. A mismatch between the old and new deed is the most common recording problem.',
+   fields:[
+     {f:'gFirst', lbl:'Owner 1 — First Name *', ph:'John', req:true},
+     {f:'gMiddle',lbl:'Middle Name/Initial', ph:'A.'},
+     {f:'gLast',  lbl:'Owner 1 — Last Name *', ph:'Smith', req:true},
+     {f:'gAddr',  lbl:'Owner 1 — Mailing Address *', ph:'123 Main St', req:true, wide:true},
+     {f:'gCity',  lbl:'City *', ph:'Ormond Beach', req:true},
+     {f:'gState', lbl:'State *', ph:'FL', req:true},
+     {f:'gZip',   lbl:'ZIP *', ph:'32176', req:true},
+     {f:'deedGrantor2Name', lbl:'Owner 2 — Full Name (if the deed shows co-owners)', ph:'Jane B. Smith', wide:true},
+   ]
+  },
+
+  // DS4 — Homestead gate
+  {sec:'Deed Homestead', lbl:'Homestead',
+   type:'choice', field:'deedHomestead', required:true, cond: d=>d.docCategory==='deed',
+   q:'Is this property the owner\'s primary residence (homestead)?',
+   hint:'Florida homestead is constitutionally protected — and constitutionally restricted. If the owner is married, the SPOUSE MUST SIGN any deed of homestead property, even if the spouse is not on the title. (Art. X, § 4(c), Fla. Const.) Skipping this makes the deed voidable.',
+   opts:[
+     {v:'no',  t:'No — Not the Primary Residence', d:'Investment, rental, vacant land, or second home.'},
+     {v:'yes', t:'Yes — This is the Homestead', d:'We\'ll include homestead language and, if the owner is married, require the spouse\'s joinder signature.'},
+   ]
+  },
+
+  // DS4b — Marital status when homestead
+  {sec:'Deed Spouse', lbl:'Spousal Joinder',
+   type:'choice', field:'deedMarried', required:true, cond: d=>d.docCategory==='deed'&&d.deedHomestead==='yes',
+   q:'Is the owner married?',
+   hint:'Married + homestead = the spouse signs the deed (joinder), no exceptions. This protects the deed from being set aside later.',
+   opts:[
+     {v:'no',  t:'No — Unmarried', d:'Single, divorced, or widowed. The deed will recite the owner\'s unmarried status.'},
+     {v:'yes', t:'Yes — Married', d:'We\'ll add the spouse as a joining signer.'},
+   ],
+   customFor:['yes'],
+   custom:{id:'deedSpouseName',lbl:'Spouse\'s Full Legal Name (joins in the deed)',ph:'Jane B. Smith'}
+  },
+
+  // DS5a — Grantee: people (quitclaim / warranty)
+  {sec:'Deed Grantee', lbl:'New Owner',
+   type:'form', cond: d=>d.docCategory==='deed'&&(d.deedType==='quitclaim'||d.deedType==='warranty'),
+   q:'Who is the property going to?',
+   hint:'Full legal names as they should appear on the new title, plus a mailing address for the tax roll.',
+   fields:[
+     {f:'deedGrantee1Name', lbl:'New Owner 1 — Full Legal Name *', ph:'Mary C. Smith', req:true, wide:true},
+     {f:'deedGrantee1Addr', lbl:'New Owner 1 — Mailing Address *', ph:'456 Oak Ave, Ormond Beach, FL 32176', req:true, wide:true},
+     {f:'deedGrantee2Name', lbl:'New Owner 2 — Full Legal Name (if any)', ph:'', wide:true},
+   ]
+  },
+
+  // DS5a2 — Vesting (only when two grantees)
+  {sec:'Deed Vesting', lbl:'How They Hold Title',
+   type:'choice', field:'deedVesting', cond: d=>d.docCategory==='deed'&&(d.deedType==='quitclaim'||d.deedType==='warranty')&&!!d.deedGrantee2Name,
+   q:'How will the new co-owners hold title?',
+   hint:'This controls what happens when one owner dies and how creditors can reach the property.',
+   opts:[
+     {v:'jtwros', t:'Joint Tenants with Right of Survivorship', d:'When one owner dies, the survivor automatically owns it all — no probate on the first death.'},
+     {v:'tbe',    t:'Tenants by the Entireties — Married Couples Only', d:'Survivorship PLUS Florida\'s strongest creditor protection: a creditor of one spouse alone cannot touch the property.'},
+     {v:'tic',    t:'Tenants in Common', d:'Each owner\'s share passes to their own heirs at death. Standard for unrelated co-owners and investors.'},
+   ]
+  },
+
+  // DS5b — Grantee: remaindermen (lady bird)
+  {sec:'Deed Remaindermen', lbl:'Beneficiaries',
+   type:'form', cond: d=>d.docCategory==='deed'&&d.deedType==='ladybird',
+   q:'Who gets the property when you pass?',
+   hint:'Your remainder beneficiaries receive the property automatically at death — no probate. You keep total control during life: you can sell, mortgage, or revoke this deed at any time without their permission. Shares pass per stirpes (a deceased beneficiary\'s share flows to their own children).',
+   fields:[
+     {f:'deedRem1Name', lbl:'Beneficiary 1 — Full Legal Name *', ph:'Mary C. Smith', req:true, wide:true},
+     {f:'deedRem1Rel',  lbl:'Beneficiary 1 — Relationship *', ph:'Daughter', req:true},
+     {f:'deedRem2Name', lbl:'Beneficiary 2 — Full Legal Name (if any)', ph:'', wide:true},
+     {f:'deedRem2Rel',  lbl:'Beneficiary 2 — Relationship', ph:''},
+     {f:'deedRem3Name', lbl:'Beneficiary 3 — Full Legal Name (if any)', ph:'', wide:true},
+     {f:'deedRem3Rel',  lbl:'Beneficiary 3 — Relationship', ph:''},
+   ]
+  },
+
+  // DS5c — Grantee: trust
+  {sec:'Deed Trust Info', lbl:'Your Trust',
+   type:'form', cond: d=>d.docCategory==='deed'&&d.deedType==='trust',
+   q:'Tell us about the trust receiving the property',
+   hint:'Copy the trust\'s exact name and date from its first page. The deed conveys to the trustee "as Trustee" — usually you.',
+   fields:[
+     {f:'deedTrustName',    lbl:'Trust Full Name *', ph:'The John A. Smith Revocable Living Trust', req:true, wide:true},
+     {f:'deedTrustDate',    lbl:'Trust Date *', ph:'March 15, 2026', req:true},
+     {f:'deedTrusteeName',  lbl:'Trustee Name(s) *', ph:'John A. Smith', req:true, wide:true},
+   ]
+  },
+
+  // DS5d — Grantee: LLC
+  {sec:'Deed LLC Info', lbl:'Your LLC',
+   type:'form', cond: d=>d.docCategory==='deed'&&d.deedType==='llc',
+   q:'Tell us about the LLC receiving the property',
+   hint:'The LLC should already exist and be active on Sunbiz before the deed is recorded. Don\'t have one yet? Our Florida LLC Kit forms it — truesteadlaw.com/llc-kit.',
+   fields:[
+     {f:'deedLLCName',  lbl:'LLC Exact Legal Name *', ph:'Sunrise Coastal Properties LLC', req:true, wide:true},
+     {f:'deedLLCState', lbl:'State of Formation *', ph:'Florida', req:true},
+     {f:'deedLLCAddr',  lbl:'LLC Mailing Address *', ph:'123 Main St, Ormond Beach, FL 32176', req:true, wide:true},
+   ]
+  },
+
+  // DS6 — Mortgage
+  {sec:'Deed Mortgage', lbl:'Mortgage',
+   type:'choice', field:'deedMortgage', required:true, cond: d=>d.docCategory==='deed',
+   q:'Is there a mortgage on the property?',
+   hint:'A transfer usually does not pay off or move the mortgage — the loan stays with the original borrower. Some transfers can technically trigger a "due-on-sale" clause; family and estate-planning transfers are often federally protected, but check your loan documents.',
+   opts:[
+     {v:'no',  t:'No — Free and Clear', d:'No outstanding mortgage or lien.'},
+     {v:'yes', t:'Yes — There\'s a Mortgage', d:'We\'ll include the appropriate protective language and flag anything that needs lender attention.'},
+   ]
+  },
+
+  // DS7 — Consideration
+  {sec:'Deed Consideration', lbl:'Payment',
+   type:'choice', field:'deedConsideration', required:true, cond: d=>d.docCategory==='deed',
+   q:'Is money changing hands for this transfer?',
+   hint:'Florida charges documentary stamp tax on deeds: $0.70 per $100 of consideration ($0.60 in Miami-Dade), minimum $0.70. Gift and estate-planning transfers of UNMORTGAGED property typically pay the minimum — but if the property is mortgaged, the outstanding loan balance usually COUNTS as consideration, even in a "free" transfer to your own LLC. The recording guide includes the worksheet.',
+   opts:[
+     {v:'nominal', t:'No — Gift / Estate Planning Transfer', badge:'MOST COMMON', d:'Nominal consideration ($10, love and affection). Minimum doc stamps if the property is unmortgaged.'},
+     {v:'sale',    t:'Yes — This is a Sale', d:'Enter the price — doc stamps are computed on it. (For a true sale, strongly consider the attorney tier and title insurance.)'},
+   ],
+   customFor:['sale'],
+   custom:{id:'deedSaleAmount',lbl:'Sale Price ($)',ph:'250,000'}
   },
 
   // ── Elder Law / Medicaid intake (only for the elder document family) ──
@@ -3741,6 +3933,13 @@ function activeSteps(){
       return s.sec==='Review'&&s.cond&&s.cond(S.d); // main-flow Review (cond excludes amend)
     });
   }
+  // Deed Shop flow — only the 'Deed *' steps plus the shared Review.
+  if(S.d.docCategory==='deed'){
+    return STEPS.filter(s=>{
+      if(s.sec&&s.sec.indexOf('Deed')===0) return !s.cond||s.cond(S.d);
+      return s.sec==='Review'&&s.cond&&s.cond(S.d);
+    });
+  }
   const isElder = String(S.d.docCategory||'').indexOf('elder')===0;
   if(isElder){
     // Elder flow reuses only the relevant sections (skips trust/will/beneficiary steps).
@@ -3758,8 +3957,8 @@ function activeSteps(){
   return STEPS.filter(s=>!s.cond||s.cond(S.d));
 }
 function curStep(){
-  // LLC flow uses the activeSteps() whitelist (raw cond-filtering would leak estate steps in)
-  if(S.d.docCategory==='llc') return activeSteps()[S.step]||null;
+  // LLC/deed flows use the activeSteps() whitelist (raw cond-filtering would leak estate steps in)
+  if(S.d.docCategory==='llc'||S.d.docCategory==='deed') return activeSteps()[S.step]||null;
   let i=0;for(let s of STEPS){if(s.cond&&!s.cond(S.d))continue;if(i===S.step)return s;i++;}return null;}
 function isHNW(){return ['vhnw','uhnw'].includes(S.d.wealthProfile);}
 function docType(){
@@ -5110,6 +5309,7 @@ function renderEstateDiagram(){
 // ── Review ─────────────────────────────────────────────────────────
 function renderReview(){
   if(S.d.docCategory==='llc') return renderLLCReview();
+  if(S.d.docCategory==='deed') return renderDeedReview();
   const d=S.d,joint=d.structure==='joint',gn=gName(),sn=sName(),tn=trustName();
   const iT=d.initTrustee==='both'?`${gn} & ${sn}`:d.initTrustee==='grantor'?gn:'Professional/Corporate Trustee';
   const provs=(d.provisions||[]).map(p=>{const f=STEPS[12].opts.find(o=>o.v===p);return f?f.t:p;});
@@ -5196,6 +5396,7 @@ function renderNav(step){
     :S.d.docCategory==='land_trust'?'Generate My Land Trust →'
     :S.d.docCategory==='gun_trust'?'Generate My NFA Gun Trust →'
     :S.d.docCategory==='llc'?'Generate My LLC Kit →'
+    :S.d.docCategory==='deed'?'Generate My Deed Package →'
     :'Generate My Trust Package →';
   return `<div class="nav">
     ${S.step>0?`<button class="btn btn-back" onclick="goBack()">← Back</button>`:'<div></div>'}
@@ -5237,6 +5438,10 @@ function validate(){
         return false;
       }
     }
+  }
+  if(step.field==='deedType'&&S.d.deedType==='warranty'&&window.appMode==='self'){
+    showInlineError('Warranty deeds are attorney-prepared only ($399, recording included). Please call (888) 388-8445 or choose the Warranty Deed option at truesteadlaw.com/deeds — or pick a different deed type to continue self-guided.');
+    return false;
   }
   if(step.sec==='LLC Members'){
     const total=[S.d.llcM1Pct,S.d.llcM2Pct,S.d.llcM3Pct,S.d.llcM4Pct].reduce((s,p)=>s+(parseFloat(p)||0),0);
@@ -8535,6 +8740,266 @@ function generateSmartCodicil(){
 
 // Map of tab name → generator function (lazy — only runs when tab is first opened)
 // ═══════════════════════════════════════════════════════════════════
+//  DEED SHOP — helpers, review screen, and document generators
+//  (F.S. § 689.01 execution; § 201.02 documentary stamps)
+// ═══════════════════════════════════════════════════════════════════
+
+const DEED_LABELS = { quitclaim:'Quitclaim Deed', ladybird:'Lady Bird Deed (Enhanced Life Estate)', warranty:'Warranty Deed', trust:'Deed into Trust', llc:'Deed into LLC' };
+
+// Normalized view of the deed wizard answers.
+function deedData(){
+  const d=S.d;
+  const type=d.deedType||'quitclaim';
+  const grantor1=gName()||'[OWNER NAME]';
+  const grantor2=(d.deedGrantor2Name||'').trim();
+  const spouseJoins=d.deedHomestead==='yes'&&d.deedMarried==='yes'&&(d.deedSpouseName||'').trim()
+                    &&(d.deedSpouseName||'').trim()!==grantor2;
+  const grantorAddr=[d.gAddr,d.gCity,(d.gState||'FL'),d.gZip].filter(Boolean).join(', ')||'[GRANTOR ADDRESS]';
+  const rems=[
+    {name:d.deedRem1Name,rel:d.deedRem1Rel},{name:d.deedRem2Name,rel:d.deedRem2Rel},{name:d.deedRem3Name,rel:d.deedRem3Rel}
+  ].filter(r=>r.name&&r.name.trim());
+  // Grantee phrase per deed type
+  let granteeNames='', granteeAddr='', vestingText='';
+  if(type==='trust'){
+    granteeNames=`${d.deedTrusteeName||grantor1}, as Trustee of ${d.deedTrustName||'[TRUST NAME]'}, dated ${d.deedTrustDate||'[TRUST DATE]'}, and any amendments thereto`;
+    granteeAddr=grantorAddr;
+  } else if(type==='llc'){
+    granteeNames=`${d.deedLLCName||'[LLC NAME]'}, a ${d.deedLLCState||'Florida'} limited liability company`;
+    granteeAddr=d.deedLLCAddr||'[LLC ADDRESS]';
+  } else if(type==='ladybird'){
+    granteeNames=rems.length?rems.map(r=>r.name).join(', '):'[REMAINDER BENEFICIARIES]';
+    granteeAddr='';
+  } else {
+    const g2=(d.deedGrantee2Name||'').trim();
+    vestingText=g2?(d.deedVesting==='tbe'?', husband and wife, as tenants by the entireties'
+                  :d.deedVesting==='tic'?', as tenants in common'
+                  :', as joint tenants with right of survivorship and not as tenants in common'):'';
+    granteeNames=(d.deedGrantee1Name||'[NEW OWNER]')+(g2?` and ${g2}`:'')+vestingText;
+    granteeAddr=d.deedGrantee1Addr||'[GRANTEE MAILING ADDRESS]';
+  }
+  const mortgaged=d.deedMortgage==='yes';
+  const sale=d.deedConsideration==='sale';
+  const saleAmt=parseFloat(String(d.deedSaleAmount||'').replace(/[^0-9.]/g,''))||0;
+  const county=d.dpCounty||'[COUNTY]';
+  const isMiamiDade=county==='Miami-Dade';
+  const stampRate=isMiamiDade?0.60:0.70;
+  const stamps=sale&&saleAmt?(Math.ceil(saleAmt/100)*stampRate):(mortgaged&&type!=='trust'&&type!=='ladybird'?null:0.70);
+  return { d, type, label:DEED_LABELS[type]||'Deed', grantor1, grantor2, spouseJoins,
+    spouseName:(d.deedSpouseName||'').trim(), grantorAddr, rems, granteeNames, granteeAddr,
+    propAddr:d.dpAddr||'[PROPERTY ADDRESS]', county, legal:d.dpLegal||'[LEGAL DESCRIPTION — COPY EXACTLY FROM THE CURRENT DEED]',
+    parcel:d.dpParcel||'', homestead:d.deedHomestead==='yes', mortgaged, sale, saleAmt, stampRate, stamps, isMiamiDade };
+}
+
+function deedDocCount(){ return 3; }
+
+// ── Deed Review screen ─────────────────────────────────────────────
+function renderDeedReview(){
+  const D=deedData();
+  const joinWarn=D.homestead&&D.d.deedMarried==='yes'&&!D.spouseName&&!D.grantor2
+    ? `<div style="background:#fef2f2;border:1.5px solid #fca5a5;color:#b91c1c;border-radius:10px;padding:12px 16px;font-size:.84rem;font-weight:700;margin-bottom:18px">⚠️ Homestead + married requires the spouse's name for the joinder signature — go Back to the Spousal Joinder step.</div>`:'';
+  const llcStampWarn=D.type==='llc'&&D.mortgaged
+    ? `<div style="background:#fef3c7;border:1.5px solid #f59e0b;border-radius:10px;padding:12px 16px;font-size:.84rem;color:#92400e;margin-bottom:18px"><strong>Doc-stamp alert:</strong> deeding MORTGAGED property into an LLC generally makes the outstanding loan balance taxable consideration — stamps at ${D.isMiamiDade?'$0.60':'$0.70'}/$100 of the balance. The recording guide covers it; the attorney tier is strongly recommended here.</div>`:'';
+  return `
+  <div style="background:linear-gradient(135deg,#0f2744,#1a3a5c);border-radius:14px;padding:22px 24px;margin-bottom:22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+    <div>
+      <div style="font-size:.65rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Ready to Generate</div>
+      <div style="font-size:1.1rem;font-weight:900;color:#fff">${D.label} — ${D.propAddr}</div>
+      <div style="font-size:.8rem;color:rgba(255,255,255,.6);margin-top:3px">Review every detail below — names and the legal description must match the current deed exactly.</div>
+    </div>
+    <div style="background:rgba(196,154,42,.15);border:1px solid rgba(196,154,42,.4);border-radius:10px;padding:10px 18px;text-align:center;flex-shrink:0">
+      <div style="font-size:.65rem;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1px">Package Includes</div>
+      <div style="font-size:1.4rem;font-weight:900;color:#fff">${deedDocCount()}</div>
+      <div style="font-size:.7rem;color:rgba(255,255,255,.55)">documents</div>
+    </div>
+  </div>
+  ${joinWarn}${llcStampWarn}
+  <div class="rev-sec"><h3>Property</h3>
+    <div class="rev-grid">
+      <div class="ri full"><div class="rl">Address</div><div class="rv">${D.propAddr}</div></div>
+      <div class="ri"><div class="rl">County</div><div class="rv">${D.county} County, FL</div></div>
+      <div class="ri"><div class="rl">Parcel ID</div><div class="rv">${D.parcel||'—'}</div></div>
+      <div class="ri full"><div class="rl">Legal Description</div><div class="rv" style="font-family:monospace;font-size:.8rem">${D.legal}</div></div>
+    </div>
+  </div>
+  <div class="rev-sec"><h3>Transfer</h3>
+    <div class="rev-grid">
+      <div class="ri"><div class="rl">Deed Type</div><div class="rv">${D.label}</div></div>
+      <div class="ri"><div class="rl">From (Grantor)</div><div class="rv">${D.grantor1}${D.grantor2?` and ${D.grantor2}`:''}</div></div>
+      <div class="ri full"><div class="rl">To (Grantee)</div><div class="rv">${D.granteeNames}</div></div>
+      ${D.spouseJoins?`<div class="ri"><div class="rl">Spousal Joinder</div><div class="rv">${D.spouseName} (signs the deed)</div></div>`:''}
+      <div class="ri"><div class="rl">Homestead</div><div class="rv">${D.homestead?'Yes — homestead language + joinder rules applied':'No'}</div></div>
+      <div class="ri"><div class="rl">Mortgage</div><div class="rv">${D.mortgaged?'Yes — protective language included':'None'}</div></div>
+      <div class="ri"><div class="rl">Consideration</div><div class="rv">${D.sale?('Sale — $'+(D.saleAmt?D.saleAmt.toLocaleString():'—')):'Nominal (gift / estate planning)'}</div></div>
+      ${D.stamps!==null?`<div class="ri"><div class="rl">Est. Doc Stamps</div><div class="rv">$${D.stamps.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}${D.sale?'':' (minimum)'}</div></div>`:''}
+    </div>
+  </div>`;
+}
+
+// ── Deed Doc 1: The deed instrument ────────────────────────────────
+function generateDeedInstrument(){
+  const D=deedData(), yr=new Date().getFullYear();
+  const granting = D.type==='quitclaim'
+    ? `has remised, released, and quitclaimed, and by these presents does remise, release, and forever quitclaim unto the Grantee, all of the Grantor's right, title, interest, claim, and demand in and to`
+    : D.type==='ladybird'
+    ? `does hereby grant, bargain, sell, and convey unto the Remainder Beneficiaries named below, SUBJECT TO the enhanced life estate reserved by the Grantor in Article II,`
+    : `has granted, bargained, and sold, and by these presents does grant, bargain, and sell to the Grantee, and the Grantee's heirs, successors, and assigns forever,`;
+  const title = D.type==='quitclaim'?'QUITCLAIM DEED'
+    : D.type==='ladybird'?'ENHANCED LIFE ESTATE DEED<br><span style="font-size:.8rem;font-weight:400">("Lady Bird Deed")</span>'
+    : D.type==='trust'?'WARRANTY DEED TO TRUSTEE'
+    : D.type==='llc'?'QUITCLAIM DEED TO LIMITED LIABILITY COMPANY'
+    : 'WARRANTY DEED';
+  return `<div class="doc-wrap">
+    <div class="doc-hdr"><div class="doc-firm">TRUESTEAD LAW</div><div class="doc-sub">Florida Deed Preparation | F.S. Chapter 689 | ${D.county} County</div></div>
+    <p class="dp" style="font-size:.78rem;color:var(--muted)"><strong>Prepared by and Return to:</strong><br>${window.appMode==='attorney'?'Arthur Simpson, Esq.<br>Truestead Law, 1175 John Anderson Dr, Ormond Beach, FL 32176':'[PREPARER NAME]<br>[PREPARER ADDRESS]'}</p>
+    ${D.parcel?`<p class="dp" style="font-size:.78rem;color:var(--muted)"><strong>Parcel ID No.:</strong> ${D.parcel}</p>`:''}
+    <div style="font-size:.75rem;color:#ef4444;font-weight:700;text-align:center;margin:8px 0">⚠️ THIS DOCUMENT WILL BE RECORDED IN THE PUBLIC RECORDS OF ${D.county.toUpperCase()} COUNTY, FLORIDA</div>
+    <div class="doc-title">${title}</div>
+
+    <div class="art">
+      <p class="dp">THIS DEED is made this _____ day of _____________, ${yr}, by <strong>${D.grantor1}</strong>${D.grantor2?` and <strong>${D.grantor2}</strong>`:''}${D.homestead&&D.d.deedMarried==='no'?', an unmarried person':''}, whose post office address is ${D.grantorAddr} ("Grantor"), to <strong>${D.granteeNames}</strong>${D.granteeAddr?`, whose post office address is ${D.granteeAddr}`:''} ("${D.type==='ladybird'?'Remainder Beneficiaries':'Grantee'}").</p>
+      <p class="dp"><strong>WITNESSETH:</strong> That the Grantor, for and in consideration of the sum of ${D.sale&&D.saleAmt?`$${D.saleAmt.toLocaleString()}.00`:'TEN AND NO/100 DOLLARS ($10.00), love and affection,'} and other good and valuable consideration, receipt of which is acknowledged, ${granting} the following described land in ${D.county} County, Florida:</p>
+      <div class="dp" style="border:1.5px solid var(--border);border-radius:10px;padding:18px;background:#f8fafc;font-family:monospace;font-size:.85rem;line-height:1.8;margin:16px 0">${D.legal}</div>
+      <p class="dp"><strong>Street Address:</strong> ${D.propAddr} (informational only; the legal description controls)</p>
+    </div>
+
+    ${D.type==='ladybird'?`
+    <div class="art"><div class="art-t">ARTICLE II — ENHANCED LIFE ESTATE RESERVED</div>
+      <p class="dp">The Grantor RESERVES to the Grantor an enhanced life estate in the property, coupled with the full power and authority, exercisable at any time during the Grantor's lifetime WITHOUT the joinder or consent of any Remainder Beneficiary, to: (a) sell, convey, mortgage, lease, or otherwise dispose of the property, in whole or in part, and to retain all proceeds; (b) cancel, amend, or revoke this deed by recorded instrument; and (c) commit waste. The Grantor shall have no liability to any Remainder Beneficiary for the exercise or non-exercise of these powers, and no Remainder Beneficiary acquires any vested interest during the Grantor's lifetime.</p>
+      <p class="dp">Upon the death of the Grantor, title to any interest in the property not previously conveyed shall vest in the Remainder Beneficiaries${D.rems.length>1?', in equal shares, per stirpes':', per stirpes'}, without the necessity of probate administration:</p>
+      ${D.rems.map(r=>`<p class="dp" style="border:1.5px solid var(--border);border-radius:10px;padding:10px 16px;background:#f8fafc"><strong>${r.name}</strong>${r.rel?` — ${r.rel}`:''}</p>`).join('')}
+    </div>`:''}
+
+    ${D.type==='warranty'||D.type==='trust'?`
+    <div class="art">
+      <p class="dp">And the Grantor hereby covenants with said Grantee that the Grantor is lawfully seized of said land in fee simple; that the Grantor has good right and lawful authority to sell and convey said land; that the Grantor hereby fully warrants the title to said land and will defend the same against the lawful claims of all persons whomsoever; and that said land is free of all encumbrances, except taxes accruing subsequent to December 31, ${yr-1}, and covenants, restrictions, and easements of record, if any.</p>
+    </div>`:''}
+
+    ${D.type==='trust'?`
+    <div class="art">
+      <div class="dp" style="background:#eff6ff;border:1.5px solid #3b82f6;border-radius:10px;padding:16px;margin:8px 0">
+        <strong>TRUSTEE AUTHORITY:</strong> Full power and authority is granted to the Trustee to protect, conserve, sell, convey, lease, encumber, and otherwise manage and dispose of the property, and third parties dealing with the Trustee may rely on the Trustee's authority without inquiry into the trust's terms.
+        ${D.homestead?' <strong>HOMESTEAD PRESERVATION — F.S. § 196.041(2):</strong> The Grantor, as Trustee and beneficiary of the above trust, retains a present possessory interest for life in the property, which remains the Grantor\'s permanent residence; this conveyance is made for estate planning purposes and does not divest the Grantor of homestead rights or the homestead tax exemption.':''}
+      </div>
+    </div>`:''}
+
+    ${D.homestead&&D.type==='ladybird'?`
+    <div class="art">
+      <div class="dp" style="background:#eff6ff;border:1.5px solid #3b82f6;border-radius:10px;padding:16px;margin:8px 0">
+        <strong>HOMESTEAD:</strong> The property is the homestead of the Grantor. The Grantor's reserved enhanced life estate preserves the Grantor's continued residence, homestead creditor protection, and homestead tax exemption; the remainder interest conveyed hereby is subject thereto.
+      </div>
+    </div>`:''}
+
+    ${D.mortgaged?`
+    <div class="art">
+      <div class="dp" style="background:#fef3c7;border:1.5px solid #f59e0b;border-radius:10px;padding:16px;margin:8px 0">
+        <strong>EXISTING MORTGAGE:</strong> This conveyance is SUBJECT TO that certain mortgage of record encumbering the property, which the ${D.type==='ladybird'?'Grantor':'parties acknowledge'} remains the obligation of the borrower named therein; nothing herein assumes, satisfies, or modifies that obligation.${(D.type==='trust'||D.type==='ladybird')?' This transfer is an estate-planning transfer of the borrower\'s residence within the protections of the Garn-St. Germain Act, 12 U.S.C. § 1701j-3(d), and shall not trigger any due-on-sale provision.':' The parties are advised to review the loan documents for any due-on-sale provision before recording.'}
+      </div>
+    </div>`:''}
+
+    <div class="art"><div class="art-t">EXECUTION — F.S. § 689.01</div>
+      <p class="dp">Signed, sealed, and delivered in the presence of two subscribing witnesses:</p>
+      ${[D.grantor1, D.grantor2, D.spouseJoins?D.spouseName+' (spouse, joining to convey homestead rights)':''].filter(Boolean).map(n=>`
+      <div style="margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:680px">
+        <div><div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;min-height:36px"></div><div style="font-size:.78rem"><strong>${n}</strong>, Grantor</div></div>
+        <div><div style="border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;min-height:36px"></div><div style="font-size:.78rem">Date</div></div>
+      </div>`).join('')}
+      <div style="margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:32px;max-width:680px">
+        <div>
+          <div style="border-bottom:1px solid #000;margin-bottom:4px;height:30px"></div><div class="dp" style="font-size:.78rem">Witness #1 Signature</div>
+          <div style="border-bottom:1px solid #000;margin:8px 0 4px;height:30px"></div><div class="dp" style="font-size:.78rem">Witness #1 Printed Name &amp; Address</div>
+        </div>
+        <div>
+          <div style="border-bottom:1px solid #000;margin-bottom:4px;height:30px"></div><div class="dp" style="font-size:.78rem">Witness #2 Signature</div>
+          <div style="border-bottom:1px solid #000;margin:8px 0 4px;height:30px"></div><div class="dp" style="font-size:.78rem">Witness #2 Printed Name &amp; Address</div>
+        </div>
+      </div>
+      <div style="margin-top:28px;border:1.5px solid var(--border);border-radius:10px;padding:20px">
+        <p class="dp"><strong>STATE OF FLORIDA</strong><br><strong>COUNTY OF _______________________</strong></p>
+        <p class="dp">The foregoing instrument was acknowledged before me by means of ☐ physical presence or ☐ online notarization, this _____ day of ______________, ${yr}, by ${[D.grantor1,D.grantor2,D.spouseJoins?D.spouseName:''].filter(Boolean).join(' and ')}, who is/are personally known to me or produced _________________________ as identification.</p>
+        <div style="margin-top:24px;border-bottom:1px solid #000;height:30px"></div>
+        <div class="dp" style="font-size:.78rem">Notary Public, State of Florida<br>Printed Name: _____________________________<br>Commission No. / Expires: _____________________</div>
+        <div style="margin-top:12px;height:70px"></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ── Deed Doc 2: Recording guide + doc-stamp worksheet + clerk letter ─
+function generateDeedRecordingGuide(){
+  const D=deedData(), yr=new Date().getFullYear();
+  const isAtty=window.appMode==='attorney';
+  return `<div class="doc-wrap companion-doc">
+    <div class="doc-hdr"><div class="doc-firm">TRUESTEAD LAW</div><div class="doc-sub">Recording Guide — ${D.county} County, Florida</div></div>
+    <div class="doc-title">RECORDING GUIDE &amp; DOC-STAMP WORKSHEET</div>
+    ${isAtty?`<div class="art"><div class="art-t">Attorney Tier — We Record It</div>
+      <p class="dp">Your deed is prepared and, once executed, <strong>Truestead Law records it by mail with the ${D.county} County Clerk</strong>. Sign with two witnesses and a notary (RON available), return the original to us, and we handle the rest — recording fees and documentary stamps are passed through at cost and collected before mailing. You receive the recorded original back from the Clerk with book/page stamped.</p></div>`:''}
+    <div class="art">
+      <div class="art-t">Execution First — Nothing Works Unsigned</div>
+      <p class="dp">Florida deeds require the grantor's signature, <strong>two witnesses</strong>, and a <strong>notary acknowledgment</strong> for recording (F.S. §§ 689.01, 695.03). ${D.spouseJoins?`Because the property is homestead and the owner is married, <strong>${D.spouseName} must also sign</strong> — a homestead deed without spousal joinder is voidable (Art. X, § 4(c), Fla. Const.).`:''} The notary cannot be a party; witnesses may not be grantees.</p>
+    </div>
+    <div class="art">
+      <div class="art-t">Documentary Stamp Worksheet — F.S. § 201.02</div>
+      <p class="dp">Rate in ${D.county} County: <strong>$${D.stampRate.toFixed(2)} per $100</strong> of consideration (or fraction), minimum $0.70.</p>
+      ${D.sale&&D.saleAmt?`<p class="dp" style="background:#f8fafc;border:1.5px solid #dde3ec;border-radius:10px;padding:14px">Sale price $${D.saleAmt.toLocaleString()} → estimated stamps: <strong>$${D.stamps.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</strong> (verify with the Clerk).</p>`
+      :D.mortgaged&&(D.type==='llc'||D.type==='quitclaim'||D.type==='warranty')?`<p class="dp" style="background:#fef3c7;border:1.5px solid #f59e0b;border-radius:10px;padding:14px;color:#92400e"><strong>Mortgaged-property alert:</strong> when property is transferred subject to a mortgage${D.type==='llc'?' — including into your own LLC —':''} the Department of Revenue generally treats the <strong>outstanding loan balance as taxable consideration</strong>: stamps = balance ÷ 100 × $${D.stampRate.toFixed(2)}. Certain transfers (e.g., between spouses, or where beneficial ownership genuinely does not change) may qualify for different treatment — this is exactly the question to put to the attorney tier or your closing agent BEFORE recording.</p>`
+      :`<p class="dp" style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:10px;padding:14px;color:#166534">Gift / estate-planning transfer of unmortgaged property → <strong>minimum stamps: $0.70</strong>.</p>`}
+    </div>
+    <div class="art">
+      <div class="art-t">${isAtty?'How We Record (For Your Reference)':'Recording by Mail — Step by Step'}</div>
+      ${[
+        ['1 — Confirm the fees', `Recording: $10.00 first page + $8.50 each additional page. Add documentary stamps from the worksheet above. Call the ${D.county} Clerk's recording department or check their site for the exact total and payee name.`],
+        ['2 — Write one check', 'A single check to the Clerk of Courts covering recording fees + doc stamps. Many clerks reject overpayments — get the number right.'],
+        ['3 — Send the ORIGINAL', 'Mail the signed, witnessed, notarized original deed (not a copy), the check, and the transmittal letter below, with a self-addressed stamped envelope for the return.'],
+        ['4 — Verify recording', 'In 1–3 weeks you\'ll receive the original back stamped with Official Records book and page. Check the county\'s Official Records search to confirm.'],
+        ['5 — After recording', `${D.homestead?'If the homestead exemption should follow the new ownership, confirm status with the '+D.county+' Property Appraiser (Form DR-501 where applicable). ':''}${D.type==='llc'?'Update the LLC\'s insurance to name it as insured, and tell your carrier title changed. ':''}${D.type==='trust'?'Tell your insurer the trust holds title, and keep the recorded deed with your trust records. ':''}Keep the recorded original with your important documents.`],
+      ].map(([t,b])=>`<p class="dp" style="background:#f8fafc;border-left:4px solid #0f2744;padding:14px 18px;border-radius:0 10px 10px 0;margin-bottom:12px"><strong>${t}</strong><br>${b}</p>`).join('')}
+    </div>
+    <div class="art">
+      <div class="art-t">Clerk Transmittal Letter (Cut Along This Section)</div>
+      <div style="border:1.5px dashed var(--border);border-radius:10px;padding:22px">
+        <p class="dp">${new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}</p>
+        <p class="dp">Clerk of the Circuit Court — Recording Department<br>${D.county} County, Florida</p>
+        <p class="dp"><strong>Re: Recording — ${D.label}${D.parcel?`, Parcel ${D.parcel}`:''}</strong></p>
+        <p class="dp">Dear Recording Clerk:</p>
+        <p class="dp">Enclosed for recording in the Official Records of ${D.county} County, please find the original ${D.label} (${D.grantor1} to ${D.granteeNames.split(',')[0]}), together with a check for recording fees and documentary stamp taxes. Please record and return the original in the enclosed self-addressed stamped envelope.</p>
+        <p class="dp">Thank you,<br><br>_________________________<br>${isAtty?'Truestead Law — (888) 388-8445':D.grantor1}</p>
+      </div>
+    </div>
+    <div class="art">
+      <div class="art-t">Read Before Recording</div>
+      <p class="dp" style="background:#fef3c7;border:1.5px solid #f59e0b;border-radius:10px;padding:14px;font-size:.83rem;color:#92400e"><strong>A recorded deed is public and hard to unwind.</strong> Title insurance from your purchase generally does NOT carry over to a new owner entity${D.type==='llc'?' (ask your title company about an additional-insured endorsement for the LLC)':''}. ${D.mortgaged?'Your mortgage stays your personal obligation regardless of the transfer. ':''}If anything about this transfer is unusual — divorce, estranged co-owners, liens, Medicaid planning — stop and use the attorney tier or call (888) 388-8445 before you record.</p>
+    </div>
+  </div>`;
+}
+
+// ── Deed Doc 3: Welcome / cover ────────────────────────────────────
+function generateDeedWelcome(){
+  const D=deedData();
+  return `<div class="doc-wrap companion-doc">
+    <div class="doc-hdr"><div class="doc-firm">TRUESTEAD LAW</div><div class="doc-sub">Florida Deed Preparation | F.S. Chapter 689</div></div>
+    <div class="doc-title" style="font-size:1.2rem">YOUR ${D.label.toUpperCase()} PACKAGE</div>
+    <div class="art">
+      <div class="art-t">What's in This Package</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        ${[[D.label,'F.S. §§ 689.01, 695.26 formatting'],['Recording Guide + Doc-Stamp Worksheet','F.S. § 201.02'],['Clerk Transmittal Letter','Ready to mail']].map(([doc,auth])=>`<div style="background:#f8fafc;border:1.5px solid #dde3ec;border-radius:10px;padding:12px 14px"><div style="font-weight:800;font-size:.85rem;color:#0f2744;margin-bottom:3px">${doc}</div><div style="font-size:.7rem;color:#64748b">${auth}</div></div>`).join('')}
+      </div>
+    </div>
+    <div class="art">
+      <div class="art-t">The Path from Here</div>
+      <p class="dp" style="background:#f8fafc;border-left:4px solid #c49a2a;padding:14px 18px;border-radius:0 10px 10px 0;margin-bottom:12px"><strong>1 — Proofread against the current deed.</strong> Names and the legal description must match the prior deed character for character. This is the #1 cause of rejected or clouded deeds.</p>
+      <p class="dp" style="background:#f8fafc;border-left:4px solid #0f2744;padding:14px 18px;border-radius:0 10px 10px 0;margin-bottom:12px"><strong>2 — Sign correctly.</strong> Grantor(s)${D.spouseJoins?' AND the joining spouse':''}, two witnesses, and a notary — all at the same sitting. Remote online notarization is available through the firm.</p>
+      <p class="dp" style="background:#f8fafc;border-left:4px solid #0f2744;padding:14px 18px;border-radius:0 10px 10px 0;margin-bottom:12px"><strong>3 — Record it.</strong> ${window.appMode==='attorney'?'Return the signed original to Truestead Law — we record by mail with the county clerk and return the recorded original to you.':'Follow the Recording Guide: one check, the original deed, the transmittal letter, and a return envelope to the county clerk.'}</p>
+      <p class="dp" style="background:#f8fafc;border-left:4px solid #059669;padding:14px 18px;border-radius:0 10px 10px 0;margin-bottom:12px"><strong>4 — File the recorded deed with your records.</strong>${D.type==='trust'?' It belongs with your trust documents — this deed is what makes the trust actually own the property.':D.type==='llc'?' Update the LLC records and insurance — the company owns real estate now.':D.type==='ladybird'?' Tell your remainder beneficiaries it exists — at your death the property passes to them automatically with a death certificate, no probate.':''}</p>
+    </div>
+    <div class="art">
+      <div class="art-t">Contact Us</div>
+      <p class="dp"><strong>Truestead Law</strong> · 1175 John Anderson Dr, Ormond Beach, FL 32176 · (888) 388-8445 · admin@truesteadlaw.com</p>
+      <p class="dp" style="background:#fef3c7;border:1.5px solid #f59e0b;border-radius:10px;padding:14px;font-size:.83rem;color:#92400e"><strong>Important:</strong> This is a personalized draft prepared from your answers. A deed has no effect until properly executed and takes practical effect on recording. Attorney review is available on any package — and recommended whenever a divorce, dispute, lien, or Medicaid question is anywhere near this property.</p>
+    </div>
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════════
 //  FLORIDA LLC KIT — helpers, review screen, and document generators
 //  (F.S. Chapter 605 — Florida Revised Limited Liability Company Act)
 // ═══════════════════════════════════════════════════════════════════
@@ -9028,6 +9493,10 @@ const TAB_GENERATORS = {
   llcein:     ()=>generateLLCEINGuide(),
   llcfile:    ()=>generateLLCFilingGuide(),
   llcra:      ()=>generateLLCRAAgreement(),
+  // Deed Shop
+  deedwelcome:()=>generateDeedWelcome(),
+  deeddoc:    ()=>generateDeedInstrument(),
+  deedrec:    ()=>generateDeedRecordingGuide(),
   // Amendment / Update documents
   tamend:  ()=>generateTrustAmendment(),
   smcodicil:()=>generateSmartCodicil(),
@@ -9049,6 +9518,7 @@ function showDocTab(name){
     lbd:'tabLbd',tcert:'tabTcert',not:'tabNot',gun:'tabGun',
     llcwelcome:'tabLlcwelcome',llcart:'tabLlcart',llcoa:'tabLlcoa',llcres:'tabLlcres',
     llccert:'tabLlccert',llcein:'tabLlcein',llcfile:'tabLlcfile',llcra:'tabLlcra',
+    deedwelcome:'tabDeedwelcome',deeddoc:'tabDeeddoc',deedrec:'tabDeedrec',
     tamend:'tabTamend',smcodicil:'tabSmcodicil',
     grat:'tabGrat',qprt:'tabQprt',idgt:'tabIdgt'
   };
@@ -11195,7 +11665,7 @@ function downloadDocuments(){
     .map(t => `<li>${t}</li>`).join('');
   const _displayName = (typeof gName === 'function' && gName()) ? gName()
     : ((S.d.gFirst ? `${S.d.gFirst} ${S.d.gLast || ''}`.trim() : 'Client'));
-  const _PLAN = { trust:'Revocable Living Trust', will:'Last Will & Testament', both:'Complete Estate Plan', land_trust:'Florida Land Trust', gun_trust:'NFA Gun Trust', llc:'Florida LLC Kit' };
+  const _PLAN = { trust:'Revocable Living Trust', will:'Last Will & Testament', both:'Complete Estate Plan', land_trust:'Florida Land Trust', gun_trust:'NFA Gun Trust', llc:'Florida LLC Kit', deed:'Florida Deed Package' };
   const _planTitle = _PLAN[S.d.docCategory] || 'Estate Plan';
   const _niceDate = new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
   const cover = `<div class="cover-page">
@@ -11411,14 +11881,22 @@ async function generateWithReview(){
   wrap.className = 'wrap';
 
   const isLLCFlow = S.d.docCategory==='llc';
+  const isDeedFlow = S.d.docCategory==='deed';
   const docLabel = S.d.docCategory==='will'    ? 'Will Package'
                  : S.d.docCategory==='both'    ? 'Estate Plan'
                  : S.d.docCategory==='gun_trust'? 'NFA Gun Trust'
                  : S.d.docCategory==='land_trust'?'Land Trust'
                  : isLLCFlow                    ? 'Florida LLC Kit'
+                 : isDeedFlow                   ? 'Deed Package'
                  :                               'Trust Package';
 
-  const checkSteps = isLLCFlow ? [
+  const checkSteps = isDeedFlow ? [
+    'Checking execution requirements (F.S. § 689.01)',
+    'Verifying homestead & spousal joinder rules',
+    'Computing documentary stamp treatment',
+    'Assembling your recording package',
+    'Generating your deed',
+  ] : isLLCFlow ? [
     'Checking name format against F.S. § 605.0112',
     'Verifying registered agent requirements',
     'Assembling your operating agreement',
@@ -11488,7 +11966,7 @@ async function generateWithReview(){
   // estate-shaped; the LLC flow validates deterministically in the wizard)
   let review = null;
   try {
-    if(isLLCFlow) throw {skip:true};
+    if(isLLCFlow || isDeedFlow) throw {skip:true};
     // Get auth token
     let idToken = '';
     try {
@@ -11841,6 +12319,29 @@ function generate(){
     window.scrollTo({top:0,behavior:'smooth'});
     const trustTabCount=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,hasSNT?1:0,hasEldr?1:0,hasIlit?1:0,hasCrt?1:0,hasBiz?1:0,1,1,1,1,1,1].filter(Boolean).length;
     showDocsReady(trustTabCount, dc==='both'?'Complete Estate Plan (Will + Trust)':'Revocable Living Trust');
+    return;
+  }
+
+  if(dc==='deed'){
+    const out=$('docOut');
+    const DL=DEED_LABELS[S.d.deedType]||'Deed';
+    out.innerHTML=`
+      <div class="doc-tabs-wrap">
+        <div class="doc-tabs-label">Documents — scroll to see all →</div>
+        <div class="doc-tabs" id="docTabs">
+          <button class="doc-tab active" onclick="showDocTab('deedwelcome')">🏠 Welcome</button>
+          <button class="doc-tab" onclick="showDocTab('deeddoc')">📄 ${DL}</button>
+          <button class="doc-tab" onclick="showDocTab('deedrec')">🏛️ Recording Guide</button>
+        </div>
+      </div>
+      ${lazyPanel('tabDeedwelcome',true)}
+      ${lazyPanel('tabDeeddoc',false)}
+      ${lazyPanel('tabDeedrec',false)}
+      ${docActionBtns()}`;
+    showDocsReady(deedDocCount(),DL);
+    showDocTab('deedwelcome');
+    out.classList.add('show');
+    window.scrollTo({top:0,behavior:'smooth'});
     return;
   }
 
@@ -12462,6 +12963,7 @@ async function _notifyAttorney(planKey, planType) {
       land_trust: 'Florida Land Trust',
       gun_trust: 'NFA Gun Trust',
       llc: 'Florida LLC Kit',
+      deed: 'Deed Package',
       amend_trust: 'Trust Amendment',
       amend_will: 'Will Amendment',
       amend_poa: 'POA Amendment',
@@ -12664,14 +13166,17 @@ function _applyPresetPlan() {
   if (typeof switchPlanType === 'function') switchPlanType(type);
 
   // Set plan and advance to step 1
-  const flowMap = { essentials:'will', legacy:'both', legacy_plus:'both' };
+  const flowMap = { essentials:'will', legacy:'both', legacy_plus:'both', llc_foreign:'llc',
+    deed_quitclaim:'deed', deed_ladybird:'deed', deed_warranty:'deed', deed_trust:'deed', deed_llc:'deed' };
   const flowCat = flowMap[plan] || plan;
   window._pricingKey = plan;
   if (typeof S !== 'undefined') {
     S.d.docCategory = flowCat;
     if (plan === 'legacy' || plan === 'legacy_plus') S.d.wantsAdvancedTrust = true;
     if (type === 'couple' && !S.d.structure) S.d.structure = 'joint';
-    S.step = 1;
+    if (flowCat === 'llc' || flowCat === 'deed') S.d.structure = 'individual';
+    if (flowCat === 'deed' && plan.indexOf('deed_') === 0) S.d.deedType = plan.slice(5);
+    S.step = (flowCat === 'llc' || flowCat === 'deed') ? 0 : 1;
     if (typeof render === 'function') render();
     if (typeof renderSidebar === 'function') renderSidebar();
   } else {
@@ -12757,6 +13262,11 @@ async function showAttorneyDashboard() {
               <option value="land_trust">Florida Land Trust</option>
               <option value="gun_trust">NFA Gun Trust</option>
               <option value="llc">Florida LLC Kit</option>
+              <option value="deed_quitclaim">Quitclaim Deed</option>
+              <option value="deed_ladybird">Lady Bird Deed</option>
+              <option value="deed_warranty">Warranty Deed</option>
+              <option value="deed_trust">Deed into Trust</option>
+              <option value="deed_llc">Deed into LLC</option>
             </select>
           </div>
           <div class="atty-link-field">
@@ -13862,6 +14372,7 @@ async function _sendClientConfirmation(planLabel, docCount){
       land_trust:['Florida Land Trust Agreement','Certificate of Trust','Deed to Trustee'],
       gun_trust: ['NFA Gun Trust Agreement','ATF Certification','Responsible Person Listing'],
       llc:       ['Articles of Organization','Operating Agreement','Organizational & Banking Resolutions','Membership Certificates','EIN Guide','Sunbiz Filing Guide'],
+      deed:      ['Florida Deed','Recording Guide & Doc-Stamp Worksheet','Clerk Transmittal Letter'],
     };
     const dc=d.docCategory||'trust';
     let docs=docMap[dc]||docMap.trust;
@@ -14008,7 +14519,7 @@ function openMatterDash(){
   document.getElementById('mdMatters').innerHTML=matters.length?matters.map(m=>{
     const d=m.d||{};
     const name=[(d.gFirst||''),(d.gLast||'')].filter(Boolean).join(' ')||'Unnamed Matter';
-    const type=d.docCategory==='will'?'Will Package':d.docCategory==='both'?'Complete Estate Plan':d.docCategory==='land_trust'?'Land Trust':d.docCategory==='gun_trust'?'NFA Gun Trust':d.docCategory==='llc'?'Florida LLC Kit':'Revocable Living Trust';
+    const type=d.docCategory==='will'?'Will Package':d.docCategory==='both'?'Complete Estate Plan':d.docCategory==='land_trust'?'Land Trust':d.docCategory==='gun_trust'?'NFA Gun Trust':d.docCategory==='llc'?'Florida LLC Kit':d.docCategory==='deed'?'Deed Package':'Revocable Living Trust';
     const profile=d.wealthProfile==='uhnw'?'Ultra HNW':d.wealthProfile==='vhnw'?'Very HNW':d.wealthProfile==='hnw'?'High NW':'Standard';
     const date=m.savedAt?new Date(m.savedAt).toLocaleDateString():'—';
     const mJson=JSON.stringify(m).replace(/"/g,'&quot;');
@@ -14627,6 +15138,11 @@ window.addEventListener('DOMContentLoaded', () => {
   if(params.get('specialty') === 'llc_foreign'){
     setTimeout(() => quickStart('llc_foreign'), 400);
   }
+  // Deed Shop landing (/deeds) — ?specialty=deed_quitclaim|deed_ladybird|deed_warranty|deed_trust|deed_llc
+  const _spec = params.get('specialty') || '';
+  if(_spec.indexOf('deed_') === 0 && typeof PRICING !== 'undefined' && PRICING[_spec]){
+    setTimeout(() => quickStart(_spec), 400);
+  }
 })();
 
 // If quickStart() fired before S was defined, apply the stored intent now
@@ -14635,8 +15151,11 @@ window.addEventListener('DOMContentLoaded', () => {
   const doc = window._quickStartDoc;
   delete window._quickStartDoc;
   S.d.docCategory = doc;
-  S.step = (doc === 'llc') ? 0 : 1;
-  if(doc === 'llc') S.d.structure = 'individual';
+  S.step = (doc === 'llc' || doc === 'deed') ? 0 : 1;
+  if(doc === 'llc' || doc === 'deed') S.d.structure = 'individual';
+  if(doc === 'deed' && window._quickStartKey && window._quickStartKey.indexOf('deed_') === 0){
+    S.d.deedType = window._quickStartKey.slice(5);
+  }
   if(typeof render === 'function') render();
   if(typeof renderSidebar === 'function') renderSidebar();
   if(typeof autoSave === 'function') autoSave();
@@ -14739,6 +15258,11 @@ function showPaymentScreen() {
       amend_hc:    'poa_hc_bundle',
     };
     window._pricingKey = amendKeyMap[dc] || 'amendment';
+  }
+
+  // ── Deed pricing — key follows the deed type chosen in the wizard ──
+  if (dc === 'deed') {
+    window._pricingKey = 'deed_' + (S.d.deedType || 'quitclaim');
   }
 
   // Use pricing key (tier) if set, fall back to docCategory
