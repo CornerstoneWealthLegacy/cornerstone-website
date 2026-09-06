@@ -367,13 +367,50 @@ exports.handler = async (event) => {
 
       console.log('Payment completed:', { uid, planTier, email, amount });
 
+      // ── FLAT-FEE SERVICE ORDERS (no wizard session behind them) ────────────
+      // Payment links tagged metadata.product (e.g. trademark_*) record to
+      // 'service_orders' and skip the session-mapping logic entirely.
+      const svcProduct = session.metadata?.product || '';
+      if (session.mode === 'payment' && svcProduct) {
+        const who = session.customer_details?.name || email || 'A client';
+        try {
+          const topic = process.env.NTFY_TOPIC || 'truestead-alerts';
+          await fetch(`https://ntfy.sh/${topic}`, {
+            method: 'POST',
+            headers: { 'Title': 'New Service Order', 'Tags': 'money_with_wings,briefcase', 'Priority': 'high' },
+            body: `${who} purchased: ${svcProduct.replace(/_/g, ' ')}${amount ? ' ($' + amount + ')' : ''}.${email ? ' (' + email + ')' : ''} Reach out within 1 business day.`,
+          });
+        } catch (e) { console.error('service-order ntfy failed:', e.message); }
+        await sendMetaCAPIPurchase({
+          email, name: session.customer_details?.name || '', value: amount,
+          currency: (session.currency || 'usd').toUpperCase(), eventId: session.id,
+          eventSourceUrl: 'https://truesteadlaw.com/trademark',
+        });
+        const svcRaw2 = process.env.FIREBASE_SERVICE_ACCOUNT;
+        if (svcRaw2 && email) {
+          try {
+            const svc2 = JSON.parse(svcRaw2);
+            const tok2 = await getFirestoreToken(svc2);
+            const orderId = session.id.slice(-24);
+            await firestoreUpdateDoc(svc2.project_id, 'service_orders', orderId, {
+              product: svcProduct, email: email.toLowerCase(),
+              name: session.customer_details?.name || '',
+              amount: amount || '', stripeSessionId: session.id,
+              status: 'new', createdAt: Date.now(),
+            }, tok2);
+            console.log('Service order recorded:', svcProduct, orderId);
+          } catch (e) { console.error('service-order Firestore write failed (non-fatal — ntfy already sent):', e.message); }
+        }
+        return { statusCode: 200, body: JSON.stringify({ received: true, serviceOrder: svcProduct }) };
+      }
+
       // ── SUBSCRIPTIONS (Docs Membership / Registered Agent / Compliance Bundle) ──
       // Sold via Payment Links on /kits and /llc-kit with NO wizard session behind them,
       // so they must be handled BEFORE the session-mapping logic below (which would
       // otherwise throw "Cannot map payment to a session"). Distinguished by price.
       if (session.mode === 'subscription') {
-        const SUB_TYPES = { 4900: 'docs_membership', 9900: 'registered_agent', 19900: 'compliance_bundle' };
-        const SUB_NAMES = { docs_membership: 'Docs Membership ($49/yr)', registered_agent: 'Registered Agent ($99/yr)', compliance_bundle: 'Compliance Bundle ($199/yr)' };
+        const SUB_TYPES = { 4900: 'docs_membership', 9900: 'registered_agent', 14900: 'trademark_monitoring', 19900: 'compliance_bundle' };
+        const SUB_NAMES = { docs_membership: 'Docs Membership ($49/yr)', registered_agent: 'Registered Agent ($99/yr)', trademark_monitoring: 'Trademark Monitoring ($149/yr)', compliance_bundle: 'Compliance Bundle ($199/yr)' };
         const subType = SUB_TYPES[amountRaw] || 'subscription';
         const subName = SUB_NAMES[subType] || `Subscription ($${amount})`;
         const who = session.customer_details?.name || email || 'A customer';
@@ -624,7 +661,7 @@ exports.handler = async (event) => {
       const sub = stripeEvent.data.object;
       const custId = String(sub.customer || '');
       const cents = sub.items?.data?.[0]?.price?.unit_amount || 0;
-      const SUB_TYPES = { 4900: 'docs_membership', 9900: 'registered_agent', 19900: 'compliance_bundle' };
+      const SUB_TYPES = { 4900: 'docs_membership', 9900: 'registered_agent', 14900: 'trademark_monitoring', 19900: 'compliance_bundle' };
       const subType = SUB_TYPES[cents] || 'subscription';
       const svcRaw = process.env.FIREBASE_SERVICE_ACCOUNT;
       if (svcRaw && custId) {
