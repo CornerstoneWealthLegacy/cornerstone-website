@@ -1,6 +1,17 @@
 {
   "articles": [
     {
+      "slug": "articles/elder-law-2026-09-06",
+      "file": "articles/elder-law-2026-09-06.html",
+      "title": "Florida Medicaid Planning for Nursing Home Care (2026)",
+      "tag": "Elder Law",
+      "category": "Elder Law & Medicaid",
+      "blurb": "A Florida elder law attorney breaks down 2026 Medicaid income and asset limits, the five-year lookback penalty, and spousal asset protection.",
+      "image": "images/og/florida-medicaid-planning-lookback.jpg",
+      "date": "2026-09-06",
+      "prettyDate": "September 6, 2026"
+    },
+    {
       "slug": "articles/wills-trusts-2026-09-05",
       "file": "articles/wills-trusts-2026-09-05.html",
       "title": "Florida Living Trust vs. Will: Why Funding Matters Most",
