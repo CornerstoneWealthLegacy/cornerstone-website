@@ -1,73 +1,130 @@
 [
   {
-    "query": "living trusts nokomis",
-    "impressions": 19,
+    "query": "windermere real estate attorney",
+    "impressions": 15,
     "clicks": 0,
-    "position": 11.9,
+    "position": 9.9,
     "tag": "Estate Planning",
     "score": 8,
+    "used": false
+  },
+  {
+    "query": "windermere real estate closing attorney",
+    "impressions": 18,
+    "clicks": 0,
+    "position": 11.4,
+    "tag": "Real Estate",
+    "score": 8,
+    "used": false
+  },
+  {
+    "query": "estate planning shady hills",
+    "impressions": 13,
+    "clicks": 0,
+    "position": 9.2,
+    "tag": "Estate Planning",
+    "score": 7,
+    "used": false
+  },
+  {
+    "query": "estate planning preparation nokomis",
+    "impressions": 12,
+    "clicks": 0,
+    "position": 10,
+    "tag": "Estate Planning",
+    "score": 6,
+    "used": false
+  },
+  {
+    "query": "altamonte springs medicaid planning attorney",
+    "impressions": 10,
+    "clicks": 0,
+    "position": 14.9,
+    "tag": "Elder Law",
+    "score": 3,
+    "used": false
+  },
+  {
+    "query": "real estate law islamorada fl",
+    "impressions": 9,
+    "clicks": 0,
+    "position": 15.9,
+    "tag": "Estate Planning",
+    "score": 2,
+    "used": false
+  },
+  {
+    "query": "living trust preparation apollo beach",
+    "impressions": 10,
+    "clicks": 0,
+    "position": 19.6,
+    "tag": "Estate Planning",
+    "score": 1,
+    "used": false
+  },
+  {
+    "query": "fort walton beach revocable trusts",
+    "impressions": 8,
+    "clicks": 0,
+    "position": 21.9,
+    "tag": "Estate Planning",
+    "score": 0,
+    "used": false
+  },
+  {
+    "query": "how much does it cost to make a will in florida",
+    "impressions": 8,
+    "clicks": 0,
+    "position": 20.6,
+    "tag": "Estate Planning",
+    "score": 0,
+    "used": false
+  },
+  {
+    "query": "732.5165",
+    "impressions": 9,
+    "clicks": 0,
+    "position": 23.4,
+    "tag": "Estate Planning",
+    "score": -1,
+    "used": false
+  },
+  {
+    "query": "living trusts nokomis",
     "used": true,
     "targetedOn": "2026-08-31"
   },
   {
     "query": "living trust preparation nokomis",
-    "impressions": 10,
-    "clicks": 0,
-    "position": 11.9,
-    "tag": "Estate Planning",
-    "score": 4,
     "used": true,
     "targetedOn": "2026-09-01"
   },
   {
     "query": "what can you do at 18 in florida",
-    "impressions": 11,
-    "clicks": 0,
-    "position": 14.1,
-    "tag": "Estate Planning",
-    "score": 4,
     "used": true,
     "targetedOn": "2026-09-02"
   },
   {
     "query": "ormond beach truck accident lawyer",
-    "impressions": 10,
-    "clicks": 0,
-    "position": 14.3,
-    "tag": "Personal Injury",
-    "score": 3,
     "used": false,
+    "targetedOn": null,
     "skipped": true,
     "skippedReason": "near-duplicate of \"ormond beach accident lawyer\""
   },
   {
     "query": "solicitor graceville",
-    "impressions": 11,
-    "clicks": 0,
-    "position": 15.3,
-    "tag": "Estate Planning",
-    "score": 3,
     "used": false,
+    "targetedOn": null,
     "skipped": true,
     "skippedReason": "pruned by Arthur 9/2/2026: \"solicitor\" is a UK-term query, not a Florida practice fit"
   },
   {
     "query": "indian river county probate attorney",
-    "impressions": 11,
-    "clicks": 0,
-    "position": 22.7,
-    "tag": "Probate",
-    "score": -1,
     "used": true,
     "targetedOn": "2026-09-03"
   },
   {
     "query": "probate lawyer sebastian",
-    "impressions": 9,
-    "clicks": 0,
-    "position": 24.7,
-    "tag": "Probate",
-    "score": -2,
     "used": true,
     "targetedOn": "2026-09-04"
   },
