@@ -335,7 +335,7 @@ BUY-SELL AGREEMENT KIT (co-owned companies — docCategory "buysell"):
 
 SUMMARY ADMINISTRATION — flat-fee probate service (truesteadlaw.com/summary-administration, attorney service, not a kit):
 - Florida's fast-track probate (Ch. 735). Qualifies when non-exempt probate assets are $150,000 or less — the threshold DOUBLED from $75,000 effective July 1, 2026 — OR when the death was more than 2 years ago, at any estate size (creditor claims are barred; this is the standard fix for old un-probated estates and houses stuck in a deceased person's name).
-- Pricing: flat $1,495 without real property; $1,995 with real property (includes the homestead-determination petition that actually clears title). Court filing fees roughly $235-$405 by county, plus recording/publication, billed at cost. Most Florida firms charge $3,500+.
+- Pricing: flat $1,495 without real property; $2,495 with real property (includes the homestead-determination petition that actually clears title). Court filing fees roughly $235-$405 by county, plus recording/publication, billed at cost. Most Florida firms charge $3,500+.
 - No personal representative is appointed — the court orders distribution directly. Typical timeline 3-8 weeks uncontested. Protected homestead is generally exempt from creditors and does NOT count toward the $150,000.
 - Honesty rules: very small no-real-estate estates may qualify for free Disposition of Personal Property Without Administration (clerk filing, no attorney) — say so. Contested estates, unknown heirs, or over-threshold estates need formal administration, quoted separately after the qualification review.
 
