@@ -16,7 +16,9 @@
     "position": 11.4,
     "tag": "Real Estate",
     "score": 8,
-    "used": false
+    "used": false,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"windermere real estate attorney\""
   },
   {
     "query": "estate planning shady hills",
@@ -25,7 +27,8 @@
     "position": 9.2,
     "tag": "Estate Planning",
     "score": 7,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-09-08"
   },
   {
     "query": "estate planning preparation nokomis",
