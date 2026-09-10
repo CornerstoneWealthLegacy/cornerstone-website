@@ -20,6 +20,12 @@
 [functions."abandoned-drip"]
   schedule = "0 */6 * * *"
 
+# Mid-wizard abandonment recovery, ALL kits — anyone who stops partway through /start
+# (draft idle 2h+, documents never generated) gets emails 1-3 at +2h, +1d, +4d.
+# Hourly so the 2-hour first touch lands on time.
+[functions."abandoned-wizard-drip"]
+  schedule = "23 * * * *"
+
 # Facebook auto-post — runs daily at 09:00 UTC (5 AM EDT / 4 AM EST) so posts
 # are live for early risers. Publishes every POST_INTERVAL_DAYS (default 1 =
 # daily): prefers the newest fresh daily article from articles-index.json, else

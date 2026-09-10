@@ -32,7 +32,7 @@ exports.handler = async (event) => {
   const q = event.queryStringParameters || {};
   const id = (q.e || '').slice(0, 400);
   // Which list to unsubscribe from (default: quiz nurture). Allowlisted.
-  const col = (['quiz_leads', 'post_purchase', 'abandoned_checkout'].includes(q.c)) ? q.c : 'quiz_leads';
+  const col = (['quiz_leads', 'post_purchase', 'abandoned_checkout', 'abandoned_wizard'].includes(q.c)) ? q.c : 'quiz_leads';
   const headers = { 'Content-Type': 'text/html; charset=utf-8' };
   if (!id) return { statusCode: 400, headers, body: page('Invalid unsubscribe link.') };
 
