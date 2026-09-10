@@ -58,7 +58,8 @@
     "position": 15.9,
     "tag": "Estate Planning",
     "score": 2,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-09-10"
   },
   {
     "query": "living trust preparation apollo beach",
