@@ -68,7 +68,8 @@
     "position": 19.6,
     "tag": "Estate Planning",
     "score": 1,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-09-11"
   },
   {
     "query": "fort walton beach revocable trusts",
