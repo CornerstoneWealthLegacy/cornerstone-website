@@ -78,7 +78,8 @@
     "position": 21.9,
     "tag": "Estate Planning",
     "score": 0,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-09-12"
   },
   {
     "query": "how much does it cost to make a will in florida",
