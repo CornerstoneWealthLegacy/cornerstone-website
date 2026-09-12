@@ -151,6 +151,16 @@ Implementation: one **"Do you own a business?" question** in every intake (`/sta
 - **GCRID** newsletter and network → cross-border buyer registrations.
 - **Paid:** Google Search on "sell my business florida", "business broker [metro]", "business valuation florida"; Meta retargeting of the existing audience. Model on `ADS-PLAN.md`.
 
+### 4.2a The sourcing engine — where the listings actually come from  **[Both]**
+The prospecting data connected to the firm's tooling shows **67,848 private Florida businesses 20+ years old with 1–50 employees and $500K–$10M revenue** (pulled 2026-09-12) — the retirement-age owner population, filterable by county, NAICS, and owner title before export.
+1. **Inside the firm** — §4.1 above.
+2. **Direct outreach to a data-built list** — filter by county and vertical (HVAC, dental, restaurants, landscaping, marinas), pull owner names, run a letter + call campaign with the free value estimator as the hook. Owner letters convert in the low single digits; the list is tens of thousands deep.
+3. **Public records only a lawyer thinks to use** — Sunbiz entity age and officers; DBPR license rolls (contractors, restaurants, salons); the ABT alcohol-license register; county business tax receipts; the property appraiser for owner-occupied commercial buildings; UCC filings for equipment loans nearing payoff; probate dockets with a business in the estate.
+4. **Referral partners** — CPAs first, then wealth advisors, SBA lenders, commercial bankers, insurance agents, franchisors handling resales, landlords and commercial realtors, divorce and estate lawyers who don't broker, trade associations (FRLA, contractor and dental associations).
+5. **Marketplaces and co-broke** — BBF listing service, BizBuySell, BizQuest, LoopNet, DealStream; Axial for lower-middle-market; Empire Flippers, Quiet Light, Flippa for online businesses.
+6. **Inbound** — the existing 2,300-page site, Google Ads, GCRID newsletter, and a "what is my business worth" workshop on the estate-workshop model.
+7. **Buyers** — BizBuySell buyer pool, Searchfunder, SBA lenders' pipelines, relocating professionals (New to Florida audience), E-2 investors via immigration counsel and GCRID, PE add-on lists on Axial.
+
 ### 4.3 Content & SEO (compounds like the estate content did)  **[Claude]**
 - **Pillar page:** `/business-brokerage` (sell + buy + valuation + how it works + one-hat disclosure).
 - **Service pages:** `/sell-your-business`, `/buy-a-business-florida`, `/business-valuation`, `/e2-visa-business-purchase`.
@@ -286,9 +296,20 @@ Notes: brokerage cash flow is lumpy (6–9 months from listing to wire); the fla
 
 ---
 
+## 11. Brokering outside Florida — three state-by-state questions
+
+**Broker licensing.** Seventeen states require a license to sell a business even with no real estate: Alaska, Arizona, California, Colorado, Florida, Georgia, Idaho, Illinois (registration), Michigan, Minnesota, Nebraska, Nevada (business-broker permit), Oregon, South Dakota, Utah, Wisconsin, Wyoming. The other 33 require nothing for a pure asset sale. A Florida license does not travel. In licensed states: obtain that state's license, or co-broke with a licensed local broker under that state's fee-split rules. Any deal with real property or a lease assignment in another state needs a local real-estate licensee regardless. Florida has mutual recognition for real-estate licenses with a handful of states (state-law exam only); Georgia and Illinois appear on both lists and are the cheapest licensed states to add — **[Arthur]** confirm the current mutual-recognition list with FREC.
+
+**Securities.** Exchange Act §15(b)(13) covers SEC registration for stock / membership-interest sales but does not preempt the states. Roughly 23 states have adopted a NASAA-style M&A-broker exemption (thresholds and notice filings differ); the rest have none — IBBA's "state-line trap". Rule: out-of-state deals are **asset sales only** unless that state's exemption is confirmed in writing.
+
+**Law license.** Arthur is admitted in Florida only. Brokerage is not legal work, so no UPL issue there; drafting or advising under another state's law for a client in that state is. Florida Rule 4-5.5 allows limited temporary practice reasonably related to the home-state practice, and federal pieces (purchase-price allocation, SBA structure) are fine. Everything else goes to local counsel.
+
+**Operating model.** Florida direct. The 33 unlicensed states direct, asset sales only, local counsel on the legal side. Licensed states through an IBBA co-broke partner until volume justifies a license. Online businesses with no premises are the closest thing to a true nationwide product, though licensing still turns on where the seller sits. Same partner-per-state model as `tools/50-state-master-plan.md`.
+
 ## References to confirm before launch
 - F.S. 475.01, 475.011, 475.15, 475.17, 475.278, 475.25, 475.42 — https://www.flsenate.gov/Laws/Statutes/2026/Chapter475/All
 - F.S. Chapter 517 (2024 reorganization) — https://www.flsenate.gov/Laws/Statutes/2026/Chapter517/All ; Greenberg Traurig summary of the 2024 amendments — https://www.gtlaw.com/en/insights/2024/11/florida-amends-securities-and-investor-protection-act-key-changes-to-private-placement-institutional-investor-exemptions ; Florida OFR biennial report noting the May 2024 M&A-broker rule amendment — https://flofr.gov/docs/default-source/documents/biennial-report-2024.pdf
-- Exchange Act §15(b)(13) (federal M&A broker exemption)
+- Exchange Act §15(b)(13) (federal M&A broker exemption); NASAA model M&A-broker rule (amended May 2024) — https://www.nasaa.org/wp-content/uploads/2024/05/Model-Rule-Exempting-Certain-Merger-and-Acquisition-Brokers-From-Registration-_5-6-2024.pdf ; IBBA, "The State-Line Trap" — https://www.ibba.org/articles/the-state-line-trap/
+- State business-broker licensing summaries — https://businessbrokeragepress.com/industry-resources/state-licensing/ ; https://www.bizbuysell.com/learning-center/article/business-broker-licenses-certifications/
 - Florida Bar Rule 4-5.7 — https://floridajustice.com/rule/4-5-7/ ; Ancillary & Other Business Arrangements ethics packet — https://www-media.floridabar.org/uploads/2021/06/Ancillary-Other-Bus-Arrangement-Packet-6-30-21.pdf ; Ethics Opinions by subject — https://www.floridabar.org/ethics/etsubj/
 - F.S. 542.335 (restrictive covenants), F.S. 213.758 (transferee tax liability), F.S. 489 (contractor qualifying agents)
