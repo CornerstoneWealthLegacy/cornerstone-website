@@ -78,9 +78,12 @@ Nobody in the Volusia/Flagler market, and few in Florida, hold all of those in o
 ## 3. Structure & compliance — decide this first  **[Arthur]**
 
 ### 3.1 Licensing (the easy part)
-- **F.S. 475.01(1)(a):** "broker" includes a person who sells, exchanges, lists, or negotiates the sale of **business enterprises or business opportunities** for compensation. Business brokerage in Florida requires a Chapter 475 license. Arthur holds a broker license → **no new individual license.**
+- **F.S. 475.01(1)(a):** "broker" includes a person who sells, exchanges, lists, or negotiates the sale of **business enterprises or business opportunities** for compensation. Business brokerage in Florida requires a Chapter 475 license.
+- **Broker vs. sales associate — it has to be the broker license.** The site describes Arthur as a licensed broker; **[Arthur]** confirm which license is actually held. A sales associate can only act under an employing broker, may only be paid commissions in that broker's name (F.S. 475.42), cannot be an officer, director, member, manager, or general partner of a brokerage entity (F.S. 475.15; Rule 61J2-5), and cannot hold escrow. The plan's own entity, escrow choice, and hiring of associates all require Arthur to be the **qualifying broker**.
+- **Upgrading associate → broker (F.S. 475.17(3)):** 24 months of active sales associate licensure within the preceding 5 years (not waived for attorneys), the state broker exam, then the 60-hour broker post-licensing course in the first renewal cycle. DBPR's FAQ says active Florida Bar members are exempt from the pre-license coursework; confirm with DBPR that this covers the 72-hour broker course. With the 24 months in hand this is an application and an exam; without it, it is a two-year clock.
+- **Bridges if the broker license isn't in hand:** (1) register the entity with an experienced BBF broker as qualifying broker, Arthur as an associate holding equity with no officer/manager title; (2) associate at an existing business brokerage for the 24 months; (3) run the attorney-only lines (S4, S5, S7 legal work) and refer listings to a BBF broker, taking no commission. Whichever applies, fix the "licensed real estate broker" wording on the site if it overstates the license (Rule 4-7.13).
 - **F.S. 475.011(2)** exempts attorneys acting *within the scope of their duties as an attorney*. That covers S4/S5 legal work, not commissioned listing or buyer representation. Do not rely on the attorney exemption for anything with a commission attached.
-- **Brokerage entity:** register a brokerage (LLC or corporation) with DBPR/FREC with Arthur as qualifying broker; DBA "Truestead Business Brokerage" (or the name Arthur picks — see §9). Sales associates, if hired, license under it.
+- **Brokerage entity:** register a brokerage (LLC or corporation) with DBPR/FREC with Arthur (or the bridge broker above) as qualifying broker; DBA "Truestead Business Brokerage" (or the name Arthur picks — see §9). Sales associates, if hired, license under it.
 - **Transaction-broker default (F.S. 475.278):** Florida presumes a transaction broker unless single agency is established in writing. Use transaction-broker relationship for S1 by default; single agency only where the client insists and we document it. Buy-side (S2) → single agent in writing.
 - **Escrow (F.S. 475.25(1)(k)):** deposits held by the brokerage must be in a broker escrow account with monthly reconciliation, *or* held by a title company / attorney with the required written disclosures. **Recommendation:** route all deal deposits to a third-party escrow (title company) in year one; do not mix the law firm's trust account with brokerage deposits.
 
@@ -244,6 +247,7 @@ Notes: brokerage cash flow is lumpy (6–9 months from listing to wire); the fla
 ## 9. Decisions Arthur needs to make
 
 1. **Go / no-go on the one-hat structure** after the ethics-hotline call. (Everything else waits.)
+0. **Which real estate license is actually held** — broker, or sales associate? This decides whether the entity is Arthur's from day one or needs a bridge qualifying broker (§3.1).
 2. **Entity and name:** "Truestead Business Brokerage, LLC" vs. a distinct brand (e.g. "Truestead Advisors"). Separate domain or `/business-brokerage` on truesteadlaw.com?
 3. **Fee floor and scale:** minimum success fee ($15K proposed), scale above $1M.
 4. **Who does the work:** Arthur solo to start, or recruit a BBF-experienced associate now?
@@ -256,6 +260,7 @@ Notes: brokerage cash flow is lumpy (6–9 months from listing to wire); the fla
 ## 10. 90-day roadmap
 
 **Days 1–30 — Compliance & setup**
+- [ ] Confirm broker vs. associate license; if associate, pick a bridge (§3.1) and correct the site wording **[Arthur]**
 - [ ] Ethics-hotline call / informal opinion on the structure **[Arthur]**
 - [ ] Form and register the brokerage entity with DBPR/FREC; Arthur as qualifying broker **[Arthur]**
 - [ ] Brokerage E&O bound; law-firm policy exclusion confirmed **[Arthur]**
@@ -282,7 +287,7 @@ Notes: brokerage cash flow is lumpy (6–9 months from listing to wire); the fla
 ---
 
 ## References to confirm before launch
-- F.S. 475.01, 475.011, 475.278, 475.25 — https://www.flsenate.gov/Laws/Statutes/2026/Chapter475/All
+- F.S. 475.01, 475.011, 475.15, 475.17, 475.278, 475.25, 475.42 — https://www.flsenate.gov/Laws/Statutes/2026/Chapter475/All
 - F.S. Chapter 517 (2024 reorganization) — https://www.flsenate.gov/Laws/Statutes/2026/Chapter517/All ; Greenberg Traurig summary of the 2024 amendments — https://www.gtlaw.com/en/insights/2024/11/florida-amends-securities-and-investor-protection-act-key-changes-to-private-placement-institutional-investor-exemptions ; Florida OFR biennial report noting the May 2024 M&A-broker rule amendment — https://flofr.gov/docs/default-source/documents/biennial-report-2024.pdf
 - Exchange Act §15(b)(13) (federal M&A broker exemption)
 - Florida Bar Rule 4-5.7 — https://floridajustice.com/rule/4-5-7/ ; Ancillary & Other Business Arrangements ethics packet — https://www-media.floridabar.org/uploads/2021/06/Ancillary-Other-Bus-Arrangement-Packet-6-30-21.pdf ; Ethics Opinions by subject — https://www.floridabar.org/ethics/etsubj/
