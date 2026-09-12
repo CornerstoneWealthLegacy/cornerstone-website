@@ -231,7 +231,7 @@ Buyers who fail the gate get a polite no and stay in the database for a better-f
 ### 5.2 Templates and internal tools  **[Claude]**
 - **Listing screen scorecard** (§1.2) as a form → score → path, wired into the intake.
 - **Seller document request list** (§1.1 + full diligence list) with a secure upload folder per prospect (portal).
-- **Recast / SDE workbook**: 3 years + TTM, add-back schedule with a "document attached?" column, weighted SDE, multiple grid, three-approach reconciliation, buyer's-test tab with an SBA amortization calculator. Build once as a spreadsheet; later as an internal web tool.
+- **Recast / SDE workbook** — **built: `_internal/brokerage/BOV-Recast-Workbook.xlsx`** (sheets: README, Inputs, Recast, Risk Grid, Valuation, Buyer Test, Screen). 3 years + TTM, add-back schedule gated by a Doc? column, weighted SDE, risk-grid multiple with floor/cap, three-approach reconciliation with range and rounded asking price, buyer's test with DSCR, sensitivity table and a maximum-supportable-price solver, plus the §1.2 listing scorecard. Ships filled with the §6 example. Later: an internal web tool on the same logic.
 - **BOV report template** (§2.8) with the disclaimer block and a comps table that pulls from the workbook.
 - **Diligence checklist** (§3.1) as a tracked list per deal with owner, status, and document link.
 - **Buyer qualification file** (§4): NDA e-sign, profile form, proof-of-funds upload, eligibility flags.
