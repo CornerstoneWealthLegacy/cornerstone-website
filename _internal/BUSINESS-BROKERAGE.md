@@ -83,6 +83,16 @@ Nobody in the Volusia/Flagler market, and few in Florida, hold all of those in o
 - **Upgrading associate → broker (F.S. 475.17(3)):** 24 months of active sales associate licensure within the preceding 5 years (not waived for attorneys), the state broker exam, then the 60-hour broker post-licensing course in the first renewal cycle. DBPR's FAQ says active Florida Bar members are exempt from the pre-license coursework; confirm with DBPR that this covers the 72-hour broker course. With the 24 months in hand this is an application and an exam; without it, it is a two-year clock.
 - **Bridges if the broker license isn't in hand:** (1) register the entity with an experienced BBF broker as qualifying broker, Arthur as an associate holding equity with no officer/manager title; (2) associate at an existing business brokerage for the 24 months; (3) run the attorney-only lines (S4, S5, S7 legal work) and refer listings to a BBF broker, taking no commission. Whichever applies, fix the "licensed real estate broker" wording on the site if it overstates the license (Rule 4-7.13).
 - **F.S. 475.011(2)** exempts attorneys acting *within the scope of their duties as an attorney*. That covers S4/S5 legal work, not commissioned listing or buyer representation. Do not rely on the attorney exemption for anything with a commission attached.
+- **Which company does the brokering — neither existing one.** Arthur currently holds his license under another brokerage.
+
+  | Option | Works? | Why |
+  |---|---|---|
+  | The law firm | No | Collapses the 4-5.7 separation, mixes commissions with legal fees (4-5.4), malpractice policy won't cover it |
+  | Arthur's current real-estate brokerage | Only with written consent | As an associate every listing, contract, escrow deposit and commission runs in the employing broker's name (F.S. 475.42); their E&O and forms decide; most residential brokerages exclude business-opportunity sales. Stopgap at best |
+  | New brokerage entity, Arthur as qualifying broker | **Yes — target** | Own fees, escrow, forms, associates; separate from the law firm |
+  | New entity with a hired qualifying broker | Bridge, maybe | Associates cannot be officers, directors, or managers of a brokerage entity; passive ownership needs a FREC answer |
+
+  Two constraints drive this: an associate can hang a license with **only one broker at a time**, so business brokerage and residential work must be under the same broker; and brokerage advertising must carry the **registered brokerage name** (Rule 61J2-10.025), so brokerage pages on truesteadlaw.com must name whichever brokerage actually does the work. "Realtor" is NAR membership, not a license, and decides nothing here.
 - **Brokerage entity:** register a brokerage (LLC or corporation) with DBPR/FREC with Arthur (or the bridge broker above) as qualifying broker; DBA "Truestead Business Brokerage" (or the name Arthur picks — see §9). Sales associates, if hired, license under it.
 - **Transaction-broker default (F.S. 475.278):** Florida presumes a transaction broker unless single agency is established in writing. Use transaction-broker relationship for S1 by default; single agency only where the client insists and we document it. Buy-side (S2) → single agent in writing.
 - **Escrow (F.S. 475.25(1)(k)):** deposits held by the brokerage must be in a broker escrow account with monthly reconciliation, *or* held by a title company / attorney with the required written disclosures. **Recommendation:** route all deal deposits to a third-party escrow (title company) in year one; do not mix the law firm's trust account with brokerage deposits.
@@ -270,6 +280,8 @@ Notes: brokerage cash flow is lumpy (6–9 months from listing to wire); the fla
 ## 10. 90-day roadmap
 
 **Days 1–30 — Compliance & setup**
+- [ ] Ask the current broker in writing whether their E&O and office policy permit business-opportunity listings, and on what split **[Arthur]**
+- [ ] Confirm the 24-month active-associate record; if met, sit the broker exam (confirm the Bar coursework exemption with DBPR) **[Arthur]**
 - [ ] Confirm broker vs. associate license; if associate, pick a bridge (§3.1) and correct the site wording **[Arthur]**
 - [ ] Ethics-hotline call / informal opinion on the structure **[Arthur]**
 - [ ] Form and register the brokerage entity with DBPR/FREC; Arthur as qualifying broker **[Arthur]**
