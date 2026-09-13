@@ -88,7 +88,8 @@
     "position": 20.6,
     "tag": "Estate Planning",
     "score": 0,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-09-13"
   },
   {
     "query": "732.5165",
