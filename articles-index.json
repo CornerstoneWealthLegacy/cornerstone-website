@@ -1,6 +1,17 @@
 {
   "articles": [
     {
+      "slug": "articles/focus-732-502-2026-09-14",
+      "file": "articles/focus-732-502-2026-09-14.html",
+      "title": "Florida Statute 732.502: Will Execution Requirements Explained",
+      "tag": "Estate Planning",
+      "category": "732.502",
+      "blurb": "A plain-English breakdown of Florida Statute 732.502, the law governing how a will must be signed and witnessed to be valid.",
+      "image": "images/og/florida-will-requirements.jpg",
+      "date": "2026-09-14",
+      "prettyDate": "September 14, 2026"
+    },
+    {
       "slug": "articles/focus-how-much-does-it-cost-to-make-a-will-in-flori-2026-09-13",
       "file": "articles/focus-how-much-does-it-cost-to-make-a-will-in-flori-2026-09-13.html",
       "title": "How Much Does It Cost to Make a Will in Florida?",
@@ -648,17 +659,6 @@
       "image": "images/og/florida-probate-process-timeline.jpg",
       "date": "2026-06-23",
       "prettyDate": "June 23, 2026"
-    },
-    {
-      "slug": "articles/elder-law-2026-06-22",
-      "file": "articles/elder-law-2026-06-22.html",
-      "title": "Florida Medicaid & the 5-Year Lookback: An Elder Law Guide",
-      "tag": "Elder Law",
-      "category": "Elder Law & Medicaid",
-      "blurb": "How Florida's Medicaid five-year lookback, asset limits, and spousal protections really work for long-term care — and how families can plan calmly.",
-      "image": "images/og/florida-medicaid-planning-lookback.jpg",
-      "date": "2026-06-22",
-      "prettyDate": "June 22, 2026"
     }
   ]
 }
