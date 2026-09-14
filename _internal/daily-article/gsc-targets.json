@@ -1,95 +1,165 @@
 [
   {
-    "query": "windermere real estate attorney",
-    "impressions": 15,
+    "query": "732.502",
+    "impressions": 22,
     "clicks": 0,
-    "position": 9.9,
+    "position": 13.1,
     "tag": "Estate Planning",
     "score": 8,
-    "used": true,
-    "targetedOn": "2026-09-07"
+    "used": false
   },
   {
-    "query": "windermere real estate closing attorney",
-    "impressions": 18,
+    "query": "real estate law tavernier fl",
+    "impressions": 19,
     "clicks": 0,
-    "position": 11.4,
-    "tag": "Real Estate",
+    "position": 12.2,
+    "tag": "Estate Planning",
     "score": 8,
-    "used": false,
-    "skipped": true,
-    "skippedReason": "near-duplicate of \"windermere real estate attorney\""
+    "used": false
   },
   {
-    "query": "estate planning shady hills",
-    "impressions": 13,
-    "clicks": 0,
-    "position": 9.2,
-    "tag": "Estate Planning",
-    "score": 7,
-    "used": true,
-    "targetedOn": "2026-09-08"
-  },
-  {
-    "query": "estate planning preparation nokomis",
-    "impressions": 12,
-    "clicks": 0,
-    "position": 10,
-    "tag": "Estate Planning",
-    "score": 6,
-    "used": false,
-    "skipped": true,
-    "skippedReason": "near-duplicate of \"estate planning preparation ruskin\""
-  },
-  {
-    "query": "altamonte springs medicaid planning attorney",
-    "impressions": 10,
-    "clicks": 0,
-    "position": 14.9,
-    "tag": "Elder Law",
-    "score": 3,
-    "used": true,
-    "targetedOn": "2026-09-09"
-  },
-  {
-    "query": "real estate law islamorada fl",
+    "query": "probate attorney sugarmill woods, florida",
     "impressions": 9,
     "clicks": 0,
-    "position": 15.9,
-    "tag": "Estate Planning",
-    "score": 2,
-    "used": true,
-    "targetedOn": "2026-09-10"
+    "position": 4.8,
+    "tag": "Probate",
+    "score": 7,
+    "used": false
   },
   {
-    "query": "living trust preparation apollo beach",
+    "query": "real estate litigation bayonet point",
+    "impressions": 11,
+    "clicks": 0,
+    "position": 7.1,
+    "tag": "Estate Planning",
+    "score": 7,
+    "used": false
+  },
+  {
+    "query": "williston motorcycle accident lawyer",
+    "impressions": 11,
+    "clicks": 0,
+    "position": 8.7,
+    "tag": "Personal Injury",
+    "score": 6,
+    "used": false
+  },
+  {
+    "query": "williston personal injury lawyer",
+    "impressions": 9,
+    "clicks": 0,
+    "position": 7.6,
+    "tag": "Personal Injury",
+    "score": 6,
+    "used": false
+  },
+  {
+    "query": "real estate attorney parrish fl",
+    "impressions": 13,
+    "clicks": 0,
+    "position": 13.5,
+    "tag": "Estate Planning",
+    "score": 5,
+    "used": false
+  },
+  {
+    "query": "real estate litigation elfers",
+    "impressions": 12,
+    "clicks": 0,
+    "position": 11.8,
+    "tag": "Estate Planning",
+    "score": 5,
+    "used": false
+  },
+  {
+    "query": "reddick lyft accident lawyer",
     "impressions": 10,
     "clicks": 0,
-    "position": 19.6,
-    "tag": "Estate Planning",
-    "score": 1,
-    "used": true,
-    "targetedOn": "2026-09-11"
+    "position": 11.3,
+    "tag": "Personal Injury",
+    "score": 5,
+    "used": false
   },
   {
-    "query": "fort walton beach revocable trusts",
+    "query": "estate planning attorney sarasota",
+    "impressions": 9,
+    "clicks": 0,
+    "position": 11.1,
+    "tag": "Estate Planning",
+    "score": 4,
+    "used": false
+  },
+  {
+    "query": "free legal forms for 18 year olds",
+    "impressions": 9,
+    "clicks": 0,
+    "position": 11,
+    "tag": "Estate Planning",
+    "score": 4,
+    "used": false
+  },
+  {
+    "query": "estate planning sunny isles beach",
+    "impressions": 13,
+    "clicks": 0,
+    "position": 15.8,
+    "tag": "Estate Planning",
+    "score": 3,
+    "used": false
+  },
+  {
+    "query": "pine hills ladybird deed",
+    "impressions": 8,
+    "clicks": 0,
+    "position": 14.1,
+    "tag": "Real Estate",
+    "score": 3,
+    "used": false
+  },
+  {
+    "query": "belleview personal injury lawyer",
+    "impressions": 11,
+    "clicks": 0,
+    "position": 16.5,
+    "tag": "Personal Injury",
+    "score": 2,
+    "used": false
+  },
+  {
+    "query": "closing attorney sebastian",
+    "impressions": 8,
+    "clicks": 0,
+    "position": 16.9,
+    "tag": "Real Estate",
+    "score": 2,
+    "used": false
+  },
+  {
+    "query": "closing attorneys hobe sound fl",
+    "impressions": 8,
+    "clicks": 0,
+    "position": 18.3,
+    "tag": "Real Estate",
+    "score": 1,
+    "used": false
+  },
+  {
+    "query": "reddick collision lawyer",
+    "impressions": 8,
+    "clicks": 0,
+    "position": 20.3,
+    "tag": "Estate Planning",
+    "score": 0,
+    "used": false
+  },
+  {
+    "query": "title attorney cooper city, fl",
     "impressions": 8,
     "clicks": 0,
     "position": 21.9,
-    "tag": "Estate Planning",
+    "tag": "Real Estate",
     "score": 0,
-    "used": true,
-    "targetedOn": "2026-09-12"
-  },
-  {
-    "query": "how much does it cost to make a will in florida",
-    "impressions": 8,
-    "clicks": 0,
-    "position": 20.6,
-    "tag": "Estate Planning",
-    "score": 0,
-    "used": true,
-    "targetedOn": "2026-09-13"
+    "used": false
   },
   {
     "query": "732.5165",
@@ -99,6 +169,91 @@
     "tag": "Estate Planning",
     "score": -1,
     "used": false
+  },
+  {
+    "query": "graceville lawyer",
+    "impressions": 10,
+    "clicks": 0,
+    "position": 23.3,
+    "tag": "Estate Planning",
+    "score": -1,
+    "used": false
+  },
+  {
+    "query": "real estate law hobe sound, fl",
+    "impressions": 8,
+    "clicks": 0,
+    "position": 23.4,
+    "tag": "Estate Planning",
+    "score": -1,
+    "used": false
+  },
+  {
+    "query": "title services crawfordville, fl",
+    "impressions": 12,
+    "clicks": 0,
+    "position": 22.8,
+    "tag": "Real Estate",
+    "score": -1,
+    "used": false
+  },
+  {
+    "query": "walton county revocable trusts",
+    "impressions": 8,
+    "clicks": 0,
+    "position": 22.6,
+    "tag": "Estate Planning",
+    "score": -1,
+    "used": false
+  },
+  {
+    "query": "windermere real estate attorney",
+    "used": true,
+    "targetedOn": "2026-09-07"
+  },
+  {
+    "query": "windermere real estate closing attorney",
+    "used": false,
+    "targetedOn": null,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"windermere real estate attorney\""
+  },
+  {
+    "query": "estate planning shady hills",
+    "used": true,
+    "targetedOn": "2026-09-08"
+  },
+  {
+    "query": "estate planning preparation nokomis",
+    "used": false,
+    "targetedOn": null,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"estate planning preparation ruskin\""
+  },
+  {
+    "query": "altamonte springs medicaid planning attorney",
+    "used": true,
+    "targetedOn": "2026-09-09"
+  },
+  {
+    "query": "real estate law islamorada fl",
+    "used": true,
+    "targetedOn": "2026-09-10"
+  },
+  {
+    "query": "living trust preparation apollo beach",
+    "used": true,
+    "targetedOn": "2026-09-11"
+  },
+  {
+    "query": "fort walton beach revocable trusts",
+    "used": true,
+    "targetedOn": "2026-09-12"
+  },
+  {
+    "query": "how much does it cost to make a will in florida",
+    "used": true,
+    "targetedOn": "2026-09-13"
   },
   {
     "query": "living trusts nokomis",
