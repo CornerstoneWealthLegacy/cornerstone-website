@@ -40,12 +40,14 @@ because on those pages the full practice-area list *is* the right answer.
 - **`seed` is written in the visitor's voice.** It lands pre-filled in the
   message box so they only add details, and so the lead email says exactly
   which issue they clicked.
-- **`clip` must be a clip that exists** in `CLIPS`. Video, audio and word
-  timings ship together, so a context points at the closest intro Arthur
-  actually filmed rather than putting new words in his mouth. The
-  page-specific detail lives in `headline` / `lines` / `issues`, which is ours
-  to write freely. When a new clip is filmed, add it to `CLIPS` + `WORDS` and
-  point the context at it.
+- **`clip` must be a clip that exists** in `CLIPS`, and `clipFallback` names the
+  clip to use if that file can't be played. Video, audio and word timings ship
+  together, so a clip is never edited by hand — see `_internal/widget-clips`,
+  which holds the scripts, the citations behind them, and the builder that
+  renders a clip and splices its `CLIPS` and `WORDS` entries in here.
+- **A missing clip is not an outage.** `playClip` swaps to `clipFallback` on any
+  media error, so this file can deploy before the MP4s land — that page simply
+  sounds the way it did before. Thirteen contexts are in exactly that state now.
 
 ### Forcing a context
 
