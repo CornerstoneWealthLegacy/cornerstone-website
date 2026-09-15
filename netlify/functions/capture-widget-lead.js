@@ -24,6 +24,10 @@ exports.handler = async (event) => {
   const branch    = (body.branch || '').toString().trim().slice(0, 60);
   const situation = (body.situation || '').toString().slice(0, 1500);
   const page      = (body.page || '').toString().slice(0, 300);
+  // Page context: which page family the widget opened on, and which of that
+  // page's issue chips they clicked. Blank on the generic (no-context) flow.
+  const context   = (body.context || '').toString().trim().slice(0, 60);
+  const issue     = (body.issue || '').toString().trim().slice(0, 120);
 
   // A widget lead is real if it carries a phone or an email; otherwise drop it.
   if (!phone && !email) {
@@ -38,13 +42,13 @@ exports.handler = async (event) => {
     await fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
       method: 'POST',
       headers: { Title: 'New Video Widget Lead', Priority: 'high', Tags: 'movie_camera,scales', 'Content-Type': 'text/plain' },
-      body: `${name || 'Someone'}${phone ? ' · ' + phone : ''}${email ? ' — ' + email : ''}\nBranch: ${branch || '—'}\n${situation || ''}${page ? '\nPage: ' + page : ''}`.slice(0, 1500),
+      body: `${name || 'Someone'}${phone ? ' · ' + phone : ''}${email ? ' — ' + email : ''}\nBranch: ${branch || '—'}${issue ? ' — ' + issue : ''}\n${situation || ''}${page ? '\nPage: ' + page : ''}`.slice(0, 1500),
     });
   } catch (e) { console.error('ntfy error', e); }
 
   // 2) Email copy to the firm
   if (RESEND_KEY) {
-    try { await sendFirmNotice(RESEND_KEY, { name, phone, email, branch, situation, page }); }
+    try { await sendFirmNotice(RESEND_KEY, { name, phone, email, branch, situation, page, context, issue }); }
     catch (e) { console.error('firm notice error', e); }
   }
 
@@ -69,11 +73,13 @@ async function sendFirmNotice(key, lead) {
 <strong>Phone:</strong> ${lead.phone ? `<a href="tel:${escapeHtml(lead.phone)}">${escapeHtml(lead.phone)}</a>` : '—'}<br>
 <strong>Email:</strong> ${lead.email ? `<a href="mailto:${escapeHtml(lead.email)}">${escapeHtml(lead.email)}</a>` : '—'}<br>
 <strong>Branch:</strong> ${escapeHtml(lead.branch) || '—'}<br>
+<strong>Issue clicked:</strong> ${escapeHtml(lead.issue) || '—'}<br>
+<strong>Page context:</strong> ${escapeHtml(lead.context) || 'generic'}<br>
 <strong>Page:</strong> ${escapeHtml(lead.page) || '—'}</p>
 <p><strong>Their situation:</strong><br>${escapeHtml(lead.situation) || '—'}</p>
 <p style="color:#666;font-size:13px">Source: AI-Arthur video intake widget.</p>
 </div>`;
-  const text = `New Video Widget Lead\n\nName: ${lead.name || '—'}\nPhone: ${lead.phone || '—'}\nEmail: ${lead.email || '—'}\nBranch: ${lead.branch || '—'}\nPage: ${lead.page || '—'}\n\nSituation: ${lead.situation || '—'}\n\nSource: AI-Arthur video intake widget.`;
+  const text = `New Video Widget Lead\n\nName: ${lead.name || '—'}\nPhone: ${lead.phone || '—'}\nEmail: ${lead.email || '—'}\nBranch: ${lead.branch || '—'}\nIssue clicked: ${lead.issue || '—'}\nPage context: ${lead.context || 'generic'}\nPage: ${lead.page || '—'}\n\nSituation: ${lead.situation || '—'}\n\nSource: AI-Arthur video intake widget.`;
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
@@ -81,7 +87,7 @@ async function sendFirmNotice(key, lead) {
       from: 'Truestead Leads <arthur@truesteadlaw.com>',
       to: [FIRM],
       ...(lead.email ? { reply_to: lead.email } : {}),
-      subject: `Video Widget Lead: ${lead.name || lead.phone || lead.email} (${lead.branch || 'no branch'})`,
+      subject: `Video Widget Lead: ${lead.name || lead.phone || lead.email} (${lead.issue || lead.branch || 'no branch'})`,
       html, text,
     }),
   });

@@ -52,6 +52,499 @@
   ];
   var ASKQ_LABEL = 'Ask a question';
 
+  /* ── PAGE CONTEXTS ──────────────────────────────────────────────────────────
+   * The widget ships on 2,500+ pages. Someone reading the commercial-lease page
+   * and someone reading the probate page should not get the same eight generic
+   * tabs — the panel should open already talking about the thing they came for.
+   *
+   * One entry = one page family:
+   *   id        stable slug; also what a page/ad can force (see resolveContext)
+   *   match     RegExp tested against the pathname. Omit for force-only entries.
+   *   label     practice-area tag that rides along on the lead
+   *   clip      which EXISTING Arthur clip opens the panel. It has to be a real
+   *             recorded clip — video, audio and word timings ship together, so
+   *             we pick the closest intro he actually filmed instead of putting
+   *             new words in his mouth. Page-specific detail lives in the text
+   *             below the video (headline / lines / issues), which is ours to
+   *             write freely. New clip filmed? Point the context at it here.
+   *   contactClip  clip for the name-and-number step (default: 'contact')
+   *   hook      two short lines for the collapsed bubble
+   *   headline  the page-specific line above the issue chips
+   *   lines     0–2 short factual notes — the "why this page matters" beat
+   *   issues    the 3–4 things people on THIS page actually call about.
+   *             label = chip text. seed = the first-person sentence dropped in
+   *             the message box, so the lead email says what they clicked.
+   *             goto = hand off to another context instead (drill-down).
+   *
+   * Order matters: first match wins, so specific pages sit above their hubs.
+   */
+  var PAGE_CONTEXTS = [
+    {
+      id: 'commercial-leasing',
+      match: /(commercial[-_/]?leas|\/commercial\/)/,
+      label: 'Commercial Leasing',
+      clip: 're',
+      hook: 'Commercial lease?<br>Ask Arthur.',
+      headline: 'Florida commercial leases — where they usually bite:',
+      lines: ['A commercial tenant doesn’t get the residential statute’s protections. The lease you sign is very nearly the whole law between you and the landlord.'],
+      issues: [
+        { label: 'NNN, CAM & pass-throughs', seed: 'I have questions about the NNN / CAM and pass-through charges in a commercial lease — what I can be billed for and how it gets audited.' },
+        { label: 'Personal guaranty', seed: 'The commercial lease has a personal guaranty and I want to know exactly what I am on the hook for, and whether it can be limited or burned off.' },
+        { label: 'Assignment & subletting', seed: 'I need to assign, sublet, or sell the business that holds a commercial lease, and the landlord’s consent language is in the way.' },
+        { label: 'Default, cure & lockout', seed: 'There is a default, cure-period, or lockout issue on a commercial lease and I want to know where I stand right now.' }
+      ]
+    },
+    {
+      id: 'leases',
+      match: /^\/leases/,
+      label: 'Leases & Landlord',
+      clip: 're',
+      hook: 'Lease question?<br>Ask Arthur.',
+      headline: 'Florida leases — which one are you dealing with?',
+      lines: ['Most landlord losses in Florida aren’t the tenant’s doing. They’re a missed deposit deadline or a defective notice.'],
+      issues: [
+        { label: 'Commercial lease (NNN/CAM)', goto: 'commercial-leasing' },
+        { label: 'Security deposit deadlines', seed: 'I have a Florida security deposit question — the claim deadlines after a tenant moves out and how to make the claim stick.' },
+        { label: '3-day notice / eviction', seed: 'I need to know whether my 3-day notice and eviction paperwork is right before I file.' },
+        { label: 'Rental held in an LLC', seed: 'I want my Florida rental property held and leased the right way — LLC, insurance, and who signs the lease.' }
+      ]
+    },
+    {
+      id: 'deeds',
+      match: /^\/(deeds|real-estate-docs)/,
+      label: 'Deeds & Title',
+      clip: 're',
+      hook: 'Need a deed?<br>Ask Arthur.',
+      headline: 'Florida deeds — what are you trying to do?',
+      lines: ['A deed is easy to record and expensive to undo. Homestead, spousal signatures and Medicaid all turn on getting it right the first time.'],
+      issues: [
+        { label: 'Add or remove someone', seed: 'I want to add or remove someone from the title on a Florida property.' },
+        { label: 'Lady bird / life estate deed', seed: 'I am looking at a lady bird (enhanced life estate) deed and want to know if it fits my situation.' },
+        { label: 'Deed into a trust or LLC', seed: 'I need to move a Florida property into a trust or an LLC.' },
+        { label: 'Homestead & spouse signature', seed: 'I have a homestead or spousal-signature question on a Florida deed.' }
+      ]
+    },
+    {
+      id: 'real-estate',
+      match: /^\/real-estate/,
+      label: 'Real Estate',
+      clip: 're',
+      hook: 'Buying or selling?<br>Ask Arthur.',
+      headline: 'Florida property — where are things right now?',
+      issues: [
+        { label: 'Contract or closing problem', seed: 'I have a problem with a Florida purchase contract or a closing that is not going the way it should.' },
+        { label: 'Title defect or cloud', seed: 'There is a title defect, lien, or cloud on a Florida property I own or am buying.' },
+        { label: '1031 exchange timing', seed: 'I am working on a 1031 exchange and need the timing and structure checked.' },
+        { label: 'Foreign buyer / FIRPTA', seed: 'I am a non-US buyer or seller of Florida property and need the FIRPTA and structure questions answered.' }
+      ]
+    },
+    {
+      id: 'construction',
+      match: /^\/construction-law/,
+      label: 'Construction',
+      clip: 'constr',
+      hook: 'Construction trouble?<br>Ask Arthur.',
+      headline: 'Florida construction — what has gone wrong?',
+      lines: ['Lien rights, notices and defect claims all run on statutory clocks. The side that papers the file first usually wins.'],
+      issues: [
+        { label: 'Lien deadlines & Notice to Owner', seed: 'I have a Florida construction lien or Notice to Owner question and I am worried about the deadline.' },
+        { label: 'Contractor walked off', seed: 'A contractor walked off the job or the work is defective, and I need to know my options.' },
+        { label: 'Not getting paid', seed: 'I did the work and I am not getting paid on a Florida project.' },
+        { label: 'Defect claim notice', seed: 'I received or need to send a Florida construction defect notice and want to know what happens next.' }
+      ]
+    },
+    {
+      id: 'hoa-condo',
+      match: /^\/hoa-condo-law/,
+      label: 'HOA / Condo',
+      clip: 'hoa',
+      hook: 'HOA or condo?<br>Ask Arthur.',
+      headline: 'Florida condo & HOA — which side are you on?',
+      lines: ['Milestone inspections and structural reserve studies are mandatory for many Florida buildings, with a December 31, 2026 cutoff in play.'],
+      issues: [
+        { label: 'Milestone / reserve study', seed: 'I have a milestone inspection or structural reserve study question for a Florida building.' },
+        { label: 'Special assessment', seed: 'Our building has levied a special assessment and I need to understand it.' },
+        { label: 'Board vs. owner dispute', seed: 'I am in a dispute with the association board (or as a board member, with an owner).' },
+        { label: 'Buying in an older building', seed: 'I am buying a unit in an older Florida building and want the association documents read before I close.' }
+      ]
+    },
+    {
+      id: 'age-18',
+      match: /^\/(18-and-protected|thank-you-18)/,
+      label: 'College / Age 18',
+      clip: 'ep',
+      hook: 'Your 18-year-old?<br>Ask Arthur.',
+      headline: 'Your 18-year-old — the four documents that matter:',
+      lines: ['The day a child turns 18, a parent has no automatic right to their medical records, their doctors, or their grades.'],
+      issues: [
+        { label: 'HIPAA authorization', seed: 'I want the HIPAA authorization so doctors can talk to me about my adult child.' },
+        { label: 'Health care surrogate', seed: 'I need a Florida health care surrogate designation for my 18-year-old.' },
+        { label: 'Durable power of attorney', seed: 'I need a durable power of attorney for my 18-year-old so I can handle things if they cannot.' },
+        { label: 'School / FERPA records', seed: 'I want access to my college student’s school records (FERPA) and want to know how that is handled.' }
+      ]
+    },
+    {
+      id: 'wills-trusts',
+      match: /^\/(florida-will|florida-living-trust)/,
+      label: 'Wills & Trusts',
+      clip: 'ep',
+      hook: 'Will or trust?<br>Ask Arthur.',
+      headline: 'Florida wills & trusts — what are you deciding?',
+      issues: [
+        { label: 'Will or trust — which?', seed: 'I am trying to decide between a Florida will and a living trust for my situation.' },
+        { label: 'Keeping the house out of probate', seed: 'I want to keep my Florida home out of probate and want to know the cleanest way to do it.' },
+        { label: 'Naming the right people', seed: 'I need help naming the right personal representative, trustee, and health care decision-makers.' },
+        { label: 'Funding a trust I already have', seed: 'I already have a trust and I am not sure it is funded correctly.' }
+      ]
+    },
+    {
+      id: 'estate-kit',
+      match: /^\/(florida-estate-kit|estate-kit-offer|kits|legalzoom-alternative|signing)/,
+      label: 'Florida Estate Kit',
+      clip: 'ep',
+      hook: 'Kit questions?<br>Ask Arthur.',
+      headline: 'Before you start the kit — the usual questions:',
+      issues: [
+        { label: 'Which kit do I need?', seed: 'I am not sure which kit fits me — will, trust, or the full plan.' },
+        { label: 'Signing, witnesses & notary', seed: 'I want to know how the documents get signed, witnessed and notarized so they hold up in Florida.' },
+        { label: 'What attorney review covers', seed: 'I want to know exactly what the attorney review includes before I buy.' },
+        { label: 'I already started one', seed: 'I already started a kit and I have a question about my documents.' }
+      ]
+    },
+    {
+      id: 'plan-review',
+      match: /^\/(quiz|florida-estate-checklist|estate-workshop|workshop-thanks)/,
+      label: 'Estate Plan Review',
+      clip: 'ep',
+      hook: 'Plan up to date?<br>Ask Arthur.',
+      headline: 'Where does your plan stand today?',
+      issues: [
+        { label: 'No plan at all yet', seed: 'I do not have an estate plan yet and want to know where to start.' },
+        { label: 'Old or out-of-state plan', seed: 'My will or trust is old, or it was written in another state, and I need it checked against Florida law.' },
+        { label: 'Trust that may not be funded', seed: 'I have a trust but I am not sure the house and the accounts were ever moved into it.' },
+        { label: 'Blended family / minor kids', seed: 'I have a blended family or minor children and need the plan to handle that properly.' }
+      ]
+    },
+    {
+      id: 'new-to-florida',
+      match: /^\/(snowbird|new-to-florida)/,
+      label: 'New to Florida',
+      clip: 'ep',
+      hook: 'New to Florida?<br>Ask Arthur.',
+      headline: 'You moved. Your paperwork usually didn’t:',
+      issues: [
+        { label: 'Out-of-state will or trust', seed: 'I moved to Florida and want to know whether my out-of-state will or trust still works here.' },
+        { label: 'Homestead & residency', seed: 'I have Florida homestead and residency questions after my move.' },
+        { label: 'Retitling property & accounts', seed: 'I need to retitle property and accounts now that Florida is home.' },
+        { label: 'Health care documents', seed: 'I want health care documents that Florida hospitals will actually accept.' }
+      ]
+    },
+    {
+      id: 'estate-planning',
+      match: /(^\/estate-planning|-estate-planning\.html$|^\/estate-planning-attorney-)/,
+      label: 'Estate Planning',
+      clip: 'ep',
+      hook: 'Estate plan?<br>Ask Arthur.',
+      headline: 'Florida estate planning — where do you fit?',
+      issues: [
+        { label: 'Starting from scratch', seed: 'I do not have a Florida estate plan yet and I want to get one in place.' },
+        { label: 'Updating an old plan', seed: 'My documents are old (or from another state) and need to be brought current under Florida law.' },
+        { label: 'Blended family / minor kids', seed: 'I have a blended family or minor children and need the plan built around that.' },
+        { label: 'Keeping the house out of probate', seed: 'I want my Florida home to pass without probate.' }
+      ]
+    },
+    {
+      id: 'probate',
+      match: /^\/(probate-administration|summary-administration|probate-calculator|probate-attorney-)/,
+      label: 'Probate',
+      clip: 'askq',
+      contactClip: 'contact',
+      hook: 'Lost someone?<br>Ask Arthur.',
+      headline: 'Probate in Florida — what are you facing?',
+      lines: ['Not every estate needs the full process. What it takes depends on what they owned and how it was titled.'],
+      issues: [
+        { label: 'Formal or summary?', seed: 'I need to know whether this estate requires formal administration or qualifies for summary administration.' },
+        { label: 'There was no will', seed: 'The person who died did not leave a will and I need to know what happens now.' },
+        { label: 'Out-of-state property or heirs', seed: 'The estate involves out-of-state property or heirs who live elsewhere.' },
+        { label: 'The heirs disagree', seed: 'The family members or heirs are not in agreement and I need to know my options.' }
+      ]
+    },
+    {
+      id: 'elder-law',
+      match: /^\/(elder-law|palm-coast-elder-law)/,
+      label: 'Elder Law',
+      clip: 'elder',
+      hook: 'Nursing home costs?<br>Ask Arthur.',
+      headline: 'Florida elder law — what is the situation?',
+      lines: ['Florida Medicaid looks back five years at transfers. Planning early is cheaper than planning in a crisis — but crisis planning still works.'],
+      issues: [
+        { label: 'Medicaid five-year lookback', seed: 'I have questions about the Florida Medicaid five-year lookback and what transfers can cost us.' },
+        { label: 'Already in a nursing home', seed: 'A family member is already in a nursing home or about to be, and the money is going out the door.' },
+        { label: 'Protecting the homestead', seed: 'I want to protect the family home while still qualifying for care.' },
+        { label: 'POA or guardianship for a parent', seed: 'I need a power of attorney, or possibly guardianship, for a parent whose health is slipping.' }
+      ]
+    },
+    {
+      id: 'asset-protection',
+      match: /^\/asset-protection/,
+      label: 'Asset Protection',
+      clip: 'askq',
+      hook: 'Protecting assets?<br>Ask Arthur.',
+      headline: 'Florida asset protection — what are you shielding?',
+      lines: ['Planning works best before a claim exists. Once a creditor is at the door the options narrow fast.'],
+      issues: [
+        { label: 'Homestead protection', seed: 'I want to understand how Florida homestead protection applies to my property.' },
+        { label: 'LLC / entity structure', seed: 'I want my properties or business assets structured so one problem does not reach everything.' },
+        { label: 'Tenancy by the entireties', seed: 'I have questions about titling assets as tenants by the entireties with my spouse.' },
+        { label: 'A claim is already here', seed: 'There is already a lawsuit, judgment, or creditor involved and I need to know what is still possible.' }
+      ]
+    },
+    {
+      id: 'gun-trust',
+      match: /^\/nfa-gun-trust/,
+      label: 'NFA Gun Trust',
+      clip: 'ep',
+      hook: 'NFA trust?<br>Ask Arthur.',
+      headline: 'Florida NFA gun trust — what do you need?',
+      issues: [
+        { label: 'Buying a suppressor or SBR', seed: 'I am buying a suppressor or SBR and want the trust set up correctly first.' },
+        { label: 'Adding trustees', seed: 'I want to add trustees so others can legally possess the items.' },
+        { label: 'What happens at death', seed: 'I want to know how the NFA items pass at my death without putting my family at risk.' },
+        { label: 'Responsible persons / ATF forms', seed: 'I have questions about responsible persons and the ATF paperwork.' }
+      ]
+    },
+    {
+      id: 'international',
+      match: /^\/international-law/,
+      label: 'International',
+      clip: 'askq',
+      hook: 'Cross-border?<br>Ask Arthur.',
+      headline: 'Florida property & family wealth across borders:',
+      issues: [
+        { label: 'Non-resident buying in Florida', seed: 'I am a non-US resident buying Florida property and need the ownership structure done right.' },
+        { label: 'FIRPTA on a sale', seed: 'I have a FIRPTA withholding question on the sale of Florida property.' },
+        { label: 'Foreign heirs or beneficiaries', seed: 'My heirs or beneficiaries live outside the United States and I need the plan to work for them.' },
+        { label: 'Plan that spans two countries', seed: 'I have assets in more than one country and need an estate plan that does not collide.' }
+      ]
+    },
+    {
+      id: 'out-of-state',
+      match: /^\/(national|state-waitlist)/,
+      label: 'Out of State',
+      clip: 'ep',
+      hook: 'Outside Florida?<br>Ask Arthur.',
+      headline: 'Planning from outside Florida:',
+      issues: [
+        { label: 'Is my plan valid where I live?', seed: 'I live outside Florida and want to know whether my current plan works in my state.' },
+        { label: 'I own Florida property too', seed: 'I live in another state but own Florida property, and I want that handled properly.' },
+        { label: 'Moving to Florida soon', seed: 'I am moving to Florida and want the plan ready before I get there.' },
+        { label: 'Put me on the waitlist', seed: 'Please add me to the waitlist for my state and let me know when you open there.' }
+      ]
+    },
+    {
+      id: 'personal-injury',
+      match: /^\/personal-injury/,
+      label: 'Injury',
+      clip: 'pi',
+      contactClip: 'piContact',
+      hook: 'Hurt in Florida?<br>Ask Arthur.',
+      headline: 'Tell me what happened — I read these myself:',
+      lines: ['Florida gives you a limited window to act in most cases, and the insurer already has lawyers. You pay nothing unless we recover.'],
+      issues: [
+        { label: 'Car or truck crash', seed: 'I was hurt in a car or truck crash in Florida. Here is what happened, and when:' },
+        { label: 'Slip, trip or fall', seed: 'I was hurt in a fall on someone else’s property in Florida. Here is what happened, and when:' },
+        { label: 'Insurer denied or lowballed', seed: 'The insurance company denied my claim or offered far less than it is worth.' },
+        { label: 'How long do I have?', seed: 'I want to know how much time I have left to bring my Florida injury claim. Here is when it happened:' }
+      ]
+    },
+    {
+      id: 'llc-kit',
+      match: /^\/llc-kit/,
+      label: 'LLC Formation',
+      clip: 'biz',
+      hook: 'Forming an LLC?<br>Ask Arthur.',
+      headline: 'Before you form it — the questions that matter:',
+      issues: [
+        { label: 'Single vs. multi-member', seed: 'I need help deciding between a single-member and a multi-member Florida LLC.' },
+        { label: 'Operating agreement', seed: 'I want an operating agreement that actually fits how we run the business.' },
+        { label: 'EIN, bank & annual report', seed: 'I have questions about the EIN, opening the bank account, and staying compliant each year.' },
+        { label: 'Converting a sole prop / DBA', seed: 'I am already operating as a sole proprietor or DBA and want to convert to an LLC cleanly.' }
+      ]
+    },
+    {
+      id: 'business-law',
+      match: /^\/business-law/,
+      label: 'Business',
+      clip: 'biz',
+      hook: 'Business question?<br>Ask Arthur.',
+      headline: 'Build it right, run it clean, pass it on — which part?',
+      issues: [
+        { label: 'Forming the company', seed: 'I am forming a Florida company and want it built right from day one.' },
+        { label: 'Partners & operating agreement', seed: 'I have partners and we need an operating agreement that covers who decides what, and what happens if someone leaves.' },
+        { label: 'Buy-sell & succession', seed: 'I want a buy-sell and succession plan so the business survives a death, a split, or an exit.' },
+        { label: 'Commercial lease', goto: 'commercial-leasing' }
+      ]
+    },
+    {
+      id: 'business-litigation',
+      match: /^\/business-litigation/,
+      label: 'Business Dispute',
+      clip: 'askq',
+      hook: 'Business dispute?<br>Ask Arthur.',
+      headline: 'Florida business disputes — what is the fight about?',
+      issues: [
+        { label: 'Breach of contract', seed: 'The other side is not honoring a contract and I need to know my options.' },
+        { label: 'Partner or shareholder', seed: 'I am in a dispute with a business partner, member, or shareholder.' },
+        { label: 'Non-compete', seed: 'I have a Florida non-compete or restrictive covenant problem — either enforcing one or being hit with one.' },
+        { label: 'Unpaid invoices', seed: 'I am owed money on invoices and want to collect.' }
+      ]
+    },
+    {
+      id: 'trademark',
+      match: /^\/trademark/,
+      label: 'Trademark',
+      clip: 'biz',
+      hook: 'Protecting a name?<br>Ask Arthur.',
+      headline: 'Your brand as an asset — where are you?',
+      issues: [
+        { label: 'Is my name available?', seed: 'I want to know whether my business name or brand is clear to register.' },
+        { label: 'Office action or refusal', seed: 'My trademark application got an office action or refusal and I need help responding.' },
+        { label: 'Someone is using my name', seed: 'Someone else is using my name or brand and I want it stopped.' },
+        { label: 'Classes & specimens', seed: 'I have questions about which classes to file in and what specimen to use.' }
+      ]
+    },
+    {
+      id: 'family-law',
+      match: /^\/family-law/,
+      label: 'Family Law',
+      clip: 'askq',
+      hook: 'Family law?<br>Ask Arthur.',
+      headline: 'Family matters usually touch three things I handle:',
+      issues: [
+        { label: 'The marital home & title', seed: 'I have a question about the marital home — title, the deed, or what happens to it.' },
+        { label: 'The plan after a divorce', seed: 'My estate plan and beneficiary designations still name my former spouse and need to be fixed.' },
+        { label: 'A business one spouse owns', seed: 'There is a business in the picture and I need the ownership side handled.' },
+        { label: 'Something else — ask me', seed: 'Here is my family law question:' }
+      ]
+    },
+    {
+      id: 'criminal-defense',
+      match: /^\/criminal-defense/,
+      label: 'Criminal (referral)',
+      clip: 'askq',
+      hook: 'Have a question?<br>Ask Arthur.',
+      headline: 'Tell me what is going on and I will point you the right way:',
+      issues: [
+        { label: 'Where do I even start?', seed: 'Here is the situation and I need to know where to start:' },
+        { label: 'Effect on a license or business', seed: 'I am worried about what this does to my professional license or my business.' },
+        { label: 'There is an injury claim too', seed: 'There is also an injury claim tied up in this.' },
+        { label: 'Something else — ask me', seed: 'Here is my question:' }
+      ]
+    },
+    {
+      id: 'healthcare-law',
+      match: /^\/healthcare-law/,
+      label: 'Healthcare',
+      clip: 'askq',
+      hook: 'Have a question?<br>Ask Arthur.',
+      headline: 'Florida healthcare questions I can help with:',
+      issues: [
+        { label: 'Practice or provider setup', seed: 'I have a Florida practice or provider entity question.' },
+        { label: 'Medical bills or liens', seed: 'There are medical bills or liens attached to an injury claim and I need them dealt with.' },
+        { label: 'Documents for a family member', seed: 'I need health care documents in place for a family member.' },
+        { label: 'Something else — ask me', seed: 'Here is my question:' }
+      ]
+    },
+    {
+      id: 'financial-law',
+      match: /^\/financial-law/,
+      label: 'Financial',
+      clip: 'askq',
+      hook: 'Have a question?<br>Ask Arthur.',
+      headline: 'Florida financial & tax-adjacent questions:',
+      issues: [
+        { label: 'Structure & entities', seed: 'I want my entities and assets structured for tax and liability reasons.' },
+        { label: 'Transferring assets', seed: 'I am moving assets between people or entities and want to know the consequences.' },
+        { label: 'Creditors & collections', seed: 'I have a creditor or collection issue.' },
+        { label: 'Something else — ask me', seed: 'Here is my question:' }
+      ]
+    },
+    {
+      id: 'pricing',
+      match: /^\/pricing/,
+      label: 'Pricing',
+      clip: 'askq',
+      hook: 'What does it cost?<br>Ask Arthur.',
+      headline: 'Tell me what you need and I will quote it straight:',
+      issues: [
+        { label: 'Estate plan', seed: 'What would a Florida estate plan cost for my situation? Here is my situation:' },
+        { label: 'Deed or closing', seed: 'What would a deed or a closing cost? Here is the property and what I need:' },
+        { label: 'LLC or business setup', seed: 'What would forming the company and the agreements cost? Here is the business:' },
+        { label: 'Injury — what do I pay?', seed: 'I was hurt and I want to know what, if anything, I pay up front.' }
+      ]
+    }
+  ];
+
+  /* Article and knowledge pages are written faster than contexts can be hand-mapped,
+   * so their slug picks the closest one. Gated to the content sections below, and
+   * only consulted when nothing in PAGE_CONTEXTS matched. Broadest patterns last. */
+  var HINT_PATHS = /^\/(articles\/|insights|florida-knowledge|video)/;
+  var SLUG_HINTS = [
+    [/medicaid|nursing-home|long-term-care|guardianship|elder/, 'elder-law'],
+    [/18-year-old|18-year|young-adult|what-can-you-do-at-18|college/, 'age-18'],
+    // Chapter-numbered "focus-" articles: 732 is wills and intestacy, 733 is probate.
+    [/probate|intestate|personal-representative|summary-administration|when-you-die|focus-733-/, 'probate'],
+    [/lien|contractor|construction|notice-to-owner|defect/, 'construction'],
+    [/condo|hoa|milestone|reserve-stud|association/, 'hoa-condo'],
+    [/lease|landlord|tenant|eviction|security-deposit/, 'leases'],
+    [/deed|quitclaim|lady-bird|title-insurance/, 'deeds'],
+    [/firpta|foreigner|foreign-|eb5|non-resident|international/, 'international'],
+    [/asset-protection|tenancy-by-the-entireties|creditor|judgment/, 'asset-protection'],
+    [/real-estate|1031|closing|realtor|homestead|purchase|foreclos/, 'real-estate'],
+    [/injur|accident|crash|slip|negligen|wrongful-death|dog-bite|pip|no-fault/, 'personal-injury'],
+    [/trademark|brand/, 'trademark'],
+    [/llc|operating-agreement|corporation|business|succession/, 'business-law'],
+    [/trust|will|estate|power-of-attorney|beneficiar|elective-share|inherit|focus-732-/, 'estate-planning']
+  ];
+
+  function contextById(id) {
+    for (var i = 0; i < PAGE_CONTEXTS.length; i++) {
+      if (PAGE_CONTEXTS[i].id === id) return PAGE_CONTEXTS[i];
+    }
+    return null;
+  }
+
+  /* Forced context wins over the path, so a landing page or an ad can aim the
+   * widget at a topic the URL doesn't spell out:
+   *   <script>window.TS_WIDGET_CONFIG={context:'commercial-leasing'}</script>
+   *   <body data-ts-context="commercial-leasing">
+   *   /leases.html?tsctx=commercial-leasing   (ad destination URLs)
+   */
+  function resolveContext() {
+    var forced = CFG.context
+      || (document.body && document.body.getAttribute('data-ts-context'))
+      || document.documentElement.getAttribute('data-ts-context');
+    if (!forced) {
+      try { forced = new URLSearchParams(location.search).get('tsctx'); } catch (e) {}
+    }
+    if (forced) {
+      var hit = contextById(forced);
+      if (hit) return hit;
+    }
+    var path = location.pathname.toLowerCase();
+    for (var i = 0; i < PAGE_CONTEXTS.length; i++) {
+      var c = PAGE_CONTEXTS[i];
+      if (c.match && c.match.test(path)) return c;
+    }
+    if (HINT_PATHS.test(path)) {
+      for (var j = 0; j < SLUG_HINTS.length; j++) {
+        if (SLUG_HINTS[j][0].test(path)) return contextById(SLUG_HINTS[j][1]);
+      }
+    }
+    return null;
+  }
+
+
   var CSS = ''
     + '#ts-widget{position:fixed;right:18px;bottom:18px;z-index:99990;font-family:Arial,Helvetica,sans-serif}'
     + '#ts-bubble{position:relative;width:150px;height:220px;border-radius:16px;overflow:hidden;cursor:pointer;box-shadow:0 8px 28px rgba(15,39,68,.45);border:2px solid #c49a2a;background:#0f2744;transition:transform .15s}'
@@ -80,10 +573,13 @@
     + '.ts-send{width:100%;background:#c49a2a;color:#0f2744;font-weight:700;font-size:15px;border:none;border-radius:10px;padding:11px;cursor:pointer;margin-top:2px}'
     + '.ts-send:disabled{opacity:.55;cursor:default}'
     + '#ts-foot{font-size:9.5px;color:#777;line-height:1.5;padding:8px 14px 10px;border-top:1px solid #eee;flex:0 0 auto}'
+    + '.ts-head{font-size:13.5px;font-weight:700;color:#0f2744;line-height:1.45;margin:0 0 8px}'
+    + '.ts-note{font-size:11.5px;color:#55606d;line-height:1.55;margin:0 0 10px;padding-left:9px;border-left:2px solid #c49a2a}'
+    + '.ts-more{display:block;width:100%;background:none;border:none;color:#0f2744;font-size:12px;font-weight:700;text-decoration:underline;cursor:pointer;padding:9px 0 2px;font-family:inherit;text-align:center}'
     + '#ts-thanks{font-size:14px;color:#0f2744;font-weight:700;text-align:center;padding:8px 0}'
     + '@media (max-width:480px){#ts-widget{right:10px;bottom:10px}#ts-bubble{width:120px;height:176px}#ts-panel{width:calc(100vw - 20px);max-height:calc(100vh - 20px);max-height:calc(100dvh - 20px)}#ts-video-wrap{height:215px}#ts-capbox{max-height:66px}}@media (max-height:720px){#ts-video-wrap{height:200px}}@media (max-height:600px){#ts-video-wrap{height:150px}#ts-capbox{max-height:58px}}';
 
-  var state = { branch: null, situation: '', open: false };
+  var state = { branch: null, situation: '', issue: '', ctx: null, open: false };
   var els = {};
   var capSpans = [];
   var capTimes = [];
@@ -97,6 +593,7 @@
   }
 
   function build() {
+    state.ctx = resolveContext();
     var style = h('style'); style.textContent = CSS; document.head.appendChild(style);
     var root = h('div', { id: 'ts-widget' });
 
@@ -105,7 +602,8 @@
     var bvid = h('video', { muted: '', loop: '', playsinline: '', preload: 'metadata', 'aria-hidden': 'true' });
     bvid.muted = true; bvid.src = VIDEO_BASE + LOOP_FILE;
     bubble.appendChild(bvid);
-    bubble.appendChild(h('div', { id: 'ts-bubble-cap' }, 'Have a question?<br>Click me.'));
+    bubble.appendChild(h('div', { id: 'ts-bubble-cap' },
+      (state.ctx && state.ctx.hook) || 'Have a question?<br>Click me.'));
     var bx = h('div', { id: 'ts-bubble-x', role: 'button', 'aria-label': 'Hide' }, '&times;');
     bubble.appendChild(bx);
 
@@ -184,7 +682,7 @@
     state.open = true;
     els.bubble.style.display = 'none';
     els.panel.style.display = 'flex';
-    showWelcome();
+    if (state.ctx) showContext(state.ctx); else showWelcome();
   }
 
   function closePanel() {
@@ -199,8 +697,67 @@
     nodes.forEach(function (n) { els.body.appendChild(n); });
   }
 
+  // Page-aware opening. The visitor came to a page about one thing, so the panel
+  // opens on that thing: closest recorded clip up top, this page's real issues as
+  // the chips. "See all topics" still gets them the full practice-area menu.
+  function showContext(ctx) {
+    state.branch = ctx.label; state.issue = ''; state.situation = '';
+    playClip(ctx.clip);
+    var nodes = [h('div', { 'class': 'ts-head' }, ctx.headline)];
+    (ctx.lines || []).forEach(function (t) { nodes.push(h('div', { 'class': 'ts-note' }, t)); });
+
+    var chips = h('div', { 'class': 'ts-chips' });
+    ctx.issues.forEach(function (iss) {
+      var btn = h('button', { 'class': 'ts-chip', type: 'button' }, iss.label);
+      btn.addEventListener('click', function () {
+        var target = iss.goto && contextById(iss.goto);
+        if (target) { state.ctx = target; showContext(target); }
+        else pickIssue(ctx, iss);
+      });
+      chips.appendChild(btn);
+    });
+    nodes.push(chips);
+
+    var ta = h('textarea', { 'class': 'ts-input ts-qwelcome', placeholder: 'Or type your question here\u2026', maxlength: '1200' });
+    var send = h('button', { 'class': 'ts-send', type: 'button' }, 'Send');
+    send.addEventListener('click', function () {
+      var q = ta.value.trim();
+      if (!q) { ta.focus(); return; }
+      state.situation = q;
+      showContact(ctx);
+    });
+    nodes.push(ta, send);
+
+    var more = h('button', { 'class': 'ts-more', type: 'button' }, 'Different topic? See all \u2192');
+    more.addEventListener('click', function () { state.ctx = null; showWelcome(); });
+    nodes.push(more);
+    nodes.push(h('div', { id: 'ts-callrow' }, 'Or call <a href="tel:' + PHONE_TEL + '">' + PHONE_DISPLAY + '</a>'));
+    setBody(nodes);
+  }
+
+  // Chip clicked: seed the box with their own words so they only add the details,
+  // and so the lead that lands in the inbox names the exact issue they picked.
+  function pickIssue(ctx, iss) {
+    state.branch = ctx.label;
+    state.issue = iss.label;
+    var hint = h('div', { 'class': 'ts-note' }, 'Add anything that helps \u2014 dates, addresses, who\u2019s involved. Then send it to me.');
+    var ta = h('textarea', { 'class': 'ts-input', maxlength: '1200' });
+    ta.value = iss.seed;
+    var send = h('button', { 'class': 'ts-send', type: 'button' }, 'Send');
+    send.addEventListener('click', function () {
+      state.situation = ta.value.trim();
+      if (!state.situation) { ta.focus(); return; }
+      showContact(ctx);
+    });
+    var back = h('button', { 'class': 'ts-more', type: 'button' }, '\u2190 Back');
+    back.addEventListener('click', function () { showContext(ctx); });
+    setBody([hint, ta, send, back]);
+    ta.focus();
+    try { ta.setSelectionRange(ta.value.length, ta.value.length); } catch (e) {}
+  }
+
   function showWelcome() {
-    state.branch = null; state.situation = '';
+    state.branch = null; state.situation = ''; state.issue = '';
     playClip('welcome');
     var chips = h('div', { 'class': 'ts-chips' });
     BRANCHES.forEach(function (b) {
@@ -237,7 +794,7 @@
   }
 
   function showContact(b) {
-    playClip(b.contactClip);
+    playClip(b.contactClip || 'contact');
     var name = h('input', { 'class': 'ts-input', placeholder: 'Your name', maxlength: '120', autocomplete: 'name' });
     var phone = h('input', { 'class': 'ts-input', placeholder: 'Phone number', maxlength: '40', autocomplete: 'tel', inputmode: 'tel' });
     var email = h('input', { 'class': 'ts-input', placeholder: 'Email (optional)', maxlength: '120', autocomplete: 'email', inputmode: 'email' });
@@ -259,6 +816,7 @@
     var payload = {
       name: contact.name, phone: contact.phone, email: contact.email,
       branch: state.branch, situation: state.situation,
+      context: state.ctx ? state.ctx.id : '', issue: state.issue,
       page: location.href
     };
     fetch(CAPTURE_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
