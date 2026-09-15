@@ -71,6 +71,53 @@ faster than contexts can be hand-mapped, so their slug picks the closest context
 via `SLUG_HINTS`. New articles inherit a sensible context with no work; add a
 keyword there if a batch of them lands somewhere wrong.
 
+## Two surfaces
+
+The corner bubble is the default. A landing page that wants Arthur big instead
+drops one div where it should go:
+
+```html
+<div id="ts-hero"></div>
+```
+
+The widget fills it: video on the left, live captions and the drill-down on the
+right, dark navy to match the brand. It autoplays **muted** with the captions
+running and offers a "Sound on" button rather than taking it — a page that
+starts talking at you unprompted is the thing people disliked about chatbots.
+
+While the hero is on screen the corner bubble hides; once it scrolls away the
+bubble takes over, so the offer follows them down the page. Both surfaces share
+one conversation — drill into "Personal guaranty" in the hero, open the corner
+panel later, and it picks up there instead of restarting the pitch.
+
+`widget/hero-demo.html` is a standalone placement sandbox. `leases.html` carries
+a live one between the pitch and the product menu.
+
+Size is CSS: `#ts-hero-inner` min-height and `#ts-hero-vid` width (desktop) /
+height (mobile). It currently lands at roughly 440px tall on a desktop fold.
+
+## Drill-down
+
+An issue can end the narrowing or continue it:
+
+```js
+{ label: 'Personal guaranty', headline: 'The guaranty — where are you with it?', sub: [
+    { label: 'Still negotiating it', seed: 'I am negotiating a commercial lease and…' },
+    { label: 'I already signed one',  seed: 'I already signed a personal guaranty and…' },
+] }
+```
+
+- `sub` drills a level deeper — any depth, with a breadcrumb back out.
+- `goto` hands off to a whole other context.
+- `seed` ends it and opens the message box.
+
+Hit Commercial on the lease page and you get the four commercial issues; hit
+Personal guaranty and you get the three questions under it. The lead records the
+whole trail — `Commercial Leasing › Personal guaranty › I already signed one` —
+so the inbox says exactly how far they narrowed before they wrote.
+
+Today: 28 contexts, 20 drill-down groups, 150 leaf issues.
+
 ## Leads
 
 `submitLead` posts to `/.netlify/functions/capture-widget-lead`, which pushes to

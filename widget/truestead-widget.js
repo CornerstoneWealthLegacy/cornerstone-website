@@ -104,10 +104,26 @@
       headline: 'Florida commercial leases — where they usually bite:',
       lines: ['A commercial tenant doesn’t get the residential statute’s protections. The lease you sign is very nearly the whole law between you and the landlord.'],
       issues: [
-        { label: 'NNN, CAM & pass-throughs', seed: 'I have questions about the NNN / CAM and pass-through charges in a commercial lease — what I can be billed for and how it gets audited.' },
-        { label: 'Personal guaranty', seed: 'The commercial lease has a personal guaranty and I want to know exactly what I am on the hook for, and whether it can be limited or burned off.' },
-        { label: 'Assignment & subletting', seed: 'I need to assign, sublet, or sell the business that holds a commercial lease, and the landlord’s consent language is in the way.' },
-        { label: 'Default, cure & lockout', seed: 'There is a default, cure-period, or lockout issue on a commercial lease and I want to know where I stand right now.' }
+        { label: 'NNN, CAM & pass-throughs', headline: 'CAM and pass-throughs — which part?', sub: [
+          { label: 'The charges jumped', seed: 'My CAM or pass-through charges went up sharply and I want to know if the landlord can do that.' },
+          { label: 'Can I audit the landlord?', seed: 'I want to know whether I have the right to audit the landlord’s CAM numbers, and how to use it.' },
+          { label: 'What should be excluded?', seed: 'I want to know what should be carved out of CAM before I sign — capital items, management fees, and the rest.' },
+        ] },
+        { label: 'Personal guaranty', headline: 'The guaranty — where are you with it?', sub: [
+          { label: 'Still negotiating it', seed: 'I am negotiating a commercial lease and want the personal guaranty limited before I sign.' },
+          { label: 'I already signed one', seed: 'I already signed a personal guaranty on a commercial lease and want to know my real exposure.' },
+          { label: 'Selling or closing the business', seed: 'I am selling or closing the business and need to get out from under the personal guaranty.' },
+        ] },
+        { label: 'Assignment & subletting', headline: 'Assignment and subletting — what are you doing?', sub: [
+          { label: 'Selling the business', seed: 'I am selling the business and the lease has to go with it. The landlord’s consent language is the problem.' },
+          { label: 'Subletting part of the space', seed: 'I want to sublet part of my commercial space and need to know what the lease allows.' },
+          { label: 'Landlord is refusing consent', seed: 'The landlord is refusing or stalling consent to an assignment or sublease.' },
+        ] },
+        { label: 'Default, cure & lockout', headline: 'Default and lockout — how far along is it?', sub: [
+          { label: 'I got a default notice', seed: 'I received a default notice on a commercial lease and need to know my cure rights and the clock.' },
+          { label: 'I have been locked out', seed: 'I have been locked out of my commercial space and need to know what I can do right now.' },
+          { label: 'I am the landlord', seed: 'I am the commercial landlord and the tenant is in default. I want to do this correctly.' },
+        ] },
       ]
     },
     {
@@ -121,9 +137,21 @@
       lines: ['Most landlord losses in Florida aren’t the tenant’s doing. They’re a missed deposit deadline or a defective notice.'],
       issues: [
         { label: 'Commercial lease (NNN/CAM)', goto: 'commercial-leasing' },
-        { label: 'Security deposit deadlines', seed: 'I have a Florida security deposit question — the claim deadlines after a tenant moves out and how to make the claim stick.' },
-        { label: '3-day notice / eviction', seed: 'I need to know whether my 3-day notice and eviction paperwork is right before I file.' },
-        { label: 'Rental held in an LLC', seed: 'I want my Florida rental property held and leased the right way — LLC, insurance, and who signs the lease.' }
+        { label: 'Security deposit deadlines', headline: 'The deposit — which side are you on?', sub: [
+          { label: 'I am the landlord', seed: 'I am a Florida landlord and need to make a security deposit claim correctly and on time.' },
+          { label: 'I am the tenant', seed: 'I am a Florida tenant and did not get my security deposit back.' },
+          { label: 'How do I write the notice?', seed: 'I need the security deposit claim notice worded and sent so it actually holds up.' },
+        ] },
+        { label: '3-day notice / eviction', headline: 'The eviction — where are you?', sub: [
+          { label: 'Haven’t served it yet', seed: 'I need my three-day notice checked before I serve it.' },
+          { label: 'Served, still no payment', seed: 'I served the three-day notice, they did not pay, and I need to know what comes next.' },
+          { label: 'My case got dismissed', seed: 'My Florida eviction was dismissed and I need to know what went wrong and how to refile.' },
+        ] },
+        { label: 'Rental held in an LLC', headline: 'The rental entity — what do you need?', sub: [
+          { label: 'Setting one up', seed: 'I want to set up the right entity before I rent this Florida property out.' },
+          { label: 'I already own it personally', seed: 'I already own the rental in my own name and want to know whether to move it, and how.' },
+          { label: 'Insurance and who signs', seed: 'I have questions about insurance and who should be signing the lease for my rental.' },
+        ] },
       ]
     },
     {
@@ -136,7 +164,11 @@
       headline: 'Florida deeds — what are you trying to do?',
       lines: ['A deed is easy to record and expensive to undo. Homestead, spousal signatures and Medicaid all turn on getting it right the first time.'],
       issues: [
-        { label: 'Add or remove someone', seed: 'I want to add or remove someone from the title on a Florida property.' },
+        { label: 'Add or remove someone', headline: 'Who is coming on, or off?', sub: [
+          { label: 'Adding a spouse or child', seed: 'I want to add my spouse or my child to the title on a Florida property.' },
+          { label: 'Removing an ex-spouse', seed: 'I need an ex-spouse removed from the title on a Florida property.' },
+          { label: 'Removing someone who died', seed: 'A co-owner died and I need them removed from the title.' },
+        ] },
         { label: 'Lady bird / life estate deed', seed: 'I am looking at a lady bird (enhanced life estate) deed and want to know if it fits my situation.' },
         { label: 'Deed into a trust or LLC', seed: 'I need to move a Florida property into a trust or an LLC.' },
         { label: 'Homestead & spouse signature', seed: 'I have a homestead or spousal-signature question on a Florida deed.' }
@@ -150,8 +182,16 @@
       hook: 'Buying or selling?<br>Ask Arthur.',
       headline: 'Florida property — where are things right now?',
       issues: [
-        { label: 'Contract or closing problem', seed: 'I have a problem with a Florida purchase contract or a closing that is not going the way it should.' },
-        { label: 'Title defect or cloud', seed: 'There is a title defect, lien, or cloud on a Florida property I own or am buying.' },
+        { label: 'Contract or closing problem', headline: 'The closing — what went wrong?', sub: [
+          { label: 'The other side wants out', seed: 'The other party is trying to get out of my Florida purchase contract.' },
+          { label: 'Inspection or repair fight', seed: 'We are fighting over inspection results or repairs and the deal is stalling.' },
+          { label: 'The closing date is slipping', seed: 'My Florida closing date is slipping and I need to know my rights under the contract.' },
+        ] },
+        { label: 'Title defect or cloud', headline: 'The title problem — what surfaced?', sub: [
+          { label: 'An old lien or judgment', seed: 'An old lien or judgment turned up against a Florida property I own or am buying.' },
+          { label: 'A missing or bad deed', seed: 'There is a missing, defective, or wrongly recorded deed in the chain of title.' },
+          { label: 'Heirs or an estate in the chain', seed: 'The title runs through a deceased owner or an estate and needs to be cleared.' },
+        ] },
         { label: '1031 exchange timing', seed: 'I am working on a 1031 exchange and need the timing and structure checked.' },
         { label: 'Foreign buyer / FIRPTA', seed: 'I am a non-US buyer or seller of Florida property and need the FIRPTA and structure questions answered.' }
       ]
@@ -165,8 +205,16 @@
       headline: 'Florida construction — what has gone wrong?',
       lines: ['Lien rights, notices and defect claims all run on statutory clocks. The side that papers the file first usually wins.'],
       issues: [
-        { label: 'Lien deadlines & Notice to Owner', seed: 'I have a Florida construction lien or Notice to Owner question and I am worried about the deadline.' },
-        { label: 'Contractor walked off', seed: 'A contractor walked off the job or the work is defective, and I need to know my options.' },
+        { label: 'Lien deadlines & Notice to Owner', headline: 'Liens — which side are you on?', sub: [
+          { label: 'I need to record one', seed: 'I need to record a Florida construction lien and I am worried about the deadline.' },
+          { label: 'One was filed on my property', seed: 'A construction lien was recorded against my Florida property and I want it dealt with.' },
+          { label: 'I think I missed a deadline', seed: 'I think I missed a Florida lien or notice deadline. Here are the dates:' },
+        ] },
+        { label: 'Contractor walked off', headline: 'The job — how far did it get?', sub: [
+          { label: 'Barely started', seed: 'The contractor took the money and barely started. Here is where it stands:' },
+          { label: 'Half finished', seed: 'The contractor walked off a half-finished job. Here is where it stands:' },
+          { label: 'Finished but defective', seed: 'The work is finished but defective. Here is what is wrong:' },
+        ] },
         { label: 'Not getting paid', seed: 'I did the work and I am not getting paid on a Florida project.' },
         { label: 'Defect claim notice', seed: 'I received or need to send a Florida construction defect notice and want to know what happens next.' }
       ]
@@ -180,8 +228,16 @@
       headline: 'Florida condo & HOA — which side are you on?',
       lines: ['Milestone inspections and structural reserve studies are mandatory for many Florida buildings, with a December 31, 2026 cutoff in play.'],
       issues: [
-        { label: 'Milestone / reserve study', seed: 'I have a milestone inspection or structural reserve study question for a Florida building.' },
-        { label: 'Special assessment', seed: 'Our building has levied a special assessment and I need to understand it.' },
+        { label: 'Milestone / reserve study', headline: 'The inspection — what is your role?', sub: [
+          { label: 'I am on the board', seed: 'I am on the board and need to get our milestone inspection and reserve study right.' },
+          { label: 'I am an owner', seed: 'I am a unit owner and want to understand what the inspection and reserve study mean for me.' },
+          { label: 'I am buying in', seed: 'I am buying in this building and want the inspection and reserve paperwork read before I close.' },
+        ] },
+        { label: 'Special assessment', headline: 'The assessment — what is the issue?', sub: [
+          { label: 'I can’t pay it', seed: 'Our association levied a special assessment I cannot pay, and I need to know my options.' },
+          { label: 'I think it was improper', seed: 'I think our special assessment was improperly noticed or passed.' },
+          { label: 'I am on the board', seed: 'I am on the board levying a special assessment and want it done correctly.' },
+        ] },
         { label: 'Board vs. owner dispute', seed: 'I am in a dispute with the association board (or as a board member, with an owner).' },
         { label: 'Buying in an older building', seed: 'I am buying a unit in an older Florida building and want the association documents read before I close.' }
       ]
@@ -285,8 +341,16 @@
       headline: 'Probate in Florida — what are you facing?',
       lines: ['Not every estate needs the full process. What it takes depends on what they owned and how it was titled.'],
       issues: [
-        { label: 'Formal or summary?', seed: 'I need to know whether this estate requires formal administration or qualifies for summary administration.' },
-        { label: 'There was no will', seed: 'The person who died did not leave a will and I need to know what happens now.' },
+        { label: 'Formal or summary?', headline: 'What does the estate look like?', sub: [
+          { label: 'Mostly the house', seed: 'The estate is mostly a Florida house. Here is roughly what it is worth:' },
+          { label: 'Accounts, no real estate', seed: 'The estate is bank or investment accounts, no real property.' },
+          { label: 'A business or rentals', seed: 'The estate includes a business or rental property, which I know complicates it.' },
+        ] },
+        { label: 'There was no will', headline: 'No will — who is in the picture?', sub: [
+          { label: 'Spouse and children', seed: 'There was no will. There is a surviving spouse and children.' },
+          { label: 'Children from more than one marriage', seed: 'There was no will, and there are children from more than one marriage.' },
+          { label: 'No spouse or children', seed: 'There was no will, and there is no surviving spouse or children.' },
+        ] },
         { label: 'Out-of-state property or heirs', seed: 'The estate involves out-of-state property or heirs who live elsewhere.' },
         { label: 'The heirs disagree', seed: 'The family members or heirs are not in agreement and I need to know my options.' }
       ]
@@ -300,8 +364,16 @@
       headline: 'Florida elder law — what is the situation?',
       lines: ['Florida Medicaid looks back five years at transfers. Planning early is cheaper than planning in a crisis — but crisis planning still works.'],
       issues: [
-        { label: 'Medicaid five-year lookback', seed: 'I have questions about the Florida Medicaid five-year lookback and what transfers can cost us.' },
-        { label: 'Already in a nursing home', seed: 'A family member is already in a nursing home or about to be, and the money is going out the door.' },
+        { label: 'Medicaid five-year lookback', headline: 'Transfers — what has happened so far?', sub: [
+          { label: 'Nothing yet — planning ahead', seed: 'Nothing has been transferred yet and I want to plan around the five-year lookback properly.' },
+          { label: 'We already gave something away', seed: 'We already transferred or gifted something, and I need to know what it costs us.' },
+          { label: 'It is about the house', seed: 'The question is the family home and how to protect it against the lookback.' },
+        ] },
+        { label: 'Already in a nursing home', headline: 'How urgent is it?', sub: [
+          { label: 'Going in within weeks', seed: 'A family member is entering a nursing home within weeks and we need to move now.' },
+          { label: 'Already in, paying privately', seed: 'A family member is already in a nursing home and we are paying out of pocket.' },
+          { label: 'The application was denied', seed: 'Our Florida Medicaid application was denied and we need to fix it.' },
+        ] },
         { label: 'Protecting the homestead', seed: 'I want to protect the family home while still qualifying for care.' },
         { label: 'POA or guardianship for a parent', seed: 'I need a power of attorney, or possibly guardianship, for a parent whose health is slipping.' }
       ]
@@ -376,8 +448,16 @@
       headline: 'Tell me what happened — I read these myself:',
       lines: ['Florida gives you a limited window to act in most cases, and the insurer already has lawyers. You pay nothing unless we recover.'],
       issues: [
-        { label: 'Car or truck crash', seed: 'I was hurt in a car or truck crash in Florida. Here is what happened, and when:' },
-        { label: 'Slip, trip or fall', seed: 'I was hurt in a fall on someone else’s property in Florida. Here is what happened, and when:' },
+        { label: 'Car or truck crash', headline: 'The crash — which was it?', sub: [
+          { label: 'Another driver hit me', seed: 'Another driver hit me in Florida. Here is what happened, and when:' },
+          { label: 'A truck or work vehicle', seed: 'I was hit by a commercial truck or work vehicle in Florida. Here is what happened, and when:' },
+          { label: 'Hit and run, or uninsured', seed: 'The driver fled, or had no insurance. Here is what happened, and when:' },
+        ] },
+        { label: 'Slip, trip or fall', headline: 'The fall — where did it happen?', sub: [
+          { label: 'A store or restaurant', seed: 'I fell in a Florida store or restaurant. Here is what happened, and when:' },
+          { label: 'An apartment or condo', seed: 'I fell at a Florida apartment or condo property. Here is what happened, and when:' },
+          { label: 'A job or construction site', seed: 'I was hurt in a fall on a Florida job or construction site. Here is what happened, and when:' },
+        ] },
         { label: 'Insurer denied or lowballed', seed: 'The insurance company denied my claim or offered far less than it is worth.' },
         { label: 'How long do I have?', seed: 'I want to know how much time I have left to bring my Florida injury claim. Here is when it happened:' }
       ]
@@ -584,6 +664,9 @@
     + '#ts-video-wrap{position:relative;background:#0f2744;height:265px;flex:0 0 auto}'
     + '#ts-video-wrap video{width:100%;height:100%;object-fit:cover;object-position:50% 22%;display:block}'
     + '#ts-capbox{background:#0f2744;color:#fff;font-size:12.5px;line-height:1.55;padding:8px 12px;max-height:78px;overflow-y:auto;border-top:1px solid rgba(255,255,255,.12);flex:0 0 auto}'
+    + '.ts-w{opacity:.92;display:inline-block;animation:tsUp .26s ease-out}'
+    + '@keyframes tsUp{from{opacity:0;transform:translateY(.55em)}to{opacity:.92;transform:none}}'
+    + '@media (prefers-reduced-motion:reduce){.ts-w{animation:none}}'
     + '#ts-capbox .ts-w{opacity:.92}'
     + '#ts-capbox .ts-w.on{opacity:1;font-weight:700}'
     + '#ts-capbox:empty{max-height:0;padding:0;border-top:0}'
@@ -603,11 +686,37 @@
     + '#ts-foot{font-size:9.5px;color:#777;line-height:1.5;padding:8px 14px 10px;border-top:1px solid #eee;flex:0 0 auto}'
     + '.ts-head{font-size:13.5px;font-weight:700;color:#0f2744;line-height:1.45;margin:0 0 8px}'
     + '.ts-note{font-size:11.5px;color:#55606d;line-height:1.55;margin:0 0 10px;padding-left:9px;border-left:2px solid #c49a2a}'
+    + '.ts-crumb{font-size:11px;font-weight:700;color:#7d8794;margin:0 0 7px;line-height:1.4}'
+    + '.ts-crumb button{background:none;border:none;padding:0;font:inherit;color:#c49a2a;cursor:pointer;text-decoration:underline}'
+    + '.ts-crumb .ts-sep{opacity:.6;padding:0 5px}'
     + '.ts-more{display:block;width:100%;background:none;border:none;color:#0f2744;font-size:12px;font-weight:700;text-decoration:underline;cursor:pointer;padding:9px 0 2px;font-family:inherit;text-align:center}'
     + '#ts-thanks{font-size:14px;color:#0f2744;font-weight:700;text-align:center;padding:8px 0}'
+    + '#ts-hero-inner{display:flex;background:#0f2744;border-radius:16px;overflow:hidden;border:1px solid rgba(196,154,42,.5);box-shadow:0 10px 34px rgba(15,39,68,.28);font-family:Arial,Helvetica,sans-serif;min-height:330px}'
+    + '#ts-hero-vid{position:relative;flex:0 0 38%;max-width:320px;background:#0b1d33}'
+    + '#ts-hero-vid video{width:100%;height:100%;object-fit:cover;object-position:50% 20%;display:block}'
+    + '#ts-hero-vid .ts-replay2{position:absolute;top:10px;left:10px;background:rgba(15,39,68,.8);color:#fff;font-size:11px;padding:4px 9px;border-radius:12px;cursor:pointer;z-index:2}'
+    + '#ts-hero-vid .ts-sound{position:absolute;left:10px;right:10px;bottom:10px;text-align:center;background:#c49a2a;color:#0f2744;font-size:12px;font-weight:700;padding:7px 0;border-radius:14px;cursor:pointer;z-index:2}'
+    + '#ts-hero-main{flex:1 1 auto;display:flex;flex-direction:column;min-width:0;padding:16px 20px 14px}'
+    + '#ts-hero-cap{color:#e8edf4;font-size:15px;line-height:1.6;min-height:3.2em;max-height:7.5em;overflow-y:auto;margin-bottom:12px}'
+    + '#ts-hero-cap:empty{min-height:0;margin-bottom:0}'
+    + '#ts-hero-body{flex:1 1 auto;min-height:0}'
+    + '#ts-hero-foot{font-size:9.5px;color:#7d8794;line-height:1.5;padding-top:10px;margin-top:auto;border-top:1px solid rgba(255,255,255,.1)}'
+    + '#ts-hero .ts-head{color:#fff;font-size:15px;margin-bottom:9px}'
+    + '#ts-hero .ts-note{color:#b9c4d2;font-size:12px}'
+    + '#ts-hero .ts-chip{background:#c49a2a;color:#0f2744}'
+    + '#ts-hero .ts-chip:hover{background:#fff;color:#0f2744}'
+    + '#ts-hero .ts-more{color:#c49a2a}'
+    + '#ts-hero .ts-crumb{color:#8e9aa8}'
+    + '#ts-hero #ts-callrow a{color:#c49a2a}'
+    + '#ts-hero #ts-thanks{color:#fff}'
+    + '#ts-hero .ts-input{background:#0b1d33;border-color:#39506b;color:#fff}'
+    + '#ts-hero .ts-input::placeholder{color:#8e9aa8}'
+    + '@media (max-width:700px){#ts-hero-inner{flex-direction:column;min-height:0}#ts-hero-vid{flex:none;max-width:none;height:190px}#ts-hero-main{padding:14px 16px 12px}}'
     + '@media (max-width:480px){#ts-widget{right:10px;bottom:10px}#ts-bubble{width:120px;height:176px}#ts-panel{width:calc(100vw - 20px);max-height:calc(100vh - 20px);max-height:calc(100dvh - 20px)}#ts-video-wrap{height:215px}#ts-capbox{max-height:66px}}@media (max-height:720px){#ts-video-wrap{height:200px}}@media (max-height:600px){#ts-video-wrap{height:150px}#ts-capbox{max-height:58px}}';
 
-  var state = { branch: null, situation: '', issue: '', ctx: null, open: false };
+  var state = { branch: null, situation: '', issue: '', ctx: null, open: false,
+                path: [], surface: 'panel' };
+  var surfaces = {};   // name -> { vid, capbox, body }
   var els = {};
   var capSpans = [];
   var capTimes = [];
@@ -655,12 +764,16 @@
     root.appendChild(bubble);
     document.body.appendChild(root);
 
-    els = { root: root, bubble: bubble, bvid: bvid, panel: panel, pvid: pvid, capbox: capbox, body: panel.querySelector('#ts-body') };
+    els = { root: root, bubble: bubble, bvid: bvid, panel: panel };
+    surfaces.panel = { vid: pvid, capbox: capbox, body: panel.querySelector('#ts-body') };
+    buildHero();
+    useSurface(surfaces.hero ? 'hero' : 'panel');
+    if (surfaces.hero) { if (state.ctx) showContext(state.ctx); else showWelcome(); }
 
     bubble.addEventListener('click', function (ev) { if (ev.target !== bx) openPanel(); });
     bx.addEventListener('click', function (ev) { ev.stopPropagation(); root.style.display = 'none'; try { sessionStorage.setItem('tsWidgetHidden', '1'); } catch (e) {} });
     px.addEventListener('click', closePanel);
-    replay.addEventListener('click', function () { els.pvid.currentTime = 0; els.pvid.play(); });
+    replay.addEventListener('click', function () { pvid.currentTime = 0; pvid.play().catch(function () {}); });
     pvid.addEventListener('timeupdate', syncCaptions);
 
     bvid.play().catch(function () {});
@@ -715,18 +828,94 @@
     els.pvid.play().catch(function () {});
   }
 
+  // A landing page that wants Arthur big instead of tucked in the corner drops
+  //   <div id="ts-hero"></div>
+  // where it wants him. Same conversation, same clips, same drill-down — only
+  // the shell differs. The corner bubble then stays out of the way until the
+  // hero scrolls off screen, so the page never argues with itself.
+  function buildHero() {
+    var mount = document.getElementById('ts-hero') || document.querySelector('[data-ts-hero]');
+    if (!mount) return;
+
+    var inner = h('div', { id: 'ts-hero-inner' });
+    var vwrap = h('div', { id: 'ts-hero-vid' });
+    var vid = h('video', { playsinline: '', preload: 'auto' });
+    vwrap.appendChild(vid);
+    vid.muted = true;
+    var replay = h('div', { 'class': 'ts-replay2', role: 'button' }, '\u21ba Replay');
+    replay.addEventListener('click', function () { vid.currentTime = 0; vid.play().catch(function () {}); });
+    vwrap.appendChild(replay);
+    var sound = h('div', { 'class': 'ts-sound', role: 'button' }, '\ud83d\udd0a Sound on');
+    sound.addEventListener('click', function () {
+      vid.muted = false; vid.currentTime = 0; vid.play().catch(function () {});
+      sound.style.display = 'none';
+    });
+    vwrap.appendChild(sound);
+
+    var main = h('div', { id: 'ts-hero-main' });
+    var cap = h('div', { id: 'ts-hero-cap', 'aria-live': 'polite' }, '');
+    main.appendChild(cap);
+    main.appendChild(h('div', { id: 'ts-hero-body' }));
+    main.appendChild(h('div', { id: 'ts-hero-foot' },
+      'AI-generated video of attorney Arthur Simpson. Using this does not create an attorney-client relationship. Please don\'t include confidential details. Truestead Law, LLC \u00b7 Attorney Advertising.'));
+
+    inner.appendChild(vwrap); inner.appendChild(main);
+    mount.id = 'ts-hero';
+    mount.appendChild(inner);
+
+    vid.addEventListener('timeupdate', syncCaptions);
+    surfaces.hero = { vid: vid, capbox: cap, body: main.querySelector('#ts-hero-body') };
+    els.hero = mount;
+
+    // Hero on screen: it does the talking, and the corner bubble hides. Once it
+    // scrolls away the bubble takes over so the offer follows them down the page.
+    els.bubble.style.display = 'none';
+    if (window.IntersectionObserver) {
+      new IntersectionObserver(function (entries) {
+        var showing = entries[0].isIntersecting;
+        if (showing) {
+          if (!state.open) { els.bubble.style.display = 'none'; useSurface('hero'); }
+        } else {
+          vid.pause();
+          if (!state.open) els.bubble.style.display = 'block';
+        }
+      }, { threshold: 0.25 }).observe(mount);
+    } else {
+      els.bubble.style.display = 'block';
+    }
+  }
+
+  // Point the shared render helpers at one surface and redraw where they were.
+  function useSurface(name) {
+    var sf = surfaces[name];
+    if (!sf) return;
+    var other = surfaces[name === 'hero' ? 'panel' : 'hero'];
+    if (other && other.vid && other.vid !== sf.vid) other.vid.pause();
+    state.surface = name;
+    els.pvid = sf.vid; els.capbox = sf.capbox; els.body = sf.body;
+  }
+
   function openPanel() {
     state.open = true;
     els.bubble.style.display = 'none';
     els.panel.style.display = 'flex';
-    if (state.ctx) showContext(state.ctx); else showWelcome();
+    useSurface('panel');
+    // Picks up wherever the hero left off, rather than restarting the pitch.
+    if (state.ctx) showLevel(); else showWelcome();
   }
 
   function closePanel() {
     state.open = false;
     els.pvid.pause();
     els.panel.style.display = 'none';
-    els.bubble.style.display = 'block';
+    els.bubble.style.display = surfaces.hero && isOnScreen(els.hero) ? 'none' : 'block';
+    if (surfaces.hero && isOnScreen(els.hero)) useSurface('hero');
+  }
+
+  function isOnScreen(el) {
+    if (!el) return false;
+    var r = el.getBoundingClientRect();
+    return r.bottom > 0 && r.top < (window.innerHeight || 0);
   }
 
   function setBody(nodes) {
@@ -734,22 +923,42 @@
     nodes.forEach(function (n) { els.body.appendChild(n); });
   }
 
-  // Page-aware opening. The visitor came to a page about one thing, so the panel
-  // opens on that thing: closest recorded clip up top, this page's real issues as
-  // the chips. "See all topics" still gets them the full practice-area menu.
+  // Page-aware opening. The visitor came to a page about one thing, so we open
+  // on that thing and then let them narrow: hit Commercial, get the four
+  // commercial issues; hit one of those, get the handful of questions under it.
   function showContext(ctx) {
-    state.branch = ctx.label; state.issue = ''; state.situation = '';
-    playClip(ctx.clip, ctx.clipFallback);
-    var nodes = [h('div', { 'class': 'ts-head' }, ctx.headline)];
-    (ctx.lines || []).forEach(function (t) { nodes.push(h('div', { 'class': 'ts-note' }, t)); });
+    state.ctx = ctx; state.branch = ctx.label;
+    state.path = []; state.issue = ''; state.situation = '';
+    showLevel();
+  }
+
+  // One renderer for every depth. A chip with `sub` drills in, a chip with
+  // `goto` hands off to another context, and a chip with `seed` ends the
+  // narrowing and opens the message box.
+  function showLevel(replay) {
+    var ctx = state.ctx;
+    var node = state.path.length ? state.path[state.path.length - 1] : null;
+    if (!node) state.branch = ctx.label;
+    // Only level 0 (or a sub-level with a clip of its own) changes the video —
+    // drilling shouldn't restart Arthur mid-sentence.
+    var clip = node ? node.clip : ctx.clip;
+    if (clip && replay !== false) playClip(clip, ctx.clipFallback);
+
+    var nodes = [];
+    if (state.path.length) nodes.push(buildCrumb());
+    nodes.push(h('div', { 'class': 'ts-head' }, (node && (node.headline || node.label)) || ctx.headline));
+    ((node ? node.lines : ctx.lines) || []).forEach(function (t) {
+      nodes.push(h('div', { 'class': 'ts-note' }, t));
+    });
 
     var chips = h('div', { 'class': 'ts-chips' });
-    ctx.issues.forEach(function (iss) {
+    (node ? node.sub : ctx.issues).forEach(function (iss) {
       var btn = h('button', { 'class': 'ts-chip', type: 'button' }, iss.label);
       btn.addEventListener('click', function () {
         var target = iss.goto && contextById(iss.goto);
-        if (target) { state.ctx = target; showContext(target); }
-        else pickIssue(ctx, iss);
+        if (target) showContext(target);
+        else if (iss.sub && iss.sub.length) { state.path.push(iss); showLevel(); }
+        else pickIssue(iss);
       });
       chips.appendChild(btn);
     });
@@ -761,22 +970,52 @@
       var q = ta.value.trim();
       if (!q) { ta.focus(); return; }
       state.situation = q;
+      state.issue = trailLabel();
       showContact(ctx);
     });
     nodes.push(ta, send);
 
-    var more = h('button', { 'class': 'ts-more', type: 'button' }, 'Different topic? See all \u2192');
-    more.addEventListener('click', function () { state.ctx = null; showWelcome(); });
-    nodes.push(more);
+    if (!state.path.length) {
+      var more = h('button', { 'class': 'ts-more', type: 'button' }, 'Different topic? See all \u2192');
+      more.addEventListener('click', function () { state.ctx = null; state.path = []; showWelcome(); });
+      nodes.push(more);
+    }
     nodes.push(h('div', { id: 'ts-callrow' }, 'Or call <a href="tel:' + PHONE_TEL + '">' + PHONE_DISPLAY + '</a>'));
     setBody(nodes);
   }
 
+  // Where they are and how to step back out, one level at a time.
+  function buildCrumb() {
+    var el = h('div', { 'class': 'ts-crumb' });
+    var root = h('button', { type: 'button' }, state.ctx.label);
+    root.addEventListener('click', function () { state.path = []; showLevel(false); });
+    el.appendChild(root);
+    state.path.forEach(function (n, i) {
+      el.appendChild(h('span', { 'class': 'ts-sep' }, '\u203a'));
+      if (i === state.path.length - 1) {
+        el.appendChild(document.createTextNode(n.label));
+      } else {
+        var b = h('button', { type: 'button' }, n.label);
+        b.addEventListener('click', function () { state.path = state.path.slice(0, i + 1); showLevel(false); });
+        el.appendChild(b);
+      }
+    });
+    return el;
+  }
+
+  // The whole trail, so the lead says "Commercial Leasing > Personal guaranty >
+  // Can it be capped?" rather than just naming the page.
+  function trailLabel(leaf) {
+    var parts = state.path.map(function (n) { return n.label; });
+    if (leaf) parts.push(leaf.label);
+    return parts.join(' \u203a ');
+  }
+
   // Chip clicked: seed the box with their own words so they only add the details,
   // and so the lead that lands in the inbox names the exact issue they picked.
-  function pickIssue(ctx, iss) {
-    state.branch = ctx.label;
-    state.issue = iss.label;
+  function pickIssue(iss) {
+    state.branch = state.ctx.label;
+    state.issue = trailLabel(iss);
     var hint = h('div', { 'class': 'ts-note' }, 'Add anything that helps \u2014 dates, addresses, who\u2019s involved. Then send it to me.');
     var ta = h('textarea', { 'class': 'ts-input', maxlength: '1200' });
     ta.value = iss.seed;
@@ -784,11 +1023,11 @@
     send.addEventListener('click', function () {
       state.situation = ta.value.trim();
       if (!state.situation) { ta.focus(); return; }
-      showContact(ctx);
+      showContact(state.ctx);
     });
     var back = h('button', { 'class': 'ts-more', type: 'button' }, '\u2190 Back');
-    back.addEventListener('click', function () { showContext(ctx); });
-    setBody([hint, ta, send, back]);
+    back.addEventListener('click', function () { showLevel(false); });
+    setBody([buildCrumb ? h('div', { 'class': 'ts-crumb' }, state.issue) : null, hint, ta, send, back].filter(Boolean));
     ta.focus();
     try { ta.setSelectionRange(ta.value.length, ta.value.length); } catch (e) {}
   }
