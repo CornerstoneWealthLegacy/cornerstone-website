@@ -1,6 +1,17 @@
 {
   "articles": [
     {
+      "slug": "articles/focus-probate-attorney-sugarmill-woods-florida-2026-09-15",
+      "file": "articles/focus-probate-attorney-sugarmill-woods-florida-2026-09-15.html",
+      "title": "Probate Attorney Sugarmill Woods, Florida: 2026 Guide",
+      "tag": "Probate",
+      "category": "Probate Attorney Sugarmill Woods, Florida",
+      "blurb": "What Sugarmill Woods, Florida families need to know about Citrus County probate and the major 2026 changes to Florida probate law.",
+      "image": "images/og/florida-probate-process-timeline.jpg",
+      "date": "2026-09-15",
+      "prettyDate": "September 15, 2026"
+    },
+    {
       "slug": "articles/focus-732-502-2026-09-14",
       "file": "articles/focus-732-502-2026-09-14.html",
       "title": "Florida Statute 732.502: Will Execution Requirements Explained",
@@ -648,17 +659,6 @@
       "image": "images/og/real-estate-2026-07-18.jpg",
       "date": "2026-06-24",
       "prettyDate": "June 24, 2026"
-    },
-    {
-      "slug": "articles/probate-2026-06-23",
-      "file": "articles/probate-2026-06-23.html",
-      "title": "Florida Probate Explained: Summary vs. Formal Administration",
-      "tag": "Estate Planning",
-      "category": "Probate & Estate Administration",
-      "blurb": "How Florida probate works: summary vs. formal administration, the personal representative's duties, timelines and costs, and smart ways to avoid probate.",
-      "image": "images/og/florida-probate-process-timeline.jpg",
-      "date": "2026-06-23",
-      "prettyDate": "June 23, 2026"
     }
   ]
 }

@@ -16,7 +16,9 @@
     "position": 12.2,
     "tag": "Estate Planning",
     "score": 8,
-    "used": false
+    "used": false,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"real estate law islamorada fl\""
   },
   {
     "query": "probate attorney sugarmill woods, florida",
@@ -25,7 +27,8 @@
     "position": 4.8,
     "tag": "Probate",
     "score": 7,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-09-15"
   },
   {
     "query": "real estate litigation bayonet point",
