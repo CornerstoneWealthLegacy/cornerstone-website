@@ -711,6 +711,23 @@
     + '#ts-hero #ts-thanks{color:#fff}'
     + '#ts-hero .ts-input{background:#0b1d33;border-color:#39506b;color:#fff}'
     + '#ts-hero .ts-input::placeholder{color:#8e9aa8}'
+    + '.ts-fmt-post #ts-hero-inner{max-width:900px;margin:0 auto;min-height:0;background:#0f2744}'
+    + '.ts-fmt-post #ts-hero-vid{flex:0 0 46%;max-width:340px;aspect-ratio:9/16;max-height:540px;height:auto}'
+    + '.ts-fmt-post #ts-hero-vid video{object-position:50% 16%}'
+    + '.ts-fmt-post #ts-hero-cap{position:absolute;left:0;right:0;bottom:0;margin:0;max-height:52%;min-height:0;padding:46px 14px 68px;color:#fff;font-size:19px;line-height:1.42;font-weight:700;text-align:center;text-shadow:0 2px 10px rgba(0,0,0,.85);overflow:hidden;display:flex;flex-wrap:wrap;align-content:flex-end;justify-content:center;gap:0 .3em;background:linear-gradient(to top,rgba(6,16,29,.92) 42%,rgba(6,16,29,.55) 72%,rgba(6,16,29,0))}'
+    + '.ts-fmt-post #ts-hero-cap .ts-w{opacity:1}'
+    + '.ts-fmt-post #ts-hero-cap .ts-w.on{color:#f5d98a}'
+    + '.ts-fmt-post .ts-sound{left:16px;right:16px;bottom:16px;font-size:14px;padding:11px 0;border-radius:24px;box-shadow:0 4px 16px rgba(0,0,0,.4)}'
+    + '.ts-fmt-post #ts-hero-main{padding:18px 22px 14px;justify-content:center}'
+    + '.ts-posthead{display:flex;align-items:center;gap:9px;font-size:12px;color:#c9d3e0;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.1)}'
+    + '.ts-posthead b{color:#fff;font-size:13px}'
+    + '.ts-posthead .ts-dot{width:30px;height:30px;border-radius:50%;flex:0 0 30px;background:#c49a2a;color:#0f2744;font-weight:700;font-size:13px;line-height:30px;text-align:center}'
+    + '.ts-automount{margin:30px 0}'
+    + '#ts-hero-body{animation:tsSlide .28s ease-out}'
+    + '@keyframes tsSlide{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}'
+    + '@media (prefers-reduced-motion:reduce){#ts-hero-body{animation:none}}'
+    + '.ts-fmt-post .ts-chip{font-size:14px;padding:11px 16px}'
+    + '@media (max-width:700px){.ts-fmt-post #ts-hero-vid{flex:none;max-width:none;width:100%;aspect-ratio:1/1;max-height:none;height:auto}.ts-fmt-post #ts-hero-cap{font-size:16px;padding:30px 12px 58px}.ts-fmt-post #ts-hero-main{padding:14px 16px 10px}.ts-fmt-post .ts-note{display:none}.ts-fmt-post .ts-posthead{margin-bottom:10px;padding-bottom:9px}.ts-fmt-post .ts-chip{font-size:13px;padding:9px 13px}.ts-fmt-post #ts-hero-foot{font-size:9px;padding-top:8px}}'
     + '@media (max-width:700px){#ts-hero-inner{flex-direction:column;min-height:0}#ts-hero-vid{flex:none;max-width:none;height:190px}#ts-hero-main{padding:14px 16px 12px}}'
     + '@media (max-width:480px){#ts-widget{right:10px;bottom:10px}#ts-bubble{width:120px;height:176px}#ts-panel{width:calc(100vw - 20px);max-height:calc(100vh - 20px);max-height:calc(100dvh - 20px)}#ts-video-wrap{height:215px}#ts-capbox{max-height:66px}}@media (max-height:720px){#ts-video-wrap{height:200px}}@media (max-height:600px){#ts-video-wrap{height:150px}#ts-capbox{max-height:58px}}';
 
@@ -833,9 +850,35 @@
   // where it wants him. Same conversation, same clips, same drill-down — only
   // the shell differs. The corner bubble then stays out of the way until the
   // hero scrolls off screen, so the page never argues with itself.
+  // The script tag is identical on every page, so putting the card into all the
+  // articles means placing it from here rather than editing 2,500 files. Only
+  // pages the context engine already recognises as long-form get one, only when
+  // the page hasn't placed its own, and only where there is real body copy to
+  // sit inside — otherwise we leave the page alone.
+  function autoMount() {
+    if (CFG.autoPost === false) return null;
+    var path = location.pathname.toLowerCase();
+    if (!HINT_PATHS.test(path) && !CFG.autoPost) return null;
+
+    var body = document.querySelector('article.art-body, article, main .container, main');
+    if (!body) return null;
+    var paras = body.querySelectorAll(':scope > p, :scope > h2');
+    if (paras.length < 4) return null;   // too short to interrupt
+
+    // After the second heading-or-paragraph block: past the intro, before they bounce.
+    var after = paras[Math.min(3, paras.length - 2)];
+    var mount = h('div', { id: 'ts-hero', 'class': 'ts-automount' });
+    after.parentNode.insertBefore(mount, after.nextSibling);
+    return mount;
+  }
+
   function buildHero() {
-    var mount = document.getElementById('ts-hero') || document.querySelector('[data-ts-hero]');
+    var mount = document.getElementById('ts-hero') || document.querySelector('[data-ts-hero]') || autoMount();
     if (!mount) return;
+
+    // 'post' is the social-style card: portrait video with the captions burned
+    // over it, options alongside. 'wide' is the older two-column strip.
+    var format = mount.getAttribute('data-ts-format') || CFG.heroFormat || 'post';
 
     var inner = h('div', { id: 'ts-hero-inner' });
     var vwrap = h('div', { id: 'ts-hero-vid' });
@@ -845,22 +888,33 @@
     var replay = h('div', { 'class': 'ts-replay2', role: 'button' }, '\u21ba Replay');
     replay.addEventListener('click', function () { vid.currentTime = 0; vid.play().catch(function () {}); });
     vwrap.appendChild(replay);
-    var sound = h('div', { 'class': 'ts-sound', role: 'button' }, '\ud83d\udd0a Sound on');
+
+    var cap = h('div', { id: 'ts-hero-cap', 'aria-live': 'polite' }, '');
+    var main = h('div', { id: 'ts-hero-main' });
+
+    if (format === 'post') {
+      // Captions ride on the video, the way they do on a phone.
+      vwrap.appendChild(cap);
+      main.appendChild(h('div', { 'class': 'ts-posthead' },
+        '<span class="ts-dot">AS</span><span><b>Arthur Simpson, Esq.</b><br>Truestead Law \u00b7 Florida</span>'));
+    } else {
+      main.appendChild(cap);
+    }
+
+    var sound = h('div', { 'class': 'ts-sound', role: 'button' }, '\ud83d\udd0a Tap for sound');
     sound.addEventListener('click', function () {
       vid.muted = false; vid.currentTime = 0; vid.play().catch(function () {});
       sound.style.display = 'none';
     });
     vwrap.appendChild(sound);
 
-    var main = h('div', { id: 'ts-hero-main' });
-    var cap = h('div', { id: 'ts-hero-cap', 'aria-live': 'polite' }, '');
-    main.appendChild(cap);
     main.appendChild(h('div', { id: 'ts-hero-body' }));
     main.appendChild(h('div', { id: 'ts-hero-foot' },
       'AI-generated video of attorney Arthur Simpson. Using this does not create an attorney-client relationship. Please don\'t include confidential details. Truestead Law, LLC \u00b7 Attorney Advertising.'));
 
     inner.appendChild(vwrap); inner.appendChild(main);
     mount.id = 'ts-hero';
+    mount.className += (mount.className ? ' ' : '') + 'ts-fmt-' + format;
     mount.appendChild(inner);
 
     vid.addEventListener('timeupdate', syncCaptions);

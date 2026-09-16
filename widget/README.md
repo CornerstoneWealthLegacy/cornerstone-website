@@ -71,30 +71,56 @@ faster than contexts can be hand-mapped, so their slug picks the closest context
 via `SLUG_HINTS`. New articles inherit a sensible context with no work; add a
 keyword there if a batch of them lands somewhere wrong.
 
-## Two surfaces
+## Surfaces and formats
 
-The corner bubble is the default. A landing page that wants Arthur big instead
-drops one div where it should go:
+The corner bubble is the default everywhere. A page that wants Arthur big
+instead drops one div where he should go:
 
 ```html
-<div id="ts-hero"></div>
+<div id="ts-hero"></div>                          <!-- post: the default -->
+<div id="ts-hero" data-ts-format="wide"></div>    <!-- wide: the strip -->
 ```
 
-The widget fills it: video on the left, live captions and the drill-down on the
-right, dark navy to match the brand. It autoplays **muted** with the captions
-running and offers a "Sound on" button rather than taking it — a page that
-starts talking at you unprompted is the thing people disliked about chatbots.
+**post** is the social-style card, and the one to reach for. Portrait video with
+the captions burned over it the way a Reel does, a byline row, a big "Tap for
+sound", and the questions alongside. ~900×540 on desktop, ~820 tall stacked on a
+phone. People already watch this shape without being asked; they do not open
+chat widgets.
 
-While the hero is on screen the corner bubble hides; once it scrolls away the
+**wide** is the older two-column strip — captions beside the video rather than on
+it, ~400 tall. Better when you only have a thin band to give it.
+
+Both autoplay **muted** with the captions running and offer sound rather than
+taking it. A law-firm page that starts talking at you unprompted is precisely the
+thing people disliked about chatbots — and autoplay with audio is blocked anyway.
+
+One card per page. Two videos talking over each other is worse than none, so
+only the first mount found is used.
+
+While a card is on screen the corner bubble hides; once it scrolls away the
 bubble takes over, so the offer follows them down the page. Both surfaces share
-one conversation — drill into "Personal guaranty" in the hero, open the corner
+one conversation — drill into "Personal guaranty" in the card, open the corner
 panel later, and it picks up there instead of restarting the pitch.
 
-`widget/hero-demo.html` is a standalone placement sandbox. `leases.html` carries
-a live one between the pitch and the product menu.
+Size is CSS: `.ts-fmt-post #ts-hero-vid` (`max-width` / `max-height` / the mobile
+`aspect-ratio`) and `#ts-hero-inner` `max-width`.
 
-Size is CSS: `#ts-hero-inner` min-height and `#ts-hero-vid` width (desktop) /
-height (mobile). It currently lands at roughly 440px tall on a desktop fold.
+`widget/hero-demo.html` switches between the two formats for placement work.
+`leases.html` carries a live one between the pitch and the product menu.
+
+## Articles place themselves
+
+The script tag is identical on all 2,500 pages, so the card goes into articles
+from JS rather than by editing every file. On long-form pages — `/articles/*`,
+`/insights`, `/florida-knowledge`, the video pages — the widget inserts a `post`
+card after the fourth block of body copy, inside `article.art-body` (falling back
+through `article`, `main .container`, `main`).
+
+It leaves the page alone when the page placed its own mount, when there is no
+body element it recognises, or when there are fewer than four blocks to sit
+inside. Verified to add **0px** of layout width on every page tested, mounted or
+not. `TS_WIDGET_CONFIG.autoPost = false` turns it off for a page; `true` forces
+it on one that is not long-form.
 
 ## Drill-down
 

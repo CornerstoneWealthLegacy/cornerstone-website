@@ -1,22 +1,41 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Widget hero — placement demo</title>
+<title>Widget formats — placement sandbox</title>
 <style>
   body{margin:0;font-family:Georgia,serif;background:#f4f3f0;color:#222}
-  .wrap{max-width:1040px;margin:0 auto;padding:28px 18px 80px}
-  h1{font-size:30px;color:#0f2744;line-height:1.25}
-  p.lede{font-size:17px;line-height:1.7;color:#444}
-  .filler{height:900px;background:#fff;border-radius:12px;margin-top:30px;padding:22px;color:#777}
+  .wrap{max-width:1100px;margin:0 auto;padding:28px 18px 90px}
+  h1{font-size:30px;color:#0f2744;line-height:1.25;margin:0 0 6px}
+  p.lede{font-size:17px;line-height:1.7;color:#444;margin:0 0 14px}
+  code{background:#e7e4dd;padding:2px 6px;border-radius:4px;font-size:13px}
+  .tabs{margin:0 0 22px}
+  .tabs a{display:inline-block;padding:8px 16px;border-radius:20px;text-decoration:none;font-size:14px;
+    font-family:Arial,sans-serif;font-weight:700;color:#0f2744;background:#e7e4dd;margin-right:8px}
+  .tabs a.on{background:#0f2744;color:#fff}
+  .filler{height:700px;background:#fff;border-radius:12px;margin-top:34px;padding:22px;color:#888}
 </style></head><body>
 <div class="wrap">
-  <h1>Florida Leases That Survive Florida Law</h1>
-  <p class="lede">Attorney-built leases and landlord notices, at flat fees.</p>
+  <h1>Widget formats</h1>
+  <p class="lede">One div, filled by the script that is already on every page. One card per page by
+     design — two videos talking over each other is worse than none.</p>
 
-  <!-- This is the whole integration: one div, anywhere on the page. -->
+  <div class="tabs">
+    <a href="?fmt=post" id="t-post">post</a>
+    <a href="?fmt=wide" id="t-wide">wide</a>
+  </div>
+  <p class="lede" id="snippet"></p>
+
   <div id="ts-hero"></div>
 
-  <div class="filler">Page content continues here — scroll down and the corner bubble takes over from the hero.</div>
+  <div class="filler">Page content continues — scroll past the card and the corner bubble takes over.</div>
 </div>
-<script>window.TS_WIDGET_CONFIG = { context: 'commercial-leasing' };</script>
+<script>
+  var fmt = (location.search.match(/fmt=(\w+)/) || [])[1] === 'wide' ? 'wide' : 'post';
+  document.getElementById('t-' + fmt).className = 'on';
+  document.getElementById('snippet').innerHTML = fmt === 'post'
+    ? 'Social-style card: portrait video, captions burned over it, tap for sound, questions alongside. <code>&lt;div id="ts-hero"&gt;&lt;/div&gt;</code>'
+    : 'Shorter strip, captions beside the video instead of on it. Better in a tight band. <code>&lt;div id="ts-hero" data-ts-format="wide"&gt;&lt;/div&gt;</code>';
+  document.getElementById('ts-hero').setAttribute('data-ts-format', fmt);
+  window.TS_WIDGET_CONFIG = { context: 'commercial-leasing' };
+</script>
 <script src="/widget/truestead-widget.js" defer></script>
 </body></html>
