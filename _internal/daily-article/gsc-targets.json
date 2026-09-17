@@ -47,7 +47,8 @@
     "position": 8.7,
     "tag": "Personal Injury",
     "score": 6,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-09-17"
   },
   {
     "query": "williston personal injury lawyer",

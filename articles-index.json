@@ -1,6 +1,17 @@
 {
   "articles": [
     {
+      "slug": "articles/focus-williston-motorcycle-accident-lawyer-2026-09-17",
+      "file": "articles/focus-williston-motorcycle-accident-lawyer-2026-09-17.html",
+      "title": "Williston Motorcycle Accident Lawyer: What Florida Law Says",
+      "tag": "Personal Injury",
+      "category": "Williston Motorcycle Accident Lawyer",
+      "blurb": "A Williston motorcycle accident lawyer's guide to Florida's two-year deadline, no PIP coverage for riders, comparative fault, and helmet law effects on your claim.",
+      "image": "images/og/personal-injury-2026-07-13.jpg",
+      "date": "2026-09-17",
+      "prettyDate": "September 17, 2026"
+    },
+    {
       "slug": "articles/focus-real-estate-litigation-bayonet-point-2026-09-16",
       "file": "articles/focus-real-estate-litigation-bayonet-point-2026-09-16.html",
       "title": "Real Estate Litigation in Bayonet Point, FL: What to Know",
@@ -648,17 +659,6 @@
       "image": "images/og/florida-asset-protection.jpg",
       "date": "2026-06-26",
       "prettyDate": "June 26, 2026"
-    },
-    {
-      "slug": "articles/florida-law-update-2026-06-25",
-      "file": "articles/florida-law-update-2026-06-25.html",
-      "title": "Florida Estate & Property Law: Your 2026 Framework Guide",
-      "tag": "Estate Planning",
-      "category": "Florida Legal & Legislative",
-      "blurb": "Know the durable Florida framework—probate code, Trust Code, and homestead—behind every reported estate and property law change, and how to verify real updates.",
-      "image": "images/og/florida-law-update-2026-07-21.jpg",
-      "date": "2026-06-25",
-      "prettyDate": "June 25, 2026"
     }
   ]
 }
