@@ -94,7 +94,14 @@ exports.handler = async (event) => {
   // empty when the caller ID is withheld or the call is not a phone call.
   const stated = (body.callback_number || '').toString().trim().slice(0, 40);
   const callerId = (body.caller_id || '').toString().trim().slice(0, 40);
-  const number = stated || callerId;
+  // ROLLED BACK 9/18: caller_id is NOT trustworthy as a callback number yet.
+  // On the realty line it came back as the screener number (3862209766), not the
+  // caller's, so a forwarding leg is overwriting it somewhere between the carrier
+  // and system__caller_id. A wrong number that looks right is worse than a blank,
+  // because the ntfy "Call back" button would dial our own screener. Until that is
+  // traced, only the spoken number is treated as the callback number; caller_id is
+  // still recorded below, clearly labelled, purely as diagnostic data.
+  const number = stated;
   const reason = (body.reason || 'no reason given').toString().trim().slice(0, 300);
   const line = (body.line || '').toString().trim().toLowerCase() === 'realty' ? 'realty' : 'truestead';
   const lineLabel = line === 'realty' ? 'Realty' : 'Truestead';
@@ -153,7 +160,8 @@ exports.handler = async (event) => {
   //    spends waiting.
   await emailCallRecord(
     `Incoming call - ${lineLabel}: ${name}`,
-    `${name}\n${number || 'no number: none stated and caller ID unavailable'}\n\n${reason}\n\n` +
+    `${name}\n${number || 'number not collected at ring time'}\n\n${reason}\n\n` +
+    `Inbound caller ID (diagnostic, may be a forwarding leg): ${callerId || 'none'}\n` +
     `Line: ${lineLabel}\nArthur rang: ${ringing ? 'yes' : 'no'}\n` +
     `Received: ${new Date().toISOString()}\n\n` +
     `If no message follows this one, the caller hung up before leaving one.`
