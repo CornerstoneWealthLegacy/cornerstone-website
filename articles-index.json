@@ -1,6 +1,17 @@
 {
   "articles": [
     {
+      "slug": "articles/focus-williston-personal-injury-lawyer-2026-09-18",
+      "file": "articles/focus-williston-personal-injury-lawyer-2026-09-18.html",
+      "title": "Williston Personal Injury Lawyer: A Florida Guide",
+      "tag": "Personal Injury",
+      "category": "Williston Personal Injury Lawyer",
+      "blurb": "A plain-English guide for Williston, Florida residents on injury claim deadlines, fault rules, PIP insurance, and choosing the right personal injury lawyer.",
+      "image": "images/og/personal-injury-2026-07-13.jpg",
+      "date": "2026-09-18",
+      "prettyDate": "September 18, 2026"
+    },
+    {
       "slug": "articles/focus-williston-motorcycle-accident-lawyer-2026-09-17",
       "file": "articles/focus-williston-motorcycle-accident-lawyer-2026-09-17.html",
       "title": "Williston Motorcycle Accident Lawyer: What Florida Law Says",
@@ -648,17 +659,6 @@
       "image": "images/og/estate-foundations-2026-07-06.jpg",
       "date": "2026-07-06",
       "prettyDate": "July 6, 2026"
-    },
-    {
-      "slug": "articles/special-situations-2026-06-26",
-      "file": "articles/special-situations-2026-06-26.html",
-      "title": "Florida Asset Protection for Blended Families & Snowbirds",
-      "tag": "Estate Planning",
-      "category": "Asset Protection & Special Situations",
-      "blurb": "Florida's homestead, entireties, and trust protections work differently for snowbirds, blended families, business owners, and special-needs families—here's how.",
-      "image": "images/og/florida-asset-protection.jpg",
-      "date": "2026-06-26",
-      "prettyDate": "June 26, 2026"
     }
   ]
 }

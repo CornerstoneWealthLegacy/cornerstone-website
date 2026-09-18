@@ -57,7 +57,8 @@
     "position": 7.6,
     "tag": "Personal Injury",
     "score": 6,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-09-18"
   },
   {
     "query": "real estate attorney parrish fl",
