@@ -1,6 +1,17 @@
 {
   "articles": [
     {
+      "slug": "articles/focus-real-estate-attorney-parrish-fl-2026-09-19",
+      "file": "articles/focus-real-estate-attorney-parrish-fl-2026-09-19.html",
+      "title": "Real Estate Attorney Parrish FL: What You Need to Know",
+      "tag": "Estate Planning",
+      "category": "Real Estate Attorney Parrish Fl",
+      "blurb": "What a real estate attorney in Parrish, FL actually handles, and how Florida homestead and probate law connect your property to your estate plan.",
+      "image": "images/og/real-estate-2026-07-18.jpg",
+      "date": "2026-09-19",
+      "prettyDate": "September 19, 2026"
+    },
+    {
       "slug": "articles/focus-williston-personal-injury-lawyer-2026-09-18",
       "file": "articles/focus-williston-personal-injury-lawyer-2026-09-18.html",
       "title": "Williston Personal Injury Lawyer: A Florida Guide",
@@ -648,17 +659,6 @@
       "image": "images/og/wills-trusts-2026-07-07.jpg",
       "date": "2026-07-07",
       "prettyDate": "July 7, 2026"
-    },
-    {
-      "slug": "articles/estate-foundations-2026-07-06",
-      "file": "articles/estate-foundations-2026-07-06.html",
-      "title": "Florida Estate Planning Basics: Wills, Trusts & More | Truestead Law",
-      "tag": "Estate Planning",
-      "category": "Estate Planning Foundations",
-      "blurb": "Wills, trusts, powers of attorney, and healthcare surrogates — a plain-language guide to Florida estate-planning foundations every family should understand.",
-      "image": "images/og/estate-foundations-2026-07-06.jpg",
-      "date": "2026-07-06",
-      "prettyDate": "July 6, 2026"
     }
   ]
 }
