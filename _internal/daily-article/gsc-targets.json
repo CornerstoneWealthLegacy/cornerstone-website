@@ -77,7 +77,8 @@
     "position": 11.8,
     "tag": "Estate Planning",
     "score": 5,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-09-20"
   },
   {
     "query": "reddick lyft accident lawyer",

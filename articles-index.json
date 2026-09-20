@@ -1,6 +1,17 @@
 {
   "articles": [
     {
+      "slug": "articles/focus-real-estate-litigation-elfers-2026-09-20",
+      "file": "articles/focus-real-estate-litigation-elfers-2026-09-20.html",
+      "title": "Real Estate Litigation in Elfers, FL: A Homeowner's Guide",
+      "tag": "Estate Planning",
+      "category": "Real Estate Litigation Elfers",
+      "blurb": "A plain-English guide to how Florida law handles real estate disputes for Elfers and Pasco County homeowners, from boundary fights to inherited property.",
+      "image": "images/og/real-estate-2026-07-18.jpg",
+      "date": "2026-09-20",
+      "prettyDate": "September 20, 2026"
+    },
+    {
       "slug": "articles/focus-real-estate-attorney-parrish-fl-2026-09-19",
       "file": "articles/focus-real-estate-attorney-parrish-fl-2026-09-19.html",
       "title": "Real Estate Attorney Parrish FL: What You Need to Know",
@@ -648,17 +659,6 @@
       "image": "images/og/probate-2026-07-09.jpg",
       "date": "2026-07-09",
       "prettyDate": "July 9, 2026"
-    },
-    {
-      "slug": "articles/wills-trusts-2026-07-07",
-      "file": "articles/wills-trusts-2026-07-07.html",
-      "title": "Will vs. Revocable Trust in Florida: Which Plan Is Right for You?",
-      "tag": "Estate Planning",
-      "category": "Wills & Trusts",
-      "blurb": "Florida attorney Arthur Simpson explains the real differences between a will and a revocable trust — and why trust funding is the step most families miss.",
-      "image": "images/og/wills-trusts-2026-07-07.jpg",
-      "date": "2026-07-07",
-      "prettyDate": "July 7, 2026"
     }
   ]
 }
