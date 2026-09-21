@@ -6,7 +6,8 @@
     "position": 12.8,
     "tag": "Personal Injury",
     "score": 7,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-09-21"
   },
   {
     "query": "reddick slip and fall lawyer",

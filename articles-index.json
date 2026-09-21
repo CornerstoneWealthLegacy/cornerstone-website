@@ -1,6 +1,17 @@
 {
   "articles": [
     {
+      "slug": "articles/focus-reddick-lyft-accident-lawyer-2026-09-21",
+      "file": "articles/focus-reddick-lyft-accident-lawyer-2026-09-21.html",
+      "title": "Reddick Lyft Accident Lawyer: Florida Rideshare Claims Guide",
+      "tag": "Personal Injury",
+      "category": "Reddick Lyft Accident Lawyer",
+      "blurb": "A Florida attorney explains how Lyft's insurance tiers, comparative negligence, and the two-year filing deadline apply to rideshare accident claims near Reddick.",
+      "image": "images/og/personal-injury-2026-07-13.jpg",
+      "date": "2026-09-21",
+      "prettyDate": "September 21, 2026"
+    },
+    {
       "slug": "articles/focus-real-estate-litigation-elfers-2026-09-20",
       "file": "articles/focus-real-estate-litigation-elfers-2026-09-20.html",
       "title": "Real Estate Litigation in Elfers, FL: A Homeowner's Guide",
@@ -648,17 +659,6 @@
       "image": "images/og/personal-injury-2026-07-13.jpg",
       "date": "2026-07-13",
       "prettyDate": "July 13, 2026"
-    },
-    {
-      "slug": "articles/probate-2026-07-09",
-      "file": "articles/probate-2026-07-09.html",
-      "title": "Florida Probate in 2026: New $150K Threshold & What Families Need to Know",
-      "tag": "Estate Planning",
-      "category": "Probate & Estate Administration",
-      "blurb": "Florida doubled its summary administration threshold to $150,000 on July 1, 2026 — here's what that means for your family and estate.",
-      "image": "images/og/probate-2026-07-09.jpg",
-      "date": "2026-07-09",
-      "prettyDate": "July 9, 2026"
     }
   ]
 }
