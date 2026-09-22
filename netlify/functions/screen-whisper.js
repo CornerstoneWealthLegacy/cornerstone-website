@@ -22,6 +22,10 @@ exports.handler = async (event) => {
   const label = line === 'realty' ? 'Realty' : 'Truestead';
   const name = (q.name || 'unknown caller').slice(0, 100);
   const reason = (q.reason || '').slice(0, 300);
+  // Per-call room token minted by ring-arthur.js. Carried through to screen-accept
+  // so Arthur is parked in a room belonging to THIS caller and no other. See the
+  // 9/21/2026 incident note in screen-accept.js.
+  const token = (q.token || '').toString().replace(/[^A-Za-z0-9]/g, '').slice(0, 24);
   const BASE = 'https://truesteadlaw.com/.netlify/functions';
 
   const briefing = `${label} call: ${name}. ${reason}`;
@@ -30,7 +34,7 @@ exports.handler = async (event) => {
     statusCode: 200,
     headers: { 'Content-Type': 'text/xml' },
     body: `<?xml version="1.0" encoding="UTF-8"?><Response>` +
-      `<Gather input="dtmf" numDigits="1" timeout="8" action="${BASE}/screen-accept?line=${line}">` +
+      `<Gather input="dtmf" numDigits="1" timeout="8" action="${BASE}/screen-accept?line=${line}${token ? `&amp;token=${token}` : ''}">` +
       `<Say voice="Polly.Joanna">${esc(briefing)} Press 1 to take the call.</Say>` +
       `<Say voice="Polly.Joanna">Press 1 to take the call, or hang up and I will take a message.</Say>` +
       `</Gather><Hangup/></Response>`,

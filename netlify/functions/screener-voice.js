@@ -26,27 +26,64 @@ const BASE = 'https://truesteadlaw.com/.netlify/functions';
 const SID = process.env.TWILIO_ACCOUNT_SID;
 const TOKEN = process.env.TWILIO_AUTH_TOKEN;
 
-// Is Arthur already waiting in a screening conference? Returns its name or null.
-// Twilio is the state store - an in-progress scr-<line> room means he pressed 1.
+// Is Arthur waiting ALONE in a screening conference? Returns its name or null.
+//
+// 9/21/2026 — REWRITTEN AFTER A LIVE BRIDGING INCIDENT. This used to look up the
+// single fixed room scr-<line> and join whatever it found. Two unrelated callers
+// ended up in one room on the Truestead line that way: the room was already open
+// for caller A, so caller B was dropped straight into their conversation.
+//
+// Rooms are now one per call, scr-<line>-<token>, so an exact-name lookup is no
+// longer possible from this leg (the caller arrives by blind transfer and carries
+// no token). Instead: list rooms, keep the ones belonging to this side of the
+// business, and join only one that holds AT MOST ONE participant — Arthur, parked
+// and waiting. A room already holding a caller is skipped, which is what makes a
+// bridge impossible even if two rooms are open at once.
+//
+// Fails closed. Returning null costs a caller one voicemail; returning the wrong
+// room puts two clients on the phone with each other.
+const MAX_ROOMS_CHECKED = 6;
+
+async function participantCount(confSid, auth) {
+  try {
+    const res = await fetch(
+      `https://api.twilio.com/2010-04-01/Accounts/${SID}/Conferences/${confSid}/Participants.json`,
+      { headers: { Authorization: auth } }
+    );
+    if (!res.ok) return Infinity;
+    const data = await res.json();
+    return (data.participants || []).length;
+  } catch (e) {
+    console.error('participant count error', e);
+    return Infinity;
+  }
+}
+
 async function liveScreeningConference() {
   if (!SID || !TOKEN) return null;
   const auth = 'Basic ' + Buffer.from(`${SID}:${TOKEN}`).toString('base64');
-  for (const line of ['truestead', 'realty']) {
-    try {
-      // "init" = Arthur is parked alone on hold music, which is the state we want;
-      // it only flips to "in-progress" once a second participant joins.
-      const res = await fetch(
-        `https://api.twilio.com/2010-04-01/Accounts/${SID}/Conferences.json?FriendlyName=scr-${line}`,
-        { headers: { Authorization: auth } }
-      );
-      if (!res.ok) continue;
-      const data = await res.json();
-      const live = (data.conferences || []).some(
-        (c) => c.status === 'init' || c.status === 'in-progress'
-      );
-      if (live) return `scr-${line}`;
-    } catch (e) { console.error('conference lookup error', e); }
-  }
+  try {
+    // No FriendlyName filter: names now carry a per-call token, so we cannot ask
+    // for one by name. "init" = Arthur parked alone on hold music, which is
+    // exactly the state we want; it flips to "in-progress" once someone joins.
+    const res = await fetch(
+      `https://api.twilio.com/2010-04-01/Accounts/${SID}/Conferences.json?PageSize=50`,
+      { headers: { Authorization: auth } }
+    );
+    if (!res.ok) return null;
+    const data = await res.json();
+    const candidates = (data.conferences || [])
+      .filter((c) => (c.status === 'init' || c.status === 'in-progress'))
+      .filter((c) => /^scr-(truestead|realty)(-|$)/.test(c.friendly_name || ''))
+      // Newest first: if more than one is somehow open, the freshest acceptance
+      // is the one this caller is arriving for.
+      .sort((a, b) => new Date(b.date_created || 0) - new Date(a.date_created || 0))
+      .slice(0, MAX_ROOMS_CHECKED);
+
+    for (const c of candidates) {
+      if (await participantCount(c.sid, auth) <= 1) return c.friendly_name;
+    }
+  } catch (e) { console.error('conference lookup error', e); }
   return null;
 }
 

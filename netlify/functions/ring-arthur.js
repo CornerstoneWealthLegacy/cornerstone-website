@@ -62,8 +62,47 @@ function telUri(raw) {
 // on this handler's response, and there is an open bug (9/9, Ranford Reyes)
 // where a slow tool call makes it talk over the caller, so this is bounded and
 // runs only after the ring has already been placed.
+// Last-resort push when the email record fails. ntfy is the one channel proven
+// to work on this path - it is how the briefing reaches Arthur's phone - so a
+// failed email still delivers the caller's details, AND says out loud that the
+// email path is broken.
+//
+// 9/21/2026: this exists because the Resend records silently stopped somewhere
+// between 9/18 and 9/21 and nobody noticed. RESEND_API_KEY was set, the code was
+// deployed, ring_arthur ran, and no email arrived. The old behaviour was to
+// console.error and carry on, which in practice means the failure is invisible:
+// Joseph Coupe and Colleen McCartney both had to be reconstructed out of the
+// ElevenLabs transcript log instead. A monitor that fails quietly is not a monitor.
+async function ntfyFallback(subject, text) {
+  try {
+    await fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
+      method: 'POST',
+      headers: {
+        Title: 'CALL RECORD EMAIL FAILED',
+        Priority: 'high',
+        Tags: 'warning',
+        'Content-Type': 'text/plain',
+      },
+      body: `The durable email record did not send. Details below are the only copy.\n\n${subject}\n\n${text}`.slice(0, 1500),
+    });
+  } catch (e) { console.error('ntfy fallback also failed', e); }
+}
+
+// Durable record of every screening attempt. ntfy drops messages from the
+// server after 12 hours, so a missed push means the caller's number is gone
+// unless it landed somewhere searchable.
+//
+// Never throws, and never hangs. The agent is holding the caller while it waits
+// on this handler's response, and there is an open bug (9/9, Ranford Reyes)
+// where a slow tool call makes it talk over the caller, so this is bounded and
+// runs only after the ring has already been placed. The 2500 ms budget is
+// deliberately tight for that reason and is NOT raised here; the fallback is
+// what covers a slow or failing Resend, not a longer wait on the caller.
 async function emailCallRecord(subject, text) {
-  if (!RESEND_KEY) return;
+  if (!RESEND_KEY) {
+    console.error('RESEND_API_KEY not set - falling back to ntfy');
+    return ntfyFallback(subject, text);
+  }
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), 2500);
   try {
@@ -73,9 +112,17 @@ async function emailCallRecord(subject, text) {
       body: JSON.stringify({ from: 'Truestead Calls <arthur@truesteadlaw.com>', to: [FIRM_EMAIL], subject, text }),
       signal: ctrl.signal,
     });
-    if (!res.ok) console.error('Resend call record error:', res.status, await res.text());
+    if (!res.ok) {
+      // Read the body before falling back: this is the only place the real reason
+      // is ever visible, and "why did it stop" cost days the last time.
+      const detail = await res.text().catch(() => '');
+      console.error('Resend call record error:', res.status, detail);
+      await ntfyFallback(subject, `${text}\n\n[Resend HTTP ${res.status}] ${detail}`.slice(0, 1200));
+    }
   } catch (e) {
+    // Includes the AbortError when Resend is slower than the 2500 ms budget.
     console.error('Resend call record threw', e);
+    await ntfyFallback(subject, `${text}\n\n[Resend threw: ${e && e.name ? e.name : 'error'}]`);
   } finally {
     clearTimeout(timer);
   }
@@ -132,9 +179,18 @@ exports.handler = async (event) => {
   let ringing = false;
   let configured = Boolean(SID && TOKEN);
 
+  // Per-call room token. Before 9/21/2026 the screening conference was named
+  // scr-<line>, one room per line forever, and two unrelated callers were bridged
+  // into it: caller A's open room read as "accepted" for caller B, so B was
+  // transferred in without Arthur pressing 1 for B at all. The token gives each
+  // call its own room, so an acceptance can only ever apply to the call it was
+  // given for. Returned to the agent below, which passes it to check_arthur.
+  const roomToken = Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4);
+
   if (configured) {
     const whisperUrl = `${BASE}/screen-whisper?line=${encodeURIComponent(line)}` +
-      `&name=${encodeURIComponent(name)}&reason=${encodeURIComponent(reason)}`;
+      `&name=${encodeURIComponent(name)}&reason=${encodeURIComponent(reason)}` +
+      `&token=${encodeURIComponent(roomToken)}`;
     try {
       const res = await fetch(`https://api.twilio.com/2010-04-01/Accounts/${SID}/Calls.json`, {
         method: 'POST',
@@ -168,5 +224,8 @@ exports.handler = async (event) => {
   );
 
   if (!configured) return { statusCode: 200, body: JSON.stringify({ ok: false, ringing: false, error: 'not configured' }) };
-  return { statusCode: 200, body: JSON.stringify({ ok: ringing, ringing }) };
+  // room_token goes back to the agent, which must pass it to check_arthur. Without
+  // it check_arthur falls back to the shared legacy room, where the participant
+  // guard is the only thing preventing a bridge.
+  return { statusCode: 200, body: JSON.stringify({ ok: ringing, ringing, room_token: roomToken }) };
 };
