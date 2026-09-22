@@ -16,7 +16,8 @@
     "position": 10.5,
     "tag": "Personal Injury",
     "score": 7,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-09-22"
   },
   {
     "query": "belleview personal injury lawyer",

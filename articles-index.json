@@ -1,6 +1,17 @@
 {
   "articles": [
     {
+      "slug": "articles/focus-reddick-slip-and-fall-lawyer-2026-09-22",
+      "file": "articles/focus-reddick-slip-and-fall-lawyer-2026-09-22.html",
+      "title": "Reddick Slip and Fall Lawyer: Florida Law Explained",
+      "tag": "Personal Injury",
+      "category": "Reddick Slip And Fall Lawyer",
+      "blurb": "How Florida's slip and fall law, notice requirements, and the 2023 tort reform deadline changes affect claims from falls in Reddick, FL.",
+      "image": "images/og/florida-estate-planning-checklist.jpg",
+      "date": "2026-09-22",
+      "prettyDate": "September 22, 2026"
+    },
+    {
       "slug": "articles/focus-reddick-lyft-accident-lawyer-2026-09-21",
       "file": "articles/focus-reddick-lyft-accident-lawyer-2026-09-21.html",
       "title": "Reddick Lyft Accident Lawyer: Florida Rideshare Claims Guide",
@@ -647,17 +658,6 @@
       "blurb": "A plain-language guide to Florida wills, trusts, powers of attorney, and healthcare surrogates — updated for 2026's probate law changes.",
       "image": "images/og/florida-estate-planning-checklist.jpg",
       "date": "2026-07-14",
-      "prettyDate": "July 13, 2026"
-    },
-    {
-      "slug": "articles/personal-injury-2026-07-13",
-      "file": "articles/personal-injury-2026-07-13.html",
-      "title": "Florida Personal Injury Law: Deadlines & Rules for 2026",
-      "tag": "Personal Injury",
-      "category": "Personal Injury",
-      "blurb": "What Florida's 2-year deadline and 51% fault rule mean for your car accident, slip-and-fall, or injury claim.",
-      "image": "images/og/personal-injury-2026-07-13.jpg",
-      "date": "2026-07-13",
       "prettyDate": "July 13, 2026"
     }
   ]
