@@ -1,6 +1,17 @@
 {
   "articles": [
     {
+      "slug": "articles/focus-estate-planning-attorney-sewall-s-point-2026-09-23",
+      "file": "articles/focus-estate-planning-attorney-sewall-s-point-2026-09-23.html",
+      "title": "Estate Planning Attorney Sewall's Point, FL: Complete Guide",
+      "tag": "Estate Planning",
+      "category": "Estate Planning Attorney Sewall'S Point",
+      "blurb": "What Sewall's Point, FL residents need to know about Florida wills, trusts, homestead planning, and the 2026 probate law changes.",
+      "image": "images/og/florida-estate-planning-checklist.jpg",
+      "date": "2026-09-23",
+      "prettyDate": "September 23, 2026"
+    },
+    {
       "slug": "articles/focus-reddick-slip-and-fall-lawyer-2026-09-22",
       "file": "articles/focus-reddick-slip-and-fall-lawyer-2026-09-22.html",
       "title": "Reddick Slip and Fall Lawyer: Florida Law Explained",
@@ -648,17 +659,6 @@
       "image": "images/og/wills-trusts-2026-07-15.jpg",
       "date": "2026-07-15",
       "prettyDate": "July 14, 2026"
-    },
-    {
-      "slug": "articles/estate-foundations-2026-07-14",
-      "file": "articles/estate-foundations-2026-07-14.html",
-      "title": "Florida Estate Planning Basics: 2026 Guide for Families",
-      "tag": "Estate Planning",
-      "category": "Estate Planning Foundations",
-      "blurb": "A plain-language guide to Florida wills, trusts, powers of attorney, and healthcare surrogates — updated for 2026's probate law changes.",
-      "image": "images/og/florida-estate-planning-checklist.jpg",
-      "date": "2026-07-14",
-      "prettyDate": "July 13, 2026"
     }
   ]
 }
