@@ -84,7 +84,7 @@ with an API key and let it fetch them.
 | `reLease` | `4885d0d7e838ef801f3c9dca8f7a9267` |
 | `lease` | `024cb3accd91e998ca2f16a6cedde2a0` |
 | `deed` | `05a34c92757e660fcef0c0abe0b6e259` |
-| `probate` | `5ba007c3c1977611031e4c1c8d7510d5` |
+| `probate` | `cfba86909f9cf33aff8532fb1c1ca4a7` (v2, $150k line, 2026-09-23; v1 `5ba007c3…` said $75k) |
 | `age18` | `104829a521fb695fe87e24cdaa5deab5` |
 | `protect` | `6e3e5ec226aa52c6d1ac532a1810219d` |
 | `kit` | `94fe93b8e2b6cc9d8f9305ea8e1069e7` |
@@ -113,6 +113,6 @@ committed timings describing audio the clips no longer contain.
 
 ## 2026-09-22: clips pulled
 
-Clips 13–15 and 17–25 were pulled from HeyGen on the Mac (despill, 540×960, crf 24) and are in `widget/clips/`. **`16-probate.mp4` was NOT pulled on purpose**: its script still says "under seventy-five thousand dollars", stale since the July 1, 2026 change to $150,000. Fix the line in `scripts.js`, get Arthur's sign-off, re-render, then pull. Until then the `probate` context falls back to `askq`.
+Clips 13–15 and 17–25 were pulled from HeyGen on the Mac (despill, 540×960, crf 24) and are in `widget/clips/`. `16-probate.mp4` was re-rendered 2026-09-23 with the $150,000 line (Arthur's instruction) and pulled; the v1 render said $75,000 and was never used.
 
 The seven summary-admin clips (26–32) were scripted, approved by Arthur and rendered 2026-09-22; timings and video ids are committed. `pickIssue()` now plays a leaf question's own `clip`.
