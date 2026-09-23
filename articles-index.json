@@ -1,6 +1,83 @@
 {
   "articles": [
     {
+      "slug": "articles/focus-reddick-slip-and-fall-lawyer-2026-09-22",
+      "file": "articles/focus-reddick-slip-and-fall-lawyer-2026-09-22.html",
+      "title": "Reddick Slip and Fall Lawyer: Florida Law Explained",
+      "tag": "Personal Injury",
+      "category": "Reddick Slip And Fall Lawyer",
+      "blurb": "How Florida's slip and fall law, notice requirements, and the 2023 tort reform deadline changes affect claims from falls in Reddick, FL.",
+      "image": "images/og/florida-estate-planning-checklist.jpg",
+      "date": "2026-09-22",
+      "prettyDate": "September 22, 2026"
+    },
+    {
+      "slug": "articles/focus-reddick-lyft-accident-lawyer-2026-09-21",
+      "file": "articles/focus-reddick-lyft-accident-lawyer-2026-09-21.html",
+      "title": "Reddick Lyft Accident Lawyer: Florida Rideshare Claims Guide",
+      "tag": "Personal Injury",
+      "category": "Reddick Lyft Accident Lawyer",
+      "blurb": "A Florida attorney explains how Lyft's insurance tiers, comparative negligence, and the two-year filing deadline apply to rideshare accident claims near Reddick.",
+      "image": "images/og/personal-injury-2026-07-13.jpg",
+      "date": "2026-09-21",
+      "prettyDate": "September 21, 2026"
+    },
+    {
+      "slug": "articles/focus-real-estate-litigation-elfers-2026-09-20",
+      "file": "articles/focus-real-estate-litigation-elfers-2026-09-20.html",
+      "title": "Real Estate Litigation in Elfers, FL: A Homeowner's Guide",
+      "tag": "Estate Planning",
+      "category": "Real Estate Litigation Elfers",
+      "blurb": "A plain-English guide to how Florida law handles real estate disputes for Elfers and Pasco County homeowners, from boundary fights to inherited property.",
+      "image": "images/og/real-estate-2026-07-18.jpg",
+      "date": "2026-09-20",
+      "prettyDate": "September 20, 2026"
+    },
+    {
+      "slug": "articles/focus-real-estate-attorney-parrish-fl-2026-09-19",
+      "file": "articles/focus-real-estate-attorney-parrish-fl-2026-09-19.html",
+      "title": "Real Estate Attorney Parrish FL: What You Need to Know",
+      "tag": "Estate Planning",
+      "category": "Real Estate Attorney Parrish Fl",
+      "blurb": "What a real estate attorney in Parrish, FL actually handles, and how Florida homestead and probate law connect your property to your estate plan.",
+      "image": "images/og/real-estate-2026-07-18.jpg",
+      "date": "2026-09-19",
+      "prettyDate": "September 19, 2026"
+    },
+    {
+      "slug": "articles/focus-williston-personal-injury-lawyer-2026-09-18",
+      "file": "articles/focus-williston-personal-injury-lawyer-2026-09-18.html",
+      "title": "Williston Personal Injury Lawyer: A Florida Guide",
+      "tag": "Personal Injury",
+      "category": "Williston Personal Injury Lawyer",
+      "blurb": "A plain-English guide for Williston, Florida residents on injury claim deadlines, fault rules, PIP insurance, and choosing the right personal injury lawyer.",
+      "image": "images/og/focus-williston-personal-injury-lawyer-2026-09-18.jpg",
+      "date": "2026-09-18",
+      "prettyDate": "September 18, 2026"
+    },
+    {
+      "slug": "articles/focus-williston-motorcycle-accident-lawyer-2026-09-17",
+      "file": "articles/focus-williston-motorcycle-accident-lawyer-2026-09-17.html",
+      "title": "Williston Motorcycle Accident Lawyer: What Florida Law Says",
+      "tag": "Personal Injury",
+      "category": "Williston Motorcycle Accident Lawyer",
+      "blurb": "A Williston motorcycle accident lawyer's guide to Florida's two-year deadline, no PIP coverage for riders, comparative fault, and helmet law effects on your claim.",
+      "image": "images/og/focus-williston-motorcycle-accident-lawyer-2026-09-17.jpg",
+      "date": "2026-09-17",
+      "prettyDate": "September 17, 2026"
+    },
+    {
+      "slug": "articles/focus-real-estate-litigation-bayonet-point-2026-09-16",
+      "file": "articles/focus-real-estate-litigation-bayonet-point-2026-09-16.html",
+      "title": "Real Estate Litigation in Bayonet Point, FL: What to Know",
+      "tag": "Estate Planning",
+      "category": "Real Estate Litigation Bayonet Point",
+      "blurb": "A plain-English guide to real estate disputes for Bayonet Point, Florida property owners, covering title issues, boundaries, HOAs, and inherited homes.",
+      "image": "images/og/focus-real-estate-litigation-bayonet-point-2026-09-16.jpg",
+      "date": "2026-09-16",
+      "prettyDate": "September 16, 2026"
+    },
+    {
       "slug": "articles/focus-probate-attorney-sugarmill-woods-florida-2026-09-15",
       "file": "articles/focus-probate-attorney-sugarmill-woods-florida-2026-09-15.html",
       "title": "Probate Attorney Sugarmill Woods, Florida: 2026 Guide",
@@ -582,83 +659,6 @@
       "image": "images/og/florida-estate-planning-checklist.jpg",
       "date": "2026-07-14",
       "prettyDate": "July 13, 2026"
-    },
-    {
-      "slug": "articles/personal-injury-2026-07-13",
-      "file": "articles/personal-injury-2026-07-13.html",
-      "title": "Florida Personal Injury Law: Deadlines & Rules for 2026",
-      "tag": "Personal Injury",
-      "category": "Personal Injury",
-      "blurb": "What Florida's 2-year deadline and 51% fault rule mean for your car accident, slip-and-fall, or injury claim.",
-      "image": "images/og/personal-injury-2026-07-13.jpg",
-      "date": "2026-07-13",
-      "prettyDate": "July 13, 2026"
-    },
-    {
-      "slug": "articles/probate-2026-07-09",
-      "file": "articles/probate-2026-07-09.html",
-      "title": "Florida Probate in 2026: New $150K Threshold & What Families Need to Know",
-      "tag": "Estate Planning",
-      "category": "Probate & Estate Administration",
-      "blurb": "Florida doubled its summary administration threshold to $150,000 on July 1, 2026 — here's what that means for your family and estate.",
-      "image": "images/og/probate-2026-07-09.jpg",
-      "date": "2026-07-09",
-      "prettyDate": "July 9, 2026"
-    },
-    {
-      "slug": "articles/wills-trusts-2026-07-07",
-      "file": "articles/wills-trusts-2026-07-07.html",
-      "title": "Will vs. Revocable Trust in Florida: Which Plan Is Right for You?",
-      "tag": "Estate Planning",
-      "category": "Wills & Trusts",
-      "blurb": "Florida attorney Arthur Simpson explains the real differences between a will and a revocable trust — and why trust funding is the step most families miss.",
-      "image": "images/og/wills-trusts-2026-07-07.jpg",
-      "date": "2026-07-07",
-      "prettyDate": "July 7, 2026"
-    },
-    {
-      "slug": "articles/estate-foundations-2026-07-06",
-      "file": "articles/estate-foundations-2026-07-06.html",
-      "title": "Florida Estate Planning Basics: Wills, Trusts & More | Truestead Law",
-      "tag": "Estate Planning",
-      "category": "Estate Planning Foundations",
-      "blurb": "Wills, trusts, powers of attorney, and healthcare surrogates — a plain-language guide to Florida estate-planning foundations every family should understand.",
-      "image": "images/og/estate-foundations-2026-07-06.jpg",
-      "date": "2026-07-06",
-      "prettyDate": "July 6, 2026"
-    },
-    {
-      "slug": "articles/special-situations-2026-06-26",
-      "file": "articles/special-situations-2026-06-26.html",
-      "title": "Florida Asset Protection for Blended Families & Snowbirds",
-      "tag": "Estate Planning",
-      "category": "Asset Protection & Special Situations",
-      "blurb": "Florida's homestead, entireties, and trust protections work differently for snowbirds, blended families, business owners, and special-needs families—here's how.",
-      "image": "images/og/florida-asset-protection.jpg",
-      "date": "2026-06-26",
-      "prettyDate": "June 26, 2026"
-    },
-    {
-      "slug": "articles/florida-law-update-2026-06-25",
-      "file": "articles/florida-law-update-2026-06-25.html",
-      "title": "Florida Estate & Property Law: Your 2026 Framework Guide",
-      "tag": "Estate Planning",
-      "category": "Florida Legal & Legislative",
-      "blurb": "Know the durable Florida framework—probate code, Trust Code, and homestead—behind every reported estate and property law change, and how to verify real updates.",
-      "image": "images/og/florida-law-update-2026-07-21.jpg",
-      "date": "2026-06-25",
-      "prettyDate": "June 25, 2026"
-    },
-    {
-      "slug": "articles/real-estate-2026-06-24",
-      "file": "articles/real-estate-2026-06-24.html",
-      "title": "Florida Deeds Explained: Quitclaim, Warranty & Lady Bird",
-      "tag": "Real Estate",
-      "category": "Real Estate & Property",
-      "blurb": "A Florida attorney breaks down warranty, quitclaim, and lady bird deeds — what each protects and how they affect homestead and probate.",
-      "image": "images/og/real-estate-2026-07-18.jpg",
-      "date": "2026-06-24",
-      "prettyDate": "June 24, 2026"
     }
   ]
 }
