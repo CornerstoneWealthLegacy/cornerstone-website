@@ -2964,7 +2964,7 @@ ${_printNote()}
 
   <h2 class="article-title">Section 7 — Vehicles, Boats &amp; Aircraft</h2>
   <p>Often left out of the trust on purpose — a single vehicle can pass cheaply through your pour-over will
-  (Florida summary administration, F.S. § 735.201, if the estate is under $75,000), and trust ownership can
+  (Florida summary administration, F.S. § 735.201, if the estate is under $150,000), and trust ownership can
   complicate auto insurance. To retitle anyway: complete FLHSMV Form HSMV 82040 with your Certificate of
   Trust and notify your insurer. New title shows "${tName}, ${gName}, Trustee."</p>
 

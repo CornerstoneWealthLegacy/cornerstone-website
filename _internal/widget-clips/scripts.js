@@ -42,8 +42,8 @@ export const SCRIPTS = [
   },
   {
     id: 'probate', file: '16-probate.mp4', contexts: ['probate'],
-    note: 'Summary administration: F.S. 735.201 — non-exempt estate value of seventy-five thousand or less, OR death more than two years ago. Hedged with "may be all you need" because exempt property is excluded from the count. Intestacy: F.S. ch. 732 Pt. I. Ancillary administration: F.S. 734.102.',
-    text: "I'm sorry. Losing someone is hard enough without a courthouse involved. Here's what decides how hard this gets. Not every estate needs the full process. If it's under seventy-five thousand dollars, or the death was more than two years ago, summary administration may be all you need. If there was no will, Florida decides who inherits, not the family. And if they owned property in another state, that's a second proceeding on top of this one. Tell me roughly what they owned, and whether there was a will, and I'll tell you which road you're on."
+    note: 'Summary administration: F.S. 735.201 — non-exempt estate value of one hundred fifty thousand or less (CS/SB 1500, eff. 7/1/2026; line corrected and re-rendered 9/23/2026 on Arthur\'s instruction), OR death more than two years ago. Hedged with "may be all you need" because exempt property is excluded from the count. Intestacy: F.S. ch. 732 Pt. I. Ancillary administration: F.S. 734.102.',
+    text: "I'm sorry. Losing someone is hard enough without a courthouse involved. Here's what decides how hard this gets. Not every estate needs the full process. If it's under one hundred fifty thousand dollars, or the death was more than two years ago, summary administration may be all you need. If there was no will, Florida decides who inherits, not the family. And if they owned property in another state, that's a second proceeding on top of this one. Tell me roughly what they owned, and whether there was a will, and I'll tell you which road you're on."
   },
   {
     id: 'age18', file: '17-age18.mp4', contexts: ['age-18'],
