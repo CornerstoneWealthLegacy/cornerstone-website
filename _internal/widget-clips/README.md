@@ -19,6 +19,13 @@ estate intro.
 | 23 | `23-intl.mp4` | `intl` | international-law | `askq` |
 | 24 | `24-bizlit.mp4` | `bizlit` | business-litigation | `askq` |
 | 25 | `25-pricing.mp4` | `pricing` | pricing | `askq` |
+| 26 | `26-sa-open.mp4` | `saOpen` | summary-admin opener (service page, 67 county pages, 12 articles) | `probate` |
+| 27 | `27-sa-cost.mp4` | `saCost` | summary-admin: what does it cost | `probate` |
+| 28 | `28-sa-qualify.mp4` | `saQualify` | summary-admin: do we qualify | `probate` |
+| 29 | `29-sa-house.mp4` | `saHouse` | summary-admin: there is a house | `probate` |
+| 30 | `30-sa-time.mp4` | `saTime` | summary-admin: how long | `probate` |
+| 31 | `31-sa-nowill.mp4` | `saNoWill` | summary-admin: no will | `probate` |
+| 32 | `32-sa-tiny.mp4` | `saTiny` | summary-admin: too small for probate | `probate` |
 
 ## Before these go live
 
@@ -87,6 +94,13 @@ with an API key and let it fetch them.
 | `intl` | `31a2d637c680696776b541ce0d74841c` |
 | `bizlit` | `32fe8df8599176434a2821660eedcbb8` |
 | `pricing` | `0cb973a5abe995cd404bcb6eb6236de0` |
+| `saOpen` | `72c577cc23bf963777f50efb475a4fc8` |
+| `saCost` | `5fa9610bbba57e0f64b5461d95c870a2` |
+| `saQualify` | `f205c4b97431b15d48161636207633eb` |
+| `saHouse` | `4209f99aff7c9b8a51d6d53ab1babb81` |
+| `saTime` | `a2fa34f7db5a3e5c9a00a24287c4ba34` |
+| `saNoWill` | `f2d8c971d9e7813f71fe6777073777e8` |
+| `saTiny` | `9e0a1cff663b120b875c8fd5762af17e` |
 
 Each is at `https://app.heygen.com/videos/<video_id>`.
 
@@ -95,3 +109,10 @@ Re-running `build-clips.js` re-synthesizes and overwrites them, which is fine �
 audio and timings stay in step either way. What is *not* fine is downloading
 these thirteen and then re-running `build-clips.js`: that would leave the
 committed timings describing audio the clips no longer contain.
+
+
+## 2026-09-22: clips pulled
+
+Clips 13–15 and 17–25 were pulled from HeyGen on the Mac (despill, 540×960, crf 24) and are in `widget/clips/`. **`16-probate.mp4` was NOT pulled on purpose**: its script still says "under seventy-five thousand dollars", stale since the July 1, 2026 change to $150,000. Fix the line in `scripts.js`, get Arthur's sign-off, re-render, then pull. Until then the `probate` context falls back to `askq`.
+
+The seven summary-admin clips (26–32) were scripted, approved by Arthur and rendered 2026-09-22; timings and video ids are committed. `pickIssue()` now plays a leaf question's own `clip`.

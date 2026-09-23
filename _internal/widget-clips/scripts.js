@@ -89,5 +89,40 @@ export const SCRIPTS = [
     id: 'pricing', file: '25-pricing.mp4', contexts: ['pricing'],
     note: 'Kit prices match florida-estate-kit.html ($129) and llc-kit.html ($149) and clips 05 and 10. Contingency language matches clip 02: "you pay me nothing unless we recover for you."',
     text: "Fair question, and you should get a straight answer before anybody starts a clock. Most of what we do is flat fee, quoted before we start: estate plans, deeds, closings, company formations. The online kits are published prices, starting at a hundred and twenty-nine dollars for the estate kit, and a hundred and forty-nine for the LLC. Injury work is different. You pay nothing up front, and nothing at all unless we recover for you. Tell me what the matter is, and I'll give you the number for your situation."
+  },
+  {
+    id: 'saOpen', file: '26-sa-open.mp4', contexts: ['summary-admin'],
+    note: 'Opener. Ch. 735 F.S. short-form probate; flat fee per /summary-administration ($1,495 / $2,495). Arthur approved 9/22/2026.',
+    text: "If the estate is small, Florida has a short-form probate, and I file it statewide for a flat fee. Tap your question, and I'll tell you where you stand.",
+  },
+  {
+    id: 'saCost', file: '27-sa-cost.mp4', contexts: ['summary-admin'],
+    note: 'Prices from the Flat Fee Menu / Stripe products; court costs per F.S. 28.2401 billed at cost per the service page. Dollars spoken in full so they cannot be heard as $14.95. Arthur approved 9/22/2026.',
+    text: "The flat fee is one thousand four hundred ninety-five dollars with no real estate, two thousand four hundred ninety-five with a house. Court costs at cost, no markup. Tap qualify, and I'll tell you if this fits.",
+  },
+  {
+    id: 'saQualify', file: '28-sa-qualify.mp4', contexts: ['summary-admin'],
+    note: 'F.S. 735.201 ($150,000 eff. 7/1/2026, CS/SB 1500); F.S. 733.710 two-year claims bar; protected homestead excluded from the calculation. Arthur approved 9/22/2026.',
+    text: "Two doors. Probate assets of one hundred fifty thousand dollars or less, and the homestead usually does not count. Or a death more than two years ago, at any size. Tap house, and I'll tell you how title clears.",
+  },
+  {
+    id: 'saHouse', file: '29-sa-house.mp4', contexts: ['summary-admin'],
+    note: 'Order Determining Homestead recorded in the official records of the property county clears title; $2,495 tier per the service page. Arthur approved 9/22/2026.',
+    text: "The house usually does not count toward the limit, but its title clears only by court order, recorded in the county. That is the two thousand four hundred ninety-five dollar tier. Tap timing, and I'll tell you how fast.",
+  },
+  {
+    id: 'saTime', file: '30-sa-time.mp4', contexts: ['summary-admin'],
+    note: 'Arthur confirmed 9/7/2026: no physical appearance in the uncontested case, rare deficiency hearings by Zoom. Formal timeline per the timeline article. Arthur approved 9/22/2026.',
+    text: "No hearing in the normal case. The judge decides on the papers, usually in weeks, not the six to twelve months of formal probate. Tap no will, and I'll tell you who inherits.",
+  },
+  {
+    id: 'saNoWill', file: '31-sa-nowill.mp4', contexts: ['summary-admin'],
+    note: 'F.S. 732.102 / 732.103 order of takers (text verified 9/22/2026). Affidavit of Heirs replaces the will; fee unchanged. Arthur approved 9/22/2026.',
+    text: "Without a will, Florida's statute picks the heirs: spouse, then children, then parents, then brothers and sisters. Same short-form probate, same flat fee. Tap too small, and I'll tell you when you need no probate at all.",
+  },
+  {
+    id: 'saTiny', file: '32-sa-tiny.mp4', contexts: ['summary-admin'],
+    note: 'F.S. 735.301 (verbatim text verified 9/22/2026); filing fee F.S. 28.2401(1)(d) $230; the free-answer promise is on the service page. Arthur approved 9/22/2026.',
+    text: "Maybe not. No real estate, and the accounts worth less than the funeral plus the last sixty days of medical bills? That is a clerk filing, about two hundred thirty dollars, no lawyer needed. If that is you, I'll say so for free.",
   }
 ];
