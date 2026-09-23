@@ -90,7 +90,7 @@ to pass a home outside probate while keeping full control during life."
 
 ### DYK-10 — Small estates can skip full probate
 **On-screen:** "Not every Florida estate needs full probate."
-**VO:** "Did you know Florida has a shortcut? If an estate is under seventy-five thousand dollars, or the
+**VO:** "Did you know Florida has a shortcut? If an estate is under one hundred fifty thousand dollars, or the
 person passed more than two years ago, it may qualify for 'summary administration' — a faster, simpler
 process than full probate. Whether you qualify depends on the details."
 **Statute card:** Fla. Stat. §735.201

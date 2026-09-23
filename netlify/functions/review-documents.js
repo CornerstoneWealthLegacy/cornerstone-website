@@ -90,7 +90,7 @@ FLORIDA PROBATE CODE (F.S. Chapters 731–735):
 • § 733.608 — General power of PR: collect assets, pay debts, distribute estate
 • § 733.702 — Limitations on presentation of claims (3 months from notice to creditors; 2 years from death if no notice published)
 • § 733.710 — Limitations on claims; nonclaim statute
-• § 735.201 — Summary administration: estate value ≤$75,000 OR decedent dead 2+ years
+• § 735.201 — Summary administration: estate value ≤$150,000 OR decedent dead 2+ years
 • § 735.301 — Disposition without administration (funeral expenses + last illness)
 
 FLORIDA POWER OF ATTORNEY ACT (F.S. §§ 709.2101–709.2402, effective Oct. 1, 2011):
