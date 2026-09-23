@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>Summary Administration Builder — Truestead Law</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#1e3050;--gold:#b8952a;--cream:#f7f3ea;--gray100:#eef0f3;--gray300:#cdd3db;--gray500:#7a828e;--gray900:#1f2733;--green-bg:#e7f4ec;--orange-bg:#fdf0d8;--red-bg:#fbeaea;}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Inter',sans-serif;color:var(--gray900);background:var(--cream);font-size:14px}
+  header.topbar{background:var(--navy);color:#fff;padding:12px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .brand{font-family:'EB Garamond',serif;font-size:20px;font-weight:600}.brand .acc{color:var(--gold)}
+  .topbar .who{font-size:13px;opacity:.85}
+  .topbar button{background:none;border:1px solid rgba(255,255,255,.4);color:#fff;border-radius:7px;padding:6px 12px;font-family:inherit;font-size:13px;cursor:pointer}
+  .hide{display:none!important}
+  .auth-wrap{max-width:400px;margin:70px auto;background:#fff;border-radius:14px;padding:34px;box-shadow:0 6px 30px rgba(0,0,0,.08)}
+  .auth-wrap h1{font-family:'EB Garamond',serif;color:var(--navy);font-size:24px;margin:0 0 6px}
+  .auth-wrap p{color:var(--gray500);font-size:14px;margin:0 0 18px}
+  label{display:block;font-size:12px;font-weight:600;margin:10px 0 4px;color:#333}
+  input,textarea,select{width:100%;font-family:inherit;font-size:13.5px;padding:8px 10px;border:1.5px solid var(--gray300);border-radius:8px;background:#fff}
+  input[type=checkbox]{width:auto;margin-right:6px}
+  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--navy)}
+  textarea{min-height:64px}
+  .btn{background:var(--navy);color:#fff;border:none;border-radius:9px;padding:10px 16px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer}
+  .btn:hover{background:#253a61}.btn.gold{background:var(--gold);color:var(--navy);font-weight:700}
+  .btn.ghost{background:#fff;border:1.5px solid var(--navy);color:var(--navy)}.btn.sm{padding:6px 11px;font-size:12.5px}.btn.danger{background:#b23b3b}
+  .err{color:#c0392b;font-size:13px;margin-top:10px;min-height:16px}
+  .layout{display:grid;grid-template-columns:290px 1fr;height:calc(100vh - 54px)}
+  .sidebar{background:#fff;border-right:1.5px solid var(--gray100);overflow-y:auto;padding:14px}
+  .sidebar .count{font-size:12px;color:var(--gray500);margin:10px 0 8px}
+  .m-item{padding:9px 10px;border-radius:9px;cursor:pointer;border:1.5px solid transparent}
+  .m-item:hover{background:var(--cream)}.m-item.active{background:var(--cream);border-color:var(--gray300)}
+  .m-item .nm{font-weight:600;font-size:13.5px}.m-item .sub{font-size:11.5px;color:var(--gray500)}
+  .pill{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px;background:var(--gray100);color:var(--gray500)}
+  .pill.intake{background:var(--orange-bg);color:#9a6a00}.pill.filed,.pill.qualified,.pill.drafted,.pill.signatures{background:#e8eefb;color:#2b4a8a}.pill.entered,.pill.closed{background:var(--green-bg);color:#1e7d4f}
+  .main{overflow-y:auto;padding:20px 26px}
+  .mhead{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:12px}
+  .mhead h1{font-family:'EB Garamond',serif;color:var(--navy);font-size:24px;margin:0;flex:1}
+  .mhead select{width:auto}
+  .saved{font-size:12.5px;color:var(--gray500)}
+  .tabs{display:flex;gap:4px;flex-wrap:wrap;border-bottom:1.5px solid var(--gray300);margin-bottom:16px}
+  .tab{padding:9px 13px;cursor:pointer;font-weight:600;font-size:13px;color:var(--gray500);border-bottom:3px solid transparent;margin-bottom:-1.5px}
+  .tab.active{color:var(--navy);border-color:var(--gold)}
+  .panel{background:#fff;border:1.5px solid var(--gray100);border-radius:12px;padding:18px 20px;margin-bottom:16px}
+  .panel h2{font-family:'EB Garamond',serif;color:var(--navy);font-size:18px;margin:0 0 10px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0 14px}
+  .grid.wide{grid-template-columns:1fr}
+  .row-card{border:1.5px solid var(--gray100);border-radius:10px;padding:10px 12px;margin-bottom:10px;background:#fbfaf7}
+  .row-card .rc-head{display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:13px}
+  .muted{color:var(--gray500);font-size:12.5px}
+  .flag{background:var(--red-bg);border-left:4px solid #b23b3b;padding:8px 12px;border-radius:6px;margin:6px 0;font-size:13px}
+  .ok{background:var(--green-bg);border-left:4px solid #1e7d4f;padding:8px 12px;border-radius:6px;margin:6px 0;font-size:13px}
+  .kv{display:grid;grid-template-columns:200px 1fr;gap:4px 12px;font-size:13.5px}
+  .kv b{color:var(--navy)}
+  .doclist li{margin:3px 0}
+  .chk label{font-weight:500;font-size:13.5px;display:flex;gap:8px;align-items:flex-start;margin:6px 0}
+  .banner{background:var(--orange-bg);padding:8px 12px;border-radius:8px;margin-bottom:10px;font-size:13px}
+  .empty-main{color:var(--gray500);text-align:center;margin-top:120px;font-size:15px}
+  .inline{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .progress{font-size:12.5px;color:var(--gray500);margin-left:10px}
+  @media (max-width:800px){.layout{grid-template-columns:1fr;height:auto}.sidebar{max-height:38vh}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">TRUESTEAD <span class="acc">LAW</span> &nbsp;·&nbsp; <span style="font-size:15px;font-weight:500">Summary Administration Builder</span></div>
+  <div class="inline"><span class="who" id="who"></span><span class="pill hide" id="localBadge">LOCAL MODE</span><button id="signout" class="hide">Sign out</button></div>
+</header>
+
+<div id="auth-view" class="auth-wrap">
+  <h1>Staff sign-in</h1>
+  <p>Two accounts are allowed on this tool. First visit: enter your email and a password and click Create account.</p>
+  <label>Email</label><input id="email" type="email" autocomplete="username">
+  <label>Password</label><input id="password" type="password" autocomplete="current-password">
+  <div class="inline" style="margin-top:14px"><button class="btn" id="signin">Sign in</button><button class="btn ghost" id="signup">Create account</button><button class="btn ghost sm" id="reset">Forgot password</button></div>
+  <div class="err" id="auth-err"></div>
+</div>
+
+<div id="denied-view" class="auth-wrap hide">
+  <h1>Not authorized</h1><p><span id="denied-email"></span> is not on the builder allow-list. Ask Arthur.</p>
+  <button class="btn" id="denied-signout">Sign out</button>
+</div>
+
+<div id="app-view" class="layout hide">
+  <aside class="sidebar">
+    <div class="inline"><button class="btn sm" id="newMatter">+ New matter</button><button class="btn ghost sm" id="importJson">Import JSON</button><input type="file" id="importFile" accept="application/json" class="hide"></div>
+    <div class="count" id="count"></div>
+    <div id="matterList"></div>
+  </aside>
+  <main class="main">
+    <div id="empty" class="empty-main">Pick a matter on the left, or start a new one.</div>
+    <div id="matterView" class="hide">
+      <div id="remoteBanner" class="banner hide"></div>
+      <div class="mhead">
+        <h1 id="mTitle">Matter</h1>
+        <select data-k="status" id="statusSel"><option value="intake">Intake</option><option value="qualified">Qualified</option><option value="drafted">Drafted</option><option value="signatures">Signatures out</option><option value="filed">Filed</option><option value="entered">Order entered</option><option value="closed">Closed</option></select>
+        <select data-k="track"><option value="auto">Track: auto</option><option value="A">Track A ($1,495)</option><option value="B">Track B ($2,495)</option></select>
+        <button class="btn ghost sm" id="exportJson">Export JSON</button>
+        <button class="btn gold sm" id="buildBtn">Build documents (ZIP)</button>
+        <span class="saved" id="saveState"></span>
+      </div>
+      <div class="tabs" id="tabs">
+        <div class="tab active" data-t="decedent">Decedent & Court</div><div class="tab" data-t="will">Will</div><div class="tab" data-t="family">Family & Heirs</div><div class="tab" data-t="pet">Petitioners</div><div class="tab" data-t="assets">Assets & Homestead</div><div class="tab" data-t="cred">Creditors</div><div class="tab" data-t="review">Review & Build</div><div class="tab" data-t="check">Checklist</div>
+      </div>
+
+      <section data-p="decedent">
+        <div class="panel"><h2>Decedent</h2><div class="grid">
+          <div><label>Full legal name (as on the death certificate)</label><input data-k="decedent.name"></div>
+          <div><label>Also known as</label><input data-k="decedent.aka"></div>
+          <div><label>Date of death</label><input type="date" data-k="decedent.dod"></div>
+          <div><label>Place of death (city, county, state)</label><input data-k="decedent.deathPlace"></div>
+          <div><label>Last known address</label><input data-k="decedent.lastAddr"></div>
+          <div><label>County of domicile</label><input data-k="decedent.county" list="counties"></div>
+          <div><label>Last four of SSN</label><input data-k="decedent.ssn4" maxlength="4"></div>
+          <div><label>Date of birth</label><input type="date" data-k="decedent.dob"></div>
+          <div><label>Medicaid after age 55?</label><select data-k="decedent.medicaid55"><option value="">unknown</option><option value="yes">yes</option><option value="no">no</option></select></div>
+          <div><label>Cause of death</label><input data-k="decedent.cause"></div>
+          <div><label>Third party possibly at fault?</label><select data-k="decedent.thirdParty"><option value="">unknown</option><option value="no">no</option><option value="yes">yes</option></select></div>
+        </div></div>
+        <div class="panel"><h2>Court</h2><div class="grid">
+          <div><label>Venue county</label><input data-k="court.county" list="counties"></div>
+          <div><label>Division</label><input data-k="court.division" placeholder="Volusia: 10"></div>
+          <div><label>File number (after the clerk assigns it)</label><input data-k="court.fileNo" placeholder="2026 12345 PRDL"></div>
+          <div><label>County seat (for the order)</label><input data-k="court.seat"></div>
+          <div><label>Clerk's address (for notices)</label><input data-k="court.clerkAddress"></div>
+          <div><label>Letter date</label><input type="date" data-k="today"></div>
+        </div><p class="muted">Volusia defaults fill automatically when the county is Volusia and the field is empty. Division 10 (Gaustad) takes proposed orders by email in Word to division10@circuit7.org, never through the portal.</p></div>
+        <div class="panel"><h2>Other proceedings and trusts</h2><div class="grid">
+          <div><label>Proceedings pending in another state or country?</label><select data-k="foreign.pending"><option value="">no</option><option value="yes">yes</option></select></div>
+          <div><label>If yes: court, state, foreign PR name and address</label><input data-k="foreign.details"></div>
+          <div><label>Is a trust a beneficiary of the estate?</label><select data-k="trust.isBeneficiary"><option value="">no</option><option value="yes">yes (scope check)</option></select></div>
+          <div><label>Trust name and date</label><input data-k="trust.name"></div>
+        </div></div>
+        <div class="panel"><h2>Notes</h2><textarea data-k="notes" placeholder="Anything the file should remember"></textarea></div>
+      </section>
+
+      <section data-p="will" class="hide">
+        <div class="panel"><h2>Will</h2><div class="grid">
+          <div><label>Did the decedent leave a will?</label><select data-k="will.has"><option value="">unknown</option><option value="yes">yes (testate)</option><option value="no">no (intestate)</option></select></div>
+          <div><label>Will date</label><input type="date" data-k="will.date"></div>
+          <div><label>Codicils (describe with dates)</label><input data-k="will.codicils"></div>
+          <div><label>Pages in the will</label><input data-k="will.pages"></div>
+          <div><label>Who has the original</label><input data-k="will.custodian"></div>
+          <div><label>Already deposited with the clerk?</label><select data-k="will.deposited"><option value="">no</option><option value="yes">yes</option></select></div>
+          <div><label>Deposit date</label><input type="date" data-k="will.depositDate"></div>
+          <div><label>Nominated personal representative</label><input data-k="will.nominatedPR"></div>
+          <div><label>Self-proved (notary + two witnesses affidavit attached)?</label><select data-k="will.selfProved"><option value="">unknown</option><option value="yes">yes</option><option value="no">no (witness oath needed)</option></select></div>
+          <div><label>Does the will direct Chapter 733 administration?</label><select data-k="will.directs733"><option value="">unknown</option><option value="no">no</option><option value="yes">yes (disqualifies)</option></select></div>
+          <div><label>Original lost or destroyed?</label><select data-k="will.lost"><option value="">no</option><option value="yes">yes (scope trap)</option></select></div>
+          <div><label>Where executed</label><input data-k="will.execPlace"></div>
+          <div><label>Witness 1 name</label><input data-k="will.witness1"></div>
+          <div><label>Witness 1 address</label><input data-k="will.witness1Addr"></div>
+          <div><label>Witness 2 name</label><input data-k="will.witness2"></div>
+        </div></div>
+      </section>
+
+      <section data-p="family" class="hide">
+        <div class="panel"><h2>Surviving spouse</h2><div class="grid">
+          <div><label>Surviving spouse?</label><select data-k="spouse.exists"><option value="">no</option><option value="yes">yes</option></select></div>
+          <div><label>Spouse full legal name</label><input data-k="spouse.name"></div>
+          <div><label>Spouse address</label><input data-k="spouse.address"></div>
+          <div><label>Date of marriage</label><input type="date" data-k="spouse.marriedOn"></div>
+          <div><label>Prior marriages and how each ended</label><input data-k="family.priorMarriages"></div>
+        </div></div>
+        <div class="panel"><h2>Children (natural and adopted, living or deceased)</h2><div id="childrenList"></div><button class="btn ghost sm" data-add="family.children">+ Add child</button></div>
+        <div class="panel"><h2>Parents, siblings, remote kindred (intestate ladder, F.S. 732.103)</h2><div class="grid">
+          <div><label>Mother name</label><input data-k="family.mother.name"></div><div><label>Mother living?</label><select data-k="family.mother.living"><option value="">unknown</option><option value="yes">yes</option><option value="no">no</option></select></div><div><label>Mother address / date of death</label><input data-k="family.mother.address"></div>
+          <div><label>Father name</label><input data-k="family.father.name"></div><div><label>Father living?</label><select data-k="family.father.living"><option value="">unknown</option><option value="yes">yes</option><option value="no">no</option></select></div><div><label>Father address / date of death</label><input data-k="family.father.address"></div>
+          <div><label>Grandchildren through a deceased child</label><input data-k="family.grandchildren"></div>
+          <div><label>Brothers and sisters (and descendants of deceased siblings)</label><input data-k="family.siblings"></div>
+          <div><label>More remote kindred</label><input data-k="family.remote"></div>
+          <div><label>Years the affiant knew the decedent</label><input data-k="family.knownYears"></div>
+        </div><label>Family notes</label><textarea data-k="family.notes"></textarea></div>
+        <div class="panel"><h2>Beneficiaries and heirs (everyone who takes anything)</h2><p class="muted">Mode: <b>petitioner</b> signs the petition; <b>joinder</b> signs a notarized Joinder, Waiver, and Consent; <b>full share</b> receives a full distributive share and need not join (Rule 5.530(b)); <b>formal notice</b> is served under Rule 5.040 with a 20-day clock.</p><div id="benList"></div><button class="btn ghost sm" data-add="beneficiaries">+ Add beneficiary</button></div>
+      </section>
+
+      <section data-p="pet" class="hide">
+        <div class="panel"><h2>Petitioners (must be a beneficiary, heir, or the nominated PR, F.S. 735.203)</h2><div id="petList"></div><button class="btn ghost sm" data-add="petitioners">+ Add petitioner</button></div>
+      </section>
+
+      <section data-p="assets" class="hide">
+        <div class="panel"><h2>Assets</h2><p class="muted">One row per account, vehicle, or parcel. Tick <b>outside probate</b> for anything with a surviving joint owner, POD/TOD, or named beneficiary; it is listed for the record but never counted or distributed. Tick <b>exempt</b> (F.S. 732.402) only when a spouse or child takes it. Non-homestead real property is a normal asset with the legal description filled in.</p><div id="assetList"></div><button class="btn ghost sm" data-add="assets">+ Add asset</button></div>
+        <div class="panel"><h2>Protected homestead (Track B)</h2><div class="grid">
+          <div><label><input type="checkbox" data-k="homestead.exists">Decedent owned protected homestead</label></div>
+          <div><label>Street address</label><input data-k="homestead.address"></div>
+          <div><label>County where the property lies</label><input data-k="homestead.county" list="counties"></div>
+          <div><label>Parcel ID</label><input data-k="homestead.parcel"></div>
+          <div><label>Titled at death as</label><input data-k="homestead.titled" placeholder="the decedent alone"></div>
+          <div><label>Deed: OR Book</label><input data-k="homestead.deedBook"></div><div><label>Deed: Page</label><input data-k="homestead.deedPage"></div><div><label>or Instrument No.</label><input data-k="homestead.instrument"></div>
+          <div><label>Resided there from</label><input type="date" data-k="homestead.residedFrom"></div>
+          <div><label>Inside a municipality?</label><select data-k="homestead.municipality"><option value="">unknown</option><option value="yes">yes (half acre max)</option><option value="no">no (160 acres max)</option></select></div>
+          <div><label>Homestead tax exemption year</label><input data-k="homestead.taxExemptionYear"></div>
+          <div><label>Mortgage lender (blank if none)</label><input data-k="homestead.mortgage"></div>
+          <div><label>Spouse waived homestead rights?</label><select data-k="homestead.spouseWaiver"><option value="">no</option><option value="yes">yes</option></select></div>
+          <div><label>How waived</label><input data-k="homestead.spouseWaiverHow"></div>
+          <div><label>Spouse elected undivided half (732.401(2))?</label><select data-k="homestead.election"><option value="">no</option><option value="yes">yes</option></select></div>
+          <div><label>Election recorded on</label><input type="date" data-k="homestead.electionDate"></div>
+          <div><label>Devisee(s) under the will</label><input data-k="homestead.devisee"></div>
+        </div><label>Legal description (verbatim from the deed)</label><textarea data-k="homestead.legal"></textarea>
+        <h2 style="margin-top:14px">Persons entitled to the homestead and each one's interest</h2><div id="hsList"></div><button class="btn ghost sm" data-add="homestead.persons">+ Add person</button></div>
+        <div class="panel"><h2>Disposition Without Administration test (F.S. 735.301)</h2><div class="grid">
+          <div><label>Funeral expenses actually paid</label><input data-k="dwa.funeralPaid" placeholder="counts up to $6,000"></div>
+          <div><label>Last-60-days medical and hospital paid or owed (out of pocket)</label><input data-k="dwa.last60Paid"></div>
+        </div></div>
+      </section>
+
+      <section data-p="cred" class="hide">
+        <div class="panel"><h2>Known and reasonably ascertainable creditors (F.S. 735.206(2))</h2><p class="muted">Every unpaid creditor gets a copy of the petition by certified mail and a Formal Notice; tick <b>paid</b> when proof of payment is in hand; tick <b>assumed</b> when someone else takes the debt over (creditor consent form is generated).</p><div id="credList"></div><button class="btn ghost sm" data-add="creditors">+ Add creditor</button></div>
+        <div class="panel"><h2>Options</h2><div class="grid">
+          <div><label>Publish notice to creditors after the order (F.S. 735.2063)?</label><select data-k="publish"><option value="">decide later</option><option value="yes">yes</option><option value="no">no</option></select></div>
+          <div><label>Estate-plan paragraph in the closing letter?</label><select data-k="crossSell"><option value="">yes</option><option value="no">no (leave it out)</option></select></div>
+        </div></div>
+      </section>
+
+      <section data-p="review" class="hide">
+        <div class="panel"><h2>Qualification</h2><div id="analysis"></div></div>
+        <div class="panel"><h2>Documents this build produces</h2><ul class="doclist" id="docPreview"></ul>
+          <div class="inline" style="margin-top:10px"><button class="btn gold" id="buildBtn2">Build documents (ZIP)</button><span class="progress" id="buildProgress"></span></div>
+          <p class="muted">Every document is generated from the entries above. Anything still unknown shows as a yellow [PLACEHOLDER] inside the Word file. Arthur reads every document before it is signed, served, or filed.</p></div>
+      </section>
+
+      <section data-p="check" class="hide">
+        <div class="panel chk"><h2>Track A checklist</h2><div id="checkA"></div></div>
+        <div class="panel chk" id="checkBPanel"><h2>Track B additions</h2><div id="checkB"></div></div>
+        <div class="panel"><h2>Activity</h2><div id="activity" class="muted">No activity yet.</div></div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<datalist id="counties"></datalist>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<script src="vendor/docx.umd.js"></script>
+<script src="vendor/jszip.min.js"></script>
+<script src="vendor/FileSaver.min.js"></script>
+<script src="sa-styles.js"></script>
+<script src="sa-builder-docs.js"></script>
+<script>
+'use strict';
+const ALLOW = ['arthur@truesteadlaw.com', 'simp70@gmail.com', 'lera@truesteadlaw.com'];
+const COUNTIES = 'Alachua,Baker,Bay,Bradford,Brevard,Broward,Calhoun,Charlotte,Citrus,Clay,Collier,Columbia,DeSoto,Dixie,Duval,Escambia,Flagler,Franklin,Gadsden,Gilchrist,Glades,Gulf,Hamilton,Hardee,Hendry,Hernando,Highlands,Hillsborough,Holmes,Indian River,Jackson,Jefferson,Lafayette,Lake,Lee,Leon,Levy,Liberty,Madison,Manatee,Marion,Martin,Miami-Dade,Monroe,Nassau,Okaloosa,Okeechobee,Orange,Osceola,Palm Beach,Pasco,Pinellas,Polk,Putnam,St. Johns,St. Lucie,Santa Rosa,Sarasota,Seminole,Sumter,Suwannee,Taylor,Union,Volusia,Wakulla,Walton,Washington'.split(',');
+const COUNTY_DEFAULTS = { Volusia: { seat: 'DeLand', division: '10', clerkAddress: 'Clerk of the Circuit Court, Probate Division, P.O. Box 6043, DeLand, FL 32721-6043' }, Flagler: { seat: 'Bunnell', division: '48', clerkAddress: 'Clerk of the Circuit Court, Probate Division, 1769 E. Moody Blvd., Bldg. 1, Bunnell, FL 32110' } };
+const CHECK_A = ['Matter note opened; lead on the Follow-Up Board; document request, intake, and engagement sent same day','Statements read; registrations confirmed from the institution\'s paper','Decision tree written: DWA test, door, standing, solvency, cause of death','Legal names confirmed (IDs, death certificate); engagement countersigned; fee paid; ledger opened','Certified death certificates ordered (court + one per institution + client)','Will: custodian found, self-proof checked, deposit plan; or intestate roster built down the 732.103 ladder','Asset map complete with institution addresses, last four, VINs, values','Creditor table with proof of payment for funeral and last-60-days medical; AHCA if 55+','Petition drafted, every placeholder resolved; Arthur read it','Affidavit of Heirs on the circuit\'s form if one exists','Joinders out with cover letters; back notarized; or Formal Notice served and proof filed','Oath of Witness before the clerk, if needed','Orders drafted asset by asset; Arthur read them','Notice of Confidential Information prepared for the death certificate','Circuit checklist or worksheet completed','Creditors served with the petition; consents signed where needed; green cards filed','E-filed; fee paid by e-check; acceptance and case number diaried','Original will, death certificate, witness oath delivered to the clerk; stamped copy back','Proposed orders sent the circuit\'s way (Volusia: Word by email to division10@circuit7.org)','Deficiencies cleared same day','Orders entered; certified copies ordered; costs billed','Release letters to each institution; vehicle cover for each vehicle; releases confirmed','Publication decision made; if yes, published, proof filed, bar date diaried','Closing letter; ledger closed; trust refund; matter note and daily note updated; lessons banked'];
+const CHECK_B = ['Deed pulled; legal description copied verbatim; parcel ID and homestead exemption confirmed; tax bill; mortgage statement','Homestead analysis written: spouse, minor child, devise permitted, 732.401 descent, election, waiver','Non-homestead real property added to the Door 1 value and to the order as a numbered asset','Homestead petition with all ten Rule 5.405(b) elements and the deed as Exhibit A','Homestead order naming every person entitled and each interest; 3 x 3 inch blank top right','Order of SA includes the homestead paragraph (Seventh Circuit passes title through this order)','Two extra certified copies of each order per county of recording','Recorded in every county where the property lies; recorded originals to the client','Client told: insurance, homestead exemption by March 1, mortgage, what a title company will ask for; no DR-312'];
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const params = new URLSearchParams(location.search);
+const LOCAL = params.get('local') === '1' || params.get('sample') === '1';
+$('counties').innerHTML = COUNTIES.map(c => '<option value="' + c + '">').join('');
+
+// ── Firebase ──────────────────────────────────────────────────────────
+firebase.initializeApp({ apiKey: 'AIzaSyDu2Fs6akMU2wvfyTTvPXVahQIO2z8o3ek', authDomain: 'cornerstone-wealth-and-legacy.firebaseapp.com', projectId: 'cornerstone-wealth-and-legacy' });
+const auth = firebase.auth(); const db = firebase.firestore();
+let ME = null;
+
+$('signin').onclick = async () => { const e = $('email').value.trim(), p = $('password').value; $('auth-err').textContent = ''; try { await auth.signInWithEmailAndPassword(e, p); } catch (err) { $('auth-err').textContent = 'Sign-in failed: ' + (err.code || '').replace('auth/', '').replace(/-/g, ' '); } };
+$('signup').onclick = async () => { const e = $('email').value.trim().toLowerCase(), p = $('password').value; $('auth-err').textContent = ''; if (!ALLOW.includes(e)) { $('auth-err').textContent = 'That email is not on the allow-list.'; return; } if (p.length < 8) { $('auth-err').textContent = 'Use at least 8 characters.'; return; } try { await auth.createUserWithEmailAndPassword(e, p); } catch (err) { $('auth-err').textContent = 'Could not create: ' + (err.code || '').replace('auth/', '').replace(/-/g, ' '); } };
+$('reset').onclick = async () => { const e = $('email').value.trim(); if (!e) { $('auth-err').textContent = 'Enter your email first.'; return; } try { await auth.sendPasswordResetEmail(e); $('auth-err').textContent = 'Reset email sent.'; } catch (err) { $('auth-err').textContent = 'Could not send: ' + (err.code || ''); } };
+$('password').addEventListener('keydown', e => { if (e.key === 'Enter') $('signin').click(); });
+$('signout').onclick = () => auth.signOut(); $('denied-signout').onclick = () => auth.signOut();
+function show(v) { $('auth-view').classList.toggle('hide', v !== 'auth'); $('denied-view').classList.toggle('hide', v !== 'denied'); $('app-view').classList.toggle('hide', v !== 'app'); $('signout').classList.toggle('hide', v !== 'app' || LOCAL); }
+
+
+// ── Matter state ──────────────────────────────────────────────────────
+let M = null, MID = null, saveTimer = null, unsubDoc = null, lastLocalSave = 0;
+const get = (o, path) => path.split('.').reduce((a, k) => (a == null ? undefined : a[k]), o);
+const set = (o, path, val) => { const ks = path.split('.'); let cur = o; ks.slice(0, -1).forEach(k => { if (cur[k] == null || typeof cur[k] !== 'object') cur[k] = {}; cur = cur[k]; }); cur[ks[ks.length - 1]] = val; };
+function titleOf(m) { return (m.decedent && m.decedent.name) ? 'Estate of ' + m.decedent.name : 'New matter'; }
+
+function newMatter() { const m = SADocs.emptyMatter(); m.today = new Date().toISOString().slice(0, 10); openMatter(LOCAL ? 'local-' + Date.now() : db.collection('sa_matters').doc().id, m, true); }
+$('newMatter').onclick = newMatter;
+
+function openMatter(id, m, isNew) {
+  if (unsubDoc) { unsubDoc(); unsubDoc = null; }
+  MID = id; M = m; if (!M.checklist) M.checklist = {};
+  $('empty').classList.add('hide'); $('matterView').classList.remove('hide'); $('remoteBanner').classList.add('hide');
+  renderAll(); highlightList();
+  if (isNew) { save(true, true); logActivity('created'); }
+  if (!LOCAL) unsubDoc = db.collection('sa_matters').doc(MID).onSnapshot(snap => {
+    const d = snap.data(); if (!d || !d.matter) return;
+    const at = d.updatedAt && d.updatedAt.toMillis ? d.updatedAt.toMillis() : 0;
+    if (d.updatedBy !== ME.email && at > lastLocalSave + 1500) { $('remoteBanner').innerHTML = 'Updated by <b>' + esc(d.updatedBy) + '</b> just now. <button class="btn sm" id="reloadRemote">Load their changes</button>'; $('remoteBanner').classList.remove('hide'); $('reloadRemote').onclick = () => { M = d.matter; renderAll(); $('remoteBanner').classList.add('hide'); }; }
+  });
+  loadActivity();
+}
+function scheduleSave() { $('saveState').textContent = 'Saving…'; clearTimeout(saveTimer); saveTimer = setTimeout(() => save(false), 900); }
+async function save(immediate, isNew) {
+  if (!M || !MID) return;
+  lastLocalSave = Date.now();
+  if (LOCAL) { localStorage.setItem('sa_' + MID, JSON.stringify({ matter: M, updatedAt: lastLocalSave, title: titleOf(M) })); $('saveState').textContent = 'Saved locally ' + new Date().toLocaleTimeString(); loadLocalList(); return; }
+  try {
+    await db.collection('sa_matters').doc(MID).set(Object.assign({ matter: M, title: titleOf(M), status: M.status || 'intake', track: M.track || 'auto', updatedAt: firebase.firestore.FieldValue.serverTimestamp(), updatedBy: ME.email, decedentName: (M.decedent || {}).name || '' }, isNew ? { createdBy: ME.email, createdAt: firebase.firestore.FieldValue.serverTimestamp() } : {}), { merge: true });
+    $('saveState').textContent = 'Saved ' + new Date().toLocaleTimeString();
+  } catch (e) { $('saveState').textContent = 'SAVE FAILED: ' + (e.code || e.message); }
+}
+async function logActivity(action, detail) {
+  if (LOCAL) return;
+  try { await db.collection('sa_activity').add({ matterId: MID, title: titleOf(M), who: ME.email, action, detail: detail || '', at: firebase.firestore.FieldValue.serverTimestamp() }); loadActivity(); } catch (e) { console.warn('activity', e); }
+}
+async function loadActivity() {
+  if (LOCAL) return;
+  try { const q = await db.collection('sa_activity').where('matterId', '==', MID).get(); const rows = q.docs.map(d => d.data()).sort((a, b) => ((b.at && b.at.toMillis ? b.at.toMillis() : 0) - (a.at && a.at.toMillis ? a.at.toMillis() : 0))).slice(0, 40); $('activity').innerHTML = rows.length ? rows.map(r => '<div>' + esc(r.at && r.at.toDate ? r.at.toDate().toLocaleString() : '') + ' · <b>' + esc(r.who) + '</b> · ' + esc(r.action) + (r.detail ? ' · ' + esc(r.detail) : '') + '</div>').join('') : 'No activity yet.'; } catch (e) { $('activity').textContent = 'Activity unavailable: ' + (e.code || e.message); }
+}
+
+// ── Matter list ───────────────────────────────────────────────────────
+let LIST = [];
+function subscribeList() { db.collection('sa_matters').orderBy('updatedAt', 'desc').limit(200).onSnapshot(snap => { LIST = snap.docs.map(d => ({ id: d.id, ...d.data() })); renderList(); }, e => { $('count').textContent = 'List unavailable: ' + (e.code || e.message); }); }
+function loadLocalList() { LIST = Object.keys(localStorage).filter(k => k.startsWith('sa_')).map(k => { try { const d = JSON.parse(localStorage.getItem(k)); return { id: k.slice(3), title: d.title, status: d.matter.status, track: d.matter.track, matter: d.matter, updatedAt: { toDate: () => new Date(d.updatedAt) }, updatedBy: 'local' }; } catch (e) { return null; } }).filter(Boolean).sort((a, b) => b.updatedAt.toDate() - a.updatedAt.toDate()); renderList(); }
+function renderList() {
+  $('count').textContent = LIST.length + ' matter' + (LIST.length === 1 ? '' : 's');
+  $('matterList').innerHTML = LIST.map(m => '<div class="m-item' + (m.id === MID ? ' active' : '') + '" data-id="' + esc(m.id) + '"><div class="nm">' + esc(m.title || 'New matter') + '</div><div class="sub"><span class="pill ' + esc(m.status || 'intake') + '">' + esc(m.status || 'intake') + '</span> · Track ' + esc(m.track === 'auto' || !m.track ? (SADocs.analyze(m.matter || SADocs.emptyMatter()).track) : m.track) + ' · ' + esc(m.updatedBy || '') + ' · ' + esc(m.updatedAt && m.updatedAt.toDate ? m.updatedAt.toDate().toLocaleDateString() : '') + '</div></div>').join('');
+  document.querySelectorAll('.m-item').forEach(el => el.onclick = () => { const m = LIST.find(x => x.id === el.dataset.id); if (m) openMatter(m.id, JSON.parse(JSON.stringify(m.matter))); });
+}
+function highlightList() { document.querySelectorAll('.m-item').forEach(el => el.classList.toggle('active', el.dataset.id === MID)); }
+
+// ── Binding ───────────────────────────────────────────────────────────
+function renderAll() {
+  document.querySelectorAll('[data-k]').forEach(el => { const v = get(M, el.dataset.k); if (el.type === 'checkbox') el.checked = !!v; else el.value = v == null ? '' : v; });
+  renderRows(); renderAnalysis(); renderChecklist(); $('mTitle').textContent = titleOf(M);
+}
+document.querySelectorAll('[data-k]').forEach(el => el.addEventListener('input', () => {
+  set(M, el.dataset.k, el.type === 'checkbox' ? el.checked : el.value);
+  if (el.dataset.k === 'court.county' || el.dataset.k === 'decedent.county') { const c = COUNTY_DEFAULTS[el.value]; if (!M.court.county && el.dataset.k === 'decedent.county') { M.court.county = el.value; } if (c) { if (!M.court.seat) M.court.seat = c.seat; if (!M.court.division) M.court.division = c.division; if (!M.court.clerkAddress) M.court.clerkAddress = c.clerkAddress; } document.querySelectorAll('[data-k^="court."]').forEach(x => x.value = get(M, x.dataset.k) || ''); }
+  if (el.dataset.k === 'status') logActivity('status', el.value);
+  $('mTitle').textContent = titleOf(M); renderAnalysis(); renderChecklist(); scheduleSave();
+}));
+
+// row lists
+const ROW_DEFS = {
+  'family.children': { host: 'childrenList', label: 'Child', fields: [['name', 'Name'], ['address', 'Address'], ['dob', 'Date of birth', 'date'], ['living', 'Living?', 'sel', ['', 'yes', 'no']], ['descendants', 'If deceased: surviving descendants']] },
+  beneficiaries: { host: 'benList', label: 'Beneficiary', fields: [['name', 'Full legal name'], ['address', 'Address'], ['relationship', 'Relationship'], ['minorYear', 'Year of birth if a minor'], ['mode', 'Signs by', 'sel', ['petitioner', 'joinder', 'full', 'formal']], ['share', 'What they receive (plain words)'], ['surrenders', 'Gives up part or all of a share', 'chk'], ['surrenderAmount', 'Approx. value given up'], ['surrenderTo', 'Given to (name)'], ['surrenderPurpose', 'Purpose recital (optional)']] },
+  petitioners: { host: 'petList', label: 'Petitioner', fields: [['name', 'Full legal name (as on ID)'], ['address', 'Address'], ['email', 'Email'], ['interest', 'Interest (e.g. the surviving spouse and a beneficiary under the will)'], ['isSpouse', 'Is the surviving spouse', 'chk']] },
+  assets: { host: 'assetList', label: 'Asset', fields: [['desc', 'Description (checking account / 2018 Toyota Camry / vacant lot)'], ['institution', 'Institution'], ['instAddress', 'Institution address (estate dept.)'], ['last4', 'Account last four'], ['vin', 'VIN (vehicles)'], ['titleNo', 'FL title no.'], ['titled', 'How titled'], ['value', 'Value at death ($)'], ['outside', 'Passes outside probate', 'chk'], ['exempt', 'Exempt property (732.402)', 'chk'], ['isRealProperty', 'Non-homestead real property', 'chk'], ['address', 'Property address'], ['parcel', 'Parcel ID'], ['legal', 'Legal description', 'ta'], ['distributee', 'Distributee (full legal name)'], ['distributeeAddr', 'Distributee address'], ['share', 'Share (100% / one-half)']] },
+  creditors: { host: 'credList', label: 'Creditor', fields: [['name', 'Creditor'], ['address', 'Address'], ['reference', 'Account / reference'], ['nature', 'Nature of debt'], ['amount', 'Amount ($)'], ['exact', 'Amount is exact', 'chk'], ['due', 'When due'], ['provision', 'Provision for payment'], ['paid', 'Paid in full (proof in hand)', 'chk'], ['assumed', 'Assumed by someone else', 'chk'], ['assumedBy', 'Assumed by (name)']] },
+  'homestead.persons': { host: 'hsList', label: 'Person entitled', fields: [['name', 'Full legal name'], ['address', 'Address'], ['interest', 'Interest (fee simple / life estate / undivided one-half)']] },
+};
+function renderRows() {
+  Object.entries(ROW_DEFS).forEach(([path, def]) => {
+    const arr = get(M, path) || []; if (!get(M, path)) set(M, path, arr);
+    $(def.host).innerHTML = arr.map((row, i) => '<div class="row-card"><div class="rc-head"><span>' + def.label + ' ' + (i + 1) + (row.name || row.desc ? ': ' + esc(row.name || row.desc) : '') + '</span><button class="btn danger sm" data-del="' + path + '" data-i="' + i + '">Remove</button></div><div class="grid">' + def.fields.map(f => {
+      const [k, lab, type, opts] = f; const val = row[k] == null ? '' : row[k]; const a = ' data-list="' + path + '" data-i="' + i + '" data-f="' + k + '"';
+      if (type === 'chk') return '<div><label><input type="checkbox"' + a + (val ? ' checked' : '') + '>' + lab + '</label></div>';
+      if (type === 'sel') return '<div><label>' + lab + '</label><select' + a + '>' + opts.map(o => '<option value="' + o + '"' + (val === o ? ' selected' : '') + '>' + (o || 'unknown') + '</option>').join('') + '</select></div>';
+      if (type === 'ta') return '<div style="grid-column:1/-1"><label>' + lab + '</label><textarea' + a + '>' + esc(val) + '</textarea></div>';
+      return '<div><label>' + lab + '</label><input type="' + (type || 'text') + '"' + a + ' value="' + esc(val) + '"></div>';
+    }).join('') + '</div></div>').join('');
+  });
+  document.querySelectorAll('[data-list]').forEach(el => el.addEventListener('input', () => { const arr = get(M, el.dataset.list); arr[+el.dataset.i][el.dataset.f] = el.type === 'checkbox' ? el.checked : el.value; renderAnalysis(); scheduleSave(); }));
+  document.querySelectorAll('[data-del]').forEach(el => el.onclick = () => { get(M, el.dataset.del).splice(+el.dataset.i, 1); renderRows(); renderAnalysis(); scheduleSave(); });
+}
+document.querySelectorAll('[data-add]').forEach(el => el.onclick = () => { const arr = get(M, el.dataset.add) || []; set(M, el.dataset.add, arr); arr.push(el.dataset.add === 'beneficiaries' ? { mode: 'joinder' } : {}); renderRows(); scheduleSave(); });
+
+// tabs
+document.querySelectorAll('.tab').forEach(t => t.onclick = () => { document.querySelectorAll('.tab').forEach(x => x.classList.toggle('active', x === t)); document.querySelectorAll('section[data-p]').forEach(s => s.classList.toggle('hide', s.dataset.p !== t.dataset.t)); if (t.dataset.t === 'review') renderAnalysis(); });
+
+// ── Analysis, checklist ───────────────────────────────────────────────
+function renderAnalysis() {
+  if (!M) return; const A = SADocs.analyze(M); const m = SADocs.money;
+  const route = { NOTHING: 'Nothing to file: every asset passes outside probate', DWA: 'Disposition Without Administration (F.S. 735.301). No petition, no flat fee.', SA: 'Summary administration, Track ' + A.track + ', fee ' + m(A.fee) + ' plus costs', FORMAL: 'Does not qualify for summary administration on these figures' }[A.route];
+  $('analysis').innerHTML = '<div class="' + (A.route === 'SA' ? 'ok' : 'flag') + '"><b>' + esc(route) + '</b></div><div class="kv">' +
+    '<b>Testate / intestate</b><span>' + (A.testate ? 'Testate' : 'Intestate') + '</span>' +
+    '<b>Door 1 (value)</b><span>Countable ' + m(A.total) + ' (exempt excluded ' + m(A.exemptTotal) + '); ' + (A.door1 ? 'at or under $150,000' : 'OVER $150,000') + '</span>' +
+    '<b>Door 2 (time)</b><span>' + (A.yearsDead === null ? 'no date of death' : A.yearsDead.toFixed(1) + ' years since death; ' + (A.door2 ? 'all claims barred (733.710)' : 'creditor work required')) + '</span>' +
+    '<b>DWA test</b><span>Non-exempt personal property ' + m(A.nonExemptPersonal) + ' vs. funeral (capped $6,000) ' + m(A.funeral) + ' + last-60-days ' + m(A.last60) + ' = ' + m(A.dwaCeiling) + (A.dwaFits ? ' — FITS' : '') + '</span>' +
+    '<b>Petitioners</b><span>' + esc(A.petNames || 'none yet') + '</span>' +
+    '<b>Joinders needed</b><span>' + esc(A.joinders.filter(b => b.mode === 'joinder').map(b => b.name).join(', ') || 'none') + '</span>' +
+    '<b>Formal notice</b><span>' + esc(A.formal.map(b => b.name).concat(A.door2 ? [] : A.unpaid.map(c => c.name)).join(', ') || 'none') + '</span>' +
+    '</div>' + A.flags.map(f => '<div class="flag">' + esc(f) + '</div>').join('');
+  try { $('docPreview').innerHTML = SADocs.buildAll(M).map(d => '<li>' + esc(d.name) + '</li>').join(''); } catch (e) { $('docPreview').innerHTML = '<li class="flag">Preview error: ' + esc(e.message) + '</li>'; }
+}
+function renderChecklist() {
+  const A = SADocs.analyze(M);
+  const mk = (arr, pre) => arr.map((t, i) => '<label><input type="checkbox" data-chk="' + pre + i + '"' + (M.checklist[pre + i] ? ' checked' : '') + '>' + esc(t) + '</label>').join('');
+  $('checkA').innerHTML = mk(CHECK_A, 'A'); $('checkB').innerHTML = mk(CHECK_B, 'B'); $('checkBPanel').classList.toggle('hide', A.track !== 'B');
+  document.querySelectorAll('[data-chk]').forEach(el => el.onchange = () => { M.checklist[el.dataset.chk] = el.checked; scheduleSave(); });
+}
+
+// ── Build ZIP ─────────────────────────────────────────────────────────
+async function build() {
+  if (!M) return; const btns = [$('buildBtn'), $('buildBtn2')]; btns.forEach(b => b.disabled = true); $('buildProgress').textContent = 'Building…';
+  try {
+    const docs = SADocs.buildAll(M); const zip = new JSZip(); let i = 0;
+    for (const d of docs) { const blob = await SADocs.Packer.toBlob(d.doc); zip.file(d.name, blob); $('buildProgress').textContent = 'Built ' + (++i) + ' of ' + docs.length; }
+    const name = 'SA - ' + ((M.decedent || {}).name || 'matter').replace(/[^A-Za-z0-9 .-]/g, '') + ' - ' + new Date().toISOString().slice(0, 10) + '.zip';
+    const out = await zip.generateAsync({ type: 'blob' }); saveAs(out, name); $('buildProgress').textContent = docs.length + ' documents in ' + name;
+    logActivity('built', docs.length + ' documents');
+  } catch (e) { $('buildProgress').textContent = 'Build failed: ' + e.message; console.error(e); }
+  btns.forEach(b => b.disabled = false);
+}
+$('buildBtn').onclick = build; $('buildBtn2').onclick = build;
+
+// ── JSON in / out ─────────────────────────────────────────────────────
+$('exportJson').onclick = () => { if (!M) return; saveAs(new Blob([JSON.stringify(M, null, 2)], { type: 'application/json' }), 'SA matter - ' + ((M.decedent || {}).name || 'new') + '.json'); };
+$('importJson').onclick = () => $('importFile').click();
+$('importFile').onchange = async e => { const f = e.target.files[0]; if (!f) return; try { const m = JSON.parse(await f.text()); if (!m.decedent) throw new Error('not a matter file'); openMatter(LOCAL ? 'local-' + Date.now() : db.collection('sa_matters').doc().id, Object.assign(SADocs.emptyMatter(), m), true); } catch (err) { alert('Import failed: ' + err.message); } e.target.value = ''; };
+
+// ── Sample (fictional) for testing ────────────────────────────────────
+function loadSample() {
+  const m = SADocs.emptyMatter();
+  Object.assign(m.decedent, { name: 'Jane Q. Sample', lastAddr: '12 Palm Lane, Ormond Beach, FL 32174', ssn4: '1234', dod: '2026-05-10', deathPlace: 'Daytona Beach, Volusia County, Florida', county: 'Volusia', medicaid55: 'no', cause: 'natural', thirdParty: 'no' });
+  Object.assign(m.will, { has: 'yes', date: '2015-03-02', custodian: 'John Sample', nominatedPR: 'John Sample', selfProved: 'yes', directs733: 'no' });
+  Object.assign(m.court, { county: 'Volusia', division: '10', seat: 'DeLand', clerkAddress: COUNTY_DEFAULTS.Volusia.clerkAddress }); m.today = new Date().toISOString().slice(0, 10);
+  m.petitioners = [{ name: 'John Sample', address: '12 Palm Lane, Ormond Beach, FL 32174', interest: 'the surviving spouse and a beneficiary under the will', isSpouse: true, email: 'john@example.com' }];
+  m.spouse = { exists: 'yes', name: 'John Sample', address: '12 Palm Lane, Ormond Beach, FL 32174', marriedOn: '1990-06-01' };
+  m.family.children = [{ name: 'Amy Sample', address: '5 Elm St, Orlando, FL 32801', dob: '1992-01-05', living: 'yes' }];
+  m.beneficiaries = [{ name: 'John Sample', address: '12 Palm Lane, Ormond Beach, FL 32174', relationship: 'Surviving spouse', mode: 'petitioner', share: 'the residue' }, { name: 'Amy Sample', address: '5 Elm St, Orlando, FL 32801', relationship: 'Daughter', mode: 'joinder', share: 'the vehicle' }];
+  m.assets = [{ desc: 'checking account', institution: 'Bank of America, N.A.', instAddress: 'Estate Servicing, P.O. Box 31759, Tampa, FL 33631', last4: '4321', titled: 'Decedent alone, no POD', value: '42000', distributee: 'John Sample', distributeeAddr: '12 Palm Lane, Ormond Beach, FL 32174', share: '100%' }, { desc: '2018 Toyota Camry', vin: '4T1B11HK5JU123456', titleNo: '0123456789', titled: 'Decedent alone', value: '14000', exempt: true, distributee: 'Amy Sample', distributeeAddr: '5 Elm St, Orlando, FL 32801', share: '100%' }];
+  m.homestead = Object.assign(m.homestead, { exists: true, address: '12 Palm Lane, Ormond Beach, FL 32174', county: 'Volusia', parcel: '4231-01-00-0120', legal: 'Lot 12, Block 1, PALM ESTATES, according to the plat thereof recorded in Map Book 30, Page 5, Public Records of Volusia County, Florida', titled: 'the decedent alone', deedBook: '7001', deedPage: '234', residedFrom: '2005-08-01', municipality: 'yes', taxExemptionYear: '2026', devisee: 'John Sample', persons: [{ name: 'John Sample', address: '12 Palm Lane, Ormond Beach, FL 32174', interest: 'fee simple absolute' }] });
+  m.creditors = [{ name: 'Sunny Funeral Home', address: '100 Main St, Daytona Beach, FL 32114', nature: 'Funeral expenses', amount: '6500', exact: true, due: 'Paid', provision: 'paid by John Sample on June 1, 2026', paid: true }];
+  m.dwa = { funeralPaid: '6500', last60Paid: '0' };
+  openMatter('local-sample', m, true);
+}
+// ── Startup (after every declaration above) ───────────────────────────
+if (LOCAL) { ME = { email: 'local' }; $('who').textContent = 'Local mode: matters stay in this browser only'; $('localBadge').classList.remove('hide'); show('app'); loadLocalList(); if (params.get('sample') === '1') loadSample(); }
+else auth.onAuthStateChanged(u => { if (!u) { ME = null; show('auth'); return; } if (!ALLOW.includes((u.email || '').toLowerCase())) { $('denied-email').textContent = u.email; show('denied'); return; } ME = u; $('who').textContent = u.email; show('app'); subscribeList(); });
+</script>
+</body>
+</html>

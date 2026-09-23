@@ -83,6 +83,21 @@ service cloud.firestore {
       allow read: if request.auth != null;
       allow write: if isStaff();
     }
+    // Summary administration builder (/internal/summary-admin-builder).
+    // Separate allow-list from isStaff() so the paralegal gets this
+    // collection and nothing else. Client-side only; no function writes here.
+    function isSABuilder() {
+      return request.auth != null &&
+        request.auth.token.email in ['arthur@truesteadlaw.com', 'simp70@gmail.com', 'lera@truesteadlaw.com'];
+    }
+    match /sa_matters/{matterId} {
+      allow read, write: if isSABuilder();
+    }
+    match /sa_activity/{entryId} {
+      allow read, create: if isSABuilder();
+      allow update, delete: if false;
+    }
+
     match /{document=**} {
       allow read, write: if false;
     }
