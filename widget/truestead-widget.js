@@ -17,6 +17,8 @@
   var VIDEO_BASE = CFG.videoBase || '/widget/clips/';
   var CAPTURE_URL = CFG.captureUrl || '/.netlify/functions/capture-widget-lead';
   var PHONE_DISPLAY = '(888) 388-8445';
+  var AI_AGENT = 'agent_1201m35s9ctqers9jnxrs4k6zt1r'; // AI Arthur (ElevenLabs Agents), live voice + text
+  var AI_SDK = 'https://unpkg.com/@elevenlabs/client@1.24.0/dist/lib.iife.js';
   var PHONE_TEL = '+18883888445';
 
   // Tiny muted loop for the collapsed bubble (cut from the welcome clip, no audio)
@@ -716,6 +718,14 @@
     + '.ts-crumb button{background:none;border:none;padding:0;font:inherit;color:#c49a2a;cursor:pointer;text-decoration:underline}'
     + '.ts-crumb .ts-sep{opacity:.6;padding:0 5px}'
     + '.ts-more{display:block;width:100%;background:none;border:none;color:#0f2744;font-size:12px;font-weight:700;text-decoration:underline;cursor:pointer;padding:9px 0 2px;font-family:inherit;text-align:center}'
+    + '.ts-chip-ai{background:#c49a2a;color:#0f2744;width:100%;text-align:center;width:100%;text-align:center}'
+    + '#ts-video-wrap.ts-live{box-shadow:inset 0 0 0 3px #c49a2a}'
+    + '#ts-video-wrap.ts-speaking{animation:tsPulse 1.1s ease-in-out infinite}@keyframes tsPulse{0%,100%{box-shadow:inset 0 0 0 3px #c49a2a}50%{box-shadow:inset 0 0 0 8px #c49a2a}}'
+    + '.ts-aistatus{font-size:12px;color:#555;text-align:center;margin:2px 0 6px;min-height:15px}'
+    + '.ts-chat{max-height:150px;overflow-y:auto;font-size:13.5px;line-height:1.45;display:flex;flex-direction:column;gap:6px;margin-bottom:6px}'
+    + '.ts-line{padding:7px 10px;border-radius:12px;max-width:92%}.ts-line.ai{background:#eef1f5;color:#0f2744;align-self:flex-start}.ts-line.me{background:#c49a2a;color:#0f2744;width:100%;text-align:center;align-self:flex-end}'
+    + '.ts-aibar{display:flex;gap:6px;align-items:center}.ts-aibar .ts-input{margin:0;flex:1 1 auto}.ts-send-sm{width:auto;padding:10px 14px;margin:0;flex:0 0 auto}'
+    + '.ts-end{width:100%;background:#fff;color:#0f2744;border:1px solid #bbb;border-radius:10px;font-size:13px;font-weight:700;padding:8px;margin-top:8px;cursor:pointer}'
     + '#ts-thanks{font-size:14px;color:#0f2744;font-weight:700;text-align:center;padding:8px 0}'
     + '#ts-hero-inner{display:flex;background:#0f2744;border-radius:16px;overflow:hidden;border:1px solid rgba(196,154,42,.5);box-shadow:0 10px 34px rgba(15,39,68,.28);font-family:Arial,Helvetica,sans-serif;min-height:330px}'
     + '#ts-hero-vid{position:relative;flex:0 0 38%;max-width:320px;background:#0b1d33}'
@@ -801,7 +811,7 @@
     panel.appendChild(capbox);
     panel.appendChild(h('div', { id: 'ts-body' }));
     panel.appendChild(h('div', { id: 'ts-foot' },
-      'AI-generated video of attorney Arthur Simpson. Using this chat does not create an attorney-client relationship. Please don\'t include confidential details. Truestead Law, LLC &middot; Ormond Beach, FL &middot; Attorney Advertising.'));
+      'AI-generated video of attorney Arthur Simpson. Live AI conversations may be recorded. Using this chat does not create an attorney-client relationship. Please don\'t include confidential details. Truestead Law, LLC &middot; Ormond Beach, FL &middot; Attorney Advertising.'));
 
     root.appendChild(panel);
     root.appendChild(bubble);
@@ -986,6 +996,7 @@
 
   function closePanel() {
     state.open = false;
+    endAI();
     els.pvid.pause();
     els.panel.style.display = 'none';
     els.bubble.style.display = surfaces.hero && isOnScreen(els.hero) ? 'none' : 'block';
@@ -1032,6 +1043,10 @@
     });
 
     var chips = h('div', { 'class': 'ts-chips' });
+    // Live AI on every context screen too (ad destinations land here, not on the welcome).
+    var aiChip = h('button', { 'class': 'ts-chip ts-chip-ai', type: 'button' }, '&#9679; Talk to Arthur\'s AI, live');
+    aiChip.addEventListener('click', showAI);
+    chips.appendChild(aiChip);
     (node ? node.sub : ctx.issues).forEach(function (iss) {
       var btn = h('button', { 'class': 'ts-chip', type: 'button' }, iss.label);
       btn.addEventListener('click', function () {
@@ -1118,7 +1133,11 @@
     state.branch = null; state.situation = ''; state.issue = '';
     playClip('welcome');
     var chips = h('div', { 'class': 'ts-chips' });
+    var aiBtn = h('button', { 'class': 'ts-chip ts-chip-ai', type: 'button' }, '&#9679; Talk to Arthur\'s AI, live');
+    aiBtn.addEventListener('click', showAI);
+    chips.appendChild(aiBtn);
     BRANCHES.forEach(function (b) {
+      if (b.key === 'askq') return;
       var btn = h('button', { 'class': 'ts-chip', type: 'button' }, b.label);
       btn.addEventListener('click', function () { pickBranch(b); });
       chips.appendChild(btn);
@@ -1182,6 +1201,89 @@
       .catch(function () { done(false); });
   }
 
+  // ── Live AI conversation (ElevenLabs Agents SDK, same pattern as /start's Ava dock).
+  //    Voice first; if the mic is unavailable the same session runs as text chat.
+  var aiConv = null, aiSdk = null, aiTranscript = [];
+  function loadAISDK() {
+    if (window.ElevenLabsClient) return Promise.resolve();
+    if (aiSdk) return aiSdk;
+    aiSdk = new Promise(function (res, rej) {
+      var sc = document.createElement('script');
+      sc.src = AI_SDK; sc.onload = res;
+      sc.onerror = function () { aiSdk = null; rej(new Error('SDK load failed')); };
+      document.head.appendChild(sc);
+    });
+    return aiSdk;
+  }
+  function endAI() {
+    var c = aiConv; aiConv = null;
+    if (els.pvid) { els.pvid.pause(); els.pvid.loop = false; els.pvid.muted = false; }
+    var vw = document.getElementById('ts-video-wrap');
+    if (vw) { vw.classList.remove('ts-live'); vw.classList.remove('ts-speaking'); }
+    if (c) { try { c.endSession(); } catch (e) {} }
+  }
+  function showAI() {
+    state.branch = 'AI conversation'; state.situation = ''; aiTranscript = [];
+    // Arthur idles on the muted loop while his AI talks; the caption strip carries what it says.
+    els.capbox.innerHTML = ''; capSpans = []; capTimes = []; capShown = 0;
+    els.pvid.muted = true; els.pvid.loop = true; els.pvid.src = VIDEO_BASE + LOOP_FILE;
+    els.pvid.play().catch(function () {});
+    var vw = document.getElementById('ts-video-wrap'); vw.classList.add('ts-live');
+    var status = h('div', { 'class': 'ts-aistatus' }, 'Connecting to Arthur\'s AI…');
+    var log = h('div', { 'class': 'ts-chat', 'aria-live': 'polite' });
+    var input = h('input', { 'class': 'ts-input', placeholder: 'Type here, or just talk…', maxlength: '600', autocomplete: 'off' });
+    var send = h('button', { 'class': 'ts-send ts-send-sm', type: 'button' }, 'Send');
+    var bar = h('div', { 'class': 'ts-aibar' }); bar.appendChild(input); bar.appendChild(send);
+    var end = h('button', { 'class': 'ts-end', type: 'button' }, 'End conversation');
+    setBody([status, log, bar, end]);
+    function line(who, text) {
+      if (!text) return;
+      var d = h('div', { 'class': 'ts-line ' + who }, ''); d.textContent = text;
+      log.appendChild(d); log.scrollTop = log.scrollHeight;
+      aiTranscript.push((who === 'ai' ? 'AI: ' : 'Visitor: ') + text);
+      if (who === 'ai') { els.capbox.textContent = text; els.capbox.scrollTop = 0; }
+    }
+    function sendText() {
+      var t = input.value.trim(); if (!t || !aiConv) return;
+      input.value = ''; line('me', t);
+      try { aiConv.sendUserMessage(t); } catch (e) {}
+    }
+    send.addEventListener('click', sendText);
+    input.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); sendText(); } });
+    end.addEventListener('click', function () { endAI(); showAfterAI(); });
+    function start(textOnly) {
+      return loadAISDK().then(function () {
+        return window.ElevenLabsClient.Conversation.startSession({
+          agentId: AI_AGENT, connectionType: 'websocket', textOnly: !!textOnly,
+          onConnect: function () { status.textContent = textOnly ? 'Connected. Type below.' : 'Connected. Just start talking, or type below.'; },
+          onDisconnect: function () { if (aiConv) { aiConv = null; status.textContent = 'Conversation ended.'; vw.classList.remove('ts-speaking'); } },
+          onError: function (e) { status.textContent = 'Connection problem. You can type below or call ' + PHONE_DISPLAY + '.'; },
+          onModeChange: function (m) { var mode = (m && m.mode) || m; vw.classList.toggle('ts-speaking', mode === 'speaking'); if (aiConv && !textOnly) status.textContent = mode === 'speaking' ? 'Speaking…' : 'Listening…'; },
+          onMessage: function (msg) { if (!msg) return; var src = msg.source || msg.role; line(src === 'ai' || src === 'agent' ? 'ai' : 'me', msg.message || msg.text || ''); }
+        });
+      });
+    }
+    start(false).then(function (c) { aiConv = c; }).catch(function (err) {
+      var denied = err && (String(err.name).indexOf('NotAllowed') !== -1 || String(err.name).indexOf('NotFound') !== -1 || /permission|microphone|getUserMedia/i.test(String(err)));
+      status.textContent = denied ? 'No microphone, so this is a text chat. Type below.' : 'Retrying as text chat…';
+      return start(true).then(function (c) { aiConv = c; }).catch(function () {
+        status.textContent = 'Couldn’t connect. Call ' + PHONE_DISPLAY + ' and Arthur’s AI will pick up if he can’t.';
+      });
+    });
+    input.focus();
+  }
+  function showAfterAI() {
+    state.situation = aiTranscript.slice(-8).join('\n');
+    var msg = h('div', { id: 'ts-thanks' }, 'Want Arthur to follow up personally?');
+    var yes = h('button', { 'class': 'ts-send', type: 'button' }, 'Leave my details');
+    yes.addEventListener('click', function () { showContact({ contactClip: 'contact' }); });
+    var again = h('button', { 'class': 'ts-end', type: 'button' }, 'Back to start');
+    again.addEventListener('click', showWelcome);
+    var call = h('div', { id: 'ts-callrow' }, 'Or call <a href="tel:' + PHONE_TEL + '">' + PHONE_DISPLAY + '</a>');
+    setBody([msg, yes, again, call]);
+  }
+  window.addEventListener('beforeunload', function () { if (aiConv) { try { aiConv.endSession(); } catch (e) {} } });
+
   function showClose() {
     playClip('close');
     var thanks = h('div', { id: 'ts-thanks' }, 'Sent. We’ll be in touch shortly.');
@@ -1189,9 +1291,14 @@
     setBody([thanks, call]);
   }
 
+  // ?tsopen=1 (ad destination URLs): build at once and open the panel on arrival,
+  // ignoring a hidden-this-session flag, so a paid click lands on the widget itself.
+  var AUTO_OPEN = false;
+  try { AUTO_OPEN = new URLSearchParams(location.search).get('tsopen') === '1'; } catch (e) {}
   function init() {
-    try { if (sessionStorage.getItem('tsWidgetHidden')) return; } catch (e) {}
+    if (!AUTO_OPEN) { try { if (sessionStorage.getItem('tsWidgetHidden')) return; } catch (e) {} }
     build();
+    if (AUTO_OPEN) openPanel();
   }
 
   // Lazy init: idle callback after load, or first scroll, whichever comes first.
@@ -1201,7 +1308,8 @@
     if (window.requestIdleCallback) window.requestIdleCallback(start, { timeout: 2500 });
     else setTimeout(start, 1200);
   }
-  if (document.readyState === 'complete') queueStart();
+  if (AUTO_OPEN) { if (document.readyState !== 'loading') start(); else document.addEventListener('DOMContentLoaded', start); }
+  else if (document.readyState === 'complete') queueStart();
   else window.addEventListener('load', queueStart);
   window.addEventListener('scroll', start, { once: true, passive: true });
 })();
