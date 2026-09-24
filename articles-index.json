@@ -1,6 +1,17 @@
 {
   "articles": [
     {
+      "slug": "articles/focus-estate-planning-lawyer-2026-09-24",
+      "file": "articles/focus-estate-planning-lawyer-2026-09-24.html",
+      "title": "Estate Planning Lawyer in Florida: What You Need to Know",
+      "tag": "Estate Planning",
+      "category": "Estate Planning Lawyer",
+      "blurb": "What an estate planning lawyer does in Florida, when you need one, and how Florida's will, trust, and homestead laws actually work.",
+      "image": "images/og/florida-estate-planning-checklist.jpg",
+      "date": "2026-09-24",
+      "prettyDate": "September 24, 2026"
+    },
+    {
       "slug": "articles/focus-estate-planning-attorney-sewall-s-point-2026-09-23",
       "file": "articles/focus-estate-planning-attorney-sewall-s-point-2026-09-23.html",
       "title": "Estate Planning Attorney Sewall's Point, FL: Complete Guide",
@@ -648,17 +659,6 @@
       "image": "images/og/elder-law-2026-07-16.jpg",
       "date": "2026-07-16",
       "prettyDate": "July 15, 2026"
-    },
-    {
-      "slug": "articles/wills-trusts-2026-07-15",
-      "file": "articles/wills-trusts-2026-07-15.html",
-      "title": "Florida Wills vs. Trusts: What Actually Avoids Probate",
-      "tag": "Estate Planning",
-      "category": "Wills & Trusts",
-      "blurb": "A Florida attorney breaks down wills vs. trusts, trust funding, pour-over wills, and the 2026 summary probate threshold change.",
-      "image": "images/og/wills-trusts-2026-07-15.jpg",
-      "date": "2026-07-15",
-      "prettyDate": "July 14, 2026"
     }
   ]
 }
