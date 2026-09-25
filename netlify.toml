@@ -570,3 +570,9 @@
   from = "/refund"
   to = "/refund.html"
   status = 200
+
+# Trademark service discontinued 9/25/2026; page removed.
+[[redirects]]
+  from = "/trademark"
+  to = "/business-law"
+  status = 301

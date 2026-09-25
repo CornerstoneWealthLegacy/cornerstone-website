@@ -14,7 +14,6 @@ estate intro.
 | 18 | `18-protect.mp4` | `protect` | asset-protection | `askq` |
 | 19 | `19-kit.mp4` | `kit` | estate kit / kits / legalzoom-alternative | `ep` |
 | 20 | `20-newfl.mp4` | `newfl` | snowbird, new-to-florida | `ep` |
-| 21 | `21-tm.mp4` | `tm` | trademark | `biz` |
 | 22 | `22-nfa.mp4` | `nfa` | nfa-gun-trust | `ep` |
 | 23 | `23-intl.mp4` | `intl` | international-law | `askq` |
 | 24 | `24-bizlit.mp4` | `bizlit` | business-litigation | `askq` |

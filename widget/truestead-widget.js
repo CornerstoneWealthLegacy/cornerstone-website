@@ -566,21 +566,6 @@
       ]
     },
     {
-      id: 'trademark',
-      match: /^\/trademark/,
-      label: 'Trademark',
-      clip: 'tm',
-      clipFallback: 'biz',
-      hook: 'Protecting a name?<br>Ask Arthur.',
-      headline: 'Your brand as an asset — where are you?',
-      issues: [
-        { label: 'Is my name available?', seed: 'I want to know whether my business name or brand is clear to register.' },
-        { label: 'Office action or refusal', seed: 'My trademark application got an office action or refusal and I need help responding.' },
-        { label: 'Someone is using my name', seed: 'Someone else is using my name or brand and I want it stopped.' },
-        { label: 'Classes & specimens', seed: 'I have questions about which classes to file in and what specimen to use.' }
-      ]
-    },
-    {
       id: 'family-law',
       match: /^\/family-law/,
       label: 'Family Law',
@@ -671,7 +656,6 @@
     [/asset-protection|tenancy-by-the-entireties|creditor|judgment/, 'asset-protection'],
     [/real-estate|1031|closing|realtor|homestead|purchase|foreclos/, 'real-estate'],
     [/injur|accident|crash|slip|negligen|wrongful-death|dog-bite|pip|no-fault/, 'personal-injury'],
-    [/trademark|brand/, 'trademark'],
     [/llc|operating-agreement|corporation|business|succession/, 'business-law'],
     [/trust|will|estate|power-of-attorney|beneficiar|elective-share|inherit|focus-732-/, 'estate-planning']
   ];

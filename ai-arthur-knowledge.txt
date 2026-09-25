@@ -1,0 +1,160 @@
+TRUESTEAD LAW, LLC — KNOWLEDGE FOR AI ARTHUR
+Source of truth for the AI Arthur agent's knowledge base. Every line here was approved by Arthur Simpson before upload. Edit here, then re-upload. Prices in the agent's system prompt (Flat Fee Menu) win over anything here if they ever differ.
+
+═══════════════════════════════════════════════
+THE FIRM
+═══════════════════════════════════════════════
+- Truestead Law, LLC. Florida law firm led by attorney Arthur Simpson, Esq. (Florida Bar #529265). Based in the Daytona Beach / Volusia County area, serving clients statewide. Website truesteadlaw.com. Main line (888) 388-8445, answered by Ava, the firm's automated receptionist.
+- Arthur is also a licensed Florida Realtor with Realty Pros Assured. That is a separate business with its own line, (386) 273-3636. Arthur can list a property as a Realtor and handle the legal side of a deal at the firm; the two are kept separate.
+- Practice areas: Personal Injury, Real Estate, Estate Planning, Elder Law and Medicaid planning, Probate and Trust Administration, Business and Succession, Construction Law, International and Cross-Border.
+- Free things the firm gives away: the first 20-minute phone call with Arthur; the "18 & Protected" young-adult document packet (power of attorney, healthcare surrogate, HIPAA release and FERPA form for a child who just turned 18); the Florida Estate Kit questionnaire.
+- Self-serve products on truesteadlaw.com, all attorney-built, most with a do-it-yourself tier and an attorney tier: the Florida Estate Kit (wills, trusts, powers of attorney, healthcare documents, elder-law essentials, land trust, gun trust), the Deed Shop (/deeds), the Florida LLC Kit, the Lease Shop, the Buy-Sell Agreement Kit, and summary administration (/summary-administration).
+- WHAT THE FIRM DOES NOT DO: closings. Truestead is not a title or closing agent. Contract review and drafting, deeds, title questions and the legal issues inside a sale, yes. The closing itself is done by a title company or a closing attorney. Never offer closing services.
+- Arthur personally reviews every attorney-tier document before it is signed. Nothing is final until it is executed with the proper witnesses and notary.
+- Remote online notarization (RON) is available through the firm, so clients can sign by secure video from anywhere.
+
+═══════════════════════════════════════════════
+FLORIDA LEGAL CONTEXT (general information, not advice)
+═══════════════════════════════════════════════
+- Florida has NO state estate tax and NO inheritance tax.
+- Federal estate tax exemption: $15 million per person (made permanent in 2026, inflation-adjusted from 2027).
+- Florida probate typically takes 9 to 18 months and often costs 3% or more of the estate in fees. A funded revocable trust avoids probate on everything it owns.
+- Signing rules: a will needs 2 witnesses plus a notary for the self-proving affidavit (F.S. § 732.502). A durable power of attorney needs 2 witnesses and a notary (F.S. § 709.2105). A healthcare surrogate designation and a living will need 2 witnesses, no notary (F.S. § 765.202). Deeds need 2 witnesses and a notary. Residential leases need no witnesses or notary.
+- Florida does NOT recognize holographic (handwritten, unwitnessed) wills.
+- Homestead: the primary Florida home has constitutional protection from most creditors (Art. X § 4, Fla. Const.), and special inheritance rules protect a surviving spouse and minor children. If the owner is married or has minor children, Florida restricts who the homestead can be left to. Homestead can be titled into a revocable trust and keep its exemption and tax benefits when done correctly.
+- Spendthrift clause (F.S. § 736.0502): protects a beneficiary's inheritance from that beneficiary's own creditors and ex-spouses. Standard in Truestead trusts.
+- Pretermitted child (F.S. § 732.301): a child born after a will is signed and not mentioned in it may claim an intestate share, which is why documents need updating after births.
+- Digital assets are covered by the Florida Fiduciary Access to Digital Assets Act (F.S. §§ 740.001 to 740.0404).
+
+═══════════════════════════════════════════════
+ESTATE PLANNING — TRUSTS AND WILLS, PLAINLY
+═══════════════════════════════════════════════
+WHY A REVOCABLE TRUST IN FLORIDA:
+- Avoids probate entirely on trust-titled assets. A funded trust moves assets to beneficiaries in weeks, privately, with no court.
+- Revocable means the client keeps full control: change it, amend it, revoke it anytime while they have capacity, and keep using their money and property exactly as before.
+- A trust only controls what it OWNS. "Funding" means retitling assets (deeds for real estate, ownership changes on accounts) into the trust's name. An unfunded trust avoids nothing.
+- A revocable trust does NOT reduce income taxes, does NOT protect assets from the client's own creditors, and does NOT shelter assets from Medicaid. Those need different tools (irrevocable trusts, Medicaid planning), which are attorney-guided.
+
+TRUST VS WILL:
+- A will goes THROUGH probate; it is instructions to the probate judge. A funded trust goes AROUND probate.
+- Even with a trust there is a pour-over will, a safety net that catches anything left outside the trust and pours it in. Anything it catches still goes through probate, which is why funding matters.
+- A wills-only plan (the Essentials package) is legitimate for simpler estates: cheaper now, probate later. Trust plans cost more now and save the family time and money later. Real estate in more than one county or state tips strongly toward a trust.
+
+THE DOCUMENTS AND WHAT EACH DOES:
+- Revocable Living Trust: holds assets during life, passes them at death without probate, and lets a successor trustee step in during incapacity.
+- Pour-Over Will: the safety net described above. Also nominates a guardian for minor children.
+- Durable Power of Attorney: names an agent to handle finances and legal matters if the client is incapacitated. "Durable" means it stays effective through incapacity. Florida POAs are governed by F.S. Chapter 709.
+- Healthcare Surrogate Designation: names who makes medical decisions when the client cannot. Governed by F.S. §§ 765.101 to 765.205.
+- Living Will: written instructions about end-of-life care, life-prolonging procedures, artificial nutrition and hydration, and pain relief. F.S. § 765.301 and following.
+- HIPAA Authorization: lets named people get medical information from providers. Without it, even a healthcare surrogate can hit walls.
+- Certificate of Trust: a short document proving the trust exists so banks do not need the whole private document.
+- Trust Funding Guide and Schedule A: the instructions and inventory for retitling assets into the trust.
+
+THE ROLES, AND WHO TO NAME:
+- Trustee: manages trust assets. Almost always the client during their lifetime.
+- Successor Trustee: steps in on incapacity or death. Most commonly a spouse, adult child, or trusted family member. Name a backup. No license or legal training needed; they can hire professionals with trust funds.
+- Personal Representative (executor): handles anything going through probate. Florida requires the PR to be a Florida resident OR related to the client by blood, marriage, or adoption. An out-of-state friend cannot serve.
+- POA agent: acts financially while the client is ALIVE but incapacitated. Should be extremely trustworthy.
+- Healthcare surrogate: should know the client's wishes and handle stress in a medical setting. Can be the same person as the POA agent, but they are different documents.
+- Per stirpes: if a beneficiary dies first, their share passes down to their own children instead of being redistributed among the other beneficiaries. Almost always the right choice.
+- Contingent beneficiaries: the backup plan if all primary beneficiaries have died. Always name them, or a court decides.
+
+SPECIAL PROVISIONS THAT COME UP:
+- Spendthrift clause: see above, standard.
+- No-contest clause: discourages challenges to the trust.
+- HEMS standard: limits a trustee to distributions for Health, Education, Maintenance and Support. More conservative, more protective.
+- Special Needs Trust: if a beneficiary has a disability and receives SSI or Medicaid, a direct inheritance could disqualify them. A third-party special needs trust holds their share separately, supplements rather than replaces benefits, and has no Medicaid payback.
+- Pet trust (F.S. § 736.0408): legally enforceable funds for animal care, with a named caretaker.
+- S-corporation shares need special trust language to keep S-corp status (IRC § 1361).
+- Retirement accounts (IRAs, 401(k)s) and life insurance are NOT retitled into the trust. Beneficiary designations are updated instead. Under the SECURE Act, most non-spouse beneficiaries must withdraw an inherited IRA within 10 years.
+- Non-resident aliens: only a $60,000 federal estate tax exemption on US assets. A QDOT trust is needed to give the marital deduction to a non-citizen spouse. FIRPTA withholding applies when a non-US person sells US real estate.
+
+UPDATING DOCUMENTS THEY ALREADY HAVE:
+- Trust amendment: one to three targeted changes, attached to the original trust, which stays intact.
+- Trust restatement: a complete rewrite into one clean new document, absorbing the original.
+- Codicil: a change to a will.
+- Review after marriage, divorce, births, deaths, big purchases or a move, or every 3 to 5 years.
+
+AFTER SIGNING: fund the trust, store the originals safely, tell the successor trustee where they are.
+
+═══════════════════════════════════════════════
+LADY BIRD DEEDS (ENHANCED LIFE ESTATE)
+═══════════════════════════════════════════════
+- A Florida specialty. The owner keeps complete lifetime control (can sell, mortgage, or revoke without the beneficiaries' permission) and the property passes automatically at death with no probate. Homestead protection and the tax exemption are preserved. Medicaid-friendly. Must be recorded.
+- Lady Bird deed vs living trust: for one property with a simple pass-at-death goal, the Lady Bird deed is faster and cheaper. A trust adds incapacity planning, staged distributions, protection for minor beneficiaries, and covers all assets. Many clients use both. Which fits is a question for Arthur.
+
+═══════════════════════════════════════════════
+DEED SHOP (Florida deeds, F.S. Chapter 689)
+═══════════════════════════════════════════════
+- Products: Quitclaim Deed, Lady Bird Deed, Warranty Deed (attorney-only, because title guarantees create liability), Deed into Trust, Deed into LLC. Attorney tiers include preparation and recording by mail with the county clerk. County recording fees (about $10 for the first page and $8.50 per page after) and documentary stamp tax are government charges passed through at cost.
+- Guardrails worth mentioning when relevant: (1) if the property is homestead and the owner is married, the spouse MUST sign the deed even if not on title; (2) the legal description must be copied exactly from the current deed, not the tax bill; (3) documentary stamp tax is $0.70 per $100 of consideration ($0.60 in Miami-Dade), and deeding mortgaged property, including into your own LLC, generally taxes the outstanding loan balance; (4) deeds need two witnesses and a notary; (5) title insurance generally does not follow the property into a new entity automatically.
+- Adding a spouse to a deed, taking someone off title, moving a property into a trust or LLC: these are the everyday deed jobs, and the Deed Shop at truesteadlaw.com/deeds can prepare one today.
+
+═══════════════════════════════════════════════
+ELDER LAW AND MEDICAID PLANNING
+═══════════════════════════════════════════════
+- Florida nursing home care can top $10,000 a month. Medicaid has a 60-month look-back on transfers for institutional (nursing home) Medicaid. Florida does not currently impose a look-back on community or home-based Medicaid.
+- Two lanes: Elder-Law Essentials (the documents everyone should have for aging: a durable POA with Medicaid powers, healthcare surrogate, living will, HIPAA, pre-need guardian declaration, disposition of remains) and Medicaid Planning, which is always attorney-guided because it is fact-specific and a mistake can disqualify someone or create a penalty.
+- CRISIS planning is for someone already in, or about to enter, a nursing home or rehab. ADVANCE planning is 5 or more years ahead of need.
+- Key tools, in plain English:
+  - Qualified Income Trust ("Miller trust"): required when gross monthly income is over the cap. Holds ONLY income, funded and paid out every month in a strict order, repays Medicaid at death. It does not shelter assets.
+  - Medicaid Asset Protection Trust (MAPT): an irrevocable, income-only trust for ADVANCE planning. The grantor keeps the income but not the principal. Subject to the 60-month look-back.
+  - Personal Services / Caregiver Agreement: pays a family caregiver at fair-market value so the money is compensation, not a gift. Needs time logs, is taxable income, and must be signed BEFORE the services begin.
+  - Medicaid-compliant promissory note: a crisis tool used with a gift to shorten a penalty period.
+  - Spousal refusal: the well spouse may decline to make resources available, so eligibility is judged on the applicant alone.
+  - Lady Bird deed: passes the home at death outside probate, keeps control and homestead, Medicaid-friendly.
+  - The durable POA's Medicaid powers are what let an agent do this planning if the principal loses capacity. Without them, the agent cannot.
+- 2026 Florida Medicaid figures (always say "verify the current figures"): income cap $2,982 a month; asset limit $2,000 for a single applicant; community spouse resource allowance up to $162,660; minimum monthly maintenance needs allowance $2,644 to $4,067; personal needs allowance $160 a month.
+- Veterans: VA Aid & Attendance is a separate benefit with its own 3-year look-back.
+- Capacity is the clock. If a parent has dementia, the documents have to be signed while they still have capacity, which is why elder-law questions should be booked promptly.
+
+═══════════════════════════════════════════════
+PROBATE AND SUMMARY ADMINISTRATION
+═══════════════════════════════════════════════
+- Summary administration is Florida's fast-track probate (F.S. Chapter 735). It qualifies when non-exempt probate assets are $150,000 or less (the threshold doubled from $75,000 on July 1, 2026), OR when the death was more than 2 years ago at any estate size, because creditor claims are then barred. It is the standard fix for an old un-probated estate or a house still in a deceased person's name.
+- No personal representative is appointed; the court orders distribution directly. Typical timeline 3 to 8 weeks uncontested. Protected homestead is generally exempt from creditors and does not count toward the $150,000.
+- Court filing fees run about $235 to $405 depending on the county, plus recording and publication, billed at cost.
+- Honesty rule: a very small estate with no real estate may qualify for Disposition of Personal Property Without Administration, a clerk filing that needs no attorney. Say so.
+- Contested estates, unknown heirs, or estates over the threshold need formal administration, which Arthur quotes after a qualification review.
+
+═══════════════════════════════════════════════
+PERSONAL INJURY (general information only)
+═══════════════════════════════════════════════
+- Florida's statute of limitations for most negligence claims is now 2 years (F.S. § 95.11, changed by HB 837 in 2023). Acting early matters.
+- Florida uses modified comparative negligence (F.S. § 768.81): a person found more than 50% at fault recovers nothing.
+- Florida is a no-fault state for auto accidents: PIP coverage (F.S. § 627.736) pays first, up to its limits, regardless of fault.
+- Injury cases at Truestead are on contingency: the client pays nothing unless there is a recovery. Arthur reviews every injury inquiry himself.
+- Never estimate what a case is worth or how long it will take. Those depend entirely on facts Arthur has to review.
+
+═══════════════════════════════════════════════
+BUSINESS AND SUCCESSION
+═══════════════════════════════════════════════
+- Florida LLC Kit: Articles of Organization, Operating Agreement (single- or multi-member), organizational and banking resolutions, membership certificates, EIN guide, and a click-by-click Sunbiz filing guide. Attorney-formed tier: the firm files with the state, obtains the EIN, reviews the operating agreement, and includes a 30-minute consult. Foreign Owner package for non-US owners: EIN without a Social Security number, ITIN and FIRPTA briefing. All plus Florida's $125 state filing fee.
+- The EIN is free directly from the IRS. Never pay a third party for it.
+- An LLC protects its owners only if it is run separately from personal finances: its own bank account, no commingling, real records.
+- Licensed professionals (law, medicine, CPA) need a PLLC. S-corp elections and other tax questions go to their CPA.
+- Registered agent service: the firm serves as the company's registered agent; lawsuits and state mail come to the firm and are forwarded the same business day, and the owner's home address stays off that public field. Registered agent service alone does not create an attorney-client relationship.
+- Compliance bundle: registered agent plus the firm prepares and files the Florida annual report each spring. The state charges $138.75; missing the May 1 deadline adds a mandatory $400 late fee.
+- Buy-Sell Agreement: the contract among co-owners that controls what happens to an owner's share on death, disability, divorce, bankruptcy, deadlock or exit, how it is valued, who buys it, and where the money comes from. Prevents an heir or ex-spouse from becoming an unwanted partner. Structures: wait-and-see, cross-purchase, entity redemption. Life-insurance funding for death buyouts needs IRC § 101(j) consents signed before company-owned policies issue. Needs at least two owners.
+- Landlord stack for rental property: LLC Kit (hold it), Deed into LLC (move it), Lease (run it), Notice Pack (enforce it).
+
+═══════════════════════════════════════════════
+LEASES AND LANDLORD (F.S. Chapter 83)
+═══════════════════════════════════════════════
+- Products: Florida Residential Lease, Florida Commercial NNN Lease, Landlord Notice Pack. Attorney lease tiers include the Notice Pack.
+- Florida residential leases need no witnesses or notary. The lease includes the § 83.49 deposit disclosure, the radon disclosure, and the lead-paint disclosure for pre-1978 homes.
+- Deposit deadlines: written notice of how the deposit is held within 30 days of receipt; after move-out, return it within 15 days OR send a certified-mail claim notice within 30 days. Miss it and the landlord forfeits the claim.
+- Notice Pack: 3-Day Notice to pay rent (rent only, no late fees, count excludes weekends and holidays), 7-Day Notice to Cure, 7-Day Termination for non-curable or repeat violations, and the certified-mail deposit-claim notice, plus a service and timeline guide.
+- Self-help eviction (changing locks, cutting utilities) is illegal under § 83.67.
+- Commercial NNN: tenant pays base rent plus a share of taxes, insurance and common-area maintenance; a personal guaranty is recommended for entity tenants; landlord's statutory lien under § 83.08. Commercial purchase and sale documents (LOI, PSA) are handled directly by the firm.
+
+═══════════════════════════════════════════════
+CONSTRUCTION AND CONDO (general)
+═══════════════════════════════════════════════
+- Florida construction law runs on deadlines: lien rights, notice requirements, and defect claims all have clocks, and the side that papers the file first usually wins. Arthur handles liens, contractor disputes, and defect claims statewide.
+- Florida condo law changed recently: milestone inspections, structural integrity reserve studies, and a December 31, 2026 compliance cutoff. Boards have to comply, owners have rights, and buyers need to read a building's paperwork before they close. Arthur counsels all three.
+
+═══════════════════════════════════════════════
+WHEN TO STOP ANSWERING AND BOOK THE CALL
+═══════════════════════════════════════════════
+Anything that starts with "should I", "in my case", "what would you do", or "is my ... valid"; anything about Medicaid eligibility, spend-down, or transferring assets; disinheriting a spouse; a contested family situation; a deadline that may already be running; or anything you are not sure about. That is Arthur's part. Offer the free 20-minute call, and if they cannot book, take a message.

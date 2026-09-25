@@ -66,11 +66,6 @@ export const SCRIPTS = [
     text: "Welcome to Florida. Here's the part most people get wrong: your old will is probably still valid here, so nobody warns you about the rest. But the personal representative you named may not be allowed to serve in Florida, because a non-resident has to be a relative. Your out-of-state trust may not be titled to your new house. And Florida homestead has its own rules about who you can leave the house to, if you're married or have a minor child. This is usually a review, not a rebuild. Did you bring a will, a trust, or both?"
   },
   {
-    id: 'tm', file: '21-tm.mp4', contexts: ['trademark'],
-    note: 'US rights arise from use; federal registration confers nationwide constructive use (15 U.S.C. 1057(c)) and is what makes nationwide enforcement practical. Specimen refusals are among the most common office actions.',
-    text: "Using a name isn't the same as owning it. In this country rights start with use, but a federal registration is what lets you stop somebody else nationwide, and what makes the name worth something when you sell the business. Three things decide whether it goes smoothly. Whether the name is actually available, which is a search, not a hunch. Which classes you file in, because that's the fence around what you own. And what you submit as proof of use, which is where most refusals come from. Tell me the name, and what you sell under it."
-  },
-  {
     id: 'nfa', file: '22-nfa.mp4', contexts: ['gun-trust'],
     note: 'Constructive possession is the reason multi-trustee possession matters. ATF 41F responsible-person requirements apply to trust applicants. Death-transfer handling avoids an unlicensed family member holding an NFA item during probate.',
     text: "An NFA trust does two things a personal transfer can't. It lets more than one person legally possess the item, so a suppressor in a safe isn't a problem when your spouse opens the safe. And it decides what happens at your death, so your family isn't holding something they can't legally keep while a probate judge works it out. It has to be built for ATF's responsible-person rules and for Florida trust law, both, and most of the forms online are built for neither. Are you buying your first item, or fixing paperwork on ones you already own?"
