@@ -310,6 +310,14 @@ const CTA = {
     btn: 'Start Your Florida Estate Plan →',
     href: '../florida-estate-kit.html',
   },
+  // Deed Shop CTA (9/25/2026, lady bird deed cluster): the article sells the product,
+  // not just the consult. Prices mirror deeds.html; change both together.
+  deeds: {
+    h: 'Get Your Florida Lady Bird Deed',
+    p: 'Truestead prepares Florida Lady Bird (enhanced life estate) deeds: $199 self-guided from your answers, or $399 attorney-prepared and recorded for you, with the homestead and documentary-stamp guardrails the form sites skip.',
+    btn: 'Start Your Lady Bird Deed →',
+    href: '../deeds.html',
+  },
   consult: {
     h: 'Talk to a Florida Attorney',
     p: 'Every family’s situation is different. Schedule a consultation with Arthur Simpson, Esq. to review your plan and your options under Florida law.',
