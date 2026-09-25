@@ -94,6 +94,68 @@ CLUSTERS = {
         'pillar_check': '/lady-bird-deeds"',
         'fallback_image': 'images/og/lady-bird-deed-florida.jpg',
     },
+    'guardianship': {
+        'prefix': 'guardianship-',
+        'marker': 'ts-guardianship-cluster',
+        'legacy': ['florida-guardianship', 'medicaid-guardianship-vs-poa-for-medicaid-2026-09-25', 'medicaid-dementia-no-power-of-attorney-2026-09-25'],
+        'legacy_tag': 'Elder Law', 'legacy_category': 'Florida Guardianship',
+        'hub_file': 'guardianship-guides.html', 'hub_path': 'guardianship-guides',
+        'hub_title': 'Florida Guardianship Guides: Every Question, One Answer Each',
+        'hub_desc': ('Truestead Law\'s library of Florida guardianship guides: how courts decide incapacity, alternatives that avoid it, '
+                     'pre-need designations, guardian advocacy for a disabled adult child, costs, duties, contested cases, abuse, restoration, '
+                     'and the local courts, each told through a real-life example.'),
+        'eyebrow': 'Florida Elder Law', 'h1': 'Florida Guardianship Guides',
+        'hero_p': ('Guardianship is the court process nobody plans for and everybody wishes they had planned around. These guides answer the '
+                   'questions families ask, one at a time, each through someone in the same spot: how a Florida court decides incapacity, what '
+                   'avoids the case entirely, who serves when the family disagrees, what it costs, what the guardian owes the court, what a ward '
+                   'keeps, and how it ends. {n} guides, written by Arthur Simpson, Esq., Florida elder law attorney.'),
+        'cta_text': 'Book a Free 20-Minute Consult', 'cta_href': '/book',
+        'intro_h2': 'Start with the situation you are in',
+        'intro_p': ('A parent who is slipping and has no documents, an adult child with a disability turning 18, a relative being exploited right '
+                    'now, siblings who cannot agree, a petition you want to fight, or a guardianship you want to end: each is a different problem '
+                    'with a different answer. Every person named in these guides is a composite, not a client. When you want the answer for your '
+                    'own facts, the consultation is free. See the <a href="/elder-law">Florida elder law practice page</a> for how the work is done.'),
+        'related_h2': 'More Florida Guardianship Guides',
+        'related_all': 'All {n} Florida guardianship guides, in one place',
+        'related_pillar_text': 'Florida Elder Law &amp; Medicaid Attorney: guardianship and the tools that avoid it', 'related_pillar_href': '/elder-law',
+        'pillar_file': 'elder-law.html',
+        'pillar_anchor': '<a href="/medicaid-planning" style="font-weight:800">',
+        'pillar_insert': '<a href="/guardianship-guides" style="font-weight:800">Browse all {n} Florida guardianship guides &rarr;</a>\n          ',
+        'pillar_check': '/guardianship-guides"',
+        'fallback_image': 'images/og/florida-medicaid-planning-lookback.jpg',
+    },
+    'irrevocable': {
+        'prefix': 'irrevocable-trust-',
+        'marker': 'ts-irrevocable-cluster',
+        'legacy': ['florida-irrevocable-trust', 'medicaid-asset-protection-trust-planning-ahead-2026-09-25', 'medicaid-revocable-trust-no-protection-2026-09-25', 'florida-special-needs-trust', 'trust-vs-will-florida'],
+        'legacy_tag': 'Estate Planning', 'legacy_category': 'Florida Irrevocable Trusts',
+        'hub_file': 'irrevocable-trust-guides.html', 'hub_path': 'irrevocable-trust-guides',
+        'hub_title': 'Florida Irrevocable Trust Guides: Every Question, One Answer Each',
+        'hub_desc': ('Truestead Law\'s library of Florida irrevocable trust guides: revocable versus irrevocable, what irrevocable really means, '
+                     'signing formalities, Medicaid and asset protection trusts, special needs and spendthrift trusts, taxes and basis, trustees, '
+                     'decanting, second marriages, business succession, and funding, each told through a real-life example.'),
+        'eyebrow': 'Florida Estate Planning', 'h1': 'Florida Irrevocable Trust Guides',
+        'hero_p': ('An irrevocable trust is the tool for the things a revocable trust cannot do: keep assets away from creditors, Medicaid or estate '
+                   'tax, protect an inheritance from a child\'s divorce, provide for a disabled beneficiary, or hold a family business together. '
+                   'It is also the tool most often oversold. These guides answer the questions one at a time, each through someone in the same spot. '
+                   '{n} guides, written by Arthur Simpson, Esq., Florida estate planning attorney.'),
+        'cta_text': 'Book a Free 20-Minute Consult', 'cta_href': '/book',
+        'intro_h2': 'Start with your question',
+        'intro_p': ('Which trust you need, whether a trust signed years ago can still change, how it is taxed, who should be trustee, what happens '
+                    'in a second marriage or a divorce, and when the whole idea is a mistake: each is a different question with a different answer. '
+                    'Every person named in these guides is a composite, not a client. When you want the answer for your own facts, the consultation '
+                    'is free. See the <a href="/asset-protection">Florida asset protection page</a> and the <a href="/florida-living-trust">revocable '
+                    'living trust plans</a> for the tools that sit alongside.'),
+        'related_h2': 'More Florida Irrevocable Trust Guides',
+        'related_all': 'All {n} Florida irrevocable trust guides, in one place',
+        'related_pillar_text': 'Florida Asset Protection: homestead, entireties, LLCs and trust structures', 'related_pillar_href': '/asset-protection',
+        'pillar_file': 'asset-protection.html',
+        'pillar_anchor': '<a href="/articles/florida-land-trust">Land trust guide →</a>',
+        'pillar_insert': '',
+        'pillar_append': ' &middot; <a href="/irrevocable-trust-guides"><strong>All {n} irrevocable trust guides &rarr;</strong></a>',
+        'pillar_check': '/irrevocable-trust-guides"',
+        'fallback_image': 'images/og/florida-revocable-living-trust.jpg',
+    },
 }
 cluster_name = sys.argv[sys.argv.index('--cluster') + 1] if '--cluster' in sys.argv else 'medicaid'
 C = CLUSTERS[cluster_name]
@@ -265,7 +327,7 @@ print(f'3. related blocks: {touched} articles')
 ps = read(PILLAR)
 if C['pillar_check'] not in ps:
     if C['pillar_anchor'] in ps:
-        ps = ps.replace(C['pillar_anchor'], C['pillar_insert'].format(n=n_all) + C['pillar_anchor'], 1)
+        ps = ps.replace(C['pillar_anchor'], C['pillar_insert'].format(n=n_all) + C['pillar_anchor'] + C.get('pillar_append', '').format(n=n_all), 1)
         write(PILLAR, ps); print(f'4. pillar ({C["pillar_file"]}): hub link added')
     else:
         print('4. pillar: anchor not found, no change')
