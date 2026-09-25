@@ -11,6 +11,7 @@
  *   node daily-article.js --topic elder-law  # override topic
  *   node daily-article.js --dry-run          # write the file + index, skip deploy
  *   node daily-article.js --no-image         # skip Higgsfield image generation
+ *   node daily-article.js --topic-json t.json # full topic object from a file (batch.js)
  *
  * Env: ANTHROPIC_API_KEY  (see .env.example). No Tavily — research uses Claude web search.
  * Image generation uses the `higgsfield` CLI (run `higgsfield auth login` once).
@@ -58,6 +59,11 @@ const isDryRun = argv.includes('--dry-run') || argv.includes('--no-deploy');
 const noImage = argv.includes('--no-image');
 const topicIdx = argv.indexOf('--topic');
 const topicFlag = topicIdx !== -1 ? argv[topicIdx + 1] : null;
+// --topic-json <file>: a complete topic object handed in directly (batch runs,
+// e.g. the Medicaid cluster in medicaid-topics.js via batch.js). Bypasses the
+// GSC queue and the rotation entirely.
+const topicJsonIdx = argv.indexOf('--topic-json');
+const topicJsonFile = topicJsonIdx !== -1 ? argv[topicJsonIdx + 1] : null;
 
 // ─── DATES ──────────────────────────────────────────────────────────────────
 const isoDate = () => new Date().toISOString().split('T')[0]; // YYYY-MM-DD
@@ -613,7 +619,9 @@ function loadIndex() {
 }
 function saveIndex(index) { writeFileSync(INDEX_FILE, JSON.stringify(index, null, 2)); }
 function addToIndex(index, entry) {
-  index.articles = [entry, ...index.articles.filter(x => x.slug !== entry.slug)].slice(0, 60);
+  // Cap raised 60 -> 500 (9/24/2026): the Medicaid cluster alone is 64 pieces and the
+  // old cap would have pushed every other article off /insights.
+  index.articles = [entry, ...index.articles.filter(x => x.slug !== entry.slug)].slice(0, 500);
   return index;
 }
 
@@ -635,7 +643,9 @@ async function main() {
   console.log('═══════════════════════════════════════════════');
   requireKeys();
 
-  const topic = getTodaysTopic(topicFlag);
+  const topic = topicJsonFile
+    ? JSON.parse(readFileSync(topicJsonFile, 'utf-8'))
+    : getTodaysTopic(topicFlag);
   console.log(`\n📍  Topic: ${topic.category}  (${topic.eyebrow})`);
   if (isDryRun) console.log('⚠️   DRY RUN — will write files but NOT deploy.');
 

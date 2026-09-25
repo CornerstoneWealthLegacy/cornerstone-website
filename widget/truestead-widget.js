@@ -384,6 +384,38 @@
       ]
     },
     {
+      // Medicaid facts screen (9/24/2026): the Medicaid article cluster and any page
+      // that names Medicaid land here instead of the broader elder-law menu. Force it
+      // on an ad landing with ?tsctx=medicaid-planning.
+      id: 'medicaid-planning',
+      match: /medicaid|nursing-home|long-term-care|qualified-income|spend-down|lookback/,
+      label: 'Medicaid Planning',
+      clip: 'elder',
+      clipFallback: 'askq',
+      contactClip: 'contact',
+      hook: 'Medicaid question?<br>Ask Arthur.',
+      headline: 'Florida Medicaid planning, the facts families are surprised by:',
+      lines: [
+        'Florida looks back five years at gifts and below-value sales, and the penalty clock does not start until you are otherwise eligible. An old gift can cost more than the gift.',
+        'Florida is an income-cap state. Income over the limit does not disqualify you; it goes into a Qualified Income Trust each month.',
+        'The home is usually exempt while you are alive. After death the state can claim against the probate estate. A lady bird deed or trust keeps the house out of it.',
+        'The spouse at home keeps a protected share of the savings and an income allowance. Planning after admission still works; it just saves less than planning ahead.'
+      ],
+      issues: [
+        { label: 'Planning ahead', headline: 'Where are things today?', sub: [
+          { label: 'Healthy, thinking ahead', seed: 'No one needs care yet. I want to protect the home and savings before the five-year lookback matters.' },
+          { label: 'A diagnosis just came', seed: 'A family member was just diagnosed and care is likely within a few years. I want to know what to do now.' },
+        ] },
+        { label: 'Parent already in a facility', headline: 'What is the situation?', sub: [
+          { label: 'Paying privately', seed: 'A family member is already in a nursing home or assisted living and we are paying out of pocket. Here is roughly what is left:' },
+          { label: 'Medicare rehab is ending', seed: 'Medicare rehab days are ending and the facility says we need to pay or apply for Medicaid.' },
+          { label: 'The application was denied', seed: 'Our Florida Medicaid application was denied. The notice says:' },
+        ] },
+        { label: 'Protect the house', seed: 'I want to keep the family home safe from nursing home costs and from the state after death.' },
+        { label: 'Income is over the cap', seed: 'The income is a little over the Florida Medicaid limit and we were told that disqualifies us.' }
+      ]
+    },
+    {
       id: 'elder-law',
       match: /^\/(elder-law|palm-coast-elder-law)/,
       label: 'Elder Law',
@@ -626,7 +658,8 @@
    * only consulted when nothing in PAGE_CONTEXTS matched. Broadest patterns last. */
   var HINT_PATHS = /^\/(articles\/|insights|florida-knowledge|video)/;
   var SLUG_HINTS = [
-    [/medicaid|nursing-home|long-term-care|guardianship|elder/, 'elder-law'],
+    [/medicaid|nursing-home|long-term-care|qualified-income|spend-down|lookback|caregiver-agreement|spousal/, 'medicaid-planning'],
+    [/guardianship|elder/, 'elder-law'],
     [/18-year-old|18-year|young-adult|what-can-you-do-at-18|college/, 'age-18'],
     // Chapter-numbered "focus-" articles: 732 is wills and intestacy, 733 is probate.
     [/probate|intestate|personal-representative|summary-administration|when-you-die|focus-733-/, 'probate'],
