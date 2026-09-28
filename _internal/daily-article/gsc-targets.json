@@ -6,7 +6,8 @@
     "position": 8.1,
     "tag": "Personal Injury",
     "score": 47,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-09-28"
   },
   {
     "query": "port orange injury lawyer",
