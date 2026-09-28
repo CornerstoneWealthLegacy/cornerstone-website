@@ -1,113 +1,101 @@
 [
   {
-    "query": "reddick lyft accident lawyer",
-    "impressions": 17,
+    "query": "port orange personal injury lawyer",
+    "impressions": 76,
     "clicks": 0,
-    "position": 12.8,
+    "position": 8.1,
     "tag": "Personal Injury",
-    "score": 7,
-    "used": true,
-    "targetedOn": "2026-09-21"
+    "score": 47,
+    "used": false
   },
   {
-    "query": "reddick slip and fall lawyer",
-    "impressions": 13,
+    "query": "port orange injury lawyer",
+    "impressions": 52,
     "clicks": 0,
-    "position": 10.5,
+    "position": 7.7,
     "tag": "Personal Injury",
-    "score": 7,
-    "used": true,
-    "targetedOn": "2026-09-22"
+    "score": 33,
+    "used": false
   },
   {
-    "query": "belleview personal injury lawyer",
-    "impressions": 20,
+    "query": "personal injury lawyer",
+    "impressions": 19,
     "clicks": 0,
-    "position": 14.2,
+    "position": 5.5,
     "tag": "Personal Injury",
-    "score": 6,
-    "used": false,
-    "skipped": true,
-    "skippedReason": "near-duplicate of \"williston personal injury lawyer\""
-  },
-  {
-    "query": "estate planning attorney sewall's point",
-    "impressions": 10,
-    "clicks": 0,
-    "position": 7.5,
-    "tag": "Estate Planning",
-    "score": 6,
-    "used": true,
-    "targetedOn": "2026-09-23"
-  },
-  {
-    "query": "motorcycle accident lawyer williston",
-    "impressions": 11,
-    "clicks": 0,
-    "position": 8.8,
-    "tag": "Personal Injury",
-    "score": 6,
-    "used": false,
-    "skipped": true,
-    "skippedReason": "near-duplicate of \"williston motorcycle accident lawyer\""
-  },
-  {
-    "query": "dunnellon personal injury lawyer",
-    "impressions": 13,
-    "clicks": 0,
-    "position": 13.3,
-    "tag": "Personal Injury",
-    "score": 5,
-    "used": false,
-    "skipped": true,
-    "skippedReason": "near-duplicate of \"belleview personal injury lawyer\""
-  },
-  {
-    "query": "estate planning lawyer",
-    "impressions": 8,
-    "clicks": 0,
-    "position": 8.3,
-    "tag": "Estate Planning",
-    "score": 5,
-    "used": true,
-    "targetedOn": "2026-09-24"
-  },
-  {
-    "query": "real estate litigation shady hills",
-    "impressions": 11,
-    "clicks": 0,
-    "position": 11.1,
-    "tag": "Estate Planning",
-    "score": 5,
-    "used": true,
-    "targetedOn": "2026-09-26"
-  },
-  {
-    "query": "silver springs shores slip and fall lawyer",
-    "impressions": 13,
-    "clicks": 0,
-    "position": 12.5,
-    "tag": "Personal Injury",
-    "score": 5,
-    "used": true,
-    "targetedOn": "2026-09-27"
+    "score": 14,
+    "used": false
   },
   {
     "query": "estate planning attorney sarasota",
+    "impressions": 14,
+    "clicks": 0,
+    "position": 9.9,
+    "tag": "Estate Planning",
+    "score": 7,
+    "used": false
+  },
+  {
+    "query": "collier county medicaid planning attorneys",
     "impressions": 9,
     "clicks": 0,
-    "position": 11.1,
-    "tag": "Estate Planning",
-    "score": 4,
+    "position": 9.4,
+    "tag": "Elder Law",
+    "score": 5,
     "used": false
   },
   {
     "query": "estate planning sunny isles beach",
-    "impressions": 29,
+    "impressions": 30,
     "clicks": 0,
-    "position": 17.8,
+    "position": 17.7,
     "tag": "Estate Planning",
-    "score": 4,
+    "score": 5,
+    "used": false
+  },
+  {
+    "query": "fruit cove personal injury lawyer",
+    "impressions": 9,
+    "clicks": 0,
+    "position": 9.6,
+    "tag": "Personal Injury",
+    "score": 5,
+    "used": false
+  },
+  {
+    "query": "medicaid attorney near me osprey",
+    "impressions": 8,
+    "clicks": 0,
+    "position": 8.1,
+    "tag": "Elder Law",
+    "score": 5,
+    "used": false
+  },
+  {
+    "query": "navarre fl probate lawyer",
+    "impressions": 9,
+    "clicks": 0,
+    "position": 9.3,
+    "tag": "Probate",
+    "score": 5,
+    "used": false
+  },
+  {
+    "query": "silver springs shores car accident lawsuit",
+    "impressions": 11,
+    "clicks": 0,
+    "position": 11.1,
+    "tag": "Personal Injury",
+    "score": 5,
+    "used": false
+  },
+  {
+    "query": "silver springs shores collision lawyer",
+    "impressions": 9,
+    "clicks": 0,
+    "position": 8.4,
+    "tag": "Estate Planning",
+    "score": 5,
     "used": false
   },
   {
@@ -120,11 +108,20 @@
     "used": false
   },
   {
-    "query": "fruit cove personal injury lawyer",
-    "impressions": 8,
+    "query": "navarre probate lawyer",
+    "impressions": 9,
     "clicks": 0,
-    "position": 9.9,
-    "tag": "Personal Injury",
+    "position": 12,
+    "tag": "Probate",
+    "score": 4,
+    "used": false
+  },
+  {
+    "query": "pine hills ladybird deed",
+    "impressions": 13,
+    "clicks": 0,
+    "position": 15.2,
+    "tag": "Real Estate",
     "score": 4,
     "used": false
   },
@@ -138,46 +135,19 @@
     "used": false
   },
   {
-    "query": "silver springs shores car accident lawsuit",
-    "impressions": 8,
-    "clicks": 0,
-    "position": 10.6,
-    "tag": "Personal Injury",
-    "score": 4,
-    "used": false
-  },
-  {
-    "query": "title attorney temple terrace fl",
-    "impressions": 8,
-    "clicks": 0,
-    "position": 11.3,
-    "tag": "Real Estate",
-    "score": 4,
-    "used": false
-  },
-  {
-    "query": "pine hills ladybird deed",
-    "impressions": 10,
-    "clicks": 0,
-    "position": 15,
-    "tag": "Real Estate",
-    "score": 3,
-    "used": false
-  },
-  {
     "query": "silver springs shores lyft accident lawyer",
-    "impressions": 10,
+    "impressions": 11,
     "clicks": 0,
-    "position": 14.8,
+    "position": 13.9,
     "tag": "Personal Injury",
-    "score": 3,
+    "score": 4,
     "used": false
   },
   {
-    "query": "williston car accident lawyer",
+    "query": "chipley personal injury lawyers",
     "impressions": 8,
     "clicks": 0,
-    "position": 12.4,
+    "position": 12.6,
     "tag": "Personal Injury",
     "score": 3,
     "used": false
@@ -193,11 +163,38 @@
   },
   {
     "query": "dunnellon collision lawyer",
-    "impressions": 9,
+    "impressions": 10,
     "clicks": 0,
-    "position": 17.4,
+    "position": 17.5,
     "tag": "Estate Planning",
     "score": 2,
+    "used": false
+  },
+  {
+    "query": "reddick collision lawyer",
+    "impressions": 12,
+    "clicks": 0,
+    "position": 17.9,
+    "tag": "Estate Planning",
+    "score": 2,
+    "used": false
+  },
+  {
+    "query": "silver springs shores rideshare accident lawyer",
+    "impressions": 14,
+    "clicks": 0,
+    "position": 18.4,
+    "tag": "Personal Injury",
+    "score": 2,
+    "used": false
+  },
+  {
+    "query": "belleview slip and fall lawyer",
+    "impressions": 9,
+    "clicks": 0,
+    "position": 19.7,
+    "tag": "Personal Injury",
+    "score": 1,
     "used": false
   },
   {
@@ -210,43 +207,16 @@
     "used": false
   },
   {
-    "query": "silver springs shores rideshare accident lawyer",
-    "impressions": 12,
-    "clicks": 0,
-    "position": 19.6,
-    "tag": "Personal Injury",
-    "score": 1,
-    "used": false
-  },
-  {
-    "query": "wekiwa springs personal injury lawyer",
-    "impressions": 8,
-    "clicks": 0,
-    "position": 17.6,
-    "tag": "Personal Injury",
-    "score": 1,
-    "used": false
-  },
-  {
-    "query": "what is probate ponte vedra beach fl",
+    "query": "florida probate attorney silver springs",
     "impressions": 11,
     "clicks": 0,
-    "position": 19.2,
+    "position": 18.4,
     "tag": "Probate",
     "score": 1,
     "used": false
   },
   {
-    "query": "maitland estate lawyer",
-    "impressions": 8,
-    "clicks": 0,
-    "position": 19.8,
-    "tag": "Estate Planning",
-    "score": 0,
-    "used": false
-  },
-  {
-    "query": "reddick collision lawyer",
+    "query": "altamonte springs health care surrogate attorney",
     "impressions": 8,
     "clicks": 0,
     "position": 20.3,
@@ -255,11 +225,11 @@
     "used": false
   },
   {
-    "query": "title attorney cooper city, fl",
+    "query": "maitland estate lawyer",
     "impressions": 8,
     "clicks": 0,
-    "position": 21.9,
-    "tag": "Real Estate",
+    "position": 19.8,
+    "tag": "Estate Planning",
     "score": 0,
     "used": false
   },
@@ -273,10 +243,19 @@
     "used": false
   },
   {
-    "query": "graceville lawyer",
-    "impressions": 12,
+    "query": "estate planning for business owners broward",
+    "impressions": 8,
     "clicks": 0,
-    "position": 22.9,
+    "position": 22.5,
+    "tag": "Estate Planning",
+    "score": -1,
+    "used": false
+  },
+  {
+    "query": "real estate attorney cooper city, fl",
+    "impressions": 8,
+    "clicks": 0,
+    "position": 23.1,
     "tag": "Estate Planning",
     "score": -1,
     "used": false
@@ -300,31 +279,73 @@
     "used": false
   },
   {
-    "query": "title company hardee county, fl",
-    "impressions": 10,
+    "query": "estate planning cooper city fl",
+    "impressions": 13,
     "clicks": 0,
-    "position": 22.6,
-    "tag": "Real Estate",
-    "score": -1,
-    "used": false
-  },
-  {
-    "query": "title services crawfordville, fl",
-    "impressions": 16,
-    "clicks": 0,
-    "position": 22.4,
-    "tag": "Real Estate",
-    "score": -1,
-    "used": false
-  },
-  {
-    "query": "walton county revocable trusts",
-    "impressions": 10,
-    "clicks": 0,
-    "position": 22.2,
+    "position": 23.7,
     "tag": "Estate Planning",
-    "score": -1,
+    "score": -2,
     "used": false
+  },
+  {
+    "query": "graceville lawyer",
+    "impressions": 15,
+    "clicks": 0,
+    "position": 24.6,
+    "tag": "Estate Planning",
+    "score": -3,
+    "used": false
+  },
+  {
+    "query": "reddick lyft accident lawyer",
+    "used": true,
+    "targetedOn": "2026-09-21"
+  },
+  {
+    "query": "reddick slip and fall lawyer",
+    "used": true,
+    "targetedOn": "2026-09-22"
+  },
+  {
+    "query": "belleview personal injury lawyer",
+    "used": false,
+    "targetedOn": null,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"williston personal injury lawyer\""
+  },
+  {
+    "query": "estate planning attorney sewall's point",
+    "used": true,
+    "targetedOn": "2026-09-23"
+  },
+  {
+    "query": "motorcycle accident lawyer williston",
+    "used": false,
+    "targetedOn": null,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"williston motorcycle accident lawyer\""
+  },
+  {
+    "query": "dunnellon personal injury lawyer",
+    "used": false,
+    "targetedOn": null,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"belleview personal injury lawyer\""
+  },
+  {
+    "query": "estate planning lawyer",
+    "used": true,
+    "targetedOn": "2026-09-24"
+  },
+  {
+    "query": "real estate litigation shady hills",
+    "used": true,
+    "targetedOn": "2026-09-26"
+  },
+  {
+    "query": "silver springs shores slip and fall lawyer",
+    "used": true,
+    "targetedOn": "2026-09-27"
   },
   {
     "query": "732.502",
