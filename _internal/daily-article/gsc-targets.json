@@ -16,7 +16,9 @@
     "position": 7.7,
     "tag": "Personal Injury",
     "score": 33,
-    "used": false
+    "used": false,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"port orange personal injury lawyer\""
   },
   {
     "query": "personal injury lawyer",
@@ -25,7 +27,9 @@
     "position": 5.5,
     "tag": "Personal Injury",
     "score": 14,
-    "used": false
+    "used": false,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"port orange personal injury lawyer\""
   },
   {
     "query": "estate planning attorney sarasota",
@@ -34,7 +38,8 @@
     "position": 9.9,
     "tag": "Estate Planning",
     "score": 7,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-09-29"
   },
   {
     "query": "collier county medicaid planning attorneys",
