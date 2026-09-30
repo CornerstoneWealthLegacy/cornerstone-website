@@ -48,7 +48,8 @@
     "position": 9.4,
     "tag": "Elder Law",
     "score": 5,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-09-30"
   },
   {
     "query": "estate planning sunny isles beach",
