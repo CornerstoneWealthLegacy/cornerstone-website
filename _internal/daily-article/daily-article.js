@@ -705,7 +705,7 @@ async function main() {
       // CI runs with --no-deploy because the workflow's commit+push triggers the
       // Netlify build — the article IS going live, so say so.
       console.log('\n⏭️   Deploy handled by CI: the commit+push triggers the Netlify build.');
-      await notify('Truestead article published', `"${article.title}"\nPublished via GitHub Actions — Netlify takes it live within a few minutes.\nhttps://truesteadlaw.com/articles/${slug}`, 'newspaper,white_check_mark');
+      // No "published" push: the 7 AM calendar digest already lists new articles (10/1/2026).
     } else {
       console.log(`\n⏭️   Skipped deploy. Preview locally:`);
       console.log(`     open "${join(ARTICLES_DIR, filename)}"`);
@@ -718,7 +718,6 @@ async function main() {
       const m = result.match(/(?:Website|Production) URL:\s*(.+)/);
       const liveUrl = m ? m[1].trim() : 'https://truesteadlaw.com/articles/' + slug;
       console.log(`✅  Live: ${liveUrl}`);
-      await notify('Truestead article published', `"${article.title}"\n${liveUrl}`, 'newspaper,white_check_mark');
     } catch (e) {
       console.error('❌  Deploy failed:', e.message);
       console.log('💡  The article + index were saved. Deploy manually:  cd cornerstone-website && netlify deploy --prod');
