@@ -58,7 +58,8 @@
     "position": 17.7,
     "tag": "Estate Planning",
     "score": 5,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-10-01"
   },
   {
     "query": "fruit cove personal injury lawyer",
