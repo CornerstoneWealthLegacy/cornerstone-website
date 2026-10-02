@@ -68,7 +68,9 @@
     "position": 9.6,
     "tag": "Personal Injury",
     "score": 5,
-    "used": false
+    "used": false,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"personal injury lawyer\""
   },
   {
     "query": "medicaid attorney near me osprey",
@@ -77,7 +79,8 @@
     "position": 8.1,
     "tag": "Elder Law",
     "score": 5,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-10-02"
   },
   {
     "query": "navarre fl probate lawyer",
