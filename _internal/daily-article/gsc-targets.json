@@ -89,7 +89,8 @@
     "position": 9.3,
     "tag": "Probate",
     "score": 5,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-10-03"
   },
   {
     "query": "silver springs shores car accident lawsuit",
