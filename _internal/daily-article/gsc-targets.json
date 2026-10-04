@@ -99,7 +99,8 @@
     "position": 11.1,
     "tag": "Personal Injury",
     "score": 5,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-10-04"
   },
   {
     "query": "silver springs shores collision lawyer",
