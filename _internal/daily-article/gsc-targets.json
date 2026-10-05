@@ -1,313 +1,419 @@
 [
   {
-    "query": "port orange personal injury lawyer",
-    "impressions": 76,
+    "query": "carrollwood motorcycle accident lawyer",
+    "impressions": 32,
     "clicks": 0,
-    "position": 8.1,
+    "position": 7.7,
     "tag": "Personal Injury",
-    "score": 47,
+    "score": 20,
+    "used": false
+  },
+  {
+    "query": "estate planning bayonet point",
+    "impressions": 25,
+    "clicks": 0,
+    "position": 5.4,
+    "tag": "Estate Planning",
+    "score": 19,
+    "used": false
+  },
+  {
+    "query": "yes",
+    "impressions": 20,
+    "clicks": 2,
+    "position": 4.5,
+    "tag": "Estate Planning",
+    "score": 16,
+    "used": false
+  },
+  {
+    "query": "carrollwood injury lawyer",
+    "impressions": 23,
+    "clicks": 0,
+    "position": 7.2,
+    "tag": "Personal Injury",
+    "score": 15,
+    "used": false
+  },
+  {
+    "query": "carrollwood car accident lawyer",
+    "impressions": 26,
+    "clicks": 0,
+    "position": 9.3,
+    "tag": "Personal Injury",
+    "score": 14,
+    "used": false
+  },
+  {
+    "query": "navarre probate lawyer",
+    "impressions": 22,
+    "clicks": 0,
+    "position": 7.9,
+    "tag": "Probate",
+    "score": 14,
+    "used": false
+  },
+  {
+    "query": "medicaid long term care eligibility",
+    "impressions": 33,
+    "clicks": 0,
+    "position": 12.9,
+    "tag": "Elder Law",
+    "score": 13,
+    "used": false
+  },
+  {
+    "query": "doral personal injury lawyer",
+    "impressions": 15,
+    "clicks": 0,
+    "position": 5.1,
+    "tag": "Personal Injury",
+    "score": 11,
+    "used": false
+  },
+  {
+    "query": "lady bird deed attorney",
+    "impressions": 16,
+    "clicks": 0,
+    "position": 6.4,
+    "tag": "Real Estate",
+    "score": 11,
+    "used": false
+  },
+  {
+    "query": "medicaid compliant annuity",
+    "impressions": 18,
+    "clicks": 0,
+    "position": 7.6,
+    "tag": "Elder Law",
+    "score": 11,
+    "used": false
+  },
+  {
+    "query": "doral brain injury lawyer",
+    "impressions": 12,
+    "clicks": 0,
+    "position": 6.1,
+    "tag": "Personal Injury",
+    "score": 9,
+    "used": false
+  },
+  {
+    "query": "lady bird deed attorney near me",
+    "impressions": 14,
+    "clicks": 0,
+    "position": 7.9,
+    "tag": "Real Estate",
+    "score": 9,
+    "used": false
+  },
+  {
+    "query": "do all heirs have to agree to sell property in florida",
+    "impressions": 15,
+    "clicks": 0,
+    "position": 9.5,
+    "tag": "Real Estate",
+    "score": 8,
+    "used": false
+  },
+  {
+    "query": "doral personal injury attorney",
+    "impressions": 12,
+    "clicks": 0,
+    "position": 6.7,
+    "tag": "Personal Injury",
+    "score": 8,
+    "used": false
+  },
+  {
+    "query": "how much does a medicaid planner cost",
+    "impressions": 14,
+    "clicks": 0,
+    "position": 9.4,
+    "tag": "Elder Law",
+    "score": 8,
+    "used": false
+  },
+  {
+    "query": "myaccess florida",
+    "impressions": 11,
+    "clicks": 0,
+    "position": 5.6,
+    "tag": "Estate Planning",
+    "score": 8,
+    "used": false
+  },
+  {
+    "query": "my mother in gainesville, florida may need long term care within a year. what florida trust planning options could help with medicaid eligibility while protecting her home and savings, and how do look-back rules and lady bird deeds work here?",
+    "impressions": 9,
+    "clicks": 0,
+    "position": 5.6,
+    "tag": "Elder Law",
+    "score": 7,
+    "used": false
+  },
+  {
+    "query": "osprey medicaid attorney near me",
+    "impressions": 10,
+    "clicks": 0,
+    "position": 6.9,
+    "tag": "Elder Law",
+    "score": 7,
+    "used": false
+  },
+  {
+    "query": "osprey medicaid lawyer",
+    "impressions": 10,
+    "clicks": 0,
+    "position": 6.3,
+    "tag": "Elder Law",
+    "score": 7,
+    "used": false
+  },
+  {
+    "query": "free legal forms for 18-year olds online",
+    "impressions": 8,
+    "clicks": 1,
+    "position": 4.9,
+    "tag": "Estate Planning",
+    "score": 6,
+    "used": false
+  },
+  {
+    "query": "baker act in florida statute",
+    "impressions": 8,
+    "clicks": 0,
+    "position": 6.3,
+    "tag": "Estate Planning",
+    "score": 6,
+    "used": false
+  },
+  {
+    "query": "carrollwood car accident attorney",
+    "impressions": 12,
+    "clicks": 0,
+    "position": 10.7,
+    "tag": "Personal Injury",
+    "score": 6,
+    "used": false
+  },
+  {
+    "query": "carrollwood truck accident attorney",
+    "impressions": 8,
+    "clicks": 0,
+    "position": 5.4,
+    "tag": "Personal Injury",
+    "score": 6,
+    "used": false
+  },
+  {
+    "query": "doral adult guardianship",
+    "impressions": 13,
+    "clicks": 0,
+    "position": 11.5,
+    "tag": "Elder Law",
+    "score": 6,
+    "used": false
+  },
+  {
+    "query": "doral personal injury attorneys",
+    "impressions": 8,
+    "clicks": 0,
+    "position": 5.3,
+    "tag": "Personal Injury",
+    "score": 6,
+    "used": false
+  },
+  {
+    "query": "family law attorney springfield fl",
+    "impressions": 8,
+    "clicks": 0,
+    "position": 5.3,
+    "tag": "Estate Planning",
+    "score": 6,
+    "used": false
+  },
+  {
+    "query": "florida probate attorney silver springs",
+    "impressions": 21,
+    "clicks": 0,
+    "position": 15,
+    "tag": "Probate",
+    "score": 6,
+    "used": false
+  },
+  {
+    "query": "in florida",
+    "impressions": 8,
+    "clicks": 0,
+    "position": 5.3,
+    "tag": "Estate Planning",
+    "score": 6,
+    "used": false
+  },
+  {
+    "query": "lake mary health care surrogate attorney",
+    "impressions": 9,
+    "clicks": 0,
+    "position": 7.2,
+    "tag": "Estate Planning",
+    "score": 6,
+    "used": false
+  },
+  {
+    "query": "medicaid law firm osprey",
+    "impressions": 8,
+    "clicks": 0,
+    "position": 6.1,
+    "tag": "Elder Law",
+    "score": 6,
+    "used": false
+  },
+  {
+    "query": "medicaid lawyer osprey",
+    "impressions": 9,
+    "clicks": 0,
+    "position": 8,
+    "tag": "Elder Law",
+    "score": 6,
+    "used": false
+  },
+  {
+    "query": "broward county probate court",
+    "impressions": 16,
+    "clicks": 0,
+    "position": 14.6,
+    "tag": "Probate",
+    "score": 5,
+    "used": false
+  },
+  {
+    "query": "carrollwood wrongful death attorney",
+    "impressions": 14,
+    "clicks": 0,
+    "position": 13.3,
+    "tag": "Personal Injury",
+    "score": 5,
+    "used": false
+  },
+  {
+    "query": "estate planning attorney sarasota fl",
+    "impressions": 8,
+    "clicks": 0,
+    "position": 8.9,
+    "tag": "Estate Planning",
+    "score": 5,
+    "used": false
+  },
+  {
+    "query": "how much does it cost to set up a trust in florida",
+    "impressions": 10,
+    "clicks": 0,
+    "position": 10.7,
+    "tag": "Estate Planning",
+    "score": 5,
+    "used": false
+  },
+  {
+    "query": "living trusts silver springs",
+    "impressions": 20,
+    "clicks": 0,
+    "position": 15.9,
+    "tag": "Estate Planning",
+    "score": 5,
+    "used": false
+  },
+  {
+    "query": "long term care attorney",
+    "impressions": 17,
+    "clicks": 0,
+    "position": 15.1,
+    "tag": "Estate Planning",
+    "score": 5,
+    "used": false
+  },
+  {
+    "query": "myaccess fl",
+    "impressions": 8,
+    "clicks": 0,
+    "position": 6.6,
+    "tag": "Estate Planning",
+    "score": 5,
+    "used": false
+  },
+  {
+    "query": "osprey elder lawyer",
+    "impressions": 9,
+    "clicks": 0,
+    "position": 9.8,
+    "tag": "Elder Law",
+    "score": 5,
+    "used": false
+  },
+  {
+    "query": "osprey medicaid law firm",
+    "impressions": 8,
+    "clicks": 0,
+    "position": 7.4,
+    "tag": "Elder Law",
+    "score": 5,
+    "used": false
+  },
+  {
+    "query": "port orange personal injury lawyer",
     "used": true,
     "targetedOn": "2026-09-28"
   },
   {
     "query": "port orange injury lawyer",
-    "impressions": 52,
-    "clicks": 0,
-    "position": 7.7,
-    "tag": "Personal Injury",
-    "score": 33,
     "used": false,
+    "targetedOn": null,
     "skipped": true,
     "skippedReason": "near-duplicate of \"port orange personal injury lawyer\""
   },
   {
     "query": "personal injury lawyer",
-    "impressions": 19,
-    "clicks": 0,
-    "position": 5.5,
-    "tag": "Personal Injury",
-    "score": 14,
     "used": false,
+    "targetedOn": null,
     "skipped": true,
     "skippedReason": "near-duplicate of \"port orange personal injury lawyer\""
   },
   {
     "query": "estate planning attorney sarasota",
-    "impressions": 14,
-    "clicks": 0,
-    "position": 9.9,
-    "tag": "Estate Planning",
-    "score": 7,
     "used": true,
     "targetedOn": "2026-09-29"
   },
   {
     "query": "collier county medicaid planning attorneys",
-    "impressions": 9,
-    "clicks": 0,
-    "position": 9.4,
-    "tag": "Elder Law",
-    "score": 5,
     "used": true,
     "targetedOn": "2026-09-30"
   },
   {
     "query": "estate planning sunny isles beach",
-    "impressions": 30,
-    "clicks": 0,
-    "position": 17.7,
-    "tag": "Estate Planning",
-    "score": 5,
     "used": true,
     "targetedOn": "2026-10-01"
   },
   {
     "query": "fruit cove personal injury lawyer",
-    "impressions": 9,
-    "clicks": 0,
-    "position": 9.6,
-    "tag": "Personal Injury",
-    "score": 5,
     "used": false,
+    "targetedOn": null,
     "skipped": true,
     "skippedReason": "near-duplicate of \"personal injury lawyer\""
   },
   {
     "query": "medicaid attorney near me osprey",
-    "impressions": 8,
-    "clicks": 0,
-    "position": 8.1,
-    "tag": "Elder Law",
-    "score": 5,
     "used": true,
     "targetedOn": "2026-10-02"
   },
   {
     "query": "navarre fl probate lawyer",
-    "impressions": 9,
-    "clicks": 0,
-    "position": 9.3,
-    "tag": "Probate",
-    "score": 5,
     "used": true,
     "targetedOn": "2026-10-03"
   },
   {
     "query": "silver springs shores car accident lawsuit",
-    "impressions": 11,
-    "clicks": 0,
-    "position": 11.1,
-    "tag": "Personal Injury",
-    "score": 5,
     "used": true,
     "targetedOn": "2026-10-04"
-  },
-  {
-    "query": "silver springs shores collision lawyer",
-    "impressions": 9,
-    "clicks": 0,
-    "position": 8.4,
-    "tag": "Estate Planning",
-    "score": 5,
-    "used": false
-  },
-  {
-    "query": "free legal forms for 18 year olds",
-    "impressions": 9,
-    "clicks": 0,
-    "position": 11,
-    "tag": "Estate Planning",
-    "score": 4,
-    "used": false
-  },
-  {
-    "query": "navarre probate lawyer",
-    "impressions": 9,
-    "clicks": 0,
-    "position": 12,
-    "tag": "Probate",
-    "score": 4,
-    "used": false
-  },
-  {
-    "query": "pine hills ladybird deed",
-    "impressions": 13,
-    "clicks": 0,
-    "position": 15.2,
-    "tag": "Real Estate",
-    "score": 4,
-    "used": false
-  },
-  {
-    "query": "reddick rideshare accident lawyer",
-    "impressions": 8,
-    "clicks": 0,
-    "position": 10.1,
-    "tag": "Personal Injury",
-    "score": 4,
-    "used": false
-  },
-  {
-    "query": "silver springs shores lyft accident lawyer",
-    "impressions": 11,
-    "clicks": 0,
-    "position": 13.9,
-    "tag": "Personal Injury",
-    "score": 4,
-    "used": false
-  },
-  {
-    "query": "chipley personal injury lawyers",
-    "impressions": 8,
-    "clicks": 0,
-    "position": 12.6,
-    "tag": "Personal Injury",
-    "score": 3,
-    "used": false
-  },
-  {
-    "query": "closing attorney sebastian",
-    "impressions": 8,
-    "clicks": 0,
-    "position": 16.9,
-    "tag": "Real Estate",
-    "score": 2,
-    "used": false
-  },
-  {
-    "query": "dunnellon collision lawyer",
-    "impressions": 10,
-    "clicks": 0,
-    "position": 17.5,
-    "tag": "Estate Planning",
-    "score": 2,
-    "used": false
-  },
-  {
-    "query": "reddick collision lawyer",
-    "impressions": 12,
-    "clicks": 0,
-    "position": 17.9,
-    "tag": "Estate Planning",
-    "score": 2,
-    "used": false
-  },
-  {
-    "query": "silver springs shores rideshare accident lawyer",
-    "impressions": 14,
-    "clicks": 0,
-    "position": 18.4,
-    "tag": "Personal Injury",
-    "score": 2,
-    "used": false
-  },
-  {
-    "query": "belleview slip and fall lawyer",
-    "impressions": 9,
-    "clicks": 0,
-    "position": 19.7,
-    "tag": "Personal Injury",
-    "score": 1,
-    "used": false
-  },
-  {
-    "query": "closing attorneys hobe sound fl",
-    "impressions": 8,
-    "clicks": 0,
-    "position": 18.3,
-    "tag": "Real Estate",
-    "score": 1,
-    "used": false
-  },
-  {
-    "query": "florida probate attorney silver springs",
-    "impressions": 11,
-    "clicks": 0,
-    "position": 18.4,
-    "tag": "Probate",
-    "score": 1,
-    "used": false
-  },
-  {
-    "query": "altamonte springs health care surrogate attorney",
-    "impressions": 8,
-    "clicks": 0,
-    "position": 20.3,
-    "tag": "Estate Planning",
-    "score": 0,
-    "used": false
-  },
-  {
-    "query": "maitland estate lawyer",
-    "impressions": 8,
-    "clicks": 0,
-    "position": 19.8,
-    "tag": "Estate Planning",
-    "score": 0,
-    "used": false
-  },
-  {
-    "query": "732.5165",
-    "impressions": 9,
-    "clicks": 0,
-    "position": 23.4,
-    "tag": "Estate Planning",
-    "score": -1,
-    "used": false
-  },
-  {
-    "query": "estate planning for business owners broward",
-    "impressions": 8,
-    "clicks": 0,
-    "position": 22.5,
-    "tag": "Estate Planning",
-    "score": -1,
-    "used": false
-  },
-  {
-    "query": "real estate attorney cooper city, fl",
-    "impressions": 8,
-    "clicks": 0,
-    "position": 23.1,
-    "tag": "Estate Planning",
-    "score": -1,
-    "used": false
-  },
-  {
-    "query": "real estate law hobe sound, fl",
-    "impressions": 8,
-    "clicks": 0,
-    "position": 23.4,
-    "tag": "Estate Planning",
-    "score": -1,
-    "used": false
-  },
-  {
-    "query": "silver springs shores uber accident lawyer",
-    "impressions": 9,
-    "clicks": 0,
-    "position": 23.6,
-    "tag": "Personal Injury",
-    "score": -1,
-    "used": false
-  },
-  {
-    "query": "estate planning cooper city fl",
-    "impressions": 13,
-    "clicks": 0,
-    "position": 23.7,
-    "tag": "Estate Planning",
-    "score": -2,
-    "used": false
-  },
-  {
-    "query": "graceville lawyer",
-    "impressions": 15,
-    "clicks": 0,
-    "position": 24.6,
-    "tag": "Estate Planning",
-    "score": -3,
-    "used": false
   },
   {
     "query": "reddick lyft accident lawyer",
