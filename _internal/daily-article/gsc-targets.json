@@ -6,7 +6,9 @@
     "position": 7.7,
     "tag": "Personal Injury",
     "score": 20,
-    "used": false
+    "used": false,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"motorcycle accident lawyer williston\""
   },
   {
     "query": "estate planning bayonet point",
@@ -15,7 +17,8 @@
     "position": 5.4,
     "tag": "Estate Planning",
     "score": 19,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-10-05"
   },
   {
     "query": "yes",
