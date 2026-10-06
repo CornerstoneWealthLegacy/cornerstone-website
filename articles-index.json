@@ -1,6 +1,17 @@
 {
   "articles": [
     {
+      "slug": "articles/focus-yes-2026-10-06",
+      "file": "articles/focus-yes-2026-10-06.html",
+      "title": "Yes: The Direct Answer, Plus Florida Estate Planning Basics",
+      "tag": "Estate Planning",
+      "category": "Yes",
+      "blurb": "The short answer is yes, but here's what Florida law actually says about wills, trusts, homestead, and your 2026 estate plan.",
+      "image": "images/og/florida-estate-planning-checklist.jpg",
+      "date": "2026-10-06",
+      "prettyDate": "October 6, 2026"
+    },
+    {
       "slug": "articles/focus-estate-planning-bayonet-point-2026-10-05",
       "file": "articles/focus-estate-planning-bayonet-point-2026-10-05.html",
       "title": "Estate Planning Bayonet Point, FL: A Local Family's Guide",

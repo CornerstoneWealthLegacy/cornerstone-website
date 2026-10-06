@@ -27,7 +27,8 @@
     "position": 4.5,
     "tag": "Estate Planning",
     "score": 16,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-10-06"
   },
   {
     "query": "carrollwood injury lawyer",
