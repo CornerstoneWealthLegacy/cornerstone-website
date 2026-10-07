@@ -37,7 +37,8 @@
     "position": 7.2,
     "tag": "Personal Injury",
     "score": 15,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-10-07"
   },
   {
     "query": "carrollwood car accident lawyer",
