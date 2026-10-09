@@ -1,0 +1,556 @@
+[2026-09-25T01:44:07.139Z] Batch start: 1 topic(s) from medicaid-topics.js
+[2026-09-25T01:44:07.142Z] (1/1) medicaid-penalty-period-math — "How the Florida Medicaid Penalty Period Is Calculated"
+[2026-09-25T01:47:05.483Z] OK  medicaid-penalty-period-math (178s)
+[2026-09-25T01:47:05.484Z] Batch done: 1/1 succeeded.
+[2026-09-25T01:47:44.725Z] Batch start: 0 topic(s) from medicaid-topics.js
+[2026-09-25T01:47:44.725Z] Batch start: 0 topic(s) from medicaid-topics.js
+[2026-09-25T01:47:44.725Z] Batch start: 0 topic(s) from medicaid-topics.js
+[2026-09-25T01:47:44.731Z] Batch done: 0/0 succeeded.
+[2026-09-25T01:47:44.731Z] Batch done: 0/0 succeeded.
+[2026-09-25T01:47:44.731Z] Batch done: 0/0 succeeded.
+[2026-09-25T01:48:14.107Z] Batch start: 23 topic(s) from medicaid-topics.js
+[2026-09-25T01:48:14.107Z] Batch start: 24 topic(s) from medicaid-topics.js
+[2026-09-25T01:48:14.106Z] Batch start: 24 topic(s) from medicaid-topics.js
+[2026-09-25T01:48:14.111Z] (1/24) medicaid-irrevocable-burial-trust — "The Irrevocable Burial Trust: The Exempt Spend-Down Nobody Uses"
+[2026-09-25T01:48:14.111Z] (1/24) medicaid-second-marriage-protecting-children — "Second Marriages, Medicaid, and Protecting Each Spouse's Children"
+[2026-09-25T01:48:14.111Z] (1/23) medicaid-does-medicare-pay-nursing-home — "Does Medicare Pay for Nursing Home Care in Florida?"
+[2026-09-25T01:50:39.594Z] OK  medicaid-irrevocable-burial-trust (145s)
+[2026-09-25T01:50:39.595Z] (2/24) medicaid-out-of-state-property — "The Out-of-State Cabin and a Florida Medicaid Application"
+[2026-09-25T01:50:56.558Z] OK  medicaid-does-medicare-pay-nursing-home (162s)
+[2026-09-25T01:50:56.560Z] (2/23) medicaid-medicare-vs-medicaid-long-term-care — "Medicare vs Medicaid for Long-Term Care in Florida"
+[2026-09-25T01:51:12.302Z] OK  medicaid-second-marriage-protecting-children (178s)
+[2026-09-25T01:51:12.303Z] (2/24) medicaid-life-insurance-and-funeral-contracts — "Life Insurance, Burial Plans, and Florida Medicaid"
+[2026-09-25T01:53:28.181Z] OK  medicaid-medicare-vs-medicaid-long-term-care (152s)
+[2026-09-25T01:53:28.183Z] (3/23) medicaid-income-cap-qualified-income-trust — "Florida Medicaid Income Cap and the Qualified Income Trust"
+[2026-09-25T01:53:28.871Z] OK  medicaid-out-of-state-property (169s)
+[2026-09-25T01:53:28.871Z] (3/24) medicaid-both-spouses-need-care — "When Both Spouses Need Care: Florida Medicaid Without a Community Spouse"
+[2026-09-25T01:53:38.107Z] OK  medicaid-life-insurance-and-funeral-contracts (146s)
+[2026-09-25T01:53:38.108Z] (3/24) medicaid-vehicles-boats-rvs — "Cars, Boats, and RVs in a Florida Medicaid Application"
+[2026-09-25T01:56:04.345Z] OK  medicaid-income-cap-qualified-income-trust (156s)
+[2026-09-25T01:56:04.346Z] (4/23) medicaid-lookback-one-family-gifts — "The Five-Year Lookback Through One Family's Gifts"
+[2026-09-25T01:56:07.794Z] OK  medicaid-both-spouses-need-care (159s)
+[2026-09-25T01:56:07.794Z] (4/24) medicaid-medicaid-divorce — ""Medicaid Divorce" in Florida: Why Families Ask and Why It Is Rarely the Answer"
+[2026-09-25T01:56:15.765Z] OK  medicaid-vehicles-boats-rvs (158s)
+[2026-09-25T01:56:15.766Z] (4/24) medicaid-rental-property-medicaid — "Rental Property and Florida Medicaid Eligibility"
+[2026-09-25T01:58:44.746Z] OK  medicaid-lookback-one-family-gifts (160s)
+[2026-09-25T01:58:44.747Z] (5/23) medicaid-spend-down-checklist — "Florida Medicaid Spend-Down: What You Are Allowed to Buy"
+[2026-09-25T01:58:52.431Z] OK  medicaid-medicaid-divorce (165s)
+[2026-09-25T01:58:52.433Z] (5/24) medicaid-spousal-refusal-florida — "Spousal Refusal in Florida Medicaid: What It Is and What It Is Not"
+[2026-09-25T01:59:00.457Z] OK  medicaid-rental-property-medicaid (165s)
+[2026-09-25T01:59:00.458Z] (5/24) medicaid-small-business-owner — "Medicaid Planning for a Florida Small Business or Farm Owner"
+[2026-09-25T02:00:00.587Z] OK  medicaid-spend-down-checklist (76s)
+[2026-09-25T02:00:00.589Z] (6/23) medicaid-community-spouse-protections — "Protecting the Spouse at Home in Florida Medicaid Planning"
+[2026-09-25T02:01:33.821Z] OK  medicaid-small-business-owner (153s)
+[2026-09-25T02:01:33.822Z] (6/24) medicaid-estate-recovery-after-death — "Florida Medicaid Estate Recovery: The Letter the Family Gets"
+[2026-09-25T02:01:38.694Z] OK  medicaid-spousal-refusal-florida (166s)
+[2026-09-25T02:01:38.696Z] (6/24) medicaid-half-a-loaf-strategy — "The Half-a-Loaf Medicaid Strategy in Florida, Worked Out"
+[2026-09-25T02:02:43.617Z] OK  medicaid-community-spouse-protections (163s)
+[2026-09-25T02:02:43.618Z] (7/23) medicaid-intent-to-return-home — "The "Intent to Return Home" Rule in Florida Medicaid"
+[2026-09-25T02:04:11.782Z] OK  medicaid-estate-recovery-after-death (158s)
+[2026-09-25T02:04:11.783Z] (7/24) medicaid-denied-excess-assets-appeal — "Denied Florida Medicaid for Excess Assets: The Fair Hearing"
+[2026-09-25T02:04:21.634Z] OK  medicaid-half-a-loaf-strategy (163s)
+[2026-09-25T02:04:21.636Z] (7/24) medicaid-what-medicaid-planning-costs — "What Medicaid Planning Costs in Florida and What a Flat Fee Buys"
+[2026-09-25T02:05:25.771Z] OK  medicaid-intent-to-return-home (162s)
+[2026-09-25T02:05:25.773Z] (8/23) medicaid-lady-bird-deed-mistakes — "Lady Bird Deed Mistakes That Break a Florida Medicaid Plan"
+[2026-09-25T02:06:59.292Z] OK  medicaid-what-medicaid-planning-costs (158s)
+[2026-09-25T02:06:59.293Z] (8/24) medicaid-diy-application-cost-the-house — "The Do-It-Yourself Medicaid Application That Cost a Family the House"
+[2026-09-25T02:07:00.634Z] OK  medicaid-denied-excess-assets-appeal (169s)
+[2026-09-25T02:07:00.634Z] (8/24) medicaid-access-application-diy — "Applying for Florida Nursing Home Medicaid Yourself Through ACCESS"
+[2026-09-25T02:07:53.821Z] OK  medicaid-lady-bird-deed-mistakes (148s)
+[2026-09-25T02:07:53.823Z] (9/23) medicaid-asset-protection-trust-planning-ahead — "The Florida Medicaid Asset Protection Trust for People Planning Ahead"
+[2026-09-25T02:09:23.504Z] OK  medicaid-diy-application-cost-the-house (144s)
+[2026-09-25T02:09:23.506Z] (9/24) medicaid-document-checklist-adult-children — "The Medicaid Planning Document Checklist for Florida Adult Children"
+[2026-09-25T02:09:47.629Z] OK  medicaid-access-application-diy (167s)
+[2026-09-25T02:09:47.631Z] (9/24) medicaid-when-to-start-three-ages — "When to Start Medicaid Planning in Florida: 55, 65, and 75"
+[2026-09-25T02:10:33.777Z] OK  medicaid-asset-protection-trust-planning-ahead (160s)
+[2026-09-25T02:10:33.779Z] (10/23) medicaid-crisis-planning-90-day-plan — "Florida Medicaid Crisis Planning: The 90-Day Plan"
+[2026-09-25T02:12:15.013Z] OK  medicaid-document-checklist-adult-children (172s)
+[2026-09-25T02:12:15.015Z] (10/24) medicaid-memory-care-and-medicaid — "Memory Care and Florida Medicaid: When the ALF Does Not Take It"
+[2026-09-25T02:12:29.094Z] OK  medicaid-when-to-start-three-ages (161s)
+[2026-09-25T02:12:29.095Z] (10/24) medicaid-nursing-home-costs-by-region-math — "What a Florida Nursing Home Costs by Region, and How Long $500,000 Lasts"
+[2026-09-25T02:13:11.696Z] OK  medicaid-crisis-planning-90-day-plan (158s)
+[2026-09-25T02:13:11.697Z] (11/23) medicaid-caregiver-agreement — "Paying a Family Caregiver Without a Medicaid Penalty in Florida"
+[2026-09-25T02:14:56.018Z] OK  medicaid-memory-care-and-medicaid (161s)
+[2026-09-25T02:14:56.019Z] (11/24) medicaid-inheritance-while-on-medicaid — "Inheriting Money While on Florida Medicaid: The 10-Day Rule"
+[2026-09-25T02:15:07.896Z] OK  medicaid-nursing-home-costs-by-region-math (159s)
+[2026-09-25T02:15:07.897Z] (11/24) medicaid-ltc-insurance-vs-medicaid-planning — "Long-Term Care Insurance vs Medicaid Planning in Florida"
+[2026-09-25T02:15:51.589Z] OK  medicaid-caregiver-agreement (160s)
+[2026-09-25T02:15:51.591Z] (12/23) medicaid-medicaid-compliant-annuity — "Medicaid-Compliant Annuities in Florida, Explained"
+[2026-09-25T02:17:21.941Z] OK  medicaid-inheritance-while-on-medicaid (146s)
+[2026-09-25T02:17:21.942Z] (12/24) medicaid-pi-settlement-on-medicaid — "A Personal Injury Settlement While on Medicaid: The Special Needs Trust Route"
+[2026-09-25T02:18:10.909Z] OK  medicaid-ltc-insurance-vs-medicaid-planning (183s)
+[2026-09-25T02:18:10.910Z] (12/24) medicaid-reverse-mortgage-medicaid — "Reverse Mortgages and Florida Medicaid: The Proceeds Trap"
+[2026-09-25T02:18:37.989Z] OK  medicaid-medicaid-compliant-annuity (166s)
+[2026-09-25T02:18:37.992Z] (13/23) medicaid-iras-401ks-florida-medicaid — "IRAs and 401(k)s in Florida Medicaid Eligibility"
+[2026-09-25T02:19:57.714Z] OK  medicaid-pi-settlement-on-medicaid (156s)
+[2026-09-25T02:19:57.715Z] (13/24) medicaid-selling-house-after-medicaid-approval — "Selling Mom's House After She Is on Medicaid"
+[2026-09-25T02:20:37.388Z] OK  medicaid-reverse-mortgage-medicaid (146s)
+[2026-09-25T02:20:37.389Z] (13/24) medicaid-annual-gift-exclusion-myth — "The $19,000 Gift Myth: Why Annual Exclusion Gifts Still Count for Medicaid"
+[2026-09-25T02:21:20.580Z] OK  medicaid-iras-401ks-florida-medicaid (163s)
+[2026-09-25T02:21:20.582Z] (14/23) medicaid-joint-accounts-adult-children — "Joint Bank Accounts With Adult Children and Florida Medicaid"
+[2026-09-25T02:22:49.161Z] OK  medicaid-selling-house-after-medicaid-approval (171s)
+[2026-09-25T02:22:49.162Z] (14/24) medicaid-annual-redetermination — "Florida Medicaid Redetermination: Staying Eligible Year After Year"
+[2026-09-25T02:23:21.012Z] OK  medicaid-annual-gift-exclusion-myth (164s)
+[2026-09-25T02:23:21.013Z] (14/24) medicaid-adding-child-to-deed-mistake — "Adding a Child to the Deed: A Florida Medicaid Case Study"
+[2026-09-25T02:24:15.823Z] OK  medicaid-joint-accounts-adult-children (175s)
+[2026-09-25T02:24:15.824Z] (15/23) medicaid-selling-house-before-applying — "Selling the House Before a Florida Medicaid Application"
+[2026-09-25T02:25:41.962Z] OK  medicaid-annual-redetermination (173s)
+[2026-09-25T02:25:41.964Z] (15/24) medicaid-rehab-ending-30-day-notice — "Rehab Is Ending: The Florida Nursing Home Discharge Notice and the Medicaid Transition"
+[2026-09-25T02:25:58.817Z] OK  medicaid-adding-child-to-deed-mistake (158s)
+[2026-09-25T02:25:58.818Z] (15/24) medicaid-revocable-trust-no-protection — "Why a Revocable Living Trust Does Not Protect Assets From Medicaid"
+[2026-09-25T02:26:52.392Z] OK  medicaid-selling-house-before-applying (157s)
+[2026-09-25T02:26:52.394Z] (16/23) medicaid-assisted-living-does-medicaid-pay — "Does Florida Medicaid Pay for Assisted Living?"
+[2026-09-25T02:28:27.388Z] OK  medicaid-rehab-ending-30-day-notice (165s)
+[2026-09-25T02:28:27.390Z] (16/24) medicaid-middle-class-gap — ""My Parent Has Too Much for Medicaid": The Florida Middle-Class Gap"
+[2026-09-25T02:28:31.533Z] OK  medicaid-revocable-trust-no-protection (153s)
+[2026-09-25T02:28:31.535Z] (16/24) medicaid-disabled-child-exception — "The Disabled Child Exception in Florida Medicaid Transfers"
+[2026-09-25T02:29:27.177Z] OK  medicaid-assisted-living-does-medicaid-pay (155s)
+[2026-09-25T02:29:27.179Z] (17/23) medicaid-home-care-medicaid-waiver — "Staying at Home With Florida Medicaid Long-Term Care"
+[2026-09-25T02:31:10.572Z] OK  medicaid-middle-class-gap (163s)
+[2026-09-25T02:31:10.574Z] (17/24) medicaid-guardianship-vs-poa-for-medicaid — "Guardianship vs Power of Attorney for Florida Medicaid Planning"
+[2026-09-25T02:31:25.381Z] OK  medicaid-disabled-child-exception (174s)
+[2026-09-25T02:31:25.383Z] (17/24) medicaid-pooled-trust-over-65 — "Pooled Special Needs Trusts for Florida Medicaid Applicants Over 65"
+[2026-09-25T02:32:13.764Z] OK  medicaid-home-care-medicaid-waiver (167s)
+[2026-09-25T02:32:13.766Z] (18/23) medicaid-ltc-waitlist-priority-score — "The Florida Medicaid Long-Term Care Waitlist and Priority Score"
+[2026-09-25T02:33:54.949Z] OK  medicaid-guardianship-vs-poa-for-medicaid (164s)
+[2026-09-25T02:33:54.950Z] (18/24) medicaid-timeline-from-first-call-to-approval — "From First Call to Approval: A Florida Medicaid Planning Timeline"
+[2026-09-25T02:34:03.840Z] OK  medicaid-pooled-trust-over-65 (158s)
+[2026-09-25T02:34:03.842Z] (18/24) medicaid-high-value-homestead-equity-cap — "High-Value Florida Homes and the Medicaid Home Equity Limit"
+[2026-09-25T02:34:47.889Z] OK  medicaid-ltc-waitlist-priority-score (154s)
+[2026-09-25T02:34:47.891Z] (19/23) medicaid-dementia-no-power-of-attorney — "Medicaid Planning When a Parent Has Dementia and No Power of Attorney"
+[2026-09-25T02:36:30.606Z] OK  medicaid-timeline-from-first-call-to-approval (156s)
+[2026-09-25T02:36:30.607Z] (19/24) medicaid-medicaid-and-the-surviving-spouse — "When the Medicaid Spouse Dies First: What the Florida Surviving Spouse Keeps"
+[2026-09-25T02:36:36.610Z] OK  medicaid-high-value-homestead-equity-cap (153s)
+[2026-09-25T02:36:36.611Z] (19/24) medicaid-patient-responsibility-social-security — "What Happens to the Social Security Check After Florida Medicaid Approval"
+[2026-09-25T02:37:40.163Z] OK  medicaid-dementia-no-power-of-attorney (172s)
+[2026-09-25T02:37:40.165Z] (20/23) medicaid-power-of-attorney-medicaid-powers — "The Power of Attorney a Florida Medicaid Plan Actually Needs"
+[2026-09-25T02:39:24.307Z] OK  medicaid-patient-responsibility-social-security (168s)
+[2026-09-25T02:39:24.309Z] (20/24) medicaid-personal-needs-allowance — "The Personal Needs Allowance: What a Florida Medicaid Resident Keeps"
+[2026-09-25T02:39:27.746Z] OK  medicaid-medicaid-and-the-surviving-spouse (177s)
+[2026-09-25T02:39:27.747Z] (20/24) medicaid-condo-and-hoa-medicaid — "Condos, HOA Fees, and Florida Medicaid"
+[2026-09-25T02:40:29.611Z] OK  medicaid-power-of-attorney-medicaid-powers (169s)
+[2026-09-25T02:40:29.613Z] (21/23) medicaid-veterans-aid-attendance-vs-medicaid — "Veterans Aid and Attendance vs Medicaid for a Florida Widow"
+[2026-09-25T02:42:02.642Z] OK  medicaid-condo-and-hoa-medicaid (155s)
+[2026-09-25T02:42:02.643Z] (21/24) medicaid-snowbird-two-homes — "Two Homes, One Medicaid Application: Florida Snowbirds and Residency"
+[2026-09-25T02:42:05.153Z] OK  medicaid-personal-needs-allowance (161s)
+[2026-09-25T02:42:05.155Z] (21/24) medicaid-discharge-planner-72-hours — "The Discharge Planner Said "Apply for Medicaid": The Next 72 Hours"
+[2026-09-25T02:42:57.397Z] OK  medicaid-veterans-aid-attendance-vs-medicaid (148s)
+[2026-09-25T02:42:57.398Z] (22/23) medicaid-moving-to-florida-late-in-life — "Moving to Florida Late in Life and Medicaid Planning"
+[2026-09-25T02:44:37.378Z] OK  medicaid-snowbird-two-homes (155s)
+[2026-09-25T02:44:37.380Z] (22/24) medicaid-medicaid-for-younger-disabled-adult — "Florida Medicaid Long-Term Care for a Younger Adult With a Disability"
+[2026-09-25T02:44:59.142Z] OK  medicaid-discharge-planner-72-hours (174s)
+[2026-09-25T02:44:59.144Z] (22/24) medicaid-adult-children-paying-family-loan — "Adult Children Paying for a Parent's Care: The Family Loan Trap"
+[2026-09-25T02:45:42.418Z] OK  medicaid-moving-to-florida-late-in-life (165s)
+[2026-09-25T02:45:42.422Z] (23/23) medicaid-married-but-separated — "Married but Separated: How Florida Medicaid Counts a Spouse"
+[2026-09-25T02:47:07.675Z] OK  medicaid-medicaid-for-younger-disabled-adult (150s)
+[2026-09-25T02:47:07.678Z] (23/24) medicaid-medicaid-and-the-family-meeting — "The Family Meeting Before Medicaid Planning: What to Decide Together"
+[2026-09-25T02:47:26.359Z] OK  medicaid-adult-children-paying-family-loan (147s)
+[2026-09-25T02:47:26.361Z] (23/24) medicaid-single-no-children — "Medicaid Planning for a Single Floridian With No Children"
+[2026-09-25T02:48:22.728Z] OK  medicaid-married-but-separated (160s)
+[2026-09-25T02:48:22.729Z] Batch done: 23/23 succeeded.
+[2026-09-25T02:49:49.500Z] OK  medicaid-medicaid-and-the-family-meeting (162s)
+[2026-09-25T02:49:49.501Z] (24/24) medicaid-medicaid-planning-and-taxes — "Taxes in Florida Medicaid Planning: Basis, Gifts, and Trusts"
+[2026-09-25T02:50:08.531Z] OK  medicaid-single-no-children (162s)
+[2026-09-25T02:50:08.532Z] (24/24) medicaid-unmarried-partners — "Unmarried Partners and Florida Medicaid: No Spousal Protections"
+[2026-09-25T02:52:32.104Z] OK  medicaid-medicaid-planning-and-taxes (163s)
+[2026-09-25T02:52:32.109Z] Batch done: 24/24 succeeded.
+[2026-09-25T02:52:43.471Z] OK  medicaid-unmarried-partners (155s)
+[2026-09-25T02:52:43.477Z] Batch done: 24/24 succeeded.
+[2026-09-25T12:08:40.188Z] Batch start: 1 topic(s) from ladybird-topics.js
+[2026-09-25T12:08:40.193Z] (1/1) lady-bird-deed-vs-quitclaim-to-children — "Lady Bird Deed vs Quitclaiming the House to Your Children"
+[2026-09-25T12:12:47.272Z] OK  lady-bird-deed-vs-quitclaim-to-children (247s)
+[2026-09-25T12:12:47.274Z] Batch done: 1/1 succeeded.
+[2026-09-25T12:13:14.506Z] Batch start: 13 topic(s) from ladybird-topics.js
+[2026-09-25T12:13:14.506Z] Batch start: 14 topic(s) from ladybird-topics.js
+[2026-09-25T12:13:14.506Z] Batch start: 14 topic(s) from ladybird-topics.js
+[2026-09-25T12:13:14.510Z] (1/13) lady-bird-deed-vs-living-trust-one-house — "Lady Bird Deed vs Living Trust for One Florida House"
+[2026-09-25T12:13:14.510Z] (1/14) lady-bird-deed-what-it-costs-in-florida — "What a Lady Bird Deed Costs in Florida (and What You Get for It)"
+[2026-09-25T12:13:14.510Z] (1/14) lady-bird-deed-capital-gains-step-up-basis — "Lady Bird Deeds and Capital Gains: Why the Beneficiary Gets a Stepped-Up Basis"
+[2026-09-25T12:17:32.673Z] OK  lady-bird-deed-what-it-costs-in-florida (258s)
+[2026-09-25T12:17:32.675Z] (2/14) lady-bird-deed-do-you-need-an-attorney — "Do You Need an Attorney for a Florida Lady Bird Deed?"
+[2026-09-25T12:17:32.770Z] OK  lady-bird-deed-capital-gains-step-up-basis (258s)
+[2026-09-25T12:17:32.771Z] (2/14) lady-bird-deed-documentary-stamp-taxes — "Documentary Stamp Taxes on a Florida Lady Bird Deed"
+[2026-09-25T12:17:37.947Z] OK  lady-bird-deed-vs-living-trust-one-house (263s)
+[2026-09-25T12:17:37.950Z] (2/13) lady-bird-deed-vs-regular-life-estate-deed — "Lady Bird Deed vs a Regular Life Estate Deed in Florida"
+[2026-09-25T12:20:07.873Z] OK  lady-bird-deed-documentary-stamp-taxes (155s)
+[2026-09-25T12:20:07.875Z] (3/14) lady-bird-deed-condo-association-approval — "Lady Bird Deeds for a Florida Condo: Association Approval and the Rest"
+[2026-09-25T12:20:15.514Z] OK  lady-bird-deed-do-you-need-an-attorney (163s)
+[2026-09-25T12:20:15.515Z] (3/14) lady-bird-deed-snowbirds-out-of-state-property — "Lady Bird Deeds for Snowbirds: Florida Property and the House Up North"
+[2026-09-25T12:20:16.151Z] OK  lady-bird-deed-vs-regular-life-estate-deed (158s)
+[2026-09-25T12:20:16.151Z] (3/13) lady-bird-deed-florida-has-no-transfer-on-death-deed — "Florida Has No Transfer-on-Death Deed. The Lady Bird Deed Is the Alternative"
+[2026-09-25T12:22:50.927Z] OK  lady-bird-deed-condo-association-approval (163s)
+[2026-09-25T12:22:50.933Z] (4/14) lady-bird-deed-rental-and-non-homestead-property — "Lady Bird Deeds for Rental and Non-Homestead Property in Florida"
+[2026-09-25T12:22:53.674Z] OK  lady-bird-deed-florida-has-no-transfer-on-death-deed (158s)
+[2026-09-25T12:22:53.682Z] (4/13) lady-bird-deed-vs-joint-ownership-with-child — "Lady Bird Deed vs Adding a Child as Joint Owner in Florida"
+[2026-09-25T12:23:10.844Z] OK  lady-bird-deed-snowbirds-out-of-state-property (175s)
+[2026-09-25T12:23:10.847Z] (4/14) lady-bird-deed-property-tax-and-save-our-homes — "Lady Bird Deeds and Florida Property Taxes: Save Our Homes Stays Put"
+[2026-09-25T12:25:27.271Z] OK  lady-bird-deed-rental-and-non-homestead-property (156s)
+[2026-09-25T12:25:27.273Z] (5/14) lady-bird-deed-mobile-home-and-land — "Lady Bird Deeds for a Florida Mobile Home and the Land Under It"
+[2026-09-25T12:25:40.377Z] OK  lady-bird-deed-property-tax-and-save-our-homes (150s)
+[2026-09-25T12:25:40.379Z] (5/14) lady-bird-deed-lady-bird-will-and-trust-confusion — ""Lady Bird Will" and "Lady Bird Trust": What People Mean and What Florida Actually Has"
+[2026-09-25T12:25:41.386Z] OK  lady-bird-deed-vs-joint-ownership-with-child (168s)
+[2026-09-25T12:25:41.388Z] (5/13) lady-bird-deed-homestead-and-spouse-joinder — "Lady Bird Deeds and Florida Homestead: The Spouse Must Sign"
+[2026-09-25T12:27:36.872Z] OK  lady-bird-deed-mobile-home-and-land (130s)
+[2026-09-25T12:27:36.877Z] (6/14) lady-bird-deed-beneficiary-with-creditors-or-divorce — "Naming a Beneficiary With Debts or a Shaky Marriage on a Florida Lady Bird Deed"
+[2026-09-25T12:28:13.455Z] OK  lady-bird-deed-lady-bird-will-and-trust-confusion (153s)
+[2026-09-25T12:28:13.456Z] (6/14) lady-bird-deed-miami-dade-and-broward — "Lady Bird Deeds in Miami-Dade and Broward: Recording, Condos, and Local Wrinkles"
+[2026-09-25T12:28:20.209Z] OK  lady-bird-deed-homestead-and-spouse-joinder (159s)
+[2026-09-25T12:28:20.210Z] (6/13) lady-bird-deed-medicaid-estate-recovery — "How a Lady Bird Deed Keeps the House Out of Florida Medicaid Estate Recovery"
+[2026-09-25T12:30:14.501Z] OK  lady-bird-deed-beneficiary-with-creditors-or-divorce (158s)
+[2026-09-25T12:30:14.503Z] (7/14) lady-bird-deed-beneficiary-on-ssi-or-medicaid — "When the Lady Bird Deed Beneficiary Is on SSI or Medicaid"
+[2026-09-25T12:30:55.936Z] OK  lady-bird-deed-miami-dade-and-broward (162s)
+[2026-09-25T12:30:55.939Z] (7/14) lady-bird-deed-central-florida-orange-seminole — "Lady Bird Deeds in Orange and Seminole Counties: Pine Hills to Lake Mary"
+[2026-09-25T12:31:12.217Z] OK  lady-bird-deed-medicaid-estate-recovery (172s)
+[2026-09-25T12:31:12.219Z] (7/13) lady-bird-deed-medicaid-lookback-not-a-transfer — "Why a Lady Bird Deed Does Not Trigger the Medicaid Five-Year Lookback"
+[2026-09-25T12:33:03.971Z] OK  lady-bird-deed-beneficiary-on-ssi-or-medicaid (169s)
+[2026-09-25T12:33:03.973Z] (8/14) lady-bird-deed-minor-beneficiaries — "Naming Grandchildren or Other Minors on a Florida Lady Bird Deed"
+[2026-09-25T12:33:23.056Z] OK  lady-bird-deed-central-florida-orange-seminole (147s)
+[2026-09-25T12:33:23.057Z] (8/14) lady-bird-deed-is-there-a-florida-statute — "Is There a Florida Lady Bird Deed Statute? What the Deed Actually Rests On"
+[2026-09-25T12:33:54.022Z] OK  lady-bird-deed-medicaid-lookback-not-a-transfer (162s)
+[2026-09-25T12:33:54.023Z] (8/13) lady-bird-deed-beneficiary-dies-first — "What Happens to a Florida Lady Bird Deed When the Beneficiary Dies First"
+[2026-09-25T12:35:43.976Z] OK  lady-bird-deed-minor-beneficiaries (160s)
+[2026-09-25T12:35:43.978Z] (9/14) lady-bird-deed-naming-a-trust-as-beneficiary — "Naming a Trust as the Beneficiary of a Florida Lady Bird Deed"
+[2026-09-25T12:36:08.215Z] OK  lady-bird-deed-is-there-a-florida-statute (165s)
+[2026-09-25T12:36:08.216Z] (9/14) lady-bird-deed-what-still-goes-through-probate — "The House Skips Probate. What Still Goes Through It?"
+[2026-09-25T12:36:29.875Z] OK  lady-bird-deed-beneficiary-dies-first (156s)
+[2026-09-25T12:36:29.876Z] (9/13) lady-bird-deed-multiple-children-one-wants-to-sell — "A Lady Bird Deed to Three Children: What Happens When One Wants to Sell"
+[2026-09-25T12:38:24.499Z] OK  lady-bird-deed-naming-a-trust-as-beneficiary (161s)
+[2026-09-25T12:38:24.500Z] (10/14) lady-bird-deed-revoking-or-changing — "How to Revoke or Change a Florida Lady Bird Deed"
+[2026-09-25T12:38:59.750Z] OK  lady-bird-deed-what-still-goes-through-probate (172s)
+[2026-09-25T12:38:59.753Z] (10/14) lady-bird-deed-keeping-the-house-during-nursing-home — "Keeping the House While in a Nursing Home: The Lady Bird Deed's Role"
+[2026-09-25T12:39:21.073Z] OK  lady-bird-deed-multiple-children-one-wants-to-sell (171s)
+[2026-09-25T12:39:21.074Z] (10/13) lady-bird-deed-married-couple-both-life-tenants — "A Lady Bird Deed for a Married Couple in Florida"
+[2026-09-25T12:41:01.234Z] OK  lady-bird-deed-revoking-or-changing (157s)
+[2026-09-25T12:41:01.235Z] (11/14) lady-bird-deed-selling-the-house-after-signing — "Selling Your Florida Home After Signing a Lady Bird Deed"
+[2026-09-25T12:41:34.131Z] OK  lady-bird-deed-keeping-the-house-during-nursing-home (154s)
+[2026-09-25T12:41:34.133Z] (11/14) lady-bird-deed-single-no-children — "A Lady Bird Deed for a Single Floridian With No Children"
+[2026-09-25T12:42:22.722Z] OK  lady-bird-deed-married-couple-both-life-tenants (182s)
+[2026-09-25T12:42:22.727Z] (11/13) lady-bird-deed-mortgage-due-on-sale — "Lady Bird Deeds and the Mortgage: Due-on-Sale, Refinancing, and Reverse Mortgages"
+[2026-09-25T12:43:29.159Z] OK  lady-bird-deed-selling-the-house-after-signing (148s)
+[2026-09-25T12:43:29.164Z] (12/14) lady-bird-deed-second-marriage-and-elective-share — "Lady Bird Deeds in a Second Marriage: Homestead Rights and the Elective Share"
+[2026-09-25T12:44:20.487Z] OK  lady-bird-deed-single-no-children (166s)
+[2026-09-25T12:44:20.493Z] (12/14) lady-bird-deed-caretaker-child-unequal-shares — "The Child Who Stayed: Unequal Shares on a Florida Lady Bird Deed"
+[2026-09-25T12:45:15.898Z] OK  lady-bird-deed-mortgage-due-on-sale (173s)
+[2026-09-25T12:45:15.900Z] (12/13) lady-bird-deed-title-insurance-and-underwriters — "Lady Bird Deeds and Title Insurance in Florida"
+[2026-09-25T12:46:19.193Z] OK  lady-bird-deed-second-marriage-and-elective-share (170s)
+[2026-09-25T12:46:19.195Z] (13/14) lady-bird-deed-execution-requirements — "Signing a Florida Lady Bird Deed Correctly: Witnesses, Notary, Legal Description, Recording"
+[2026-09-25T12:47:09.930Z] OK  lady-bird-deed-caretaker-child-unequal-shares (169s)
+[2026-09-25T12:47:09.933Z] (13/14) lady-bird-deed-when-it-is-the-wrong-tool — "When a Lady Bird Deed Is the Wrong Tool in Florida"
+[2026-09-25T12:47:53.193Z] OK  lady-bird-deed-title-insurance-and-underwriters (157s)
+[2026-09-25T12:47:53.195Z] (13/13) lady-bird-deed-after-death-steps — "After the Owner Dies: What a Lady Bird Deed Beneficiary Does Next in Florida"
+[2026-09-25T12:49:01.667Z] OK  lady-bird-deed-execution-requirements (162s)
+[2026-09-25T12:49:01.668Z] (14/14) lady-bird-deed-online-form-mistakes-case-study — "The Online Lady Bird Deed That Failed: A Florida Case Study"
+[2026-09-25T12:50:05.395Z] OK  lady-bird-deed-when-it-is-the-wrong-tool (175s)
+[2026-09-25T12:50:05.396Z] (14/14) lady-bird-deed-medicaid-and-the-deed-before-crisis — "Signing the Lady Bird Deed Before a Crisis: The Cheapest Piece of Florida Elder Law"
+[2026-09-25T12:50:41.753Z] OK  lady-bird-deed-after-death-steps (169s)
+[2026-09-25T12:50:41.757Z] Batch done: 13/13 succeeded.
+[2026-09-25T12:52:08.106Z] OK  lady-bird-deed-online-form-mistakes-case-study (186s)
+[2026-09-25T12:52:08.110Z] Batch done: 14/14 succeeded.
+[2026-09-25T12:52:41.757Z] OK  lady-bird-deed-medicaid-and-the-deed-before-crisis (156s)
+[2026-09-25T12:52:41.759Z] Batch done: 14/14 succeeded.
+[2026-09-25T13:11:14.200Z] Batch start: 1 topic(s) from irrevocable-trust-topics.js
+[2026-09-25T13:11:14.200Z] Batch start: 1 topic(s) from guardianship-topics.js
+[2026-09-25T13:11:14.207Z] (1/1) guardianship-how-florida-courts-decide-incapacity — "How Florida Courts Decide Guardianship: The Incapacity Case Step by Step"
+[2026-09-25T13:11:14.207Z] (1/1) irrevocable-trust-what-irrevocable-really-means — "What "Irrevocable" Really Means in Florida: The Five Ways an Irrevocable Trust Can Still Change"
+[2026-09-25T13:13:51.674Z] OK  guardianship-how-florida-courts-decide-incapacity (157s)
+[2026-09-25T13:13:51.676Z] Batch done: 1/1 succeeded.
+[2026-09-25T13:14:01.721Z] OK  irrevocable-trust-what-irrevocable-really-means (168s)
+[2026-09-25T13:14:01.725Z] Batch done: 1/1 succeeded.
+[2026-09-25T13:14:34.359Z] Batch start: 17 topic(s) from guardianship-topics.js
+[2026-09-25T13:14:34.359Z] Batch start: 16 topic(s) from irrevocable-trust-topics.js
+[2026-09-25T13:14:34.358Z] Batch start: 16 topic(s) from irrevocable-trust-topics.js
+[2026-09-25T13:14:34.358Z] Batch start: 17 topic(s) from guardianship-topics.js
+[2026-09-25T13:14:34.363Z] (1/16) irrevocable-trust-inheritance-trust-for-adult-children — "The Inheritance Trust: Leaving Money to Adult Children in Trust Instead of Outright"
+[2026-09-25T13:14:34.363Z] (1/17) guardianship-blended-families-who-serves — "Guardianship in Florida Blended Families: Spouse or Adult Children?"
+[2026-09-25T13:14:34.363Z] (1/16) irrevocable-trust-revocable-vs-irrevocable-which-one — "Revocable vs Irrevocable Trust in Florida: Which One Do You Actually Need?"
+[2026-09-25T13:14:34.363Z] (1/17) guardianship-minors-money-settlements-inheritances — "When a Florida Minor Receives Money: Guardianship of a Child's Property"
+[2026-09-25T13:16:48.900Z] OK  irrevocable-trust-inheritance-trust-for-adult-children (135s)
+[2026-09-25T13:16:48.902Z] (2/16) irrevocable-trust-dynasty-trusts-1000-years — "Dynasty Trusts in Florida: The Thousand-Year Rule Against Perpetuities"
+[2026-09-25T13:17:11.941Z] OK  guardianship-blended-families-who-serves (158s)
+[2026-09-25T13:17:11.943Z] (2/17) guardianship-pre-need-guardian-designation — "The Florida Pre-Need Guardian Designation: Choosing Your Own Guardian in Advance"
+[2026-09-25T13:17:21.629Z] OK  irrevocable-trust-revocable-vs-irrevocable-which-one (167s)
+[2026-09-25T13:17:21.631Z] (2/16) irrevocable-trust-irrevocable-living-trust-vs-will — "Irrevocable Living Trust vs Will in Florida"
+[2026-09-25T13:17:25.936Z] OK  guardianship-minors-money-settlements-inheritances (172s)
+[2026-09-25T13:17:25.938Z] (2/17) guardianship-out-of-state-guardian-serving-in-florida — "Can an Out-of-State Relative Be a Guardian in Florida?"
+[2026-09-25T13:19:29.715Z] OK  irrevocable-trust-dynasty-trusts-1000-years (161s)
+[2026-09-25T13:19:29.717Z] (3/16) irrevocable-trust-charitable-remainder-trust — "The Charitable Remainder Trust for a Florida Retiree With Appreciated Assets"
+[2026-09-25T13:19:46.030Z] OK  guardianship-pre-need-guardian-designation (154s)
+[2026-09-25T13:19:46.031Z] (3/17) guardianship-alternatives-least-restrictive — "Alternatives to Guardianship in Florida: What the Court Must Consider First"
+[2026-09-25T13:19:52.774Z] OK  irrevocable-trust-irrevocable-living-trust-vs-will (151s)
+[2026-09-25T13:19:52.775Z] (3/16) irrevocable-trust-execution-requirements — "Florida Irrevocable Trust Execution Requirements: How It Must Be Signed"
+[2026-09-25T13:20:07.255Z] OK  guardianship-out-of-state-guardian-serving-in-florida (161s)
+[2026-09-25T13:20:07.257Z] (3/17) guardianship-transferring-a-guardianship-to-florida — "Transferring a Guardianship to Florida From Another State"
+[2026-09-25T13:21:16.375Z] OK  guardianship-transferring-a-guardianship-to-florida (69s)
+[2026-09-25T13:21:16.376Z] (4/17) guardianship-wards-homestead-and-creditors — "The Ward's Homestead in a Florida Guardianship"
+[2026-09-25T13:22:11.730Z] OK  irrevocable-trust-charitable-remainder-trust (162s)
+[2026-09-25T13:22:11.731Z] (4/16) irrevocable-trust-care-needed-in-year-three — "Care Needed Before the Five Years Are Up: What Happens to a Florida Medicaid Trust"
+[2026-09-25T13:22:28.233Z] OK  guardianship-alternatives-least-restrictive (162s)
+[2026-09-25T13:22:28.235Z] (4/17) guardianship-plenary-vs-limited — "Plenary vs Limited Guardianship in Florida"
+[2026-09-25T13:22:31.856Z] OK  irrevocable-trust-execution-requirements (159s)
+[2026-09-25T13:22:31.857Z] (4/16) irrevocable-trust-life-insurance-trust-ilit — "The Irrevocable Life Insurance Trust in Florida"
+[2026-09-25T13:23:52.662Z] OK  guardianship-wards-homestead-and-creditors (156s)
+[2026-09-25T13:23:52.664Z] (5/17) guardianship-dementia-doctors-letter-and-capacity — "The Doctor's Letter: Capacity, Dementia, and When a Florida POA Still Works"
+[2026-09-25T13:25:05.837Z] OK  irrevocable-trust-care-needed-in-year-three (174s)
+[2026-09-25T13:25:05.838Z] (5/16) irrevocable-trust-can-the-grantor-be-a-beneficiary — "Can the Person Who Creates a Florida Irrevocable Trust Also Benefit From It?"
+[2026-09-25T13:25:15.301Z] OK  guardianship-plenary-vs-limited (167s)
+[2026-09-25T13:25:15.303Z] (5/17) guardianship-guardian-of-person-vs-property — "Guardian of the Person vs Guardian of the Property in Florida"
+[2026-09-25T13:25:29.020Z] OK  irrevocable-trust-life-insurance-trust-ilit (177s)
+[2026-09-25T13:25:29.021Z] (5/16) irrevocable-trust-medicaid-trust-trustee-and-income — "Choosing the Trustee and the Income Rules for a Florida Medicaid Asset Protection Trust"
+[2026-09-25T13:26:49.186Z] OK  guardianship-dementia-doctors-letter-and-capacity (177s)
+[2026-09-25T13:26:49.187Z] (6/17) guardianship-rights-a-ward-loses — "What Rights a Person Loses in a Florida Guardianship, and What They Keep"
+[2026-09-25T13:27:48.018Z] OK  irrevocable-trust-can-the-grantor-be-a-beneficiary (162s)
+[2026-09-25T13:27:48.020Z] (6/16) irrevocable-trust-beneficiary-sell-or-borrow-against-interest — "Can a Beneficiary Sell or Borrow Against a Florida Trust Interest?"
+[2026-09-25T13:27:48.115Z] OK  guardianship-guardian-of-person-vs-property (153s)
+[2026-09-25T13:27:48.116Z] (6/17) guardianship-guardian-advocacy-disabled-adult-child — "Guardian Advocacy in Florida: When a Child With a Developmental Disability Turns 18"
+[2026-09-25T13:28:24.330Z] OK  irrevocable-trust-medicaid-trust-trustee-and-income (175s)
+[2026-09-25T13:28:24.331Z] (6/16) irrevocable-trust-no-domestic-asset-protection-trust-in-florida — "Florida Has No Domestic Asset Protection Trust: What That Means for Self-Settled Trusts"
+[2026-09-25T13:29:27.587Z] OK  guardianship-rights-a-ward-loses (158s)
+[2026-09-25T13:29:27.589Z] (7/17) guardianship-mental-illness-addiction-baker-act — "Guardianship, the Baker Act, and the Marchman Act: Which One Fits a Florida Adult in Crisis"
+[2026-09-25T13:30:16.929Z] OK  guardianship-guardian-advocacy-disabled-adult-child (149s)
+[2026-09-25T13:30:16.931Z] (7/17) guardianship-emergency-temporary-guardianship — "Emergency Temporary Guardianship in Florida: When It Cannot Wait"
+[2026-09-25T13:30:21.670Z] OK  irrevocable-trust-beneficiary-sell-or-borrow-against-interest (154s)
+[2026-09-25T13:30:21.671Z] (7/16) irrevocable-trust-terminating-an-irrevocable-trust — "Terminating an Irrevocable Trust in Florida"
+[2026-09-25T13:30:37.267Z] OK  guardianship-mental-illness-addiction-baker-act (70s)
+[2026-09-25T13:30:37.268Z] (8/17) guardianship-grandparents-raising-grandchildren — "Grandparents Raising Grandchildren in Florida: Guardianship or Temporary Custody?"
+[2026-09-25T13:31:11.299Z] OK  irrevocable-trust-no-domestic-asset-protection-trust-in-florida (167s)
+[2026-09-25T13:31:11.301Z] (7/16) irrevocable-trust-third-party-special-needs-trust — "The Third-Party Special Needs Trust in Florida: An Irrevocable Trust for a Child on Benefits"
+[2026-09-25T13:33:00.699Z] OK  irrevocable-trust-terminating-an-irrevocable-trust (159s)
+[2026-09-25T13:33:00.701Z] (8/16) irrevocable-trust-trustee-duties-notices-accountings — "What the Trustee of a Florida Irrevocable Trust Owes the Beneficiaries"
+[2026-09-25T13:33:10.227Z] OK  guardianship-emergency-temporary-guardianship (173s)
+[2026-09-25T13:33:10.228Z] (8/17) guardianship-what-guardianship-costs — "What a Florida Guardianship Costs and Who Pays"
+[2026-09-25T13:33:13.503Z] OK  guardianship-grandparents-raising-grandchildren (156s)
+[2026-09-25T13:33:13.505Z] (9/17) guardianship-fighting-a-guardianship-petition — "How to Fight a Guardianship Petition in Florida"
+[2026-09-25T13:34:02.200Z] OK  irrevocable-trust-third-party-special-needs-trust (171s)
+[2026-09-25T13:34:02.202Z] (8/16) irrevocable-trust-spendthrift-protection-for-beneficiaries — "Spendthrift Trusts in Florida: Protecting an Inheritance From a Beneficiary's Creditors"
+[2026-09-25T13:35:40.754Z] OK  guardianship-fighting-a-guardianship-petition (147s)
+[2026-09-25T13:35:40.755Z] (10/17) guardianship-timeline-petition-to-letters — "How Long a Florida Guardianship Takes, From Petition to Letters"
+[2026-09-25T13:35:43.098Z] OK  irrevocable-trust-trustee-duties-notices-accountings (162s)
+[2026-09-25T13:35:43.099Z] (9/16) irrevocable-trust-land-trust-vs-irrevocable-trust — "Florida Land Trust vs Irrevocable Trust: Privacy Is Not Protection"
+[2026-09-25T13:36:04.847Z] OK  guardianship-what-guardianship-costs (175s)
+[2026-09-25T13:36:04.848Z] (9/17) guardianship-guardian-duties-first-year — "The Guardian's First Year in Florida: Plan, Inventory, and Accountings"
+[2026-09-25T13:36:47.555Z] OK  irrevocable-trust-spendthrift-protection-for-beneficiaries (165s)
+[2026-09-25T13:36:47.556Z] (9/16) irrevocable-trust-income-taxes-grantor-vs-nongrantor — "How an Irrevocable Trust Is Taxed: Grantor vs Non-Grantor Trusts for Florida Families"
+[2026-09-25T13:38:28.695Z] OK  guardianship-timeline-petition-to-letters (168s)
+[2026-09-25T13:38:28.696Z] (11/17) guardianship-bond-credit-check-training — "Bond, Background Checks, and Training: What a Florida Guardian Must Clear"
+[2026-09-25T13:38:38.320Z] OK  irrevocable-trust-land-trust-vs-irrevocable-trust (175s)
+[2026-09-25T13:38:38.322Z] (10/16) irrevocable-trust-business-owner-succession — "Irrevocable Trusts for a Florida Business Owner: Succession Without a Fire Sale"
+[2026-09-25T13:38:43.213Z] OK  guardianship-guardian-duties-first-year (158s)
+[2026-09-25T13:38:43.214Z] (10/17) guardianship-selling-the-wards-home — "Selling an Incapacitated Person's Home in Florida Guardianship"
+[2026-09-25T13:39:25.241Z] OK  irrevocable-trust-income-taxes-grantor-vs-nongrantor (158s)
+[2026-09-25T13:39:25.242Z] (10/16) irrevocable-trust-step-up-in-basis-and-irrevocable-trusts — "Do Assets in an Irrevocable Trust Get a Step-Up in Basis? The Florida Family Question"
+[2026-09-25T13:41:16.421Z] OK  guardianship-selling-the-wards-home (153s)
+[2026-09-25T13:41:16.422Z] (11/17) guardianship-medicaid-planning-through-guardianship — "Medicaid Planning Through a Florida Guardianship: Getting the Court's Permission"
+[2026-09-25T13:41:32.939Z] OK  irrevocable-trust-business-owner-succession (175s)
+[2026-09-25T13:41:32.941Z] (11/16) irrevocable-trust-funding-what-goes-in-and-what-stays-out — "Funding a Florida Irrevocable Trust: What Goes In and What Should Stay Out"
+[2026-09-25T13:42:12.911Z] OK  irrevocable-trust-step-up-in-basis-and-irrevocable-trusts (168s)
+[2026-09-25T13:42:12.913Z] (11/16) irrevocable-trust-gifting-to-the-trust-gift-tax-returns — "Gifting to an Irrevocable Trust: Gift Tax Returns and the Lifetime Exemption"
+[2026-09-25T13:42:31.585Z] OK  guardianship-bond-credit-check-training (243s)
+[2026-09-25T13:42:31.587Z] (12/17) guardianship-family-disagrees-about-placement — "When the Family Disagrees About Where Mom Should Live: The Guardian's Authority"
+[2026-09-25T13:44:05.339Z] OK  guardianship-medicaid-planning-through-guardianship (169s)
+[2026-09-25T13:44:05.341Z] (12/17) guardianship-contested-guardianship-siblings — "Contested Guardianship in Florida: When Siblings Fight Over a Parent"
+[2026-09-25T13:44:24.039Z] OK  irrevocable-trust-funding-what-goes-in-and-what-stays-out (171s)
+[2026-09-25T13:44:24.041Z] (12/16) irrevocable-trust-moving-a-trust-to-florida — "Moving an Irrevocable Trust to Florida: Changing Situs and Governing Law"
+[2026-09-25T13:44:43.466Z] OK  irrevocable-trust-gifting-to-the-trust-gift-tax-returns (151s)
+[2026-09-25T13:44:43.467Z] (12/16) irrevocable-trust-homestead-in-an-irrevocable-trust — "Putting a Florida Homestead in an Irrevocable Trust: Exemption, Protection, and Pitfalls"
+[2026-09-25T13:45:11.907Z] OK  guardianship-family-disagrees-about-placement (160s)
+[2026-09-25T13:45:11.918Z] (13/17) guardianship-guardian-ad-litem-explained — "Guardian ad Litem vs Guardian: Two Very Different Jobs in Florida"
+[2026-09-25T13:46:53.570Z] OK  guardianship-contested-guardianship-siblings (168s)
+[2026-09-25T13:46:53.571Z] (13/17) guardianship-professional-vs-family-guardians — "Professional Guardians vs Family Guardians in Florida"
+[2026-09-25T13:47:02.784Z] OK  irrevocable-trust-moving-a-trust-to-florida (159s)
+[2026-09-25T13:47:02.786Z] (13/16) irrevocable-trust-divorce-of-the-grantor — "Divorce and the Florida Irrevocable Trust: What Happens to a Trust Created During Marriage"
+[2026-09-25T13:47:23.611Z] OK  irrevocable-trust-homestead-in-an-irrevocable-trust (160s)
+[2026-09-25T13:47:23.614Z] (13/16) irrevocable-trust-choosing-an-independent-trustee — "Choosing the Trustee of a Florida Irrevocable Trust"
+[2026-09-25T13:47:35.695Z] OK  guardianship-guardian-ad-litem-explained (144s)
+[2026-09-25T13:47:35.697Z] (14/17) guardianship-treasure-coast-courts — "Guardianship on Florida's Treasure Coast: Indian River, St. Lucie, and Martin Counties"
+[2026-09-25T13:49:27.303Z] OK  guardianship-professional-vs-family-guardians (154s)
+[2026-09-25T13:49:27.305Z] (14/17) guardianship-abuse-red-flags-and-wards-rights — "Guardianship Abuse in Florida: Red Flags and a Ward's Rights"
+[2026-09-25T13:49:57.157Z] OK  irrevocable-trust-divorce-of-the-grantor (174s)
+[2026-09-25T13:49:57.159Z] (14/16) irrevocable-trust-when-an-irrevocable-trust-is-a-mistake — "When Putting Everything in an Irrevocable Trust Is a Mistake for a Florida Retiree"
+[2026-09-25T13:50:09.002Z] OK  irrevocable-trust-choosing-an-independent-trustee (165s)
+[2026-09-25T13:50:09.004Z] (14/16) irrevocable-trust-decanting-explained — "Decanting a Florida Trust: Pouring an Old Irrevocable Trust Into a Better One"
+[2026-09-25T13:50:12.522Z] OK  guardianship-treasure-coast-courts (157s)
+[2026-09-25T13:50:12.524Z] (15/17) guardianship-south-florida-courts — "Guardianship in Miami-Dade, Broward, and Palm Beach Counties"
+[2026-09-25T13:51:46.283Z] OK  irrevocable-trust-decanting-explained (97s)
+[2026-09-25T13:51:46.285Z] (15/16) irrevocable-trust-trust-protectors — "Trust Protectors in Florida Irrevocable Trusts"
+[2026-09-25T13:52:27.953Z] OK  guardianship-abuse-red-flags-and-wards-rights (181s)
+[2026-09-25T13:52:27.955Z] (15/17) guardianship-restoring-capacity-ending-guardianship — "Ending a Florida Guardianship: Restoring Capacity"
+[2026-09-25T13:52:58.471Z] OK  guardianship-south-florida-courts (166s)
+[2026-09-25T13:52:58.473Z] (16/17) guardianship-central-florida-courts — "Adult Guardianship in Orlando and Central Florida"
+[2026-09-25T13:53:14.712Z] OK  irrevocable-trust-when-an-irrevocable-trust-is-a-mistake (198s)
+[2026-09-25T13:53:14.715Z] (15/16) irrevocable-trust-south-florida-what-changes-locally — "Revocable or Irrevocable in Miami-Dade, Broward, and Palm Beach: What Actually Changes Locally"
+[2026-09-25T13:54:34.828Z] OK  irrevocable-trust-trust-protectors (169s)
+[2026-09-25T13:54:34.830Z] (16/16) irrevocable-trust-second-marriage-protecting-both-families — "Irrevocable Trusts in a Florida Second Marriage: Providing for a Spouse, Protecting the Children"
+[2026-09-25T13:54:57.959Z] OK  guardianship-restoring-capacity-ending-guardianship (150s)
+[2026-09-25T13:54:57.961Z] (16/17) guardianship-guardianship-vs-conservatorship-terms — "Guardianship vs Conservatorship: What Those Words Mean in Florida"
+[2026-09-25T13:55:43.610Z] OK  guardianship-central-florida-courts (165s)
+[2026-09-25T13:55:43.612Z] (17/17) guardianship-inheritance-management-for-ward — "When a Person Under Guardianship Inherits: Managing an Inheritance in Florida"
+[2026-09-25T13:56:02.074Z] OK  irrevocable-trust-south-florida-what-changes-locally (167s)
+[2026-09-25T13:56:02.076Z] (16/16) irrevocable-trust-treasure-coast-indian-river — "Irrevocable Trusts on the Treasure Coast: Indian River, St. Lucie, and Martin County Families"
+[2026-09-25T13:57:17.984Z] OK  irrevocable-trust-second-marriage-protecting-both-families (163s)
+[2026-09-25T13:57:17.989Z] Batch done: 16/16 succeeded.
+[2026-09-25T13:57:25.856Z] OK  guardianship-guardianship-vs-conservatorship-terms (148s)
+[2026-09-25T13:57:25.858Z] (17/17) guardianship-naming-guardian-for-minor-children — "Naming a Guardian for Your Minor Children in Florida"
+[2026-09-25T13:58:37.529Z] OK  guardianship-inheritance-management-for-ward (174s)
+[2026-09-25T13:58:37.540Z] Batch done: 17/17 succeeded.
+[2026-09-25T13:58:42.135Z] OK  irrevocable-trust-treasure-coast-indian-river (160s)
+[2026-09-25T13:58:42.145Z] Batch done: 16/16 succeeded.
+[2026-09-25T14:00:14.946Z] OK  guardianship-naming-guardian-for-minor-children (169s)
+[2026-09-25T14:00:14.975Z] Batch done: 17/17 succeeded.
+[2026-10-07T00:35:54.283Z] Batch start: 1 topic(s) from medicaid2-topics.js
+[2026-10-07T00:35:54.286Z] (1/1) medicaid-penalty-divisor-july-first — "Florida's Medicaid Penalty Divisor: What It Is and Why July 1 Matters"
+[2026-10-07T00:38:29.355Z] OK  medicaid-penalty-divisor-july-first (155s)
+[2026-10-07T00:38:29.357Z] Batch done: 1/1 succeeded.
+[2026-10-07T00:39:42.764Z] Batch start: 0 topic(s) from medicaid2-topics.js
+[2026-10-07T00:39:42.764Z] Batch start: 0 topic(s) from medicaid2-topics.js
+[2026-10-07T00:39:42.769Z] Batch done: 0/0 succeeded.
+[2026-10-07T00:39:42.769Z] Batch done: 0/0 succeeded.
+[2026-10-07T00:39:42.771Z] Batch start: 0 topic(s) from medicaid2-topics.js
+[2026-10-07T00:39:42.771Z] Batch start: 0 topic(s) from medicaid2-topics.js
+[2026-10-07T00:39:42.774Z] Batch done: 0/0 succeeded.
+[2026-10-07T00:39:42.774Z] Batch done: 0/0 succeeded.
+[2026-10-07T00:40:09.110Z] Batch start: 17 topic(s) from medicaid2-topics.js
+[2026-10-07T00:40:09.112Z] (1/17) medicaid-cares-assessment-form-3008 — "The CARES Assessment and Form 3008: How Florida Decides You Need Nursing Home Care"
+[2026-10-07T00:40:10.422Z] Batch start: 18 topic(s) from medicaid2-topics.js
+[2026-10-07T00:40:10.424Z] (1/18) medicaid-annuity-already-owned — "The Annuity You Already Own: Deferred vs Immediate, Surrender Charges, and Florida Medicaid"
+[2026-10-07T00:40:11.861Z] Batch start: 18 topic(s) from medicaid2-topics.js
+[2026-10-07T00:40:11.862Z] (1/18) medicaid-frs-teacher-pension-cap — "The Retired Florida Teacher With an FRS Pension: Over the Medicaid Income Cap by a Little"
+[2026-10-07T00:40:13.334Z] Batch start: 16 topic(s) from medicaid2-topics.js
+[2026-10-07T00:40:13.336Z] (1/16) medicaid-nursing-home-medicaid-flagler-county — "Nursing Home Medicaid in Flagler County, Florida: Where to Apply and What to Expect"
+[2026-10-07T00:42:42.916Z] OK  medicaid-annuity-already-owned (152s)
+[2026-10-07T00:42:42.917Z] (2/18) medicaid-inherited-ira-applicant — "An Inherited IRA and Florida Medicaid: Required Distributions, Taxes, and the Count"
+[2026-10-07T00:42:43.263Z] OK  medicaid-cares-assessment-form-3008 (154s)
+[2026-10-07T00:42:43.264Z] (2/17) medicaid-dcf-request-for-information-10-day-clock — "The DCF "Request for Information" Letter: The Ten-Day Clock That Sinks Florida Medicaid Applications"
+[2026-10-07T00:42:50.570Z] OK  medicaid-nursing-home-medicaid-flagler-county (157s)
+[2026-10-07T00:42:50.571Z] (2/16) medicaid-nursing-home-medicaid-brevard-county — "Nursing Home Medicaid in Brevard County, Florida: Where to Apply and What to Expect"
+[2026-10-07T00:42:52.354Z] OK  medicaid-frs-teacher-pension-cap (160s)
+[2026-10-07T00:42:52.357Z] (2/18) medicaid-railroad-retirement-medicaid — "Railroad Retirement and Florida Medicaid: Tier I, Tier II, and the Spouse Annuity"
+[2026-10-07T00:45:07.844Z] OK  medicaid-inherited-ira-applicant (145s)
+[2026-10-07T00:45:07.846Z] (3/18) medicaid-low-basis-brokerage-capital-gains — "Low-Basis Stock and Florida Medicaid: Selling for Spend-Down vs Keeping the Step-Up"
+[2026-10-07T00:45:20.274Z] OK  medicaid-nursing-home-medicaid-brevard-county (150s)
+[2026-10-07T00:45:20.275Z] (3/16) medicaid-nursing-home-medicaid-seminole-county — "Nursing Home Medicaid in Seminole County, Florida: Where to Apply and What to Expect"
+[2026-10-07T00:45:23.540Z] OK  medicaid-railroad-retirement-medicaid (151s)
+[2026-10-07T00:45:23.541Z] (3/18) medicaid-federal-retiree-fers-csrs — "The Federal Retiree (FERS or CSRS) and Florida Medicaid: The Pension, the Survivor Annuity, and FEHB"
+[2026-10-07T00:45:25.457Z] OK  medicaid-dcf-request-for-information-10-day-clock (162s)
+[2026-10-07T00:45:25.458Z] (3/17) medicaid-florida-medicaid-numbers-2026 — "Florida Medicaid Long-Term Care Numbers for 2026, On One Page"
+[2026-10-07T00:47:47.479Z] OK  medicaid-low-basis-brokerage-capital-gains (160s)
+[2026-10-07T00:47:47.482Z] (4/18) medicaid-timeshares-medicaid — "Timeshares and Florida Medicaid: The Asset Nobody Can Sell"
+[2026-10-07T00:47:58.985Z] OK  medicaid-florida-medicaid-numbers-2026 (154s)
+[2026-10-07T00:47:58.987Z] (4/17) medicaid-qualified-income-trust-in-practice — "The Qualified Income Trust in Practice: The Bank, the Trustee, and the First Month"
+[2026-10-07T00:48:03.002Z] OK  medicaid-nursing-home-medicaid-seminole-county (163s)
+[2026-10-07T00:48:03.004Z] (4/16) medicaid-nursing-home-medicaid-orange-county — "Nursing Home Medicaid in Orange County, Florida: Where to Apply and What to Expect"
+[2026-10-07T00:48:11.704Z] OK  medicaid-federal-retiree-fers-csrs (168s)
+[2026-10-07T00:48:11.706Z] (4/18) medicaid-veteran-va-pension-vs-medicaid-both — "The Korean or Vietnam-Era Veteran: VA Pension, Medicaid, or Both?"
+[2026-10-07T00:50:27.234Z] OK  medicaid-qualified-income-trust-in-practice (148s)
+[2026-10-07T00:50:27.237Z] (5/17) medicaid-patient-responsibility-worked-example — "Patient Responsibility: A Worked Example of Where Mom's Social Security Goes After Approval"
+[2026-10-07T00:50:47.347Z] OK  medicaid-veteran-va-pension-vs-medicaid-both (156s)
+[2026-10-07T00:50:47.349Z] (5/18) medicaid-veteran-surviving-spouse-dic-pension — "The Veteran's Widow: DIC, Survivor's Pension, and Florida Medicaid"
+[2026-10-07T00:50:48.527Z] OK  medicaid-nursing-home-medicaid-orange-county (166s)
+[2026-10-07T00:50:48.533Z] (5/16) medicaid-nursing-home-medicaid-lake-county — "Nursing Home Medicaid in Lake County, Florida: Where to Apply and What to Expect"
+[2026-10-07T00:50:50.373Z] OK  medicaid-timeshares-medicaid (183s)
+[2026-10-07T00:50:50.377Z] (5/18) medicaid-farmland-and-acreage — "Farmland, Groves, and Acreage in Florida Medicaid Planning"
+[2026-10-07T00:53:14.685Z] OK  medicaid-veteran-surviving-spouse-dic-pension (147s)
+[2026-10-07T00:53:14.687Z] (6/18) medicaid-parkinsons-predictable-decline — "Parkinson's and Florida Medicaid: Planning Along a Decline You Can See Coming"
+[2026-10-07T00:53:23.640Z] OK  medicaid-patient-responsibility-worked-example (176s)
+[2026-10-07T00:53:23.641Z] (6/17) medicaid-medicaid-pending-admission — ""Medicaid Pending": How Florida Nursing Homes Decide to Admit a Family That Has Not Been Approved Yet"
+[2026-10-07T00:53:30.613Z] OK  medicaid-nursing-home-medicaid-lake-county (162s)
+[2026-10-07T00:53:30.614Z] (6/16) medicaid-nursing-home-medicaid-polk-county — "Nursing Home Medicaid in Polk County, Florida: Where to Apply and What to Expect"
+[2026-10-07T00:53:37.472Z] OK  medicaid-farmland-and-acreage (167s)
+[2026-10-07T00:53:37.473Z] (6/18) medicaid-second-home-georgia-carolinas — "The Mountain House in Georgia or the Carolinas and Florida Medicaid"
+[2026-10-07T00:55:57.453Z] OK  medicaid-parkinsons-predictable-decline (163s)
+[2026-10-07T00:55:57.455Z] (7/18) medicaid-als-early-onset-dementia-under-65 — "ALS or Early-Onset Dementia Under 65: The Disability Path to Florida Medicaid"
+[2026-10-07T00:56:04.463Z] OK  medicaid-nursing-home-medicaid-polk-county (154s)
+[2026-10-07T00:56:04.465Z] (7/16) medicaid-nursing-home-medicaid-hillsborough-county — "Nursing Home Medicaid in Hillsborough County, Florida: Where to Apply and What to Expect"
+[2026-10-07T00:56:04.887Z] OK  medicaid-second-home-georgia-carolinas (147s)
+[2026-10-07T00:56:04.888Z] (7/18) medicaid-manufactured-home-rented-lot — "A Manufactured Home on a Rented Lot: Florida Medicaid's Home Exclusion and the Title in the Glove Box"
+[2026-10-07T00:56:05.776Z] OK  medicaid-medicaid-pending-admission (162s)
+[2026-10-07T00:56:05.777Z] (7/17) medicaid-certified-beds-room-move — "Medicaid-Certified Beds, Private Rooms, and the Move Nobody Warned You About"
+[2026-10-07T00:58:34.710Z] OK  medicaid-certified-beds-room-move (149s)
+[2026-10-07T00:58:34.712Z] (8/17) medicaid-retroactive-months-can-and-cannot — "Retroactive Florida Medicaid: The Three Months You Can Claim and the Ones You Cannot"
+[2026-10-07T00:58:36.705Z] OK  medicaid-manufactured-home-rented-lot (152s)
+[2026-10-07T00:58:36.706Z] (8/18) medicaid-life-estate-already-held — "Mom Already Signed a Life Estate Deed Years Ago. What Does Florida Medicaid Do With It?"
+[2026-10-07T00:58:42.035Z] OK  medicaid-nursing-home-medicaid-hillsborough-county (158s)
+[2026-10-07T00:58:42.037Z] (8/16) medicaid-nursing-home-medicaid-pinellas-county — "Nursing Home Medicaid in Pinellas County, Florida: Where to Apply and What to Expect"
+[2026-10-07T00:58:52.033Z] OK  medicaid-als-early-onset-dementia-under-65 (175s)
+[2026-10-07T00:58:52.034Z] (8/18) medicaid-stroke-100-day-calendar — "From Stroke to Nursing Home in One Hundred Days: A Florida Medicaid Calendar"
+[2026-10-07T01:01:01.672Z] OK  medicaid-retroactive-months-can-and-cannot (147s)
+[2026-10-07T01:01:01.674Z] (9/17) medicaid-rehab-discharge-home-resets-program — "Rehab Says "Home With Home Health." Why That Can Reset the Whole Medicaid Plan"
+[2026-10-07T01:01:15.471Z] OK  medicaid-life-estate-already-held (159s)
+[2026-10-07T01:01:15.472Z] (9/18) medicaid-crypto-gold-collectibles — "Crypto, Gold, Coins, and Collectibles: Valuing and Disclosing Them for Florida Medicaid"
+[2026-10-07T01:01:32.770Z] OK  medicaid-nursing-home-medicaid-pinellas-county (171s)
+[2026-10-07T01:01:32.771Z] (9/16) medicaid-nursing-home-medicaid-duval-county — "Nursing Home Medicaid in Duval County, Florida: Where to Apply and What to Expect"
+[2026-10-07T01:01:32.809Z] OK  medicaid-stroke-100-day-calendar (161s)
+[2026-10-07T01:01:32.810Z] (9/18) medicaid-hospice-home-vs-facility — "Hospice at Home vs Hospice in a Facility: How Florida Medicaid Pays for Each"
+[2026-10-07T01:03:50.957Z] OK  medicaid-rehab-discharge-home-resets-program (169s)
+[2026-10-07T01:03:50.959Z] (10/17) medicaid-waiver-waitlist-by-region — "The Florida Long-Term Care Waiver Waitlist, Region by Region: Screening, Priority, and Release"
+[2026-10-07T01:03:53.165Z] OK  medicaid-crypto-gold-collectibles (158s)
+[2026-10-07T01:03:53.166Z] (10/18) medicaid-cash-value-life-insurance-over-2500 — "Cash-Value Life Insurance Over the Limit: Surrender, Exchange, or Fund the Funeral"
+[2026-10-07T01:03:57.387Z] OK  medicaid-hospice-home-vs-facility (145s)
+[2026-10-07T01:03:57.388Z] (10/18) medicaid-alf-not-medicaid-certified-forced-move — "The Assisted Living Facility That Does Not Take Medicaid: The Forced Move and How to Plan for It"
+[2026-10-07T01:04:29.483Z] OK  medicaid-nursing-home-medicaid-duval-county (177s)
+[2026-10-07T01:04:29.484Z] (10/16) medicaid-nursing-home-medicaid-broward-county — "Nursing Home Medicaid in Broward County, Florida: Where to Apply and What to Expect"
+[2026-10-07T01:06:23.503Z] OK  medicaid-cash-value-life-insurance-over-2500 (150s)
+[2026-10-07T01:06:23.505Z] (11/18) medicaid-burial-plots-and-burial-fund — "Burial Plots, Cemetery Contracts, and the Designated Burial Fund in Florida Medicaid"
+[2026-10-07T01:06:33.906Z] OK  medicaid-waiver-waitlist-by-region (163s)
+[2026-10-07T01:06:33.908Z] (11/17) medicaid-fair-hearing-office-of-appeal-hearings — "Appealing a Florida Medicaid Denial: Inside the Office of Appeal Hearings"
+[2026-10-07T01:06:50.686Z] OK  medicaid-alf-not-medicaid-certified-forced-move (173s)
+[2026-10-07T01:06:50.687Z] (11/18) medicaid-ccrc-contract-medicaid — "The Continuing Care Retirement Community Contract and Florida Medicaid"
+[2026-10-07T01:07:08.174Z] OK  medicaid-nursing-home-medicaid-broward-county (159s)
+[2026-10-07T01:07:08.176Z] (11/16) medicaid-nursing-home-medicaid-palm-beach-county — "Nursing Home Medicaid in Palm Beach County, Florida: Where to Apply and What to Expect"
+[2026-10-07T01:08:48.586Z] OK  medicaid-burial-plots-and-burial-fund (145s)
+[2026-10-07T01:08:48.588Z] (12/18) medicaid-second-car-three-ways — "The Second Car Problem, Solved Three Ways Under Florida Medicaid"
+[2026-10-07T01:09:09.167Z] OK  medicaid-fair-hearing-office-of-appeal-hearings (155s)
+[2026-10-07T01:09:09.168Z] (12/17) medicaid-annual-renewal-packet — "The Florida Medicaid Renewal Packet: Staying Approved Year After Year"
+[2026-10-07T01:09:37.796Z] OK  medicaid-ccrc-contract-medicaid (167s)
+[2026-10-07T01:09:37.798Z] (12/18) medicaid-memory-care-waiver-gap — "Memory Care and the Florida Medicaid Gap: When the Unit Is Private Pay and the Waitlist Is Long"
+[2026-10-07T01:09:43.265Z] OK  medicaid-nursing-home-medicaid-palm-beach-county (155s)
+[2026-10-07T01:09:43.267Z] (12/16) medicaid-nursing-home-medicaid-miami-dade-county — "Nursing Home Medicaid in Miami-Dade County, Florida: Where to Apply and What to Expect"
+[2026-10-07T01:11:22.575Z] OK  medicaid-second-car-three-ways (154s)
+[2026-10-07T01:11:22.578Z] (13/18) medicaid-llc-business-interest — "An LLC or Small Business Interest and Florida Medicaid: What Counts and What the Family Can Do"
+[2026-10-07T01:11:42.285Z] OK  medicaid-annual-renewal-packet (153s)
+[2026-10-07T01:11:42.287Z] (13/17) medicaid-ten-day-change-report — "Reporting a Change Within Ten Days: Inheritances, a Spouse's Death, and Facility Moves on Florida Medicaid"
+[2026-10-07T01:12:07.436Z] OK  medicaid-memory-care-waiver-gap (150s)
+[2026-10-07T01:12:07.438Z] (13/18) medicaid-two-parents-over-80-one-healthy — "Two Parents Over Eighty, One Still Healthy: Planning in the Window Before Anything Happens"
+[2026-10-07T01:12:25.395Z] OK  medicaid-nursing-home-medicaid-miami-dade-county (162s)
+[2026-10-07T01:12:25.398Z] (13/16) medicaid-nursing-home-medicaid-lee-county — "Nursing Home Medicaid in Lee County, Florida: Where to Apply and What to Expect"
+[2026-10-07T01:13:57.890Z] OK  medicaid-llc-business-interest (155s)
+[2026-10-07T01:13:57.892Z] (14/18) medicaid-promissory-notes-loans-to-children — "Loans to Children and Promissory Notes: What the Deficit Reduction Act Requires for Florida Medicaid"
+[2026-10-07T01:14:27.901Z] OK  medicaid-ten-day-change-report (166s)
+[2026-10-07T01:14:27.903Z] (14/17) medicaid-thirty-day-snapshot-timeline — "The Thirty-Day Snapshot: A Hospital-to-Rehab Timeline That Fixes What a Florida Spouse Can Keep"
+[2026-10-07T01:14:49.588Z] OK  medicaid-two-parents-over-80-one-healthy (162s)
+[2026-10-07T01:14:49.589Z] (14/18) medicaid-out-of-state-child-poa-remote — "Handling a Florida Parent's Medicaid From Another State: The Out-of-State Child With the POA"
+[2026-10-07T01:15:01.337Z] OK  medicaid-nursing-home-medicaid-lee-county (156s)
+[2026-10-07T01:15:01.338Z] (14/16) medicaid-nursing-home-medicaid-sarasota-county — "Nursing Home Medicaid in Sarasota County, Florida: Where to Apply and What to Expect"
+[2026-10-07T01:16:35.738Z] OK  medicaid-promissory-notes-loans-to-children (158s)
+[2026-10-07T01:16:35.739Z] (15/18) medicaid-money-in-childs-name-for-mom — "Money Held in a Child's Name "For Mom": The Constructive Trust Problem in Florida Medicaid"
+[2026-10-07T01:17:08.529Z] OK  medicaid-thirty-day-snapshot-timeline (161s)
+[2026-10-07T01:17:08.531Z] (15/17) medicaid-dcf-interview-what-they-ask — "The DCF Medicaid Interview: What the Worker Asks and Who Should Answer"
+[2026-10-07T01:17:35.704Z] OK  medicaid-out-of-state-child-poa-remote (166s)
+[2026-10-07T01:17:35.706Z] (15/18) medicaid-siblings-who-disagree — "When Siblings Disagree About Mom's Money: The Family Fight That Costs Medicaid Eligibility"
+[2026-10-07T01:17:35.804Z] OK  medicaid-nursing-home-medicaid-sarasota-county (154s)
+[2026-10-07T01:17:35.806Z] (15/16) medicaid-cost-of-waiting-seventy-vs-eighty — "The Cost of Waiting: Medicaid Planning at Seventy Versus a Crisis at Eighty, in Dollars"
+[2026-10-07T01:19:09.857Z] OK  medicaid-money-in-childs-name-for-mom (154s)
+[2026-10-07T01:19:09.860Z] (16/18) medicaid-snowbird-new-york-new-jersey — "The New York or New Jersey Snowbird Who Needs a Florida Nursing Home: Residency, Proof, and the Gifts Made Up North"
+[2026-10-07T01:19:45.293Z] OK  medicaid-dcf-interview-what-they-ask (157s)
+[2026-10-07T01:19:45.295Z] (16/17) medicaid-cds-early-withdrawal-penalty — "CDs and Florida Medicaid: Early-Withdrawal Penalties, Timing, and Spend-Down"
+[2026-10-07T01:20:17.651Z] OK  medicaid-cost-of-waiting-seventy-vs-eighty (162s)
+[2026-10-07T01:20:17.653Z] (16/16) medicaid-medicaid-rate-vs-private-rate — "The Medicaid Rate vs the Private Rate: What the Nursing Home Is Paid and What It Means for the Bed"
+[2026-10-07T01:20:19.842Z] OK  medicaid-siblings-who-disagree (164s)
+[2026-10-07T01:20:19.844Z] (16/18) medicaid-caregiver-child-two-year-exemption — "The Caregiver Child Who Lived in the Home: Florida Medicaid's Two-Year Exemption, Done Right"
+[2026-10-07T01:21:57.367Z] OK  medicaid-snowbird-new-york-new-jersey (168s)
+[2026-10-07T01:21:57.369Z] (17/18) medicaid-green-card-parent-five-year-bar — "A Green-Card Parent and Florida Medicaid: The Five-Year Bar and the Exceptions"
+[2026-10-07T01:22:16.623Z] OK  medicaid-cds-early-withdrawal-penalty (151s)
+[2026-10-07T01:22:16.625Z] (17/17) medicaid-savings-bonds-medicaid — "Savings Bonds and Florida Medicaid: Series EE, Series I, and the Shoebox in the Closet"
+[2026-10-07T01:22:51.682Z] OK  medicaid-caregiver-child-two-year-exemption (152s)
+[2026-10-07T01:22:51.684Z] (17/18) medicaid-grandparents-raising-grandchildren — "Grandparents Raising Grandchildren and Florida Medicaid: The Minor in the Home and the Transfers That Are Allowed"
+[2026-10-07T01:22:55.396Z] OK  medicaid-medicaid-rate-vs-private-rate (158s)
+[2026-10-07T01:22:55.400Z] Batch done: 16/16 succeeded.
+[2026-10-07T01:24:46.420Z] OK  medicaid-green-card-parent-five-year-bar (169s)
+[2026-10-07T01:24:46.422Z] (18/18) medicaid-canadian-in-florida — "The Canadian Snowbird Who Gets Sick in Florida: Why Medicaid Is Not the Answer and What Is"
+[2026-10-07T01:24:54.967Z] OK  medicaid-savings-bonds-medicaid (158s)
+[2026-10-07T01:24:54.973Z] Batch done: 17/17 succeeded.
+[2026-10-07T01:25:27.143Z] OK  medicaid-grandparents-raising-grandchildren (155s)
+[2026-10-07T01:25:27.145Z] (18/18) medicaid-nursing-home-medicaid-volusia-county — "Nursing Home Medicaid in Volusia County, Florida: Where to Apply and What to Expect"
+[2026-10-07T01:27:14.350Z] OK  medicaid-canadian-in-florida (148s)
+[2026-10-07T01:27:14.354Z] Batch done: 18/18 succeeded.
+[2026-10-07T01:28:11.482Z] OK  medicaid-nursing-home-medicaid-volusia-county (164s)
+[2026-10-07T01:28:11.487Z] Batch done: 18/18 succeeded.
