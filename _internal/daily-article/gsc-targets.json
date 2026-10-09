@@ -79,7 +79,9 @@
     "position": 5.1,
     "tag": "Personal Injury",
     "score": 11,
-    "used": false
+    "used": false,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"personal injury lawyer\""
   },
   {
     "query": "lady bird deed attorney",
@@ -88,7 +90,8 @@
     "position": 6.4,
     "tag": "Real Estate",
     "score": 11,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-10-09"
   },
   {
     "query": "medicaid compliant annuity",
