@@ -55,6 +55,57 @@ async function sendMetaCAPIPurchase({ email, name, value, currency, eventId, eve
   } catch (e) { console.error('Meta CAPI exception (non-fatal):', e.message); }
 }
 
+// ── Client "payment received" email (added 2026-10-12) ─────────────────────
+// Every flat-fee service order used to reach the attorney (ntfy) and the ledger
+// (Firestore) but never the client. Two paid clients (Swait 10/9, Loynes 10/10)
+// waited three days for a hand-written receipt. This sends one automatically,
+// from arthur@, cc Lera, the moment Stripe confirms the payment. Non-fatal.
+async function sendOrderReceivedEmail({ email, name, amount, product }) {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) { console.warn('RESEND_API_KEY not set — skipping client payment-received email'); return; }
+  if (!email) { console.warn('No buyer email on session — skipping client payment-received email'); return; }
+  const first = String(name || '').trim().split(/\s+/)[0] || 'there';
+  const service = String(product || 'your matter').replace(/_/g, ' ').replace(/^./, c => c.toUpperCase());
+  const amt = amount ? `$${Number(amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : 'your payment';
+  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;background:#f4f3f0;font-family:Georgia,'Times New Roman',serif">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f3f0;padding:28px 14px"><tr><td align="center">
+<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%">
+<tr><td style="background:#0f2744;border-radius:12px 12px 0 0;padding:26px 36px;text-align:center">
+<div style="color:#c49a2a;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-family:Arial,sans-serif">Truestead Law</div>
+<div style="color:#fff;font-size:22px;font-weight:700;margin-top:6px">Payment received, thank you</div>
+<div style="height:2px;background:#c49a2a;width:54px;margin:14px auto 0"></div></td></tr>
+<tr><td style="background:#fff;padding:34px 36px;color:#333;font-size:16px;line-height:1.8">
+<p>${first},</p>
+<p>Thank you. Your payment of <strong>${amt}</strong> for <strong>${service}</strong> came through, and I have opened your file.</p>
+<p>I will begin work shortly and will be in touch within one business day with next steps and anything I still need from you.</p>
+<p>If you have questions in the meantime, reply to this email or call <a href="tel:+18883888445" style="color:#0f2744"><strong>(888) 388-8445</strong></a>.</p>
+<p>Best Personal Regards,<br>Arthur</p>
+</td></tr>
+<tr><td style="background:#0f2744;border-radius:0 0 12px 12px;padding:20px 36px;text-align:center">
+<div style="font-size:11px;color:#8899aa;line-height:1.7;font-family:Arial,sans-serif">
+Truestead Law, LLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265<br>
+P.O. Box 2574, Ormond Beach, FL 32175 &nbsp;·&nbsp; truesteadlaw.com</div></td></tr>
+</table></td></tr></table></body></html>`;
+  const text = `${first},\n\nThank you. Your payment of ${amt} for ${service} came through, and I have opened your file.\n\nI will begin work shortly and will be in touch within one business day with next steps and anything I still need from you.\n\nIf you have questions in the meantime, reply to this email or call (888) 388-8445.\n\nBest Personal Regards,\nArthur\n\nTruestead Law, LLC · Arthur Simpson, Esq. · Florida Bar #529265 · P.O. Box 2574, Ormond Beach, FL 32175`;
+  try {
+    const res = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        from: 'Arthur Simpson <arthur@truesteadlaw.com>',
+        reply_to: 'arthur@truesteadlaw.com',
+        to: [email],
+        cc: ['lera@truesteadlaw.com'],
+        subject: 'Payment received, thank you',
+        html, text,
+      }),
+    });
+    if (!res.ok) console.error('Resend payment-received email error:', res.status, await res.text());
+    else console.log('Payment-received email sent to', email);
+  } catch (e) { console.error('Resend payment-received email threw:', e.message); }
+}
+
 // ── Stripe signature verification (no SDK needed) ──────────────────────────
 function verifyStripeSignature(rawBody, sigHeader, secret) {
   const parts     = sigHeader.split(',');
@@ -381,6 +432,7 @@ exports.handler = async (event) => {
             body: `${who} purchased: ${svcProduct.replace(/_/g, ' ')}${amount ? ' ($' + amount + ')' : ''}.${email ? ' (' + email + ')' : ''} Reach out within 1 business day.`,
           });
         } catch (e) { console.error('service-order ntfy failed:', e.message); }
+        await sendOrderReceivedEmail({ email, name: session.customer_details?.name || '', amount, product: svcProduct });
         await sendMetaCAPIPurchase({
           email, name: session.customer_details?.name || '', value: amount,
           currency: (session.currency || 'usd').toUpperCase(), eventId: session.id,
