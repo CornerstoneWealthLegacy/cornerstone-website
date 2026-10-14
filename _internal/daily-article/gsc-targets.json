@@ -48,7 +48,8 @@
     "position": 9.4,
     "tag": "Elder Law",
     "score": 8,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-10-14"
   },
   {
     "query": "how much does it cost to set up a trust in florida",
