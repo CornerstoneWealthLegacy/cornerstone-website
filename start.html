@@ -4326,6 +4326,8 @@ function renderAttorneyWelcome(){
 
 // ── Main render ────────────────────────────────────────────────────
 function render(){
+  // A saved step past the end (left by the old Review crash) snaps back to the last step
+  while(S.step>0&&!curStep())S.step--;
   const step=curStep(); if(!step)return;
   renderProgress();
   let html=`<div class="q-label">${step.lbl}</div>
@@ -5591,8 +5593,10 @@ function renderReview(){
   if(S.d.docCategory==='buysell') return renderBuySellReview();
   const d=S.d,joint=d.structure==='joint',gn=gName(),sn=sName(),tn=trustName();
   const iT=d.initTrustee==='both'?`${gn} & ${sn}`:d.initTrustee==='grantor'?gn:'Professional/Corporate Trustee';
-  const provs=(d.provisions||[]).map(p=>{const f=STEPS[12].opts.find(o=>o.v===p);return f?f.t:p;});
-  const distLabel=STEPS[11].opts.find(o=>o.v===d.distType)?.t||d.distType||'—';
+  const provOpts=STEPS.find(s=>s.field==='provisions')?.opts||[];
+  const distOpts=STEPS.find(s=>s.field==='distType')?.opts||[];
+  const provs=(d.provisions||[]).map(p=>{const f=provOpts.find(o=>o.v===p);return f?f.t:p;});
+  const distLabel=distOpts.find(o=>o.v===d.distType)?.t||d.distType||'—';
   const adv=d.priorState&&d.priorState!=='other'?FL_ADVANTAGE[d.priorState]:null;
   const dt=docType();
   const docLabel=d.docCategory==='will'?'Will & Estate Package':d.docCategory==='both'?'Complete Estate Plan (Will + Trust)':d.docCategory==='land_trust'?'Florida Land Trust':d.docCategory==='gun_trust'?'NFA Gun Trust':'Revocable Living Trust Package';
@@ -5745,6 +5749,7 @@ function goNext(){
   if(!validate())return;
   S.step++;
   while(S.step<activeSteps().length&&curStep()?.cond&&!curStep().cond(S.d))S.step++;
+  while(S.step>0&&!curStep())S.step--;
   render();window.scrollTo({top:0,behavior:'smooth'});
 }
 function goBack(){
