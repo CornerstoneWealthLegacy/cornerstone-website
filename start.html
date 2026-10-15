@@ -5452,7 +5452,10 @@ function buildField(f){
 }
 
 // ── Trustees ───────────────────────────────────────────────────────
+// The trustee screen pre-selects 'grantor'; store it so an untouched choice isn't read as corporate
+function defaultInitTrustee(){ if(!S.d.initTrustee) S.d.initTrustee='grantor'; }
 function renderTrustees(){
+  defaultInitTrustee();
   const d=S.d,joint=d.structure==='joint',gn=gName(),sn=sName();
   if(!S.successors.length)S.successors=[{name:'',rel:''}];
   const initOpts=joint?[
@@ -5591,6 +5594,7 @@ function renderReview(){
   if(S.d.docCategory==='lease') return renderLeaseReview();
   if(S.d.docCategory==='notices') return renderNoticesReview();
   if(S.d.docCategory==='buysell') return renderBuySellReview();
+  defaultInitTrustee();
   const d=S.d,joint=d.structure==='joint',gn=gName(),sn=sName(),tn=trustName();
   const iT=d.initTrustee==='both'?`${gn} & ${sn}`:d.initTrustee==='grantor'?gn:'Professional/Corporate Trustee';
   const provOpts=STEPS.find(s=>s.field==='provisions')?.opts||[];
@@ -12941,6 +12945,7 @@ function _proceedToGenerate(){
 
 function generate(){
   saveInputs();
+  if(['trust','both'].includes(S.d.docCategory)) defaultInitTrustee();
   const dc=S.d.docCategory;
   const d=S.d;
   $('qaCard').style.display='none';
@@ -13039,10 +13044,11 @@ function generate(){
     // generateTrust() writes to docInner and sets docOut.show
     generateTrust();
 
+    let willDiv=null;
     if(dc==='both'){
       const docInner=$('docInner');
       if(docInner){
-        const willDiv=document.createElement('div');
+        willDiv=document.createElement('div');
         willDiv.style.cssText='margin-top:60px;border-top:3px solid #0f2744;padding-top:48px;page-break-before:always';
         // Generate will inline for the "main" tab (trust+will combined view)
         willDiv.innerHTML=`<div style="text-align:center;font-size:.75rem;font-weight:900;letter-spacing:3px;text-transform:uppercase;color:#c49a2a;margin-bottom:16px">POUR-OVER WILL</div>${generateWill()}`;
@@ -13123,7 +13129,7 @@ function generate(){
     if(docInner2){
       docInner2.after(tabContainer);
       const tabMain=document.getElementById('tabMain');
-      if(tabMain){ tabMain.appendChild(docInner2); postProcessDoc(tabMain); }
+      if(tabMain){ tabMain.appendChild(docInner2); if(willDiv) tabMain.appendChild(willDiv); postProcessDoc(tabMain); }
     } else {
       docOut.appendChild(tabContainer);
     }
