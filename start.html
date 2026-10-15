@@ -13362,6 +13362,8 @@ function generate(){
   showDocsReady(18,'Estate Planning');
 }
 
+// Sessions in these statuses are paid for; a reset must never touch them
+const PAID_SESSION_STATUSES=['paid','payment_complete','documents_ready','needs_attorney_review','ai_review_pending'];
 function startOver(){
   // Guard: a client with real answers must confirm before they are cleared.
   var _hasAnswers = S && S.d && Object.keys(S.d).length > 0;
@@ -13376,7 +13378,7 @@ function startOver(){
     if (currentUser && db) {
       db.collection('sessions').doc(currentUser.uid).get().then(snap => {
         const st = snap.exists ? (snap.data().status || '') : '';
-        const paid = ['paid','payment_complete','documents_ready','needs_attorney_review','ai_review_pending'].includes(st);
+        const paid = PAID_SESSION_STATUSES.includes(st);
         if (!paid) {
           const reset = {
             state: S, step: 0, status: 'draft',
@@ -13959,6 +13961,21 @@ document.addEventListener('click', e => {
 });
 
 // ── Load progress from Firestore ─────────────────
+// Make a saved session the live state
+function _adoptSavedState(state) {
+  S = state;
+  if (!S.beneficiaries) S.beneficiaries = [];
+  if (!S.contingents)   S.contingents   = [];
+  if (!S.successors)    S.successors    = [];
+  // Restore window.planType from saved session structure so
+  // documents and pricing generate correctly for married couples.
+  if (S.d.structure === 'joint' || S.d.structure === 'separate') {
+    window.planType = 'couple';
+  } else if (S.d.structure === 'individual' || !S.d.structure) {
+    window.planType = 'individual';
+  }
+}
+
 async function loadUserProgress(user) {
   const isAtty  = checkIsAttorney(user);
   const isStaff = await checkIsStaffUser(user);
@@ -13995,10 +14012,27 @@ async function loadUserProgress(user) {
   var tb = document.getElementById('wlcTopbar');
   if (tb) tb.style.display = 'none';
 
-  // If user chose a product before signing in, launch it now
+  // If user chose a product before signing in, launch it now — unless they
+  // already have answers saved, which the new product would autosave over.
   if (window._pendingMode) {
     var mode = window._pendingMode;
     window._pendingMode = null;
+    var savedState = null;
+    try { savedState = JSON.parse(localStorage.getItem('cw_trust_state') || 'null'); } catch(e) {}
+    var hasSaved = !isAtty && !isStaff && savedState && savedState.d && savedState.d.docCategory;
+    if (hasSaved) {
+      if (confirm('Welcome back. You already have a plan in progress.\n\nOK = pick up where you left off\nCancel = start the plan you just chose (your saved answers are kept as a backup)')) {
+        _adoptSavedState(savedState);
+        _launchApp(savedState.appMode || mode);
+        return;
+      }
+      try {
+        db.collection('sessions').doc(user.uid).update({
+          previousState: savedState,
+          previousStateAt: firebase.firestore.FieldValue.serverTimestamp(),
+        }).catch(() => {});
+      } catch(e) {}
+    }
     _launchApp(mode);
     return;
   }
@@ -14027,17 +14061,7 @@ async function loadUserProgress(user) {
       const state = JSON.parse(saved);
       if (state && state.d && state.d.docCategory) {
         // Real session in progress — skip welcome and go straight back in
-        S = state;
-        if (!S.beneficiaries) S.beneficiaries = [];
-        if (!S.contingents)   S.contingents   = [];
-        if (!S.successors)    S.successors    = [];
-        // FIX: restore window.planType from saved session structure so
-        // documents and pricing generate correctly for married couples.
-        if (S.d.structure === 'joint' || S.d.structure === 'separate') {
-          window.planType = 'couple';
-        } else if (S.d.structure === 'individual' || !S.d.structure) {
-          window.planType = 'individual';
-        }
+        _adoptSavedState(state);
         _launchApp(state.appMode || window.appMode || 'self');
         return;
       }
@@ -15086,9 +15110,22 @@ function freshStart() {
   window.planType = 'individual';
   window.appMode  = 'self';
   window._pricingKey = null;
-  // Clear Firestore session so auto-resume doesn't reload old state
+  // Reset the Firestore session so auto-resume doesn't reload old state, but
+  // keep the old answers as previousState and never touch a paid session.
+  // update() replaces `state` whole; a merge set() would keep stale nested answers.
   if(currentUser && db){
-    db.collection('sessions').doc(currentUser.uid).delete().catch(()=>{});
+    const ref=db.collection('sessions').doc(currentUser.uid);
+    ref.get().then(snap=>{
+      if(!snap.exists) return;
+      const data=snap.data();
+      if(PAID_SESSION_STATUSES.includes(data.status||'')) return;
+      const reset={state:S, step:0, status:'draft', updatedAt:firebase.firestore.FieldValue.serverTimestamp()};
+      if(data.state&&data.state.d&&Object.keys(data.state.d).length){
+        reset.previousState=data.state;
+        reset.previousStateAt=firebase.firestore.FieldValue.serverTimestamp();
+      }
+      return ref.update(reset);
+    }).catch(()=>{});
   }
   // Close any overlays
   const dreEl = document.getElementById('docsReady');
