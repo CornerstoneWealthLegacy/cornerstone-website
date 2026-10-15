@@ -1,6 +1,17 @@
 {
   "articles": [
     {
+      "slug": "articles/focus-in-florida-2026-10-15",
+      "file": "articles/focus-in-florida-2026-10-15.html",
+      "title": "Estate Planning In Florida: 2026 Rules Every Resident Should Know",
+      "tag": "Estate Planning",
+      "category": "In Florida",
+      "blurb": "A clear, current breakdown of what Florida law actually requires for wills, probate, and estate planning after the 2026 probate reforms.",
+      "image": "images/og/florida-estate-planning-checklist.jpg",
+      "date": "2026-10-15",
+      "prettyDate": "October 15, 2026"
+    },
+    {
       "slug": "articles/focus-how-much-does-a-medicaid-planner-cost-2026-10-14",
       "file": "articles/focus-how-much-does-a-medicaid-planner-cost-2026-10-14.html",
       "title": "How Much Does a Medicaid Planner Cost in Florida?",

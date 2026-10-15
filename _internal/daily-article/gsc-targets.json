@@ -58,7 +58,9 @@
     "position": 9.7,
     "tag": "Estate Planning",
     "score": 8,
-    "used": false
+    "used": false,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"how much does it cost to make a will in florida\""
   },
   {
     "query": "in florida",
@@ -67,7 +69,8 @@
     "position": 4.8,
     "tag": "Estate Planning",
     "score": 8,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-10-15"
   },
   {
     "query": "my mother in gainesville, florida may need long term care within a year. what florida trust planning options could help with medicaid eligibility while protecting her home and savings, and how do look-back rules and lady bird deeds work here?",
