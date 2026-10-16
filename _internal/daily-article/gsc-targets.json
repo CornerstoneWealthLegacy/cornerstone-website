@@ -79,7 +79,8 @@
     "position": 6.5,
     "tag": "Elder Law",
     "score": 8,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-10-16"
   },
   {
     "query": "myaccess florida",
