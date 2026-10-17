@@ -89,7 +89,8 @@
     "position": 5.6,
     "tag": "Estate Planning",
     "score": 8,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-10-17"
   },
   {
     "query": "carrollwood truck accident attorney",

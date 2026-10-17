@@ -1,6 +1,17 @@
 {
   "articles": [
     {
+      "slug": "articles/focus-myaccess-florida-2026-10-17",
+      "file": "articles/focus-myaccess-florida-2026-10-17.html",
+      "title": "MyACCESS Florida: What It Is and Why It Matters for Estate Planning",
+      "tag": "Estate Planning",
+      "category": "Myaccess Florida",
+      "blurb": "What MyACCESS Florida actually does, and how it connects to Medicaid look-back rules and Florida estate planning.",
+      "image": "images/og/florida-estate-planning-checklist.jpg",
+      "date": "2026-10-17",
+      "prettyDate": "October 17, 2026"
+    },
+    {
       "slug": "articles/focus-my-mother-in-gainesville-florida-may-need-lon-2026-10-16",
       "file": "articles/focus-my-mother-in-gainesville-florida-may-need-lon-2026-10-16.html",
       "title": "Gainesville FL Medicaid Planning: Trusts, Lady Bird Deeds",
