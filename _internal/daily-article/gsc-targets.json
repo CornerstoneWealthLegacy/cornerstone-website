@@ -99,7 +99,8 @@
     "position": 5,
     "tag": "Personal Injury",
     "score": 7,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-10-18"
   },
   {
     "query": "deed lawyer ormond beach fl",
