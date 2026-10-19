@@ -1,123 +1,38 @@
 [
   {
-    "query": "medicaid crisis planning lawyer",
-    "impressions": 13,
-    "clicks": 0,
-    "position": 5.4,
-    "tag": "Elder Law",
-    "score": 10,
-    "used": true,
-    "targetedOn": "2026-10-12"
-  },
-  {
-    "query": "estate planning attorney sarasota fl",
-    "impressions": 14,
-    "clicks": 0,
-    "position": 7.4,
-    "tag": "Estate Planning",
-    "score": 9,
-    "used": false,
-    "skipped": true,
-    "skippedReason": "near-duplicate of \"estate planning attorney sarasota\""
-  },
-  {
-    "query": "doral personal injury attorney",
-    "impressions": 12,
-    "clicks": 0,
-    "position": 6.7,
-    "tag": "Personal Injury",
-    "score": 8,
-    "used": false,
-    "skipped": true,
-    "skippedReason": "near-duplicate of \"doral personal injury lawyer\""
-  },
-  {
-    "query": "florida probate attorney silver springs",
+    "query": "3008 form",
     "impressions": 25,
     "clicks": 0,
-    "position": 14.1,
-    "tag": "Probate",
-    "score": 8,
-    "used": true,
-    "targetedOn": "2026-10-13"
-  },
-  {
-    "query": "how much does a medicaid planner cost",
-    "impressions": 14,
-    "clicks": 0,
-    "position": 9.4,
-    "tag": "Elder Law",
-    "score": 8,
-    "used": true,
-    "targetedOn": "2026-10-14"
-  },
-  {
-    "query": "how much does it cost to set up a trust in florida",
-    "impressions": 15,
-    "clicks": 0,
-    "position": 9.7,
+    "position": 8.6,
     "tag": "Estate Planning",
-    "score": 8,
-    "used": false,
-    "skipped": true,
-    "skippedReason": "near-duplicate of \"how much does it cost to make a will in florida\""
-  },
-  {
-    "query": "in florida",
-    "impressions": 10,
-    "clicks": 0,
-    "position": 4.8,
-    "tag": "Estate Planning",
-    "score": 8,
-    "used": true,
-    "targetedOn": "2026-10-15"
-  },
-  {
-    "query": "my mother in gainesville, florida may need long term care within a year. what florida trust planning options could help with medicaid eligibility while protecting her home and savings, and how do look-back rules and lady bird deeds work here?",
-    "impressions": 11,
-    "clicks": 0,
-    "position": 6.5,
-    "tag": "Elder Law",
-    "score": 8,
-    "used": true,
-    "targetedOn": "2026-10-16"
-  },
-  {
-    "query": "myaccess florida",
-    "impressions": 11,
-    "clicks": 0,
-    "position": 5.6,
-    "tag": "Estate Planning",
-    "score": 8,
-    "used": true,
-    "targetedOn": "2026-10-17"
-  },
-  {
-    "query": "carrollwood truck accident attorney",
-    "impressions": 9,
-    "clicks": 0,
-    "position": 5,
-    "tag": "Personal Injury",
-    "score": 7,
-    "used": true,
-    "targetedOn": "2026-10-18"
-  },
-  {
-    "query": "deed lawyer ormond beach fl",
-    "impressions": 13,
-    "clicks": 0,
-    "position": 10.3,
-    "tag": "Real Estate",
-    "score": 7,
+    "score": 15,
     "used": false
   },
   {
     "query": "estate planning preparation north port",
-    "impressions": 27,
+    "impressions": 21,
     "clicks": 0,
-    "position": 15.4,
+    "position": 11.1,
     "tag": "Estate Planning",
-    "score": 7,
+    "score": 10,
+    "used": false
+  },
+  {
+    "query": "form 3008",
+    "impressions": 17,
+    "clicks": 0,
+    "position": 8.4,
+    "tag": "Estate Planning",
+    "score": 10,
+    "used": false
+  },
+  {
+    "query": "injury lawyer",
+    "impressions": 11,
+    "clicks": 0,
+    "position": 5.2,
+    "tag": "Personal Injury",
+    "score": 8,
     "used": false
   },
   {
@@ -127,6 +42,15 @@
     "position": 7.3,
     "tag": "Estate Planning",
     "score": 7,
+    "used": false
+  },
+  {
+    "query": "abogado accidente uber indian harbour beach florida",
+    "impressions": 8,
+    "clicks": 0,
+    "position": 4.6,
+    "tag": "Estate Planning",
+    "score": 6,
     "used": false
   },
   {
@@ -193,33 +117,6 @@
     "used": false
   },
   {
-    "query": "maitland truck accident lawyer",
-    "impressions": 9,
-    "clicks": 0,
-    "position": 6,
-    "tag": "Personal Injury",
-    "score": 6,
-    "used": false
-  },
-  {
-    "query": "medicaid law firm osprey",
-    "impressions": 8,
-    "clicks": 0,
-    "position": 6.1,
-    "tag": "Elder Law",
-    "score": 6,
-    "used": false
-  },
-  {
-    "query": "medicaid lawyer osprey",
-    "impressions": 9,
-    "clicks": 0,
-    "position": 8,
-    "tag": "Elder Law",
-    "score": 6,
-    "used": false
-  },
-  {
     "query": "bonafay personal injury lawyer",
     "impressions": 12,
     "clicks": 0,
@@ -247,11 +144,74 @@
     "used": false
   },
   {
+    "query": "car accident lawyer",
+    "impressions": 17,
+    "clicks": 0,
+    "position": 14.9,
+    "tag": "Personal Injury",
+    "score": 5,
+    "used": false
+  },
+  {
+    "query": "car accident lawyer near me",
+    "impressions": 10,
+    "clicks": 0,
+    "position": 10.3,
+    "tag": "Personal Injury",
+    "score": 5,
+    "used": false
+  },
+  {
+    "query": "collier county medicaid planning lawyers",
+    "impressions": 12,
+    "clicks": 0,
+    "position": 13.1,
+    "tag": "Elder Law",
+    "score": 5,
+    "used": false
+  },
+  {
+    "query": "cooper city personal injury attorney",
+    "impressions": 10,
+    "clicks": 0,
+    "position": 11.2,
+    "tag": "Personal Injury",
+    "score": 5,
+    "used": false
+  },
+  {
+    "query": "deed lawyer ormond beach fl",
+    "impressions": 15,
+    "clicks": 0,
+    "position": 13.3,
+    "tag": "Real Estate",
+    "score": 5,
+    "used": false
+  },
+  {
     "query": "does a lady bird deed have to be recorded",
     "impressions": 11,
     "clicks": 0,
     "position": 11.6,
     "tag": "Real Estate",
+    "score": 5,
+    "used": false
+  },
+  {
+    "query": "elder law attorney osprey",
+    "impressions": 13,
+    "clicks": 0,
+    "position": 13.2,
+    "tag": "Elder Law",
+    "score": 5,
+    "used": false
+  },
+  {
+    "query": "form 3008 long term care",
+    "impressions": 9,
+    "clicks": 0,
+    "position": 9.2,
+    "tag": "Estate Planning",
     "score": 5,
     "used": false
   },
@@ -283,12 +243,12 @@
     "used": false
   },
   {
-    "query": "myaccess fl",
+    "query": "bayonet point personal injury lawyer",
     "impressions": 8,
     "clicks": 0,
-    "position": 6.6,
-    "tag": "Estate Planning",
-    "score": 5,
+    "position": 10.1,
+    "tag": "Personal Injury",
+    "score": 4,
     "used": false
   },
   {
@@ -301,38 +261,11 @@
     "used": false
   },
   {
-    "query": "car accident lawyer",
-    "impressions": 8,
-    "clicks": 0,
-    "position": 9.6,
-    "tag": "Personal Injury",
-    "score": 4,
-    "used": false
-  },
-  {
-    "query": "collier county medicaid planning lawyers",
-    "impressions": 10,
-    "clicks": 0,
-    "position": 11.7,
-    "tag": "Elder Law",
-    "score": 4,
-    "used": false
-  },
-  {
     "query": "condominium law lawyer cooper city, fl",
     "impressions": 8,
     "clicks": 0,
     "position": 9.4,
     "tag": "Estate Planning",
-    "score": 4,
-    "used": false
-  },
-  {
-    "query": "elder law attorney osprey",
-    "impressions": 8,
-    "clicks": 0,
-    "position": 11.4,
-    "tag": "Elder Law",
     "score": 4,
     "used": false
   },
@@ -356,9 +289,9 @@
   },
   {
     "query": "flat fee probate citrus county",
-    "impressions": 16,
+    "impressions": 13,
     "clicks": 0,
-    "position": 15.1,
+    "position": 14.9,
     "tag": "Probate",
     "score": 4,
     "used": false
@@ -371,6 +304,116 @@
     "tag": "Probate",
     "score": 4,
     "used": false
+  },
+  {
+    "query": "greenacres policy advocate",
+    "impressions": 10,
+    "clicks": 0,
+    "position": 11.8,
+    "tag": "Estate Planning",
+    "score": 4,
+    "used": false
+  },
+  {
+    "query": "lake worth personal injury lawyer",
+    "impressions": 24,
+    "clicks": 0,
+    "position": 17.3,
+    "tag": "Personal Injury",
+    "score": 4,
+    "used": false
+  },
+  {
+    "query": "chipley personal injury lawyers",
+    "impressions": 8,
+    "clicks": 0,
+    "position": 12.6,
+    "tag": "Personal Injury",
+    "score": 3,
+    "used": false
+  },
+  {
+    "query": "estate planning cooper city fl",
+    "impressions": 27,
+    "clicks": 0,
+    "position": 18.5,
+    "tag": "Estate Planning",
+    "score": 3,
+    "used": false
+  },
+  {
+    "query": "flat fee probate citrus springs",
+    "impressions": 9,
+    "clicks": 0,
+    "position": 13.9,
+    "tag": "Probate",
+    "score": 3,
+    "used": false
+  },
+  {
+    "query": "flat fee probate in citrus county",
+    "impressions": 8,
+    "clicks": 0,
+    "position": 13,
+    "tag": "Probate",
+    "score": 3,
+    "used": false
+  },
+  {
+    "query": "medicaid crisis planning lawyer",
+    "used": true,
+    "targetedOn": "2026-10-12"
+  },
+  {
+    "query": "estate planning attorney sarasota fl",
+    "used": false,
+    "targetedOn": null,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"estate planning attorney sarasota\""
+  },
+  {
+    "query": "doral personal injury attorney",
+    "used": false,
+    "targetedOn": null,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"doral personal injury lawyer\""
+  },
+  {
+    "query": "florida probate attorney silver springs",
+    "used": true,
+    "targetedOn": "2026-10-13"
+  },
+  {
+    "query": "how much does a medicaid planner cost",
+    "used": true,
+    "targetedOn": "2026-10-14"
+  },
+  {
+    "query": "how much does it cost to set up a trust in florida",
+    "used": false,
+    "targetedOn": null,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"how much does it cost to make a will in florida\""
+  },
+  {
+    "query": "in florida",
+    "used": true,
+    "targetedOn": "2026-10-15"
+  },
+  {
+    "query": "my mother in gainesville, florida may need long term care within a year. what florida trust planning options could help with medicaid eligibility while protecting her home and savings, and how do look-back rules and lady bird deeds work here?",
+    "used": true,
+    "targetedOn": "2026-10-16"
+  },
+  {
+    "query": "myaccess florida",
+    "used": true,
+    "targetedOn": "2026-10-17"
+  },
+  {
+    "query": "carrollwood truck accident attorney",
+    "used": true,
+    "targetedOn": "2026-10-18"
   },
   {
     "query": "carrollwood motorcycle accident lawyer",
