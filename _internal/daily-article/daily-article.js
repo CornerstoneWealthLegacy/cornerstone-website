@@ -359,7 +359,8 @@ function renderHTML(topic, a, slug, prettyDateStr, heroImage) {
     'Real Estate': 'Florida Real Estate Attorney',
     'Elder Law': 'Florida Elder Law Attorney',
     'Estate Planning': 'Florida Estate Planning Attorney',
-  };
+  'Timeshare': 'Florida Real Estate Attorney',
+};
   const bylineTitle = BYLINE_BY_TAG[topic.tag] || 'Florida Estate Planning Attorney';
 
   // Consult conversion layer (2026-08-31) — same three blocks batch-inserted

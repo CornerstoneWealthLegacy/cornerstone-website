@@ -25,6 +25,7 @@ const TAG_META = {
   'Elder Law':                   { eyebrow: 'Florida Elder Law',        cta: 'consult',    imageScene: 'a caring scene of an adult child and elderly parent reviewing paperwork together' },
   'Probate':                     { eyebrow: 'Florida Probate',          cta: 'consult',    imageScene: 'an elegant Florida home interior with heirloom documents in soft window light' },
   'International & Cross-Border': { eyebrow: 'International & Cross-Border', cta: 'consult', imageScene: 'a world map with warm light converging on Florida real estate' },
+  'Timeshare':                   { eyebrow: 'Florida Timeshare Release', cta: 'consult',    imageScene: 'a Florida beachfront resort tower at golden hour seen from the dunes, calm and unpeopled' },
 };
 
 function gscSlug(s) {
