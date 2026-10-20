@@ -6,7 +6,8 @@
     "position": 8.6,
     "tag": "Estate Planning",
     "score": 15,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-10-20"
   },
   {
     "query": "estate planning preparation north port",

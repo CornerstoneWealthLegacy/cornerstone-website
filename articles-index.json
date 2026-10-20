@@ -1,6 +1,17 @@
 {
   "articles": [
     {
+      "slug": "articles/focus-3008-form-2026-10-20",
+      "file": "articles/focus-3008-form-2026-10-20.html",
+      "title": "Florida 3008 Form: Medicaid Long-Term Care Certification",
+      "tag": "Estate Planning",
+      "category": "3008 Form",
+      "blurb": "What the Florida 3008 form really is, who signs it, and why it's a Medicaid medical form, not an estate planning document.",
+      "image": "images/og/florida-medicaid-planning-lookback.jpg",
+      "date": "2026-10-20",
+      "prettyDate": "October 20, 2026"
+    },
+    {
       "slug": "articles/timeshare-should-i-object-2026-10-19",
       "file": "articles/timeshare-should-i-object-2026-10-19.html",
       "title": "Should You Sign the Objection Form in a Timeshare Foreclosure?",
