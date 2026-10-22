@@ -26,7 +26,9 @@
     "position": 8.4,
     "tag": "Estate Planning",
     "score": 10,
-    "used": false
+    "used": false,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"3008 form\""
   },
   {
     "query": "injury lawyer",
@@ -35,7 +37,9 @@
     "position": 5.2,
     "tag": "Personal Injury",
     "score": 8,
-    "used": false
+    "used": false,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"carrollwood injury lawyer\""
   },
   {
     "query": "lake mary health care surrogate attorney",
@@ -44,7 +48,8 @@
     "position": 7.3,
     "tag": "Estate Planning",
     "score": 7,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-10-22"
   },
   {
     "query": "abogado accidente uber indian harbour beach florida",
