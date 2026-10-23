@@ -58,7 +58,8 @@
     "position": 4.6,
     "tag": "Estate Planning",
     "score": 6,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-10-23"
   },
   {
     "query": "baker act in florida statute",
