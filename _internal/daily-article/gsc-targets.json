@@ -68,7 +68,8 @@
     "position": 6.3,
     "tag": "Estate Planning",
     "score": 6,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-10-24"
   },
   {
     "query": "carrollwood car accident attorney",
