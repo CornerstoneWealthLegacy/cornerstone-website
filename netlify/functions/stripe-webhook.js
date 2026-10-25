@@ -125,8 +125,17 @@ async function fetchBase64(url) {
   } catch (e) { console.warn('SA worksheet fetch threw:', e.message); return null; }
 }
 
-function saDay0Content({ first, track }) {
+function saDay0Content({ first, track, intake }) {
   const B = track === 'B';
+  const it = intake || null;
+  const told = [];
+  if (it) {
+    if (it.decedent_name) told.push(`the estate of ${it.decedent_name}${it.date_of_death ? ', who passed on ' + it.date_of_death : ''}${it.county ? ', ' + it.county + ' County' : ''}`);
+    if (it.will === 'no') told.push('there is no will');
+    else if (it.will === 'yes') told.push('there is a will');
+    if (it.heirs) told.push(`the heirs you listed (${it.heirs.replace(/\s+/g, ' ').slice(0, 160)})`);
+    if (it.assets) told.push('a first list of what they owned');
+  }
   const steps = [
     'Confirm the estate qualifies for summary administration and which assets go through it, once I have the statements.',
     'Prepare the petition, the affidavit of heirs, a joinder for each beneficiary' + (B ? ', the petition to determine homestead for the house,' : ',') + ' and the proposed orders.',
@@ -147,6 +156,9 @@ function saDay0Content({ first, track }) {
     'A photo of your own driver’s license.',
   ];
   if (B) asks.push('For the house: the deed if you have it (if not, I will pull it from the county records), the latest property tax bill, any mortgage statement, and whether a spouse or a child under 18 survives.');
+  if (it && it.will === 'no') { const i = asks.findIndex(a => a.startsWith('The original will')); if (i >= 0) asks.splice(i, 1); }
+  const toldHtml = told.length ? `<p><strong>What you already told me:</strong> ${told.join('; ')}. I have it on file, so the list below is only what is still missing.</p>` : '';
+  const toldText = told.length ? `WHAT YOU ALREADY TOLD ME\n${told.join('; ')}. I have it on file, so the list below is only what is still missing.\n\n` : '';
   const li = a => a.map(x => `<li>${x}</li>`).join('');
   const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
 <body style="margin:0;background:#f4f3f0;font-family:Georgia,'Times New Roman',serif">
@@ -159,7 +171,7 @@ function saDay0Content({ first, track }) {
 <tr><td style="background:#fff;padding:34px 36px;color:#333;font-size:16px;line-height:1.7">
 <p>Hi ${first},</p>
 <p>Thank you. Your payment is in and your file is open. Here is the whole plan in one place so you always know where we are.</p>
-<p><strong>What we will do</strong></p>
+${toldHtml}<p><strong>What we will do</strong></p>
 <ol>${li(steps)}</ol>
 <p>From the day I have everything on the list below, the usual time to filing is about two weeks, and the court takes roughly four to six weeks after that.</p>
 <p><strong>What I need from you</strong></p>
@@ -174,16 +186,16 @@ function saDay0Content({ first, track }) {
 Truestead Law, LLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265<br>
 P.O. Box 2574, Ormond Beach, FL 32175 &nbsp;·&nbsp; truesteadlaw.com</div></td></tr>
 </table></td></tr></table></body></html>`;
-  const text = `Hi ${first},\n\nThank you. Your payment is in and your file is open. Here is the whole plan in one place so you always know where we are.\n\nWHAT WE WILL DO\n${steps.map((s, i) => `${i + 1}. ${s}`).join('\n')}\n\nFrom the day I have everything on the list below, the usual time to filing is about two weeks, and the court takes roughly four to six weeks after that.\n\nWHAT I NEED FROM YOU\n${asks.map(a => `- ${a}`).join('\n')}\n\nReply to this email with attachments, or mail paper originals to Truestead Law, PO Box 2574, Ormond Beach, FL 32175-2574. Photos from your phone are fine as long as every page is readable. In the body of an email please give only the last four digits of any Social Security or account number; the documents themselves can carry the full numbers.\n\nTwo things not to do yet: do not close or empty any of the accounts, and do not distribute anything to anyone, until the court’s order is in hand.\n\nWhat to expect from us. Lera Simpson, my paralegal, is copied and is your day-to-day contact; she will confirm each item as it arrives. You will hear from us at least every seven days with where things stand, and sooner whenever something moves. If anything on this list is a problem, say so and we will work around it.\n\nBest Personal Regards,\nArthur\n\nTruestead Law, LLC · Arthur Simpson, Esq. · Florida Bar #529265 · P.O. Box 2574, Ormond Beach, FL 32175`;
+  const text = `Hi ${first},\n\nThank you. Your payment is in and your file is open. Here is the whole plan in one place so you always know where we are.\n\n${toldText}WHAT WE WILL DO\n${steps.map((s, i) => `${i + 1}. ${s}`).join('\n')}\n\nFrom the day I have everything on the list below, the usual time to filing is about two weeks, and the court takes roughly four to six weeks after that.\n\nWHAT I NEED FROM YOU\n${asks.map(a => `- ${a}`).join('\n')}\n\nReply to this email with attachments, or mail paper originals to Truestead Law, PO Box 2574, Ormond Beach, FL 32175-2574. Photos from your phone are fine as long as every page is readable. In the body of an email please give only the last four digits of any Social Security or account number; the documents themselves can carry the full numbers.\n\nTwo things not to do yet: do not close or empty any of the accounts, and do not distribute anything to anyone, until the court’s order is in hand.\n\nWhat to expect from us. Lera Simpson, my paralegal, is copied and is your day-to-day contact; she will confirm each item as it arrives. You will hear from us at least every seven days with where things stand, and sooner whenever something moves. If anything on this list is a problem, say so and we will work around it.\n\nBest Personal Regards,\nArthur\n\nTruestead Law, LLC · Arthur Simpson, Esq. · Florida Bar #529265 · P.O. Box 2574, Ormond Beach, FL 32175`;
   return { html, text };
 }
 
-async function sendSaDay0Packet({ email, name, track }) {
+async function sendSaDay0Packet({ email, name, track, intake }) {
   const key = process.env.RESEND_API_KEY;
   if (!key) { console.warn('RESEND_API_KEY not set — skipping SA Day-0 packet'); return false; }
   if (!email) { console.warn('No buyer email on session — skipping SA Day-0 packet'); return false; }
   const first = String(name || '').trim().split(/\s+/)[0] || 'there';
-  const { html, text } = saDay0Content({ first, track });
+  const { html, text } = saDay0Content({ first, track, intake });
   const pdf = await fetchBase64(SA_WORKSHEET_URL);
   const attachments = pdf ? [{ filename: 'Summary Administration Intake Worksheet.pdf', content: pdf }] : [];
   if (!pdf) console.warn('SA Day-0 packet going without the worksheet attachment');
@@ -532,15 +544,29 @@ exports.handler = async (event) => {
           });
         } catch (e) { console.error('service-order ntfy failed:', e.message); }
         const saTrack = SA_PRODUCTS[svcProduct];
+        const svcRaw2 = process.env.FIREBASE_SERVICE_ACCOUNT;
+        // Intake captured before payment (capture-sa-intake.js) rides along as client_reference_id.
+        const refId = String(session.client_reference_id || '');
+        let saIntake = null;
+        if (saTrack && /^sa_[a-f0-9]{10}$/.test(refId) && svcRaw2) {
+          try {
+            const svcI = JSON.parse(svcRaw2);
+            const tokI = await getFirestoreToken(svcI);
+            saIntake = await firestoreGet(svcI.project_id, 'sa_intakes', refId, tokI);
+            if (saIntake) {
+              await firestoreUpdateDoc(svcI.project_id, 'sa_intakes', refId, { status: 'paid', paidAt: new Date().toISOString(), stripeSessionId: session.id }, tokI);
+              console.log('SA intake found for payment:', refId);
+            } else console.warn('SA intake id on the session but no Firestore doc:', refId);
+          } catch (e) { console.error('SA intake lookup failed (non-fatal):', e.message); }
+        }
         let saPacketSent = false;
-        if (saTrack) saPacketSent = await sendSaDay0Packet({ email, name: session.customer_details?.name || '', track: saTrack });
+        if (saTrack) saPacketSent = await sendSaDay0Packet({ email, name: session.customer_details?.name || (saIntake && saIntake.your_name) || '', track: saTrack, intake: saIntake });
         if (!saPacketSent) await sendOrderReceivedEmail({ email, name: session.customer_details?.name || '', amount, product: svcProduct });
         await sendMetaCAPIPurchase({
           email, name: session.customer_details?.name || '', value: amount,
           currency: (session.currency || 'usd').toUpperCase(), eventId: session.id,
           eventSourceUrl: 'https://truesteadlaw.com/trademark',
         });
-        const svcRaw2 = process.env.FIREBASE_SERVICE_ACCOUNT;
         if (svcRaw2 && email) {
           try {
             const svc2 = JSON.parse(svcRaw2);
@@ -550,7 +576,7 @@ exports.handler = async (event) => {
               product: svcProduct, email: email.toLowerCase(),
               name: session.customer_details?.name || '',
               amount: amount || '', stripeSessionId: session.id,
-              status: 'new', createdAt: Date.now(),
+              status: 'new', createdAt: Date.now(), intakeId: refId || '',
             }, tok2);
             console.log('Service order recorded:', svcProduct, orderId);
           } catch (e) { console.error('service-order Firestore write failed (non-fatal — ntfy already sent):', e.message); }
