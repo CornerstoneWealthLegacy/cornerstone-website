@@ -107,6 +107,105 @@ P.O. Box 2574, Ormond Beach, FL 32175 &nbsp;·&nbsp; truesteadlaw.com</div></td>
 }
 
 // ── Stripe signature verification (no SDK needed) ──────────────────────────
+// ── SA DAY-0 PACKET (10/24/2026) ───────────────────────────────────────────
+// For a paid summary administration order, the client gets the SA Launch Kit's
+// Day-0 packet (template 6a in the vault's SA Launch Kit) the moment Stripe
+// confirms payment: the plan, what we need, where to send it, and the intake
+// worksheet attached. Replaces the thin "payment received" note for these two
+// products only. The cloud sweep opens the matter folder on its next run and
+// must not send 6a again (prompt v6.2). Falls back to the receipt on failure.
+const SA_PRODUCTS = { summary_admin: 'A', summary_admin_realprop: 'B' };
+const SA_WORKSHEET_URL = 'https://truesteadlaw.com/forms/summary-administration-intake-worksheet.pdf';
+
+async function fetchBase64(url) {
+  try {
+    const r = await fetch(url);
+    if (!r.ok) { console.warn('SA worksheet fetch failed:', r.status); return null; }
+    return Buffer.from(await r.arrayBuffer()).toString('base64');
+  } catch (e) { console.warn('SA worksheet fetch threw:', e.message); return null; }
+}
+
+function saDay0Content({ first, track }) {
+  const B = track === 'B';
+  const steps = [
+    'Confirm the estate qualifies for summary administration and which assets go through it, once I have the statements.',
+    'Prepare the petition, the affidavit of heirs, a joinder for each beneficiary' + (B ? ', the petition to determine homestead for the house,' : ',') + ' and the proposed orders.',
+    'Get the signatures: yours on the petition, each beneficiary’s on a notarized joinder (an online notary is fine), and serve any creditors.',
+    'File with the clerk in the county where the decedent lived and send the judge the proposed orders.',
+    'When the orders are signed, deliver them to each bank or company' + (B ? ' and record the homestead order so the house can be sold or kept in your name.' : '.'),
+  ];
+  const asks = [
+    'The attached intake worksheet, filled in as far as you can (about 20 minutes). Write “none” or “unknown” rather than leaving a blank.',
+    'A certified short-form death certificate for the court, plus one certified copy for each bank or company that holds an asset. Order them now from the funeral home or the Bureau of Vital Statistics; it is cheaper in one batch.',
+    'The original will and any codicils, and who has them today. Do not remove staples or write on it. If there is no will, say so.',
+    'The full legal name, mailing address and relationship of every heir or beneficiary, and the year of birth of anyone under 18.',
+    'Whether the decedent was married at death, and any other children, living or deceased.',
+    'A statement for every account as of the date of death, showing how the account was titled, and each institution’s mailing address.',
+    'Vehicle titles or registrations, and any loan statement.',
+    'The funeral bill and proof it was paid, and any medical bills from the last 60 days with the insurance statements.',
+    'Any other debt, lawsuit, or Medicaid after age 55.',
+    'A photo of your own driver’s license.',
+  ];
+  if (B) asks.push('For the house: the deed if you have it (if not, I will pull it from the county records), the latest property tax bill, any mortgage statement, and whether a spouse or a child under 18 survives.');
+  const li = a => a.map(x => `<li>${x}</li>`).join('');
+  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;background:#f4f3f0;font-family:Georgia,'Times New Roman',serif">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f3f0;padding:28px 14px"><tr><td align="center">
+<table width="640" cellpadding="0" cellspacing="0" style="max-width:640px;width:100%">
+<tr><td style="background:#0f2744;border-radius:12px 12px 0 0;padding:26px 36px;text-align:center">
+<div style="color:#c49a2a;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-family:Arial,sans-serif">Truestead Law</div>
+<div style="color:#fff;font-size:22px;font-weight:700;margin-top:6px">Your Florida summary administration</div>
+<div style="height:2px;background:#c49a2a;width:54px;margin:14px auto 0"></div></td></tr>
+<tr><td style="background:#fff;padding:34px 36px;color:#333;font-size:16px;line-height:1.7">
+<p>Hi ${first},</p>
+<p>Thank you. Your payment is in and your file is open. Here is the whole plan in one place so you always know where we are.</p>
+<p><strong>What we will do</strong></p>
+<ol>${li(steps)}</ol>
+<p>From the day I have everything on the list below, the usual time to filing is about two weeks, and the court takes roughly four to six weeks after that.</p>
+<p><strong>What I need from you</strong></p>
+<ul>${li(asks)}</ul>
+<p>Reply to this email with attachments, or mail paper originals to Truestead Law, PO Box 2574, Ormond Beach, FL 32175-2574. Photos from your phone are fine as long as every page is readable. In the body of an email please give only the last four digits of any Social Security or account number; the documents themselves can carry the full numbers.</p>
+<p><strong>Two things not to do yet:</strong> do not close or empty any of the accounts, and do not distribute anything to anyone, until the court’s order is in hand.</p>
+<p><strong>What to expect from us.</strong> Lera Simpson, my paralegal, is copied and is your day-to-day contact; she will confirm each item as it arrives. You will hear from us at least every seven days with where things stand, and sooner whenever something moves. If anything on this list is a problem, say so and we will work around it.</p>
+<p>Best Personal Regards,<br>Arthur</p>
+</td></tr>
+<tr><td style="background:#0f2744;border-radius:0 0 12px 12px;padding:20px 36px;text-align:center">
+<div style="font-size:11px;color:#8899aa;line-height:1.7;font-family:Arial,sans-serif">
+Truestead Law, LLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265<br>
+P.O. Box 2574, Ormond Beach, FL 32175 &nbsp;·&nbsp; truesteadlaw.com</div></td></tr>
+</table></td></tr></table></body></html>`;
+  const text = `Hi ${first},\n\nThank you. Your payment is in and your file is open. Here is the whole plan in one place so you always know where we are.\n\nWHAT WE WILL DO\n${steps.map((s, i) => `${i + 1}. ${s}`).join('\n')}\n\nFrom the day I have everything on the list below, the usual time to filing is about two weeks, and the court takes roughly four to six weeks after that.\n\nWHAT I NEED FROM YOU\n${asks.map(a => `- ${a}`).join('\n')}\n\nReply to this email with attachments, or mail paper originals to Truestead Law, PO Box 2574, Ormond Beach, FL 32175-2574. Photos from your phone are fine as long as every page is readable. In the body of an email please give only the last four digits of any Social Security or account number; the documents themselves can carry the full numbers.\n\nTwo things not to do yet: do not close or empty any of the accounts, and do not distribute anything to anyone, until the court’s order is in hand.\n\nWhat to expect from us. Lera Simpson, my paralegal, is copied and is your day-to-day contact; she will confirm each item as it arrives. You will hear from us at least every seven days with where things stand, and sooner whenever something moves. If anything on this list is a problem, say so and we will work around it.\n\nBest Personal Regards,\nArthur\n\nTruestead Law, LLC · Arthur Simpson, Esq. · Florida Bar #529265 · P.O. Box 2574, Ormond Beach, FL 32175`;
+  return { html, text };
+}
+
+async function sendSaDay0Packet({ email, name, track }) {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) { console.warn('RESEND_API_KEY not set — skipping SA Day-0 packet'); return false; }
+  if (!email) { console.warn('No buyer email on session — skipping SA Day-0 packet'); return false; }
+  const first = String(name || '').trim().split(/\s+/)[0] || 'there';
+  const { html, text } = saDay0Content({ first, track });
+  const pdf = await fetchBase64(SA_WORKSHEET_URL);
+  const attachments = pdf ? [{ filename: 'Summary Administration Intake Worksheet.pdf', content: pdf }] : [];
+  if (!pdf) console.warn('SA Day-0 packet going without the worksheet attachment');
+  try {
+    const res = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        from: 'Arthur Simpson <arthur@truesteadlaw.com>',
+        reply_to: 'arthur@truesteadlaw.com',
+        to: [email],
+        cc: ['lera@truesteadlaw.com'],
+        subject: 'Your Florida summary administration: what happens now and what I need',
+        html, text, attachments,
+      }),
+    });
+    if (!res.ok) { console.error('Resend SA Day-0 packet error:', res.status, await res.text()); return false; }
+    console.log('SA Day-0 packet sent to', email, 'track', track, pdf ? 'with worksheet' : 'without worksheet');
+    return true;
+  } catch (e) { console.error('Resend SA Day-0 packet threw:', e.message); return false; }
+}
+
 function verifyStripeSignature(rawBody, sigHeader, secret) {
   const parts     = sigHeader.split(',');
   const tPart     = parts.find(p => p.startsWith('t='));
@@ -432,7 +531,10 @@ exports.handler = async (event) => {
             body: `${who} purchased: ${svcProduct.replace(/_/g, ' ')}${amount ? ' ($' + amount + ')' : ''}.${email ? ' (' + email + ')' : ''} Reach out within 1 business day.`,
           });
         } catch (e) { console.error('service-order ntfy failed:', e.message); }
-        await sendOrderReceivedEmail({ email, name: session.customer_details?.name || '', amount, product: svcProduct });
+        const saTrack = SA_PRODUCTS[svcProduct];
+        let saPacketSent = false;
+        if (saTrack) saPacketSent = await sendSaDay0Packet({ email, name: session.customer_details?.name || '', track: saTrack });
+        if (!saPacketSent) await sendOrderReceivedEmail({ email, name: session.customer_details?.name || '', amount, product: svcProduct });
         await sendMetaCAPIPurchase({
           email, name: session.customer_details?.name || '', value: amount,
           currency: (session.currency || 'usd').toUpperCase(), eventId: session.id,
