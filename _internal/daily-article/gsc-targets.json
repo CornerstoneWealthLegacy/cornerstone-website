@@ -1,96 +1,48 @@
 [
   {
-    "query": "3008 form",
-    "impressions": 25,
+    "query": "car accident lawyer",
+    "impressions": 26,
     "clicks": 0,
-    "position": 8.6,
-    "tag": "Estate Planning",
-    "score": 15,
-    "used": true,
-    "targetedOn": "2026-10-20"
-  },
-  {
-    "query": "estate planning preparation north port",
-    "impressions": 21,
-    "clicks": 0,
-    "position": 11.1,
-    "tag": "Estate Planning",
+    "position": 12.8,
+    "tag": "Personal Injury",
     "score": 10,
-    "used": true,
-    "targetedOn": "2026-10-21"
+    "used": false
   },
   {
-    "query": "form 3008",
-    "impressions": 17,
+    "query": "grant-valkaria car accident lawsuit",
+    "impressions": 14,
     "clicks": 0,
-    "position": 8.4,
-    "tag": "Estate Planning",
-    "score": 10,
-    "used": false,
-    "skipped": true,
-    "skippedReason": "near-duplicate of \"3008 form\""
+    "position": 6.8,
+    "tag": "Personal Injury",
+    "score": 9,
+    "used": false
   },
   {
-    "query": "injury lawyer",
-    "impressions": 11,
+    "query": "car accident lawyer near me",
+    "impressions": 15,
     "clicks": 0,
-    "position": 5.2,
+    "position": 10.2,
     "tag": "Personal Injury",
     "score": 8,
-    "used": false,
-    "skipped": true,
-    "skippedReason": "near-duplicate of \"carrollwood injury lawyer\""
+    "used": false
   },
   {
-    "query": "lake mary health care surrogate attorney",
+    "query": "graceville personal injury lawyers",
     "impressions": 10,
     "clicks": 0,
-    "position": 7.3,
-    "tag": "Estate Planning",
+    "position": 4.5,
+    "tag": "Personal Injury",
+    "score": 8,
+    "used": false
+  },
+  {
+    "query": "affordable slip and fall legal representation st. augustine beach",
+    "impressions": 10,
+    "clicks": 0,
+    "position": 5.7,
+    "tag": "Personal Injury",
     "score": 7,
-    "used": true,
-    "targetedOn": "2026-10-22"
-  },
-  {
-    "query": "abogado accidente uber indian harbour beach florida",
-    "impressions": 8,
-    "clicks": 0,
-    "position": 4.6,
-    "tag": "Estate Planning",
-    "score": 6,
-    "used": true,
-    "targetedOn": "2026-10-23"
-  },
-  {
-    "query": "baker act in florida statute",
-    "impressions": 8,
-    "clicks": 0,
-    "position": 6.3,
-    "tag": "Estate Planning",
-    "score": 6,
-    "used": true,
-    "targetedOn": "2026-10-24"
-  },
-  {
-    "query": "carrollwood car accident attorney",
-    "impressions": 13,
-    "clicks": 0,
-    "position": 11.6,
-    "tag": "Personal Injury",
-    "score": 6,
-    "used": false,
-    "skipped": true,
-    "skippedReason": "near-duplicate of \"carrollwood truck accident attorney\""
-  },
-  {
-    "query": "carrollwood wrongful death attorney",
-    "impressions": 16,
-    "clicks": 0,
-    "position": 12.6,
-    "tag": "Personal Injury",
-    "score": 6,
-    "used": true,
-    "targetedOn": "2026-10-25"
+    "used": false
   },
   {
     "query": "doral adult guardianship",
@@ -111,6 +63,15 @@
     "used": false
   },
   {
+    "query": "elder law attorney osprey",
+    "impressions": 15,
+    "clicks": 0,
+    "position": 12.9,
+    "tag": "Elder Law",
+    "score": 6,
+    "used": false
+  },
+  {
     "query": "family law attorney springfield fl",
     "impressions": 8,
     "clicks": 0,
@@ -120,12 +81,39 @@
     "used": false
   },
   {
-    "query": "lady bird deed miami-dade",
-    "impressions": 9,
+    "query": "high springs truck accident lawyer",
+    "impressions": 12,
     "clicks": 0,
-    "position": 8,
+    "position": 10.9,
+    "tag": "Personal Injury",
+    "score": 6,
+    "used": false
+  },
+  {
+    "query": "lady bird deed miami-dade",
+    "impressions": 10,
+    "clicks": 0,
+    "position": 9.1,
     "tag": "Real Estate",
     "score": 6,
+    "used": false
+  },
+  {
+    "query": "ave maria trucking accident lawyer",
+    "impressions": 9,
+    "clicks": 0,
+    "position": 10.1,
+    "tag": "Personal Injury",
+    "score": 5,
+    "used": false
+  },
+  {
+    "query": "bayonet point personal injury lawyer",
+    "impressions": 11,
+    "clicks": 0,
+    "position": 12,
+    "tag": "Personal Injury",
+    "score": 5,
     "used": false
   },
   {
@@ -156,28 +144,10 @@
     "used": false
   },
   {
-    "query": "car accident lawyer",
-    "impressions": 17,
-    "clicks": 0,
-    "position": 14.9,
-    "tag": "Personal Injury",
-    "score": 5,
-    "used": false
-  },
-  {
-    "query": "car accident lawyer near me",
-    "impressions": 10,
-    "clicks": 0,
-    "position": 10.3,
-    "tag": "Personal Injury",
-    "score": 5,
-    "used": false
-  },
-  {
     "query": "collier county medicaid planning lawyers",
-    "impressions": 12,
+    "impressions": 13,
     "clicks": 0,
-    "position": 13.1,
+    "position": 13,
     "tag": "Elder Law",
     "score": 5,
     "used": false
@@ -210,15 +180,6 @@
     "used": false
   },
   {
-    "query": "elder law attorney osprey",
-    "impressions": 13,
-    "clicks": 0,
-    "position": 13.2,
-    "tag": "Elder Law",
-    "score": 5,
-    "used": false
-  },
-  {
     "query": "form 3008 long term care",
     "impressions": 9,
     "clicks": 0,
@@ -228,38 +189,29 @@
     "used": false
   },
   {
-    "query": "limited guardianship",
-    "impressions": 8,
+    "query": "lake placid personal injury lawyer",
+    "impressions": 11,
     "clicks": 0,
-    "position": 7.9,
-    "tag": "Elder Law",
+    "position": 11.2,
+    "tag": "Personal Injury",
     "score": 5,
     "used": false
   },
   {
-    "query": "living trusts silver springs",
-    "impressions": 20,
+    "query": "abogado accidente construcción high springs florida",
+    "impressions": 9,
     "clicks": 0,
-    "position": 15.9,
+    "position": 11.6,
     "tag": "Estate Planning",
-    "score": 5,
+    "score": 4,
     "used": false
   },
   {
-    "query": "long term care attorney",
+    "query": "abogado resbalón y caída indian harbour beach florida",
     "impressions": 17,
     "clicks": 0,
-    "position": 15.1,
+    "position": 15.8,
     "tag": "Estate Planning",
-    "score": 5,
-    "used": false
-  },
-  {
-    "query": "bayonet point personal injury lawyer",
-    "impressions": 8,
-    "clicks": 0,
-    "position": 10.1,
-    "tag": "Personal Injury",
     "score": 4,
     "used": false
   },
@@ -282,6 +234,15 @@
     "used": false
   },
   {
+    "query": "elder attorney osprey",
+    "impressions": 9,
+    "clicks": 0,
+    "position": 12.8,
+    "tag": "Elder Law",
+    "score": 4,
+    "used": false
+  },
+  {
     "query": "elder law attorney pinellas county",
     "impressions": 11,
     "clicks": 0,
@@ -300,11 +261,11 @@
     "used": false
   },
   {
-    "query": "flat fee probate citrus county",
-    "impressions": 13,
+    "query": "florida nursing home medicaid rates",
+    "impressions": 10,
     "clicks": 0,
-    "position": 14.9,
-    "tag": "Probate",
+    "position": 12.9,
+    "tag": "Elder Law",
     "score": 4,
     "used": false
   },
@@ -336,6 +297,24 @@
     "used": false
   },
   {
+    "query": "bonita springs medicaid planning attorneys",
+    "impressions": 12,
+    "clicks": 0,
+    "position": 15.5,
+    "tag": "Elder Law",
+    "score": 3,
+    "used": false
+  },
+  {
+    "query": "car accident lawyer in lake placid",
+    "impressions": 8,
+    "clicks": 0,
+    "position": 13.6,
+    "tag": "Personal Injury",
+    "score": 3,
+    "used": false
+  },
+  {
     "query": "chipley personal injury lawyers",
     "impressions": 8,
     "clicks": 0,
@@ -354,8 +333,26 @@
     "used": false
   },
   {
+    "query": "executor of estate lawyer in sarasota",
+    "impressions": 8,
+    "clicks": 0,
+    "position": 12,
+    "tag": "Probate",
+    "score": 3,
+    "used": false
+  },
+  {
+    "query": "flat fee probate citrus county",
+    "impressions": 10,
+    "clicks": 0,
+    "position": 14.2,
+    "tag": "Probate",
+    "score": 3,
+    "used": false
+  },
+  {
     "query": "flat fee probate citrus springs",
-    "impressions": 9,
+    "impressions": 8,
     "clicks": 0,
     "position": 13.9,
     "tag": "Probate",
@@ -363,13 +360,55 @@
     "used": false
   },
   {
-    "query": "flat fee probate in citrus county",
-    "impressions": 8,
-    "clicks": 0,
-    "position": 13,
-    "tag": "Probate",
-    "score": 3,
-    "used": false
+    "query": "3008 form",
+    "used": true,
+    "targetedOn": "2026-10-20"
+  },
+  {
+    "query": "estate planning preparation north port",
+    "used": true,
+    "targetedOn": "2026-10-21"
+  },
+  {
+    "query": "form 3008",
+    "used": false,
+    "targetedOn": null,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"3008 form\""
+  },
+  {
+    "query": "injury lawyer",
+    "used": false,
+    "targetedOn": null,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"carrollwood injury lawyer\""
+  },
+  {
+    "query": "lake mary health care surrogate attorney",
+    "used": true,
+    "targetedOn": "2026-10-22"
+  },
+  {
+    "query": "abogado accidente uber indian harbour beach florida",
+    "used": true,
+    "targetedOn": "2026-10-23"
+  },
+  {
+    "query": "baker act in florida statute",
+    "used": true,
+    "targetedOn": "2026-10-24"
+  },
+  {
+    "query": "carrollwood car accident attorney",
+    "used": false,
+    "targetedOn": null,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"carrollwood truck accident attorney\""
+  },
+  {
+    "query": "carrollwood wrongful death attorney",
+    "used": true,
+    "targetedOn": "2026-10-25"
   },
   {
     "query": "medicaid crisis planning lawyer",
