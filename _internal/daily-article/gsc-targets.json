@@ -6,7 +6,9 @@
     "position": 12.8,
     "tag": "Personal Injury",
     "score": 10,
-    "used": false
+    "used": false,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"carrollwood car accident lawyer\""
   },
   {
     "query": "grant-valkaria car accident lawsuit",
@@ -15,7 +17,8 @@
     "position": 6.8,
     "tag": "Personal Injury",
     "score": 9,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-10-26"
   },
   {
     "query": "car accident lawyer near me",
