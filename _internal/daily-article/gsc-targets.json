@@ -27,7 +27,9 @@
     "position": 10.2,
     "tag": "Personal Injury",
     "score": 8,
-    "used": false
+    "used": false,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"car accident lawyer\""
   },
   {
     "query": "graceville personal injury lawyers",
@@ -36,7 +38,9 @@
     "position": 4.5,
     "tag": "Personal Injury",
     "score": 8,
-    "used": false
+    "used": false,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"doral personal injury lawyer\""
   },
   {
     "query": "affordable slip and fall legal representation st. augustine beach",
@@ -45,7 +49,8 @@
     "position": 5.7,
     "tag": "Personal Injury",
     "score": 7,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-10-27"
   },
   {
     "query": "doral adult guardianship",
