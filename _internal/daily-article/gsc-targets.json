@@ -59,7 +59,8 @@
     "position": 11.5,
     "tag": "Elder Law",
     "score": 6,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-10-28"
   },
   {
     "query": "doral personal injury attorneys",
