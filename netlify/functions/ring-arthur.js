@@ -18,7 +18,7 @@
 //            caller_id is the telephony caller ID, passed by the agent from
 //            {{system__caller_id}}; it is populated from the first ring, so it
 //            covers the window where the caller has not yet stated a number.
-// Returns:   { ok: true, ringing: true }
+// Returns:   { ok: true, ringing: true, room_token, call_sid }
 //
 // Env: TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, NTFY_TOPIC, ARTHUR_CELL, SCREENER_NUMBER,
 //      RESEND_API_KEY (durable per-call email; the push alone expires after 12 h).
@@ -177,6 +177,11 @@ exports.handler = async (event) => {
   //    early, so a call is still recorded when the ring itself fails - that is
   //    the case where a durable record matters most.
   let ringing = false;
+  // Twilio SID of Arthur's screening leg. Returned to the agent so check_arthur
+  // can read the leg's live status (ringing / answered / ended) instead of
+  // guessing from a fixed number of polls. 10/28/2026: Arthur pressed 1 the same
+  // second Ava's third and last poll expired, and sat alone on hold music.
+  let callSid = '';
   let configured = Boolean(SID && TOKEN);
 
   // Per-call room token. Before 9/21/2026 the screening conference was named
@@ -205,8 +210,10 @@ exports.handler = async (event) => {
           Timeout: '25',
         }),
       });
-      if (res.ok) ringing = true;
-      else console.error('twilio call error', res.status, await res.text());
+      if (res.ok) {
+        ringing = true;
+        try { callSid = ((await res.json()).sid || '').toString(); } catch { /* sid is optional */ }
+      } else console.error('twilio call error', res.status, await res.text());
     } catch (e) {
       console.error('twilio call threw', e);
     }
@@ -227,5 +234,8 @@ exports.handler = async (event) => {
   // room_token goes back to the agent, which must pass it to check_arthur. Without
   // it check_arthur falls back to the shared legacy room, where the participant
   // guard is the only thing preventing a bridge.
-  return { statusCode: 200, body: JSON.stringify({ ok: ringing, ringing, room_token: roomToken }) };
+  // call_sid lets check_arthur tell "still ringing / he answered, hearing the
+  // whisper" from "he declined or never answered", so it waits exactly as long
+  // as the pickup actually takes and no longer.
+  return { statusCode: 200, body: JSON.stringify({ ok: ringing, ringing, room_token: roomToken, call_sid: callSid }) };
 };

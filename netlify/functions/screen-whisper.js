@@ -28,7 +28,13 @@ exports.handler = async (event) => {
   const token = (q.token || '').toString().replace(/[^A-Za-z0-9]/g, '').slice(0, 24);
   const BASE = 'https://truesteadlaw.com/.netlify/functions';
 
-  const briefing = `${label} call: ${name}. ${reason}`;
+  // 10/28/2026: the reason is no longer spoken. With it the whisper ran about
+  // 14 s, and ring (up to 25 s) plus whisper plus the press was longer than the
+  // agent's accept window, so Arthur's 1 landed after the caller had already
+  // been handed to AI Arthur. The reason still arrives in the ntfy push and the
+  // call-record email. `reason` stays in the URL so nothing upstream changes.
+  void reason;
+  const briefing = `${label} call: ${name}.`;
 
   return {
     statusCode: 200,

@@ -17,7 +17,17 @@
 // The token falls back to "legacy" when absent so a half-deployed state (new code,
 // old agent prompt) still functions; the participant-count guard in check-arthur.js
 // and screener-voice.js is what actually prevents bridging in that case.
+//
+// NO MORE STRANDING (10/28/2026). Twice Arthur pressed 1 a moment after the agent
+// had stopped polling and handed the caller to AI Arthur; he was parked here
+// alone on Twilio's default hold music with no way to know, for 46 s on 10/28.
+// The room now uses screen-wait.js as its waitUrl: it holds him for up to 40 s
+// and, if nobody has joined by then, tells him the caller already went to his
+// AI and ends the leg. The wait TwiML carries line and token so it can find
+// this exact room. (A <Dial timeLimit> would not do: it caps the whole dial,
+// including the live conversation once the caller joins.)
 
+const BASE = 'https://truesteadlaw.com/.netlify/functions';
 const safeToken = (t) => (t || '').toString().replace(/[^A-Za-z0-9]/g, '').slice(0, 24) || 'legacy';
 
 exports.handler = async (event) => {
@@ -27,9 +37,11 @@ exports.handler = async (event) => {
   const token = safeToken(q.token);
   const digit = params.get('Digits') || '';
 
+  const waitUrl = `${BASE}/screen-wait?line=${line}&amp;token=${token}&amp;n=0`;
+
   const body = digit === '1'
     ? `<Say voice="Polly.Joanna">Connecting the caller now.</Say>` +
-      `<Dial><Conference startConferenceOnEnter="true" endConferenceOnExit="true" beep="false">scr-${line}-${token}</Conference></Dial>`
+      `<Dial><Conference startConferenceOnEnter="true" endConferenceOnExit="true" beep="false" waitUrl="${waitUrl}" waitMethod="POST">scr-${line}-${token}</Conference></Dial>`
     : '<Hangup/>';
 
   return {
