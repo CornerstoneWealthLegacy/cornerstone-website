@@ -248,6 +248,7 @@ const KIT_LETTERS = {
       'Send you the recorded deed for your records.',
     ],
     timing: 'Once I have everything below, the deed is usually ready to sign within about three business days, and the county records it within one to two weeks of signing.',
+    intake: 'deed',
     asks: [
       'A copy of the current deed if you have it; if not, the property address is enough and I will pull it.',
       'The full legal name of every current owner and every new owner, exactly as on their ID, and each one’s mailing address.',
@@ -269,6 +270,7 @@ const KIT_LETTERS = {
       'Give you the signed originals and tell you who should get copies.',
     ],
     timing: 'Once I have everything below, drafts are usually ready for your review within about five business days.',
+    intake: 'estate',
     asks: [
       'The full legal name and mailing address of each person you are naming (for example your agent, health care surrogate, personal representative or trustee, and their backups).',
       'Any documents these will replace: older wills, trusts or powers of attorney.',
@@ -308,6 +310,9 @@ function kitLetterContent(kit, first) {
   const li = a => a.map(x => `<li>${x}</li>`).join('');
   const reply = 'Reply to this email with attachments; photos from your phone are fine as long as every page is readable.' +
     (L.lastFour ? ' In the body of an email please give only the last four digits of any Social Security or account number.' : '');
+  const intakeUrl = L.intake ? `https://truesteadlaw.com/intake?kit=${L.intake}` : '';
+  const intakeHtml = intakeUrl ? `<p>The quickest way to give me most of this is the short form here: <a href="${intakeUrl}" style="color:#0f2744"><strong>${intakeUrl.replace('https://', '')}</strong></a></p>` : '';
+  const intakeText = intakeUrl ? `The quickest way to give me most of this is the short form here: ${intakeUrl}\n\n` : '';
   const expect = 'Lera Simpson, my paralegal, is copied and is your day-to-day contact. You will hear from us every three days with where things stand, and sooner whenever something moves.';
   const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
 <body style="margin:0;background:#f4f3f0;font-family:Georgia,'Times New Roman',serif">
@@ -323,7 +328,7 @@ function kitLetterContent(kit, first) {
 <p><strong>What we will do</strong></p>
 <ol>${li(L.steps)}</ol>
 <p>${L.timing}</p>
-<p><strong>What I need from you</strong></p>
+${intakeHtml}<p><strong>What I need from you</strong></p>
 <ul>${li(L.asks)}</ul>
 <p>${reply}</p>
 <p><strong>One thing not to do yet:</strong> ${L.dont}</p>
@@ -335,7 +340,7 @@ function kitLetterContent(kit, first) {
 Truestead Law, LLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265<br>
 P.O. Box 2574, Ormond Beach, FL 32175 &nbsp;·&nbsp; truesteadlaw.com</div></td></tr>
 </table></td></tr></table></body></html>`;
-  const text = `Hi ${first},\n\nThank you. Your payment is in and your file is open. Here is the whole plan in one place.\n\nWHAT WE WILL DO\n${L.steps.map((s, i) => `${i + 1}. ${s}`).join('\n')}\n\n${L.timing}\n\nWHAT I NEED FROM YOU\n${L.asks.map(a => `- ${a}`).join('\n')}\n\n${reply}\n\nOne thing not to do yet: ${L.dont}\n\nWhat to expect from us. ${expect}\n\nBest Personal Regards,\nArthur\n\nTruestead Law, LLC · Arthur Simpson, Esq. · Florida Bar #529265 · P.O. Box 2574, Ormond Beach, FL 32175`;
+  const text = `Hi ${first},\n\nThank you. Your payment is in and your file is open. Here is the whole plan in one place.\n\nWHAT WE WILL DO\n${L.steps.map((s, i) => `${i + 1}. ${s}`).join('\n')}\n\n${L.timing}\n\n${intakeText}WHAT I NEED FROM YOU\n${L.asks.map(a => `- ${a}`).join('\n')}\n\n${reply}\n\nOne thing not to do yet: ${L.dont}\n\nWhat to expect from us. ${expect}\n\nBest Personal Regards,\nArthur\n\nTruestead Law, LLC · Arthur Simpson, Esq. · Florida Bar #529265 · P.O. Box 2574, Ormond Beach, FL 32175`;
   return { subject: L.subject, html, text };
 }
 

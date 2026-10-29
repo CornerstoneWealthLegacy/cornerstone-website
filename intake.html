@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Intake Form | Truestead Law</title>
+  <meta name="description" content="Secure intake form for Truestead Law clients.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png?v=2">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png?v=2">
+  <style>
+    :root { --navy:#0f2744; --gold:#c49a2a; --ink:#1f2937; --muted:#4a5568; --line:#e2e8f0; --bg:#f4f3f0; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); font-family:Inter,Arial,sans-serif; line-height:1.6; }
+    header { background:var(--navy); padding:18px 16px; text-align:center; }
+    header a { color:#fff; text-decoration:none; font-family:'Playfair Display',serif; font-size:1.3rem; letter-spacing:.06em; }
+    header .rule { height:2px; background:var(--gold); width:54px; margin:10px auto 0; }
+    main { max-width:760px; margin:0 auto; padding:28px 16px 60px; }
+    h1 { font-family:'Playfair Display',serif; color:var(--navy); font-size:clamp(1.6rem,4.5vw,2.1rem); margin:0 0 8px; line-height:1.2; }
+    .lead { color:var(--muted); margin:0 0 22px; }
+    form { background:#fff; border:1.5px solid var(--gold); border-radius:14px; padding:24px 20px 18px; }
+    fieldset { border:0; margin:0 0 6px; padding:0; }
+    legend { font-weight:700; color:var(--navy); font-size:1.02rem; margin:10px 0 8px; padding:0; }
+    label { display:block; font-size:.9rem; font-weight:600; color:var(--navy); margin:0 0 14px; }
+    .hint { display:block; font-weight:400; color:#64748b; font-size:.82rem; margin-top:2px; }
+    input[type=text], input[type=email], input[type=tel], select, textarea {
+      display:block; width:100%; margin-top:5px; padding:10px 12px; border:1.5px solid var(--line); border-radius:8px;
+      font:inherit; font-size:1rem; font-weight:400; color:var(--ink); background:#fff; }
+    textarea { min-height:84px; resize:vertical; }
+    input:focus, select:focus, textarea:focus { outline:none; border-color:var(--gold); }
+    .row { display:grid; grid-template-columns:1fr 1fr; gap:0 16px; }
+    .checks { display:grid; grid-template-columns:1fr 1fr; gap:8px 16px; margin:0 0 14px; }
+    .checks label { display:flex; align-items:center; gap:10px; font-weight:400; color:var(--ink); margin:0; border:1.5px solid var(--line); border-radius:10px; padding:10px 12px; cursor:pointer; }
+    .checks label:has(input:checked) { border-color:var(--gold); background:rgba(196,154,42,.08); }
+    .doc-block { display:none; }
+    .doc-block.on { display:block; }
+    .hp { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+    button { background:var(--navy); color:#fff; border:0; border-radius:10px; padding:13px 26px; font:inherit; font-weight:700; font-size:1rem; cursor:pointer; }
+    button[disabled] { opacity:.6; cursor:default; }
+    .status { margin-left:12px; font-size:.9rem; color:#92400e; }
+    .note { font-size:.85rem; color:#64748b; margin:14px 0 0; }
+    .done { display:none; background:#f0fdf4; border:1.5px solid #22c55e; border-radius:12px; padding:20px 22px; color:#166534; }
+    .missing { background:#fffbeb; border:1.5px solid #f59e0b; border-radius:12px; padding:18px 20px; color:#92400e; }
+    footer { text-align:center; font-size:.78rem; color:#8899aa; padding:0 16px 30px; }
+    @media (max-width:640px) { .row, .checks { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <header><a href="/">TRUESTEAD LAW</a><div class="rule"></div></header>
+  <main>
+    <h1 id="title">Your intake form</h1>
+    <p class="lead" id="lead">Answer what you can. Write "unsure" rather than leaving something out; I would rather know what is unknown. Nothing here is shared outside the firm.</p>
+
+    <div class="missing" id="no-kit" hidden>This link is missing the form name. Please use the link in the email from Arthur Simpson, or reply to that email and we will send it again.</div>
+
+    <form id="intake" novalidate hidden>
+      <div class="hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+      <fieldset>
+        <legend>About you</legend>
+        <div class="row">
+          <label>Your full name <input type="text" name="your_name" required autocomplete="name"></label>
+          <label>Email <input type="email" name="email" required autocomplete="email"></label>
+        </div>
+        <label>Phone <input type="tel" name="phone" autocomplete="tel"></label>
+      </fieldset>
+
+      <!-- DEED -->
+      <div data-kit="deed" hidden>
+        <fieldset>
+          <legend>The property</legend>
+          <label>Property address <input type="text" name="property_address"></label>
+          <div class="row">
+            <label>County <input type="text" name="county"></label>
+            <label>Parcel ID <span class="hint">On the tax bill. Leave blank if you do not have it.</span><input type="text" name="parcel_id"></label>
+          </div>
+          <label>What kind of deed
+            <select name="deed_type">
+              <option value="">Choose one</option>
+              <option>Lady Bird (enhanced life estate) deed</option>
+              <option>Quitclaim deed</option>
+              <option>Adding a spouse to the title</option>
+              <option>Deed into a trust</option>
+              <option>Deed into an LLC</option>
+              <option>Warranty deed</option>
+              <option>Not sure</option>
+            </select>
+          </label>
+        </fieldset>
+        <fieldset>
+          <legend>Who owns it now, and who will</legend>
+          <label>Every current owner, full legal name exactly as on their ID <textarea name="current_owners"></textarea></label>
+          <label>Every new owner or beneficiary: full legal name as on their ID, mailing address, and relationship to you <textarea name="new_owners"></textarea></label>
+          <label>How should the new owners hold title <span class="hint">For example: equal shares, with survivorship, or "please advise".</span><input type="text" name="hold_title"></label>
+          <div class="row">
+            <label>Are you married
+              <select name="marital_status"><option value="">Choose one</option><option>Married</option><option>Single</option><option>Widowed</option><option>Divorced</option></select>
+            </label>
+            <label>Spouse's full name, if married <input type="text" name="spouse_name"></label>
+          </div>
+          <div class="row">
+            <label>Is this your homestead (where you live, with the exemption)
+              <select name="homestead"><option value="">Choose one</option><option>Yes</option><option>No</option><option>Unsure</option></select>
+            </label>
+            <label>Is there a mortgage
+              <select name="mortgage"><option value="">Choose one</option><option>Yes</option><option>No</option><option>Unsure</option></select>
+            </label>
+          </div>
+          <label>Lender, if there is a mortgage <input type="text" name="lender"></label>
+        </fieldset>
+      </div>
+
+      <!-- ESTATE -->
+      <div data-kit="estate" hidden>
+        <fieldset>
+          <legend>Which documents</legend>
+          <div class="checks" id="docs">
+            <label><input type="checkbox" name="documents" value="Will"> Will</label>
+            <label><input type="checkbox" name="documents" value="Revocable trust"> Revocable trust</label>
+            <label><input type="checkbox" name="documents" value="Durable power of attorney"> Durable power of attorney</label>
+            <label><input type="checkbox" name="documents" value="Health care surrogate"> Health care surrogate</label>
+            <label><input type="checkbox" name="documents" value="Living will"> Living will</label>
+            <label><input type="checkbox" name="documents" value="HIPAA release"> HIPAA release</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>About you and your family</legend>
+          <div class="row">
+            <label>Your full legal name, as on your ID <input type="text" name="legal_name"></label>
+            <label>County you live in <input type="text" name="county"></label>
+          </div>
+          <div class="row">
+            <label>Marital status
+              <select name="marital_status"><option value="">Choose one</option><option>Married</option><option>Single</option><option>Widowed</option><option>Divorced</option></select>
+            </label>
+            <label>Spouse's full name, if married <input type="text" name="spouse_name"></label>
+          </div>
+          <label>Your children, living or deceased: full names, and the year of birth of anyone under 18 <textarea name="children"></textarea></label>
+        </fieldset>
+        <fieldset>
+          <legend>The people you are naming</legend>
+          <p class="note" style="margin:0 0 12px">For each person: full name, relationship, mailing address and phone.</p>
+          <label class="doc-block" data-doc="Durable power of attorney">Agent under your power of attorney, and a backup <textarea name="poa_agent"></textarea></label>
+          <label class="doc-block" data-doc="Health care surrogate">Health care surrogate, and a backup <textarea name="surrogate"></textarea></label>
+          <label class="doc-block" data-doc="Will">Personal representative (executor), and a backup <textarea name="personal_rep"></textarea></label>
+          <label class="doc-block" data-doc="Revocable trust">Trustee after you, and a successor <textarea name="trustee"></textarea></label>
+          <label class="doc-block" data-doc="Will|Revocable trust">Who receives your estate, and in what shares <textarea name="beneficiaries"></textarea></label>
+          <label class="doc-block" data-doc="Will|Revocable trust">Specific gifts (an item or amount to a particular person) <textarea name="specific_gifts"></textarea></label>
+          <label class="doc-block" data-doc="Will|Revocable trust">Any beneficiary who is a minor, has special needs, or receives government benefits <textarea name="minors_special_needs"></textarea></label>
+          <label class="doc-block" data-doc="Revocable trust">Florida real estate you own: address and how it is titled <textarea name="real_estate"></textarea></label>
+        </fieldset>
+        <label>Older documents these will replace (wills, trusts, powers of attorney), and their dates if you know them <textarea name="replacing"></textarea></label>
+      </div>
+
+      <fieldset>
+        <legend>Signing and anything else</legend>
+        <label>How would you like to sign
+          <select name="signing">
+            <option value="">Choose one</option>
+            <option>In person</option>
+            <option>Online notary (video)</option>
+            <option>I will arrange my own notary</option>
+            <option>Not sure yet</option>
+          </select>
+        </label>
+        <label>Anything else I should know <textarea name="notes"></textarea></label>
+      </fieldset>
+
+      <button type="submit" id="send">Send my answers</button><span class="status" id="status" role="status"></span>
+      <p class="note">Photos of your current deed or older documents: reply to the email from Arthur with them attached. Please do not type a full Social Security or account number into this form.</p>
+    </form>
+
+    <div class="done" id="done" role="status">
+      <strong>Thank you, your answers are in.</strong><br>
+      I have them on file and will be in touch with next steps. If anything changes, reply to the email from Arthur Simpson.
+    </div>
+  </main>
+  <footer>Truestead Law, LLC · Arthur Simpson, Esq. · Florida Bar #529265 · P.O. Box 2574, Ormond Beach, FL 32175</footer>
+
+  <script>
+  (function () {
+    var KITS = {
+      deed: { title: 'Your deed: intake form' },
+      estate: { title: 'Your estate documents: intake form' }
+    };
+    var kit = new URLSearchParams(location.search).get('kit');
+    var form = document.getElementById('intake');
+    if (!KITS[kit]) { document.getElementById('no-kit').hidden = false; return; }
+    document.getElementById('title').textContent = KITS[kit].title;
+    document.title = KITS[kit].title + ' | Truestead Law';
+    form.hidden = false;
+    // Show only this kit's block, and disable the other kit's fields so duplicate names never collide.
+    document.querySelectorAll('[data-kit]').forEach(function (el) {
+      var on = el.getAttribute('data-kit') === kit;
+      el.hidden = !on;
+      el.querySelectorAll('input,select,textarea').forEach(function (f) { f.disabled = !on; });
+    });
+
+    function refreshDocs() {
+      var chosen = Array.prototype.map.call(document.querySelectorAll('#docs input:checked'), function (c) { return c.value; });
+      document.querySelectorAll('.doc-block').forEach(function (b) {
+        var wants = b.getAttribute('data-doc').split('|');
+        b.classList.toggle('on', wants.some(function (w) { return chosen.indexOf(w) >= 0; }));
+      });
+    }
+    document.querySelectorAll('#docs input').forEach(function (c) { c.addEventListener('change', refreshDocs); });
+    refreshDocs();
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var status = document.getElementById('status');
+      var btn = document.getElementById('send');
+      var data = { kit: kit };
+      Array.prototype.forEach.call(form.elements, function (f) {
+        if (!f.name || f.disabled) return;
+        if (f.type === 'checkbox') { if (f.checked) (data[f.name] = data[f.name] || []).push(f.value); return; }
+        data[f.name] = f.value;
+      });
+      if (!String(data.your_name || '').trim() || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(String(data.email || '').trim())) {
+        status.textContent = 'Please give your name and a working email.'; return;
+      }
+      btn.disabled = true; status.textContent = 'Sending...';
+      fetch('/.netlify/functions/capture-intake', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+        .then(function (res) {
+          if (!res.ok || !res.j.ok) throw new Error(res.j.error || 'error');
+          form.hidden = true; document.getElementById('done').style.display = 'block'; window.scrollTo(0, 0);
+        })
+        .catch(function () {
+          btn.disabled = false;
+          status.textContent = 'That did not go through. Please try again, or reply to the email from Arthur with your answers.';
+        });
+    });
+  })();
+  </script>
+</body>
+</html>
