@@ -69,7 +69,9 @@
     "position": 5.3,
     "tag": "Personal Injury",
     "score": 6,
-    "used": false
+    "used": false,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"doral personal injury attorney\""
   },
   {
     "query": "elder law attorney osprey",
@@ -78,7 +80,8 @@
     "position": 12.9,
     "tag": "Elder Law",
     "score": 6,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-10-29"
   },
   {
     "query": "family law attorney springfield fl",
