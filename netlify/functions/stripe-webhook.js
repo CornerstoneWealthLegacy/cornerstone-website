@@ -178,7 +178,7 @@ ${toldHtml}<p><strong>What we will do</strong></p>
 <ul>${li(asks)}</ul>
 <p>Reply to this email with attachments, or mail paper originals to Truestead Law, PO Box 2574, Ormond Beach, FL 32175-2574. Photos from your phone are fine as long as every page is readable. In the body of an email please give only the last four digits of any Social Security or account number; the documents themselves can carry the full numbers.</p>
 <p><strong>Two things not to do yet:</strong> do not close or empty any of the accounts, and do not distribute anything to anyone, until the court’s order is in hand.</p>
-<p><strong>What to expect from us.</strong> Lera Simpson, my paralegal, is copied and is your day-to-day contact; she will confirm each item as it arrives. You will hear from us at least every seven days with where things stand, and sooner whenever something moves. If anything on this list is a problem, say so and we will work around it.</p>
+<p><strong>What to expect from us.</strong> Lera Simpson, my paralegal, is copied and is your day-to-day contact; she will confirm each item as it arrives. You will hear from us every three days with where things stand, and sooner whenever something moves. If anything on this list is a problem, say so and we will work around it.</p>
 <p>Best Personal Regards,<br>Arthur</p>
 </td></tr>
 <tr><td style="background:#0f2744;border-radius:0 0 12px 12px;padding:20px 36px;text-align:center">
@@ -186,7 +186,7 @@ ${toldHtml}<p><strong>What we will do</strong></p>
 Truestead Law, LLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265<br>
 P.O. Box 2574, Ormond Beach, FL 32175 &nbsp;·&nbsp; truesteadlaw.com</div></td></tr>
 </table></td></tr></table></body></html>`;
-  const text = `Hi ${first},\n\nThank you. Your payment is in and your file is open. Here is the whole plan in one place so you always know where we are.\n\n${toldText}WHAT WE WILL DO\n${steps.map((s, i) => `${i + 1}. ${s}`).join('\n')}\n\nFrom the day I have everything on the list below, the usual time to filing is about two weeks, and the court takes roughly four to six weeks after that.\n\nWHAT I NEED FROM YOU\n${asks.map(a => `- ${a}`).join('\n')}\n\nReply to this email with attachments, or mail paper originals to Truestead Law, PO Box 2574, Ormond Beach, FL 32175-2574. Photos from your phone are fine as long as every page is readable. In the body of an email please give only the last four digits of any Social Security or account number; the documents themselves can carry the full numbers.\n\nTwo things not to do yet: do not close or empty any of the accounts, and do not distribute anything to anyone, until the court’s order is in hand.\n\nWhat to expect from us. Lera Simpson, my paralegal, is copied and is your day-to-day contact; she will confirm each item as it arrives. You will hear from us at least every seven days with where things stand, and sooner whenever something moves. If anything on this list is a problem, say so and we will work around it.\n\nBest Personal Regards,\nArthur\n\nTruestead Law, LLC · Arthur Simpson, Esq. · Florida Bar #529265 · P.O. Box 2574, Ormond Beach, FL 32175`;
+  const text = `Hi ${first},\n\nThank you. Your payment is in and your file is open. Here is the whole plan in one place so you always know where we are.\n\n${toldText}WHAT WE WILL DO\n${steps.map((s, i) => `${i + 1}. ${s}`).join('\n')}\n\nFrom the day I have everything on the list below, the usual time to filing is about two weeks, and the court takes roughly four to six weeks after that.\n\nWHAT I NEED FROM YOU\n${asks.map(a => `- ${a}`).join('\n')}\n\nReply to this email with attachments, or mail paper originals to Truestead Law, PO Box 2574, Ormond Beach, FL 32175-2574. Photos from your phone are fine as long as every page is readable. In the body of an email please give only the last four digits of any Social Security or account number; the documents themselves can carry the full numbers.\n\nTwo things not to do yet: do not close or empty any of the accounts, and do not distribute anything to anyone, until the court’s order is in hand.\n\nWhat to expect from us. Lera Simpson, my paralegal, is copied and is your day-to-day contact; she will confirm each item as it arrives. You will hear from us every three days with where things stand, and sooner whenever something moves. If anything on this list is a problem, say so and we will work around it.\n\nBest Personal Regards,\nArthur\n\nTruestead Law, LLC · Arthur Simpson, Esq. · Florida Bar #529265 · P.O. Box 2574, Ormond Beach, FL 32175`;
   return { html, text };
 }
 
@@ -216,6 +216,152 @@ async function sendSaDay0Packet({ email, name, track, intake }) {
     console.log('SA Day-0 packet sent to', email, 'track', track, pdf ? 'with worksheet' : 'without worksheet');
     return true;
   } catch (e) { console.error('Resend SA Day-0 packet threw:', e.message); return false; }
+}
+
+// ── KIT THANK-YOU LETTERS (10/28/2026, Client Protocol v2) ─────────────────
+// Every paid matter gets its plan the moment Stripe confirms payment, not only
+// summary administration. Custom payment links carry a free-form
+// metadata.product tag (e.g. dpoa_package, lady_bird_deed_custom), so the tag is
+// sorted by keyword into a kit. Unrecognised tags keep the plain receipt.
+// Letter text is the vault's Matter Launch Agent section 9; change it there first.
+function kitForProduct(product) {
+  const p = String(product || '').toLowerCase();
+  if (SA_PRODUCTS[p] || p.includes('summary_admin')) return 'sa';
+  // Order matters: Medicaid wins over deed (Medicaid-plus-deeds packages), and a
+  // trust restatement is estate work even when a deed rides along.
+  if (/medicaid|qit|income.?trust/.test(p)) return 'medicaid';
+  if (/restatement/.test(p)) return 'estate';
+  if (/deed|quitclaim|lady_bird/.test(p)) return 'deed';
+  if (/poa|surrogate|will|trust|estate|codicil|essentials|legacy/.test(p)) return 'estate';
+  return null;
+}
+
+const KIT_LETTERS = {
+  deed: {
+    subject: 'Your deed: what happens now and what I need',
+    title: 'Your deed',
+    steps: [
+      'Pull the current deed from the county records and confirm who holds title today and how.',
+      'Prepare the new deed, and send it to you to read before anyone signs.',
+      'Set up the signing: the owner signs before a notary and two witnesses, in person or by online notary.',
+      'Record the signed deed with the county.',
+      'Send you the recorded deed for your records.',
+    ],
+    timing: 'Once I have everything below, the deed is usually ready to sign within about three business days, and the county records it within one to two weeks of signing.',
+    asks: [
+      'A copy of the current deed if you have it; if not, the property address is enough and I will pull it.',
+      'The full legal name of every current owner and every new owner, exactly as on their ID, and each one’s mailing address.',
+      'Whether each owner is married, and whether the property is anyone’s homestead.',
+      'The latest mortgage statement, if there is a mortgage.',
+      'A photo of your driver’s license.',
+    ],
+    lastFour: false,
+    dont: 'do not sign any deed or title paperwork anyone else sends you until we have spoken.',
+  },
+  estate: {
+    subject: 'Your estate documents: what happens now and what I need',
+    title: 'Your estate documents',
+    steps: [
+      'Review what you have told me and anything still missing.',
+      'Draft your documents.',
+      'Send you the drafts to read; we change anything that is not right.',
+      'Hold the signing: you sign before two witnesses and a notary, in person or by online notary where the document allows it.',
+      'Give you the signed originals and tell you who should get copies.',
+    ],
+    timing: 'Once I have everything below, drafts are usually ready for your review within about five business days.',
+    asks: [
+      'The full legal name and mailing address of each person you are naming (for example your agent, health care surrogate, personal representative or trustee, and their backups).',
+      'Any documents these will replace: older wills, trusts or powers of attorney.',
+      'For a trust: a list of what you own and how each item is titled, and the deed to any Florida real estate.',
+      'A photo of your driver’s license.',
+    ],
+    lastFour: false,
+    dont: 'keep your current documents in place and do not sign any form or online documents in the meantime; the old ones stay in force until the new ones are signed.',
+  },
+  medicaid: {
+    subject: 'Your Medicaid matter: what happens now and what I need',
+    title: 'Your Medicaid matter',
+    steps: [
+      'Review the income, assets and any transfers in the last five years.',
+      'Give you a written plan for reaching eligibility.',
+      'Prepare whatever the plan needs, such as an income trust and the forms that go with it.',
+      'File the application through the state’s ACCESS system, with our office as your designated representative.',
+      'Answer every request from the Department of Children and Families until there is a decision.',
+    ],
+    timing: 'The Department’s standard is a decision within 45 days of a complete application; requests for more information can add to that, and we answer them as they come.',
+    asks: [
+      'Photo ID, Social Security card and Medicare card for the person applying.',
+      'The power of attorney, every page.',
+      'Income award letters and the last three months of deposits.',
+      'Statements for every account that existed in the last 60 months, all pages, including closed accounts.',
+      'Deeds, vehicle titles, life insurance policies, annuities and any prepaid funeral contract.',
+      'The facility admission agreement and rate letter, if there is one.',
+      'A short note on any gift or transfer of money or property in the last five years.',
+    ],
+    lastFour: true,
+    dont: 'do not move money, give anything away, or sign anything for the facility until you have spoken with me.',
+  },
+};
+
+function kitLetterContent(kit, first) {
+  const L = KIT_LETTERS[kit];
+  const li = a => a.map(x => `<li>${x}</li>`).join('');
+  const reply = 'Reply to this email with attachments; photos from your phone are fine as long as every page is readable.' +
+    (L.lastFour ? ' In the body of an email please give only the last four digits of any Social Security or account number.' : '');
+  const expect = 'Lera Simpson, my paralegal, is copied and is your day-to-day contact. You will hear from us every three days with where things stand, and sooner whenever something moves.';
+  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;background:#f4f3f0;font-family:Georgia,'Times New Roman',serif">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f3f0;padding:28px 14px"><tr><td align="center">
+<table width="640" cellpadding="0" cellspacing="0" style="max-width:640px;width:100%">
+<tr><td style="background:#0f2744;border-radius:12px 12px 0 0;padding:26px 36px;text-align:center">
+<div style="color:#c49a2a;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-family:Arial,sans-serif">Truestead Law</div>
+<div style="color:#fff;font-size:22px;font-weight:700;margin-top:6px">${L.title}</div>
+<div style="height:2px;background:#c49a2a;width:54px;margin:14px auto 0"></div></td></tr>
+<tr><td style="background:#fff;padding:34px 36px;color:#333;font-size:16px;line-height:1.7">
+<p>Hi ${first},</p>
+<p>Thank you. Your payment is in and your file is open. Here is the whole plan in one place.</p>
+<p><strong>What we will do</strong></p>
+<ol>${li(L.steps)}</ol>
+<p>${L.timing}</p>
+<p><strong>What I need from you</strong></p>
+<ul>${li(L.asks)}</ul>
+<p>${reply}</p>
+<p><strong>One thing not to do yet:</strong> ${L.dont}</p>
+<p><strong>What to expect from us.</strong> ${expect}</p>
+<p>Best Personal Regards,<br>Arthur</p>
+</td></tr>
+<tr><td style="background:#0f2744;border-radius:0 0 12px 12px;padding:20px 36px;text-align:center">
+<div style="font-size:11px;color:#8899aa;line-height:1.7;font-family:Arial,sans-serif">
+Truestead Law, LLC &nbsp;·&nbsp; Arthur Simpson, Esq. &nbsp;·&nbsp; Florida Bar #529265<br>
+P.O. Box 2574, Ormond Beach, FL 32175 &nbsp;·&nbsp; truesteadlaw.com</div></td></tr>
+</table></td></tr></table></body></html>`;
+  const text = `Hi ${first},\n\nThank you. Your payment is in and your file is open. Here is the whole plan in one place.\n\nWHAT WE WILL DO\n${L.steps.map((s, i) => `${i + 1}. ${s}`).join('\n')}\n\n${L.timing}\n\nWHAT I NEED FROM YOU\n${L.asks.map(a => `- ${a}`).join('\n')}\n\n${reply}\n\nOne thing not to do yet: ${L.dont}\n\nWhat to expect from us. ${expect}\n\nBest Personal Regards,\nArthur\n\nTruestead Law, LLC · Arthur Simpson, Esq. · Florida Bar #529265 · P.O. Box 2574, Ormond Beach, FL 32175`;
+  return { subject: L.subject, html, text };
+}
+
+async function sendKitLetter({ email, name, kit }) {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) { console.warn('RESEND_API_KEY not set — skipping kit letter'); return false; }
+  if (!email) { console.warn('No buyer email on session — skipping kit letter'); return false; }
+  if (!KIT_LETTERS[kit]) return false;
+  const first = String(name || '').trim().split(/\s+/)[0] || 'there';
+  const { subject, html, text } = kitLetterContent(kit, first);
+  try {
+    const res = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        from: 'Arthur Simpson <arthur@truesteadlaw.com>',
+        reply_to: 'arthur@truesteadlaw.com',
+        to: [email],
+        cc: ['lera@truesteadlaw.com'],
+        subject, html, text,
+      }),
+    });
+    if (!res.ok) { console.error('Resend kit letter error:', kit, res.status, await res.text()); return false; }
+    console.log('Kit letter sent to', email, 'kit', kit);
+    return true;
+  } catch (e) { console.error('Resend kit letter threw:', e.message); return false; }
 }
 
 function verifyStripeSignature(rawBody, sigHeader, secret) {
@@ -561,7 +707,10 @@ exports.handler = async (event) => {
         }
         let saPacketSent = false;
         if (saTrack) saPacketSent = await sendSaDay0Packet({ email, name: session.customer_details?.name || (saIntake && saIntake.your_name) || '', track: saTrack, intake: saIntake });
-        if (!saPacketSent) await sendOrderReceivedEmail({ email, name: session.customer_details?.name || '', amount, product: svcProduct });
+        const kit = saTrack ? null : kitForProduct(svcProduct);
+        let kitSent = false;
+        if (kit && kit !== 'sa') kitSent = await sendKitLetter({ email, name: session.customer_details?.name || session.metadata?.client || '', kit });
+        if (!saPacketSent && !kitSent) await sendOrderReceivedEmail({ email, name: session.customer_details?.name || '', amount, product: svcProduct });
         await sendMetaCAPIPurchase({
           email, name: session.customer_details?.name || '', value: amount,
           currency: (session.currency || 'usd').toUpperCase(), eventId: session.id,
