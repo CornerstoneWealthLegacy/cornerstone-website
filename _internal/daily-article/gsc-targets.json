@@ -110,7 +110,8 @@
     "position": 9.1,
     "tag": "Real Estate",
     "score": 6,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-11-01"
   },
   {
     "query": "ave maria trucking accident lawyer",
