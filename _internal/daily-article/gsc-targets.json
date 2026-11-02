@@ -6,7 +6,8 @@
     "position": 6.8,
     "tag": "Personal Injury",
     "score": 16,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-11-02"
   },
   {
     "query": "abogado resbalón y caída indian harbour beach florida",
