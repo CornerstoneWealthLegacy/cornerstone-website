@@ -9,11 +9,11 @@
 //
 // Delivery paths (each independent, each non-fatal):
 //   1. Firestore `sa_intakes/<id>` (FIREBASE_SERVICE_ACCOUNT) — read by the webhook at payment.
-//   2. sa-desk repo `intakes/<id>.json` (GITHUB_SA_DESK_TOKEN, fine-grained PAT, contents:write on
-//      CornerstoneWealthLegacy/sa-desk) — read by the cloud sweep, which cannot reach Firestore.
-//   3. Firm email via Resend to arthur@ cc lera@ with a JSON block — the fallback the sweep can
-//      read from the Inbox when (2) is not configured.
-//   4. ntfy push.
+//   2. Firm email via Resend to arthur@ cc lera@ with a JSON block — the cloud sweep reads it from
+//      the Inbox and files the answers into the matter under the vault's Clients folder.
+//      (A push into the sa-desk repo was retired 11/2/2026: its token was never set, and the
+//      estates moved into the vault that day.)
+//   3. ntfy push.
 //
 // Zero npm dependencies; same JWT pattern as stripe-webhook.js.
 
@@ -74,32 +74,13 @@ exports.handler = async (event) => {
     } catch (e) { console.error('SA intake Firestore write failed (non-fatal):', e.message); }
   } else console.warn('FIREBASE_SERVICE_ACCOUNT not set — SA intake not stored in Firestore');
 
-  // 2) sa-desk repo copy
-  const gh = process.env.GITHUB_SA_DESK_TOKEN;
-  if (gh) {
-    try {
-      const path = `intakes/${id}.json`;
-      const res = await fetch(`https://api.github.com/repos/CornerstoneWealthLegacy/sa-desk/contents/${path}`, {
-        method: 'PUT',
-        headers: { Authorization: `Bearer ${gh}`, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json', 'User-Agent': 'truestead-sa-intake' },
-        body: JSON.stringify({
-          message: `SA intake ${id}: ${intake.decedent_name} (${intake.your_name})`,
-          content: Buffer.from(JSON.stringify(record, null, 2) + '\n').toString('base64'),
-          committer: { name: 'truestead-bot', email: 'bot@truesteadlaw.com' },
-        }),
-      });
-      if (!res.ok) console.error('sa-desk intake push failed:', res.status, (await res.text()).slice(0, 300));
-      else console.log('SA intake pushed to sa-desk:', path);
-    } catch (e) { console.error('sa-desk intake push threw (non-fatal):', e.message); }
-  } else console.warn('GITHUB_SA_DESK_TOKEN not set — SA intake not pushed to sa-desk (email copy still goes)');
-
-  // 3) Firm email with a machine-readable block (the sweep reads the Inbox)
+  // 2) Firm email with a machine-readable block (the sweep reads the Inbox)
   if (RESEND_KEY) {
     try { await sendFirmNotice(RESEND_KEY, record); }
     catch (e) { console.error('SA intake firm email error:', e.message); }
   }
 
-  // 4) ntfy
+  // 3) ntfy
   try {
     await fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
       method: 'POST',
@@ -125,7 +106,7 @@ async function sendFirmNotice(key, r) {
   ];
   const html = `<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#222;line-height:1.7">
 <h2 style="color:#0f2744;margin:0 0 12px">Summary administration intake, before payment</h2>
-<p>Submitted ${escapeHtml(r.createdAt)}. Not paid yet: the Stripe link was handed over with this id as client_reference_id. When it is paid, the webhook sends the Day-0 packet and the sweep opens the matter in sa-desk from these answers.</p>
+<p>Submitted ${escapeHtml(r.createdAt)}. Not paid yet: the Stripe link was handed over with this id as client_reference_id. When it is paid, the webhook sends the Day-0 packet and the sweep opens the matter under Clients in the vault from these answers.</p>
 <table style="border-collapse:collapse">${rows.map(([k, v]) => `<tr><td style="padding:3px 12px 3px 0;color:#555;vertical-align:top"><strong>${escapeHtml(k)}</strong></td><td style="padding:3px 0;white-space:pre-wrap">${escapeHtml(v) || '&mdash;'}</td></tr>`).join('')}</table>
 <p style="color:#666;font-size:13px;margin-top:16px">Machine-readable copy for the sweep:</p>
 <pre style="font-size:12px;background:#f6f6f6;padding:10px;border-radius:6px;white-space:pre-wrap">SA_INTAKE_JSON ${escapeHtml(JSON.stringify(r))}</pre>
