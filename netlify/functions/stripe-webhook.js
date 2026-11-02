@@ -694,7 +694,11 @@ exports.handler = async (event) => {
             body: `${who} purchased: ${svcProduct.replace(/_/g, ' ')}${amount ? ' ($' + amount + ')' : ''}.${email ? ' (' + email + ')' : ''} Reach out within 1 business day.`,
           });
         } catch (e) { console.error('service-order ntfy failed:', e.message); }
-        const saTrack = SA_PRODUCTS[svcProduct];
+        // Custom SA links (e.g. summary_admin_custom) carry no track in the tag:
+        // send them the Day-0 packet as track A unless the tag says real property.
+        // (11/2/2026: Benodin's custom link fell through to the plain receipt.)
+        const saTrack = SA_PRODUCTS[svcProduct]
+          || (svcProduct.includes('summary_admin') ? (/realprop|real_prop|land|house/.test(svcProduct) ? 'B' : 'A') : undefined);
         const svcRaw2 = process.env.FIREBASE_SERVICE_ACCOUNT;
         // Intake captured before payment (capture-sa-intake.js) rides along as client_reference_id.
         const refId = String(session.client_reference_id || '');
