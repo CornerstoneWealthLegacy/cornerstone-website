@@ -554,3 +554,11 @@
 [2026-10-07T01:27:14.354Z] Batch done: 18/18 succeeded.
 [2026-10-07T01:28:11.482Z] OK  medicaid-nursing-home-medicaid-volusia-county (164s)
 [2026-10-07T01:28:11.487Z] Batch done: 18/18 succeeded.
+[2026-10-19T02:12:10.531Z] Batch start: 3 topic(s) from timeshare-topics.js (no images)
+[2026-10-19T02:12:10.534Z] (1/3) timeshare-notice-of-default-meaning — "timeshare"
+[2026-10-19T02:13:09.923Z] OK  timeshare-notice-of-default-meaning (59s)
+[2026-10-19T02:13:09.925Z] (2/3) timeshare-trustee-foreclosure-timeline — "timeshare"
+[2026-10-19T02:14:03.070Z] OK  timeshare-trustee-foreclosure-timeline (53s)
+[2026-10-19T02:14:03.073Z] (3/3) timeshare-should-i-object — "timeshare"
+[2026-10-19T02:14:51.979Z] OK  timeshare-should-i-object (49s)
+[2026-10-19T02:14:51.981Z] Batch done: 3/3 succeeded.

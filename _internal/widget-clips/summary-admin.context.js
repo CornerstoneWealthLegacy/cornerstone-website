@@ -27,7 +27,7 @@ const SUMMARY_ADMIN_CONTEXT = {
   contactClip: 'contact',
   hook: 'Small estate?<br>Ask Arthur.',
   headline: 'Florida small-estate probate, priced like the paperwork it is:',
-  lines: ['Flat $1,495 with no real estate, $2,495 with a house. Court costs at cost. Tap the question that is yours.'],
+  lines: ['Flat $1,495 with no real estate, $2,495 with a house. That is the attorney fee only; filing, publication, recording and copies are extra, at cost. Tap the question that is yours.'],
   issues: [
     { label: 'What does it cost?', clip: 'saCost',
       seed: 'I want the flat fee confirmed for our estate. Here is roughly what it holds:' },
@@ -55,9 +55,9 @@ const SUMMARY_ADMIN_SCRIPTS = {
   },
   saCost: {
     file: '27-sa-cost.mp4',
-    text: "The flat fee is one thousand four hundred ninety-five dollars with no real estate, two thousand four hundred ninety-five with a house. Court costs at cost, no markup. Tap qualify, and I'll tell you if this fits.",
-    words: 38, target: '~15s (prices spoken in full)',
-    note: 'Prices from Flat Fee Menu / Stripe products. Court costs per § 28.2401, billed at cost per the service page.',
+    text: "The flat fee is one thousand four hundred ninety-five dollars with no real estate, two thousand four hundred ninety-five with a house. That is my fee only. Court filing, newspaper notice, recording, and copies are extra, at cost, no markup. Tap qualify, and I'll tell you if this fits.",
+    words: 49, target: '~19s (prices spoken in full)',
+    note: 'Prices from Flat Fee Menu / Stripe products. Attorney fee only; court filing fees (§ 28.2401), newspaper publication of the notice to creditors, recording, and certified copies billed at cost per the service page.'+' REVISED 2026-10-16 (fee is attorney fee only; filing, publication about $300 to $800, recording, copies billed at cost): text and fallback caption updated, but 27-sa-cost.mp4 has NOT been re-rendered and its audio and word-timed captions still say "Court costs at cost, no markup." Re-render before relying on this clip.',
   },
   saQualify: {
     file: '28-sa-qualify.mp4',

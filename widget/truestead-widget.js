@@ -51,7 +51,7 @@
     bizlit:     { file: '24-bizlit.mp4', cap: "Most business disputes are won or lost before anybody files, in the paperwork. If it's a contract, the first questions are what it actually says about notice and cure, and whether the other side owes your fees when you win. If it's a partner, the operating agreement controls, and most of them go silent in exactly the wrong place. And if it's a non-compete, Florida will enforce one, but only for a legitimate business interest, and only as far as it's reasonable. Tell me who the other side is, and what they did." },
     pricing:    { file: '25-pricing.mp4', cap: "Fair question, and you should get a straight answer before anybody starts a clock. Most of what we do is flat fee, quoted before we start: estate plans, deeds, closings, company formations. The online kits are published prices, starting at a hundred and twenty-nine dollars for the estate kit, and a hundred and forty-nine for the LLC. Injury work is different. You pay nothing up front, and nothing at all unless we recover for you. Tell me what the matter is, and I'll give you the number for your situation." },
     saOpen:     { file: '26-sa-open.mp4', cap: "If the estate is small, Florida has a short-form probate, and I file it statewide for a flat fee. Tap your question, and I'll tell you where you stand." },
-    saCost:     { file: '27-sa-cost.mp4', cap: "The flat fee is one thousand four hundred ninety-five dollars with no real estate, two thousand four hundred ninety-five with a house. Court costs at cost, no markup. Tap qualify, and I'll tell you if this fits." },
+    saCost:     { file: '27-sa-cost.mp4', cap: "The flat fee is one thousand four hundred ninety-five dollars with no real estate, two thousand four hundred ninety-five with a house. That is my fee only. Court filing, newspaper notice, recording, and copies are extra, at cost, no markup. Tap qualify, and I'll tell you if this fits." },
     saQualify:  { file: '28-sa-qualify.mp4', cap: "Two doors. Probate assets of one hundred fifty thousand dollars or less, and the homestead usually does not count. Or a death more than two years ago, at any size. Tap house, and I'll tell you how title clears." },
     saHouse:    { file: '29-sa-house.mp4', cap: "The house usually does not count toward the limit, but its title clears only by court order, recorded in the county. That is the two thousand four hundred ninety-five dollar tier. Tap timing, and I'll tell you how fast." },
     saTime:     { file: '30-sa-time.mp4', cap: "No hearing in the normal case. The judge decides on the papers, usually in weeks, not the six to twelve months of formal probate. Tap no will, and I'll tell you who inherits." },
@@ -348,7 +348,7 @@
       contactClip: 'contact',
       hook: 'Small estate?<br>Ask Arthur.',
       headline: 'Florida small-estate probate, priced like the paperwork it is:',
-      lines: ['Flat $1,495 with no real estate, $2,495 with a house. Court costs at cost. Tap the question that is yours.'],
+      lines: ['Flat $1,495 with no real estate, $2,495 with a house. That is the attorney fee only; filing, publication, recording and copies are extra, at cost. Tap the question that is yours.'],
       issues: [
         { label: 'What does it cost?', clip: 'saCost', seed: 'I want the flat fee confirmed for our estate. Here is roughly what it holds:' },
         { label: 'Do we qualify?', clip: 'saQualify', seed: 'I want to know whether the estate qualifies for summary administration. The death was on this date and the assets are roughly:' },

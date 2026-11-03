@@ -92,8 +92,8 @@ export const SCRIPTS = [
   },
   {
     id: 'saCost', file: '27-sa-cost.mp4', contexts: ['summary-admin'],
-    note: 'Prices from the Flat Fee Menu / Stripe products; court costs per F.S. 28.2401 billed at cost per the service page. Dollars spoken in full so they cannot be heard as $14.95. Arthur approved 9/22/2026.',
-    text: "The flat fee is one thousand four hundred ninety-five dollars with no real estate, two thousand four hundred ninety-five with a house. Court costs at cost, no markup. Tap qualify, and I'll tell you if this fits.",
+    note: 'Prices from the Flat Fee Menu / Stripe products; attorney fee only; court filing fees (F.S. 28.2401), newspaper publication of the notice to creditors, recording, and certified copies billed at cost per the service page. Dollars spoken in full so they cannot be heard as $14.95. Arthur approved 9/22/2026. REVISED 2026-10-16 (fee is attorney fee only; filing, publication about $300 to $800, recording, copies billed at cost): text and fallback caption updated, but 27-sa-cost.mp4 has NOT been re-rendered and its audio and word-timed captions still say \"Court costs at cost, no markup.\" Re-render before relying on this clip.',
+    text: "The flat fee is one thousand four hundred ninety-five dollars with no real estate, two thousand four hundred ninety-five with a house. That is my fee only. Court filing, newspaper notice, recording, and copies are extra, at cost, no markup. Tap qualify, and I'll tell you if this fits.",
   },
   {
     id: 'saQualify', file: '28-sa-qualify.mp4', contexts: ['summary-admin'],

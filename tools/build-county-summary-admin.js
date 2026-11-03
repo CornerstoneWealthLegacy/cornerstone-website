@@ -250,7 +250,7 @@ function buildCountyPage(countyName) {
     : `The county seat is ${seat}.`;
 
   // ---- text blocks --------------------------------------------------------
-  const quick = `If the person lived in ${countyName} County when they died, their summary administration is filed with the Clerk of the Circuit Court for ${countyName} County in Florida’s ${ordinal} Judicial Circuit. It qualifies when the non-exempt probate assets are $150,000 or less, or when the death was more than two years ago. Truestead Law files it for a flat $1,495, or $2,495 when there is a house, with court costs billed at cost.`;
+  const quick = `If the person lived in ${countyName} County when they died, their summary administration is filed with the Clerk of the Circuit Court for ${countyName} County in Florida’s ${ordinal} Judicial Circuit. It qualifies when the non-exempt probate assets are $150,000 or less, or when the death was more than two years ago. Truestead Law files it for a flat $1,495, or $2,495 when there is a house. That is our attorney fee only. Court filing fees, newspaper publication of the notice to creditors, recording, and certified copies are extra, billed at cost.`;
 
   const intro = `Summary administration is Florida’s short-form probate under Chapter 735, Florida Statutes. The court enters an order sending each asset to the person entitled to it, and no personal representative is appointed. The law is the same in every county. What changes from county to county is where the case is filed, which circuit’s judges review it, what that circuit requires before an order is signed, and what the clerk charges. This page covers those specifics for ${countyName} County, so a family in ${oxford(cities.slice(0, 3))} knows what to expect before anything is filed.`;
 
@@ -262,7 +262,7 @@ function buildCountyPage(countyName) {
 
   const qualify = `A ${countyName} County estate qualifies for summary administration through either of two doors (Fla. Stat. § 735.201). The first is value: the probate estate, after taking out exempt property and protected homestead, is worth $150,000 or less. That figure doubled from $75,000 on July 1, 2026, and applies to deaths on or after that date. The second door is time: the person died more than two years ago, at which point every creditor claim is barred (Fla. Stat. § 733.710) and the value of the estate no longer matters. If there is a will, it must not direct formal administration under Chapter 733. Assets that already have a named beneficiary, a joint owner with survivorship, or a payable-on-death designation pass outside probate and do not count.`;
 
-  const house = `A ${countyName} County home the decedent lived in is usually protected homestead. It generally does not count toward the $150,000, but the title still has to be cleared, which is done with a petition to determine homestead status filed alongside the summary administration petition. The court’s order determining homestead and the order of summary administration are then recorded in the official records of ${countyName} County. That recording is the act that lets the heirs sell, refinance, or insure the property. If the property sits in a different county, the orders are recorded there as well. This is the work covered by our $2,495 tier.`;
+  const house = `A ${countyName} County home the decedent lived in is usually protected homestead. It generally does not count toward the $150,000, but the title still has to be cleared, which is done with a petition to determine homestead status filed alongside the summary administration petition. The court’s order determining homestead and the order of summary administration are then recorded in the official records of ${countyName} County. That recording is the act that lets the heirs sell, refinance, or insure the property. If the property sits in a different county, the orders are recorded there as well. This is the work covered by our $2,495 attorney fee tier, with filing, publication, recording, and copies extra, at cost.`;
 
   const timeline = `Once the ${ordinal} Circuit has a complete file, an uncontested summary administration is decided on the papers. Most are done in a matter of weeks rather than the six to twelve months a formal administration takes, because there is no personal representative to appoint, no letters of administration, and, when the two-year door applies, no creditor period. Delays come from incomplete files: a missing joinder from a beneficiary, an asset schedule without account numbers or a legal description, or a checklist the circuit requires that was not filed. We build the file to the circuit’s checklist before it is submitted.`;
 
@@ -270,13 +270,13 @@ function buildCountyPage(countyName) {
     [`Where is a summary administration filed for a ${countyName} County resident?`,
      `With the Clerk of the Circuit Court for ${countyName} County, in Florida’s ${ordinal} Judicial Circuit, because venue follows the decedent’s county of domicile. ${seatLine} The petition is e-filed; the original will and certified death certificate are delivered to the clerk separately.`],
     [`What does the ${countyName} County clerk charge to file a summary administration?`,
-     `The statutory filing fee is $340 for an estate valued at $1,000 or more, or $230 for an estate under $1,000, plus a $4 service charge (Fla. Stat. § 28.2401). Some clerks add small local charges. Certified copies of the orders and recording fees for real property are extra. Truestead bills all of these at cost with no markup.`],
+     `The statutory filing fee is $340 for an estate valued at $1,000 or more, or $230 for an estate under $1,000, plus a $4 service charge (Fla. Stat. § 28.2401). Some clerks add small local charges. Certified copies of the orders and recording fees for real property are extra, and if the notice to creditors is published, the newspaper charges about $300 to $800 depending on the county. Our flat fee is the attorney fee only; Truestead bills all of these costs at cost with no markup.`],
     [`Does the ${ordinal} Circuit require a checklist for summary administration?`,
      practice.verified
        ? `${practiceText} We prepare the filing to that standard before it is submitted.`
        : `${practiceText} Many Florida circuits now require a certified checklist with the petition, and we prepare every filing to the strictest published standard so it is not sent back.`],
     [`Does my ${countyName} County estate qualify if there is a house?`,
-     `Usually, yes. Protected homestead is generally excluded from the $150,000 calculation. It does require a petition to determine homestead status and the recording of the resulting orders in the ${countyName} County official records, which is what clears the title. That is the $2,495 tier.`],
+     `Usually, yes. Protected homestead is generally excluded from the $150,000 calculation. It does require a petition to determine homestead status and the recording of the resulting orders in the ${countyName} County official records, which is what clears the title. That is the $2,495 attorney fee tier; filing, publication, recording and copies are extra, at cost.`],
     [`Do I have to come to ${seat} for a hearing?`,
      `In the ordinary uncontested case, no. The ${ordinal} Circuit decides a complete summary administration on the papers. If the court asks for something, it is usually handled by a supplemental filing or a short remote hearing.`],
     [`What if the estate is too small even for summary administration?`,
@@ -292,7 +292,7 @@ function buildCountyPage(countyName) {
   const faqHtml = faqs.map(([q, a]) => `            <h3>${esc(q)}</h3>\n            <p>${esc(a)}</p>`).join('\n\n');
 
   const title = `${countyName} County Summary Administration | Flat-Fee Florida Small-Estate Probate`;
-  const metaDesc = `Summary administration for ${countyName} County, Florida estates: filed in the ${ordinal} Judicial Circuit, $150,000 limit or death over two years ago, what the circuit requires, what the clerk charges. Flat $1,495 / $2,495 at Truestead Law. Call ${PHONE_FMT}.`;
+  const metaDesc = `Summary administration for ${countyName} County, Florida estates: filed in the ${ordinal} Judicial Circuit, $150,000 limit or death over two years ago, what the circuit requires, what the clerk charges. Flat $1,495 / $2,495 + costs at Truestead Law. Call ${PHONE_FMT}.`;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -322,8 +322,8 @@ function buildCountyPage(countyName) {
           { "@type": "State", "name": "Florida" }
         ],
         "offers": [
-          { "@type": "Offer", "name": "Summary administration, no real property", "price": "1495", "priceCurrency": "USD", "url": "https://truesteadlaw.com/summary-administration" },
-          { "@type": "Offer", "name": "Summary administration with real property (homestead determination included)", "price": "2495", "priceCurrency": "USD", "url": "https://truesteadlaw.com/summary-administration" }
+          { "@type": "Offer", "name": "Summary administration, no real property", "price": "1495", "priceCurrency": "USD", "description": "Attorney fee only. Court filing, publication, recording and certified copies billed at cost.", "url": "https://truesteadlaw.com/summary-administration" },
+          { "@type": "Offer", "name": "Summary administration with real property (homestead determination included)", "price": "2495", "priceCurrency": "USD", "description": "Attorney fee only. Court filing, publication, recording and certified copies billed at cost.", "url": "https://truesteadlaw.com/summary-administration" }
         ]
       },
       {
@@ -378,7 +378,7 @@ ${header('/summary-administration#pricing', 'Start My Probate')}
           <p>${esc(practiceText)}</p>
           <p>The checklist culture is the practical reason a summary administration takes weeks in one family’s hands and months in another’s. A petition that is missing one of the twelve elements Probate Rule 5.530 requires, or an order that names an account without its number, comes back. We draft the proposed Order of Summary Administration asset by asset and distributee by distributee, because the order is the document the bank, the motor vehicle office, and the title company will actually read. Current circuit forms and orders: <a href="${practice.site}" rel="noopener" target="_blank">${ordinal} Judicial Circuit</a>.</p>
 
-          <h2>Court Costs in ${esc(countyName)} County</h2>
+          <h2>Court Costs and Other Charges in ${esc(countyName)} County</h2>
           <p>${esc(feeIntro)}</p>
           <table class="fee-table">
             <thead><tr><th>Charge</th><th>Amount</th><th>Basis</th></tr></thead>
@@ -388,9 +388,10 @@ ${header('/summary-administration#pricing', 'Start My Probate')}
               <tr><td>Disposition without administration (if that applies instead)</td><td>$230</td><td>Fla. Stat. &sect; 28.2401(1)(d)</td></tr>
               <tr><td>Certified copies of the orders</td><td>A few dollars each; one per bank or asset holder</td><td>Clerk schedule</td></tr>
               <tr><td>Recording orders affecting real property</td><td>Per page, in the county where the property sits</td><td>${esc(countyName)} County official records</td></tr>
+              <tr><td>Notice to creditors publication (newspaper, if published)</td><td>About $300&ndash;$800</td><td>Newspaper rate; varies by county</td></tr>
             </tbody>
           </table>
-          <p>Every one of these is a government charge, billed to you at cost. The attorney fee is separate and flat.</p>
+          <p>These are court, newspaper, and recording charges paid to third parties, and none of them is part of our flat fee. Each is billed to you at cost, with no markup. Publication may be skipped when the death was more than two years ago, because creditor claims are already barred.</p>
 
           <h2>Does the Estate Qualify?</h2>
           <p>${esc(qualify)}</p>
@@ -405,7 +406,7 @@ ${header('/summary-administration#pricing', 'Start My Probate')}
           <div class="tiers">
             <div class="tier">
               <h3>No real property</h3>
-              <div class="price">$1,495</div>
+              <div class="price">$1,495 <small style="font-size:.5em">+ costs</small></div>
               <ul>
                 <li>Eligibility review and asset map</li>
                 <li>Verified petition under Rule 5.530</li>
@@ -417,7 +418,7 @@ ${header('/summary-administration#pricing', 'Start My Probate')}
             </div>
             <div class="tier">
               <h3>With real property</h3>
-              <div class="price">$2,495</div>
+              <div class="price">$2,495 <small style="font-size:.5em">+ costs</small></div>
               <ul>
                 <li>Everything in the first tier</li>
                 <li>Petition to determine homestead status</li>
@@ -427,7 +428,7 @@ ${header('/summary-administration#pricing', 'Start My Probate')}
               </ul>
             </div>
           </div>
-          <p>Court costs at cost. Statewide, flat fees for the same petition commonly run $1,500 to $3,500, and some firms charge $4,500. <a href="/summary-administration#pricing">Start online</a>, or <a href="/book">book a free 20-minute call</a> first.</p>
+          <p>These are our attorney fees only. Court filing fees, newspaper publication of the notice to creditors, recording, and certified copies are extra, billed at cost. Statewide, flat fees for the same petition commonly run $1,500 to $3,500, and some firms charge $4,500. <a href="/summary-administration#pricing">Start online</a>, or <a href="/book">book a free 20-minute call</a> first.</p>
 
           <div class="honest"><strong>If you do not need us, we say so.</strong> A ${esc(countyName)} County estate with no real property and very little personal property may fit Disposition of Personal Property Without Administration (Fla. Stat. &sect; 735.301), a clerk filing with no attorney required. If that is your situation, the answer is free.</div>
 
@@ -454,12 +455,12 @@ ${faqHtml}
 
           <div class="city-cta">
             <h2>Settle a ${esc(countyName)} County estate for a flat fee</h2>
-            <p>Tell us what the estate holds and who the heirs are. We confirm eligibility, quote the exact court costs, and file in the ${ordinal} Circuit.</p>
+            <p>Tell us what the estate holds and who the heirs are. We confirm eligibility, estimate the costs on top of our fee, and file in the ${ordinal} Circuit.</p>
             <a href="/summary-administration#pricing" class="btn btn-primary">Start My Probate</a>
             <p style="margin-top:14px;font-size:.92rem;">Questions first? <a href="/book">Free 20-minute consultation</a> or call <a href="tel:${PHONE_TEL}">${PHONE_FMT}</a>.</p>
           </div>
 
-          <p class="city-disclaimer">Attorney advertising. Flat fees cover an uncontested summary administration under Chapter 735, Florida Statutes, with cooperative, locatable beneficiaries and the services listed; court filing fees, recording, and publication are government charges billed at cost. Matters that become contested, involve unknown heirs, exceed the statutory threshold, or require formal administration are quoted separately before any additional work. Purchasing initiates an engagement completed by intake, conflict check, and our engagement terms; if the estate does not qualify, the fee is refunded less any qualification-review time actually incurred, as stated in the engagement letter. Circuit procedures summarized here were taken from the circuit court’s published materials as of ${BUILD_DATE} and can change; we confirm current requirements before every filing. Responsible attorney: Arthur Simpson, Esq., Florida Bar #529265, Ormond Beach.</p>
+          <p class="city-disclaimer">Attorney advertising. Flat fees cover an uncontested summary administration under Chapter 735, Florida Statutes, with cooperative, locatable beneficiaries and the services listed. The flat fee is the attorney fee only; court filing fees, newspaper publication of the notice to creditors (about $300 to $800 depending on the county), recording, certified copies, and any other third-party charges are extra, billed at cost. Matters that become contested, involve unknown heirs, exceed the statutory threshold, or require formal administration are quoted separately before any additional work. Purchasing initiates an engagement completed by intake, conflict check, and our engagement terms; if the estate does not qualify, the fee is refunded less any qualification-review time actually incurred, as stated in the engagement letter. Circuit procedures summarized here were taken from the circuit court’s published materials as of ${BUILD_DATE} and can change; we confirm current requirements before every filing. Responsible attorney: Arthur Simpson, Esq., Florida Bar #529265, Ormond Beach.</p>
 
         </div>
       </div>
@@ -492,7 +493,7 @@ ${items}
 
   const url = `${SITE}/summary-administration-by-county`;
   const title = 'Florida Summary Administration by County | Where to File, What Each Circuit Requires';
-  const metaDesc = 'Summary administration in all 67 Florida counties: the county where a small estate is filed, its judicial circuit, that circuit’s checklist and filing rules, and the clerk’s statutory fees. Flat $1,495 / $2,495 statewide from Truestead Law.';
+  const metaDesc = 'Summary administration in all 67 Florida counties: the county where a small estate is filed, its judicial circuit, that circuit’s checklist and filing rules, and the clerk’s statutory fees. Flat $1,495 / $2,495 + costs statewide from Truestead Law.';
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -530,7 +531,7 @@ ${header('/summary-administration#pricing', 'Start My Probate')}
         <div class="crumb"><a href="/">Home</a> &nbsp;&rsaquo;&nbsp; <a href="/summary-administration">Summary Administration</a> &nbsp;&rsaquo;&nbsp; By County</div>
         <h1>Florida Summary Administration, County by County</h1>
         <p>The statute is the same in all 67 counties. Where the case is filed, which judges review it, what checklist the circuit demands, and what the clerk charges are not. Pick the county where the person lived.</p>
-        <div class="quick-answer"><span class="qa-label">Quick Answer</span><p>A Florida summary administration is filed in the county where the decedent was domiciled (Fla. Stat. &sect; 733.101), in that county’s judicial circuit. It qualifies at $150,000 or less in non-exempt probate assets, or at any size once the death is more than two years old. Truestead Law files it in any county for a flat $1,495, or $2,495 with real property, court costs at cost.</p></div>
+        <div class="quick-answer"><span class="qa-label">Quick Answer</span><p>A Florida summary administration is filed in the county where the decedent was domiciled (Fla. Stat. &sect; 733.101), in that county’s judicial circuit. It qualifies at $150,000 or less in non-exempt probate assets, or at any size once the death is more than two years old. Truestead Law files it in any county for a flat $1,495, or $2,495 with real property. That is our attorney fee only. Court filing fees, newspaper publication of the notice to creditors, recording, and certified copies are extra, billed at cost.</p></div>
         <div class="hero-actions">
           <a href="/summary-administration#pricing" class="btn btn-primary">See the Flat Fee</a>
           <a href="tel:${PHONE_TEL}" class="btn btn-outline-white">Call ${PHONE_FMT}</a>
@@ -554,7 +555,7 @@ ${cards}
 
           <div class="city-cta">
             <h2>One flat fee, any Florida county</h2>
-            <p>Truestead files summary administrations statewide from Ormond Beach by e-filing. $1,495 without real property, $2,495 with, court costs billed at cost.</p>
+            <p>Truestead files summary administrations statewide from Ormond Beach by e-filing. $1,495 without real property, $2,495 with, attorney fee only; filing, publication, recording and copies are extra, at cost.</p>
             <a href="/summary-administration#pricing" class="btn btn-primary">Start My Probate</a>
             <p style="margin-top:14px;font-size:.92rem;">Questions first? <a href="/book">Free 20-minute consultation</a> or call <a href="tel:${PHONE_TEL}">${PHONE_FMT}</a>.</p>
           </div>
