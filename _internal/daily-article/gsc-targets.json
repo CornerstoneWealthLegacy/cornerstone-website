@@ -16,7 +16,8 @@
     "position": 11.8,
     "tag": "Estate Planning",
     "score": 12,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-11-03"
   },
   {
     "query": "how should married florida couples fill a will",
