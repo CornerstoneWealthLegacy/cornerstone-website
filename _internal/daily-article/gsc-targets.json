@@ -36,7 +36,8 @@
     "position": 7.1,
     "tag": "Personal Injury",
     "score": 8,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-11-05"
   },
   {
     "query": "abogado accidente uber green cove springs",
