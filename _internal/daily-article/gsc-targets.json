@@ -46,7 +46,8 @@
     "position": 11,
     "tag": "Estate Planning",
     "score": 6,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-11-06"
   },
   {
     "query": "bayonet point personal injury lawyer",
