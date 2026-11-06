@@ -840,20 +840,6 @@ exports.handler = async (event) => {
             catch (e) { console.error('abandoned suppress (non-fatal):', e.message); }
           }
 
-          // 0b. Enroll the buyer in the post-purchase onboarding sequence (sign + fund).
-          //     Handled by the post-purchase-drip scheduled function. Best-effort, non-fatal.
-          if (email) {
-            try {
-              const ppId = email.toLowerCase().replace(/[^a-z0-9]/g, '_').slice(0, 400);
-              const ppName = session.customer_details?.name || '';
-              await firestoreUpdateDoc(projectId, 'post_purchase', ppId, {
-                email, name: ppName, planLabel,
-                purchasedAt: Date.now(), step: 1, nextSendAt: Date.now() + 2 * 86400000,
-                unsubscribed: false, completed: false,
-              }, token);
-            } catch (e) { console.error('post-purchase enroll (non-fatal):', e.message); }
-          }
-
           // 1. Find the session document — by uid (client_reference_id) or by email
           let planDocId   = uid;
           let planData    = null;
@@ -900,6 +886,27 @@ exports.handler = async (event) => {
           if (flatPlan.docCategory && CAT_LABELS[flatPlan.docCategory]) {
             const tierWord = (flatPlan.appMode === 'attorney') ? ' (Attorney-Guided)' : '';
             planLabel = CAT_LABELS[flatPlan.docCategory] + tierWord;
+          }
+
+          // 1d. Enroll the buyer in the post-purchase onboarding sequence (sign + fund).
+          //     Handled by the post-purchase-drip scheduled function. Best-effort, non-fatal.
+          //     Only for a real wizard session (DIY / attorney-guided plan). Untagged
+          //     Payment Links for custom flat-fee matters (e.g. a $450 deed, 11/4/2026
+          //     Farino) have no session and must NOT get the "sign and fund your trust"
+          //     emails or the portal login button. (Enrollment used to run before the
+          //     session lookup, so every payer was enrolled as "Complete Trust Attorney-Guided".)
+          if (email && planData) {
+            try {
+              const ppId = email.toLowerCase().replace(/[^a-z0-9]/g, '_').slice(0, 400);
+              const ppName = session.customer_details?.name || '';
+              await firestoreUpdateDoc(projectId, 'post_purchase', ppId, {
+                email, name: ppName, planLabel,
+                purchasedAt: Date.now(), step: 1, nextSendAt: Date.now() + 2 * 86400000,
+                unsubscribed: false, completed: false,
+              }, token);
+            } catch (e) { console.error('post-purchase enroll (non-fatal):', e.message); }
+          } else if (email) {
+            console.log('post-purchase enroll skipped: no wizard session for', email);
           }
 
           // 2. Mark payment fields + set status to ai_review_pending
