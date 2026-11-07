@@ -56,7 +56,9 @@
     "position": 12.4,
     "tag": "Personal Injury",
     "score": 6,
-    "used": false
+    "used": false,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"personal injury lawyer\""
   },
   {
     "query": "davie slip and fall accident lawyer",
@@ -65,7 +67,8 @@
     "position": 7.1,
     "tag": "Personal Injury",
     "score": 6,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-11-07"
   },
   {
     "query": "indian harbour beach car accident lawsuit",
