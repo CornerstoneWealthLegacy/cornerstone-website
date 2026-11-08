@@ -77,7 +77,8 @@
     "position": 11.4,
     "tag": "Personal Injury",
     "score": 6,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-11-08"
   },
   {
     "query": "ave maria semi-truck accident lawyer",
