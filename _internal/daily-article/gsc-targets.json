@@ -6,7 +6,9 @@
     "position": 9.2,
     "tag": "Personal Injury",
     "score": 12,
-    "used": false
+    "used": false,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"personal injury lawyer\""
   },
   {
     "query": "belle glade personal injury attorney",
@@ -15,7 +17,8 @@
     "position": 8.5,
     "tag": "Personal Injury",
     "score": 11,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-11-09"
   },
   {
     "query": "abogado choque de carro indian harbour beach florida",
