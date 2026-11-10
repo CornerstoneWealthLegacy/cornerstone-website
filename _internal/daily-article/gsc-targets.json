@@ -27,7 +27,8 @@
     "position": 14.4,
     "tag": "Estate Planning",
     "score": 9,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-11-10"
   },
   {
     "query": "belle glade injury attorney",
