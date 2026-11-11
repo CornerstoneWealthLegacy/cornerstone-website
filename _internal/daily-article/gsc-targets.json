@@ -37,7 +37,9 @@
     "position": 8.2,
     "tag": "Personal Injury",
     "score": 7,
-    "used": false
+    "used": false,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"belle glade personal injury attorney\""
   },
   {
     "query": "belle glade personal injury lawyer",
@@ -46,7 +48,9 @@
     "position": 11.9,
     "tag": "Personal Injury",
     "score": 7,
-    "used": false
+    "used": false,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"belle glade personal injury attorney\""
   },
   {
     "query": "indian harbour beach hurricane lawyer",
@@ -55,7 +59,8 @@
     "position": 5.4,
     "tag": "Estate Planning",
     "score": 7,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-11-11"
   },
   {
     "query": "belle glade injury lawyer",
