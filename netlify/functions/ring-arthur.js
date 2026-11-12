@@ -156,8 +156,10 @@ exports.handler = async (event) => {
   const tel = telUri(number);
 
   // 1) Briefing push to Arthur's phone (ASCII-only headers - a non-ASCII byte here
-  //    throws in fetch and silently kills the notification). The Actions header
-  //    is ASCII by construction: a fixed label plus digits and a plus sign.
+  //    throws in fetch and silently kills the notification).
+  //    NO Actions header (removed 11/10/2026): the "view, Call back, tel:..." action
+  //    made the push never appear on Arthur's phone even though ntfy.sh stored it.
+  //    The number rides in the body instead. `tel` is kept for a future retry.
   try {
     await fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
       method: 'POST',
@@ -166,7 +168,6 @@ exports.handler = async (event) => {
         Priority: 'urgent',
         Tags: 'phone',
         'Content-Type': 'text/plain',
-        ...(tel ? { Actions: `view, Call back, ${tel}` } : {}),
       },
       body: `${name}${number ? ' · ' + number : ''}\n${reason}`.slice(0, 1000),
     });

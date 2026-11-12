@@ -83,13 +83,13 @@ exports.handler = async (event) => {
     await fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
       method: 'POST',
       // ASCII-only header values: a non-ASCII byte throws and kills the push.
-      // The Actions header is ASCII by construction - fixed label, digits, plus.
+      // NO Actions header (removed 11/10/2026): the "Call back" tel: action made
+      // the push never appear on Arthur's phone. The number rides in the body.
       headers: {
         Title: `Message - ${line}`,
         Priority: 'high',
         Tags: 'memo',
         'Content-Type': 'text/plain',
-        ...(tel ? { Actions: `view, Call back, ${tel}` } : {}),
       },
       body: `${name}${number ? ' · ' + number : ''}\n\n${message}`.slice(0, 1500),
     });
