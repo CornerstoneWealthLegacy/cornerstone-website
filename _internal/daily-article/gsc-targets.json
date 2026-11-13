@@ -90,7 +90,9 @@
     "position": 9.1,
     "tag": "Personal Injury",
     "score": 6,
-    "used": false
+    "used": false,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"indian harbour beach rideshare accident lawyer\""
   },
   {
     "query": "indian harbour beach uber accident lawyer",
@@ -99,7 +101,9 @@
     "position": 6.2,
     "tag": "Personal Injury",
     "score": 6,
-    "used": false
+    "used": false,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"indian harbour beach rideshare accident lawyer\""
   },
   {
     "query": "is 18 an adult in florida",
@@ -108,7 +112,8 @@
     "position": 7.2,
     "tag": "Estate Planning",
     "score": 6,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-11-13"
   },
   {
     "query": "ave maria semi-truck accident lawyer",
