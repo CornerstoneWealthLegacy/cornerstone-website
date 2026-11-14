@@ -122,7 +122,8 @@
     "position": 8.8,
     "tag": "Personal Injury",
     "score": 5,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-11-14"
   },
   {
     "query": "ave maria slip and fall lawyer",
