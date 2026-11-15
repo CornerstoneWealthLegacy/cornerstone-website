@@ -132,7 +132,8 @@
     "position": 11.1,
     "tag": "Personal Injury",
     "score": 5,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-11-15"
   },
   {
     "query": "ave maria trucking accident lawyer",
