@@ -6,7 +6,9 @@
     "position": 10.1,
     "tag": "Estate Planning",
     "score": 8,
-    "used": false
+    "used": false,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"lake mary health care surrogate attorney\""
   },
   {
     "query": "lake mary medicaid planning attorney",
@@ -15,7 +17,8 @@
     "position": 12.7,
     "tag": "Elder Law",
     "score": 8,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-11-16"
   },
   {
     "query": "bayonet point personal injury attorney",
