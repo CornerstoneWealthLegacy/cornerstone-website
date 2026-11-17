@@ -13996,6 +13996,20 @@ async function loadUserProgress(user) {
         if (docData.state) {
           localStorage.setItem('cw_trust_state', JSON.stringify(docData.state));
         }
+        // Paid on another device or browser: the Stripe webhook writes paymentStatus
+        // 'paid' to this session, but the unlock used to live only in the paying
+        // browser's localStorage (cw_paid_session). Unlock from the saved record too.
+        // This sets the same flags a returning paid browser has; the normal launch
+        // path (_isSessionPaid -> _unlockDocuments) then does the rest. The
+        // purchase-tracked flag is set too so a second device never re-fires the ad
+        // conversion. (Meza, 11/17/2026: paid 11/8, locked out on return.)
+        if (docData.paymentStatus === 'paid') {
+          try {
+            localStorage.setItem('cw_purchase_tracked', '1');
+            localStorage.setItem('cw_paid_session', '1');
+          } catch(e) {}
+          document.body.classList.add('payment-confirmed');
+        }
         // Check for a pending collab invite written by the attorney
         // (backup path — onSnapshot handles it for active sessions,
         //  this catches it on fresh page load or sign-in)
