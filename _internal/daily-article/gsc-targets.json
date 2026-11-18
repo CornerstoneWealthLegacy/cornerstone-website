@@ -59,7 +59,8 @@
     "position": 9.5,
     "tag": "Elder Law",
     "score": 6,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-11-18"
   },
   {
     "query": "abogado accidente de carro indian harbour beach florida",
