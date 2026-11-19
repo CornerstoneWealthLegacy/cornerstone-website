@@ -69,7 +69,9 @@
     "position": 18.6,
     "tag": "Estate Planning",
     "score": 5,
-    "used": false
+    "used": false,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"abogado choque de carro indian harbour beach florida\""
   },
   {
     "query": "ave maria trucking accident lawyer",
@@ -78,7 +80,8 @@
     "position": 10.1,
     "tag": "Personal Injury",
     "score": 5,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-11-19"
   },
   {
     "query": "big pine key class action attorney",
