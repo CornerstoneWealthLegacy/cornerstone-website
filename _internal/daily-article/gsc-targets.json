@@ -90,7 +90,8 @@
     "position": 8.9,
     "tag": "Estate Planning",
     "score": 5,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-11-20"
   },
   {
     "query": "bonafay personal injury lawyer",
