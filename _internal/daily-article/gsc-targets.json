@@ -100,7 +100,9 @@
     "position": 12.5,
     "tag": "Personal Injury",
     "score": 5,
-    "used": false
+    "used": false,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"bonifay personal injury lawyers\""
   },
   {
     "query": "bonita springs medicaid planning attorneys",
@@ -109,7 +111,9 @@
     "position": 13.8,
     "tag": "Elder Law",
     "score": 5,
-    "used": false
+    "used": false,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"altamonte springs medicaid planning attorney\""
   },
   {
     "query": "bonita springs medicaid planning lawyers",
@@ -118,7 +122,8 @@
     "position": 9.9,
     "tag": "Elder Law",
     "score": 5,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-11-21"
   },
   {
     "query": "broward county probate court",
