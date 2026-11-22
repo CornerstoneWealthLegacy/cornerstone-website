@@ -132,7 +132,8 @@
     "position": 14.6,
     "tag": "Probate",
     "score": 5,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-11-22"
   },
   {
     "query": "car accident lawyers in poinciana fl",
