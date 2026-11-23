@@ -6,7 +6,8 @@
     "position": 7,
     "tag": "Real Estate",
     "score": 10,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-11-23"
   },
   {
     "query": "how much is a summary",
