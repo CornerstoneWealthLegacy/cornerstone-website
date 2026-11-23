@@ -1,139 +1,111 @@
 [
   {
-    "query": "health care surrogate attorney lake mary",
+    "query": "deed transfer attorney oviedo",
     "impressions": 15,
     "clicks": 0,
-    "position": 10.1,
-    "tag": "Estate Planning",
-    "score": 8,
-    "used": false,
-    "skipped": true,
-    "skippedReason": "near-duplicate of \"lake mary health care surrogate attorney\""
+    "position": 7,
+    "tag": "Real Estate",
+    "score": 10,
+    "used": false
   },
   {
-    "query": "lake mary medicaid planning attorney",
-    "impressions": 20,
-    "clicks": 0,
-    "position": 12.7,
-    "tag": "Elder Law",
-    "score": 8,
-    "used": true,
-    "targetedOn": "2026-11-16"
-  },
-  {
-    "query": "bayonet point personal injury attorney",
-    "impressions": 11,
-    "clicks": 0,
-    "position": 10.1,
-    "tag": "Personal Injury",
-    "score": 6,
-    "used": false,
-    "skipped": true,
-    "skippedReason": "near-duplicate of \"bayonet point personal injury lawyer\""
-  },
-  {
-    "query": "bonifay personal injury lawyers",
-    "impressions": 11,
-    "clicks": 0,
-    "position": 10.1,
-    "tag": "Personal Injury",
-    "score": 6,
-    "used": false,
-    "skipped": true,
-    "skippedReason": "near-duplicate of \"graceville personal injury lawyers\""
-  },
-  {
-    "query": "car accident lawyer in lake placid",
-    "impressions": 15,
-    "clicks": 0,
-    "position": 12.5,
-    "tag": "Personal Injury",
-    "score": 6,
-    "used": true,
-    "targetedOn": "2026-11-17"
-  },
-  {
-    "query": "florida nursing home medicaid rates",
-    "impressions": 11,
-    "clicks": 0,
-    "position": 9.5,
-    "tag": "Elder Law",
-    "score": 6,
-    "used": true,
-    "targetedOn": "2026-11-18"
-  },
-  {
-    "query": "abogado accidente de carro indian harbour beach florida",
-    "impressions": 43,
-    "clicks": 0,
-    "position": 18.6,
-    "tag": "Estate Planning",
-    "score": 5,
-    "used": false,
-    "skipped": true,
-    "skippedReason": "near-duplicate of \"abogado choque de carro indian harbour beach florida\""
-  },
-  {
-    "query": "ave maria trucking accident lawyer",
-    "impressions": 9,
-    "clicks": 0,
-    "position": 10.1,
-    "tag": "Personal Injury",
-    "score": 5,
-    "used": true,
-    "targetedOn": "2026-11-19"
-  },
-  {
-    "query": "big pine key class action attorney",
-    "impressions": 8,
-    "clicks": 0,
-    "position": 8.9,
-    "tag": "Estate Planning",
-    "score": 5,
-    "used": true,
-    "targetedOn": "2026-11-20"
-  },
-  {
-    "query": "bonafay personal injury lawyer",
-    "impressions": 13,
-    "clicks": 0,
-    "position": 12.5,
-    "tag": "Personal Injury",
-    "score": 5,
-    "used": false,
-    "skipped": true,
-    "skippedReason": "near-duplicate of \"bonifay personal injury lawyers\""
-  },
-  {
-    "query": "bonita springs medicaid planning attorneys",
-    "impressions": 15,
-    "clicks": 0,
-    "position": 13.8,
-    "tag": "Elder Law",
-    "score": 5,
-    "used": false,
-    "skipped": true,
-    "skippedReason": "near-duplicate of \"altamonte springs medicaid planning attorney\""
-  },
-  {
-    "query": "bonita springs medicaid planning lawyers",
-    "impressions": 10,
-    "clicks": 0,
-    "position": 9.9,
-    "tag": "Elder Law",
-    "score": 5,
-    "used": true,
-    "targetedOn": "2026-11-21"
-  },
-  {
-    "query": "broward county probate court",
+    "query": "how much is a summary",
     "impressions": 16,
     "clicks": 0,
-    "position": 14.6,
-    "tag": "Probate",
+    "position": 8.4,
+    "tag": "Estate Planning",
+    "score": 10,
+    "used": false
+  },
+  {
+    "query": "how much will",
+    "impressions": 13,
+    "clicks": 0,
+    "position": 5.2,
+    "tag": "Estate Planning",
+    "score": 10,
+    "used": false
+  },
+  {
+    "query": "celebration estate planning attorney",
+    "impressions": 15,
+    "clicks": 0,
+    "position": 10.1,
+    "tag": "Estate Planning",
+    "score": 8,
+    "used": false
+  },
+  {
+    "query": "florida llc kit",
+    "impressions": 19,
+    "clicks": 0,
+    "position": 11.7,
+    "tag": "Estate Planning",
+    "score": 8,
+    "used": false
+  },
+  {
+    "query": "lake placid auto accident attorney",
+    "impressions": 22,
+    "clicks": 0,
+    "position": 13.9,
+    "tag": "Personal Injury",
+    "score": 7,
+    "used": false
+  },
+  {
+    "query": "18 wheeler accident lawyer marianna",
+    "impressions": 12,
+    "clicks": 0,
+    "position": 9.7,
+    "tag": "Personal Injury",
+    "score": 6,
+    "used": false
+  },
+  {
+    "query": "buying & selling property in south florida as a foreign buyer",
+    "impressions": 8,
+    "clicks": 0,
+    "position": 5.9,
+    "tag": "International & Cross-Border",
+    "score": 6,
+    "used": false
+  },
+  {
+    "query": "collier county medicaid planning lawyers",
+    "impressions": 17,
+    "clicks": 0,
+    "position": 14.1,
+    "tag": "Elder Law",
+    "score": 6,
+    "used": false
+  },
+  {
+    "query": "lady bird deed attorney altamonte springs",
+    "impressions": 17,
+    "clicks": 0,
+    "position": 13.8,
+    "tag": "Real Estate",
+    "score": 6,
+    "used": false
+  },
+  {
+    "query": "lake placid auto accident lawyer",
+    "impressions": 17,
+    "clicks": 0,
+    "position": 13.4,
+    "tag": "Personal Injury",
+    "score": 6,
+    "used": false
+  },
+  {
+    "query": "belle glade accident attorney",
+    "impressions": 12,
+    "clicks": 0,
+    "position": 12.8,
+    "tag": "Personal Injury",
     "score": 5,
-    "used": true,
-    "targetedOn": "2026-11-22"
+    "used": false
   },
   {
     "query": "car accident lawyers in poinciana fl",
@@ -141,24 +113,6 @@
     "clicks": 0,
     "position": 12.5,
     "tag": "Personal Injury",
-    "score": 5,
-    "used": false
-  },
-  {
-    "query": "celebration estate planning attorney",
-    "impressions": 10,
-    "clicks": 0,
-    "position": 10.6,
-    "tag": "Estate Planning",
-    "score": 5,
-    "used": false
-  },
-  {
-    "query": "collier county medicaid planning lawyers",
-    "impressions": 16,
-    "clicks": 0,
-    "position": 14,
-    "tag": "Elder Law",
     "score": 5,
     "used": false
   },
@@ -190,6 +144,15 @@
     "used": false
   },
   {
+    "query": "estate planning preparation englewood fl",
+    "impressions": 9,
+    "clicks": 0,
+    "position": 8.6,
+    "tag": "Estate Planning",
+    "score": 5,
+    "used": false
+  },
+  {
     "query": "flat fee probate in citrus county",
     "impressions": 11,
     "clicks": 0,
@@ -208,39 +171,21 @@
     "used": false
   },
   {
-    "query": "lady bird deed attorney altamonte springs",
-    "impressions": 15,
+    "query": "juno beach rideshare accidents",
+    "impressions": 13,
     "clicks": 0,
-    "position": 14.5,
-    "tag": "Real Estate",
+    "position": 12.2,
+    "tag": "Estate Planning",
     "score": 5,
     "used": false
   },
   {
     "query": "lady bird deed lawyer miami",
-    "impressions": 17,
+    "impressions": 18,
     "clicks": 0,
     "position": 15,
     "tag": "Real Estate",
     "score": 5,
-    "used": false
-  },
-  {
-    "query": "lake placid auto accident lawyer",
-    "impressions": 15,
-    "clicks": 0,
-    "position": 13.3,
-    "tag": "Personal Injury",
-    "score": 5,
-    "used": false
-  },
-  {
-    "query": "18 wheeler accident lawyer marianna",
-    "impressions": 9,
-    "clicks": 0,
-    "position": 10.6,
-    "tag": "Personal Injury",
-    "score": 4,
     "used": false
   },
   {
@@ -249,15 +194,6 @@
     "clicks": 0,
     "position": 11.6,
     "tag": "Estate Planning",
-    "score": 4,
-    "used": false
-  },
-  {
-    "query": "belle glade accident attorney",
-    "impressions": 11,
-    "clicks": 0,
-    "position": 12.8,
-    "tag": "Personal Injury",
     "score": 4,
     "used": false
   },
@@ -299,18 +235,18 @@
   },
   {
     "query": "elder lawyer osprey",
-    "impressions": 10,
+    "impressions": 11,
     "clicks": 0,
-    "position": 13,
+    "position": 13.3,
     "tag": "Elder Law",
     "score": 4,
     "used": false
   },
   {
     "query": "estate planning attorney casselberry",
-    "impressions": 8,
+    "impressions": 9,
     "clicks": 0,
-    "position": 10.8,
+    "position": 10.7,
     "tag": "Estate Planning",
     "score": 4,
     "used": false
@@ -330,15 +266,6 @@
     "clicks": 0,
     "position": 13.5,
     "tag": "Probate",
-    "score": 4,
-    "used": false
-  },
-  {
-    "query": "florida llc kit",
-    "impressions": 13,
-    "clicks": 0,
-    "position": 14.5,
-    "tag": "Estate Planning",
     "score": 4,
     "used": false
   },
@@ -370,6 +297,24 @@
     "used": false
   },
   {
+    "query": "hendry county probate attorney",
+    "impressions": 15,
+    "clicks": 0,
+    "position": 14.9,
+    "tag": "Probate",
+    "score": 4,
+    "used": false
+  },
+  {
+    "query": "how much does a medicaid lawyer cost",
+    "impressions": 12,
+    "clicks": 0,
+    "position": 13.8,
+    "tag": "Elder Law",
+    "score": 4,
+    "used": false
+  },
+  {
     "query": "indialantic auto lawyer",
     "impressions": 8,
     "clicks": 0,
@@ -377,6 +322,119 @@
     "tag": "Estate Planning",
     "score": 4,
     "used": false
+  },
+  {
+    "query": "lake worth personal injury lawyer",
+    "impressions": 24,
+    "clicks": 0,
+    "position": 17.3,
+    "tag": "Personal Injury",
+    "score": 4,
+    "used": false
+  },
+  {
+    "query": "abogado accidente lyft indian harbour beach florida",
+    "impressions": 24,
+    "clicks": 0,
+    "position": 18.7,
+    "tag": "Estate Planning",
+    "score": 3,
+    "used": false
+  },
+  {
+    "query": "abogado de accidentes indian harbour beach florida",
+    "impressions": 36,
+    "clicks": 0,
+    "position": 19.3,
+    "tag": "Estate Planning",
+    "score": 3,
+    "used": false
+  },
+  {
+    "query": "beverly beach personal injury lawyer",
+    "impressions": 11,
+    "clicks": 0,
+    "position": 14.8,
+    "tag": "Personal Injury",
+    "score": 3,
+    "used": false
+  },
+  {
+    "query": "health care surrogate attorney lake mary",
+    "used": false,
+    "targetedOn": null,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"lake mary health care surrogate attorney\""
+  },
+  {
+    "query": "lake mary medicaid planning attorney",
+    "used": true,
+    "targetedOn": "2026-11-16"
+  },
+  {
+    "query": "bayonet point personal injury attorney",
+    "used": false,
+    "targetedOn": null,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"bayonet point personal injury lawyer\""
+  },
+  {
+    "query": "bonifay personal injury lawyers",
+    "used": false,
+    "targetedOn": null,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"graceville personal injury lawyers\""
+  },
+  {
+    "query": "car accident lawyer in lake placid",
+    "used": true,
+    "targetedOn": "2026-11-17"
+  },
+  {
+    "query": "florida nursing home medicaid rates",
+    "used": true,
+    "targetedOn": "2026-11-18"
+  },
+  {
+    "query": "abogado accidente de carro indian harbour beach florida",
+    "used": false,
+    "targetedOn": null,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"abogado choque de carro indian harbour beach florida\""
+  },
+  {
+    "query": "ave maria trucking accident lawyer",
+    "used": true,
+    "targetedOn": "2026-11-19"
+  },
+  {
+    "query": "big pine key class action attorney",
+    "used": true,
+    "targetedOn": "2026-11-20"
+  },
+  {
+    "query": "bonafay personal injury lawyer",
+    "used": false,
+    "targetedOn": null,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"bonifay personal injury lawyers\""
+  },
+  {
+    "query": "bonita springs medicaid planning attorneys",
+    "used": false,
+    "targetedOn": null,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"altamonte springs medicaid planning attorney\""
+  },
+  {
+    "query": "bonita springs medicaid planning lawyers",
+    "used": true,
+    "targetedOn": "2026-11-21"
+  },
+  {
+    "query": "broward county probate court",
+    "used": true,
+    "targetedOn": "2026-11-22"
   },
   {
     "query": "lake placid personal injury lawyer",
