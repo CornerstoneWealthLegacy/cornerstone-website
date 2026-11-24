@@ -16,7 +16,8 @@
     "position": 8.4,
     "tag": "Estate Planning",
     "score": 10,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-11-24"
   },
   {
     "query": "how much will",
