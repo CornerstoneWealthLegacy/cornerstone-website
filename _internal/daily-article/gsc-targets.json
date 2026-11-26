@@ -36,7 +36,9 @@
     "position": 10.1,
     "tag": "Estate Planning",
     "score": 8,
-    "used": false
+    "used": false,
+    "skipped": true,
+    "skippedReason": "near-duplicate of \"estate planning attorney sarasota\""
   },
   {
     "query": "florida llc kit",
@@ -45,7 +47,8 @@
     "position": 11.7,
     "tag": "Estate Planning",
     "score": 8,
-    "used": false
+    "used": true,
+    "targetedOn": "2026-11-26"
   },
   {
     "query": "lake placid auto accident attorney",
